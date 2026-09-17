@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this formalization, cite the repository and its mathematical sources."
+type: software
+title: "Erdos 690: Prime-Factor Density Unimodality"
+authors:
+  - family-names: "kimihiro64"
+    given-names: "kimihiro64"
+abstract: >-
+  Lean formalization of the finite density recursion and non-unimodality certificates for ordered distinct prime factors.
+license: Apache-2.0
+repository-code: "https://github.com/kimihiro64/erdos-690-prime-factor-unimodality"
+url: "https://github.com/kimihiro64/erdos-690-prime-factor-unimodality"
+keywords:
+  - "Lean 4"
+  - "formalized mathematics"
