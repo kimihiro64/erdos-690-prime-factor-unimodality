@@ -28,6 +28,10 @@ def densityBase (entries : List Nat) : Rat :=
 def weightEsymm (entries : List Nat) (r : Nat) : Rat :=
   ((entries.map primeWeight : List Rat) : Multiset Rat).esymm r
 
+/-- The sum of the reciprocal weights attached to `entries`. -/
+def weightSum (entries : List Nat) : Rat :=
+  (entries.map primeWeight).sum
+
 theorem esymm_cons_succ (a : Rat) (s : Multiset Rat) (r : Nat) :
     (a ::ₘ s).esymm (r + 1) = s.esymm (r + 1) + a * s.esymm r := by
   simp [Multiset.esymm, Multiset.powersetCard_cons, Multiset.sum_map_mul_left]
