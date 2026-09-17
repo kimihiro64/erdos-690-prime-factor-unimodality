@@ -1,6 +1,8 @@
 import PrimeFactorUnimodality.Assembly.FourthWitness
+import PrimeFactorUnimodality.Definitions.SymmetricDensity
 import PrimeFactorUnimodality.Mathlib
 import PrimeFactorUnimodality.Proof.FirstDifference.Threshold
+import PrimeFactorUnimodality.Proof.SymmetricBounds.Main
 
 /-!
 # Public library root
