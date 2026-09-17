@@ -1,5 +1,6 @@
 import PrimeFactorUnimodality.Proof.SymmetricBounds.Lower
 import PrimeFactorUnimodality.Proof.SymmetricBounds.Ratio
+import PrimeFactorUnimodality.Proof.SymmetricBounds.Upper
 
 set_option autoImplicit false
 
@@ -32,5 +33,18 @@ theorem degree_div_weightSum_le_densityRatio
   rw [densityRatio_eq_weightEsymm_ratio entries hentries r]
   apply (div_le_div_iff₀ hSum (weightEsymm_pos entries hentries r hr)).2
   simpa [mul_comm] using degree_mul_weightEsymm_le entries hentries r
+
+/-- The universal upper estimate for a nonincreasing finite weight list. -/
+theorem densityRatio_le_degree_div_weightSum_sub_leading
+    (entries : List Nat) (hentries : ∀ p ∈ entries, 1 < p)
+    (hdescending : entries.Pairwise fun p q => primeWeight q ≤ primeWeight p)
+    (r : Nat) (hrPos : 1 ≤ r) (hr : r ≤ entries.length)
+    (hComplement : 0 < weightSum entries - leadingWeightSum entries (r - 1)) :
+    densityRatio entries r ≤
+      (r : Rat) / (weightSum entries - leadingWeightSum entries (r - 1)) := by
+  rw [densityRatio_eq_weightEsymm_ratio entries hentries r]
+  apply (div_le_div_iff₀ (weightEsymm_pos entries hentries r hr) hComplement).2
+  simpa [mul_comm] using
+    weightSum_sub_leading_mul_weightEsymm_le entries hentries hdescending r hrPos
 
 end PrimeFactorUnimodality

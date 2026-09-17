@@ -32,6 +32,13 @@ def weightEsymm (entries : List Nat) (r : Nat) : Rat :=
 def weightSum (entries : List Nat) : Rat :=
   (entries.map primeWeight).sum
 
+/-- Sum of the first `n` reciprocal weights, with the sum saturating when the
+list is shorter than `n`. -/
+def leadingWeightSum : List Nat → Nat → Rat
+  | _, 0 => 0
+  | [], _ + 1 => 0
+  | p :: entries, n + 1 => primeWeight p + leadingWeightSum entries n
+
 theorem esymm_cons_succ (a : Rat) (s : Multiset Rat) (r : Nat) :
     (a ::ₘ s).esymm (r + 1) = s.esymm (r + 1) + a * s.esymm r := by
   simp [Multiset.esymm, Multiset.powersetCard_cons, Multiset.sum_map_mul_left]
