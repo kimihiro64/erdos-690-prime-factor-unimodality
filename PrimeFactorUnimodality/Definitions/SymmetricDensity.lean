@@ -39,6 +39,18 @@ def leadingWeightSum : List Nat → Nat → Rat
   | [], _ + 1 => 0
   | p :: entries, n + 1 => primeWeight p + leadingWeightSum entries n
 
+theorem leadingWeightSum_eq_weightSum_take (entries : List Nat) (n : Nat) :
+    leadingWeightSum entries n = weightSum (entries.take n) := by
+  induction entries generalizing n with
+  | nil => cases n <;> rfl
+  | cons p entries ih =>
+      cases n with
+      | zero => rfl
+      | succ n =>
+          simp only [leadingWeightSum, List.take_succ_cons, weightSum,
+            List.map_cons, List.sum_cons]
+          rw [← weightSum, ← ih]
+
 theorem esymm_cons_succ (a : Rat) (s : Multiset Rat) (r : Nat) :
     (a ::ₘ s).esymm (r + 1) = s.esymm (r + 1) + a * s.esymm r := by
   simp [Multiset.esymm, Multiset.powersetCard_cons, Multiset.sum_map_mul_left]

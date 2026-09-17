@@ -1,0 +1,220 @@
+import Mathlib.Tactic.NormNum
+import PrimeFactorUnimodality.Definitions.SelectionRow
+import PrimeFactorUnimodality.Helpers.FiniteCertificates.Generated.PrimePrefixes
+
+/-! Generated segment 1 of the bounded selection row for endpoint 113. -/
+
+set_option autoImplicit false
+
+namespace PrimeFactorUnimodality
+
+set_option linter.style.longLine false in
+theorem numericalRow113_2 :
+    selectionRowBounded 10 primePrefix2 =
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] := by
+  rfl
+
+set_option linter.style.longLine false in
+theorem numericalRow113_3 :
+    selectionRowBounded 10 primePrefix3 =
+      [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0] := by
+  rw [primePrefix3, selectionRowBounded, numericalRow113_2]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_5 :
+    selectionRowBounded 10 primePrefix5 =
+      [2, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0] := by
+  rw [primePrefix5, selectionRowBounded, numericalRow113_3]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_7 :
+    selectionRowBounded 10 primePrefix7 =
+      [8, 14, 7, 1, 0, 0, 0, 0, 0, 0, 0] := by
+  rw [primePrefix7, selectionRowBounded, numericalRow113_5]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_11 :
+    selectionRowBounded 10 primePrefix11 =
+      [48, 92, 56, 13, 1, 0, 0, 0, 0, 0, 0] := by
+  rw [primePrefix11, selectionRowBounded, numericalRow113_7]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_13 :
+    selectionRowBounded 10 primePrefix13 =
+      [480, 968, 652, 186, 23, 1, 0, 0, 0, 0, 0] := by
+  rw [primePrefix13, selectionRowBounded, numericalRow113_11]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_17 :
+    selectionRowBounded 10 primePrefix17 =
+      [5760, 12096, 8792, 2884, 462, 35, 1, 0, 0, 0, 0] := by
+  rw [primePrefix17, selectionRowBounded, numericalRow113_13]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_19 :
+    selectionRowBounded 10 primePrefix19 =
+      [92160, 199296, 152768, 54936, 10276, 1022, 51, 1, 0, 0, 0] := by
+  rw [primePrefix19, selectionRowBounded, numericalRow113_17]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_23 :
+    selectionRowBounded 10 primePrefix23 =
+      [1658880, 3679488, 2949120, 1141616, 239904, 28672, 1940, 69, 1, 0, 0] := by
+  rw [primePrefix23, selectionRowBounded, numericalRow113_19]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_29 :
+    selectionRowBounded 10 primePrefix29 =
+      [36495360, 82607616, 68560128, 28064672, 6419504, 870688, 71352, 3458, 91, 1, 0] := by
+  rw [primePrefix29, selectionRowBounded, numericalRow113_23]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_31 :
+    selectionRowBounded 10 primePrefix31 =
+      [1021870080, 2349508608, 2002291200, 854370944, 207810784, 30798768, 2868544, 168176, 6006, 119, 1] := by
+  rw [primePrefix31, selectionRowBounded, numericalRow113_29]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_37 :
+    selectionRowBounded 10 primePrefix37 =
+      [30656102400, 71507128320, 62418244608, 27633419520, 7088694464, 1131773824, 116855088, 7913824, 348356, 9576, 149] := by
+  rw [primePrefix37, selectionRowBounded, numericalRow113_31]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_41 :
+    selectionRowBounded 10 primePrefix41 =
+      [1103619686400, 2604912721920, 2318563934208, 1057221347328, 282826420224, 47832552128, 5338556992, 401752752, 20454640, 693092, 14940] := by
+  rw [primePrefix41, selectionRowBounded, numericalRow113_37]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_43 :
+    selectionRowBounded 10 primePrefix43 =
+      [44144787456000, 105300128563200, 95347470090240, 44607417827328, 12370278156288, 2196128505344, 261374831808, 21408667072, 1219938352, 48178320, 1290692] := by
+  rw [primePrefix43, selectionRowBounded, numericalRow113_41]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_47 :
+    selectionRowBounded 10 primePrefix47 =
+      [1854081073152000, 4466750187110400, 4109893872353280, 1968859018838016, 564159100391424, 104607675380736, 13173871441280, 1160538848832, 72646077856, 3243427792, 102387384] := by
+  rw [primePrefix47, selectionRowBounded, numericalRow113_43]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_53 :
+    selectionRowBounded 10 primePrefix53 =
+      [85287729364992000, 207324589680230400, 193521868315361280, 94677408738902016, 27920177636843520, 5376112167905280, 710605761679616, 66558658487552, 4502258430208, 221843756288, 7953247456] := by
+  rw [primePrefix53, selectionRowBounded, numericalRow113_47]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_59 :
+    selectionRowBounded 10 primePrefix59 =
+      [4434961926979584000, 10866166392736972800, 10270461742079016960, 5116747122738266112, 1546526645854765056, 307478010367918080, 42327611775245312, 4171656003032320, 300676096858368, 16038133757184, 635412624000] := by
+  rw [primePrefix59, selectionRowBounded, numericalRow113_53]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_61 :
+    selectionRowBounded 10 primePrefix61 =
+      [257227791764815872000, 634672612705724006400, 606552947433319956480, 307041794860898451456, 94815292582314639360, 19380251247194013696, 2762479493332146176, 284283659951119872, 21610869620817664, 1230887854775040, 52892065949184] := by
+  rw [primePrefix61, selectionRowBounded, numericalRow113_59]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_67 :
+    selectionRowBounded 10 primePrefix67 =
+      [15433667505888952320000, 38337584554108256256000, 37027849458704921395200, 19029060639087227043840, 5995959349799776813056, 1257630367413955461120, 185129020847122784256, 19819499090399338496, 1580935837200179712, 95464140907320064, 4404411811726080] := by
+  rw [primePrefix67, selectionRowBounded, numericalRow113_61]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_71 :
+    selectionRowBounded 10 primePrefix71 =
+      [1018622055388670853120000, 2545714248077033865216000, 2482175648828633068339200, 1292945851638461906288640, 414762377725872496705536, 88999563599120837246976, 13476145743324059222016, 1493215960813479124992, 124161264345611199488, 7881569137083303936, 386155320481241344] := by
+  rw [primePrefix71, selectionRowBounded, numericalRow113_67]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_73 :
+    selectionRowBounded 10 primePrefix73 =
+      [71303543877206959718400000, 179218619420781041418240000, 176298009666081348648960000, 92988385263520966508544000, 30326312292449536675676160, 6644731829664331103993856, 1032329765631804982788096, 118001263000267597971456, 10184504465006263089152, 675871103941442475008, 34912441570770198016] := by
+  rw [primePrefix73, selectionRowBounded, numericalRow113_71]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_79 :
+    selectionRowBounded 10 primePrefix79 =
+      [5133855159158901099724800000, 12975044142173441941831680000, 12872675315378638144143360000, 6871461748639590937264128000, 2276482870319887607157227520, 508747004028281376163233792, 80972474955154289864736768, 9528420701651072036732928, 851285584480718540390400, 58847223948790121289728, 3189566897036896732160] := by
+  rw [primePrefix79, selectionRowBounded, numericalRow113_73]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_83 :
+    selectionRowBounded 10 primePrefix83 =
+      [400440702414394285778534400000, 1017187298248687372562595840000, 1017043718741707217185013760000, 548846691709266731250745344000, 184437125633590824295527874560, 41958749184525834947889463296, 6824600050530315985612701696, 824189289683937908729905152, 75928696291147118187184128, 5441369052486348000989184, 307633441917668066398208] := by
+  rw [primePrefix83, selectionRowBounded, numericalRow113_79]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_89 :
+    selectionRowBounded 10 primePrefix89 =
+      [32836137597980331433839820800000, 83809799158806758835911393280000, 84414772235068679181733724160000, 46022472438901579179746131968000, 15672690993663714323484031057920, 3625054558764709290022463864832, 601575953328011745768131002368, 74408121804613224501464924160, 7050342385558001600079003648, 522120958595027654268297216, 30667311289735129445642240] := by
+  rw [primePrefix89, selectionRowBounded, numericalRow113_83]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_97 :
+    selectionRowBounded 10 primePrefix97 =
+      [2889580108622269166177904230400000, 7408098463572975108994042429440000, 7512309755844850526828479119360000, 4134392346858407646999393337344000, 1425219279881308439646340865064960, 334677492164958131845460851163136, 56563738451629742917617992073216, 7149490672133975501897044328448, 694838251733717365308417245184, 52996986741920435175689158656, 3220844352091719045484814336] := by
+  rw [primePrefix97, selectionRowBounded, numericalRow113_89]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_101 :
+    selectionRowBounded 10 primePrefix101 =
+      [277399690427737839953078806118400000, 714067032611627879629605977456640000, 728589835024678625684528037888000000, 404413975054251984638770239504384000, 140955443215464017853048116383580160, 33554258527717289096810582576726016, 5764796383521413451936788090191872, 742914842976491391099734247604224, 73853962838570842571505099866112, 5782548978958079142174576476160, 362198044542725463542231334912] := by
+  rw [primePrefix101, selectionRowBounded, numericalRow113_97]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_103 :
+    selectionRowBounded 10 primePrefix103 =
+      [27739969042773783995307880611840000000, 71684102951590525802913676551782400000, 73573050535079490448082409766256640000, 41169987340449877089561551988326400000, 14499958296600653769943581877862400000, 3496381295987192927534106374056181760, 610033896879858634290489391595913216, 80056280681170552561910212850614272, 8128311126833575648250244234215424, 652108860734378756788962747482112, 42002353433230625496397709967360] := by
+  rw [primePrefix103, selectionRowBounded, numericalRow113_101]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_107 :
+    selectionRowBounded 10 primePrefix107 =
+      [2829476842362925967521403822407680000000, 7339518470105007415892502888893644800000, 7576135257529698551507319472709959680000, 4272911759260966953583360712575549440000, 1520165733593716561623806903530291200000, 371130850487294332378422432031592939520, 65719838777732773625164024316839329792, 8775774526359254995605331102358568960, 909144015618195268683435124740587520, 74643414921740208840724444477390848, 4936348910923902557421529164152832] := by
+  rw [primePrefix107, selectionRowBounded, numericalRow113_103]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_109 :
+    selectionRowBounded 10 primePrefix109 =
+      [299924545290470152557268805175214080000000, 780818434673493712052126710045134028800000, 810409855768253053875668366996149370880000, 460504781739192195631343555005718200320000, 165410479520194922485706892486786416640000, 40860035885246915793736584698879142789120, 7337433760926968336645809009616561897472, 995951938571813803159329121166847639552, 105145040181887953476049454324860846080, 8821345997322657405800226239344017408, 597896399479673879927406535877591040] := by
+  rw [primePrefix109, selectionRowBounded, numericalRow113_107]
+  norm_num [selectionRowStep, selectionRowTail]
+
+set_option linter.style.longLine false in
+theorem numericalRow113_113 :
+    selectionRowBounded 10 primePrefix113 =
+      [32391850891370776476185030958923120640000000, 84628315490027791054186953490049689190400000, 88305082857644823530624310345629266083840000, 50544926283601010182060772307613715005440000, 18324836569920243824087687943578651197440000, 4578294355126861828209258039965733837864960, 833302882065359496151483957737467827716096, 114900243126682859077853354095636106969088, 12351616278215712778572670188251819016192, 1057850407892734953302473888174014726144, 73394157141127436437960132114123849728] := by
+  rw [primePrefix113, selectionRowBounded, numericalRow113_109]
+  norm_num [selectionRowStep, selectionRowTail]
+
+end PrimeFactorUnimodality

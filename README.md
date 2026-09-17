@@ -2,7 +2,8 @@
 
 [![CI](https://github.com/kimihiro64/erdos-690-prime-factor-unimodality/actions/workflows/ci.yml/badge.svg)](https://github.com/kimihiro64/erdos-690-prime-factor-unimodality/actions/workflows/ci.yml)
 
-Lean formalization of the finite density recursion and non-unimodality certificates for ordered distinct prime factors.
+Lean formalization of the finite density recursion and unimodality classification
+for ordered distinct prime factors.
 
 ## Problem
 
@@ -12,15 +13,15 @@ For each integer k at least 1 and prime p, let d_k(p) be the natural density of 
 
 ## Current status
 
-The first formal milestone is active: the repository defines Cambie's exact
-finite density recursion and kernel-checks the values
-`d₄(13) = 31/5005`, `d₄(17) = 206/36465`, and
-`d₄(19) = 1308/230945`, proving a strict valley at 17. This establishes the
-finite non-unimodality certificate for `k = 4`.
+The repository defines Cambie's exact finite density recursion and proves the
+positive unimodality cases `k ≤ 3`. Exact generated certificates prove
+non-unimodality for every `4 ≤ k ≤ 20`; certified fixed-point weight sums,
+explicit prime gaps, and symmetric-sum bounds extend this to every
+`21 ≤ k ≤ 48`.
 
-The bridge identifying the finite formula with natural density, the positive
-unimodality results for `k ≤ 3`, and the complete non-unimodality theorem for
-every `k ≥ 4` remain open in this formalization.
+The bridge identifying the finite formula with natural density and the
+non-unimodality proof for every `k ≥ 49` remain open. In particular, this
+checkpoint does not yet prove the complete Erdős 690 classification.
 
 The release state is visible mechanically:
 
