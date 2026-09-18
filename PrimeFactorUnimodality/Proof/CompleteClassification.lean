@@ -120,6 +120,20 @@ theorem completeClassification_of_full_record_rows_and_finite_theta
     (hasDusartSymmetricThetaBounds_of_below_and_logCubed finiteTheta thetaError)
     cover thetaError
 
+theorem completeClassification_of_full_record_split_analytic_inputs
+    {X : Real}
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow X)
+    (tailPrimeCounting : HasDusartRealPrimeCountingBoundsAbove X)
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
+    {rows : List LogCubedPrimeRow}
+    (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    CompleteClassification := by
+  exact completeClassification_of_full_record_rows_and_finite_theta
+    (hasDusartRealPrimeCountingBounds_of_below_and_above
+      finitePrimeCounting tailPrimeCounting)
+    finiteTheta cover thetaError
+
 end
 
 end PrimeFactorUnimodality
