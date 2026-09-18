@@ -91,6 +91,25 @@ theorem elementary_49_shell_count
   · norm_num only [Nat.cast_mul, Nat.cast_ofNat] at numeric ⊢
     exact numeric
 
+/-! The tail threshold is far beyond the point at which the elementary theta
+constants apply.  This wrapper discharges that fixed-size side condition, so
+tail proofs only need to supply the genuinely quantitative logarithmic
+margin. -/
+theorem elementary_tail_shell_count
+    {q target : Nat} (hq : 3501 ≤ q)
+    (numeric : (target : Real) *
+        Real.log ((9 * primorial q : Nat) : Real) <
+      (86 : Real) / 100 * (9 * primorial q) -
+        (111 : Real) / 100 * (4 * primorial q)) :
+    target ≤ Nat.primeCounting (9 * primorial q) -
+      Nat.primeCounting (4 * primorial q) := by
+  apply elementary_49_shell_count (q := q) (target := target)
+  · have hprimorial : primorial 19 ≤ primorial q := primorial_mono (by omega)
+    have hvalue : primorial 19 = 9699690 := by decide
+    rw [hvalue] at hprimorial
+    omega
+  · exact numeric
+
 end
 
 end PrimeFactorUnimodality
