@@ -49,7 +49,7 @@ private theorem exists_logFourth_envelope_of_rpow_decay
     refine ⟨max T 1, ?_⟩
     intro t ht
     have ht1 : 1 ≤ t := le_trans (le_max_right T 1) ht
-    have ht0 : 0 ≤ t := ht1.le
+    have ht0 : 0 ≤ t := by linarith
     have hpow : (t ^ α) ^ (4 / α : Real) = t ^ (4 : ℕ) := by
       rw [← Real.rpow_mul ht0]
       field_simp [ne_of_gt hα]
