@@ -152,6 +152,37 @@ theorem integral_inv_log_cubed_eq
           (ne_of_gt (pow_pos (Real.log_pos
             (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)))
 
+theorem theta_integral_split
+    {x : Real} (hx : 2 ≤ x) :
+    (∫ t in (2 : Real)..x,
+        Chebyshev.theta t / (t * (Real.log t) ^ 2)) =
+      (∫ t in (2 : Real)..x, 1 / (Real.log t) ^ 2) +
+        ∫ t in (2 : Real)..x,
+          (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+            1 / (Real.log t) ^ 2) := by
+  have htheta : IntervalIntegrable
+      (fun t : Real => Chebyshev.theta t / (t * (Real.log t) ^ 2))
+      MeasureTheory.volume 2 x := by
+    rw [intervalIntegrable_iff_integrableOn_Ioc_of_le hx]
+    exact (Chebyshev.integrableOn_theta_div_id_mul_log_sq x).mono_set
+      (Set.Ioc_subset_Icc_self)
+  have hbase : IntervalIntegrable
+      (fun t : Real => 1 / (Real.log t) ^ 2) MeasureTheory.volume 2 x := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le hx]
+    apply ContinuousOn.div continuousOn_const
+    · exact (Real.continuousOn_log.mono fun y hy =>
+        ne_of_gt (by linarith [hy.1])).pow _
+    · intro y hy
+      exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by linarith [hy.1])))
+  have hsub := intervalIntegral.integral_sub htheta hbase
+  have hpoint : (fun t : Real =>
+      Chebyshev.theta t / (t * (Real.log t) ^ 2) - 1 / (Real.log t) ^ 2) =
+      (fun t : Real => Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+        1 / (Real.log t) ^ 2) := rfl
+  rw [hpoint] at hsub
+  linarith
+
 /-- The exact explicit prime-counting statements needed downstream.  This
 interface lets the structural argument compile independently of the eventual
 proof of the analytic provider. -/
