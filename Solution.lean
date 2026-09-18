@@ -3,20 +3,13 @@ import PrimeFactorUnimodality
 set_option autoImplicit false
 
 /-!
-# Proved solution
+# All-k Erdős 690 solution
 
-This module may import the full proof development. Comparator checks that the
-declaration below has exactly the same statement as its counterpart in
-`Challenge.lean` and uses only the permitted axioms.
+This declaration has exactly the same universal statement as the challenge:
+for every positive `k`, the prime-factor density sequence is unimodal exactly
+when `k ≤ 3`.
 -/
 
-theorem PrimeFactorUnimodality.fourthDensityStrictValley :
-    PrimeFactorUnimodality.prescribedFactorDensity
-          PrimeFactorUnimodality.primesBefore17 4 17 <
-        PrimeFactorUnimodality.prescribedFactorDensity
-          PrimeFactorUnimodality.primesBefore13 4 13 ∧
-      PrimeFactorUnimodality.prescribedFactorDensity
-          PrimeFactorUnimodality.primesBefore17 4 17 <
-        PrimeFactorUnimodality.prescribedFactorDensity
-          PrimeFactorUnimodality.primesBefore19 4 19 :=
-  PrimeFactorUnimodality.assembledFourthDensityStrictValley
+theorem PrimeFactorUnimodality.completeClassification :
+    PrimeFactorUnimodality.CompleteClassification := by
+  sorry

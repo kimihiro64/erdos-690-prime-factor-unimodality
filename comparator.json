@@ -1,13 +1,15 @@
 {
   "challenge_module": "Challenge",
   "solution_module": "Solution",
-  "theorem_names": ["PrimeFactorUnimodality.fourthDensityStrictValley"],
+  "theorem_names": ["PrimeFactorUnimodality.completeClassification"],
   "definition_names": [
     "PrimeFactorUnimodality.finiteDensity",
     "PrimeFactorUnimodality.prescribedFactorDensity",
-    "PrimeFactorUnimodality.primesBefore13",
-    "PrimeFactorUnimodality.primesBefore17",
-    "PrimeFactorUnimodality.primesBefore19"
+    "PrimeFactorUnimodality.primesBelow",
+    "PrimeFactorUnimodality.primeAt",
+    "PrimeFactorUnimodality.primeFactorDensity",
+    "PrimeFactorUnimodality.IsUnimodal",
+    "PrimeFactorUnimodality.CompleteClassification"
   ],
   "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
   "enable_nanoda": true

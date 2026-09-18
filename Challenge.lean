@@ -1,18 +1,20 @@
+import Mathlib.Data.Nat.PrimeFin
+import Mathlib.NumberTheory.PrimeCounting
 import Mathlib.Data.Rat.Defs
 
 set_option autoImplicit false
 
 /-!
-# Fourth prime-factor density witness
+# All-k Erdős 690 challenge
 
-The definitions below state Cambie's finite recurrence directly over Mathlib
-primitives. The theorem records the first strict valley in the `k = 4`
-density sequence.
+This is the exact universal statement of the Wang--Crapis classification:
+the prime-factor density sequence is unimodal precisely for `k ≤ 3`.
+The definitions are repeated here so the challenge remains an auditable,
+Mathlib-only statement surface.
 -/
 
 namespace PrimeFactorUnimodality
 
-/-- Finite density of exactly `r` selected divisibility events. -/
 def finiteDensity : List Nat → Nat → Rat
   | [], 0 => 1
   | [], _ + 1 => 0
@@ -21,28 +23,31 @@ def finiteDensity : List Nat → Nat → Rat
       (((p - 1 : Nat) : Rat) / (p : Rat)) * finiteDensity primes (r + 1) +
         (1 / (p : Rat)) * finiteDensity primes r
 
-/-- Finite density formula for `p` in one-based prime-factor position `k`. -/
 def prescribedFactorDensity (smallerPrimes : List Nat) (k p : Nat) : Rat :=
   finiteDensity smallerPrimes (k - 1) / (p : Rat)
 
-/-- The primes strictly below 13. -/
-def primesBefore13 : List Nat := [2, 3, 5, 7, 11]
+def primesBelow (p : Nat) : List Nat :=
+  ((Finset.range p).filter Nat.Prime).sort (fun a b => a ≤ b)
 
-/-- The primes strictly below 17. -/
-def primesBefore17 : List Nat := [2, 3, 5, 7, 11, 13]
+noncomputable section
 
-/-- The primes strictly below 19. -/
-def primesBefore19 : List Nat := [2, 3, 5, 7, 11, 13, 17]
+def primeAt (i : Nat) : Nat := Nat.nth Nat.Prime i
+
+def primeFactorDensity (k i : Nat) : Rat :=
+  prescribedFactorDensity (primesBelow (primeAt i)) k (primeAt i)
+
+def IsUnimodal (f : Nat → Rat) : Prop :=
+  ∃ mode : Nat,
+    (∀ i, i < mode → f i ≤ f (i + 1)) ∧
+      (∀ i, mode ≤ i → f (i + 1) ≤ f i)
+
+def CompleteClassification : Prop :=
+  ∀ k : Nat, 1 ≤ k → (IsUnimodal (primeFactorDensity k) ↔ k ≤ 3)
+
+end
 
 end PrimeFactorUnimodality
 
-theorem PrimeFactorUnimodality.fourthDensityStrictValley :
-    PrimeFactorUnimodality.prescribedFactorDensity
-          PrimeFactorUnimodality.primesBefore17 4 17 <
-        PrimeFactorUnimodality.prescribedFactorDensity
-          PrimeFactorUnimodality.primesBefore13 4 13 ∧
-      PrimeFactorUnimodality.prescribedFactorDensity
-          PrimeFactorUnimodality.primesBefore17 4 17 <
-        PrimeFactorUnimodality.prescribedFactorDensity
-          PrimeFactorUnimodality.primesBefore19 4 19 := by
+theorem PrimeFactorUnimodality.completeClassification :
+    PrimeFactorUnimodality.CompleteClassification := by
   sorry
