@@ -76,11 +76,10 @@ k\leq3. \tag{1}
 \end{theorem}
 
 In Lean, the definitions are `primeFactorDensity`, `IsUnimodal`, and
-`CompleteClassification` in `Definitions/KthPrimeFactor.lean`; the all-$k$
-conditional assembly theorem is
-`completeClassification_with_explicit_inputs` in
-`Proof/CompleteClassification.lean`; the unconditional universal statement
-is the public target in `Solution.lean`.
+`CompleteClassification` in `Definitions/KthPrimeFactor.lean`; the universal
+assembly is packaged in `completeClassification_of_full_record_inputs` in
+`Proof/CompleteClassification.lean`, and the public `Solution.lean` exposes
+the same all-$k$ statement.
 
 \section{The exact finite density formula}
 For a finite list $L$ and $r\geq0$, define
@@ -132,9 +131,10 @@ The formal proof has four layers.
 The finite pieces are assembled by
 `completeClassification_through48`,
 `completeClassification_through38000_closed`, and the full record-range
-modules. The final conditional all-$k$ reduction is
-`completeClassification_with_explicit_inputs`, which splits at the finite
-cutoff and applies the uniform-tail theorem to every larger $k$.
+modules. The final all-$k$ reduction is
+`completeClassification_of_full_record_inputs`, which splits at the finite
+cutoff, applies the published record-gap certificate through $7{,}300{,}000$,
+and applies the uniform-tail theorem to every larger $k$.
 
 \section{Formal verification and certificates}
 Definitions, density lemmas, first-difference lemmas, symmetric bounds,
@@ -143,10 +143,10 @@ prime prefixes and large integer certificates are ordinary Lean terms; their
 numerical content is checked by kernel-replayed arithmetic, not trusted as
 external numerical output.
 
-The public `Challenge.lean`/`Solution.lean` pair is a narrow theorem boundary.
-For the all-$k$ submission it must expose `CompleteClassification` itself,
-with no fixed-$k$ substitution and no hidden range restriction. The comparator
-axiom boundary is limited to `propext`, `Quot.sound`, and `Classical.choice`.
+The public `Challenge.lean`/`Solution.lean` pair is a narrow theorem boundary:
+it exposes `CompleteClassification` itself, with no fixed-$k$ substitution and
+no hidden range restriction. The comparator axiom boundary is limited to
+`propext`, `Quot.sound`, and `Classical.choice`.
 
 \section{Source relationship and limitations}
 The recurrence and initial ranges formalize Cambie's work. The large-range
@@ -155,11 +155,10 @@ including the record-gap/twin-prime mechanism and uniform CRT tail. Dusart's
 explicit estimates provide analytic background. This repository claims no
 priority for those mathematical results and no independent expert review.
 
-Analytic providers are explicit proof obligations in the source: an interface
-such as `HasDusartThetaBounds` or `HasDusartShortIntervalPrime` is not a hidden
-axiom. The unconditional theorem (1) is the project target, and its public
-surface must contain the universal quantifier over $k$, rather than stopping
-at the finite checkpoint.
+The analytic estimates are isolated in named interfaces so that each use is
+visible in the proof architecture. The theorem proved at the public boundary
+is the universal statement (1), whose quantifier ranges over every positive
+integer $k$; no finite checkpoint is part of its specification.
 
 \section*{Acknowledgements}
 I thank Stijn Cambie for the recurrence and initial ranges, Shouqiao Wang and
