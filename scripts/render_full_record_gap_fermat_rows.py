@@ -18,30 +18,30 @@ def term(offset: int) -> str:
 def value(offset: int) -> str:
     return f"fullRecordGapCenterValue {'-' if offset < 0 else '+'} {abs(offset)}"
 
-def witness(index: int, offset: int) -> str:
+def witness(index: int, offset: int, row_name: str) -> str:
     name = label(index)
-    return (f"\ndef fullRecordGapValue{name} : Nat := {value(offset)}\n"
-            f"\ntheorem fullRecordGapTerm{name}_eq_value :\n"
-            f"    {term(offset)} = fullRecordGapValue{name} := by\n"
+    return (f"\ntheorem fullRecordGapTerm{name}_not_prime : ¬({term(offset)}).Prime := by\n"
             "  rw [recordGapCenter_eq_fullRecordGapCenterValue]\n"
-            "  rfl\n\n"
-            "set_option maxHeartbeats 0 in\n"
-            f"theorem fullRecordGapLiteral{name}_fast_pow_mod_ne_one :\n"
-            f"    fastPowMod 3 fullRecordGapValue{name} (fullRecordGapValue{name} - 1) ≠ 1 := by\n"
-            "  decide\n\n"
-            f"theorem fullRecordGapTerm{name}_not_prime : ¬({term(offset)}).Prime := by\n"
-            f"  rw [fullRecordGapTerm{name}_eq_value]\n"
             "  apply not_prime_of_fastPowMod_ne_one (a := 3)\n"
             "  · norm_num\n"
-            f"  · norm_num [fullRecordGapValue{name}, fullRecordGapCenterValue]\n"
-            f"  · exact fullRecordGapLiteral{name}_fast_pow_mod_ne_one\n")
+            f"  · norm_num [{value(offset)}]\n"
+            f"  · apply {row_name}_fermat\n"
+            f"    simp [{row_name}_values]\n")
 
 def row(indices: list[tuple[int, int]]) -> str:
+    row_name = f"fullRecordGapRow{label((indices[0][0] - 1) // 256 + 1)}"
+    values = ",\n    ".join(value(offset) for _, offset in indices)
     header = ("import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod\n"
               "import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCenter\n\n"
               "set_option autoImplicit false\nset_option maxRecDepth 10000000\n"
               "set_option linter.style.longLine false\n\nnamespace PrimeFactorUnimodality\n")
-    return header + "".join(witness(i, d) for i, d in indices) + "\nend PrimeFactorUnimodality\n"
+    row_header = (f"\ndef {row_name}_values : List Nat :=\n"
+                  f"  [{values}]\n\n"
+                  "set_option maxHeartbeats 0 in\n"
+                  f"theorem {row_name}_fermat : ∀ n ∈ {row_name}_values,\n"
+                  "    fastPowMod 3 n (n - 1) ≠ 1 := by\n"
+                  "  decide\n")
+    return header + row_header + "".join(witness(i, d, row_name) for i, d in indices) + "\nend PrimeFactorUnimodality\n"
 
 def main() -> None:
     parser = argparse.ArgumentParser()
