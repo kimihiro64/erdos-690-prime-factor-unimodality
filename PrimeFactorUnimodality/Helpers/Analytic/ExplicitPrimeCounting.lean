@@ -946,6 +946,30 @@ theorem primeCountingCore_fixed_term_le :
       nlinarith [hi2, hi3, hi4, hi5, hi6]
     _ ≤ (2000 : Real) := by norm_num
 
+theorem integral_inv_log_seven_nonneg {X : Real} (hX : (2 : Real) ≤ X) :
+    0 ≤ ∫ t in (2 : Real)..X, 1 / Real.log t ^ 7 := by
+  apply intervalIntegral.integral_nonneg hX
+  intro t ht
+  have hlog : 0 < Real.log t := Real.log_pos (by linarith [ht.1])
+  positivity
+
+theorem primeCountingCore_abs_le_of_two_le {X : Real}
+    (hX : (2 : Real) ≤ X) :
+    |primeCountingCore X| ≤
+      4000 + 720 * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) +
+      |∫ t in (2 : Real)..X,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)| := by
+  have hk : 0 ≤ 1 / Real.log 2 ^ 2 + 2 / Real.log 2 ^ 3 +
+      6 / Real.log 2 ^ 4 + 24 / Real.log 2 ^ 5 +
+      120 / Real.log 2 ^ 6 := by positivity
+  have hi : 0 ≤ ∫ t in (2 : Real)..X, 1 / Real.log t ^ 7 :=
+    integral_inv_log_seven_nonneg hX
+  have hdecomp := primeCountingCore_abs_le X
+  rw [abs_of_nonneg hk, abs_of_nonneg hi] at hdecomp
+  have hfixed := primeCountingCore_fixed_term_le
+  nlinarith
+
 theorem primeCountingCore_scale_le
     {C X x : Real} (hX : 1 < X) (hXx : X ≤ x)
     (hlogX : (4 : Real) < Real.log X) (hC : 0 ≤ C)
