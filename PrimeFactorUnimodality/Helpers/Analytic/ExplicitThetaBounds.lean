@@ -186,6 +186,21 @@ theorem hasDusartSymmetricThetaBounds_of_below_and_logFourth_from
         mul_le_mul_of_nonneg_right hA hfactor
       _ = (12167 / 500000 : Real) * x / (Real.log x) ^ 3 := by ring)
 
+/-! The same adapter can start from the analytic estimate for `psi`.  The
+prime-power correction is proved in `ThetaFromPsi`; this declaration keeps
+that reduction visible at the Dusart provider boundary. -/
+theorem hasDusartSymmetricThetaBounds_of_psiLogFourthError
+    {A X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (finite : HasDusartSymmetricThetaBoundsBelow X)
+    (hXcutoff : (4e18 : Real) ≤ X)
+    (hA_nonneg : 0 ≤ A)
+    (hA_log : (A + 1) / Real.log X ≤ 12167 / 500000)
+    (psiError : HasPsiLogFourthError A X) :
+    HasDusartSymmetricThetaBounds := by
+  apply hasDusartSymmetricThetaBounds_of_below_and_logFourth_from
+    hXpos hlogX finite (by linarith) hA_log
+  exact hasThetaLogFourthError_of_psiLogFourthError hXcutoff psiError
+
 /-! The unbounded part of Dusart's theta estimate is a theorem, not an
 assumption: once the explicit logarithm-cubed error estimate is proved, the
 two published theta inequalities follow by elementary real arithmetic. -/
