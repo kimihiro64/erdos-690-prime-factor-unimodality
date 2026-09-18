@@ -307,6 +307,45 @@ def HasDusartPrimeCountingAsymptoticAbove (X : Real) : Prop :=
           (1 + 1 / Real.log x + 2 / (Real.log x) ^ 2 + E) ∧
         |E| ≤ (732 : Real) / 100 / (Real.log x) ^ 3
 
+/-! The remaining quantitative statement can be supplied in the natural
+unnormalized form produced by Abel summation.  This theorem performs the
+normalization into Dusart's published `E` form entirely in Lean. -/
+theorem hasDusartPrimeCountingAsymptoticAbove_of_explicitRemainder
+    (hbound : ∀ x : Real, (4e9 : Real) ≤ x →
+      |(Nat.primeCounting ⌊x⌋₊ : Real) -
+          (x / Real.log x + x / (Real.log x) ^ 2 +
+            2 * x / (Real.log x) ^ 3)| ≤
+        (732 : Real) / 100 * x / (Real.log x) ^ 4) :
+    HasDusartPrimeCountingAsymptoticAbove (4e9 : Real) := by
+  intro x hx
+  have hx_pos : 0 < x := by linarith
+  have hlog_pos : 0 < Real.log x := by
+    exact Real.log_pos (by
+      norm_num at hx ⊢
+      linarith)
+  let E : Real :=
+    ((Nat.primeCounting ⌊x⌋₊ : Real) -
+      (x / Real.log x + x / (Real.log x) ^ 2 +
+        2 * x / (Real.log x) ^ 3)) * Real.log x / x
+  refine ⟨E, ?_, ?_⟩
+  · dsimp [E]
+    field_simp [ne_of_gt hx_pos, ne_of_gt hlog_pos]
+    ring
+  · have hmain := hbound x hx
+    have hscale : 0 ≤ Real.log x / x := by positivity
+    have hscaled := mul_le_mul_of_nonneg_right hmain hscale
+    dsimp [E]
+    rw [abs_div, abs_mul, abs_of_pos hlog_pos, abs_of_pos hx_pos]
+    calc
+      |(Nat.primeCounting ⌊x⌋₊ : Real) -
+          (x / Real.log x + x / (Real.log x) ^ 2 +
+            2 * x / (Real.log x) ^ 3)| * Real.log x / x ≤
+          ((732 : Real) / 100 * x / (Real.log x) ^ 4) *
+            (Real.log x / x) := by
+              convert hscaled using 1 <;> ring
+      _ = (732 : Real) / 100 / (Real.log x) ^ 3 := by
+        field_simp [ne_of_gt hx_pos, ne_of_gt hlog_pos]
+
 def HasDusartPublishedPrimeCountingBoundsAbove (X : Real) : Prop :=
   (∀ x : Real, X ≤ x →
     x / (Real.log x - 1) ≤ (Nat.primeCounting ⌊x⌋₊ : Real)) ∧
