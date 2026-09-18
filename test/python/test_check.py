@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import subprocess
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -12,9 +13,12 @@ from scripts.check import (
     public_candidate_paths,
     tracked_public_size,
 )
+from scripts.generate_record_gap_block import generate as generate_record_gap_block
 from scripts.import_graph import (
     detect_cycles,
+    is_generated_module,
     module_layer,
+    proof_branch,
     transitive_dependents,
 )
 from scripts.lean_source import (
@@ -29,6 +33,11 @@ from scripts.mathlib_candidates import (
     mathlib_candidate_failures,
     mathlib_manifest_failures,
 )
+from scripts.render_full_record_gap_fermat import render_witness
+from scripts.render_record_gap_coverage import render_chunk
+from scripts.render_record_gap_fermat import render_fast
+from scripts.render_record_gap_prime_list import render as render_record_gap_prime_list
+from scripts.render_record_twin_seed_lean import source_note
 
 
 def test_private_path_boundary_is_component_aware() -> None:
@@ -36,6 +45,74 @@ def test_private_path_boundary_is_component_aware() -> None:
     assert is_private_path("AGENTS.md")
     assert not is_private_path("scripts/research_experiment.py")
     assert not is_private_path("AGENTS.md.example")
+
+
+def test_certificate_source_note_ignores_elapsed_time(tmp_path: Path) -> None:
+    source = tmp_path / "certificate.json"
+    first: dict[str, Any] = {
+        "schema_version": 1,
+        "task": "upper-seed",
+        "residue": "17",
+        "elapsed_seconds": 1.25,
+    }
+    second = dict(first)
+    second["elapsed_seconds"] = 99.0
+    assert source_note(first, source) == source_note(second, source)
+
+    second["residue"] = "19"
+    assert source_note(first, source) != source_note(second, source)
+
+
+def test_record_gap_block_has_one_explicit_exception() -> None:
+    certificate = generate_record_gap_block()
+    assignments = certificate["assignments"]
+    assert len(assignments) == 4_751
+    exceptions = [item for item in assignments if item["owner"] is None]
+    assert exceptions == [{"offset": -84_672, "owner": None, "source": "fermat"}]
+    assert sum(item["source"] == "archived-factor" for item in assignments) == 8
+    assert certificate["center_residues"] == {
+        "2": 1,
+        "3": 2,
+        "5": 1,
+        "7": 1,
+        "11": 4,
+    }
+    assert certificate["semantic_sha256"] == (
+        "0467031b2b25e60ab18e6a298fee38005b74d831f85e4fd1c6b262bf221f7c6b"
+    )
+
+
+def test_record_gap_coverage_chunk_is_a_complete_module() -> None:
+    assignments = generate_record_gap_block()["assignments"][:80]
+    rendered = render_chunk(1, assignments)
+    assert rendered.startswith("import PrimeFactorUnimodality.Proof.LargeRange.RecordGapStructure")
+    assert "theorem recordGapCoverage_part01" in rendered
+    assert rendered.rstrip().endswith("end PrimeFactorUnimodality")
+
+
+def test_record_gap_prime_list_renderer_emits_structural_bounds() -> None:
+    rendered = render_record_gap_prime_list()
+    assert "recordGapPrimeList.length = 4499" in rendered
+    assert "∀ q ∈ recordGapPrimeList, q ≤ 43103" in rendered
+    assert "recordGapUsedTailOwners_sublist" in rendered
+
+
+def test_record_gap_fast_fermat_renderer_is_kernel_reflection() -> None:
+    rendered = render_fast(15, 4)
+    assert "(2 : ZMod 15) ^ 14 =" in rendered
+    assert "reduce_mod_char" in rendered
+    assert "native_decide" not in rendered
+    assert "recordGapExceptional_not_prime_fast" in rendered
+
+
+def test_full_record_gap_fermat_renderer_is_resumable_kernel_reflection() -> None:
+    rendered = render_witness(7, -19, 15, 4)
+    assert "fullRecordGapValue00007" in rendered
+    assert "recordGapCenter - 19" in rendered
+    assert "(3 : ZMod 15) ^ 14" in rendered
+    assert "reduce_mod_char" in rendered
+    assert "native_decide" not in rendered
+    assert "not_prime_of_pow_ne_one" in rendered
 
 
 def test_nested_lean_comments_are_removed() -> None:
@@ -96,6 +173,23 @@ end Nat
     assert allowed == []
 
 
+def test_generated_module_detection_is_component_aware() -> None:
+    namespace = "ExampleTheorem"
+    assert is_generated_module(
+        "ExampleTheorem.Proof.LargeRange.Generated.Certificate", namespace
+    )
+    assert not is_generated_module(
+        "ExampleTheorem.Proof.LargeRange.GeneratedCertificate", namespace
+    )
+    assert not is_generated_module("ExampleTheorem.Helpers.Generated.Tool", namespace)
+
+
+def test_proof_assembly_modules_are_not_independent_branches() -> None:
+    namespace = "ExampleTheorem"
+    assert proof_branch("ExampleTheorem.Proof.LargeRange.Result", namespace) == "LargeRange"
+    assert proof_branch("ExampleTheorem.Proof.CompleteClassification", namespace) is None
+
+
 def test_mathlib_candidate_rejects_project_and_third_party_dependencies() -> None:
     namespace = "ExampleTheorem"
     candidate = "ExampleTheorem.Mathlib.NumberTheory.Helper"
@@ -111,6 +205,30 @@ def test_mathlib_candidate_rejects_project_and_third_party_dependencies() -> Non
     assert any("imports project module" in failure for failure in failures)
     assert any("imports non-Mathlib dependency" in failure for failure in failures)
     assert any("references project namespace" in failure for failure in failures)
+
+
+def test_mathlib_candidate_ignores_public_import_in_namespace_scan() -> None:
+    namespace = "ExampleTheorem"
+    candidate = "ExampleTheorem.Mathlib.NumberTheory.Helper"
+    source = """/-
+Copyright (c) 2026 Ada Example. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Ada Example
+-/
+public import ExampleTheorem.Mathlib.NumberTheory.Base
+
+/-! Candidate module. -/
+namespace Nat
+end Nat
+"""
+    assert mathlib_candidate_failures(
+        candidate,
+        source,
+        strip_lean_comments(source),
+        ["ExampleTheorem.Mathlib.NumberTheory.Base"],
+        {candidate, "ExampleTheorem.Mathlib.NumberTheory.Base"},
+        namespace,
+    ) == []
 
 
 def test_mathlib_candidate_manifest_requires_destination_and_readiness() -> None:

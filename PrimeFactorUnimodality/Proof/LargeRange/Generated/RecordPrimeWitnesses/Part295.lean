@@ -1,0 +1,52 @@
+import Mathlib.Tactic.NormNum.Prime
+import PrimeFactorUnimodality.Helpers.PrimeSequence.Basic
+
+set_option autoImplicit false
+set_option maxRecDepth 1000000
+
+/-! Generated prime witnesses for the record-range cutoff, part 295. -/
+
+namespace PrimeFactorUnimodality
+
+def recordPrimeWitnessBlock295 : Finset Nat :=
+  [
+    342697, 342733, 342757, 342761, 342791, 342799, 342803, 342821, 342833, 342841,
+    342847, 342863, 342869, 342871, 342889, 342899, 342929, 342949, 342971, 342989,
+    343019, 343037, 343051, 343061, 343073, 343081, 343087, 343127, 343141, 343153,
+    343163, 343169, 343177, 343193, 343199, 343219, 343237, 343243, 343253, 343261,
+    343267, 343289, 343303, 343307, 343309, 343313, 343327, 343333, 343337, 343373,
+    343379, 343381, 343391, 343393, 343411, 343423, 343433, 343481, 343489, 343517,
+    343529, 343531, 343543, 343547, 343559, 343561, 343579, 343583, 343589, 343591,
+    343601, 343627, 343631, 343639, 343649, 343661, 343667, 343687, 343709, 343727,
+    343769, 343771, 343787, 343799, 343801, 343813, 343817, 343823, 343829, 343831,
+    343891, 343897, 343901, 343913, 343933, 343939, 343943, 343951, 343963, 343997
+  ].toFinset
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality reduction for this generated finite prime block.
+theorem recordPrimeWitnessBlock295_card :
+    recordPrimeWitnessBlock295.card = 100 := by
+  decide
+
+set_option maxHeartbeats 0 in
+-- Kernel primality checks for every generated witness in this block.
+theorem recordPrimeWitnessBlock295_subset :
+    recordPrimeWitnessBlock295 ⊆ Nat.primesBelow 500001 := by
+  intro p hp
+  simp only [recordPrimeWitnessBlock295, List.mem_toFinset,
+    List.mem_cons, List.not_mem_nil, or_false] at hp
+  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> norm_num [Nat.mem_primesBelow]
+
+theorem recordPrimeWitnessBlock295_lower {p : Nat}
+    (hp : p ∈ recordPrimeWitnessBlock295) : 342697 ≤ p := by
+  simp only [recordPrimeWitnessBlock295, List.mem_toFinset,
+    List.mem_cons, List.not_mem_nil, or_false] at hp
+  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> norm_num
+
+theorem recordPrimeWitnessBlock295_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessBlock295) : p ≤ 343997 := by
+  simp only [recordPrimeWitnessBlock295, List.mem_toFinset,
+    List.mem_cons, List.not_mem_nil, or_false] at hp
+  rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> norm_num
+
+end PrimeFactorUnimodality

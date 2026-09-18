@@ -1,3 +1,11 @@
+import PrimeFactorUnimodality.Mathlib.Algebra.Group.PowerChunk
+import PrimeFactorUnimodality.Mathlib.Algebra.Group.PowerStep
+import PrimeFactorUnimodality.Mathlib.Data.Nat.CoprimePeriodicCount
+import PrimeFactorUnimodality.Mathlib.Data.Nat.Periodic
+import PrimeFactorUnimodality.Mathlib.NumberTheory.BLSPrimality
+import PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington
+import PrimeFactorUnimodality.Mathlib.NumberTheory.PrimalityCongruence
+
 /-!
 # Mathlib candidate facade
 
@@ -6,6 +14,5 @@ upstreaming to Mathlib. Candidate source belongs under `PrimeFactorUnimodality/M
 and must remain independent of every project-specific definition, proof branch,
 assembly module, and statement surface.
 
-When a real candidate module is added, import it here and record its proposed
-upstream path and readiness in `MATHLIB_PORTING.md`.
+Candidate modules are recorded in `MATHLIB_PORTING.md`.
 -/

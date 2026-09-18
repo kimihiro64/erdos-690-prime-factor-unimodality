@@ -1,13 +1,11 @@
 import PrimeFactorUnimodality.Assembly.FourthWitness
-import PrimeFactorUnimodality.Helpers.SymmetricBounds.Main
 import PrimeFactorUnimodality.Mathlib
-import PrimeFactorUnimodality.Proof.FiniteRange.MediumCases
-import PrimeFactorUnimodality.Proof.FiniteRange.SmallCases
-import PrimeFactorUnimodality.Proof.Unimodality.PositiveCases
+import PrimeFactorUnimodality.Proof.CompleteClassification
 
 /-!
 # Public library root
 
-This module exports the finite density recursion, its first strict-valley
-certificate, and the separately audited Mathlib candidate facade.
+This module exports the assembled classification theorem and the separately
+audited Mathlib candidate facade. Reusable internal results remain available
+from their focused owner modules.
 -/

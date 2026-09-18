@@ -35,6 +35,10 @@ Licensing and scholarly provenance are separate:
 - A file incorporating third-party copyrightable material remains subject to
   the third party's notice and licence as well as any licence applying to
   project-authored modifications.
+- `VendorPrimeNumberTheoremAnd/` contains dependency-minimized ports from the
+  Apache-2.0 `PrimeNumberTheoremAnd` repository. Each port records its exact
+  public source revision; the source mathematical proof bodies remain under
+  that project's Apache-2.0 terms.
 
 ## Generated distributions
 

@@ -19,6 +19,14 @@ rev = "v4.34.0"
 name = "PrimeFactorUnimodality"
 
 [[lean_lib]]
+name = "VendorPrimeNumberTheoremAnd"
+roots = [
+  "VendorPrimeNumberTheoremAnd.ElementaryChebyshev",
+  "VendorPrimeNumberTheoremAnd.EulerMaclaurin",
+  "VendorPrimeNumberTheoremAnd.Mertens",
+]
+
+[[lean_lib]]
 name = "Challenge"
 roots = ["Challenge"]
 

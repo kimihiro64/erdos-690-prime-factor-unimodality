@@ -45,6 +45,32 @@ theorem densityRatio_le_degree_div_weightSum_sub_leading
   rw [densityRatio_eq_weightEsymm_ratio entries hentries r]
   apply (div_le_div_iff₀ (weightEsymm_pos entries hentries r hr) hComplement).2
   simpa [mul_comm] using
-    weightSum_sub_leading_mul_weightEsymm_le entries hentries hdescending r hrPos
+      weightSum_sub_leading_mul_weightEsymm_le entries hentries hdescending r hrPos
+
+/-- A multiplication-only interface to the upper ratio estimate.  This is
+convenient for generated rational certificates because it avoids division in
+the final numeric side condition. -/
+theorem densityRatio_lt_of_degree_lt_bound_mul_complement
+    (entries : List Nat) (hentries : ∀ p ∈ entries, 1 < p)
+    (hdescending : entries.Pairwise fun p q => primeWeight q ≤ primeWeight p)
+    (r : Nat) (hrPos : 1 ≤ r) (hr : r ≤ entries.length) (bound : Rat)
+    (hComplement : 0 < weightSum entries - leadingWeightSum entries (r - 1))
+    (hNumeric :
+      (r : Rat) < bound *
+        (weightSum entries - leadingWeightSum entries (r - 1))) :
+    densityRatio entries r < bound := by
+  exact (densityRatio_le_degree_div_weightSum_sub_leading entries hentries
+    hdescending r hrPos hr hComplement).trans_lt
+      ((div_lt_iff₀ hComplement).2 hNumeric)
+
+/-- A multiplication-only interface to the lower ratio estimate. -/
+theorem bound_lt_densityRatio_of_bound_mul_weightSum_lt_degree
+    (entries : List Nat) (hentries : ∀ p ∈ entries, 1 < p)
+    (r : Nat) (hr : r ≤ entries.length) (bound : Rat)
+    (hSum : 0 < weightSum entries)
+    (hNumeric : bound * weightSum entries < (r : Rat)) :
+    bound < densityRatio entries r := by
+  exact ((lt_div_iff₀ hSum).2 hNumeric).trans_le
+    (degree_div_weightSum_le_densityRatio entries hentries r hr hSum)
 
 end PrimeFactorUnimodality

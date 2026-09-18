@@ -29,6 +29,9 @@ PYTHON_RECOMMENDED_LINES: Final[int] = 300
 PYTHON_MAX_LINES: Final[int] = 450
 MAX_DIRECT_OWNED_IMPORTS: Final[int] = 12
 PROOF_IMPACT_WARNING: Final[int] = 12
+PROOF_ASSEMBLY_MODULES: Final[frozenset[str]] = frozenset(
+    {"ClassificationThrough48", "ClassificationThrough38000", "CompleteClassification"}
+)
 LAYERS: Final[dict[str, int]] = {
     MATHLIB_CANDIDATE_COMPONENT: -1,
     "Definitions": 0,
@@ -138,7 +141,13 @@ def proof_branch(module: str, namespace: str) -> str | None:
     if not module.startswith(prefix):
         return None
     remainder = module[len(prefix) :]
-    return remainder.split(".", 1)[0] if remainder else None
+    component = remainder.split(".", 1)[0] if remainder else None
+    return None if component in PROOF_ASSEMBLY_MODULES else component
+
+
+def is_generated_module(module: str, namespace: str) -> bool:
+    """Return whether a module is emitted by a checked certificate generator."""
+    return module.startswith(f"{namespace}.Proof.") and ".Generated." in module
 
 
 def transitive_dependents(graph: Mapping[str, set[str]]) -> dict[str, set[str]]:
@@ -193,7 +202,10 @@ def audit_architecture(root: Path) -> dict[str, object]:
     cycles = detect_cycles(graph)
     failures.extend("dependency cycle: " + " -> ".join(cycle) for cycle in cycles)
     for importer, dependencies in graph.items():
-        if len(dependencies) > MAX_DIRECT_OWNED_IMPORTS:
+        if (
+            not is_generated_module(importer, namespace)
+            and len(dependencies) > MAX_DIRECT_OWNED_IMPORTS
+        ):
             message = (
                 f"{importer}: {len(dependencies)} direct owned imports exceeds "
                 f"{MAX_DIRECT_OWNED_IMPORTS}"
@@ -231,6 +243,8 @@ def audit_architecture(root: Path) -> dict[str, object]:
 
     for module, path in modules.items():
         lines = line_count(path)
+        if is_generated_module(module, namespace):
+            continue
         if lines > LEAN_MAX_LINES:
             failures.append(f"{module}: {lines} Lean lines exceeds hard limit {LEAN_MAX_LINES}")
         elif lines > LEAN_RECOMMENDED_LINES:

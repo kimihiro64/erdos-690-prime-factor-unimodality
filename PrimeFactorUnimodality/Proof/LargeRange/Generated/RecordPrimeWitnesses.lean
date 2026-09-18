@@ -1,0 +1,14058 @@
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part01
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part02
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part03
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part04
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part05
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part06
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part07
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part08
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part09
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part10
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part100
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part101
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part102
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part103
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part104
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part105
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part106
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part107
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part108
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part109
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part11
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part110
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part111
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part112
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part113
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part114
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part115
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part116
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part117
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part118
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part119
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part12
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part120
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part121
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part122
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part123
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part124
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part125
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part126
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part127
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part128
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part129
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part13
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part130
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part131
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part132
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part133
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part134
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part135
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part136
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part137
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part138
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part139
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part14
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part140
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part141
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part142
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part143
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part144
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part145
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part146
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part147
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part148
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part149
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part15
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part150
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part151
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part152
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part153
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part154
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part155
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part156
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part157
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part158
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part159
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part16
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part160
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part161
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part162
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part163
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part164
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part165
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part166
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part167
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part168
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part169
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part17
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part170
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part171
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part172
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part173
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part174
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part175
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part176
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part177
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part178
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part179
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part18
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part180
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part181
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part182
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part183
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part184
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part185
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part186
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part187
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part188
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part189
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part19
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part190
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part191
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part192
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part193
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part194
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part195
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part196
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part197
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part198
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part199
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part20
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part200
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part201
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part202
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part203
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part204
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part205
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part206
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part207
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part208
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part209
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part21
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part210
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part211
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part212
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part213
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part214
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part215
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part216
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part217
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part218
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part219
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part22
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part220
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part221
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part222
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part223
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part224
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part225
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part226
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part227
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part228
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part229
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part23
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part230
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part231
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part232
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part233
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part234
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part235
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part236
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part237
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part238
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part239
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part24
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part240
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part241
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part242
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part243
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part244
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part245
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part246
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part247
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part248
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part249
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part25
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part250
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part251
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part252
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part253
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part254
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part255
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part256
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part257
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part258
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part259
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part26
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part260
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part261
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part262
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part263
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part264
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part265
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part266
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part267
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part268
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part269
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part27
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part270
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part271
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part272
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part273
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part274
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part275
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part276
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part277
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part278
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part279
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part28
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part280
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part281
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part282
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part283
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part284
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part285
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part286
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part287
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part288
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part289
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part29
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part290
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part291
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part292
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part293
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part294
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part295
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part296
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part297
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part298
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part299
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part30
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part300
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part301
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part302
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part303
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part304
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part305
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part306
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part307
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part308
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part309
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part31
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part310
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part311
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part312
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part313
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part314
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part315
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part316
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part317
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part318
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part319
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part32
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part320
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part321
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part322
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part323
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part324
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part325
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part326
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part327
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part328
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part329
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part33
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part330
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part331
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part332
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part333
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part334
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part335
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part336
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part337
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part338
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part339
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part34
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part340
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part341
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part342
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part343
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part344
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part345
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part346
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part347
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part348
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part349
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part35
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part350
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part351
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part352
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part353
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part354
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part355
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part356
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part357
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part358
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part359
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part36
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part360
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part361
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part362
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part363
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part364
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part365
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part366
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part367
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part368
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part369
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part37
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part370
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part371
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part372
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part373
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part374
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part375
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part376
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part377
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part378
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part379
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part38
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part380
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part39
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part40
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part41
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part42
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part43
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part44
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part45
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part46
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part47
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part48
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part49
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part50
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part51
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part52
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part53
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part54
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part55
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part56
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part57
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part58
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part59
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part60
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part61
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part62
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part63
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part64
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part65
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part66
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part67
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part68
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part69
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part70
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part71
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part72
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part73
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part74
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part75
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part76
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part77
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part78
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part79
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part80
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part81
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part82
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part83
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part84
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part85
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part86
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part87
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part88
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part89
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part90
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part91
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part92
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part93
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part94
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part95
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part96
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part97
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part98
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part99
+
+set_option autoImplicit false
+set_option maxRecDepth 1000000
+
+/-! Assembly of the generated record-range prime witnesses. -/
+
+namespace PrimeFactorUnimodality
+
+def recordPrimeWitnessesThrough01 : Finset Nat :=
+  recordPrimeWitnessBlock01
+
+theorem recordPrimeWitnessesThrough01_card :
+    recordPrimeWitnessesThrough01.card = 100 :=
+  recordPrimeWitnessBlock01_card
+
+theorem recordPrimeWitnessesThrough01_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough01) : p ≤ 541 :=
+  recordPrimeWitnessBlock01_upper hp
+
+theorem recordPrimeWitnessesThrough01_subset :
+    recordPrimeWitnessesThrough01 ⊆ Nat.primesBelow 500001 :=
+  recordPrimeWitnessBlock01_subset
+
+def recordPrimeWitnessesThrough02 : Finset Nat :=
+  recordPrimeWitnessesThrough01 ∪ recordPrimeWitnessBlock02
+
+private theorem recordPrimeWitnessesThrough01_disjoint_block02 :
+    Disjoint recordPrimeWitnessesThrough01 recordPrimeWitnessBlock02 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 541 :=
+    recordPrimeWitnessesThrough01_upper hpPrevious
+  have hpLower : 547 ≤ p := recordPrimeWitnessBlock02_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough02_card :
+    recordPrimeWitnessesThrough02.card = 200 := by
+  rw [recordPrimeWitnessesThrough02,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough01_disjoint_block02,
+    recordPrimeWitnessesThrough01_card,
+    recordPrimeWitnessBlock02_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough02_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough02) : p ≤ 1223 := by
+  rw [recordPrimeWitnessesThrough02, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough01_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock02_upper hpBlock
+
+theorem recordPrimeWitnessesThrough02_subset :
+    recordPrimeWitnessesThrough02 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough02, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough01_subset,
+    recordPrimeWitnessBlock02_subset⟩
+
+def recordPrimeWitnessesThrough03 : Finset Nat :=
+  recordPrimeWitnessesThrough02 ∪ recordPrimeWitnessBlock03
+
+private theorem recordPrimeWitnessesThrough02_disjoint_block03 :
+    Disjoint recordPrimeWitnessesThrough02 recordPrimeWitnessBlock03 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 1223 :=
+    recordPrimeWitnessesThrough02_upper hpPrevious
+  have hpLower : 1229 ≤ p := recordPrimeWitnessBlock03_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough03_card :
+    recordPrimeWitnessesThrough03.card = 300 := by
+  rw [recordPrimeWitnessesThrough03,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough02_disjoint_block03,
+    recordPrimeWitnessesThrough02_card,
+    recordPrimeWitnessBlock03_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough03_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough03) : p ≤ 1987 := by
+  rw [recordPrimeWitnessesThrough03, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough02_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock03_upper hpBlock
+
+theorem recordPrimeWitnessesThrough03_subset :
+    recordPrimeWitnessesThrough03 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough03, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough02_subset,
+    recordPrimeWitnessBlock03_subset⟩
+
+def recordPrimeWitnessesThrough04 : Finset Nat :=
+  recordPrimeWitnessesThrough03 ∪ recordPrimeWitnessBlock04
+
+private theorem recordPrimeWitnessesThrough03_disjoint_block04 :
+    Disjoint recordPrimeWitnessesThrough03 recordPrimeWitnessBlock04 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 1987 :=
+    recordPrimeWitnessesThrough03_upper hpPrevious
+  have hpLower : 1993 ≤ p := recordPrimeWitnessBlock04_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough04_card :
+    recordPrimeWitnessesThrough04.card = 400 := by
+  rw [recordPrimeWitnessesThrough04,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough03_disjoint_block04,
+    recordPrimeWitnessesThrough03_card,
+    recordPrimeWitnessBlock04_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough04_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough04) : p ≤ 2741 := by
+  rw [recordPrimeWitnessesThrough04, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough03_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock04_upper hpBlock
+
+theorem recordPrimeWitnessesThrough04_subset :
+    recordPrimeWitnessesThrough04 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough04, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough03_subset,
+    recordPrimeWitnessBlock04_subset⟩
+
+def recordPrimeWitnessesThrough05 : Finset Nat :=
+  recordPrimeWitnessesThrough04 ∪ recordPrimeWitnessBlock05
+
+private theorem recordPrimeWitnessesThrough04_disjoint_block05 :
+    Disjoint recordPrimeWitnessesThrough04 recordPrimeWitnessBlock05 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 2741 :=
+    recordPrimeWitnessesThrough04_upper hpPrevious
+  have hpLower : 2749 ≤ p := recordPrimeWitnessBlock05_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough05_card :
+    recordPrimeWitnessesThrough05.card = 500 := by
+  rw [recordPrimeWitnessesThrough05,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough04_disjoint_block05,
+    recordPrimeWitnessesThrough04_card,
+    recordPrimeWitnessBlock05_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough05_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough05) : p ≤ 3571 := by
+  rw [recordPrimeWitnessesThrough05, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough04_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock05_upper hpBlock
+
+theorem recordPrimeWitnessesThrough05_subset :
+    recordPrimeWitnessesThrough05 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough05, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough04_subset,
+    recordPrimeWitnessBlock05_subset⟩
+
+def recordPrimeWitnessesThrough06 : Finset Nat :=
+  recordPrimeWitnessesThrough05 ∪ recordPrimeWitnessBlock06
+
+private theorem recordPrimeWitnessesThrough05_disjoint_block06 :
+    Disjoint recordPrimeWitnessesThrough05 recordPrimeWitnessBlock06 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 3571 :=
+    recordPrimeWitnessesThrough05_upper hpPrevious
+  have hpLower : 3581 ≤ p := recordPrimeWitnessBlock06_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough06_card :
+    recordPrimeWitnessesThrough06.card = 600 := by
+  rw [recordPrimeWitnessesThrough06,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough05_disjoint_block06,
+    recordPrimeWitnessesThrough05_card,
+    recordPrimeWitnessBlock06_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough06_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough06) : p ≤ 4409 := by
+  rw [recordPrimeWitnessesThrough06, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough05_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock06_upper hpBlock
+
+theorem recordPrimeWitnessesThrough06_subset :
+    recordPrimeWitnessesThrough06 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough06, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough05_subset,
+    recordPrimeWitnessBlock06_subset⟩
+
+def recordPrimeWitnessesThrough07 : Finset Nat :=
+  recordPrimeWitnessesThrough06 ∪ recordPrimeWitnessBlock07
+
+private theorem recordPrimeWitnessesThrough06_disjoint_block07 :
+    Disjoint recordPrimeWitnessesThrough06 recordPrimeWitnessBlock07 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 4409 :=
+    recordPrimeWitnessesThrough06_upper hpPrevious
+  have hpLower : 4421 ≤ p := recordPrimeWitnessBlock07_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough07_card :
+    recordPrimeWitnessesThrough07.card = 700 := by
+  rw [recordPrimeWitnessesThrough07,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough06_disjoint_block07,
+    recordPrimeWitnessesThrough06_card,
+    recordPrimeWitnessBlock07_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough07_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough07) : p ≤ 5279 := by
+  rw [recordPrimeWitnessesThrough07, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough06_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock07_upper hpBlock
+
+theorem recordPrimeWitnessesThrough07_subset :
+    recordPrimeWitnessesThrough07 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough07, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough06_subset,
+    recordPrimeWitnessBlock07_subset⟩
+
+def recordPrimeWitnessesThrough08 : Finset Nat :=
+  recordPrimeWitnessesThrough07 ∪ recordPrimeWitnessBlock08
+
+private theorem recordPrimeWitnessesThrough07_disjoint_block08 :
+    Disjoint recordPrimeWitnessesThrough07 recordPrimeWitnessBlock08 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 5279 :=
+    recordPrimeWitnessesThrough07_upper hpPrevious
+  have hpLower : 5281 ≤ p := recordPrimeWitnessBlock08_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough08_card :
+    recordPrimeWitnessesThrough08.card = 800 := by
+  rw [recordPrimeWitnessesThrough08,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough07_disjoint_block08,
+    recordPrimeWitnessesThrough07_card,
+    recordPrimeWitnessBlock08_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough08_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough08) : p ≤ 6133 := by
+  rw [recordPrimeWitnessesThrough08, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough07_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock08_upper hpBlock
+
+theorem recordPrimeWitnessesThrough08_subset :
+    recordPrimeWitnessesThrough08 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough08, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough07_subset,
+    recordPrimeWitnessBlock08_subset⟩
+
+def recordPrimeWitnessesThrough09 : Finset Nat :=
+  recordPrimeWitnessesThrough08 ∪ recordPrimeWitnessBlock09
+
+private theorem recordPrimeWitnessesThrough08_disjoint_block09 :
+    Disjoint recordPrimeWitnessesThrough08 recordPrimeWitnessBlock09 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 6133 :=
+    recordPrimeWitnessesThrough08_upper hpPrevious
+  have hpLower : 6143 ≤ p := recordPrimeWitnessBlock09_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough09_card :
+    recordPrimeWitnessesThrough09.card = 900 := by
+  rw [recordPrimeWitnessesThrough09,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough08_disjoint_block09,
+    recordPrimeWitnessesThrough08_card,
+    recordPrimeWitnessBlock09_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough09_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough09) : p ≤ 6997 := by
+  rw [recordPrimeWitnessesThrough09, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough08_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock09_upper hpBlock
+
+theorem recordPrimeWitnessesThrough09_subset :
+    recordPrimeWitnessesThrough09 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough09, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough08_subset,
+    recordPrimeWitnessBlock09_subset⟩
+
+def recordPrimeWitnessesThrough10 : Finset Nat :=
+  recordPrimeWitnessesThrough09 ∪ recordPrimeWitnessBlock10
+
+private theorem recordPrimeWitnessesThrough09_disjoint_block10 :
+    Disjoint recordPrimeWitnessesThrough09 recordPrimeWitnessBlock10 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 6997 :=
+    recordPrimeWitnessesThrough09_upper hpPrevious
+  have hpLower : 7001 ≤ p := recordPrimeWitnessBlock10_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough10_card :
+    recordPrimeWitnessesThrough10.card = 1000 := by
+  rw [recordPrimeWitnessesThrough10,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough09_disjoint_block10,
+    recordPrimeWitnessesThrough09_card,
+    recordPrimeWitnessBlock10_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough10_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough10) : p ≤ 7919 := by
+  rw [recordPrimeWitnessesThrough10, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough09_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock10_upper hpBlock
+
+theorem recordPrimeWitnessesThrough10_subset :
+    recordPrimeWitnessesThrough10 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough10, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough09_subset,
+    recordPrimeWitnessBlock10_subset⟩
+
+def recordPrimeWitnessesThrough11 : Finset Nat :=
+  recordPrimeWitnessesThrough10 ∪ recordPrimeWitnessBlock11
+
+private theorem recordPrimeWitnessesThrough10_disjoint_block11 :
+    Disjoint recordPrimeWitnessesThrough10 recordPrimeWitnessBlock11 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 7919 :=
+    recordPrimeWitnessesThrough10_upper hpPrevious
+  have hpLower : 7927 ≤ p := recordPrimeWitnessBlock11_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough11_card :
+    recordPrimeWitnessesThrough11.card = 1100 := by
+  rw [recordPrimeWitnessesThrough11,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough10_disjoint_block11,
+    recordPrimeWitnessesThrough10_card,
+    recordPrimeWitnessBlock11_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough11_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough11) : p ≤ 8831 := by
+  rw [recordPrimeWitnessesThrough11, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough10_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock11_upper hpBlock
+
+theorem recordPrimeWitnessesThrough11_subset :
+    recordPrimeWitnessesThrough11 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough11, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough10_subset,
+    recordPrimeWitnessBlock11_subset⟩
+
+def recordPrimeWitnessesThrough12 : Finset Nat :=
+  recordPrimeWitnessesThrough11 ∪ recordPrimeWitnessBlock12
+
+private theorem recordPrimeWitnessesThrough11_disjoint_block12 :
+    Disjoint recordPrimeWitnessesThrough11 recordPrimeWitnessBlock12 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 8831 :=
+    recordPrimeWitnessesThrough11_upper hpPrevious
+  have hpLower : 8837 ≤ p := recordPrimeWitnessBlock12_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough12_card :
+    recordPrimeWitnessesThrough12.card = 1200 := by
+  rw [recordPrimeWitnessesThrough12,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough11_disjoint_block12,
+    recordPrimeWitnessesThrough11_card,
+    recordPrimeWitnessBlock12_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough12_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough12) : p ≤ 9733 := by
+  rw [recordPrimeWitnessesThrough12, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough11_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock12_upper hpBlock
+
+theorem recordPrimeWitnessesThrough12_subset :
+    recordPrimeWitnessesThrough12 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough12, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough11_subset,
+    recordPrimeWitnessBlock12_subset⟩
+
+def recordPrimeWitnessesThrough13 : Finset Nat :=
+  recordPrimeWitnessesThrough12 ∪ recordPrimeWitnessBlock13
+
+private theorem recordPrimeWitnessesThrough12_disjoint_block13 :
+    Disjoint recordPrimeWitnessesThrough12 recordPrimeWitnessBlock13 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 9733 :=
+    recordPrimeWitnessesThrough12_upper hpPrevious
+  have hpLower : 9739 ≤ p := recordPrimeWitnessBlock13_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough13_card :
+    recordPrimeWitnessesThrough13.card = 1300 := by
+  rw [recordPrimeWitnessesThrough13,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough12_disjoint_block13,
+    recordPrimeWitnessesThrough12_card,
+    recordPrimeWitnessBlock13_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough13_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough13) : p ≤ 10657 := by
+  rw [recordPrimeWitnessesThrough13, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough12_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock13_upper hpBlock
+
+theorem recordPrimeWitnessesThrough13_subset :
+    recordPrimeWitnessesThrough13 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough13, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough12_subset,
+    recordPrimeWitnessBlock13_subset⟩
+
+def recordPrimeWitnessesThrough14 : Finset Nat :=
+  recordPrimeWitnessesThrough13 ∪ recordPrimeWitnessBlock14
+
+private theorem recordPrimeWitnessesThrough13_disjoint_block14 :
+    Disjoint recordPrimeWitnessesThrough13 recordPrimeWitnessBlock14 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 10657 :=
+    recordPrimeWitnessesThrough13_upper hpPrevious
+  have hpLower : 10663 ≤ p := recordPrimeWitnessBlock14_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough14_card :
+    recordPrimeWitnessesThrough14.card = 1400 := by
+  rw [recordPrimeWitnessesThrough14,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough13_disjoint_block14,
+    recordPrimeWitnessesThrough13_card,
+    recordPrimeWitnessBlock14_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough14_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough14) : p ≤ 11657 := by
+  rw [recordPrimeWitnessesThrough14, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough13_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock14_upper hpBlock
+
+theorem recordPrimeWitnessesThrough14_subset :
+    recordPrimeWitnessesThrough14 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough14, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough13_subset,
+    recordPrimeWitnessBlock14_subset⟩
+
+def recordPrimeWitnessesThrough15 : Finset Nat :=
+  recordPrimeWitnessesThrough14 ∪ recordPrimeWitnessBlock15
+
+private theorem recordPrimeWitnessesThrough14_disjoint_block15 :
+    Disjoint recordPrimeWitnessesThrough14 recordPrimeWitnessBlock15 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 11657 :=
+    recordPrimeWitnessesThrough14_upper hpPrevious
+  have hpLower : 11677 ≤ p := recordPrimeWitnessBlock15_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough15_card :
+    recordPrimeWitnessesThrough15.card = 1500 := by
+  rw [recordPrimeWitnessesThrough15,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough14_disjoint_block15,
+    recordPrimeWitnessesThrough14_card,
+    recordPrimeWitnessBlock15_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough15_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough15) : p ≤ 12553 := by
+  rw [recordPrimeWitnessesThrough15, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough14_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock15_upper hpBlock
+
+theorem recordPrimeWitnessesThrough15_subset :
+    recordPrimeWitnessesThrough15 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough15, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough14_subset,
+    recordPrimeWitnessBlock15_subset⟩
+
+def recordPrimeWitnessesThrough16 : Finset Nat :=
+  recordPrimeWitnessesThrough15 ∪ recordPrimeWitnessBlock16
+
+private theorem recordPrimeWitnessesThrough15_disjoint_block16 :
+    Disjoint recordPrimeWitnessesThrough15 recordPrimeWitnessBlock16 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 12553 :=
+    recordPrimeWitnessesThrough15_upper hpPrevious
+  have hpLower : 12569 ≤ p := recordPrimeWitnessBlock16_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough16_card :
+    recordPrimeWitnessesThrough16.card = 1600 := by
+  rw [recordPrimeWitnessesThrough16,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough15_disjoint_block16,
+    recordPrimeWitnessesThrough15_card,
+    recordPrimeWitnessBlock16_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough16_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough16) : p ≤ 13499 := by
+  rw [recordPrimeWitnessesThrough16, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough15_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock16_upper hpBlock
+
+theorem recordPrimeWitnessesThrough16_subset :
+    recordPrimeWitnessesThrough16 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough16, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough15_subset,
+    recordPrimeWitnessBlock16_subset⟩
+
+def recordPrimeWitnessesThrough17 : Finset Nat :=
+  recordPrimeWitnessesThrough16 ∪ recordPrimeWitnessBlock17
+
+private theorem recordPrimeWitnessesThrough16_disjoint_block17 :
+    Disjoint recordPrimeWitnessesThrough16 recordPrimeWitnessBlock17 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 13499 :=
+    recordPrimeWitnessesThrough16_upper hpPrevious
+  have hpLower : 13513 ≤ p := recordPrimeWitnessBlock17_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough17_card :
+    recordPrimeWitnessesThrough17.card = 1700 := by
+  rw [recordPrimeWitnessesThrough17,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough16_disjoint_block17,
+    recordPrimeWitnessesThrough16_card,
+    recordPrimeWitnessBlock17_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough17_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough17) : p ≤ 14519 := by
+  rw [recordPrimeWitnessesThrough17, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough16_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock17_upper hpBlock
+
+theorem recordPrimeWitnessesThrough17_subset :
+    recordPrimeWitnessesThrough17 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough17, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough16_subset,
+    recordPrimeWitnessBlock17_subset⟩
+
+def recordPrimeWitnessesThrough18 : Finset Nat :=
+  recordPrimeWitnessesThrough17 ∪ recordPrimeWitnessBlock18
+
+private theorem recordPrimeWitnessesThrough17_disjoint_block18 :
+    Disjoint recordPrimeWitnessesThrough17 recordPrimeWitnessBlock18 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 14519 :=
+    recordPrimeWitnessesThrough17_upper hpPrevious
+  have hpLower : 14533 ≤ p := recordPrimeWitnessBlock18_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough18_card :
+    recordPrimeWitnessesThrough18.card = 1800 := by
+  rw [recordPrimeWitnessesThrough18,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough17_disjoint_block18,
+    recordPrimeWitnessesThrough17_card,
+    recordPrimeWitnessBlock18_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough18_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough18) : p ≤ 15401 := by
+  rw [recordPrimeWitnessesThrough18, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough17_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock18_upper hpBlock
+
+theorem recordPrimeWitnessesThrough18_subset :
+    recordPrimeWitnessesThrough18 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough18, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough17_subset,
+    recordPrimeWitnessBlock18_subset⟩
+
+def recordPrimeWitnessesThrough19 : Finset Nat :=
+  recordPrimeWitnessesThrough18 ∪ recordPrimeWitnessBlock19
+
+private theorem recordPrimeWitnessesThrough18_disjoint_block19 :
+    Disjoint recordPrimeWitnessesThrough18 recordPrimeWitnessBlock19 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 15401 :=
+    recordPrimeWitnessesThrough18_upper hpPrevious
+  have hpLower : 15413 ≤ p := recordPrimeWitnessBlock19_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough19_card :
+    recordPrimeWitnessesThrough19.card = 1900 := by
+  rw [recordPrimeWitnessesThrough19,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough18_disjoint_block19,
+    recordPrimeWitnessesThrough18_card,
+    recordPrimeWitnessBlock19_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough19_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough19) : p ≤ 16381 := by
+  rw [recordPrimeWitnessesThrough19, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough18_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock19_upper hpBlock
+
+theorem recordPrimeWitnessesThrough19_subset :
+    recordPrimeWitnessesThrough19 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough19, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough18_subset,
+    recordPrimeWitnessBlock19_subset⟩
+
+def recordPrimeWitnessesThrough20 : Finset Nat :=
+  recordPrimeWitnessesThrough19 ∪ recordPrimeWitnessBlock20
+
+private theorem recordPrimeWitnessesThrough19_disjoint_block20 :
+    Disjoint recordPrimeWitnessesThrough19 recordPrimeWitnessBlock20 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 16381 :=
+    recordPrimeWitnessesThrough19_upper hpPrevious
+  have hpLower : 16411 ≤ p := recordPrimeWitnessBlock20_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough20_card :
+    recordPrimeWitnessesThrough20.card = 2000 := by
+  rw [recordPrimeWitnessesThrough20,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough19_disjoint_block20,
+    recordPrimeWitnessesThrough19_card,
+    recordPrimeWitnessBlock20_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough20_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough20) : p ≤ 17389 := by
+  rw [recordPrimeWitnessesThrough20, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough19_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock20_upper hpBlock
+
+theorem recordPrimeWitnessesThrough20_subset :
+    recordPrimeWitnessesThrough20 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough20, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough19_subset,
+    recordPrimeWitnessBlock20_subset⟩
+
+def recordPrimeWitnessesThrough21 : Finset Nat :=
+  recordPrimeWitnessesThrough20 ∪ recordPrimeWitnessBlock21
+
+private theorem recordPrimeWitnessesThrough20_disjoint_block21 :
+    Disjoint recordPrimeWitnessesThrough20 recordPrimeWitnessBlock21 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 17389 :=
+    recordPrimeWitnessesThrough20_upper hpPrevious
+  have hpLower : 17393 ≤ p := recordPrimeWitnessBlock21_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough21_card :
+    recordPrimeWitnessesThrough21.card = 2100 := by
+  rw [recordPrimeWitnessesThrough21,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough20_disjoint_block21,
+    recordPrimeWitnessesThrough20_card,
+    recordPrimeWitnessBlock21_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough21_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough21) : p ≤ 18313 := by
+  rw [recordPrimeWitnessesThrough21, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough20_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock21_upper hpBlock
+
+theorem recordPrimeWitnessesThrough21_subset :
+    recordPrimeWitnessesThrough21 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough21, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough20_subset,
+    recordPrimeWitnessBlock21_subset⟩
+
+def recordPrimeWitnessesThrough22 : Finset Nat :=
+  recordPrimeWitnessesThrough21 ∪ recordPrimeWitnessBlock22
+
+private theorem recordPrimeWitnessesThrough21_disjoint_block22 :
+    Disjoint recordPrimeWitnessesThrough21 recordPrimeWitnessBlock22 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 18313 :=
+    recordPrimeWitnessesThrough21_upper hpPrevious
+  have hpLower : 18329 ≤ p := recordPrimeWitnessBlock22_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough22_card :
+    recordPrimeWitnessesThrough22.card = 2200 := by
+  rw [recordPrimeWitnessesThrough22,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough21_disjoint_block22,
+    recordPrimeWitnessesThrough21_card,
+    recordPrimeWitnessBlock22_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough22_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough22) : p ≤ 19423 := by
+  rw [recordPrimeWitnessesThrough22, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough21_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock22_upper hpBlock
+
+theorem recordPrimeWitnessesThrough22_subset :
+    recordPrimeWitnessesThrough22 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough22, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough21_subset,
+    recordPrimeWitnessBlock22_subset⟩
+
+def recordPrimeWitnessesThrough23 : Finset Nat :=
+  recordPrimeWitnessesThrough22 ∪ recordPrimeWitnessBlock23
+
+private theorem recordPrimeWitnessesThrough22_disjoint_block23 :
+    Disjoint recordPrimeWitnessesThrough22 recordPrimeWitnessBlock23 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 19423 :=
+    recordPrimeWitnessesThrough22_upper hpPrevious
+  have hpLower : 19427 ≤ p := recordPrimeWitnessBlock23_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough23_card :
+    recordPrimeWitnessesThrough23.card = 2300 := by
+  rw [recordPrimeWitnessesThrough23,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough22_disjoint_block23,
+    recordPrimeWitnessesThrough22_card,
+    recordPrimeWitnessBlock23_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough23_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough23) : p ≤ 20357 := by
+  rw [recordPrimeWitnessesThrough23, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough22_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock23_upper hpBlock
+
+theorem recordPrimeWitnessesThrough23_subset :
+    recordPrimeWitnessesThrough23 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough23, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough22_subset,
+    recordPrimeWitnessBlock23_subset⟩
+
+def recordPrimeWitnessesThrough24 : Finset Nat :=
+  recordPrimeWitnessesThrough23 ∪ recordPrimeWitnessBlock24
+
+private theorem recordPrimeWitnessesThrough23_disjoint_block24 :
+    Disjoint recordPrimeWitnessesThrough23 recordPrimeWitnessBlock24 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 20357 :=
+    recordPrimeWitnessesThrough23_upper hpPrevious
+  have hpLower : 20359 ≤ p := recordPrimeWitnessBlock24_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough24_card :
+    recordPrimeWitnessesThrough24.card = 2400 := by
+  rw [recordPrimeWitnessesThrough24,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough23_disjoint_block24,
+    recordPrimeWitnessesThrough23_card,
+    recordPrimeWitnessBlock24_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough24_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough24) : p ≤ 21383 := by
+  rw [recordPrimeWitnessesThrough24, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough23_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock24_upper hpBlock
+
+theorem recordPrimeWitnessesThrough24_subset :
+    recordPrimeWitnessesThrough24 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough24, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough23_subset,
+    recordPrimeWitnessBlock24_subset⟩
+
+def recordPrimeWitnessesThrough25 : Finset Nat :=
+  recordPrimeWitnessesThrough24 ∪ recordPrimeWitnessBlock25
+
+private theorem recordPrimeWitnessesThrough24_disjoint_block25 :
+    Disjoint recordPrimeWitnessesThrough24 recordPrimeWitnessBlock25 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 21383 :=
+    recordPrimeWitnessesThrough24_upper hpPrevious
+  have hpLower : 21391 ≤ p := recordPrimeWitnessBlock25_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough25_card :
+    recordPrimeWitnessesThrough25.card = 2500 := by
+  rw [recordPrimeWitnessesThrough25,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough24_disjoint_block25,
+    recordPrimeWitnessesThrough24_card,
+    recordPrimeWitnessBlock25_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough25_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough25) : p ≤ 22307 := by
+  rw [recordPrimeWitnessesThrough25, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough24_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock25_upper hpBlock
+
+theorem recordPrimeWitnessesThrough25_subset :
+    recordPrimeWitnessesThrough25 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough25, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough24_subset,
+    recordPrimeWitnessBlock25_subset⟩
+
+def recordPrimeWitnessesThrough26 : Finset Nat :=
+  recordPrimeWitnessesThrough25 ∪ recordPrimeWitnessBlock26
+
+private theorem recordPrimeWitnessesThrough25_disjoint_block26 :
+    Disjoint recordPrimeWitnessesThrough25 recordPrimeWitnessBlock26 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 22307 :=
+    recordPrimeWitnessesThrough25_upper hpPrevious
+  have hpLower : 22343 ≤ p := recordPrimeWitnessBlock26_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough26_card :
+    recordPrimeWitnessesThrough26.card = 2600 := by
+  rw [recordPrimeWitnessesThrough26,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough25_disjoint_block26,
+    recordPrimeWitnessesThrough25_card,
+    recordPrimeWitnessBlock26_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough26_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough26) : p ≤ 23321 := by
+  rw [recordPrimeWitnessesThrough26, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough25_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock26_upper hpBlock
+
+theorem recordPrimeWitnessesThrough26_subset :
+    recordPrimeWitnessesThrough26 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough26, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough25_subset,
+    recordPrimeWitnessBlock26_subset⟩
+
+def recordPrimeWitnessesThrough27 : Finset Nat :=
+  recordPrimeWitnessesThrough26 ∪ recordPrimeWitnessBlock27
+
+private theorem recordPrimeWitnessesThrough26_disjoint_block27 :
+    Disjoint recordPrimeWitnessesThrough26 recordPrimeWitnessBlock27 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 23321 :=
+    recordPrimeWitnessesThrough26_upper hpPrevious
+  have hpLower : 23327 ≤ p := recordPrimeWitnessBlock27_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough27_card :
+    recordPrimeWitnessesThrough27.card = 2700 := by
+  rw [recordPrimeWitnessesThrough27,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough26_disjoint_block27,
+    recordPrimeWitnessesThrough26_card,
+    recordPrimeWitnessBlock27_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough27_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough27) : p ≤ 24281 := by
+  rw [recordPrimeWitnessesThrough27, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough26_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock27_upper hpBlock
+
+theorem recordPrimeWitnessesThrough27_subset :
+    recordPrimeWitnessesThrough27 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough27, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough26_subset,
+    recordPrimeWitnessBlock27_subset⟩
+
+def recordPrimeWitnessesThrough28 : Finset Nat :=
+  recordPrimeWitnessesThrough27 ∪ recordPrimeWitnessBlock28
+
+private theorem recordPrimeWitnessesThrough27_disjoint_block28 :
+    Disjoint recordPrimeWitnessesThrough27 recordPrimeWitnessBlock28 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 24281 :=
+    recordPrimeWitnessesThrough27_upper hpPrevious
+  have hpLower : 24317 ≤ p := recordPrimeWitnessBlock28_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough28_card :
+    recordPrimeWitnessesThrough28.card = 2800 := by
+  rw [recordPrimeWitnessesThrough28,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough27_disjoint_block28,
+    recordPrimeWitnessesThrough27_card,
+    recordPrimeWitnessBlock28_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough28_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough28) : p ≤ 25391 := by
+  rw [recordPrimeWitnessesThrough28, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough27_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock28_upper hpBlock
+
+theorem recordPrimeWitnessesThrough28_subset :
+    recordPrimeWitnessesThrough28 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough28, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough27_subset,
+    recordPrimeWitnessBlock28_subset⟩
+
+def recordPrimeWitnessesThrough29 : Finset Nat :=
+  recordPrimeWitnessesThrough28 ∪ recordPrimeWitnessBlock29
+
+private theorem recordPrimeWitnessesThrough28_disjoint_block29 :
+    Disjoint recordPrimeWitnessesThrough28 recordPrimeWitnessBlock29 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 25391 :=
+    recordPrimeWitnessesThrough28_upper hpPrevious
+  have hpLower : 25409 ≤ p := recordPrimeWitnessBlock29_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough29_card :
+    recordPrimeWitnessesThrough29.card = 2900 := by
+  rw [recordPrimeWitnessesThrough29,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough28_disjoint_block29,
+    recordPrimeWitnessesThrough28_card,
+    recordPrimeWitnessBlock29_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough29_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough29) : p ≤ 26399 := by
+  rw [recordPrimeWitnessesThrough29, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough28_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock29_upper hpBlock
+
+theorem recordPrimeWitnessesThrough29_subset :
+    recordPrimeWitnessesThrough29 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough29, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough28_subset,
+    recordPrimeWitnessBlock29_subset⟩
+
+def recordPrimeWitnessesThrough30 : Finset Nat :=
+  recordPrimeWitnessesThrough29 ∪ recordPrimeWitnessBlock30
+
+private theorem recordPrimeWitnessesThrough29_disjoint_block30 :
+    Disjoint recordPrimeWitnessesThrough29 recordPrimeWitnessBlock30 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 26399 :=
+    recordPrimeWitnessesThrough29_upper hpPrevious
+  have hpLower : 26407 ≤ p := recordPrimeWitnessBlock30_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough30_card :
+    recordPrimeWitnessesThrough30.card = 3000 := by
+  rw [recordPrimeWitnessesThrough30,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough29_disjoint_block30,
+    recordPrimeWitnessesThrough29_card,
+    recordPrimeWitnessBlock30_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough30_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough30) : p ≤ 27449 := by
+  rw [recordPrimeWitnessesThrough30, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough29_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock30_upper hpBlock
+
+theorem recordPrimeWitnessesThrough30_subset :
+    recordPrimeWitnessesThrough30 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough30, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough29_subset,
+    recordPrimeWitnessBlock30_subset⟩
+
+def recordPrimeWitnessesThrough31 : Finset Nat :=
+  recordPrimeWitnessesThrough30 ∪ recordPrimeWitnessBlock31
+
+private theorem recordPrimeWitnessesThrough30_disjoint_block31 :
+    Disjoint recordPrimeWitnessesThrough30 recordPrimeWitnessBlock31 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 27449 :=
+    recordPrimeWitnessesThrough30_upper hpPrevious
+  have hpLower : 27457 ≤ p := recordPrimeWitnessBlock31_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough31_card :
+    recordPrimeWitnessesThrough31.card = 3100 := by
+  rw [recordPrimeWitnessesThrough31,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough30_disjoint_block31,
+    recordPrimeWitnessesThrough30_card,
+    recordPrimeWitnessBlock31_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough31_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough31) : p ≤ 28499 := by
+  rw [recordPrimeWitnessesThrough31, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough30_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock31_upper hpBlock
+
+theorem recordPrimeWitnessesThrough31_subset :
+    recordPrimeWitnessesThrough31 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough31, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough30_subset,
+    recordPrimeWitnessBlock31_subset⟩
+
+def recordPrimeWitnessesThrough32 : Finset Nat :=
+  recordPrimeWitnessesThrough31 ∪ recordPrimeWitnessBlock32
+
+private theorem recordPrimeWitnessesThrough31_disjoint_block32 :
+    Disjoint recordPrimeWitnessesThrough31 recordPrimeWitnessBlock32 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 28499 :=
+    recordPrimeWitnessesThrough31_upper hpPrevious
+  have hpLower : 28513 ≤ p := recordPrimeWitnessBlock32_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough32_card :
+    recordPrimeWitnessesThrough32.card = 3200 := by
+  rw [recordPrimeWitnessesThrough32,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough31_disjoint_block32,
+    recordPrimeWitnessesThrough31_card,
+    recordPrimeWitnessBlock32_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough32_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough32) : p ≤ 29443 := by
+  rw [recordPrimeWitnessesThrough32, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough31_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock32_upper hpBlock
+
+theorem recordPrimeWitnessesThrough32_subset :
+    recordPrimeWitnessesThrough32 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough32, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough31_subset,
+    recordPrimeWitnessBlock32_subset⟩
+
+def recordPrimeWitnessesThrough33 : Finset Nat :=
+  recordPrimeWitnessesThrough32 ∪ recordPrimeWitnessBlock33
+
+private theorem recordPrimeWitnessesThrough32_disjoint_block33 :
+    Disjoint recordPrimeWitnessesThrough32 recordPrimeWitnessBlock33 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 29443 :=
+    recordPrimeWitnessesThrough32_upper hpPrevious
+  have hpLower : 29453 ≤ p := recordPrimeWitnessBlock33_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough33_card :
+    recordPrimeWitnessesThrough33.card = 3300 := by
+  rw [recordPrimeWitnessesThrough33,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough32_disjoint_block33,
+    recordPrimeWitnessesThrough32_card,
+    recordPrimeWitnessBlock33_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough33_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough33) : p ≤ 30559 := by
+  rw [recordPrimeWitnessesThrough33, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough32_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock33_upper hpBlock
+
+theorem recordPrimeWitnessesThrough33_subset :
+    recordPrimeWitnessesThrough33 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough33, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough32_subset,
+    recordPrimeWitnessBlock33_subset⟩
+
+def recordPrimeWitnessesThrough34 : Finset Nat :=
+  recordPrimeWitnessesThrough33 ∪ recordPrimeWitnessBlock34
+
+private theorem recordPrimeWitnessesThrough33_disjoint_block34 :
+    Disjoint recordPrimeWitnessesThrough33 recordPrimeWitnessBlock34 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 30559 :=
+    recordPrimeWitnessesThrough33_upper hpPrevious
+  have hpLower : 30577 ≤ p := recordPrimeWitnessBlock34_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough34_card :
+    recordPrimeWitnessesThrough34.card = 3400 := by
+  rw [recordPrimeWitnessesThrough34,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough33_disjoint_block34,
+    recordPrimeWitnessesThrough33_card,
+    recordPrimeWitnessBlock34_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough34_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough34) : p ≤ 31601 := by
+  rw [recordPrimeWitnessesThrough34, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough33_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock34_upper hpBlock
+
+theorem recordPrimeWitnessesThrough34_subset :
+    recordPrimeWitnessesThrough34 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough34, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough33_subset,
+    recordPrimeWitnessBlock34_subset⟩
+
+def recordPrimeWitnessesThrough35 : Finset Nat :=
+  recordPrimeWitnessesThrough34 ∪ recordPrimeWitnessBlock35
+
+private theorem recordPrimeWitnessesThrough34_disjoint_block35 :
+    Disjoint recordPrimeWitnessesThrough34 recordPrimeWitnessBlock35 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 31601 :=
+    recordPrimeWitnessesThrough34_upper hpPrevious
+  have hpLower : 31607 ≤ p := recordPrimeWitnessBlock35_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough35_card :
+    recordPrimeWitnessesThrough35.card = 3500 := by
+  rw [recordPrimeWitnessesThrough35,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough34_disjoint_block35,
+    recordPrimeWitnessesThrough34_card,
+    recordPrimeWitnessBlock35_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough35_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough35) : p ≤ 32609 := by
+  rw [recordPrimeWitnessesThrough35, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough34_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock35_upper hpBlock
+
+theorem recordPrimeWitnessesThrough35_subset :
+    recordPrimeWitnessesThrough35 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough35, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough34_subset,
+    recordPrimeWitnessBlock35_subset⟩
+
+def recordPrimeWitnessesThrough36 : Finset Nat :=
+  recordPrimeWitnessesThrough35 ∪ recordPrimeWitnessBlock36
+
+private theorem recordPrimeWitnessesThrough35_disjoint_block36 :
+    Disjoint recordPrimeWitnessesThrough35 recordPrimeWitnessBlock36 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 32609 :=
+    recordPrimeWitnessesThrough35_upper hpPrevious
+  have hpLower : 32611 ≤ p := recordPrimeWitnessBlock36_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough36_card :
+    recordPrimeWitnessesThrough36.card = 3600 := by
+  rw [recordPrimeWitnessesThrough36,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough35_disjoint_block36,
+    recordPrimeWitnessesThrough35_card,
+    recordPrimeWitnessBlock36_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough36_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough36) : p ≤ 33613 := by
+  rw [recordPrimeWitnessesThrough36, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough35_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock36_upper hpBlock
+
+theorem recordPrimeWitnessesThrough36_subset :
+    recordPrimeWitnessesThrough36 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough36, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough35_subset,
+    recordPrimeWitnessBlock36_subset⟩
+
+def recordPrimeWitnessesThrough37 : Finset Nat :=
+  recordPrimeWitnessesThrough36 ∪ recordPrimeWitnessBlock37
+
+private theorem recordPrimeWitnessesThrough36_disjoint_block37 :
+    Disjoint recordPrimeWitnessesThrough36 recordPrimeWitnessBlock37 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 33613 :=
+    recordPrimeWitnessesThrough36_upper hpPrevious
+  have hpLower : 33617 ≤ p := recordPrimeWitnessBlock37_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough37_card :
+    recordPrimeWitnessesThrough37.card = 3700 := by
+  rw [recordPrimeWitnessesThrough37,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough36_disjoint_block37,
+    recordPrimeWitnessesThrough36_card,
+    recordPrimeWitnessBlock37_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough37_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough37) : p ≤ 34649 := by
+  rw [recordPrimeWitnessesThrough37, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough36_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock37_upper hpBlock
+
+theorem recordPrimeWitnessesThrough37_subset :
+    recordPrimeWitnessesThrough37 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough37, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough36_subset,
+    recordPrimeWitnessBlock37_subset⟩
+
+def recordPrimeWitnessesThrough38 : Finset Nat :=
+  recordPrimeWitnessesThrough37 ∪ recordPrimeWitnessBlock38
+
+private theorem recordPrimeWitnessesThrough37_disjoint_block38 :
+    Disjoint recordPrimeWitnessesThrough37 recordPrimeWitnessBlock38 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 34649 :=
+    recordPrimeWitnessesThrough37_upper hpPrevious
+  have hpLower : 34651 ≤ p := recordPrimeWitnessBlock38_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough38_card :
+    recordPrimeWitnessesThrough38.card = 3800 := by
+  rw [recordPrimeWitnessesThrough38,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough37_disjoint_block38,
+    recordPrimeWitnessesThrough37_card,
+    recordPrimeWitnessBlock38_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough38_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough38) : p ≤ 35759 := by
+  rw [recordPrimeWitnessesThrough38, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough37_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock38_upper hpBlock
+
+theorem recordPrimeWitnessesThrough38_subset :
+    recordPrimeWitnessesThrough38 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough38, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough37_subset,
+    recordPrimeWitnessBlock38_subset⟩
+
+def recordPrimeWitnessesThrough39 : Finset Nat :=
+  recordPrimeWitnessesThrough38 ∪ recordPrimeWitnessBlock39
+
+private theorem recordPrimeWitnessesThrough38_disjoint_block39 :
+    Disjoint recordPrimeWitnessesThrough38 recordPrimeWitnessBlock39 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 35759 :=
+    recordPrimeWitnessesThrough38_upper hpPrevious
+  have hpLower : 35771 ≤ p := recordPrimeWitnessBlock39_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough39_card :
+    recordPrimeWitnessesThrough39.card = 3900 := by
+  rw [recordPrimeWitnessesThrough39,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough38_disjoint_block39,
+    recordPrimeWitnessesThrough38_card,
+    recordPrimeWitnessBlock39_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough39_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough39) : p ≤ 36781 := by
+  rw [recordPrimeWitnessesThrough39, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough38_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock39_upper hpBlock
+
+theorem recordPrimeWitnessesThrough39_subset :
+    recordPrimeWitnessesThrough39 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough39, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough38_subset,
+    recordPrimeWitnessBlock39_subset⟩
+
+def recordPrimeWitnessesThrough40 : Finset Nat :=
+  recordPrimeWitnessesThrough39 ∪ recordPrimeWitnessBlock40
+
+private theorem recordPrimeWitnessesThrough39_disjoint_block40 :
+    Disjoint recordPrimeWitnessesThrough39 recordPrimeWitnessBlock40 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 36781 :=
+    recordPrimeWitnessesThrough39_upper hpPrevious
+  have hpLower : 36787 ≤ p := recordPrimeWitnessBlock40_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough40_card :
+    recordPrimeWitnessesThrough40.card = 4000 := by
+  rw [recordPrimeWitnessesThrough40,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough39_disjoint_block40,
+    recordPrimeWitnessesThrough39_card,
+    recordPrimeWitnessBlock40_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough40_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough40) : p ≤ 37813 := by
+  rw [recordPrimeWitnessesThrough40, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough39_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock40_upper hpBlock
+
+theorem recordPrimeWitnessesThrough40_subset :
+    recordPrimeWitnessesThrough40 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough40, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough39_subset,
+    recordPrimeWitnessBlock40_subset⟩
+
+def recordPrimeWitnessesThrough41 : Finset Nat :=
+  recordPrimeWitnessesThrough40 ∪ recordPrimeWitnessBlock41
+
+private theorem recordPrimeWitnessesThrough40_disjoint_block41 :
+    Disjoint recordPrimeWitnessesThrough40 recordPrimeWitnessBlock41 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 37813 :=
+    recordPrimeWitnessesThrough40_upper hpPrevious
+  have hpLower : 37831 ≤ p := recordPrimeWitnessBlock41_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough41_card :
+    recordPrimeWitnessesThrough41.card = 4100 := by
+  rw [recordPrimeWitnessesThrough41,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough40_disjoint_block41,
+    recordPrimeWitnessesThrough40_card,
+    recordPrimeWitnessBlock41_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough41_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough41) : p ≤ 38921 := by
+  rw [recordPrimeWitnessesThrough41, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough40_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock41_upper hpBlock
+
+theorem recordPrimeWitnessesThrough41_subset :
+    recordPrimeWitnessesThrough41 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough41, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough40_subset,
+    recordPrimeWitnessBlock41_subset⟩
+
+def recordPrimeWitnessesThrough42 : Finset Nat :=
+  recordPrimeWitnessesThrough41 ∪ recordPrimeWitnessBlock42
+
+private theorem recordPrimeWitnessesThrough41_disjoint_block42 :
+    Disjoint recordPrimeWitnessesThrough41 recordPrimeWitnessBlock42 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 38921 :=
+    recordPrimeWitnessesThrough41_upper hpPrevious
+  have hpLower : 38923 ≤ p := recordPrimeWitnessBlock42_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough42_card :
+    recordPrimeWitnessesThrough42.card = 4200 := by
+  rw [recordPrimeWitnessesThrough42,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough41_disjoint_block42,
+    recordPrimeWitnessesThrough41_card,
+    recordPrimeWitnessBlock42_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough42_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough42) : p ≤ 39971 := by
+  rw [recordPrimeWitnessesThrough42, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough41_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock42_upper hpBlock
+
+theorem recordPrimeWitnessesThrough42_subset :
+    recordPrimeWitnessesThrough42 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough42, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough41_subset,
+    recordPrimeWitnessBlock42_subset⟩
+
+def recordPrimeWitnessesThrough43 : Finset Nat :=
+  recordPrimeWitnessesThrough42 ∪ recordPrimeWitnessBlock43
+
+private theorem recordPrimeWitnessesThrough42_disjoint_block43 :
+    Disjoint recordPrimeWitnessesThrough42 recordPrimeWitnessBlock43 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 39971 :=
+    recordPrimeWitnessesThrough42_upper hpPrevious
+  have hpLower : 39979 ≤ p := recordPrimeWitnessBlock43_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough43_card :
+    recordPrimeWitnessesThrough43.card = 4300 := by
+  rw [recordPrimeWitnessesThrough43,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough42_disjoint_block43,
+    recordPrimeWitnessesThrough42_card,
+    recordPrimeWitnessBlock43_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough43_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough43) : p ≤ 41081 := by
+  rw [recordPrimeWitnessesThrough43, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough42_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock43_upper hpBlock
+
+theorem recordPrimeWitnessesThrough43_subset :
+    recordPrimeWitnessesThrough43 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough43, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough42_subset,
+    recordPrimeWitnessBlock43_subset⟩
+
+def recordPrimeWitnessesThrough44 : Finset Nat :=
+  recordPrimeWitnessesThrough43 ∪ recordPrimeWitnessBlock44
+
+private theorem recordPrimeWitnessesThrough43_disjoint_block44 :
+    Disjoint recordPrimeWitnessesThrough43 recordPrimeWitnessBlock44 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 41081 :=
+    recordPrimeWitnessesThrough43_upper hpPrevious
+  have hpLower : 41113 ≤ p := recordPrimeWitnessBlock44_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough44_card :
+    recordPrimeWitnessesThrough44.card = 4400 := by
+  rw [recordPrimeWitnessesThrough44,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough43_disjoint_block44,
+    recordPrimeWitnessesThrough43_card,
+    recordPrimeWitnessBlock44_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough44_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough44) : p ≤ 42073 := by
+  rw [recordPrimeWitnessesThrough44, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough43_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock44_upper hpBlock
+
+theorem recordPrimeWitnessesThrough44_subset :
+    recordPrimeWitnessesThrough44 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough44, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough43_subset,
+    recordPrimeWitnessBlock44_subset⟩
+
+def recordPrimeWitnessesThrough45 : Finset Nat :=
+  recordPrimeWitnessesThrough44 ∪ recordPrimeWitnessBlock45
+
+private theorem recordPrimeWitnessesThrough44_disjoint_block45 :
+    Disjoint recordPrimeWitnessesThrough44 recordPrimeWitnessBlock45 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 42073 :=
+    recordPrimeWitnessesThrough44_upper hpPrevious
+  have hpLower : 42083 ≤ p := recordPrimeWitnessBlock45_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough45_card :
+    recordPrimeWitnessesThrough45.card = 4500 := by
+  rw [recordPrimeWitnessesThrough45,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough44_disjoint_block45,
+    recordPrimeWitnessesThrough44_card,
+    recordPrimeWitnessBlock45_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough45_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough45) : p ≤ 43051 := by
+  rw [recordPrimeWitnessesThrough45, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough44_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock45_upper hpBlock
+
+theorem recordPrimeWitnessesThrough45_subset :
+    recordPrimeWitnessesThrough45 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough45, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough44_subset,
+    recordPrimeWitnessBlock45_subset⟩
+
+def recordPrimeWitnessesThrough46 : Finset Nat :=
+  recordPrimeWitnessesThrough45 ∪ recordPrimeWitnessBlock46
+
+private theorem recordPrimeWitnessesThrough45_disjoint_block46 :
+    Disjoint recordPrimeWitnessesThrough45 recordPrimeWitnessBlock46 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 43051 :=
+    recordPrimeWitnessesThrough45_upper hpPrevious
+  have hpLower : 43063 ≤ p := recordPrimeWitnessBlock46_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough46_card :
+    recordPrimeWitnessesThrough46.card = 4600 := by
+  rw [recordPrimeWitnessesThrough46,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough45_disjoint_block46,
+    recordPrimeWitnessesThrough45_card,
+    recordPrimeWitnessBlock46_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough46_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough46) : p ≤ 44201 := by
+  rw [recordPrimeWitnessesThrough46, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough45_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock46_upper hpBlock
+
+theorem recordPrimeWitnessesThrough46_subset :
+    recordPrimeWitnessesThrough46 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough46, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough45_subset,
+    recordPrimeWitnessBlock46_subset⟩
+
+def recordPrimeWitnessesThrough47 : Finset Nat :=
+  recordPrimeWitnessesThrough46 ∪ recordPrimeWitnessBlock47
+
+private theorem recordPrimeWitnessesThrough46_disjoint_block47 :
+    Disjoint recordPrimeWitnessesThrough46 recordPrimeWitnessBlock47 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 44201 :=
+    recordPrimeWitnessesThrough46_upper hpPrevious
+  have hpLower : 44203 ≤ p := recordPrimeWitnessBlock47_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough47_card :
+    recordPrimeWitnessesThrough47.card = 4700 := by
+  rw [recordPrimeWitnessesThrough47,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough46_disjoint_block47,
+    recordPrimeWitnessesThrough46_card,
+    recordPrimeWitnessBlock47_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough47_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough47) : p ≤ 45307 := by
+  rw [recordPrimeWitnessesThrough47, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough46_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock47_upper hpBlock
+
+theorem recordPrimeWitnessesThrough47_subset :
+    recordPrimeWitnessesThrough47 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough47, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough46_subset,
+    recordPrimeWitnessBlock47_subset⟩
+
+def recordPrimeWitnessesThrough48 : Finset Nat :=
+  recordPrimeWitnessesThrough47 ∪ recordPrimeWitnessBlock48
+
+private theorem recordPrimeWitnessesThrough47_disjoint_block48 :
+    Disjoint recordPrimeWitnessesThrough47 recordPrimeWitnessBlock48 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 45307 :=
+    recordPrimeWitnessesThrough47_upper hpPrevious
+  have hpLower : 45317 ≤ p := recordPrimeWitnessBlock48_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough48_card :
+    recordPrimeWitnessesThrough48.card = 4800 := by
+  rw [recordPrimeWitnessesThrough48,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough47_disjoint_block48,
+    recordPrimeWitnessesThrough47_card,
+    recordPrimeWitnessBlock48_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough48_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough48) : p ≤ 46447 := by
+  rw [recordPrimeWitnessesThrough48, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough47_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock48_upper hpBlock
+
+theorem recordPrimeWitnessesThrough48_subset :
+    recordPrimeWitnessesThrough48 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough48, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough47_subset,
+    recordPrimeWitnessBlock48_subset⟩
+
+def recordPrimeWitnessesThrough49 : Finset Nat :=
+  recordPrimeWitnessesThrough48 ∪ recordPrimeWitnessBlock49
+
+private theorem recordPrimeWitnessesThrough48_disjoint_block49 :
+    Disjoint recordPrimeWitnessesThrough48 recordPrimeWitnessBlock49 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 46447 :=
+    recordPrimeWitnessesThrough48_upper hpPrevious
+  have hpLower : 46451 ≤ p := recordPrimeWitnessBlock49_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough49_card :
+    recordPrimeWitnessesThrough49.card = 4900 := by
+  rw [recordPrimeWitnessesThrough49,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough48_disjoint_block49,
+    recordPrimeWitnessesThrough48_card,
+    recordPrimeWitnessBlock49_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough49_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough49) : p ≤ 47527 := by
+  rw [recordPrimeWitnessesThrough49, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough48_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock49_upper hpBlock
+
+theorem recordPrimeWitnessesThrough49_subset :
+    recordPrimeWitnessesThrough49 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough49, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough48_subset,
+    recordPrimeWitnessBlock49_subset⟩
+
+def recordPrimeWitnessesThrough50 : Finset Nat :=
+  recordPrimeWitnessesThrough49 ∪ recordPrimeWitnessBlock50
+
+private theorem recordPrimeWitnessesThrough49_disjoint_block50 :
+    Disjoint recordPrimeWitnessesThrough49 recordPrimeWitnessBlock50 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 47527 :=
+    recordPrimeWitnessesThrough49_upper hpPrevious
+  have hpLower : 47533 ≤ p := recordPrimeWitnessBlock50_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough50_card :
+    recordPrimeWitnessesThrough50.card = 5000 := by
+  rw [recordPrimeWitnessesThrough50,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough49_disjoint_block50,
+    recordPrimeWitnessesThrough49_card,
+    recordPrimeWitnessBlock50_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough50_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough50) : p ≤ 48611 := by
+  rw [recordPrimeWitnessesThrough50, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough49_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock50_upper hpBlock
+
+theorem recordPrimeWitnessesThrough50_subset :
+    recordPrimeWitnessesThrough50 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough50, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough49_subset,
+    recordPrimeWitnessBlock50_subset⟩
+
+def recordPrimeWitnessesThrough51 : Finset Nat :=
+  recordPrimeWitnessesThrough50 ∪ recordPrimeWitnessBlock51
+
+private theorem recordPrimeWitnessesThrough50_disjoint_block51 :
+    Disjoint recordPrimeWitnessesThrough50 recordPrimeWitnessBlock51 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 48611 :=
+    recordPrimeWitnessesThrough50_upper hpPrevious
+  have hpLower : 48619 ≤ p := recordPrimeWitnessBlock51_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough51_card :
+    recordPrimeWitnessesThrough51.card = 5100 := by
+  rw [recordPrimeWitnessesThrough51,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough50_disjoint_block51,
+    recordPrimeWitnessesThrough50_card,
+    recordPrimeWitnessBlock51_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough51_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough51) : p ≤ 49663 := by
+  rw [recordPrimeWitnessesThrough51, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough50_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock51_upper hpBlock
+
+theorem recordPrimeWitnessesThrough51_subset :
+    recordPrimeWitnessesThrough51 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough51, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough50_subset,
+    recordPrimeWitnessBlock51_subset⟩
+
+def recordPrimeWitnessesThrough52 : Finset Nat :=
+  recordPrimeWitnessesThrough51 ∪ recordPrimeWitnessBlock52
+
+private theorem recordPrimeWitnessesThrough51_disjoint_block52 :
+    Disjoint recordPrimeWitnessesThrough51 recordPrimeWitnessBlock52 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 49663 :=
+    recordPrimeWitnessesThrough51_upper hpPrevious
+  have hpLower : 49667 ≤ p := recordPrimeWitnessBlock52_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough52_card :
+    recordPrimeWitnessesThrough52.card = 5200 := by
+  rw [recordPrimeWitnessesThrough52,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough51_disjoint_block52,
+    recordPrimeWitnessesThrough51_card,
+    recordPrimeWitnessBlock52_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough52_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough52) : p ≤ 50753 := by
+  rw [recordPrimeWitnessesThrough52, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough51_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock52_upper hpBlock
+
+theorem recordPrimeWitnessesThrough52_subset :
+    recordPrimeWitnessesThrough52 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough52, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough51_subset,
+    recordPrimeWitnessBlock52_subset⟩
+
+def recordPrimeWitnessesThrough53 : Finset Nat :=
+  recordPrimeWitnessesThrough52 ∪ recordPrimeWitnessBlock53
+
+private theorem recordPrimeWitnessesThrough52_disjoint_block53 :
+    Disjoint recordPrimeWitnessesThrough52 recordPrimeWitnessBlock53 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 50753 :=
+    recordPrimeWitnessesThrough52_upper hpPrevious
+  have hpLower : 50767 ≤ p := recordPrimeWitnessBlock53_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough53_card :
+    recordPrimeWitnessesThrough53.card = 5300 := by
+  rw [recordPrimeWitnessesThrough53,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough52_disjoint_block53,
+    recordPrimeWitnessesThrough52_card,
+    recordPrimeWitnessBlock53_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough53_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough53) : p ≤ 51803 := by
+  rw [recordPrimeWitnessesThrough53, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough52_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock53_upper hpBlock
+
+theorem recordPrimeWitnessesThrough53_subset :
+    recordPrimeWitnessesThrough53 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough53, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough52_subset,
+    recordPrimeWitnessBlock53_subset⟩
+
+def recordPrimeWitnessesThrough54 : Finset Nat :=
+  recordPrimeWitnessesThrough53 ∪ recordPrimeWitnessBlock54
+
+private theorem recordPrimeWitnessesThrough53_disjoint_block54 :
+    Disjoint recordPrimeWitnessesThrough53 recordPrimeWitnessBlock54 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 51803 :=
+    recordPrimeWitnessesThrough53_upper hpPrevious
+  have hpLower : 51817 ≤ p := recordPrimeWitnessBlock54_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough54_card :
+    recordPrimeWitnessesThrough54.card = 5400 := by
+  rw [recordPrimeWitnessesThrough54,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough53_disjoint_block54,
+    recordPrimeWitnessesThrough53_card,
+    recordPrimeWitnessBlock54_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough54_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough54) : p ≤ 52919 := by
+  rw [recordPrimeWitnessesThrough54, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough53_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock54_upper hpBlock
+
+theorem recordPrimeWitnessesThrough54_subset :
+    recordPrimeWitnessesThrough54 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough54, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough53_subset,
+    recordPrimeWitnessBlock54_subset⟩
+
+def recordPrimeWitnessesThrough55 : Finset Nat :=
+  recordPrimeWitnessesThrough54 ∪ recordPrimeWitnessBlock55
+
+private theorem recordPrimeWitnessesThrough54_disjoint_block55 :
+    Disjoint recordPrimeWitnessesThrough54 recordPrimeWitnessBlock55 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 52919 :=
+    recordPrimeWitnessesThrough54_upper hpPrevious
+  have hpLower : 52937 ≤ p := recordPrimeWitnessBlock55_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough55_card :
+    recordPrimeWitnessesThrough55.card = 5500 := by
+  rw [recordPrimeWitnessesThrough55,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough54_disjoint_block55,
+    recordPrimeWitnessesThrough54_card,
+    recordPrimeWitnessBlock55_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough55_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough55) : p ≤ 53993 := by
+  rw [recordPrimeWitnessesThrough55, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough54_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock55_upper hpBlock
+
+theorem recordPrimeWitnessesThrough55_subset :
+    recordPrimeWitnessesThrough55 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough55, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough54_subset,
+    recordPrimeWitnessBlock55_subset⟩
+
+def recordPrimeWitnessesThrough56 : Finset Nat :=
+  recordPrimeWitnessesThrough55 ∪ recordPrimeWitnessBlock56
+
+private theorem recordPrimeWitnessesThrough55_disjoint_block56 :
+    Disjoint recordPrimeWitnessesThrough55 recordPrimeWitnessBlock56 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 53993 :=
+    recordPrimeWitnessesThrough55_upper hpPrevious
+  have hpLower : 54001 ≤ p := recordPrimeWitnessBlock56_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough56_card :
+    recordPrimeWitnessesThrough56.card = 5600 := by
+  rw [recordPrimeWitnessesThrough56,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough55_disjoint_block56,
+    recordPrimeWitnessesThrough55_card,
+    recordPrimeWitnessBlock56_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough56_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough56) : p ≤ 55103 := by
+  rw [recordPrimeWitnessesThrough56, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough55_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock56_upper hpBlock
+
+theorem recordPrimeWitnessesThrough56_subset :
+    recordPrimeWitnessesThrough56 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough56, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough55_subset,
+    recordPrimeWitnessBlock56_subset⟩
+
+def recordPrimeWitnessesThrough57 : Finset Nat :=
+  recordPrimeWitnessesThrough56 ∪ recordPrimeWitnessBlock57
+
+private theorem recordPrimeWitnessesThrough56_disjoint_block57 :
+    Disjoint recordPrimeWitnessesThrough56 recordPrimeWitnessBlock57 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 55103 :=
+    recordPrimeWitnessesThrough56_upper hpPrevious
+  have hpLower : 55109 ≤ p := recordPrimeWitnessBlock57_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough57_card :
+    recordPrimeWitnessesThrough57.card = 5700 := by
+  rw [recordPrimeWitnessesThrough57,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough56_disjoint_block57,
+    recordPrimeWitnessesThrough56_card,
+    recordPrimeWitnessBlock57_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough57_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough57) : p ≤ 56179 := by
+  rw [recordPrimeWitnessesThrough57, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough56_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock57_upper hpBlock
+
+theorem recordPrimeWitnessesThrough57_subset :
+    recordPrimeWitnessesThrough57 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough57, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough56_subset,
+    recordPrimeWitnessBlock57_subset⟩
+
+def recordPrimeWitnessesThrough58 : Finset Nat :=
+  recordPrimeWitnessesThrough57 ∪ recordPrimeWitnessBlock58
+
+private theorem recordPrimeWitnessesThrough57_disjoint_block58 :
+    Disjoint recordPrimeWitnessesThrough57 recordPrimeWitnessBlock58 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 56179 :=
+    recordPrimeWitnessesThrough57_upper hpPrevious
+  have hpLower : 56197 ≤ p := recordPrimeWitnessBlock58_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough58_card :
+    recordPrimeWitnessesThrough58.card = 5800 := by
+  rw [recordPrimeWitnessesThrough58,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough57_disjoint_block58,
+    recordPrimeWitnessesThrough57_card,
+    recordPrimeWitnessBlock58_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough58_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough58) : p ≤ 57191 := by
+  rw [recordPrimeWitnessesThrough58, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough57_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock58_upper hpBlock
+
+theorem recordPrimeWitnessesThrough58_subset :
+    recordPrimeWitnessesThrough58 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough58, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough57_subset,
+    recordPrimeWitnessBlock58_subset⟩
+
+def recordPrimeWitnessesThrough59 : Finset Nat :=
+  recordPrimeWitnessesThrough58 ∪ recordPrimeWitnessBlock59
+
+private theorem recordPrimeWitnessesThrough58_disjoint_block59 :
+    Disjoint recordPrimeWitnessesThrough58 recordPrimeWitnessBlock59 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 57191 :=
+    recordPrimeWitnessesThrough58_upper hpPrevious
+  have hpLower : 57193 ≤ p := recordPrimeWitnessBlock59_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough59_card :
+    recordPrimeWitnessesThrough59.card = 5900 := by
+  rw [recordPrimeWitnessesThrough59,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough58_disjoint_block59,
+    recordPrimeWitnessesThrough58_card,
+    recordPrimeWitnessBlock59_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough59_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough59) : p ≤ 58237 := by
+  rw [recordPrimeWitnessesThrough59, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough58_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock59_upper hpBlock
+
+theorem recordPrimeWitnessesThrough59_subset :
+    recordPrimeWitnessesThrough59 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough59, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough58_subset,
+    recordPrimeWitnessBlock59_subset⟩
+
+def recordPrimeWitnessesThrough60 : Finset Nat :=
+  recordPrimeWitnessesThrough59 ∪ recordPrimeWitnessBlock60
+
+private theorem recordPrimeWitnessesThrough59_disjoint_block60 :
+    Disjoint recordPrimeWitnessesThrough59 recordPrimeWitnessBlock60 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 58237 :=
+    recordPrimeWitnessesThrough59_upper hpPrevious
+  have hpLower : 58243 ≤ p := recordPrimeWitnessBlock60_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough60_card :
+    recordPrimeWitnessesThrough60.card = 6000 := by
+  rw [recordPrimeWitnessesThrough60,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough59_disjoint_block60,
+    recordPrimeWitnessesThrough59_card,
+    recordPrimeWitnessBlock60_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough60_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough60) : p ≤ 59359 := by
+  rw [recordPrimeWitnessesThrough60, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough59_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock60_upper hpBlock
+
+theorem recordPrimeWitnessesThrough60_subset :
+    recordPrimeWitnessesThrough60 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough60, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough59_subset,
+    recordPrimeWitnessBlock60_subset⟩
+
+def recordPrimeWitnessesThrough61 : Finset Nat :=
+  recordPrimeWitnessesThrough60 ∪ recordPrimeWitnessBlock61
+
+private theorem recordPrimeWitnessesThrough60_disjoint_block61 :
+    Disjoint recordPrimeWitnessesThrough60 recordPrimeWitnessBlock61 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 59359 :=
+    recordPrimeWitnessesThrough60_upper hpPrevious
+  have hpLower : 59369 ≤ p := recordPrimeWitnessBlock61_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough61_card :
+    recordPrimeWitnessesThrough61.card = 6100 := by
+  rw [recordPrimeWitnessesThrough61,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough60_disjoint_block61,
+    recordPrimeWitnessesThrough60_card,
+    recordPrimeWitnessBlock61_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough61_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough61) : p ≤ 60497 := by
+  rw [recordPrimeWitnessesThrough61, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough60_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock61_upper hpBlock
+
+theorem recordPrimeWitnessesThrough61_subset :
+    recordPrimeWitnessesThrough61 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough61, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough60_subset,
+    recordPrimeWitnessBlock61_subset⟩
+
+def recordPrimeWitnessesThrough62 : Finset Nat :=
+  recordPrimeWitnessesThrough61 ∪ recordPrimeWitnessBlock62
+
+private theorem recordPrimeWitnessesThrough61_disjoint_block62 :
+    Disjoint recordPrimeWitnessesThrough61 recordPrimeWitnessBlock62 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 60497 :=
+    recordPrimeWitnessesThrough61_upper hpPrevious
+  have hpLower : 60509 ≤ p := recordPrimeWitnessBlock62_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough62_card :
+    recordPrimeWitnessesThrough62.card = 6200 := by
+  rw [recordPrimeWitnessesThrough62,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough61_disjoint_block62,
+    recordPrimeWitnessesThrough61_card,
+    recordPrimeWitnessBlock62_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough62_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough62) : p ≤ 61631 := by
+  rw [recordPrimeWitnessesThrough62, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough61_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock62_upper hpBlock
+
+theorem recordPrimeWitnessesThrough62_subset :
+    recordPrimeWitnessesThrough62 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough62, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough61_subset,
+    recordPrimeWitnessBlock62_subset⟩
+
+def recordPrimeWitnessesThrough63 : Finset Nat :=
+  recordPrimeWitnessesThrough62 ∪ recordPrimeWitnessBlock63
+
+private theorem recordPrimeWitnessesThrough62_disjoint_block63 :
+    Disjoint recordPrimeWitnessesThrough62 recordPrimeWitnessBlock63 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 61631 :=
+    recordPrimeWitnessesThrough62_upper hpPrevious
+  have hpLower : 61637 ≤ p := recordPrimeWitnessBlock63_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough63_card :
+    recordPrimeWitnessesThrough63.card = 6300 := by
+  rw [recordPrimeWitnessesThrough63,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough62_disjoint_block63,
+    recordPrimeWitnessesThrough62_card,
+    recordPrimeWitnessBlock63_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough63_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough63) : p ≤ 62773 := by
+  rw [recordPrimeWitnessesThrough63, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough62_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock63_upper hpBlock
+
+theorem recordPrimeWitnessesThrough63_subset :
+    recordPrimeWitnessesThrough63 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough63, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough62_subset,
+    recordPrimeWitnessBlock63_subset⟩
+
+def recordPrimeWitnessesThrough64 : Finset Nat :=
+  recordPrimeWitnessesThrough63 ∪ recordPrimeWitnessBlock64
+
+private theorem recordPrimeWitnessesThrough63_disjoint_block64 :
+    Disjoint recordPrimeWitnessesThrough63 recordPrimeWitnessBlock64 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 62773 :=
+    recordPrimeWitnessesThrough63_upper hpPrevious
+  have hpLower : 62791 ≤ p := recordPrimeWitnessBlock64_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough64_card :
+    recordPrimeWitnessesThrough64.card = 6400 := by
+  rw [recordPrimeWitnessesThrough64,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough63_disjoint_block64,
+    recordPrimeWitnessesThrough63_card,
+    recordPrimeWitnessBlock64_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough64_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough64) : p ≤ 63809 := by
+  rw [recordPrimeWitnessesThrough64, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough63_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock64_upper hpBlock
+
+theorem recordPrimeWitnessesThrough64_subset :
+    recordPrimeWitnessesThrough64 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough64, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough63_subset,
+    recordPrimeWitnessBlock64_subset⟩
+
+def recordPrimeWitnessesThrough65 : Finset Nat :=
+  recordPrimeWitnessesThrough64 ∪ recordPrimeWitnessBlock65
+
+private theorem recordPrimeWitnessesThrough64_disjoint_block65 :
+    Disjoint recordPrimeWitnessesThrough64 recordPrimeWitnessBlock65 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 63809 :=
+    recordPrimeWitnessesThrough64_upper hpPrevious
+  have hpLower : 63823 ≤ p := recordPrimeWitnessBlock65_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough65_card :
+    recordPrimeWitnessesThrough65.card = 6500 := by
+  rw [recordPrimeWitnessesThrough65,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough64_disjoint_block65,
+    recordPrimeWitnessesThrough64_card,
+    recordPrimeWitnessBlock65_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough65_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough65) : p ≤ 65063 := by
+  rw [recordPrimeWitnessesThrough65, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough64_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock65_upper hpBlock
+
+theorem recordPrimeWitnessesThrough65_subset :
+    recordPrimeWitnessesThrough65 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough65, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough64_subset,
+    recordPrimeWitnessBlock65_subset⟩
+
+def recordPrimeWitnessesThrough66 : Finset Nat :=
+  recordPrimeWitnessesThrough65 ∪ recordPrimeWitnessBlock66
+
+private theorem recordPrimeWitnessesThrough65_disjoint_block66 :
+    Disjoint recordPrimeWitnessesThrough65 recordPrimeWitnessBlock66 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 65063 :=
+    recordPrimeWitnessesThrough65_upper hpPrevious
+  have hpLower : 65071 ≤ p := recordPrimeWitnessBlock66_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough66_card :
+    recordPrimeWitnessesThrough66.card = 6600 := by
+  rw [recordPrimeWitnessesThrough66,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough65_disjoint_block66,
+    recordPrimeWitnessesThrough65_card,
+    recordPrimeWitnessBlock66_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough66_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough66) : p ≤ 66103 := by
+  rw [recordPrimeWitnessesThrough66, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough65_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock66_upper hpBlock
+
+theorem recordPrimeWitnessesThrough66_subset :
+    recordPrimeWitnessesThrough66 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough66, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough65_subset,
+    recordPrimeWitnessBlock66_subset⟩
+
+def recordPrimeWitnessesThrough67 : Finset Nat :=
+  recordPrimeWitnessesThrough66 ∪ recordPrimeWitnessBlock67
+
+private theorem recordPrimeWitnessesThrough66_disjoint_block67 :
+    Disjoint recordPrimeWitnessesThrough66 recordPrimeWitnessBlock67 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 66103 :=
+    recordPrimeWitnessesThrough66_upper hpPrevious
+  have hpLower : 66107 ≤ p := recordPrimeWitnessBlock67_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough67_card :
+    recordPrimeWitnessesThrough67.card = 6700 := by
+  rw [recordPrimeWitnessesThrough67,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough66_disjoint_block67,
+    recordPrimeWitnessesThrough66_card,
+    recordPrimeWitnessBlock67_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough67_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough67) : p ≤ 67231 := by
+  rw [recordPrimeWitnessesThrough67, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough66_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock67_upper hpBlock
+
+theorem recordPrimeWitnessesThrough67_subset :
+    recordPrimeWitnessesThrough67 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough67, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough66_subset,
+    recordPrimeWitnessBlock67_subset⟩
+
+def recordPrimeWitnessesThrough68 : Finset Nat :=
+  recordPrimeWitnessesThrough67 ∪ recordPrimeWitnessBlock68
+
+private theorem recordPrimeWitnessesThrough67_disjoint_block68 :
+    Disjoint recordPrimeWitnessesThrough67 recordPrimeWitnessBlock68 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 67231 :=
+    recordPrimeWitnessesThrough67_upper hpPrevious
+  have hpLower : 67247 ≤ p := recordPrimeWitnessBlock68_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough68_card :
+    recordPrimeWitnessesThrough68.card = 6800 := by
+  rw [recordPrimeWitnessesThrough68,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough67_disjoint_block68,
+    recordPrimeWitnessesThrough67_card,
+    recordPrimeWitnessBlock68_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough68_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough68) : p ≤ 68371 := by
+  rw [recordPrimeWitnessesThrough68, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough67_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock68_upper hpBlock
+
+theorem recordPrimeWitnessesThrough68_subset :
+    recordPrimeWitnessesThrough68 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough68, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough67_subset,
+    recordPrimeWitnessBlock68_subset⟩
+
+def recordPrimeWitnessesThrough69 : Finset Nat :=
+  recordPrimeWitnessesThrough68 ∪ recordPrimeWitnessBlock69
+
+private theorem recordPrimeWitnessesThrough68_disjoint_block69 :
+    Disjoint recordPrimeWitnessesThrough68 recordPrimeWitnessBlock69 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 68371 :=
+    recordPrimeWitnessesThrough68_upper hpPrevious
+  have hpLower : 68389 ≤ p := recordPrimeWitnessBlock69_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough69_card :
+    recordPrimeWitnessesThrough69.card = 6900 := by
+  rw [recordPrimeWitnessesThrough69,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough68_disjoint_block69,
+    recordPrimeWitnessesThrough68_card,
+    recordPrimeWitnessBlock69_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough69_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough69) : p ≤ 69493 := by
+  rw [recordPrimeWitnessesThrough69, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough68_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock69_upper hpBlock
+
+theorem recordPrimeWitnessesThrough69_subset :
+    recordPrimeWitnessesThrough69 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough69, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough68_subset,
+    recordPrimeWitnessBlock69_subset⟩
+
+def recordPrimeWitnessesThrough70 : Finset Nat :=
+  recordPrimeWitnessesThrough69 ∪ recordPrimeWitnessBlock70
+
+private theorem recordPrimeWitnessesThrough69_disjoint_block70 :
+    Disjoint recordPrimeWitnessesThrough69 recordPrimeWitnessBlock70 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 69493 :=
+    recordPrimeWitnessesThrough69_upper hpPrevious
+  have hpLower : 69497 ≤ p := recordPrimeWitnessBlock70_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough70_card :
+    recordPrimeWitnessesThrough70.card = 7000 := by
+  rw [recordPrimeWitnessesThrough70,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough69_disjoint_block70,
+    recordPrimeWitnessesThrough69_card,
+    recordPrimeWitnessBlock70_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough70_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough70) : p ≤ 70657 := by
+  rw [recordPrimeWitnessesThrough70, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough69_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock70_upper hpBlock
+
+theorem recordPrimeWitnessesThrough70_subset :
+    recordPrimeWitnessesThrough70 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough70, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough69_subset,
+    recordPrimeWitnessBlock70_subset⟩
+
+def recordPrimeWitnessesThrough71 : Finset Nat :=
+  recordPrimeWitnessesThrough70 ∪ recordPrimeWitnessBlock71
+
+private theorem recordPrimeWitnessesThrough70_disjoint_block71 :
+    Disjoint recordPrimeWitnessesThrough70 recordPrimeWitnessBlock71 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 70657 :=
+    recordPrimeWitnessesThrough70_upper hpPrevious
+  have hpLower : 70663 ≤ p := recordPrimeWitnessBlock71_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough71_card :
+    recordPrimeWitnessesThrough71.card = 7100 := by
+  rw [recordPrimeWitnessesThrough71,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough70_disjoint_block71,
+    recordPrimeWitnessesThrough70_card,
+    recordPrimeWitnessBlock71_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough71_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough71) : p ≤ 71713 := by
+  rw [recordPrimeWitnessesThrough71, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough70_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock71_upper hpBlock
+
+theorem recordPrimeWitnessesThrough71_subset :
+    recordPrimeWitnessesThrough71 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough71, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough70_subset,
+    recordPrimeWitnessBlock71_subset⟩
+
+def recordPrimeWitnessesThrough72 : Finset Nat :=
+  recordPrimeWitnessesThrough71 ∪ recordPrimeWitnessBlock72
+
+private theorem recordPrimeWitnessesThrough71_disjoint_block72 :
+    Disjoint recordPrimeWitnessesThrough71 recordPrimeWitnessBlock72 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 71713 :=
+    recordPrimeWitnessesThrough71_upper hpPrevious
+  have hpLower : 71719 ≤ p := recordPrimeWitnessBlock72_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough72_card :
+    recordPrimeWitnessesThrough72.card = 7200 := by
+  rw [recordPrimeWitnessesThrough72,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough71_disjoint_block72,
+    recordPrimeWitnessesThrough71_card,
+    recordPrimeWitnessBlock72_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough72_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough72) : p ≤ 72823 := by
+  rw [recordPrimeWitnessesThrough72, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough71_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock72_upper hpBlock
+
+theorem recordPrimeWitnessesThrough72_subset :
+    recordPrimeWitnessesThrough72 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough72, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough71_subset,
+    recordPrimeWitnessBlock72_subset⟩
+
+def recordPrimeWitnessesThrough73 : Finset Nat :=
+  recordPrimeWitnessesThrough72 ∪ recordPrimeWitnessBlock73
+
+private theorem recordPrimeWitnessesThrough72_disjoint_block73 :
+    Disjoint recordPrimeWitnessesThrough72 recordPrimeWitnessBlock73 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 72823 :=
+    recordPrimeWitnessesThrough72_upper hpPrevious
+  have hpLower : 72859 ≤ p := recordPrimeWitnessBlock73_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough73_card :
+    recordPrimeWitnessesThrough73.card = 7300 := by
+  rw [recordPrimeWitnessesThrough73,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough72_disjoint_block73,
+    recordPrimeWitnessesThrough72_card,
+    recordPrimeWitnessBlock73_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough73_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough73) : p ≤ 73973 := by
+  rw [recordPrimeWitnessesThrough73, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough72_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock73_upper hpBlock
+
+theorem recordPrimeWitnessesThrough73_subset :
+    recordPrimeWitnessesThrough73 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough73, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough72_subset,
+    recordPrimeWitnessBlock73_subset⟩
+
+def recordPrimeWitnessesThrough74 : Finset Nat :=
+  recordPrimeWitnessesThrough73 ∪ recordPrimeWitnessBlock74
+
+private theorem recordPrimeWitnessesThrough73_disjoint_block74 :
+    Disjoint recordPrimeWitnessesThrough73 recordPrimeWitnessBlock74 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 73973 :=
+    recordPrimeWitnessesThrough73_upper hpPrevious
+  have hpLower : 73999 ≤ p := recordPrimeWitnessBlock74_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough74_card :
+    recordPrimeWitnessesThrough74.card = 7400 := by
+  rw [recordPrimeWitnessesThrough74,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough73_disjoint_block74,
+    recordPrimeWitnessesThrough73_card,
+    recordPrimeWitnessBlock74_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough74_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough74) : p ≤ 75079 := by
+  rw [recordPrimeWitnessesThrough74, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough73_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock74_upper hpBlock
+
+theorem recordPrimeWitnessesThrough74_subset :
+    recordPrimeWitnessesThrough74 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough74, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough73_subset,
+    recordPrimeWitnessBlock74_subset⟩
+
+def recordPrimeWitnessesThrough75 : Finset Nat :=
+  recordPrimeWitnessesThrough74 ∪ recordPrimeWitnessBlock75
+
+private theorem recordPrimeWitnessesThrough74_disjoint_block75 :
+    Disjoint recordPrimeWitnessesThrough74 recordPrimeWitnessBlock75 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 75079 :=
+    recordPrimeWitnessesThrough74_upper hpPrevious
+  have hpLower : 75083 ≤ p := recordPrimeWitnessBlock75_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough75_card :
+    recordPrimeWitnessesThrough75.card = 7500 := by
+  rw [recordPrimeWitnessesThrough75,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough74_disjoint_block75,
+    recordPrimeWitnessesThrough74_card,
+    recordPrimeWitnessBlock75_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough75_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough75) : p ≤ 76207 := by
+  rw [recordPrimeWitnessesThrough75, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough74_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock75_upper hpBlock
+
+theorem recordPrimeWitnessesThrough75_subset :
+    recordPrimeWitnessesThrough75 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough75, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough74_subset,
+    recordPrimeWitnessBlock75_subset⟩
+
+def recordPrimeWitnessesThrough76 : Finset Nat :=
+  recordPrimeWitnessesThrough75 ∪ recordPrimeWitnessBlock76
+
+private theorem recordPrimeWitnessesThrough75_disjoint_block76 :
+    Disjoint recordPrimeWitnessesThrough75 recordPrimeWitnessBlock76 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 76207 :=
+    recordPrimeWitnessesThrough75_upper hpPrevious
+  have hpLower : 76213 ≤ p := recordPrimeWitnessBlock76_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough76_card :
+    recordPrimeWitnessesThrough76.card = 7600 := by
+  rw [recordPrimeWitnessesThrough76,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough75_disjoint_block76,
+    recordPrimeWitnessesThrough75_card,
+    recordPrimeWitnessBlock76_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough76_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough76) : p ≤ 77351 := by
+  rw [recordPrimeWitnessesThrough76, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough75_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock76_upper hpBlock
+
+theorem recordPrimeWitnessesThrough76_subset :
+    recordPrimeWitnessesThrough76 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough76, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough75_subset,
+    recordPrimeWitnessBlock76_subset⟩
+
+def recordPrimeWitnessesThrough77 : Finset Nat :=
+  recordPrimeWitnessesThrough76 ∪ recordPrimeWitnessBlock77
+
+private theorem recordPrimeWitnessesThrough76_disjoint_block77 :
+    Disjoint recordPrimeWitnessesThrough76 recordPrimeWitnessBlock77 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 77351 :=
+    recordPrimeWitnessesThrough76_upper hpPrevious
+  have hpLower : 77359 ≤ p := recordPrimeWitnessBlock77_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough77_card :
+    recordPrimeWitnessesThrough77.card = 7700 := by
+  rw [recordPrimeWitnessesThrough77,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough76_disjoint_block77,
+    recordPrimeWitnessesThrough76_card,
+    recordPrimeWitnessBlock77_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough77_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough77) : p ≤ 78479 := by
+  rw [recordPrimeWitnessesThrough77, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough76_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock77_upper hpBlock
+
+theorem recordPrimeWitnessesThrough77_subset :
+    recordPrimeWitnessesThrough77 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough77, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough76_subset,
+    recordPrimeWitnessBlock77_subset⟩
+
+def recordPrimeWitnessesThrough78 : Finset Nat :=
+  recordPrimeWitnessesThrough77 ∪ recordPrimeWitnessBlock78
+
+private theorem recordPrimeWitnessesThrough77_disjoint_block78 :
+    Disjoint recordPrimeWitnessesThrough77 recordPrimeWitnessBlock78 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 78479 :=
+    recordPrimeWitnessesThrough77_upper hpPrevious
+  have hpLower : 78487 ≤ p := recordPrimeWitnessBlock78_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough78_card :
+    recordPrimeWitnessesThrough78.card = 7800 := by
+  rw [recordPrimeWitnessesThrough78,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough77_disjoint_block78,
+    recordPrimeWitnessesThrough77_card,
+    recordPrimeWitnessBlock78_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough78_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough78) : p ≤ 79621 := by
+  rw [recordPrimeWitnessesThrough78, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough77_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock78_upper hpBlock
+
+theorem recordPrimeWitnessesThrough78_subset :
+    recordPrimeWitnessesThrough78 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough78, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough77_subset,
+    recordPrimeWitnessBlock78_subset⟩
+
+def recordPrimeWitnessesThrough79 : Finset Nat :=
+  recordPrimeWitnessesThrough78 ∪ recordPrimeWitnessBlock79
+
+private theorem recordPrimeWitnessesThrough78_disjoint_block79 :
+    Disjoint recordPrimeWitnessesThrough78 recordPrimeWitnessBlock79 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 79621 :=
+    recordPrimeWitnessesThrough78_upper hpPrevious
+  have hpLower : 79627 ≤ p := recordPrimeWitnessBlock79_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough79_card :
+    recordPrimeWitnessesThrough79.card = 7900 := by
+  rw [recordPrimeWitnessesThrough79,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough78_disjoint_block79,
+    recordPrimeWitnessesThrough78_card,
+    recordPrimeWitnessBlock79_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough79_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough79) : p ≤ 80713 := by
+  rw [recordPrimeWitnessesThrough79, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough78_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock79_upper hpBlock
+
+theorem recordPrimeWitnessesThrough79_subset :
+    recordPrimeWitnessesThrough79 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough79, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough78_subset,
+    recordPrimeWitnessBlock79_subset⟩
+
+def recordPrimeWitnessesThrough80 : Finset Nat :=
+  recordPrimeWitnessesThrough79 ∪ recordPrimeWitnessBlock80
+
+private theorem recordPrimeWitnessesThrough79_disjoint_block80 :
+    Disjoint recordPrimeWitnessesThrough79 recordPrimeWitnessBlock80 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 80713 :=
+    recordPrimeWitnessesThrough79_upper hpPrevious
+  have hpLower : 80737 ≤ p := recordPrimeWitnessBlock80_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough80_card :
+    recordPrimeWitnessesThrough80.card = 8000 := by
+  rw [recordPrimeWitnessesThrough80,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough79_disjoint_block80,
+    recordPrimeWitnessesThrough79_card,
+    recordPrimeWitnessBlock80_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough80_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough80) : p ≤ 81799 := by
+  rw [recordPrimeWitnessesThrough80, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough79_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock80_upper hpBlock
+
+theorem recordPrimeWitnessesThrough80_subset :
+    recordPrimeWitnessesThrough80 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough80, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough79_subset,
+    recordPrimeWitnessBlock80_subset⟩
+
+def recordPrimeWitnessesThrough81 : Finset Nat :=
+  recordPrimeWitnessesThrough80 ∪ recordPrimeWitnessBlock81
+
+private theorem recordPrimeWitnessesThrough80_disjoint_block81 :
+    Disjoint recordPrimeWitnessesThrough80 recordPrimeWitnessBlock81 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 81799 :=
+    recordPrimeWitnessesThrough80_upper hpPrevious
+  have hpLower : 81817 ≤ p := recordPrimeWitnessBlock81_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough81_card :
+    recordPrimeWitnessesThrough81.card = 8100 := by
+  rw [recordPrimeWitnessesThrough81,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough80_disjoint_block81,
+    recordPrimeWitnessesThrough80_card,
+    recordPrimeWitnessBlock81_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough81_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough81) : p ≤ 82891 := by
+  rw [recordPrimeWitnessesThrough81, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough80_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock81_upper hpBlock
+
+theorem recordPrimeWitnessesThrough81_subset :
+    recordPrimeWitnessesThrough81 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough81, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough80_subset,
+    recordPrimeWitnessBlock81_subset⟩
+
+def recordPrimeWitnessesThrough82 : Finset Nat :=
+  recordPrimeWitnessesThrough81 ∪ recordPrimeWitnessBlock82
+
+private theorem recordPrimeWitnessesThrough81_disjoint_block82 :
+    Disjoint recordPrimeWitnessesThrough81 recordPrimeWitnessBlock82 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 82891 :=
+    recordPrimeWitnessesThrough81_upper hpPrevious
+  have hpLower : 82903 ≤ p := recordPrimeWitnessBlock82_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough82_card :
+    recordPrimeWitnessesThrough82.card = 8200 := by
+  rw [recordPrimeWitnessesThrough82,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough81_disjoint_block82,
+    recordPrimeWitnessesThrough81_card,
+    recordPrimeWitnessBlock82_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough82_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough82) : p ≤ 84127 := by
+  rw [recordPrimeWitnessesThrough82, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough81_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock82_upper hpBlock
+
+theorem recordPrimeWitnessesThrough82_subset :
+    recordPrimeWitnessesThrough82 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough82, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough81_subset,
+    recordPrimeWitnessBlock82_subset⟩
+
+def recordPrimeWitnessesThrough83 : Finset Nat :=
+  recordPrimeWitnessesThrough82 ∪ recordPrimeWitnessBlock83
+
+private theorem recordPrimeWitnessesThrough82_disjoint_block83 :
+    Disjoint recordPrimeWitnessesThrough82 recordPrimeWitnessBlock83 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 84127 :=
+    recordPrimeWitnessesThrough82_upper hpPrevious
+  have hpLower : 84131 ≤ p := recordPrimeWitnessBlock83_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough83_card :
+    recordPrimeWitnessesThrough83.card = 8300 := by
+  rw [recordPrimeWitnessesThrough83,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough82_disjoint_block83,
+    recordPrimeWitnessesThrough82_card,
+    recordPrimeWitnessBlock83_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough83_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough83) : p ≤ 85237 := by
+  rw [recordPrimeWitnessesThrough83, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough82_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock83_upper hpBlock
+
+theorem recordPrimeWitnessesThrough83_subset :
+    recordPrimeWitnessesThrough83 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough83, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough82_subset,
+    recordPrimeWitnessBlock83_subset⟩
+
+def recordPrimeWitnessesThrough84 : Finset Nat :=
+  recordPrimeWitnessesThrough83 ∪ recordPrimeWitnessBlock84
+
+private theorem recordPrimeWitnessesThrough83_disjoint_block84 :
+    Disjoint recordPrimeWitnessesThrough83 recordPrimeWitnessBlock84 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 85237 :=
+    recordPrimeWitnessesThrough83_upper hpPrevious
+  have hpLower : 85243 ≤ p := recordPrimeWitnessBlock84_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough84_card :
+    recordPrimeWitnessesThrough84.card = 8400 := by
+  rw [recordPrimeWitnessesThrough84,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough83_disjoint_block84,
+    recordPrimeWitnessesThrough83_card,
+    recordPrimeWitnessBlock84_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough84_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough84) : p ≤ 86371 := by
+  rw [recordPrimeWitnessesThrough84, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough83_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock84_upper hpBlock
+
+theorem recordPrimeWitnessesThrough84_subset :
+    recordPrimeWitnessesThrough84 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough84, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough83_subset,
+    recordPrimeWitnessBlock84_subset⟩
+
+def recordPrimeWitnessesThrough85 : Finset Nat :=
+  recordPrimeWitnessesThrough84 ∪ recordPrimeWitnessBlock85
+
+private theorem recordPrimeWitnessesThrough84_disjoint_block85 :
+    Disjoint recordPrimeWitnessesThrough84 recordPrimeWitnessBlock85 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 86371 :=
+    recordPrimeWitnessesThrough84_upper hpPrevious
+  have hpLower : 86381 ≤ p := recordPrimeWitnessBlock85_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough85_card :
+    recordPrimeWitnessesThrough85.card = 8500 := by
+  rw [recordPrimeWitnessesThrough85,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough84_disjoint_block85,
+    recordPrimeWitnessesThrough84_card,
+    recordPrimeWitnessBlock85_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough85_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough85) : p ≤ 87553 := by
+  rw [recordPrimeWitnessesThrough85, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough84_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock85_upper hpBlock
+
+theorem recordPrimeWitnessesThrough85_subset :
+    recordPrimeWitnessesThrough85 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough85, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough84_subset,
+    recordPrimeWitnessBlock85_subset⟩
+
+def recordPrimeWitnessesThrough86 : Finset Nat :=
+  recordPrimeWitnessesThrough85 ∪ recordPrimeWitnessBlock86
+
+private theorem recordPrimeWitnessesThrough85_disjoint_block86 :
+    Disjoint recordPrimeWitnessesThrough85 recordPrimeWitnessBlock86 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 87553 :=
+    recordPrimeWitnessesThrough85_upper hpPrevious
+  have hpLower : 87557 ≤ p := recordPrimeWitnessBlock86_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough86_card :
+    recordPrimeWitnessesThrough86.card = 8600 := by
+  rw [recordPrimeWitnessesThrough86,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough85_disjoint_block86,
+    recordPrimeWitnessesThrough85_card,
+    recordPrimeWitnessBlock86_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough86_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough86) : p ≤ 88801 := by
+  rw [recordPrimeWitnessesThrough86, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough85_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock86_upper hpBlock
+
+theorem recordPrimeWitnessesThrough86_subset :
+    recordPrimeWitnessesThrough86 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough86, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough85_subset,
+    recordPrimeWitnessBlock86_subset⟩
+
+def recordPrimeWitnessesThrough87 : Finset Nat :=
+  recordPrimeWitnessesThrough86 ∪ recordPrimeWitnessBlock87
+
+private theorem recordPrimeWitnessesThrough86_disjoint_block87 :
+    Disjoint recordPrimeWitnessesThrough86 recordPrimeWitnessBlock87 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 88801 :=
+    recordPrimeWitnessesThrough86_upper hpPrevious
+  have hpLower : 88807 ≤ p := recordPrimeWitnessBlock87_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough87_card :
+    recordPrimeWitnessesThrough87.card = 8700 := by
+  rw [recordPrimeWitnessesThrough87,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough86_disjoint_block87,
+    recordPrimeWitnessesThrough86_card,
+    recordPrimeWitnessBlock87_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough87_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough87) : p ≤ 89849 := by
+  rw [recordPrimeWitnessesThrough87, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough86_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock87_upper hpBlock
+
+theorem recordPrimeWitnessesThrough87_subset :
+    recordPrimeWitnessesThrough87 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough87, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough86_subset,
+    recordPrimeWitnessBlock87_subset⟩
+
+def recordPrimeWitnessesThrough88 : Finset Nat :=
+  recordPrimeWitnessesThrough87 ∪ recordPrimeWitnessBlock88
+
+private theorem recordPrimeWitnessesThrough87_disjoint_block88 :
+    Disjoint recordPrimeWitnessesThrough87 recordPrimeWitnessBlock88 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 89849 :=
+    recordPrimeWitnessesThrough87_upper hpPrevious
+  have hpLower : 89867 ≤ p := recordPrimeWitnessBlock88_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough88_card :
+    recordPrimeWitnessesThrough88.card = 8800 := by
+  rw [recordPrimeWitnessesThrough88,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough87_disjoint_block88,
+    recordPrimeWitnessesThrough87_card,
+    recordPrimeWitnessBlock88_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough88_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough88) : p ≤ 90977 := by
+  rw [recordPrimeWitnessesThrough88, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough87_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock88_upper hpBlock
+
+theorem recordPrimeWitnessesThrough88_subset :
+    recordPrimeWitnessesThrough88 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough88, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough87_subset,
+    recordPrimeWitnessBlock88_subset⟩
+
+def recordPrimeWitnessesThrough89 : Finset Nat :=
+  recordPrimeWitnessesThrough88 ∪ recordPrimeWitnessBlock89
+
+private theorem recordPrimeWitnessesThrough88_disjoint_block89 :
+    Disjoint recordPrimeWitnessesThrough88 recordPrimeWitnessBlock89 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 90977 :=
+    recordPrimeWitnessesThrough88_upper hpPrevious
+  have hpLower : 90989 ≤ p := recordPrimeWitnessBlock89_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough89_card :
+    recordPrimeWitnessesThrough89.card = 8900 := by
+  rw [recordPrimeWitnessesThrough89,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough88_disjoint_block89,
+    recordPrimeWitnessesThrough88_card,
+    recordPrimeWitnessBlock89_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough89_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough89) : p ≤ 92173 := by
+  rw [recordPrimeWitnessesThrough89, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough88_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock89_upper hpBlock
+
+theorem recordPrimeWitnessesThrough89_subset :
+    recordPrimeWitnessesThrough89 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough89, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough88_subset,
+    recordPrimeWitnessBlock89_subset⟩
+
+def recordPrimeWitnessesThrough90 : Finset Nat :=
+  recordPrimeWitnessesThrough89 ∪ recordPrimeWitnessBlock90
+
+private theorem recordPrimeWitnessesThrough89_disjoint_block90 :
+    Disjoint recordPrimeWitnessesThrough89 recordPrimeWitnessBlock90 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 92173 :=
+    recordPrimeWitnessesThrough89_upper hpPrevious
+  have hpLower : 92177 ≤ p := recordPrimeWitnessBlock90_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough90_card :
+    recordPrimeWitnessesThrough90.card = 9000 := by
+  rw [recordPrimeWitnessesThrough90,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough89_disjoint_block90,
+    recordPrimeWitnessesThrough89_card,
+    recordPrimeWitnessBlock90_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough90_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough90) : p ≤ 93179 := by
+  rw [recordPrimeWitnessesThrough90, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough89_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock90_upper hpBlock
+
+theorem recordPrimeWitnessesThrough90_subset :
+    recordPrimeWitnessesThrough90 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough90, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough89_subset,
+    recordPrimeWitnessBlock90_subset⟩
+
+def recordPrimeWitnessesThrough91 : Finset Nat :=
+  recordPrimeWitnessesThrough90 ∪ recordPrimeWitnessBlock91
+
+private theorem recordPrimeWitnessesThrough90_disjoint_block91 :
+    Disjoint recordPrimeWitnessesThrough90 recordPrimeWitnessBlock91 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 93179 :=
+    recordPrimeWitnessesThrough90_upper hpPrevious
+  have hpLower : 93187 ≤ p := recordPrimeWitnessBlock91_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough91_card :
+    recordPrimeWitnessesThrough91.card = 9100 := by
+  rw [recordPrimeWitnessesThrough91,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough90_disjoint_block91,
+    recordPrimeWitnessesThrough90_card,
+    recordPrimeWitnessBlock91_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough91_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough91) : p ≤ 94349 := by
+  rw [recordPrimeWitnessesThrough91, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough90_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock91_upper hpBlock
+
+theorem recordPrimeWitnessesThrough91_subset :
+    recordPrimeWitnessesThrough91 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough91, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough90_subset,
+    recordPrimeWitnessBlock91_subset⟩
+
+def recordPrimeWitnessesThrough92 : Finset Nat :=
+  recordPrimeWitnessesThrough91 ∪ recordPrimeWitnessBlock92
+
+private theorem recordPrimeWitnessesThrough91_disjoint_block92 :
+    Disjoint recordPrimeWitnessesThrough91 recordPrimeWitnessBlock92 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 94349 :=
+    recordPrimeWitnessesThrough91_upper hpPrevious
+  have hpLower : 94351 ≤ p := recordPrimeWitnessBlock92_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough92_card :
+    recordPrimeWitnessesThrough92.card = 9200 := by
+  rw [recordPrimeWitnessesThrough92,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough91_disjoint_block92,
+    recordPrimeWitnessesThrough91_card,
+    recordPrimeWitnessBlock92_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough92_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough92) : p ≤ 95441 := by
+  rw [recordPrimeWitnessesThrough92, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough91_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock92_upper hpBlock
+
+theorem recordPrimeWitnessesThrough92_subset :
+    recordPrimeWitnessesThrough92 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough92, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough91_subset,
+    recordPrimeWitnessBlock92_subset⟩
+
+def recordPrimeWitnessesThrough93 : Finset Nat :=
+  recordPrimeWitnessesThrough92 ∪ recordPrimeWitnessBlock93
+
+private theorem recordPrimeWitnessesThrough92_disjoint_block93 :
+    Disjoint recordPrimeWitnessesThrough92 recordPrimeWitnessBlock93 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 95441 :=
+    recordPrimeWitnessesThrough92_upper hpPrevious
+  have hpLower : 95443 ≤ p := recordPrimeWitnessBlock93_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough93_card :
+    recordPrimeWitnessesThrough93.card = 9300 := by
+  rw [recordPrimeWitnessesThrough93,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough92_disjoint_block93,
+    recordPrimeWitnessesThrough92_card,
+    recordPrimeWitnessBlock93_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough93_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough93) : p ≤ 96581 := by
+  rw [recordPrimeWitnessesThrough93, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough92_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock93_upper hpBlock
+
+theorem recordPrimeWitnessesThrough93_subset :
+    recordPrimeWitnessesThrough93 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough93, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough92_subset,
+    recordPrimeWitnessBlock93_subset⟩
+
+def recordPrimeWitnessesThrough94 : Finset Nat :=
+  recordPrimeWitnessesThrough93 ∪ recordPrimeWitnessBlock94
+
+private theorem recordPrimeWitnessesThrough93_disjoint_block94 :
+    Disjoint recordPrimeWitnessesThrough93 recordPrimeWitnessBlock94 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 96581 :=
+    recordPrimeWitnessesThrough93_upper hpPrevious
+  have hpLower : 96587 ≤ p := recordPrimeWitnessBlock94_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough94_card :
+    recordPrimeWitnessesThrough94.card = 9400 := by
+  rw [recordPrimeWitnessesThrough94,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough93_disjoint_block94,
+    recordPrimeWitnessesThrough93_card,
+    recordPrimeWitnessBlock94_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough94_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough94) : p ≤ 97813 := by
+  rw [recordPrimeWitnessesThrough94, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough93_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock94_upper hpBlock
+
+theorem recordPrimeWitnessesThrough94_subset :
+    recordPrimeWitnessesThrough94 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough94, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough93_subset,
+    recordPrimeWitnessBlock94_subset⟩
+
+def recordPrimeWitnessesThrough95 : Finset Nat :=
+  recordPrimeWitnessesThrough94 ∪ recordPrimeWitnessBlock95
+
+private theorem recordPrimeWitnessesThrough94_disjoint_block95 :
+    Disjoint recordPrimeWitnessesThrough94 recordPrimeWitnessBlock95 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 97813 :=
+    recordPrimeWitnessesThrough94_upper hpPrevious
+  have hpLower : 97829 ≤ p := recordPrimeWitnessBlock95_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough95_card :
+    recordPrimeWitnessesThrough95.card = 9500 := by
+  rw [recordPrimeWitnessesThrough95,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough94_disjoint_block95,
+    recordPrimeWitnessesThrough94_card,
+    recordPrimeWitnessBlock95_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough95_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough95) : p ≤ 98947 := by
+  rw [recordPrimeWitnessesThrough95, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough94_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock95_upper hpBlock
+
+theorem recordPrimeWitnessesThrough95_subset :
+    recordPrimeWitnessesThrough95 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough95, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough94_subset,
+    recordPrimeWitnessBlock95_subset⟩
+
+def recordPrimeWitnessesThrough96 : Finset Nat :=
+  recordPrimeWitnessesThrough95 ∪ recordPrimeWitnessBlock96
+
+private theorem recordPrimeWitnessesThrough95_disjoint_block96 :
+    Disjoint recordPrimeWitnessesThrough95 recordPrimeWitnessBlock96 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 98947 :=
+    recordPrimeWitnessesThrough95_upper hpPrevious
+  have hpLower : 98953 ≤ p := recordPrimeWitnessBlock96_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough96_card :
+    recordPrimeWitnessesThrough96.card = 9600 := by
+  rw [recordPrimeWitnessesThrough96,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough95_disjoint_block96,
+    recordPrimeWitnessesThrough95_card,
+    recordPrimeWitnessBlock96_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough96_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough96) : p ≤ 100109 := by
+  rw [recordPrimeWitnessesThrough96, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough95_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock96_upper hpBlock
+
+theorem recordPrimeWitnessesThrough96_subset :
+    recordPrimeWitnessesThrough96 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough96, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough95_subset,
+    recordPrimeWitnessBlock96_subset⟩
+
+def recordPrimeWitnessesThrough97 : Finset Nat :=
+  recordPrimeWitnessesThrough96 ∪ recordPrimeWitnessBlock97
+
+private theorem recordPrimeWitnessesThrough96_disjoint_block97 :
+    Disjoint recordPrimeWitnessesThrough96 recordPrimeWitnessBlock97 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 100109 :=
+    recordPrimeWitnessesThrough96_upper hpPrevious
+  have hpLower : 100129 ≤ p := recordPrimeWitnessBlock97_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough97_card :
+    recordPrimeWitnessesThrough97.card = 9700 := by
+  rw [recordPrimeWitnessesThrough97,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough96_disjoint_block97,
+    recordPrimeWitnessesThrough96_card,
+    recordPrimeWitnessBlock97_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough97_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough97) : p ≤ 101281 := by
+  rw [recordPrimeWitnessesThrough97, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough96_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock97_upper hpBlock
+
+theorem recordPrimeWitnessesThrough97_subset :
+    recordPrimeWitnessesThrough97 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough97, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough96_subset,
+    recordPrimeWitnessBlock97_subset⟩
+
+def recordPrimeWitnessesThrough98 : Finset Nat :=
+  recordPrimeWitnessesThrough97 ∪ recordPrimeWitnessBlock98
+
+private theorem recordPrimeWitnessesThrough97_disjoint_block98 :
+    Disjoint recordPrimeWitnessesThrough97 recordPrimeWitnessBlock98 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 101281 :=
+    recordPrimeWitnessesThrough97_upper hpPrevious
+  have hpLower : 101287 ≤ p := recordPrimeWitnessBlock98_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough98_card :
+    recordPrimeWitnessesThrough98.card = 9800 := by
+  rw [recordPrimeWitnessesThrough98,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough97_disjoint_block98,
+    recordPrimeWitnessesThrough97_card,
+    recordPrimeWitnessBlock98_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough98_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough98) : p ≤ 102317 := by
+  rw [recordPrimeWitnessesThrough98, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough97_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock98_upper hpBlock
+
+theorem recordPrimeWitnessesThrough98_subset :
+    recordPrimeWitnessesThrough98 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough98, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough97_subset,
+    recordPrimeWitnessBlock98_subset⟩
+
+def recordPrimeWitnessesThrough99 : Finset Nat :=
+  recordPrimeWitnessesThrough98 ∪ recordPrimeWitnessBlock99
+
+private theorem recordPrimeWitnessesThrough98_disjoint_block99 :
+    Disjoint recordPrimeWitnessesThrough98 recordPrimeWitnessBlock99 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 102317 :=
+    recordPrimeWitnessesThrough98_upper hpPrevious
+  have hpLower : 102329 ≤ p := recordPrimeWitnessBlock99_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough99_card :
+    recordPrimeWitnessesThrough99.card = 9900 := by
+  rw [recordPrimeWitnessesThrough99,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough98_disjoint_block99,
+    recordPrimeWitnessesThrough98_card,
+    recordPrimeWitnessBlock99_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough99_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough99) : p ≤ 103591 := by
+  rw [recordPrimeWitnessesThrough99, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough98_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock99_upper hpBlock
+
+theorem recordPrimeWitnessesThrough99_subset :
+    recordPrimeWitnessesThrough99 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough99, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough98_subset,
+    recordPrimeWitnessBlock99_subset⟩
+
+def recordPrimeWitnessesThrough100 : Finset Nat :=
+  recordPrimeWitnessesThrough99 ∪ recordPrimeWitnessBlock100
+
+private theorem recordPrimeWitnessesThrough99_disjoint_block100 :
+    Disjoint recordPrimeWitnessesThrough99 recordPrimeWitnessBlock100 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 103591 :=
+    recordPrimeWitnessesThrough99_upper hpPrevious
+  have hpLower : 103613 ≤ p := recordPrimeWitnessBlock100_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough100_card :
+    recordPrimeWitnessesThrough100.card = 10000 := by
+  rw [recordPrimeWitnessesThrough100,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough99_disjoint_block100,
+    recordPrimeWitnessesThrough99_card,
+    recordPrimeWitnessBlock100_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough100_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough100) : p ≤ 104729 := by
+  rw [recordPrimeWitnessesThrough100, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough99_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock100_upper hpBlock
+
+theorem recordPrimeWitnessesThrough100_subset :
+    recordPrimeWitnessesThrough100 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough100, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough99_subset,
+    recordPrimeWitnessBlock100_subset⟩
+
+def recordPrimeWitnessesThrough101 : Finset Nat :=
+  recordPrimeWitnessesThrough100 ∪ recordPrimeWitnessBlock101
+
+private theorem recordPrimeWitnessesThrough100_disjoint_block101 :
+    Disjoint recordPrimeWitnessesThrough100 recordPrimeWitnessBlock101 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 104729 :=
+    recordPrimeWitnessesThrough100_upper hpPrevious
+  have hpLower : 104743 ≤ p := recordPrimeWitnessBlock101_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough101_card :
+    recordPrimeWitnessesThrough101.card = 10100 := by
+  rw [recordPrimeWitnessesThrough101,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough100_disjoint_block101,
+    recordPrimeWitnessesThrough100_card,
+    recordPrimeWitnessBlock101_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough101_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough101) : p ≤ 105943 := by
+  rw [recordPrimeWitnessesThrough101, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough100_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock101_upper hpBlock
+
+theorem recordPrimeWitnessesThrough101_subset :
+    recordPrimeWitnessesThrough101 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough101, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough100_subset,
+    recordPrimeWitnessBlock101_subset⟩
+
+def recordPrimeWitnessesThrough102 : Finset Nat :=
+  recordPrimeWitnessesThrough101 ∪ recordPrimeWitnessBlock102
+
+private theorem recordPrimeWitnessesThrough101_disjoint_block102 :
+    Disjoint recordPrimeWitnessesThrough101 recordPrimeWitnessBlock102 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 105943 :=
+    recordPrimeWitnessesThrough101_upper hpPrevious
+  have hpLower : 105953 ≤ p := recordPrimeWitnessBlock102_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough102_card :
+    recordPrimeWitnessesThrough102.card = 10200 := by
+  rw [recordPrimeWitnessesThrough102,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough101_disjoint_block102,
+    recordPrimeWitnessesThrough101_card,
+    recordPrimeWitnessBlock102_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough102_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough102) : p ≤ 107033 := by
+  rw [recordPrimeWitnessesThrough102, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough101_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock102_upper hpBlock
+
+theorem recordPrimeWitnessesThrough102_subset :
+    recordPrimeWitnessesThrough102 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough102, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough101_subset,
+    recordPrimeWitnessBlock102_subset⟩
+
+def recordPrimeWitnessesThrough103 : Finset Nat :=
+  recordPrimeWitnessesThrough102 ∪ recordPrimeWitnessBlock103
+
+private theorem recordPrimeWitnessesThrough102_disjoint_block103 :
+    Disjoint recordPrimeWitnessesThrough102 recordPrimeWitnessBlock103 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 107033 :=
+    recordPrimeWitnessesThrough102_upper hpPrevious
+  have hpLower : 107053 ≤ p := recordPrimeWitnessBlock103_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough103_card :
+    recordPrimeWitnessesThrough103.card = 10300 := by
+  rw [recordPrimeWitnessesThrough103,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough102_disjoint_block103,
+    recordPrimeWitnessesThrough102_card,
+    recordPrimeWitnessBlock103_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough103_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough103) : p ≤ 108263 := by
+  rw [recordPrimeWitnessesThrough103, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough102_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock103_upper hpBlock
+
+theorem recordPrimeWitnessesThrough103_subset :
+    recordPrimeWitnessesThrough103 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough103, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough102_subset,
+    recordPrimeWitnessBlock103_subset⟩
+
+def recordPrimeWitnessesThrough104 : Finset Nat :=
+  recordPrimeWitnessesThrough103 ∪ recordPrimeWitnessBlock104
+
+private theorem recordPrimeWitnessesThrough103_disjoint_block104 :
+    Disjoint recordPrimeWitnessesThrough103 recordPrimeWitnessBlock104 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 108263 :=
+    recordPrimeWitnessesThrough103_upper hpPrevious
+  have hpLower : 108271 ≤ p := recordPrimeWitnessBlock104_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough104_card :
+    recordPrimeWitnessesThrough104.card = 10400 := by
+  rw [recordPrimeWitnessesThrough104,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough103_disjoint_block104,
+    recordPrimeWitnessesThrough103_card,
+    recordPrimeWitnessBlock104_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough104_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough104) : p ≤ 109391 := by
+  rw [recordPrimeWitnessesThrough104, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough103_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock104_upper hpBlock
+
+theorem recordPrimeWitnessesThrough104_subset :
+    recordPrimeWitnessesThrough104 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough104, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough103_subset,
+    recordPrimeWitnessBlock104_subset⟩
+
+def recordPrimeWitnessesThrough105 : Finset Nat :=
+  recordPrimeWitnessesThrough104 ∪ recordPrimeWitnessBlock105
+
+private theorem recordPrimeWitnessesThrough104_disjoint_block105 :
+    Disjoint recordPrimeWitnessesThrough104 recordPrimeWitnessBlock105 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 109391 :=
+    recordPrimeWitnessesThrough104_upper hpPrevious
+  have hpLower : 109397 ≤ p := recordPrimeWitnessBlock105_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough105_card :
+    recordPrimeWitnessesThrough105.card = 10500 := by
+  rw [recordPrimeWitnessesThrough105,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough104_disjoint_block105,
+    recordPrimeWitnessesThrough104_card,
+    recordPrimeWitnessBlock105_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough105_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough105) : p ≤ 110597 := by
+  rw [recordPrimeWitnessesThrough105, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough104_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock105_upper hpBlock
+
+theorem recordPrimeWitnessesThrough105_subset :
+    recordPrimeWitnessesThrough105 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough105, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough104_subset,
+    recordPrimeWitnessBlock105_subset⟩
+
+def recordPrimeWitnessesThrough106 : Finset Nat :=
+  recordPrimeWitnessesThrough105 ∪ recordPrimeWitnessBlock106
+
+private theorem recordPrimeWitnessesThrough105_disjoint_block106 :
+    Disjoint recordPrimeWitnessesThrough105 recordPrimeWitnessBlock106 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 110597 :=
+    recordPrimeWitnessesThrough105_upper hpPrevious
+  have hpLower : 110603 ≤ p := recordPrimeWitnessBlock106_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough106_card :
+    recordPrimeWitnessesThrough106.card = 10600 := by
+  rw [recordPrimeWitnessesThrough106,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough105_disjoint_block106,
+    recordPrimeWitnessesThrough105_card,
+    recordPrimeWitnessBlock106_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough106_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough106) : p ≤ 111781 := by
+  rw [recordPrimeWitnessesThrough106, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough105_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock106_upper hpBlock
+
+theorem recordPrimeWitnessesThrough106_subset :
+    recordPrimeWitnessesThrough106 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough106, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough105_subset,
+    recordPrimeWitnessBlock106_subset⟩
+
+def recordPrimeWitnessesThrough107 : Finset Nat :=
+  recordPrimeWitnessesThrough106 ∪ recordPrimeWitnessBlock107
+
+private theorem recordPrimeWitnessesThrough106_disjoint_block107 :
+    Disjoint recordPrimeWitnessesThrough106 recordPrimeWitnessBlock107 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 111781 :=
+    recordPrimeWitnessesThrough106_upper hpPrevious
+  have hpLower : 111791 ≤ p := recordPrimeWitnessBlock107_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough107_card :
+    recordPrimeWitnessesThrough107.card = 10700 := by
+  rw [recordPrimeWitnessesThrough107,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough106_disjoint_block107,
+    recordPrimeWitnessesThrough106_card,
+    recordPrimeWitnessBlock107_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough107_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough107) : p ≤ 112979 := by
+  rw [recordPrimeWitnessesThrough107, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough106_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock107_upper hpBlock
+
+theorem recordPrimeWitnessesThrough107_subset :
+    recordPrimeWitnessesThrough107 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough107, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough106_subset,
+    recordPrimeWitnessBlock107_subset⟩
+
+def recordPrimeWitnessesThrough108 : Finset Nat :=
+  recordPrimeWitnessesThrough107 ∪ recordPrimeWitnessBlock108
+
+private theorem recordPrimeWitnessesThrough107_disjoint_block108 :
+    Disjoint recordPrimeWitnessesThrough107 recordPrimeWitnessBlock108 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 112979 :=
+    recordPrimeWitnessesThrough107_upper hpPrevious
+  have hpLower : 112997 ≤ p := recordPrimeWitnessBlock108_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough108_card :
+    recordPrimeWitnessesThrough108.card = 10800 := by
+  rw [recordPrimeWitnessesThrough108,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough107_disjoint_block108,
+    recordPrimeWitnessesThrough107_card,
+    recordPrimeWitnessBlock108_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough108_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough108) : p ≤ 114113 := by
+  rw [recordPrimeWitnessesThrough108, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough107_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock108_upper hpBlock
+
+theorem recordPrimeWitnessesThrough108_subset :
+    recordPrimeWitnessesThrough108 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough108, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough107_subset,
+    recordPrimeWitnessBlock108_subset⟩
+
+def recordPrimeWitnessesThrough109 : Finset Nat :=
+  recordPrimeWitnessesThrough108 ∪ recordPrimeWitnessBlock109
+
+private theorem recordPrimeWitnessesThrough108_disjoint_block109 :
+    Disjoint recordPrimeWitnessesThrough108 recordPrimeWitnessBlock109 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 114113 :=
+    recordPrimeWitnessesThrough108_upper hpPrevious
+  have hpLower : 114143 ≤ p := recordPrimeWitnessBlock109_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough109_card :
+    recordPrimeWitnessesThrough109.card = 10900 := by
+  rw [recordPrimeWitnessesThrough109,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough108_disjoint_block109,
+    recordPrimeWitnessesThrough108_card,
+    recordPrimeWitnessBlock109_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough109_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough109) : p ≤ 115321 := by
+  rw [recordPrimeWitnessesThrough109, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough108_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock109_upper hpBlock
+
+theorem recordPrimeWitnessesThrough109_subset :
+    recordPrimeWitnessesThrough109 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough109, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough108_subset,
+    recordPrimeWitnessBlock109_subset⟩
+
+def recordPrimeWitnessesThrough110 : Finset Nat :=
+  recordPrimeWitnessesThrough109 ∪ recordPrimeWitnessBlock110
+
+private theorem recordPrimeWitnessesThrough109_disjoint_block110 :
+    Disjoint recordPrimeWitnessesThrough109 recordPrimeWitnessBlock110 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 115321 :=
+    recordPrimeWitnessesThrough109_upper hpPrevious
+  have hpLower : 115327 ≤ p := recordPrimeWitnessBlock110_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough110_card :
+    recordPrimeWitnessesThrough110.card = 11000 := by
+  rw [recordPrimeWitnessesThrough110,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough109_disjoint_block110,
+    recordPrimeWitnessesThrough109_card,
+    recordPrimeWitnessBlock110_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough110_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough110) : p ≤ 116447 := by
+  rw [recordPrimeWitnessesThrough110, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough109_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock110_upper hpBlock
+
+theorem recordPrimeWitnessesThrough110_subset :
+    recordPrimeWitnessesThrough110 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough110, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough109_subset,
+    recordPrimeWitnessBlock110_subset⟩
+
+def recordPrimeWitnessesThrough111 : Finset Nat :=
+  recordPrimeWitnessesThrough110 ∪ recordPrimeWitnessBlock111
+
+private theorem recordPrimeWitnessesThrough110_disjoint_block111 :
+    Disjoint recordPrimeWitnessesThrough110 recordPrimeWitnessBlock111 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 116447 :=
+    recordPrimeWitnessesThrough110_upper hpPrevious
+  have hpLower : 116461 ≤ p := recordPrimeWitnessBlock111_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough111_card :
+    recordPrimeWitnessesThrough111.card = 11100 := by
+  rw [recordPrimeWitnessesThrough111,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough110_disjoint_block111,
+    recordPrimeWitnessesThrough110_card,
+    recordPrimeWitnessBlock111_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough111_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough111) : p ≤ 117671 := by
+  rw [recordPrimeWitnessesThrough111, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough110_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock111_upper hpBlock
+
+theorem recordPrimeWitnessesThrough111_subset :
+    recordPrimeWitnessesThrough111 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough111, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough110_subset,
+    recordPrimeWitnessBlock111_subset⟩
+
+def recordPrimeWitnessesThrough112 : Finset Nat :=
+  recordPrimeWitnessesThrough111 ∪ recordPrimeWitnessBlock112
+
+private theorem recordPrimeWitnessesThrough111_disjoint_block112 :
+    Disjoint recordPrimeWitnessesThrough111 recordPrimeWitnessBlock112 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 117671 :=
+    recordPrimeWitnessesThrough111_upper hpPrevious
+  have hpLower : 117673 ≤ p := recordPrimeWitnessBlock112_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough112_card :
+    recordPrimeWitnessesThrough112.card = 11200 := by
+  rw [recordPrimeWitnessesThrough112,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough111_disjoint_block112,
+    recordPrimeWitnessesThrough111_card,
+    recordPrimeWitnessBlock112_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough112_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough112) : p ≤ 118819 := by
+  rw [recordPrimeWitnessesThrough112, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough111_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock112_upper hpBlock
+
+theorem recordPrimeWitnessesThrough112_subset :
+    recordPrimeWitnessesThrough112 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough112, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough111_subset,
+    recordPrimeWitnessBlock112_subset⟩
+
+def recordPrimeWitnessesThrough113 : Finset Nat :=
+  recordPrimeWitnessesThrough112 ∪ recordPrimeWitnessBlock113
+
+private theorem recordPrimeWitnessesThrough112_disjoint_block113 :
+    Disjoint recordPrimeWitnessesThrough112 recordPrimeWitnessBlock113 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 118819 :=
+    recordPrimeWitnessesThrough112_upper hpPrevious
+  have hpLower : 118831 ≤ p := recordPrimeWitnessBlock113_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough113_card :
+    recordPrimeWitnessesThrough113.card = 11300 := by
+  rw [recordPrimeWitnessesThrough113,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough112_disjoint_block113,
+    recordPrimeWitnessesThrough112_card,
+    recordPrimeWitnessBlock113_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough113_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough113) : p ≤ 119983 := by
+  rw [recordPrimeWitnessesThrough113, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough112_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock113_upper hpBlock
+
+theorem recordPrimeWitnessesThrough113_subset :
+    recordPrimeWitnessesThrough113 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough113, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough112_subset,
+    recordPrimeWitnessBlock113_subset⟩
+
+def recordPrimeWitnessesThrough114 : Finset Nat :=
+  recordPrimeWitnessesThrough113 ∪ recordPrimeWitnessBlock114
+
+private theorem recordPrimeWitnessesThrough113_disjoint_block114 :
+    Disjoint recordPrimeWitnessesThrough113 recordPrimeWitnessBlock114 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 119983 :=
+    recordPrimeWitnessesThrough113_upper hpPrevious
+  have hpLower : 119993 ≤ p := recordPrimeWitnessBlock114_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough114_card :
+    recordPrimeWitnessesThrough114.card = 11400 := by
+  rw [recordPrimeWitnessesThrough114,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough113_disjoint_block114,
+    recordPrimeWitnessesThrough113_card,
+    recordPrimeWitnessBlock114_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough114_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough114) : p ≤ 121123 := by
+  rw [recordPrimeWitnessesThrough114, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough113_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock114_upper hpBlock
+
+theorem recordPrimeWitnessesThrough114_subset :
+    recordPrimeWitnessesThrough114 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough114, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough113_subset,
+    recordPrimeWitnessBlock114_subset⟩
+
+def recordPrimeWitnessesThrough115 : Finset Nat :=
+  recordPrimeWitnessesThrough114 ∪ recordPrimeWitnessBlock115
+
+private theorem recordPrimeWitnessesThrough114_disjoint_block115 :
+    Disjoint recordPrimeWitnessesThrough114 recordPrimeWitnessBlock115 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 121123 :=
+    recordPrimeWitnessesThrough114_upper hpPrevious
+  have hpLower : 121139 ≤ p := recordPrimeWitnessBlock115_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough115_card :
+    recordPrimeWitnessesThrough115.card = 11500 := by
+  rw [recordPrimeWitnessesThrough115,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough114_disjoint_block115,
+    recordPrimeWitnessesThrough114_card,
+    recordPrimeWitnessBlock115_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough115_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough115) : p ≤ 122251 := by
+  rw [recordPrimeWitnessesThrough115, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough114_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock115_upper hpBlock
+
+theorem recordPrimeWitnessesThrough115_subset :
+    recordPrimeWitnessesThrough115 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough115, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough114_subset,
+    recordPrimeWitnessBlock115_subset⟩
+
+def recordPrimeWitnessesThrough116 : Finset Nat :=
+  recordPrimeWitnessesThrough115 ∪ recordPrimeWitnessBlock116
+
+private theorem recordPrimeWitnessesThrough115_disjoint_block116 :
+    Disjoint recordPrimeWitnessesThrough115 recordPrimeWitnessBlock116 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 122251 :=
+    recordPrimeWitnessesThrough115_upper hpPrevious
+  have hpLower : 122263 ≤ p := recordPrimeWitnessBlock116_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough116_card :
+    recordPrimeWitnessesThrough116.card = 11600 := by
+  rw [recordPrimeWitnessesThrough116,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough115_disjoint_block116,
+    recordPrimeWitnessesThrough115_card,
+    recordPrimeWitnessBlock116_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough116_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough116) : p ≤ 123439 := by
+  rw [recordPrimeWitnessesThrough116, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough115_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock116_upper hpBlock
+
+theorem recordPrimeWitnessesThrough116_subset :
+    recordPrimeWitnessesThrough116 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough116, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough115_subset,
+    recordPrimeWitnessBlock116_subset⟩
+
+def recordPrimeWitnessesThrough117 : Finset Nat :=
+  recordPrimeWitnessesThrough116 ∪ recordPrimeWitnessBlock117
+
+private theorem recordPrimeWitnessesThrough116_disjoint_block117 :
+    Disjoint recordPrimeWitnessesThrough116 recordPrimeWitnessBlock117 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 123439 :=
+    recordPrimeWitnessesThrough116_upper hpPrevious
+  have hpLower : 123449 ≤ p := recordPrimeWitnessBlock117_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough117_card :
+    recordPrimeWitnessesThrough117.card = 11700 := by
+  rw [recordPrimeWitnessesThrough117,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough116_disjoint_block117,
+    recordPrimeWitnessesThrough116_card,
+    recordPrimeWitnessBlock117_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough117_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough117) : p ≤ 124577 := by
+  rw [recordPrimeWitnessesThrough117, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough116_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock117_upper hpBlock
+
+theorem recordPrimeWitnessesThrough117_subset :
+    recordPrimeWitnessesThrough117 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough117, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough116_subset,
+    recordPrimeWitnessBlock117_subset⟩
+
+def recordPrimeWitnessesThrough118 : Finset Nat :=
+  recordPrimeWitnessesThrough117 ∪ recordPrimeWitnessBlock118
+
+private theorem recordPrimeWitnessesThrough117_disjoint_block118 :
+    Disjoint recordPrimeWitnessesThrough117 recordPrimeWitnessBlock118 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 124577 :=
+    recordPrimeWitnessesThrough117_upper hpPrevious
+  have hpLower : 124601 ≤ p := recordPrimeWitnessBlock118_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough118_card :
+    recordPrimeWitnessesThrough118.card = 11800 := by
+  rw [recordPrimeWitnessesThrough118,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough117_disjoint_block118,
+    recordPrimeWitnessesThrough117_card,
+    recordPrimeWitnessBlock118_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough118_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough118) : p ≤ 125743 := by
+  rw [recordPrimeWitnessesThrough118, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough117_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock118_upper hpBlock
+
+theorem recordPrimeWitnessesThrough118_subset :
+    recordPrimeWitnessesThrough118 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough118, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough117_subset,
+    recordPrimeWitnessBlock118_subset⟩
+
+def recordPrimeWitnessesThrough119 : Finset Nat :=
+  recordPrimeWitnessesThrough118 ∪ recordPrimeWitnessBlock119
+
+private theorem recordPrimeWitnessesThrough118_disjoint_block119 :
+    Disjoint recordPrimeWitnessesThrough118 recordPrimeWitnessBlock119 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 125743 :=
+    recordPrimeWitnessesThrough118_upper hpPrevious
+  have hpLower : 125753 ≤ p := recordPrimeWitnessBlock119_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough119_card :
+    recordPrimeWitnessesThrough119.card = 11900 := by
+  rw [recordPrimeWitnessesThrough119,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough118_disjoint_block119,
+    recordPrimeWitnessesThrough118_card,
+    recordPrimeWitnessBlock119_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough119_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough119) : p ≤ 126967 := by
+  rw [recordPrimeWitnessesThrough119, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough118_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock119_upper hpBlock
+
+theorem recordPrimeWitnessesThrough119_subset :
+    recordPrimeWitnessesThrough119 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough119, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough118_subset,
+    recordPrimeWitnessBlock119_subset⟩
+
+def recordPrimeWitnessesThrough120 : Finset Nat :=
+  recordPrimeWitnessesThrough119 ∪ recordPrimeWitnessBlock120
+
+private theorem recordPrimeWitnessesThrough119_disjoint_block120 :
+    Disjoint recordPrimeWitnessesThrough119 recordPrimeWitnessBlock120 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 126967 :=
+    recordPrimeWitnessesThrough119_upper hpPrevious
+  have hpLower : 126989 ≤ p := recordPrimeWitnessBlock120_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough120_card :
+    recordPrimeWitnessesThrough120.card = 12000 := by
+  rw [recordPrimeWitnessesThrough120,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough119_disjoint_block120,
+    recordPrimeWitnessesThrough119_card,
+    recordPrimeWitnessBlock120_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough120_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough120) : p ≤ 128189 := by
+  rw [recordPrimeWitnessesThrough120, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough119_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock120_upper hpBlock
+
+theorem recordPrimeWitnessesThrough120_subset :
+    recordPrimeWitnessesThrough120 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough120, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough119_subset,
+    recordPrimeWitnessBlock120_subset⟩
+
+def recordPrimeWitnessesThrough121 : Finset Nat :=
+  recordPrimeWitnessesThrough120 ∪ recordPrimeWitnessBlock121
+
+private theorem recordPrimeWitnessesThrough120_disjoint_block121 :
+    Disjoint recordPrimeWitnessesThrough120 recordPrimeWitnessBlock121 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 128189 :=
+    recordPrimeWitnessesThrough120_upper hpPrevious
+  have hpLower : 128201 ≤ p := recordPrimeWitnessBlock121_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough121_card :
+    recordPrimeWitnessesThrough121.card = 12100 := by
+  rw [recordPrimeWitnessesThrough121,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough120_disjoint_block121,
+    recordPrimeWitnessesThrough120_card,
+    recordPrimeWitnessBlock121_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough121_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough121) : p ≤ 129281 := by
+  rw [recordPrimeWitnessesThrough121, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough120_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock121_upper hpBlock
+
+theorem recordPrimeWitnessesThrough121_subset :
+    recordPrimeWitnessesThrough121 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough121, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough120_subset,
+    recordPrimeWitnessBlock121_subset⟩
+
+def recordPrimeWitnessesThrough122 : Finset Nat :=
+  recordPrimeWitnessesThrough121 ∪ recordPrimeWitnessBlock122
+
+private theorem recordPrimeWitnessesThrough121_disjoint_block122 :
+    Disjoint recordPrimeWitnessesThrough121 recordPrimeWitnessBlock122 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 129281 :=
+    recordPrimeWitnessesThrough121_upper hpPrevious
+  have hpLower : 129287 ≤ p := recordPrimeWitnessBlock122_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough122_card :
+    recordPrimeWitnessesThrough122.card = 12200 := by
+  rw [recordPrimeWitnessesThrough122,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough121_disjoint_block122,
+    recordPrimeWitnessesThrough121_card,
+    recordPrimeWitnessBlock122_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough122_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough122) : p ≤ 130447 := by
+  rw [recordPrimeWitnessesThrough122, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough121_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock122_upper hpBlock
+
+theorem recordPrimeWitnessesThrough122_subset :
+    recordPrimeWitnessesThrough122 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough122, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough121_subset,
+    recordPrimeWitnessBlock122_subset⟩
+
+def recordPrimeWitnessesThrough123 : Finset Nat :=
+  recordPrimeWitnessesThrough122 ∪ recordPrimeWitnessBlock123
+
+private theorem recordPrimeWitnessesThrough122_disjoint_block123 :
+    Disjoint recordPrimeWitnessesThrough122 recordPrimeWitnessBlock123 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 130447 :=
+    recordPrimeWitnessesThrough122_upper hpPrevious
+  have hpLower : 130457 ≤ p := recordPrimeWitnessBlock123_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough123_card :
+    recordPrimeWitnessesThrough123.card = 12300 := by
+  rw [recordPrimeWitnessesThrough123,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough122_disjoint_block123,
+    recordPrimeWitnessesThrough122_card,
+    recordPrimeWitnessBlock123_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough123_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough123) : p ≤ 131701 := by
+  rw [recordPrimeWitnessesThrough123, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough122_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock123_upper hpBlock
+
+theorem recordPrimeWitnessesThrough123_subset :
+    recordPrimeWitnessesThrough123 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough123, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough122_subset,
+    recordPrimeWitnessBlock123_subset⟩
+
+def recordPrimeWitnessesThrough124 : Finset Nat :=
+  recordPrimeWitnessesThrough123 ∪ recordPrimeWitnessBlock124
+
+private theorem recordPrimeWitnessesThrough123_disjoint_block124 :
+    Disjoint recordPrimeWitnessesThrough123 recordPrimeWitnessBlock124 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 131701 :=
+    recordPrimeWitnessesThrough123_upper hpPrevious
+  have hpLower : 131707 ≤ p := recordPrimeWitnessBlock124_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough124_card :
+    recordPrimeWitnessesThrough124.card = 12400 := by
+  rw [recordPrimeWitnessesThrough124,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough123_disjoint_block124,
+    recordPrimeWitnessesThrough123_card,
+    recordPrimeWitnessBlock124_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough124_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough124) : p ≤ 132851 := by
+  rw [recordPrimeWitnessesThrough124, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough123_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock124_upper hpBlock
+
+theorem recordPrimeWitnessesThrough124_subset :
+    recordPrimeWitnessesThrough124 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough124, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough123_subset,
+    recordPrimeWitnessBlock124_subset⟩
+
+def recordPrimeWitnessesThrough125 : Finset Nat :=
+  recordPrimeWitnessesThrough124 ∪ recordPrimeWitnessBlock125
+
+private theorem recordPrimeWitnessesThrough124_disjoint_block125 :
+    Disjoint recordPrimeWitnessesThrough124 recordPrimeWitnessBlock125 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 132851 :=
+    recordPrimeWitnessesThrough124_upper hpPrevious
+  have hpLower : 132857 ≤ p := recordPrimeWitnessBlock125_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough125_card :
+    recordPrimeWitnessesThrough125.card = 12500 := by
+  rw [recordPrimeWitnessesThrough125,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough124_disjoint_block125,
+    recordPrimeWitnessesThrough124_card,
+    recordPrimeWitnessBlock125_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough125_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough125) : p ≤ 134053 := by
+  rw [recordPrimeWitnessesThrough125, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough124_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock125_upper hpBlock
+
+theorem recordPrimeWitnessesThrough125_subset :
+    recordPrimeWitnessesThrough125 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough125, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough124_subset,
+    recordPrimeWitnessBlock125_subset⟩
+
+def recordPrimeWitnessesThrough126 : Finset Nat :=
+  recordPrimeWitnessesThrough125 ∪ recordPrimeWitnessBlock126
+
+private theorem recordPrimeWitnessesThrough125_disjoint_block126 :
+    Disjoint recordPrimeWitnessesThrough125 recordPrimeWitnessBlock126 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 134053 :=
+    recordPrimeWitnessesThrough125_upper hpPrevious
+  have hpLower : 134059 ≤ p := recordPrimeWitnessBlock126_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough126_card :
+    recordPrimeWitnessesThrough126.card = 12600 := by
+  rw [recordPrimeWitnessesThrough126,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough125_disjoint_block126,
+    recordPrimeWitnessesThrough125_card,
+    recordPrimeWitnessBlock126_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough126_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough126) : p ≤ 135277 := by
+  rw [recordPrimeWitnessesThrough126, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough125_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock126_upper hpBlock
+
+theorem recordPrimeWitnessesThrough126_subset :
+    recordPrimeWitnessesThrough126 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough126, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough125_subset,
+    recordPrimeWitnessBlock126_subset⟩
+
+def recordPrimeWitnessesThrough127 : Finset Nat :=
+  recordPrimeWitnessesThrough126 ∪ recordPrimeWitnessBlock127
+
+private theorem recordPrimeWitnessesThrough126_disjoint_block127 :
+    Disjoint recordPrimeWitnessesThrough126 recordPrimeWitnessBlock127 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 135277 :=
+    recordPrimeWitnessesThrough126_upper hpPrevious
+  have hpLower : 135281 ≤ p := recordPrimeWitnessBlock127_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough127_card :
+    recordPrimeWitnessesThrough127.card = 12700 := by
+  rw [recordPrimeWitnessesThrough127,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough126_disjoint_block127,
+    recordPrimeWitnessesThrough126_card,
+    recordPrimeWitnessBlock127_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough127_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough127) : p ≤ 136379 := by
+  rw [recordPrimeWitnessesThrough127, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough126_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock127_upper hpBlock
+
+theorem recordPrimeWitnessesThrough127_subset :
+    recordPrimeWitnessesThrough127 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough127, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough126_subset,
+    recordPrimeWitnessBlock127_subset⟩
+
+def recordPrimeWitnessesThrough128 : Finset Nat :=
+  recordPrimeWitnessesThrough127 ∪ recordPrimeWitnessBlock128
+
+private theorem recordPrimeWitnessesThrough127_disjoint_block128 :
+    Disjoint recordPrimeWitnessesThrough127 recordPrimeWitnessBlock128 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 136379 :=
+    recordPrimeWitnessesThrough127_upper hpPrevious
+  have hpLower : 136393 ≤ p := recordPrimeWitnessBlock128_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough128_card :
+    recordPrimeWitnessesThrough128.card = 12800 := by
+  rw [recordPrimeWitnessesThrough128,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough127_disjoint_block128,
+    recordPrimeWitnessesThrough127_card,
+    recordPrimeWitnessBlock128_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough128_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough128) : p ≤ 137477 := by
+  rw [recordPrimeWitnessesThrough128, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough127_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock128_upper hpBlock
+
+theorem recordPrimeWitnessesThrough128_subset :
+    recordPrimeWitnessesThrough128 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough128, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough127_subset,
+    recordPrimeWitnessBlock128_subset⟩
+
+def recordPrimeWitnessesThrough129 : Finset Nat :=
+  recordPrimeWitnessesThrough128 ∪ recordPrimeWitnessBlock129
+
+private theorem recordPrimeWitnessesThrough128_disjoint_block129 :
+    Disjoint recordPrimeWitnessesThrough128 recordPrimeWitnessBlock129 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 137477 :=
+    recordPrimeWitnessesThrough128_upper hpPrevious
+  have hpLower : 137483 ≤ p := recordPrimeWitnessBlock129_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough129_card :
+    recordPrimeWitnessesThrough129.card = 12900 := by
+  rw [recordPrimeWitnessesThrough129,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough128_disjoint_block129,
+    recordPrimeWitnessesThrough128_card,
+    recordPrimeWitnessBlock129_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough129_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough129) : p ≤ 138641 := by
+  rw [recordPrimeWitnessesThrough129, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough128_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock129_upper hpBlock
+
+theorem recordPrimeWitnessesThrough129_subset :
+    recordPrimeWitnessesThrough129 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough129, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough128_subset,
+    recordPrimeWitnessBlock129_subset⟩
+
+def recordPrimeWitnessesThrough130 : Finset Nat :=
+  recordPrimeWitnessesThrough129 ∪ recordPrimeWitnessBlock130
+
+private theorem recordPrimeWitnessesThrough129_disjoint_block130 :
+    Disjoint recordPrimeWitnessesThrough129 recordPrimeWitnessBlock130 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 138641 :=
+    recordPrimeWitnessesThrough129_upper hpPrevious
+  have hpLower : 138647 ≤ p := recordPrimeWitnessBlock130_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough130_card :
+    recordPrimeWitnessesThrough130.card = 13000 := by
+  rw [recordPrimeWitnessesThrough130,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough129_disjoint_block130,
+    recordPrimeWitnessesThrough129_card,
+    recordPrimeWitnessBlock130_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough130_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough130) : p ≤ 139901 := by
+  rw [recordPrimeWitnessesThrough130, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough129_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock130_upper hpBlock
+
+theorem recordPrimeWitnessesThrough130_subset :
+    recordPrimeWitnessesThrough130 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough130, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough129_subset,
+    recordPrimeWitnessBlock130_subset⟩
+
+def recordPrimeWitnessesThrough131 : Finset Nat :=
+  recordPrimeWitnessesThrough130 ∪ recordPrimeWitnessBlock131
+
+private theorem recordPrimeWitnessesThrough130_disjoint_block131 :
+    Disjoint recordPrimeWitnessesThrough130 recordPrimeWitnessBlock131 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 139901 :=
+    recordPrimeWitnessesThrough130_upper hpPrevious
+  have hpLower : 139907 ≤ p := recordPrimeWitnessBlock131_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough131_card :
+    recordPrimeWitnessesThrough131.card = 13100 := by
+  rw [recordPrimeWitnessesThrough131,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough130_disjoint_block131,
+    recordPrimeWitnessesThrough130_card,
+    recordPrimeWitnessBlock131_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough131_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough131) : p ≤ 141061 := by
+  rw [recordPrimeWitnessesThrough131, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough130_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock131_upper hpBlock
+
+theorem recordPrimeWitnessesThrough131_subset :
+    recordPrimeWitnessesThrough131 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough131, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough130_subset,
+    recordPrimeWitnessBlock131_subset⟩
+
+def recordPrimeWitnessesThrough132 : Finset Nat :=
+  recordPrimeWitnessesThrough131 ∪ recordPrimeWitnessBlock132
+
+private theorem recordPrimeWitnessesThrough131_disjoint_block132 :
+    Disjoint recordPrimeWitnessesThrough131 recordPrimeWitnessBlock132 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 141061 :=
+    recordPrimeWitnessesThrough131_upper hpPrevious
+  have hpLower : 141067 ≤ p := recordPrimeWitnessBlock132_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough132_card :
+    recordPrimeWitnessesThrough132.card = 13200 := by
+  rw [recordPrimeWitnessesThrough132,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough131_disjoint_block132,
+    recordPrimeWitnessesThrough131_card,
+    recordPrimeWitnessBlock132_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough132_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough132) : p ≤ 142169 := by
+  rw [recordPrimeWitnessesThrough132, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough131_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock132_upper hpBlock
+
+theorem recordPrimeWitnessesThrough132_subset :
+    recordPrimeWitnessesThrough132 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough132, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough131_subset,
+    recordPrimeWitnessBlock132_subset⟩
+
+def recordPrimeWitnessesThrough133 : Finset Nat :=
+  recordPrimeWitnessesThrough132 ∪ recordPrimeWitnessBlock133
+
+private theorem recordPrimeWitnessesThrough132_disjoint_block133 :
+    Disjoint recordPrimeWitnessesThrough132 recordPrimeWitnessBlock133 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 142169 :=
+    recordPrimeWitnessesThrough132_upper hpPrevious
+  have hpLower : 142183 ≤ p := recordPrimeWitnessBlock133_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough133_card :
+    recordPrimeWitnessesThrough133.card = 13300 := by
+  rw [recordPrimeWitnessesThrough133,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough132_disjoint_block133,
+    recordPrimeWitnessesThrough132_card,
+    recordPrimeWitnessBlock133_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough133_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough133) : p ≤ 143501 := by
+  rw [recordPrimeWitnessesThrough133, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough132_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock133_upper hpBlock
+
+theorem recordPrimeWitnessesThrough133_subset :
+    recordPrimeWitnessesThrough133 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough133, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough132_subset,
+    recordPrimeWitnessBlock133_subset⟩
+
+def recordPrimeWitnessesThrough134 : Finset Nat :=
+  recordPrimeWitnessesThrough133 ∪ recordPrimeWitnessBlock134
+
+private theorem recordPrimeWitnessesThrough133_disjoint_block134 :
+    Disjoint recordPrimeWitnessesThrough133 recordPrimeWitnessBlock134 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 143501 :=
+    recordPrimeWitnessesThrough133_upper hpPrevious
+  have hpLower : 143503 ≤ p := recordPrimeWitnessBlock134_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough134_card :
+    recordPrimeWitnessesThrough134.card = 13400 := by
+  rw [recordPrimeWitnessesThrough134,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough133_disjoint_block134,
+    recordPrimeWitnessesThrough133_card,
+    recordPrimeWitnessBlock134_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough134_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough134) : p ≤ 144731 := by
+  rw [recordPrimeWitnessesThrough134, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough133_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock134_upper hpBlock
+
+theorem recordPrimeWitnessesThrough134_subset :
+    recordPrimeWitnessesThrough134 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough134, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough133_subset,
+    recordPrimeWitnessBlock134_subset⟩
+
+def recordPrimeWitnessesThrough135 : Finset Nat :=
+  recordPrimeWitnessesThrough134 ∪ recordPrimeWitnessBlock135
+
+private theorem recordPrimeWitnessesThrough134_disjoint_block135 :
+    Disjoint recordPrimeWitnessesThrough134 recordPrimeWitnessBlock135 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 144731 :=
+    recordPrimeWitnessesThrough134_upper hpPrevious
+  have hpLower : 144737 ≤ p := recordPrimeWitnessBlock135_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough135_card :
+    recordPrimeWitnessesThrough135.card = 13500 := by
+  rw [recordPrimeWitnessesThrough135,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough134_disjoint_block135,
+    recordPrimeWitnessesThrough134_card,
+    recordPrimeWitnessBlock135_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough135_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough135) : p ≤ 145931 := by
+  rw [recordPrimeWitnessesThrough135, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough134_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock135_upper hpBlock
+
+theorem recordPrimeWitnessesThrough135_subset :
+    recordPrimeWitnessesThrough135 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough135, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough134_subset,
+    recordPrimeWitnessBlock135_subset⟩
+
+def recordPrimeWitnessesThrough136 : Finset Nat :=
+  recordPrimeWitnessesThrough135 ∪ recordPrimeWitnessBlock136
+
+private theorem recordPrimeWitnessesThrough135_disjoint_block136 :
+    Disjoint recordPrimeWitnessesThrough135 recordPrimeWitnessBlock136 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 145931 :=
+    recordPrimeWitnessesThrough135_upper hpPrevious
+  have hpLower : 145933 ≤ p := recordPrimeWitnessBlock136_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough136_card :
+    recordPrimeWitnessesThrough136.card = 13600 := by
+  rw [recordPrimeWitnessesThrough136,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough135_disjoint_block136,
+    recordPrimeWitnessesThrough135_card,
+    recordPrimeWitnessBlock136_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough136_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough136) : p ≤ 147107 := by
+  rw [recordPrimeWitnessesThrough136, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough135_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock136_upper hpBlock
+
+theorem recordPrimeWitnessesThrough136_subset :
+    recordPrimeWitnessesThrough136 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough136, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough135_subset,
+    recordPrimeWitnessBlock136_subset⟩
+
+def recordPrimeWitnessesThrough137 : Finset Nat :=
+  recordPrimeWitnessesThrough136 ∪ recordPrimeWitnessBlock137
+
+private theorem recordPrimeWitnessesThrough136_disjoint_block137 :
+    Disjoint recordPrimeWitnessesThrough136 recordPrimeWitnessBlock137 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 147107 :=
+    recordPrimeWitnessesThrough136_upper hpPrevious
+  have hpLower : 147137 ≤ p := recordPrimeWitnessBlock137_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough137_card :
+    recordPrimeWitnessesThrough137.card = 13700 := by
+  rw [recordPrimeWitnessesThrough137,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough136_disjoint_block137,
+    recordPrimeWitnessesThrough136_card,
+    recordPrimeWitnessBlock137_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough137_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough137) : p ≤ 148339 := by
+  rw [recordPrimeWitnessesThrough137, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough136_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock137_upper hpBlock
+
+theorem recordPrimeWitnessesThrough137_subset :
+    recordPrimeWitnessesThrough137 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough137, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough136_subset,
+    recordPrimeWitnessBlock137_subset⟩
+
+def recordPrimeWitnessesThrough138 : Finset Nat :=
+  recordPrimeWitnessesThrough137 ∪ recordPrimeWitnessBlock138
+
+private theorem recordPrimeWitnessesThrough137_disjoint_block138 :
+    Disjoint recordPrimeWitnessesThrough137 recordPrimeWitnessBlock138 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 148339 :=
+    recordPrimeWitnessesThrough137_upper hpPrevious
+  have hpLower : 148361 ≤ p := recordPrimeWitnessBlock138_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough138_card :
+    recordPrimeWitnessesThrough138.card = 13800 := by
+  rw [recordPrimeWitnessesThrough138,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough137_disjoint_block138,
+    recordPrimeWitnessesThrough137_card,
+    recordPrimeWitnessBlock138_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough138_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough138) : p ≤ 149419 := by
+  rw [recordPrimeWitnessesThrough138, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough137_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock138_upper hpBlock
+
+theorem recordPrimeWitnessesThrough138_subset :
+    recordPrimeWitnessesThrough138 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough138, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough137_subset,
+    recordPrimeWitnessBlock138_subset⟩
+
+def recordPrimeWitnessesThrough139 : Finset Nat :=
+  recordPrimeWitnessesThrough138 ∪ recordPrimeWitnessBlock139
+
+private theorem recordPrimeWitnessesThrough138_disjoint_block139 :
+    Disjoint recordPrimeWitnessesThrough138 recordPrimeWitnessBlock139 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 149419 :=
+    recordPrimeWitnessesThrough138_upper hpPrevious
+  have hpLower : 149423 ≤ p := recordPrimeWitnessBlock139_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough139_card :
+    recordPrimeWitnessesThrough139.card = 13900 := by
+  rw [recordPrimeWitnessesThrough139,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough138_disjoint_block139,
+    recordPrimeWitnessesThrough138_card,
+    recordPrimeWitnessBlock139_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough139_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough139) : p ≤ 150587 := by
+  rw [recordPrimeWitnessesThrough139, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough138_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock139_upper hpBlock
+
+theorem recordPrimeWitnessesThrough139_subset :
+    recordPrimeWitnessesThrough139 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough139, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough138_subset,
+    recordPrimeWitnessBlock139_subset⟩
+
+def recordPrimeWitnessesThrough140 : Finset Nat :=
+  recordPrimeWitnessesThrough139 ∪ recordPrimeWitnessBlock140
+
+private theorem recordPrimeWitnessesThrough139_disjoint_block140 :
+    Disjoint recordPrimeWitnessesThrough139 recordPrimeWitnessBlock140 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 150587 :=
+    recordPrimeWitnessesThrough139_upper hpPrevious
+  have hpLower : 150589 ≤ p := recordPrimeWitnessBlock140_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough140_card :
+    recordPrimeWitnessesThrough140.card = 14000 := by
+  rw [recordPrimeWitnessesThrough140,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough139_disjoint_block140,
+    recordPrimeWitnessesThrough139_card,
+    recordPrimeWitnessBlock140_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough140_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough140) : p ≤ 151703 := by
+  rw [recordPrimeWitnessesThrough140, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough139_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock140_upper hpBlock
+
+theorem recordPrimeWitnessesThrough140_subset :
+    recordPrimeWitnessesThrough140 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough140, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough139_subset,
+    recordPrimeWitnessBlock140_subset⟩
+
+def recordPrimeWitnessesThrough141 : Finset Nat :=
+  recordPrimeWitnessesThrough140 ∪ recordPrimeWitnessBlock141
+
+private theorem recordPrimeWitnessesThrough140_disjoint_block141 :
+    Disjoint recordPrimeWitnessesThrough140 recordPrimeWitnessBlock141 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 151703 :=
+    recordPrimeWitnessesThrough140_upper hpPrevious
+  have hpLower : 151717 ≤ p := recordPrimeWitnessBlock141_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough141_card :
+    recordPrimeWitnessesThrough141.card = 14100 := by
+  rw [recordPrimeWitnessesThrough141,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough140_disjoint_block141,
+    recordPrimeWitnessesThrough140_card,
+    recordPrimeWitnessBlock141_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough141_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough141) : p ≤ 152879 := by
+  rw [recordPrimeWitnessesThrough141, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough140_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock141_upper hpBlock
+
+theorem recordPrimeWitnessesThrough141_subset :
+    recordPrimeWitnessesThrough141 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough141, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough140_subset,
+    recordPrimeWitnessBlock141_subset⟩
+
+def recordPrimeWitnessesThrough142 : Finset Nat :=
+  recordPrimeWitnessesThrough141 ∪ recordPrimeWitnessBlock142
+
+private theorem recordPrimeWitnessesThrough141_disjoint_block142 :
+    Disjoint recordPrimeWitnessesThrough141 recordPrimeWitnessBlock142 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 152879 :=
+    recordPrimeWitnessesThrough141_upper hpPrevious
+  have hpLower : 152897 ≤ p := recordPrimeWitnessBlock142_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough142_card :
+    recordPrimeWitnessesThrough142.card = 14200 := by
+  rw [recordPrimeWitnessesThrough142,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough141_disjoint_block142,
+    recordPrimeWitnessesThrough141_card,
+    recordPrimeWitnessBlock142_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough142_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough142) : p ≤ 154111 := by
+  rw [recordPrimeWitnessesThrough142, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough141_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock142_upper hpBlock
+
+theorem recordPrimeWitnessesThrough142_subset :
+    recordPrimeWitnessesThrough142 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough142, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough141_subset,
+    recordPrimeWitnessBlock142_subset⟩
+
+def recordPrimeWitnessesThrough143 : Finset Nat :=
+  recordPrimeWitnessesThrough142 ∪ recordPrimeWitnessBlock143
+
+private theorem recordPrimeWitnessesThrough142_disjoint_block143 :
+    Disjoint recordPrimeWitnessesThrough142 recordPrimeWitnessBlock143 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 154111 :=
+    recordPrimeWitnessesThrough142_upper hpPrevious
+  have hpLower : 154127 ≤ p := recordPrimeWitnessBlock143_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough143_card :
+    recordPrimeWitnessesThrough143.card = 14300 := by
+  rw [recordPrimeWitnessesThrough143,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough142_disjoint_block143,
+    recordPrimeWitnessesThrough142_card,
+    recordPrimeWitnessBlock143_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough143_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough143) : p ≤ 155327 := by
+  rw [recordPrimeWitnessesThrough143, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough142_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock143_upper hpBlock
+
+theorem recordPrimeWitnessesThrough143_subset :
+    recordPrimeWitnessesThrough143 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough143, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough142_subset,
+    recordPrimeWitnessBlock143_subset⟩
+
+def recordPrimeWitnessesThrough144 : Finset Nat :=
+  recordPrimeWitnessesThrough143 ∪ recordPrimeWitnessBlock144
+
+private theorem recordPrimeWitnessesThrough143_disjoint_block144 :
+    Disjoint recordPrimeWitnessesThrough143 recordPrimeWitnessBlock144 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 155327 :=
+    recordPrimeWitnessesThrough143_upper hpPrevious
+  have hpLower : 155333 ≤ p := recordPrimeWitnessBlock144_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough144_card :
+    recordPrimeWitnessesThrough144.card = 14400 := by
+  rw [recordPrimeWitnessesThrough144,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough143_disjoint_block144,
+    recordPrimeWitnessesThrough143_card,
+    recordPrimeWitnessBlock144_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough144_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough144) : p ≤ 156593 := by
+  rw [recordPrimeWitnessesThrough144, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough143_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock144_upper hpBlock
+
+theorem recordPrimeWitnessesThrough144_subset :
+    recordPrimeWitnessesThrough144 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough144, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough143_subset,
+    recordPrimeWitnessBlock144_subset⟩
+
+def recordPrimeWitnessesThrough145 : Finset Nat :=
+  recordPrimeWitnessesThrough144 ∪ recordPrimeWitnessBlock145
+
+private theorem recordPrimeWitnessesThrough144_disjoint_block145 :
+    Disjoint recordPrimeWitnessesThrough144 recordPrimeWitnessBlock145 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 156593 :=
+    recordPrimeWitnessesThrough144_upper hpPrevious
+  have hpLower : 156601 ≤ p := recordPrimeWitnessBlock145_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough145_card :
+    recordPrimeWitnessesThrough145.card = 14500 := by
+  rw [recordPrimeWitnessesThrough145,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough144_disjoint_block145,
+    recordPrimeWitnessesThrough144_card,
+    recordPrimeWitnessBlock145_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough145_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough145) : p ≤ 157739 := by
+  rw [recordPrimeWitnessesThrough145, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough144_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock145_upper hpBlock
+
+theorem recordPrimeWitnessesThrough145_subset :
+    recordPrimeWitnessesThrough145 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough145, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough144_subset,
+    recordPrimeWitnessBlock145_subset⟩
+
+def recordPrimeWitnessesThrough146 : Finset Nat :=
+  recordPrimeWitnessesThrough145 ∪ recordPrimeWitnessBlock146
+
+private theorem recordPrimeWitnessesThrough145_disjoint_block146 :
+    Disjoint recordPrimeWitnessesThrough145 recordPrimeWitnessBlock146 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 157739 :=
+    recordPrimeWitnessesThrough145_upper hpPrevious
+  have hpLower : 157747 ≤ p := recordPrimeWitnessBlock146_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough146_card :
+    recordPrimeWitnessesThrough146.card = 14600 := by
+  rw [recordPrimeWitnessesThrough146,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough145_disjoint_block146,
+    recordPrimeWitnessesThrough145_card,
+    recordPrimeWitnessBlock146_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough146_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough146) : p ≤ 159017 := by
+  rw [recordPrimeWitnessesThrough146, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough145_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock146_upper hpBlock
+
+theorem recordPrimeWitnessesThrough146_subset :
+    recordPrimeWitnessesThrough146 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough146, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough145_subset,
+    recordPrimeWitnessBlock146_subset⟩
+
+def recordPrimeWitnessesThrough147 : Finset Nat :=
+  recordPrimeWitnessesThrough146 ∪ recordPrimeWitnessBlock147
+
+private theorem recordPrimeWitnessesThrough146_disjoint_block147 :
+    Disjoint recordPrimeWitnessesThrough146 recordPrimeWitnessBlock147 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 159017 :=
+    recordPrimeWitnessesThrough146_upper hpPrevious
+  have hpLower : 159023 ≤ p := recordPrimeWitnessBlock147_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough147_card :
+    recordPrimeWitnessesThrough147.card = 14700 := by
+  rw [recordPrimeWitnessesThrough147,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough146_disjoint_block147,
+    recordPrimeWitnessesThrough146_card,
+    recordPrimeWitnessBlock147_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough147_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough147) : p ≤ 160169 := by
+  rw [recordPrimeWitnessesThrough147, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough146_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock147_upper hpBlock
+
+theorem recordPrimeWitnessesThrough147_subset :
+    recordPrimeWitnessesThrough147 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough147, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough146_subset,
+    recordPrimeWitnessBlock147_subset⟩
+
+def recordPrimeWitnessesThrough148 : Finset Nat :=
+  recordPrimeWitnessesThrough147 ∪ recordPrimeWitnessBlock148
+
+private theorem recordPrimeWitnessesThrough147_disjoint_block148 :
+    Disjoint recordPrimeWitnessesThrough147 recordPrimeWitnessBlock148 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 160169 :=
+    recordPrimeWitnessesThrough147_upper hpPrevious
+  have hpLower : 160183 ≤ p := recordPrimeWitnessBlock148_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough148_card :
+    recordPrimeWitnessesThrough148.card = 14800 := by
+  rw [recordPrimeWitnessesThrough148,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough147_disjoint_block148,
+    recordPrimeWitnessesThrough147_card,
+    recordPrimeWitnessBlock148_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough148_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough148) : p ≤ 161387 := by
+  rw [recordPrimeWitnessesThrough148, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough147_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock148_upper hpBlock
+
+theorem recordPrimeWitnessesThrough148_subset :
+    recordPrimeWitnessesThrough148 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough148, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough147_subset,
+    recordPrimeWitnessBlock148_subset⟩
+
+def recordPrimeWitnessesThrough149 : Finset Nat :=
+  recordPrimeWitnessesThrough148 ∪ recordPrimeWitnessBlock149
+
+private theorem recordPrimeWitnessesThrough148_disjoint_block149 :
+    Disjoint recordPrimeWitnessesThrough148 recordPrimeWitnessBlock149 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 161387 :=
+    recordPrimeWitnessesThrough148_upper hpPrevious
+  have hpLower : 161407 ≤ p := recordPrimeWitnessBlock149_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough149_card :
+    recordPrimeWitnessesThrough149.card = 14900 := by
+  rw [recordPrimeWitnessesThrough149,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough148_disjoint_block149,
+    recordPrimeWitnessesThrough148_card,
+    recordPrimeWitnessBlock149_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough149_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough149) : p ≤ 162649 := by
+  rw [recordPrimeWitnessesThrough149, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough148_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock149_upper hpBlock
+
+theorem recordPrimeWitnessesThrough149_subset :
+    recordPrimeWitnessesThrough149 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough149, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough148_subset,
+    recordPrimeWitnessBlock149_subset⟩
+
+def recordPrimeWitnessesThrough150 : Finset Nat :=
+  recordPrimeWitnessesThrough149 ∪ recordPrimeWitnessBlock150
+
+private theorem recordPrimeWitnessesThrough149_disjoint_block150 :
+    Disjoint recordPrimeWitnessesThrough149 recordPrimeWitnessBlock150 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 162649 :=
+    recordPrimeWitnessesThrough149_upper hpPrevious
+  have hpLower : 162671 ≤ p := recordPrimeWitnessBlock150_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough150_card :
+    recordPrimeWitnessesThrough150.card = 15000 := by
+  rw [recordPrimeWitnessesThrough150,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough149_disjoint_block150,
+    recordPrimeWitnessesThrough149_card,
+    recordPrimeWitnessBlock150_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough150_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough150) : p ≤ 163841 := by
+  rw [recordPrimeWitnessesThrough150, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough149_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock150_upper hpBlock
+
+theorem recordPrimeWitnessesThrough150_subset :
+    recordPrimeWitnessesThrough150 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough150, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough149_subset,
+    recordPrimeWitnessBlock150_subset⟩
+
+def recordPrimeWitnessesThrough151 : Finset Nat :=
+  recordPrimeWitnessesThrough150 ∪ recordPrimeWitnessBlock151
+
+private theorem recordPrimeWitnessesThrough150_disjoint_block151 :
+    Disjoint recordPrimeWitnessesThrough150 recordPrimeWitnessBlock151 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 163841 :=
+    recordPrimeWitnessesThrough150_upper hpPrevious
+  have hpLower : 163847 ≤ p := recordPrimeWitnessBlock151_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough151_card :
+    recordPrimeWitnessesThrough151.card = 15100 := by
+  rw [recordPrimeWitnessesThrough151,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough150_disjoint_block151,
+    recordPrimeWitnessesThrough150_card,
+    recordPrimeWitnessBlock151_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough151_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough151) : p ≤ 165079 := by
+  rw [recordPrimeWitnessesThrough151, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough150_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock151_upper hpBlock
+
+theorem recordPrimeWitnessesThrough151_subset :
+    recordPrimeWitnessesThrough151 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough151, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough150_subset,
+    recordPrimeWitnessBlock151_subset⟩
+
+def recordPrimeWitnessesThrough152 : Finset Nat :=
+  recordPrimeWitnessesThrough151 ∪ recordPrimeWitnessBlock152
+
+private theorem recordPrimeWitnessesThrough151_disjoint_block152 :
+    Disjoint recordPrimeWitnessesThrough151 recordPrimeWitnessBlock152 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 165079 :=
+    recordPrimeWitnessesThrough151_upper hpPrevious
+  have hpLower : 165083 ≤ p := recordPrimeWitnessBlock152_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough152_card :
+    recordPrimeWitnessesThrough152.card = 15200 := by
+  rw [recordPrimeWitnessesThrough152,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough151_disjoint_block152,
+    recordPrimeWitnessesThrough151_card,
+    recordPrimeWitnessBlock152_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough152_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough152) : p ≤ 166351 := by
+  rw [recordPrimeWitnessesThrough152, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough151_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock152_upper hpBlock
+
+theorem recordPrimeWitnessesThrough152_subset :
+    recordPrimeWitnessesThrough152 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough152, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough151_subset,
+    recordPrimeWitnessBlock152_subset⟩
+
+def recordPrimeWitnessesThrough153 : Finset Nat :=
+  recordPrimeWitnessesThrough152 ∪ recordPrimeWitnessBlock153
+
+private theorem recordPrimeWitnessesThrough152_disjoint_block153 :
+    Disjoint recordPrimeWitnessesThrough152 recordPrimeWitnessBlock153 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 166351 :=
+    recordPrimeWitnessesThrough152_upper hpPrevious
+  have hpLower : 166357 ≤ p := recordPrimeWitnessBlock153_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough153_card :
+    recordPrimeWitnessesThrough153.card = 15300 := by
+  rw [recordPrimeWitnessesThrough153,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough152_disjoint_block153,
+    recordPrimeWitnessesThrough152_card,
+    recordPrimeWitnessBlock153_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough153_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough153) : p ≤ 167471 := by
+  rw [recordPrimeWitnessesThrough153, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough152_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock153_upper hpBlock
+
+theorem recordPrimeWitnessesThrough153_subset :
+    recordPrimeWitnessesThrough153 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough153, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough152_subset,
+    recordPrimeWitnessBlock153_subset⟩
+
+def recordPrimeWitnessesThrough154 : Finset Nat :=
+  recordPrimeWitnessesThrough153 ∪ recordPrimeWitnessBlock154
+
+private theorem recordPrimeWitnessesThrough153_disjoint_block154 :
+    Disjoint recordPrimeWitnessesThrough153 recordPrimeWitnessBlock154 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 167471 :=
+    recordPrimeWitnessesThrough153_upper hpPrevious
+  have hpLower : 167483 ≤ p := recordPrimeWitnessBlock154_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough154_card :
+    recordPrimeWitnessesThrough154.card = 15400 := by
+  rw [recordPrimeWitnessesThrough154,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough153_disjoint_block154,
+    recordPrimeWitnessesThrough153_card,
+    recordPrimeWitnessBlock154_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough154_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough154) : p ≤ 168863 := by
+  rw [recordPrimeWitnessesThrough154, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough153_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock154_upper hpBlock
+
+theorem recordPrimeWitnessesThrough154_subset :
+    recordPrimeWitnessesThrough154 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough154, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough153_subset,
+    recordPrimeWitnessBlock154_subset⟩
+
+def recordPrimeWitnessesThrough155 : Finset Nat :=
+  recordPrimeWitnessesThrough154 ∪ recordPrimeWitnessBlock155
+
+private theorem recordPrimeWitnessesThrough154_disjoint_block155 :
+    Disjoint recordPrimeWitnessesThrough154 recordPrimeWitnessBlock155 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 168863 :=
+    recordPrimeWitnessesThrough154_upper hpPrevious
+  have hpLower : 168869 ≤ p := recordPrimeWitnessBlock155_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough155_card :
+    recordPrimeWitnessesThrough155.card = 15500 := by
+  rw [recordPrimeWitnessesThrough155,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough154_disjoint_block155,
+    recordPrimeWitnessesThrough154_card,
+    recordPrimeWitnessBlock155_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough155_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough155) : p ≤ 170029 := by
+  rw [recordPrimeWitnessesThrough155, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough154_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock155_upper hpBlock
+
+theorem recordPrimeWitnessesThrough155_subset :
+    recordPrimeWitnessesThrough155 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough155, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough154_subset,
+    recordPrimeWitnessBlock155_subset⟩
+
+def recordPrimeWitnessesThrough156 : Finset Nat :=
+  recordPrimeWitnessesThrough155 ∪ recordPrimeWitnessBlock156
+
+private theorem recordPrimeWitnessesThrough155_disjoint_block156 :
+    Disjoint recordPrimeWitnessesThrough155 recordPrimeWitnessBlock156 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 170029 :=
+    recordPrimeWitnessesThrough155_upper hpPrevious
+  have hpLower : 170047 ≤ p := recordPrimeWitnessBlock156_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough156_card :
+    recordPrimeWitnessesThrough156.card = 15600 := by
+  rw [recordPrimeWitnessesThrough156,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough155_disjoint_block156,
+    recordPrimeWitnessesThrough155_card,
+    recordPrimeWitnessBlock156_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough156_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough156) : p ≤ 171169 := by
+  rw [recordPrimeWitnessesThrough156, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough155_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock156_upper hpBlock
+
+theorem recordPrimeWitnessesThrough156_subset :
+    recordPrimeWitnessesThrough156 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough156, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough155_subset,
+    recordPrimeWitnessBlock156_subset⟩
+
+def recordPrimeWitnessesThrough157 : Finset Nat :=
+  recordPrimeWitnessesThrough156 ∪ recordPrimeWitnessBlock157
+
+private theorem recordPrimeWitnessesThrough156_disjoint_block157 :
+    Disjoint recordPrimeWitnessesThrough156 recordPrimeWitnessBlock157 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 171169 :=
+    recordPrimeWitnessesThrough156_upper hpPrevious
+  have hpLower : 171179 ≤ p := recordPrimeWitnessBlock157_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough157_card :
+    recordPrimeWitnessesThrough157.card = 15700 := by
+  rw [recordPrimeWitnessesThrough157,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough156_disjoint_block157,
+    recordPrimeWitnessesThrough156_card,
+    recordPrimeWitnessBlock157_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough157_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough157) : p ≤ 172373 := by
+  rw [recordPrimeWitnessesThrough157, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough156_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock157_upper hpBlock
+
+theorem recordPrimeWitnessesThrough157_subset :
+    recordPrimeWitnessesThrough157 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough157, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough156_subset,
+    recordPrimeWitnessBlock157_subset⟩
+
+def recordPrimeWitnessesThrough158 : Finset Nat :=
+  recordPrimeWitnessesThrough157 ∪ recordPrimeWitnessBlock158
+
+private theorem recordPrimeWitnessesThrough157_disjoint_block158 :
+    Disjoint recordPrimeWitnessesThrough157 recordPrimeWitnessBlock158 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 172373 :=
+    recordPrimeWitnessesThrough157_upper hpPrevious
+  have hpLower : 172399 ≤ p := recordPrimeWitnessBlock158_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough158_card :
+    recordPrimeWitnessesThrough158.card = 15800 := by
+  rw [recordPrimeWitnessesThrough158,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough157_disjoint_block158,
+    recordPrimeWitnessesThrough157_card,
+    recordPrimeWitnessBlock158_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough158_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough158) : p ≤ 173647 := by
+  rw [recordPrimeWitnessesThrough158, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough157_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock158_upper hpBlock
+
+theorem recordPrimeWitnessesThrough158_subset :
+    recordPrimeWitnessesThrough158 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough158, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough157_subset,
+    recordPrimeWitnessBlock158_subset⟩
+
+def recordPrimeWitnessesThrough159 : Finset Nat :=
+  recordPrimeWitnessesThrough158 ∪ recordPrimeWitnessBlock159
+
+private theorem recordPrimeWitnessesThrough158_disjoint_block159 :
+    Disjoint recordPrimeWitnessesThrough158 recordPrimeWitnessBlock159 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 173647 :=
+    recordPrimeWitnessesThrough158_upper hpPrevious
+  have hpLower : 173651 ≤ p := recordPrimeWitnessBlock159_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough159_card :
+    recordPrimeWitnessesThrough159.card = 15900 := by
+  rw [recordPrimeWitnessesThrough159,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough158_disjoint_block159,
+    recordPrimeWitnessesThrough158_card,
+    recordPrimeWitnessBlock159_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough159_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough159) : p ≤ 174773 := by
+  rw [recordPrimeWitnessesThrough159, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough158_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock159_upper hpBlock
+
+theorem recordPrimeWitnessesThrough159_subset :
+    recordPrimeWitnessesThrough159 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough159, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough158_subset,
+    recordPrimeWitnessBlock159_subset⟩
+
+def recordPrimeWitnessesThrough160 : Finset Nat :=
+  recordPrimeWitnessesThrough159 ∪ recordPrimeWitnessBlock160
+
+private theorem recordPrimeWitnessesThrough159_disjoint_block160 :
+    Disjoint recordPrimeWitnessesThrough159 recordPrimeWitnessBlock160 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 174773 :=
+    recordPrimeWitnessesThrough159_upper hpPrevious
+  have hpLower : 174799 ≤ p := recordPrimeWitnessBlock160_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough160_card :
+    recordPrimeWitnessesThrough160.card = 16000 := by
+  rw [recordPrimeWitnessesThrough160,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough159_disjoint_block160,
+    recordPrimeWitnessesThrough159_card,
+    recordPrimeWitnessBlock160_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough160_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough160) : p ≤ 176081 := by
+  rw [recordPrimeWitnessesThrough160, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough159_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock160_upper hpBlock
+
+theorem recordPrimeWitnessesThrough160_subset :
+    recordPrimeWitnessesThrough160 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough160, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough159_subset,
+    recordPrimeWitnessBlock160_subset⟩
+
+def recordPrimeWitnessesThrough161 : Finset Nat :=
+  recordPrimeWitnessesThrough160 ∪ recordPrimeWitnessBlock161
+
+private theorem recordPrimeWitnessesThrough160_disjoint_block161 :
+    Disjoint recordPrimeWitnessesThrough160 recordPrimeWitnessBlock161 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 176081 :=
+    recordPrimeWitnessesThrough160_upper hpPrevious
+  have hpLower : 176087 ≤ p := recordPrimeWitnessBlock161_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough161_card :
+    recordPrimeWitnessesThrough161.card = 16100 := by
+  rw [recordPrimeWitnessesThrough161,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough160_disjoint_block161,
+    recordPrimeWitnessesThrough160_card,
+    recordPrimeWitnessBlock161_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough161_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough161) : p ≤ 177209 := by
+  rw [recordPrimeWitnessesThrough161, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough160_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock161_upper hpBlock
+
+theorem recordPrimeWitnessesThrough161_subset :
+    recordPrimeWitnessesThrough161 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough161, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough160_subset,
+    recordPrimeWitnessBlock161_subset⟩
+
+def recordPrimeWitnessesThrough162 : Finset Nat :=
+  recordPrimeWitnessesThrough161 ∪ recordPrimeWitnessBlock162
+
+private theorem recordPrimeWitnessesThrough161_disjoint_block162 :
+    Disjoint recordPrimeWitnessesThrough161 recordPrimeWitnessBlock162 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 177209 :=
+    recordPrimeWitnessesThrough161_upper hpPrevious
+  have hpLower : 177211 ≤ p := recordPrimeWitnessBlock162_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough162_card :
+    recordPrimeWitnessesThrough162.card = 16200 := by
+  rw [recordPrimeWitnessesThrough162,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough161_disjoint_block162,
+    recordPrimeWitnessesThrough161_card,
+    recordPrimeWitnessBlock162_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough162_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough162) : p ≤ 178487 := by
+  rw [recordPrimeWitnessesThrough162, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough161_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock162_upper hpBlock
+
+theorem recordPrimeWitnessesThrough162_subset :
+    recordPrimeWitnessesThrough162 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough162, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough161_subset,
+    recordPrimeWitnessBlock162_subset⟩
+
+def recordPrimeWitnessesThrough163 : Finset Nat :=
+  recordPrimeWitnessesThrough162 ∪ recordPrimeWitnessBlock163
+
+private theorem recordPrimeWitnessesThrough162_disjoint_block163 :
+    Disjoint recordPrimeWitnessesThrough162 recordPrimeWitnessBlock163 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 178487 :=
+    recordPrimeWitnessesThrough162_upper hpPrevious
+  have hpLower : 178489 ≤ p := recordPrimeWitnessBlock163_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough163_card :
+    recordPrimeWitnessesThrough163.card = 16300 := by
+  rw [recordPrimeWitnessesThrough163,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough162_disjoint_block163,
+    recordPrimeWitnessesThrough162_card,
+    recordPrimeWitnessBlock163_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough163_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough163) : p ≤ 179579 := by
+  rw [recordPrimeWitnessesThrough163, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough162_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock163_upper hpBlock
+
+theorem recordPrimeWitnessesThrough163_subset :
+    recordPrimeWitnessesThrough163 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough163, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough162_subset,
+    recordPrimeWitnessBlock163_subset⟩
+
+def recordPrimeWitnessesThrough164 : Finset Nat :=
+  recordPrimeWitnessesThrough163 ∪ recordPrimeWitnessBlock164
+
+private theorem recordPrimeWitnessesThrough163_disjoint_block164 :
+    Disjoint recordPrimeWitnessesThrough163 recordPrimeWitnessBlock164 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 179579 :=
+    recordPrimeWitnessesThrough163_upper hpPrevious
+  have hpLower : 179581 ≤ p := recordPrimeWitnessBlock164_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough164_card :
+    recordPrimeWitnessesThrough164.card = 16400 := by
+  rw [recordPrimeWitnessesThrough164,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough163_disjoint_block164,
+    recordPrimeWitnessesThrough163_card,
+    recordPrimeWitnessBlock164_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough164_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough164) : p ≤ 180749 := by
+  rw [recordPrimeWitnessesThrough164, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough163_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock164_upper hpBlock
+
+theorem recordPrimeWitnessesThrough164_subset :
+    recordPrimeWitnessesThrough164 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough164, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough163_subset,
+    recordPrimeWitnessBlock164_subset⟩
+
+def recordPrimeWitnessesThrough165 : Finset Nat :=
+  recordPrimeWitnessesThrough164 ∪ recordPrimeWitnessBlock165
+
+private theorem recordPrimeWitnessesThrough164_disjoint_block165 :
+    Disjoint recordPrimeWitnessesThrough164 recordPrimeWitnessBlock165 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 180749 :=
+    recordPrimeWitnessesThrough164_upper hpPrevious
+  have hpLower : 180751 ≤ p := recordPrimeWitnessBlock165_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough165_card :
+    recordPrimeWitnessesThrough165.card = 16500 := by
+  rw [recordPrimeWitnessesThrough165,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough164_disjoint_block165,
+    recordPrimeWitnessesThrough164_card,
+    recordPrimeWitnessBlock165_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough165_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough165) : p ≤ 182059 := by
+  rw [recordPrimeWitnessesThrough165, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough164_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock165_upper hpBlock
+
+theorem recordPrimeWitnessesThrough165_subset :
+    recordPrimeWitnessesThrough165 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough165, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough164_subset,
+    recordPrimeWitnessBlock165_subset⟩
+
+def recordPrimeWitnessesThrough166 : Finset Nat :=
+  recordPrimeWitnessesThrough165 ∪ recordPrimeWitnessBlock166
+
+private theorem recordPrimeWitnessesThrough165_disjoint_block166 :
+    Disjoint recordPrimeWitnessesThrough165 recordPrimeWitnessBlock166 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 182059 :=
+    recordPrimeWitnessesThrough165_upper hpPrevious
+  have hpLower : 182089 ≤ p := recordPrimeWitnessBlock166_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough166_card :
+    recordPrimeWitnessesThrough166.card = 16600 := by
+  rw [recordPrimeWitnessesThrough166,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough165_disjoint_block166,
+    recordPrimeWitnessesThrough165_card,
+    recordPrimeWitnessBlock166_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough166_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough166) : p ≤ 183283 := by
+  rw [recordPrimeWitnessesThrough166, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough165_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock166_upper hpBlock
+
+theorem recordPrimeWitnessesThrough166_subset :
+    recordPrimeWitnessesThrough166 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough166, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough165_subset,
+    recordPrimeWitnessBlock166_subset⟩
+
+def recordPrimeWitnessesThrough167 : Finset Nat :=
+  recordPrimeWitnessesThrough166 ∪ recordPrimeWitnessBlock167
+
+private theorem recordPrimeWitnessesThrough166_disjoint_block167 :
+    Disjoint recordPrimeWitnessesThrough166 recordPrimeWitnessBlock167 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 183283 :=
+    recordPrimeWitnessesThrough166_upper hpPrevious
+  have hpLower : 183289 ≤ p := recordPrimeWitnessBlock167_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough167_card :
+    recordPrimeWitnessesThrough167.card = 16700 := by
+  rw [recordPrimeWitnessesThrough167,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough166_disjoint_block167,
+    recordPrimeWitnessesThrough166_card,
+    recordPrimeWitnessBlock167_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough167_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough167) : p ≤ 184463 := by
+  rw [recordPrimeWitnessesThrough167, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough166_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock167_upper hpBlock
+
+theorem recordPrimeWitnessesThrough167_subset :
+    recordPrimeWitnessesThrough167 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough167, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough166_subset,
+    recordPrimeWitnessBlock167_subset⟩
+
+def recordPrimeWitnessesThrough168 : Finset Nat :=
+  recordPrimeWitnessesThrough167 ∪ recordPrimeWitnessBlock168
+
+private theorem recordPrimeWitnessesThrough167_disjoint_block168 :
+    Disjoint recordPrimeWitnessesThrough167 recordPrimeWitnessBlock168 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 184463 :=
+    recordPrimeWitnessesThrough167_upper hpPrevious
+  have hpLower : 184477 ≤ p := recordPrimeWitnessBlock168_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough168_card :
+    recordPrimeWitnessesThrough168.card = 16800 := by
+  rw [recordPrimeWitnessesThrough168,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough167_disjoint_block168,
+    recordPrimeWitnessesThrough167_card,
+    recordPrimeWitnessBlock168_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough168_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough168) : p ≤ 185641 := by
+  rw [recordPrimeWitnessesThrough168, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough167_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock168_upper hpBlock
+
+theorem recordPrimeWitnessesThrough168_subset :
+    recordPrimeWitnessesThrough168 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough168, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough167_subset,
+    recordPrimeWitnessBlock168_subset⟩
+
+def recordPrimeWitnessesThrough169 : Finset Nat :=
+  recordPrimeWitnessesThrough168 ∪ recordPrimeWitnessBlock169
+
+private theorem recordPrimeWitnessesThrough168_disjoint_block169 :
+    Disjoint recordPrimeWitnessesThrough168 recordPrimeWitnessBlock169 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 185641 :=
+    recordPrimeWitnessesThrough168_upper hpPrevious
+  have hpLower : 185651 ≤ p := recordPrimeWitnessBlock169_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough169_card :
+    recordPrimeWitnessesThrough169.card = 16900 := by
+  rw [recordPrimeWitnessesThrough169,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough168_disjoint_block169,
+    recordPrimeWitnessesThrough168_card,
+    recordPrimeWitnessBlock169_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough169_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough169) : p ≤ 186757 := by
+  rw [recordPrimeWitnessesThrough169, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough168_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock169_upper hpBlock
+
+theorem recordPrimeWitnessesThrough169_subset :
+    recordPrimeWitnessesThrough169 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough169, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough168_subset,
+    recordPrimeWitnessBlock169_subset⟩
+
+def recordPrimeWitnessesThrough170 : Finset Nat :=
+  recordPrimeWitnessesThrough169 ∪ recordPrimeWitnessBlock170
+
+private theorem recordPrimeWitnessesThrough169_disjoint_block170 :
+    Disjoint recordPrimeWitnessesThrough169 recordPrimeWitnessBlock170 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 186757 :=
+    recordPrimeWitnessesThrough169_upper hpPrevious
+  have hpLower : 186761 ≤ p := recordPrimeWitnessBlock170_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough170_card :
+    recordPrimeWitnessesThrough170.card = 17000 := by
+  rw [recordPrimeWitnessesThrough170,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough169_disjoint_block170,
+    recordPrimeWitnessesThrough169_card,
+    recordPrimeWitnessBlock170_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough170_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough170) : p ≤ 187963 := by
+  rw [recordPrimeWitnessesThrough170, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough169_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock170_upper hpBlock
+
+theorem recordPrimeWitnessesThrough170_subset :
+    recordPrimeWitnessesThrough170 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough170, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough169_subset,
+    recordPrimeWitnessBlock170_subset⟩
+
+def recordPrimeWitnessesThrough171 : Finset Nat :=
+  recordPrimeWitnessesThrough170 ∪ recordPrimeWitnessBlock171
+
+private theorem recordPrimeWitnessesThrough170_disjoint_block171 :
+    Disjoint recordPrimeWitnessesThrough170 recordPrimeWitnessBlock171 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 187963 :=
+    recordPrimeWitnessesThrough170_upper hpPrevious
+  have hpLower : 187973 ≤ p := recordPrimeWitnessBlock171_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough171_card :
+    recordPrimeWitnessesThrough171.card = 17100 := by
+  rw [recordPrimeWitnessesThrough171,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough170_disjoint_block171,
+    recordPrimeWitnessesThrough170_card,
+    recordPrimeWitnessBlock171_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough171_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough171) : p ≤ 189251 := by
+  rw [recordPrimeWitnessesThrough171, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough170_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock171_upper hpBlock
+
+theorem recordPrimeWitnessesThrough171_subset :
+    recordPrimeWitnessesThrough171 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough171, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough170_subset,
+    recordPrimeWitnessBlock171_subset⟩
+
+def recordPrimeWitnessesThrough172 : Finset Nat :=
+  recordPrimeWitnessesThrough171 ∪ recordPrimeWitnessBlock172
+
+private theorem recordPrimeWitnessesThrough171_disjoint_block172 :
+    Disjoint recordPrimeWitnessesThrough171 recordPrimeWitnessBlock172 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 189251 :=
+    recordPrimeWitnessesThrough171_upper hpPrevious
+  have hpLower : 189253 ≤ p := recordPrimeWitnessBlock172_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough172_card :
+    recordPrimeWitnessesThrough172.card = 17200 := by
+  rw [recordPrimeWitnessesThrough172,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough171_disjoint_block172,
+    recordPrimeWitnessesThrough171_card,
+    recordPrimeWitnessBlock172_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough172_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough172) : p ≤ 190409 := by
+  rw [recordPrimeWitnessesThrough172, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough171_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock172_upper hpBlock
+
+theorem recordPrimeWitnessesThrough172_subset :
+    recordPrimeWitnessesThrough172 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough172, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough171_subset,
+    recordPrimeWitnessBlock172_subset⟩
+
+def recordPrimeWitnessesThrough173 : Finset Nat :=
+  recordPrimeWitnessesThrough172 ∪ recordPrimeWitnessBlock173
+
+private theorem recordPrimeWitnessesThrough172_disjoint_block173 :
+    Disjoint recordPrimeWitnessesThrough172 recordPrimeWitnessBlock173 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 190409 :=
+    recordPrimeWitnessesThrough172_upper hpPrevious
+  have hpLower : 190471 ≤ p := recordPrimeWitnessBlock173_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough173_card :
+    recordPrimeWitnessesThrough173.card = 17300 := by
+  rw [recordPrimeWitnessesThrough173,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough172_disjoint_block173,
+    recordPrimeWitnessesThrough172_card,
+    recordPrimeWitnessBlock173_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough173_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough173) : p ≤ 191671 := by
+  rw [recordPrimeWitnessesThrough173, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough172_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock173_upper hpBlock
+
+theorem recordPrimeWitnessesThrough173_subset :
+    recordPrimeWitnessesThrough173 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough173, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough172_subset,
+    recordPrimeWitnessBlock173_subset⟩
+
+def recordPrimeWitnessesThrough174 : Finset Nat :=
+  recordPrimeWitnessesThrough173 ∪ recordPrimeWitnessBlock174
+
+private theorem recordPrimeWitnessesThrough173_disjoint_block174 :
+    Disjoint recordPrimeWitnessesThrough173 recordPrimeWitnessBlock174 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 191671 :=
+    recordPrimeWitnessesThrough173_upper hpPrevious
+  have hpLower : 191677 ≤ p := recordPrimeWitnessBlock174_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough174_card :
+    recordPrimeWitnessesThrough174.card = 17400 := by
+  rw [recordPrimeWitnessesThrough174,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough173_disjoint_block174,
+    recordPrimeWitnessesThrough173_card,
+    recordPrimeWitnessBlock174_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough174_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough174) : p ≤ 192847 := by
+  rw [recordPrimeWitnessesThrough174, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough173_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock174_upper hpBlock
+
+theorem recordPrimeWitnessesThrough174_subset :
+    recordPrimeWitnessesThrough174 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough174, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough173_subset,
+    recordPrimeWitnessBlock174_subset⟩
+
+def recordPrimeWitnessesThrough175 : Finset Nat :=
+  recordPrimeWitnessesThrough174 ∪ recordPrimeWitnessBlock175
+
+private theorem recordPrimeWitnessesThrough174_disjoint_block175 :
+    Disjoint recordPrimeWitnessesThrough174 recordPrimeWitnessBlock175 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 192847 :=
+    recordPrimeWitnessesThrough174_upper hpPrevious
+  have hpLower : 192853 ≤ p := recordPrimeWitnessBlock175_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough175_card :
+    recordPrimeWitnessesThrough175.card = 17500 := by
+  rw [recordPrimeWitnessesThrough175,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough174_disjoint_block175,
+    recordPrimeWitnessesThrough174_card,
+    recordPrimeWitnessBlock175_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough175_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough175) : p ≤ 194003 := by
+  rw [recordPrimeWitnessesThrough175, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough174_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock175_upper hpBlock
+
+theorem recordPrimeWitnessesThrough175_subset :
+    recordPrimeWitnessesThrough175 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough175, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough174_subset,
+    recordPrimeWitnessBlock175_subset⟩
+
+def recordPrimeWitnessesThrough176 : Finset Nat :=
+  recordPrimeWitnessesThrough175 ∪ recordPrimeWitnessBlock176
+
+private theorem recordPrimeWitnessesThrough175_disjoint_block176 :
+    Disjoint recordPrimeWitnessesThrough175 recordPrimeWitnessBlock176 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 194003 :=
+    recordPrimeWitnessesThrough175_upper hpPrevious
+  have hpLower : 194017 ≤ p := recordPrimeWitnessBlock176_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough176_card :
+    recordPrimeWitnessesThrough176.card = 17600 := by
+  rw [recordPrimeWitnessesThrough176,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough175_disjoint_block176,
+    recordPrimeWitnessesThrough175_card,
+    recordPrimeWitnessBlock176_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough176_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough176) : p ≤ 195281 := by
+  rw [recordPrimeWitnessesThrough176, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough175_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock176_upper hpBlock
+
+theorem recordPrimeWitnessesThrough176_subset :
+    recordPrimeWitnessesThrough176 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough176, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough175_subset,
+    recordPrimeWitnessBlock176_subset⟩
+
+def recordPrimeWitnessesThrough177 : Finset Nat :=
+  recordPrimeWitnessesThrough176 ∪ recordPrimeWitnessBlock177
+
+private theorem recordPrimeWitnessesThrough176_disjoint_block177 :
+    Disjoint recordPrimeWitnessesThrough176 recordPrimeWitnessBlock177 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 195281 :=
+    recordPrimeWitnessesThrough176_upper hpPrevious
+  have hpLower : 195311 ≤ p := recordPrimeWitnessBlock177_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough177_card :
+    recordPrimeWitnessesThrough177.card = 17700 := by
+  rw [recordPrimeWitnessesThrough177,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough176_disjoint_block177,
+    recordPrimeWitnessesThrough176_card,
+    recordPrimeWitnessBlock177_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough177_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough177) : p ≤ 196549 := by
+  rw [recordPrimeWitnessesThrough177, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough176_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock177_upper hpBlock
+
+theorem recordPrimeWitnessesThrough177_subset :
+    recordPrimeWitnessesThrough177 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough177, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough176_subset,
+    recordPrimeWitnessBlock177_subset⟩
+
+def recordPrimeWitnessesThrough178 : Finset Nat :=
+  recordPrimeWitnessesThrough177 ∪ recordPrimeWitnessBlock178
+
+private theorem recordPrimeWitnessesThrough177_disjoint_block178 :
+    Disjoint recordPrimeWitnessesThrough177 recordPrimeWitnessBlock178 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 196549 :=
+    recordPrimeWitnessesThrough177_upper hpPrevious
+  have hpLower : 196561 ≤ p := recordPrimeWitnessBlock178_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough178_card :
+    recordPrimeWitnessesThrough178.card = 17800 := by
+  rw [recordPrimeWitnessesThrough178,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough177_disjoint_block178,
+    recordPrimeWitnessesThrough177_card,
+    recordPrimeWitnessBlock178_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough178_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough178) : p ≤ 197753 := by
+  rw [recordPrimeWitnessesThrough178, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough177_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock178_upper hpBlock
+
+theorem recordPrimeWitnessesThrough178_subset :
+    recordPrimeWitnessesThrough178 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough178, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough177_subset,
+    recordPrimeWitnessBlock178_subset⟩
+
+def recordPrimeWitnessesThrough179 : Finset Nat :=
+  recordPrimeWitnessesThrough178 ∪ recordPrimeWitnessBlock179
+
+private theorem recordPrimeWitnessesThrough178_disjoint_block179 :
+    Disjoint recordPrimeWitnessesThrough178 recordPrimeWitnessBlock179 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 197753 :=
+    recordPrimeWitnessesThrough178_upper hpPrevious
+  have hpLower : 197759 ≤ p := recordPrimeWitnessBlock179_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough179_card :
+    recordPrimeWitnessesThrough179.card = 17900 := by
+  rw [recordPrimeWitnessesThrough179,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough178_disjoint_block179,
+    recordPrimeWitnessesThrough178_card,
+    recordPrimeWitnessBlock179_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough179_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough179) : p ≤ 198941 := by
+  rw [recordPrimeWitnessesThrough179, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough178_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock179_upper hpBlock
+
+theorem recordPrimeWitnessesThrough179_subset :
+    recordPrimeWitnessesThrough179 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough179, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough178_subset,
+    recordPrimeWitnessBlock179_subset⟩
+
+def recordPrimeWitnessesThrough180 : Finset Nat :=
+  recordPrimeWitnessesThrough179 ∪ recordPrimeWitnessBlock180
+
+private theorem recordPrimeWitnessesThrough179_disjoint_block180 :
+    Disjoint recordPrimeWitnessesThrough179 recordPrimeWitnessBlock180 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 198941 :=
+    recordPrimeWitnessesThrough179_upper hpPrevious
+  have hpLower : 198943 ≤ p := recordPrimeWitnessBlock180_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough180_card :
+    recordPrimeWitnessesThrough180.card = 18000 := by
+  rw [recordPrimeWitnessesThrough180,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough179_disjoint_block180,
+    recordPrimeWitnessesThrough179_card,
+    recordPrimeWitnessBlock180_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough180_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough180) : p ≤ 200183 := by
+  rw [recordPrimeWitnessesThrough180, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough179_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock180_upper hpBlock
+
+theorem recordPrimeWitnessesThrough180_subset :
+    recordPrimeWitnessesThrough180 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough180, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough179_subset,
+    recordPrimeWitnessBlock180_subset⟩
+
+def recordPrimeWitnessesThrough181 : Finset Nat :=
+  recordPrimeWitnessesThrough180 ∪ recordPrimeWitnessBlock181
+
+private theorem recordPrimeWitnessesThrough180_disjoint_block181 :
+    Disjoint recordPrimeWitnessesThrough180 recordPrimeWitnessBlock181 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 200183 :=
+    recordPrimeWitnessesThrough180_upper hpPrevious
+  have hpLower : 200191 ≤ p := recordPrimeWitnessBlock181_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough181_card :
+    recordPrimeWitnessesThrough181.card = 18100 := by
+  rw [recordPrimeWitnessesThrough181,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough180_disjoint_block181,
+    recordPrimeWitnessesThrough180_card,
+    recordPrimeWitnessBlock181_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough181_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough181) : p ≤ 201499 := by
+  rw [recordPrimeWitnessesThrough181, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough180_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock181_upper hpBlock
+
+theorem recordPrimeWitnessesThrough181_subset :
+    recordPrimeWitnessesThrough181 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough181, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough180_subset,
+    recordPrimeWitnessBlock181_subset⟩
+
+def recordPrimeWitnessesThrough182 : Finset Nat :=
+  recordPrimeWitnessesThrough181 ∪ recordPrimeWitnessBlock182
+
+private theorem recordPrimeWitnessesThrough181_disjoint_block182 :
+    Disjoint recordPrimeWitnessesThrough181 recordPrimeWitnessBlock182 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 201499 :=
+    recordPrimeWitnessesThrough181_upper hpPrevious
+  have hpLower : 201511 ≤ p := recordPrimeWitnessBlock182_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough182_card :
+    recordPrimeWitnessesThrough182.card = 18200 := by
+  rw [recordPrimeWitnessesThrough182,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough181_disjoint_block182,
+    recordPrimeWitnessesThrough181_card,
+    recordPrimeWitnessBlock182_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough182_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough182) : p ≤ 202693 := by
+  rw [recordPrimeWitnessesThrough182, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough181_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock182_upper hpBlock
+
+theorem recordPrimeWitnessesThrough182_subset :
+    recordPrimeWitnessesThrough182 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough182, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough181_subset,
+    recordPrimeWitnessBlock182_subset⟩
+
+def recordPrimeWitnessesThrough183 : Finset Nat :=
+  recordPrimeWitnessesThrough182 ∪ recordPrimeWitnessBlock183
+
+private theorem recordPrimeWitnessesThrough182_disjoint_block183 :
+    Disjoint recordPrimeWitnessesThrough182 recordPrimeWitnessBlock183 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 202693 :=
+    recordPrimeWitnessesThrough182_upper hpPrevious
+  have hpLower : 202717 ≤ p := recordPrimeWitnessBlock183_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough183_card :
+    recordPrimeWitnessesThrough183.card = 18300 := by
+  rw [recordPrimeWitnessesThrough183,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough182_disjoint_block183,
+    recordPrimeWitnessesThrough182_card,
+    recordPrimeWitnessBlock183_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough183_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough183) : p ≤ 203969 := by
+  rw [recordPrimeWitnessesThrough183, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough182_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock183_upper hpBlock
+
+theorem recordPrimeWitnessesThrough183_subset :
+    recordPrimeWitnessesThrough183 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough183, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough182_subset,
+    recordPrimeWitnessBlock183_subset⟩
+
+def recordPrimeWitnessesThrough184 : Finset Nat :=
+  recordPrimeWitnessesThrough183 ∪ recordPrimeWitnessBlock184
+
+private theorem recordPrimeWitnessesThrough183_disjoint_block184 :
+    Disjoint recordPrimeWitnessesThrough183 recordPrimeWitnessBlock184 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 203969 :=
+    recordPrimeWitnessesThrough183_upper hpPrevious
+  have hpLower : 203971 ≤ p := recordPrimeWitnessBlock184_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough184_card :
+    recordPrimeWitnessesThrough184.card = 18400 := by
+  rw [recordPrimeWitnessesThrough184,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough183_disjoint_block184,
+    recordPrimeWitnessesThrough183_card,
+    recordPrimeWitnessBlock184_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough184_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough184) : p ≤ 205211 := by
+  rw [recordPrimeWitnessesThrough184, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough183_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock184_upper hpBlock
+
+theorem recordPrimeWitnessesThrough184_subset :
+    recordPrimeWitnessesThrough184 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough184, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough183_subset,
+    recordPrimeWitnessBlock184_subset⟩
+
+def recordPrimeWitnessesThrough185 : Finset Nat :=
+  recordPrimeWitnessesThrough184 ∪ recordPrimeWitnessBlock185
+
+private theorem recordPrimeWitnessesThrough184_disjoint_block185 :
+    Disjoint recordPrimeWitnessesThrough184 recordPrimeWitnessBlock185 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 205211 :=
+    recordPrimeWitnessesThrough184_upper hpPrevious
+  have hpLower : 205213 ≤ p := recordPrimeWitnessBlock185_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough185_card :
+    recordPrimeWitnessesThrough185.card = 18500 := by
+  rw [recordPrimeWitnessesThrough185,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough184_disjoint_block185,
+    recordPrimeWitnessesThrough184_card,
+    recordPrimeWitnessBlock185_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough185_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough185) : p ≤ 206369 := by
+  rw [recordPrimeWitnessesThrough185, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough184_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock185_upper hpBlock
+
+theorem recordPrimeWitnessesThrough185_subset :
+    recordPrimeWitnessesThrough185 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough185, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough184_subset,
+    recordPrimeWitnessBlock185_subset⟩
+
+def recordPrimeWitnessesThrough186 : Finset Nat :=
+  recordPrimeWitnessesThrough185 ∪ recordPrimeWitnessBlock186
+
+private theorem recordPrimeWitnessesThrough185_disjoint_block186 :
+    Disjoint recordPrimeWitnessesThrough185 recordPrimeWitnessBlock186 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 206369 :=
+    recordPrimeWitnessesThrough185_upper hpPrevious
+  have hpLower : 206383 ≤ p := recordPrimeWitnessBlock186_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough186_card :
+    recordPrimeWitnessesThrough186.card = 18600 := by
+  rw [recordPrimeWitnessesThrough186,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough185_disjoint_block186,
+    recordPrimeWitnessesThrough185_card,
+    recordPrimeWitnessBlock186_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough186_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough186) : p ≤ 207563 := by
+  rw [recordPrimeWitnessesThrough186, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough185_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock186_upper hpBlock
+
+theorem recordPrimeWitnessesThrough186_subset :
+    recordPrimeWitnessesThrough186 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough186, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough185_subset,
+    recordPrimeWitnessBlock186_subset⟩
+
+def recordPrimeWitnessesThrough187 : Finset Nat :=
+  recordPrimeWitnessesThrough186 ∪ recordPrimeWitnessBlock187
+
+private theorem recordPrimeWitnessesThrough186_disjoint_block187 :
+    Disjoint recordPrimeWitnessesThrough186 recordPrimeWitnessBlock187 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 207563 :=
+    recordPrimeWitnessesThrough186_upper hpPrevious
+  have hpLower : 207569 ≤ p := recordPrimeWitnessBlock187_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough187_card :
+    recordPrimeWitnessesThrough187.card = 18700 := by
+  rw [recordPrimeWitnessesThrough187,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough186_disjoint_block187,
+    recordPrimeWitnessesThrough186_card,
+    recordPrimeWitnessBlock187_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough187_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough187) : p ≤ 208729 := by
+  rw [recordPrimeWitnessesThrough187, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough186_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock187_upper hpBlock
+
+theorem recordPrimeWitnessesThrough187_subset :
+    recordPrimeWitnessesThrough187 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough187, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough186_subset,
+    recordPrimeWitnessBlock187_subset⟩
+
+def recordPrimeWitnessesThrough188 : Finset Nat :=
+  recordPrimeWitnessesThrough187 ∪ recordPrimeWitnessBlock188
+
+private theorem recordPrimeWitnessesThrough187_disjoint_block188 :
+    Disjoint recordPrimeWitnessesThrough187 recordPrimeWitnessBlock188 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 208729 :=
+    recordPrimeWitnessesThrough187_upper hpPrevious
+  have hpLower : 208739 ≤ p := recordPrimeWitnessBlock188_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough188_card :
+    recordPrimeWitnessesThrough188.card = 18800 := by
+  rw [recordPrimeWitnessesThrough188,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough187_disjoint_block188,
+    recordPrimeWitnessesThrough187_card,
+    recordPrimeWitnessBlock188_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough188_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough188) : p ≤ 209929 := by
+  rw [recordPrimeWitnessesThrough188, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough187_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock188_upper hpBlock
+
+theorem recordPrimeWitnessesThrough188_subset :
+    recordPrimeWitnessesThrough188 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough188, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough187_subset,
+    recordPrimeWitnessBlock188_subset⟩
+
+def recordPrimeWitnessesThrough189 : Finset Nat :=
+  recordPrimeWitnessesThrough188 ∪ recordPrimeWitnessBlock189
+
+private theorem recordPrimeWitnessesThrough188_disjoint_block189 :
+    Disjoint recordPrimeWitnessesThrough188 recordPrimeWitnessBlock189 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 209929 :=
+    recordPrimeWitnessesThrough188_upper hpPrevious
+  have hpLower : 209939 ≤ p := recordPrimeWitnessBlock189_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough189_card :
+    recordPrimeWitnessesThrough189.card = 18900 := by
+  rw [recordPrimeWitnessesThrough189,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough188_disjoint_block189,
+    recordPrimeWitnessesThrough188_card,
+    recordPrimeWitnessBlock189_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough189_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough189) : p ≤ 211093 := by
+  rw [recordPrimeWitnessesThrough189, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough188_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock189_upper hpBlock
+
+theorem recordPrimeWitnessesThrough189_subset :
+    recordPrimeWitnessesThrough189 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough189, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough188_subset,
+    recordPrimeWitnessBlock189_subset⟩
+
+def recordPrimeWitnessesThrough190 : Finset Nat :=
+  recordPrimeWitnessesThrough189 ∪ recordPrimeWitnessBlock190
+
+private theorem recordPrimeWitnessesThrough189_disjoint_block190 :
+    Disjoint recordPrimeWitnessesThrough189 recordPrimeWitnessBlock190 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 211093 :=
+    recordPrimeWitnessesThrough189_upper hpPrevious
+  have hpLower : 211097 ≤ p := recordPrimeWitnessBlock190_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough190_card :
+    recordPrimeWitnessesThrough190.card = 19000 := by
+  rw [recordPrimeWitnessesThrough190,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough189_disjoint_block190,
+    recordPrimeWitnessesThrough189_card,
+    recordPrimeWitnessBlock190_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough190_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough190) : p ≤ 212369 := by
+  rw [recordPrimeWitnessesThrough190, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough189_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock190_upper hpBlock
+
+theorem recordPrimeWitnessesThrough190_subset :
+    recordPrimeWitnessesThrough190 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough190, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough189_subset,
+    recordPrimeWitnessBlock190_subset⟩
+
+def recordPrimeWitnessesThrough191 : Finset Nat :=
+  recordPrimeWitnessesThrough190 ∪ recordPrimeWitnessBlock191
+
+private theorem recordPrimeWitnessesThrough190_disjoint_block191 :
+    Disjoint recordPrimeWitnessesThrough190 recordPrimeWitnessBlock191 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 212369 :=
+    recordPrimeWitnessesThrough190_upper hpPrevious
+  have hpLower : 212383 ≤ p := recordPrimeWitnessBlock191_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough191_card :
+    recordPrimeWitnessesThrough191.card = 19100 := by
+  rw [recordPrimeWitnessesThrough191,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough190_disjoint_block191,
+    recordPrimeWitnessesThrough190_card,
+    recordPrimeWitnessBlock191_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough191_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough191) : p ≤ 213637 := by
+  rw [recordPrimeWitnessesThrough191, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough190_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock191_upper hpBlock
+
+theorem recordPrimeWitnessesThrough191_subset :
+    recordPrimeWitnessesThrough191 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough191, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough190_subset,
+    recordPrimeWitnessBlock191_subset⟩
+
+def recordPrimeWitnessesThrough192 : Finset Nat :=
+  recordPrimeWitnessesThrough191 ∪ recordPrimeWitnessBlock192
+
+private theorem recordPrimeWitnessesThrough191_disjoint_block192 :
+    Disjoint recordPrimeWitnessesThrough191 recordPrimeWitnessBlock192 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 213637 :=
+    recordPrimeWitnessesThrough191_upper hpPrevious
+  have hpLower : 213641 ≤ p := recordPrimeWitnessBlock192_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough192_card :
+    recordPrimeWitnessesThrough192.card = 19200 := by
+  rw [recordPrimeWitnessesThrough192,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough191_disjoint_block192,
+    recordPrimeWitnessesThrough191_card,
+    recordPrimeWitnessBlock192_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough192_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough192) : p ≤ 214811 := by
+  rw [recordPrimeWitnessesThrough192, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough191_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock192_upper hpBlock
+
+theorem recordPrimeWitnessesThrough192_subset :
+    recordPrimeWitnessesThrough192 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough192, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough191_subset,
+    recordPrimeWitnessBlock192_subset⟩
+
+def recordPrimeWitnessesThrough193 : Finset Nat :=
+  recordPrimeWitnessesThrough192 ∪ recordPrimeWitnessBlock193
+
+private theorem recordPrimeWitnessesThrough192_disjoint_block193 :
+    Disjoint recordPrimeWitnessesThrough192 recordPrimeWitnessBlock193 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 214811 :=
+    recordPrimeWitnessesThrough192_upper hpPrevious
+  have hpLower : 214817 ≤ p := recordPrimeWitnessBlock193_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough193_card :
+    recordPrimeWitnessesThrough193.card = 19300 := by
+  rw [recordPrimeWitnessesThrough193,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough192_disjoint_block193,
+    recordPrimeWitnessesThrough192_card,
+    recordPrimeWitnessBlock193_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough193_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough193) : p ≤ 216157 := by
+  rw [recordPrimeWitnessesThrough193, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough192_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock193_upper hpBlock
+
+theorem recordPrimeWitnessesThrough193_subset :
+    recordPrimeWitnessesThrough193 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough193, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough192_subset,
+    recordPrimeWitnessBlock193_subset⟩
+
+def recordPrimeWitnessesThrough194 : Finset Nat :=
+  recordPrimeWitnessesThrough193 ∪ recordPrimeWitnessBlock194
+
+private theorem recordPrimeWitnessesThrough193_disjoint_block194 :
+    Disjoint recordPrimeWitnessesThrough193 recordPrimeWitnessBlock194 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 216157 :=
+    recordPrimeWitnessesThrough193_upper hpPrevious
+  have hpLower : 216173 ≤ p := recordPrimeWitnessBlock194_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough194_card :
+    recordPrimeWitnessesThrough194.card = 19400 := by
+  rw [recordPrimeWitnessesThrough194,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough193_disjoint_block194,
+    recordPrimeWitnessesThrough193_card,
+    recordPrimeWitnessBlock194_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough194_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough194) : p ≤ 217409 := by
+  rw [recordPrimeWitnessesThrough194, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough193_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock194_upper hpBlock
+
+theorem recordPrimeWitnessesThrough194_subset :
+    recordPrimeWitnessesThrough194 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough194, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough193_subset,
+    recordPrimeWitnessBlock194_subset⟩
+
+def recordPrimeWitnessesThrough195 : Finset Nat :=
+  recordPrimeWitnessesThrough194 ∪ recordPrimeWitnessBlock195
+
+private theorem recordPrimeWitnessesThrough194_disjoint_block195 :
+    Disjoint recordPrimeWitnessesThrough194 recordPrimeWitnessBlock195 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 217409 :=
+    recordPrimeWitnessesThrough194_upper hpPrevious
+  have hpLower : 217411 ≤ p := recordPrimeWitnessBlock195_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough195_card :
+    recordPrimeWitnessesThrough195.card = 19500 := by
+  rw [recordPrimeWitnessesThrough195,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough194_disjoint_block195,
+    recordPrimeWitnessesThrough194_card,
+    recordPrimeWitnessBlock195_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough195_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough195) : p ≤ 218681 := by
+  rw [recordPrimeWitnessesThrough195, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough194_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock195_upper hpBlock
+
+theorem recordPrimeWitnessesThrough195_subset :
+    recordPrimeWitnessesThrough195 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough195, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough194_subset,
+    recordPrimeWitnessBlock195_subset⟩
+
+def recordPrimeWitnessesThrough196 : Finset Nat :=
+  recordPrimeWitnessesThrough195 ∪ recordPrimeWitnessBlock196
+
+private theorem recordPrimeWitnessesThrough195_disjoint_block196 :
+    Disjoint recordPrimeWitnessesThrough195 recordPrimeWitnessBlock196 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 218681 :=
+    recordPrimeWitnessesThrough195_upper hpPrevious
+  have hpLower : 218711 ≤ p := recordPrimeWitnessBlock196_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough196_card :
+    recordPrimeWitnessesThrough196.card = 19600 := by
+  rw [recordPrimeWitnessesThrough196,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough195_disjoint_block196,
+    recordPrimeWitnessesThrough195_card,
+    recordPrimeWitnessBlock196_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough196_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough196) : p ≤ 219829 := by
+  rw [recordPrimeWitnessesThrough196, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough195_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock196_upper hpBlock
+
+theorem recordPrimeWitnessesThrough196_subset :
+    recordPrimeWitnessesThrough196 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough196, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough195_subset,
+    recordPrimeWitnessBlock196_subset⟩
+
+def recordPrimeWitnessesThrough197 : Finset Nat :=
+  recordPrimeWitnessesThrough196 ∪ recordPrimeWitnessBlock197
+
+private theorem recordPrimeWitnessesThrough196_disjoint_block197 :
+    Disjoint recordPrimeWitnessesThrough196 recordPrimeWitnessBlock197 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 219829 :=
+    recordPrimeWitnessesThrough196_upper hpPrevious
+  have hpLower : 219839 ≤ p := recordPrimeWitnessBlock197_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough197_card :
+    recordPrimeWitnessesThrough197.card = 19700 := by
+  rw [recordPrimeWitnessesThrough197,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough196_disjoint_block197,
+    recordPrimeWitnessesThrough196_card,
+    recordPrimeWitnessBlock197_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough197_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough197) : p ≤ 221069 := by
+  rw [recordPrimeWitnessesThrough197, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough196_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock197_upper hpBlock
+
+theorem recordPrimeWitnessesThrough197_subset :
+    recordPrimeWitnessesThrough197 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough197, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough196_subset,
+    recordPrimeWitnessBlock197_subset⟩
+
+def recordPrimeWitnessesThrough198 : Finset Nat :=
+  recordPrimeWitnessesThrough197 ∪ recordPrimeWitnessBlock198
+
+private theorem recordPrimeWitnessesThrough197_disjoint_block198 :
+    Disjoint recordPrimeWitnessesThrough197 recordPrimeWitnessBlock198 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 221069 :=
+    recordPrimeWitnessesThrough197_upper hpPrevious
+  have hpLower : 221071 ≤ p := recordPrimeWitnessBlock198_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough198_card :
+    recordPrimeWitnessesThrough198.card = 19800 := by
+  rw [recordPrimeWitnessesThrough198,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough197_disjoint_block198,
+    recordPrimeWitnessesThrough197_card,
+    recordPrimeWitnessBlock198_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough198_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough198) : p ≤ 222289 := by
+  rw [recordPrimeWitnessesThrough198, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough197_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock198_upper hpBlock
+
+theorem recordPrimeWitnessesThrough198_subset :
+    recordPrimeWitnessesThrough198 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough198, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough197_subset,
+    recordPrimeWitnessBlock198_subset⟩
+
+def recordPrimeWitnessesThrough199 : Finset Nat :=
+  recordPrimeWitnessesThrough198 ∪ recordPrimeWitnessBlock199
+
+private theorem recordPrimeWitnessesThrough198_disjoint_block199 :
+    Disjoint recordPrimeWitnessesThrough198 recordPrimeWitnessBlock199 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 222289 :=
+    recordPrimeWitnessesThrough198_upper hpPrevious
+  have hpLower : 222293 ≤ p := recordPrimeWitnessBlock199_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough199_card :
+    recordPrimeWitnessesThrough199.card = 19900 := by
+  rw [recordPrimeWitnessesThrough199,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough198_disjoint_block199,
+    recordPrimeWitnessesThrough198_card,
+    recordPrimeWitnessBlock199_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough199_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough199) : p ≤ 223463 := by
+  rw [recordPrimeWitnessesThrough199, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough198_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock199_upper hpBlock
+
+theorem recordPrimeWitnessesThrough199_subset :
+    recordPrimeWitnessesThrough199 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough199, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough198_subset,
+    recordPrimeWitnessBlock199_subset⟩
+
+def recordPrimeWitnessesThrough200 : Finset Nat :=
+  recordPrimeWitnessesThrough199 ∪ recordPrimeWitnessBlock200
+
+private theorem recordPrimeWitnessesThrough199_disjoint_block200 :
+    Disjoint recordPrimeWitnessesThrough199 recordPrimeWitnessBlock200 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 223463 :=
+    recordPrimeWitnessesThrough199_upper hpPrevious
+  have hpLower : 223469 ≤ p := recordPrimeWitnessBlock200_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough200_card :
+    recordPrimeWitnessesThrough200.card = 20000 := by
+  rw [recordPrimeWitnessesThrough200,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough199_disjoint_block200,
+    recordPrimeWitnessesThrough199_card,
+    recordPrimeWitnessBlock200_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough200_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough200) : p ≤ 224737 := by
+  rw [recordPrimeWitnessesThrough200, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough199_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock200_upper hpBlock
+
+theorem recordPrimeWitnessesThrough200_subset :
+    recordPrimeWitnessesThrough200 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough200, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough199_subset,
+    recordPrimeWitnessBlock200_subset⟩
+
+def recordPrimeWitnessesThrough201 : Finset Nat :=
+  recordPrimeWitnessesThrough200 ∪ recordPrimeWitnessBlock201
+
+private theorem recordPrimeWitnessesThrough200_disjoint_block201 :
+    Disjoint recordPrimeWitnessesThrough200 recordPrimeWitnessBlock201 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 224737 :=
+    recordPrimeWitnessesThrough200_upper hpPrevious
+  have hpLower : 224743 ≤ p := recordPrimeWitnessBlock201_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough201_card :
+    recordPrimeWitnessesThrough201.card = 20100 := by
+  rw [recordPrimeWitnessesThrough201,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough200_disjoint_block201,
+    recordPrimeWitnessesThrough200_card,
+    recordPrimeWitnessBlock201_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough201_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough201) : p ≤ 225949 := by
+  rw [recordPrimeWitnessesThrough201, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough200_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock201_upper hpBlock
+
+theorem recordPrimeWitnessesThrough201_subset :
+    recordPrimeWitnessesThrough201 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough201, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough200_subset,
+    recordPrimeWitnessBlock201_subset⟩
+
+def recordPrimeWitnessesThrough202 : Finset Nat :=
+  recordPrimeWitnessesThrough201 ∪ recordPrimeWitnessBlock202
+
+private theorem recordPrimeWitnessesThrough201_disjoint_block202 :
+    Disjoint recordPrimeWitnessesThrough201 recordPrimeWitnessBlock202 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 225949 :=
+    recordPrimeWitnessesThrough201_upper hpPrevious
+  have hpLower : 225961 ≤ p := recordPrimeWitnessBlock202_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough202_card :
+    recordPrimeWitnessesThrough202.card = 20200 := by
+  rw [recordPrimeWitnessesThrough202,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough201_disjoint_block202,
+    recordPrimeWitnessesThrough201_card,
+    recordPrimeWitnessBlock202_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough202_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough202) : p ≤ 227233 := by
+  rw [recordPrimeWitnessesThrough202, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough201_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock202_upper hpBlock
+
+theorem recordPrimeWitnessesThrough202_subset :
+    recordPrimeWitnessesThrough202 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough202, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough201_subset,
+    recordPrimeWitnessBlock202_subset⟩
+
+def recordPrimeWitnessesThrough203 : Finset Nat :=
+  recordPrimeWitnessesThrough202 ∪ recordPrimeWitnessBlock203
+
+private theorem recordPrimeWitnessesThrough202_disjoint_block203 :
+    Disjoint recordPrimeWitnessesThrough202 recordPrimeWitnessBlock203 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 227233 :=
+    recordPrimeWitnessesThrough202_upper hpPrevious
+  have hpLower : 227251 ≤ p := recordPrimeWitnessBlock203_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough203_card :
+    recordPrimeWitnessesThrough203.card = 20300 := by
+  rw [recordPrimeWitnessesThrough203,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough202_disjoint_block203,
+    recordPrimeWitnessesThrough202_card,
+    recordPrimeWitnessBlock203_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough203_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough203) : p ≤ 228469 := by
+  rw [recordPrimeWitnessesThrough203, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough202_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock203_upper hpBlock
+
+theorem recordPrimeWitnessesThrough203_subset :
+    recordPrimeWitnessesThrough203 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough203, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough202_subset,
+    recordPrimeWitnessBlock203_subset⟩
+
+def recordPrimeWitnessesThrough204 : Finset Nat :=
+  recordPrimeWitnessesThrough203 ∪ recordPrimeWitnessBlock204
+
+private theorem recordPrimeWitnessesThrough203_disjoint_block204 :
+    Disjoint recordPrimeWitnessesThrough203 recordPrimeWitnessBlock204 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 228469 :=
+    recordPrimeWitnessesThrough203_upper hpPrevious
+  have hpLower : 228479 ≤ p := recordPrimeWitnessBlock204_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough204_card :
+    recordPrimeWitnessesThrough204.card = 20400 := by
+  rw [recordPrimeWitnessesThrough204,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough203_disjoint_block204,
+    recordPrimeWitnessesThrough203_card,
+    recordPrimeWitnessBlock204_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough204_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough204) : p ≤ 229601 := by
+  rw [recordPrimeWitnessesThrough204, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough203_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock204_upper hpBlock
+
+theorem recordPrimeWitnessesThrough204_subset :
+    recordPrimeWitnessesThrough204 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough204, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough203_subset,
+    recordPrimeWitnessBlock204_subset⟩
+
+def recordPrimeWitnessesThrough205 : Finset Nat :=
+  recordPrimeWitnessesThrough204 ∪ recordPrimeWitnessBlock205
+
+private theorem recordPrimeWitnessesThrough204_disjoint_block205 :
+    Disjoint recordPrimeWitnessesThrough204 recordPrimeWitnessBlock205 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 229601 :=
+    recordPrimeWitnessesThrough204_upper hpPrevious
+  have hpLower : 229613 ≤ p := recordPrimeWitnessBlock205_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough205_card :
+    recordPrimeWitnessesThrough205.card = 20500 := by
+  rw [recordPrimeWitnessesThrough205,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough204_disjoint_block205,
+    recordPrimeWitnessesThrough204_card,
+    recordPrimeWitnessBlock205_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough205_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough205) : p ≤ 230761 := by
+  rw [recordPrimeWitnessesThrough205, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough204_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock205_upper hpBlock
+
+theorem recordPrimeWitnessesThrough205_subset :
+    recordPrimeWitnessesThrough205 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough205, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough204_subset,
+    recordPrimeWitnessBlock205_subset⟩
+
+def recordPrimeWitnessesThrough206 : Finset Nat :=
+  recordPrimeWitnessesThrough205 ∪ recordPrimeWitnessBlock206
+
+private theorem recordPrimeWitnessesThrough205_disjoint_block206 :
+    Disjoint recordPrimeWitnessesThrough205 recordPrimeWitnessBlock206 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 230761 :=
+    recordPrimeWitnessesThrough205_upper hpPrevious
+  have hpLower : 230767 ≤ p := recordPrimeWitnessBlock206_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough206_card :
+    recordPrimeWitnessesThrough206.card = 20600 := by
+  rw [recordPrimeWitnessesThrough206,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough205_disjoint_block206,
+    recordPrimeWitnessesThrough205_card,
+    recordPrimeWitnessBlock206_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough206_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough206) : p ≤ 232003 := by
+  rw [recordPrimeWitnessesThrough206, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough205_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock206_upper hpBlock
+
+theorem recordPrimeWitnessesThrough206_subset :
+    recordPrimeWitnessesThrough206 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough206, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough205_subset,
+    recordPrimeWitnessBlock206_subset⟩
+
+def recordPrimeWitnessesThrough207 : Finset Nat :=
+  recordPrimeWitnessesThrough206 ∪ recordPrimeWitnessBlock207
+
+private theorem recordPrimeWitnessesThrough206_disjoint_block207 :
+    Disjoint recordPrimeWitnessesThrough206 recordPrimeWitnessBlock207 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 232003 :=
+    recordPrimeWitnessesThrough206_upper hpPrevious
+  have hpLower : 232007 ≤ p := recordPrimeWitnessBlock207_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough207_card :
+    recordPrimeWitnessesThrough207.card = 20700 := by
+  rw [recordPrimeWitnessesThrough207,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough206_disjoint_block207,
+    recordPrimeWitnessesThrough206_card,
+    recordPrimeWitnessBlock207_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough207_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough207) : p ≤ 233341 := by
+  rw [recordPrimeWitnessesThrough207, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough206_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock207_upper hpBlock
+
+theorem recordPrimeWitnessesThrough207_subset :
+    recordPrimeWitnessesThrough207 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough207, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough206_subset,
+    recordPrimeWitnessBlock207_subset⟩
+
+def recordPrimeWitnessesThrough208 : Finset Nat :=
+  recordPrimeWitnessesThrough207 ∪ recordPrimeWitnessBlock208
+
+private theorem recordPrimeWitnessesThrough207_disjoint_block208 :
+    Disjoint recordPrimeWitnessesThrough207 recordPrimeWitnessBlock208 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 233341 :=
+    recordPrimeWitnessesThrough207_upper hpPrevious
+  have hpLower : 233347 ≤ p := recordPrimeWitnessBlock208_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough208_card :
+    recordPrimeWitnessesThrough208.card = 20800 := by
+  rw [recordPrimeWitnessesThrough208,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough207_disjoint_block208,
+    recordPrimeWitnessesThrough207_card,
+    recordPrimeWitnessBlock208_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough208_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough208) : p ≤ 234629 := by
+  rw [recordPrimeWitnessesThrough208, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough207_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock208_upper hpBlock
+
+theorem recordPrimeWitnessesThrough208_subset :
+    recordPrimeWitnessesThrough208 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough208, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough207_subset,
+    recordPrimeWitnessBlock208_subset⟩
+
+def recordPrimeWitnessesThrough209 : Finset Nat :=
+  recordPrimeWitnessesThrough208 ∪ recordPrimeWitnessBlock209
+
+private theorem recordPrimeWitnessesThrough208_disjoint_block209 :
+    Disjoint recordPrimeWitnessesThrough208 recordPrimeWitnessBlock209 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 234629 :=
+    recordPrimeWitnessesThrough208_upper hpPrevious
+  have hpLower : 234653 ≤ p := recordPrimeWitnessBlock209_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough209_card :
+    recordPrimeWitnessesThrough209.card = 20900 := by
+  rw [recordPrimeWitnessesThrough209,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough208_disjoint_block209,
+    recordPrimeWitnessesThrough208_card,
+    recordPrimeWitnessBlock209_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough209_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough209) : p ≤ 235901 := by
+  rw [recordPrimeWitnessesThrough209, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough208_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock209_upper hpBlock
+
+theorem recordPrimeWitnessesThrough209_subset :
+    recordPrimeWitnessesThrough209 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough209, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough208_subset,
+    recordPrimeWitnessBlock209_subset⟩
+
+def recordPrimeWitnessesThrough210 : Finset Nat :=
+  recordPrimeWitnessesThrough209 ∪ recordPrimeWitnessBlock210
+
+private theorem recordPrimeWitnessesThrough209_disjoint_block210 :
+    Disjoint recordPrimeWitnessesThrough209 recordPrimeWitnessBlock210 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 235901 :=
+    recordPrimeWitnessesThrough209_upper hpPrevious
+  have hpLower : 235919 ≤ p := recordPrimeWitnessBlock210_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough210_card :
+    recordPrimeWitnessesThrough210.card = 21000 := by
+  rw [recordPrimeWitnessesThrough210,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough209_disjoint_block210,
+    recordPrimeWitnessesThrough209_card,
+    recordPrimeWitnessBlock210_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough210_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough210) : p ≤ 237203 := by
+  rw [recordPrimeWitnessesThrough210, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough209_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock210_upper hpBlock
+
+theorem recordPrimeWitnessesThrough210_subset :
+    recordPrimeWitnessesThrough210 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough210, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough209_subset,
+    recordPrimeWitnessBlock210_subset⟩
+
+def recordPrimeWitnessesThrough211 : Finset Nat :=
+  recordPrimeWitnessesThrough210 ∪ recordPrimeWitnessBlock211
+
+private theorem recordPrimeWitnessesThrough210_disjoint_block211 :
+    Disjoint recordPrimeWitnessesThrough210 recordPrimeWitnessBlock211 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 237203 :=
+    recordPrimeWitnessesThrough210_upper hpPrevious
+  have hpLower : 237217 ≤ p := recordPrimeWitnessBlock211_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough211_card :
+    recordPrimeWitnessesThrough211.card = 21100 := by
+  rw [recordPrimeWitnessesThrough211,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough210_disjoint_block211,
+    recordPrimeWitnessesThrough210_card,
+    recordPrimeWitnessBlock211_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough211_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough211) : p ≤ 238471 := by
+  rw [recordPrimeWitnessesThrough211, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough210_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock211_upper hpBlock
+
+theorem recordPrimeWitnessesThrough211_subset :
+    recordPrimeWitnessesThrough211 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough211, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough210_subset,
+    recordPrimeWitnessBlock211_subset⟩
+
+def recordPrimeWitnessesThrough212 : Finset Nat :=
+  recordPrimeWitnessesThrough211 ∪ recordPrimeWitnessBlock212
+
+private theorem recordPrimeWitnessesThrough211_disjoint_block212 :
+    Disjoint recordPrimeWitnessesThrough211 recordPrimeWitnessBlock212 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 238471 :=
+    recordPrimeWitnessesThrough211_upper hpPrevious
+  have hpLower : 238477 ≤ p := recordPrimeWitnessBlock212_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough212_card :
+    recordPrimeWitnessesThrough212.card = 21200 := by
+  rw [recordPrimeWitnessesThrough212,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough211_disjoint_block212,
+    recordPrimeWitnessesThrough211_card,
+    recordPrimeWitnessBlock212_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough212_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough212) : p ≤ 239731 := by
+  rw [recordPrimeWitnessesThrough212, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough211_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock212_upper hpBlock
+
+theorem recordPrimeWitnessesThrough212_subset :
+    recordPrimeWitnessesThrough212 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough212, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough211_subset,
+    recordPrimeWitnessBlock212_subset⟩
+
+def recordPrimeWitnessesThrough213 : Finset Nat :=
+  recordPrimeWitnessesThrough212 ∪ recordPrimeWitnessBlock213
+
+private theorem recordPrimeWitnessesThrough212_disjoint_block213 :
+    Disjoint recordPrimeWitnessesThrough212 recordPrimeWitnessBlock213 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 239731 :=
+    recordPrimeWitnessesThrough212_upper hpPrevious
+  have hpLower : 239737 ≤ p := recordPrimeWitnessBlock213_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough213_card :
+    recordPrimeWitnessesThrough213.card = 21300 := by
+  rw [recordPrimeWitnessesThrough213,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough212_disjoint_block213,
+    recordPrimeWitnessesThrough212_card,
+    recordPrimeWitnessBlock213_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough213_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough213) : p ≤ 240967 := by
+  rw [recordPrimeWitnessesThrough213, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough212_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock213_upper hpBlock
+
+theorem recordPrimeWitnessesThrough213_subset :
+    recordPrimeWitnessesThrough213 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough213, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough212_subset,
+    recordPrimeWitnessBlock213_subset⟩
+
+def recordPrimeWitnessesThrough214 : Finset Nat :=
+  recordPrimeWitnessesThrough213 ∪ recordPrimeWitnessBlock214
+
+private theorem recordPrimeWitnessesThrough213_disjoint_block214 :
+    Disjoint recordPrimeWitnessesThrough213 recordPrimeWitnessBlock214 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 240967 :=
+    recordPrimeWitnessesThrough213_upper hpPrevious
+  have hpLower : 240997 ≤ p := recordPrimeWitnessBlock214_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough214_card :
+    recordPrimeWitnessesThrough214.card = 21400 := by
+  rw [recordPrimeWitnessesThrough214,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough213_disjoint_block214,
+    recordPrimeWitnessesThrough213_card,
+    recordPrimeWitnessBlock214_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough214_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough214) : p ≤ 242119 := by
+  rw [recordPrimeWitnessesThrough214, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough213_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock214_upper hpBlock
+
+theorem recordPrimeWitnessesThrough214_subset :
+    recordPrimeWitnessesThrough214 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough214, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough213_subset,
+    recordPrimeWitnessBlock214_subset⟩
+
+def recordPrimeWitnessesThrough215 : Finset Nat :=
+  recordPrimeWitnessesThrough214 ∪ recordPrimeWitnessBlock215
+
+private theorem recordPrimeWitnessesThrough214_disjoint_block215 :
+    Disjoint recordPrimeWitnessesThrough214 recordPrimeWitnessBlock215 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 242119 :=
+    recordPrimeWitnessesThrough214_upper hpPrevious
+  have hpLower : 242129 ≤ p := recordPrimeWitnessBlock215_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough215_card :
+    recordPrimeWitnessesThrough215.card = 21500 := by
+  rw [recordPrimeWitnessesThrough215,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough214_disjoint_block215,
+    recordPrimeWitnessesThrough214_card,
+    recordPrimeWitnessBlock215_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough215_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough215) : p ≤ 243433 := by
+  rw [recordPrimeWitnessesThrough215, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough214_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock215_upper hpBlock
+
+theorem recordPrimeWitnessesThrough215_subset :
+    recordPrimeWitnessesThrough215 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough215, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough214_subset,
+    recordPrimeWitnessBlock215_subset⟩
+
+def recordPrimeWitnessesThrough216 : Finset Nat :=
+  recordPrimeWitnessesThrough215 ∪ recordPrimeWitnessBlock216
+
+private theorem recordPrimeWitnessesThrough215_disjoint_block216 :
+    Disjoint recordPrimeWitnessesThrough215 recordPrimeWitnessBlock216 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 243433 :=
+    recordPrimeWitnessesThrough215_upper hpPrevious
+  have hpLower : 243437 ≤ p := recordPrimeWitnessBlock216_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough216_card :
+    recordPrimeWitnessesThrough216.card = 21600 := by
+  rw [recordPrimeWitnessesThrough216,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough215_disjoint_block216,
+    recordPrimeWitnessesThrough215_card,
+    recordPrimeWitnessBlock216_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough216_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough216) : p ≤ 244597 := by
+  rw [recordPrimeWitnessesThrough216, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough215_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock216_upper hpBlock
+
+theorem recordPrimeWitnessesThrough216_subset :
+    recordPrimeWitnessesThrough216 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough216, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough215_subset,
+    recordPrimeWitnessBlock216_subset⟩
+
+def recordPrimeWitnessesThrough217 : Finset Nat :=
+  recordPrimeWitnessesThrough216 ∪ recordPrimeWitnessBlock217
+
+private theorem recordPrimeWitnessesThrough216_disjoint_block217 :
+    Disjoint recordPrimeWitnessesThrough216 recordPrimeWitnessBlock217 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 244597 :=
+    recordPrimeWitnessesThrough216_upper hpPrevious
+  have hpLower : 244603 ≤ p := recordPrimeWitnessBlock217_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough217_card :
+    recordPrimeWitnessesThrough217.card = 21700 := by
+  rw [recordPrimeWitnessesThrough217,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough216_disjoint_block217,
+    recordPrimeWitnessesThrough216_card,
+    recordPrimeWitnessBlock217_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough217_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough217) : p ≤ 245849 := by
+  rw [recordPrimeWitnessesThrough217, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough216_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock217_upper hpBlock
+
+theorem recordPrimeWitnessesThrough217_subset :
+    recordPrimeWitnessesThrough217 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough217, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough216_subset,
+    recordPrimeWitnessBlock217_subset⟩
+
+def recordPrimeWitnessesThrough218 : Finset Nat :=
+  recordPrimeWitnessesThrough217 ∪ recordPrimeWitnessBlock218
+
+private theorem recordPrimeWitnessesThrough217_disjoint_block218 :
+    Disjoint recordPrimeWitnessesThrough217 recordPrimeWitnessBlock218 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 245849 :=
+    recordPrimeWitnessesThrough217_upper hpPrevious
+  have hpLower : 245851 ≤ p := recordPrimeWitnessBlock218_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough218_card :
+    recordPrimeWitnessesThrough218.card = 21800 := by
+  rw [recordPrimeWitnessesThrough218,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough217_disjoint_block218,
+    recordPrimeWitnessesThrough217_card,
+    recordPrimeWitnessBlock218_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough218_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough218) : p ≤ 247031 := by
+  rw [recordPrimeWitnessesThrough218, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough217_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock218_upper hpBlock
+
+theorem recordPrimeWitnessesThrough218_subset :
+    recordPrimeWitnessesThrough218 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough218, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough217_subset,
+    recordPrimeWitnessBlock218_subset⟩
+
+def recordPrimeWitnessesThrough219 : Finset Nat :=
+  recordPrimeWitnessesThrough218 ∪ recordPrimeWitnessBlock219
+
+private theorem recordPrimeWitnessesThrough218_disjoint_block219 :
+    Disjoint recordPrimeWitnessesThrough218 recordPrimeWitnessBlock219 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 247031 :=
+    recordPrimeWitnessesThrough218_upper hpPrevious
+  have hpLower : 247067 ≤ p := recordPrimeWitnessBlock219_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough219_card :
+    recordPrimeWitnessesThrough219.card = 21900 := by
+  rw [recordPrimeWitnessesThrough219,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough218_disjoint_block219,
+    recordPrimeWitnessesThrough218_card,
+    recordPrimeWitnessBlock219_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough219_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough219) : p ≤ 248257 := by
+  rw [recordPrimeWitnessesThrough219, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough218_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock219_upper hpBlock
+
+theorem recordPrimeWitnessesThrough219_subset :
+    recordPrimeWitnessesThrough219 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough219, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough218_subset,
+    recordPrimeWitnessBlock219_subset⟩
+
+def recordPrimeWitnessesThrough220 : Finset Nat :=
+  recordPrimeWitnessesThrough219 ∪ recordPrimeWitnessBlock220
+
+private theorem recordPrimeWitnessesThrough219_disjoint_block220 :
+    Disjoint recordPrimeWitnessesThrough219 recordPrimeWitnessBlock220 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 248257 :=
+    recordPrimeWitnessesThrough219_upper hpPrevious
+  have hpLower : 248267 ≤ p := recordPrimeWitnessBlock220_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough220_card :
+    recordPrimeWitnessesThrough220.card = 22000 := by
+  rw [recordPrimeWitnessesThrough220,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough219_disjoint_block220,
+    recordPrimeWitnessesThrough219_card,
+    recordPrimeWitnessBlock220_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough220_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough220) : p ≤ 249439 := by
+  rw [recordPrimeWitnessesThrough220, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough219_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock220_upper hpBlock
+
+theorem recordPrimeWitnessesThrough220_subset :
+    recordPrimeWitnessesThrough220 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough220, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough219_subset,
+    recordPrimeWitnessBlock220_subset⟩
+
+def recordPrimeWitnessesThrough221 : Finset Nat :=
+  recordPrimeWitnessesThrough220 ∪ recordPrimeWitnessBlock221
+
+private theorem recordPrimeWitnessesThrough220_disjoint_block221 :
+    Disjoint recordPrimeWitnessesThrough220 recordPrimeWitnessBlock221 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 249439 :=
+    recordPrimeWitnessesThrough220_upper hpPrevious
+  have hpLower : 249449 ≤ p := recordPrimeWitnessBlock221_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough221_card :
+    recordPrimeWitnessesThrough221.card = 22100 := by
+  rw [recordPrimeWitnessesThrough221,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough220_disjoint_block221,
+    recordPrimeWitnessesThrough220_card,
+    recordPrimeWitnessBlock221_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough221_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough221) : p ≤ 250813 := by
+  rw [recordPrimeWitnessesThrough221, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough220_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock221_upper hpBlock
+
+theorem recordPrimeWitnessesThrough221_subset :
+    recordPrimeWitnessesThrough221 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough221, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough220_subset,
+    recordPrimeWitnessBlock221_subset⟩
+
+def recordPrimeWitnessesThrough222 : Finset Nat :=
+  recordPrimeWitnessesThrough221 ∪ recordPrimeWitnessBlock222
+
+private theorem recordPrimeWitnessesThrough221_disjoint_block222 :
+    Disjoint recordPrimeWitnessesThrough221 recordPrimeWitnessBlock222 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 250813 :=
+    recordPrimeWitnessesThrough221_upper hpPrevious
+  have hpLower : 250829 ≤ p := recordPrimeWitnessBlock222_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough222_card :
+    recordPrimeWitnessesThrough222.card = 22200 := by
+  rw [recordPrimeWitnessesThrough222,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough221_disjoint_block222,
+    recordPrimeWitnessesThrough221_card,
+    recordPrimeWitnessBlock222_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough222_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough222) : p ≤ 251947 := by
+  rw [recordPrimeWitnessesThrough222, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough221_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock222_upper hpBlock
+
+theorem recordPrimeWitnessesThrough222_subset :
+    recordPrimeWitnessesThrough222 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough222, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough221_subset,
+    recordPrimeWitnessBlock222_subset⟩
+
+def recordPrimeWitnessesThrough223 : Finset Nat :=
+  recordPrimeWitnessesThrough222 ∪ recordPrimeWitnessBlock223
+
+private theorem recordPrimeWitnessesThrough222_disjoint_block223 :
+    Disjoint recordPrimeWitnessesThrough222 recordPrimeWitnessBlock223 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 251947 :=
+    recordPrimeWitnessesThrough222_upper hpPrevious
+  have hpLower : 251969 ≤ p := recordPrimeWitnessBlock223_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough223_card :
+    recordPrimeWitnessesThrough223.card = 22300 := by
+  rw [recordPrimeWitnessesThrough223,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough222_disjoint_block223,
+    recordPrimeWitnessesThrough222_card,
+    recordPrimeWitnessBlock223_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough223_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough223) : p ≤ 253349 := by
+  rw [recordPrimeWitnessesThrough223, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough222_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock223_upper hpBlock
+
+theorem recordPrimeWitnessesThrough223_subset :
+    recordPrimeWitnessesThrough223 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough223, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough222_subset,
+    recordPrimeWitnessBlock223_subset⟩
+
+def recordPrimeWitnessesThrough224 : Finset Nat :=
+  recordPrimeWitnessesThrough223 ∪ recordPrimeWitnessBlock224
+
+private theorem recordPrimeWitnessesThrough223_disjoint_block224 :
+    Disjoint recordPrimeWitnessesThrough223 recordPrimeWitnessBlock224 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 253349 :=
+    recordPrimeWitnessesThrough223_upper hpPrevious
+  have hpLower : 253361 ≤ p := recordPrimeWitnessBlock224_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough224_card :
+    recordPrimeWitnessesThrough224.card = 22400 := by
+  rw [recordPrimeWitnessesThrough224,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough223_disjoint_block224,
+    recordPrimeWitnessesThrough223_card,
+    recordPrimeWitnessBlock224_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough224_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough224) : p ≤ 254537 := by
+  rw [recordPrimeWitnessesThrough224, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough223_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock224_upper hpBlock
+
+theorem recordPrimeWitnessesThrough224_subset :
+    recordPrimeWitnessesThrough224 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough224, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough223_subset,
+    recordPrimeWitnessBlock224_subset⟩
+
+def recordPrimeWitnessesThrough225 : Finset Nat :=
+  recordPrimeWitnessesThrough224 ∪ recordPrimeWitnessBlock225
+
+private theorem recordPrimeWitnessesThrough224_disjoint_block225 :
+    Disjoint recordPrimeWitnessesThrough224 recordPrimeWitnessBlock225 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 254537 :=
+    recordPrimeWitnessesThrough224_upper hpPrevious
+  have hpLower : 254557 ≤ p := recordPrimeWitnessBlock225_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough225_card :
+    recordPrimeWitnessesThrough225.card = 22500 := by
+  rw [recordPrimeWitnessesThrough225,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough224_disjoint_block225,
+    recordPrimeWitnessesThrough224_card,
+    recordPrimeWitnessBlock225_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough225_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough225) : p ≤ 255709 := by
+  rw [recordPrimeWitnessesThrough225, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough224_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock225_upper hpBlock
+
+theorem recordPrimeWitnessesThrough225_subset :
+    recordPrimeWitnessesThrough225 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough225, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough224_subset,
+    recordPrimeWitnessBlock225_subset⟩
+
+def recordPrimeWitnessesThrough226 : Finset Nat :=
+  recordPrimeWitnessesThrough225 ∪ recordPrimeWitnessBlock226
+
+private theorem recordPrimeWitnessesThrough225_disjoint_block226 :
+    Disjoint recordPrimeWitnessesThrough225 recordPrimeWitnessBlock226 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 255709 :=
+    recordPrimeWitnessesThrough225_upper hpPrevious
+  have hpLower : 255713 ≤ p := recordPrimeWitnessBlock226_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough226_card :
+    recordPrimeWitnessesThrough226.card = 22600 := by
+  rw [recordPrimeWitnessesThrough226,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough225_disjoint_block226,
+    recordPrimeWitnessesThrough225_card,
+    recordPrimeWitnessBlock226_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough226_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough226) : p ≤ 257053 := by
+  rw [recordPrimeWitnessesThrough226, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough225_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock226_upper hpBlock
+
+theorem recordPrimeWitnessesThrough226_subset :
+    recordPrimeWitnessesThrough226 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough226, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough225_subset,
+    recordPrimeWitnessBlock226_subset⟩
+
+def recordPrimeWitnessesThrough227 : Finset Nat :=
+  recordPrimeWitnessesThrough226 ∪ recordPrimeWitnessBlock227
+
+private theorem recordPrimeWitnessesThrough226_disjoint_block227 :
+    Disjoint recordPrimeWitnessesThrough226 recordPrimeWitnessBlock227 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 257053 :=
+    recordPrimeWitnessesThrough226_upper hpPrevious
+  have hpLower : 257069 ≤ p := recordPrimeWitnessBlock227_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough227_card :
+    recordPrimeWitnessesThrough227.card = 22700 := by
+  rw [recordPrimeWitnessesThrough227,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough226_disjoint_block227,
+    recordPrimeWitnessesThrough226_card,
+    recordPrimeWitnessBlock227_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough227_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough227) : p ≤ 258317 := by
+  rw [recordPrimeWitnessesThrough227, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough226_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock227_upper hpBlock
+
+theorem recordPrimeWitnessesThrough227_subset :
+    recordPrimeWitnessesThrough227 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough227, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough226_subset,
+    recordPrimeWitnessBlock227_subset⟩
+
+def recordPrimeWitnessesThrough228 : Finset Nat :=
+  recordPrimeWitnessesThrough227 ∪ recordPrimeWitnessBlock228
+
+private theorem recordPrimeWitnessesThrough227_disjoint_block228 :
+    Disjoint recordPrimeWitnessesThrough227 recordPrimeWitnessBlock228 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 258317 :=
+    recordPrimeWitnessesThrough227_upper hpPrevious
+  have hpLower : 258319 ≤ p := recordPrimeWitnessBlock228_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough228_card :
+    recordPrimeWitnessesThrough228.card = 22800 := by
+  rw [recordPrimeWitnessesThrough228,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough227_disjoint_block228,
+    recordPrimeWitnessesThrough227_card,
+    recordPrimeWitnessBlock228_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough228_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough228) : p ≤ 259537 := by
+  rw [recordPrimeWitnessesThrough228, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough227_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock228_upper hpBlock
+
+theorem recordPrimeWitnessesThrough228_subset :
+    recordPrimeWitnessesThrough228 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough228, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough227_subset,
+    recordPrimeWitnessBlock228_subset⟩
+
+def recordPrimeWitnessesThrough229 : Finset Nat :=
+  recordPrimeWitnessesThrough228 ∪ recordPrimeWitnessBlock229
+
+private theorem recordPrimeWitnessesThrough228_disjoint_block229 :
+    Disjoint recordPrimeWitnessesThrough228 recordPrimeWitnessBlock229 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 259537 :=
+    recordPrimeWitnessesThrough228_upper hpPrevious
+  have hpLower : 259547 ≤ p := recordPrimeWitnessBlock229_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough229_card :
+    recordPrimeWitnessesThrough229.card = 22900 := by
+  rw [recordPrimeWitnessesThrough229,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough228_disjoint_block229,
+    recordPrimeWitnessesThrough228_card,
+    recordPrimeWitnessBlock229_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough229_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough229) : p ≤ 260849 := by
+  rw [recordPrimeWitnessesThrough229, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough228_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock229_upper hpBlock
+
+theorem recordPrimeWitnessesThrough229_subset :
+    recordPrimeWitnessesThrough229 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough229, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough228_subset,
+    recordPrimeWitnessBlock229_subset⟩
+
+def recordPrimeWitnessesThrough230 : Finset Nat :=
+  recordPrimeWitnessesThrough229 ∪ recordPrimeWitnessBlock230
+
+private theorem recordPrimeWitnessesThrough229_disjoint_block230 :
+    Disjoint recordPrimeWitnessesThrough229 recordPrimeWitnessBlock230 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 260849 :=
+    recordPrimeWitnessesThrough229_upper hpPrevious
+  have hpLower : 260857 ≤ p := recordPrimeWitnessBlock230_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough230_card :
+    recordPrimeWitnessesThrough230.card = 23000 := by
+  rw [recordPrimeWitnessesThrough230,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough229_disjoint_block230,
+    recordPrimeWitnessesThrough229_card,
+    recordPrimeWitnessBlock230_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough230_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough230) : p ≤ 262139 := by
+  rw [recordPrimeWitnessesThrough230, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough229_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock230_upper hpBlock
+
+theorem recordPrimeWitnessesThrough230_subset :
+    recordPrimeWitnessesThrough230 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough230, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough229_subset,
+    recordPrimeWitnessBlock230_subset⟩
+
+def recordPrimeWitnessesThrough231 : Finset Nat :=
+  recordPrimeWitnessesThrough230 ∪ recordPrimeWitnessBlock231
+
+private theorem recordPrimeWitnessesThrough230_disjoint_block231 :
+    Disjoint recordPrimeWitnessesThrough230 recordPrimeWitnessBlock231 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 262139 :=
+    recordPrimeWitnessesThrough230_upper hpPrevious
+  have hpLower : 262147 ≤ p := recordPrimeWitnessBlock231_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough231_card :
+    recordPrimeWitnessesThrough231.card = 23100 := by
+  rw [recordPrimeWitnessesThrough231,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough230_disjoint_block231,
+    recordPrimeWitnessesThrough230_card,
+    recordPrimeWitnessBlock231_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough231_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough231) : p ≤ 263401 := by
+  rw [recordPrimeWitnessesThrough231, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough230_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock231_upper hpBlock
+
+theorem recordPrimeWitnessesThrough231_subset :
+    recordPrimeWitnessesThrough231 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough231, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough230_subset,
+    recordPrimeWitnessBlock231_subset⟩
+
+def recordPrimeWitnessesThrough232 : Finset Nat :=
+  recordPrimeWitnessesThrough231 ∪ recordPrimeWitnessBlock232
+
+private theorem recordPrimeWitnessesThrough231_disjoint_block232 :
+    Disjoint recordPrimeWitnessesThrough231 recordPrimeWitnessBlock232 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 263401 :=
+    recordPrimeWitnessesThrough231_upper hpPrevious
+  have hpLower : 263411 ≤ p := recordPrimeWitnessBlock232_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough232_card :
+    recordPrimeWitnessesThrough232.card = 23200 := by
+  rw [recordPrimeWitnessesThrough232,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough231_disjoint_block232,
+    recordPrimeWitnessesThrough231_card,
+    recordPrimeWitnessBlock232_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough232_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough232) : p ≤ 264643 := by
+  rw [recordPrimeWitnessesThrough232, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough231_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock232_upper hpBlock
+
+theorem recordPrimeWitnessesThrough232_subset :
+    recordPrimeWitnessesThrough232 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough232, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough231_subset,
+    recordPrimeWitnessBlock232_subset⟩
+
+def recordPrimeWitnessesThrough233 : Finset Nat :=
+  recordPrimeWitnessesThrough232 ∪ recordPrimeWitnessBlock233
+
+private theorem recordPrimeWitnessesThrough232_disjoint_block233 :
+    Disjoint recordPrimeWitnessesThrough232 recordPrimeWitnessBlock233 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 264643 :=
+    recordPrimeWitnessesThrough232_upper hpPrevious
+  have hpLower : 264659 ≤ p := recordPrimeWitnessBlock233_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough233_card :
+    recordPrimeWitnessesThrough233.card = 23300 := by
+  rw [recordPrimeWitnessesThrough233,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough232_disjoint_block233,
+    recordPrimeWitnessesThrough232_card,
+    recordPrimeWitnessBlock233_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough233_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough233) : p ≤ 265861 := by
+  rw [recordPrimeWitnessesThrough233, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough232_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock233_upper hpBlock
+
+theorem recordPrimeWitnessesThrough233_subset :
+    recordPrimeWitnessesThrough233 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough233, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough232_subset,
+    recordPrimeWitnessBlock233_subset⟩
+
+def recordPrimeWitnessesThrough234 : Finset Nat :=
+  recordPrimeWitnessesThrough233 ∪ recordPrimeWitnessBlock234
+
+private theorem recordPrimeWitnessesThrough233_disjoint_block234 :
+    Disjoint recordPrimeWitnessesThrough233 recordPrimeWitnessBlock234 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 265861 :=
+    recordPrimeWitnessesThrough233_upper hpPrevious
+  have hpLower : 265871 ≤ p := recordPrimeWitnessBlock234_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough234_card :
+    recordPrimeWitnessesThrough234.card = 23400 := by
+  rw [recordPrimeWitnessesThrough234,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough233_disjoint_block234,
+    recordPrimeWitnessesThrough233_card,
+    recordPrimeWitnessBlock234_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough234_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough234) : p ≤ 267131 := by
+  rw [recordPrimeWitnessesThrough234, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough233_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock234_upper hpBlock
+
+theorem recordPrimeWitnessesThrough234_subset :
+    recordPrimeWitnessesThrough234 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough234, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough233_subset,
+    recordPrimeWitnessBlock234_subset⟩
+
+def recordPrimeWitnessesThrough235 : Finset Nat :=
+  recordPrimeWitnessesThrough234 ∪ recordPrimeWitnessBlock235
+
+private theorem recordPrimeWitnessesThrough234_disjoint_block235 :
+    Disjoint recordPrimeWitnessesThrough234 recordPrimeWitnessBlock235 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 267131 :=
+    recordPrimeWitnessesThrough234_upper hpPrevious
+  have hpLower : 267133 ≤ p := recordPrimeWitnessBlock235_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough235_card :
+    recordPrimeWitnessesThrough235.card = 23500 := by
+  rw [recordPrimeWitnessesThrough235,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough234_disjoint_block235,
+    recordPrimeWitnessesThrough234_card,
+    recordPrimeWitnessBlock235_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough235_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough235) : p ≤ 268171 := by
+  rw [recordPrimeWitnessesThrough235, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough234_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock235_upper hpBlock
+
+theorem recordPrimeWitnessesThrough235_subset :
+    recordPrimeWitnessesThrough235 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough235, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough234_subset,
+    recordPrimeWitnessBlock235_subset⟩
+
+def recordPrimeWitnessesThrough236 : Finset Nat :=
+  recordPrimeWitnessesThrough235 ∪ recordPrimeWitnessBlock236
+
+private theorem recordPrimeWitnessesThrough235_disjoint_block236 :
+    Disjoint recordPrimeWitnessesThrough235 recordPrimeWitnessBlock236 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 268171 :=
+    recordPrimeWitnessesThrough235_upper hpPrevious
+  have hpLower : 268189 ≤ p := recordPrimeWitnessBlock236_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough236_card :
+    recordPrimeWitnessesThrough236.card = 23600 := by
+  rw [recordPrimeWitnessesThrough236,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough235_disjoint_block236,
+    recordPrimeWitnessesThrough235_card,
+    recordPrimeWitnessBlock236_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough236_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough236) : p ≤ 269413 := by
+  rw [recordPrimeWitnessesThrough236, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough235_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock236_upper hpBlock
+
+theorem recordPrimeWitnessesThrough236_subset :
+    recordPrimeWitnessesThrough236 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough236, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough235_subset,
+    recordPrimeWitnessBlock236_subset⟩
+
+def recordPrimeWitnessesThrough237 : Finset Nat :=
+  recordPrimeWitnessesThrough236 ∪ recordPrimeWitnessBlock237
+
+private theorem recordPrimeWitnessesThrough236_disjoint_block237 :
+    Disjoint recordPrimeWitnessesThrough236 recordPrimeWitnessBlock237 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 269413 :=
+    recordPrimeWitnessesThrough236_upper hpPrevious
+  have hpLower : 269419 ≤ p := recordPrimeWitnessBlock237_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough237_card :
+    recordPrimeWitnessesThrough237.card = 23700 := by
+  rw [recordPrimeWitnessesThrough237,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough236_disjoint_block237,
+    recordPrimeWitnessesThrough236_card,
+    recordPrimeWitnessBlock237_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough237_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough237) : p ≤ 270659 := by
+  rw [recordPrimeWitnessesThrough237, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough236_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock237_upper hpBlock
+
+theorem recordPrimeWitnessesThrough237_subset :
+    recordPrimeWitnessesThrough237 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough237, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough236_subset,
+    recordPrimeWitnessBlock237_subset⟩
+
+def recordPrimeWitnessesThrough238 : Finset Nat :=
+  recordPrimeWitnessesThrough237 ∪ recordPrimeWitnessBlock238
+
+private theorem recordPrimeWitnessesThrough237_disjoint_block238 :
+    Disjoint recordPrimeWitnessesThrough237 recordPrimeWitnessBlock238 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 270659 :=
+    recordPrimeWitnessesThrough237_upper hpPrevious
+  have hpLower : 270667 ≤ p := recordPrimeWitnessBlock238_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough238_card :
+    recordPrimeWitnessesThrough238.card = 23800 := by
+  rw [recordPrimeWitnessesThrough238,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough237_disjoint_block238,
+    recordPrimeWitnessesThrough237_card,
+    recordPrimeWitnessBlock238_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough238_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough238) : p ≤ 271927 := by
+  rw [recordPrimeWitnessesThrough238, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough237_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock238_upper hpBlock
+
+theorem recordPrimeWitnessesThrough238_subset :
+    recordPrimeWitnessesThrough238 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough238, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough237_subset,
+    recordPrimeWitnessBlock238_subset⟩
+
+def recordPrimeWitnessesThrough239 : Finset Nat :=
+  recordPrimeWitnessesThrough238 ∪ recordPrimeWitnessBlock239
+
+private theorem recordPrimeWitnessesThrough238_disjoint_block239 :
+    Disjoint recordPrimeWitnessesThrough238 recordPrimeWitnessBlock239 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 271927 :=
+    recordPrimeWitnessesThrough238_upper hpPrevious
+  have hpLower : 271939 ≤ p := recordPrimeWitnessBlock239_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough239_card :
+    recordPrimeWitnessesThrough239.card = 23900 := by
+  rw [recordPrimeWitnessesThrough239,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough238_disjoint_block239,
+    recordPrimeWitnessesThrough238_card,
+    recordPrimeWitnessBlock239_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough239_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough239) : p ≤ 273131 := by
+  rw [recordPrimeWitnessesThrough239, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough238_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock239_upper hpBlock
+
+theorem recordPrimeWitnessesThrough239_subset :
+    recordPrimeWitnessesThrough239 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough239, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough238_subset,
+    recordPrimeWitnessBlock239_subset⟩
+
+def recordPrimeWitnessesThrough240 : Finset Nat :=
+  recordPrimeWitnessesThrough239 ∪ recordPrimeWitnessBlock240
+
+private theorem recordPrimeWitnessesThrough239_disjoint_block240 :
+    Disjoint recordPrimeWitnessesThrough239 recordPrimeWitnessBlock240 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 273131 :=
+    recordPrimeWitnessesThrough239_upper hpPrevious
+  have hpLower : 273149 ≤ p := recordPrimeWitnessBlock240_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough240_card :
+    recordPrimeWitnessesThrough240.card = 24000 := by
+  rw [recordPrimeWitnessesThrough240,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough239_disjoint_block240,
+    recordPrimeWitnessesThrough239_card,
+    recordPrimeWitnessBlock240_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough240_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough240) : p ≤ 274529 := by
+  rw [recordPrimeWitnessesThrough240, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough239_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock240_upper hpBlock
+
+theorem recordPrimeWitnessesThrough240_subset :
+    recordPrimeWitnessesThrough240 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough240, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough239_subset,
+    recordPrimeWitnessBlock240_subset⟩
+
+def recordPrimeWitnessesThrough241 : Finset Nat :=
+  recordPrimeWitnessesThrough240 ∪ recordPrimeWitnessBlock241
+
+private theorem recordPrimeWitnessesThrough240_disjoint_block241 :
+    Disjoint recordPrimeWitnessesThrough240 recordPrimeWitnessBlock241 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 274529 :=
+    recordPrimeWitnessesThrough240_upper hpPrevious
+  have hpLower : 274579 ≤ p := recordPrimeWitnessBlock241_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough241_card :
+    recordPrimeWitnessesThrough241.card = 24100 := by
+  rw [recordPrimeWitnessesThrough241,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough240_disjoint_block241,
+    recordPrimeWitnessesThrough240_card,
+    recordPrimeWitnessBlock241_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough241_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough241) : p ≤ 275729 := by
+  rw [recordPrimeWitnessesThrough241, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough240_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock241_upper hpBlock
+
+theorem recordPrimeWitnessesThrough241_subset :
+    recordPrimeWitnessesThrough241 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough241, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough240_subset,
+    recordPrimeWitnessBlock241_subset⟩
+
+def recordPrimeWitnessesThrough242 : Finset Nat :=
+  recordPrimeWitnessesThrough241 ∪ recordPrimeWitnessBlock242
+
+private theorem recordPrimeWitnessesThrough241_disjoint_block242 :
+    Disjoint recordPrimeWitnessesThrough241 recordPrimeWitnessBlock242 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 275729 :=
+    recordPrimeWitnessesThrough241_upper hpPrevious
+  have hpLower : 275741 ≤ p := recordPrimeWitnessBlock242_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough242_card :
+    recordPrimeWitnessesThrough242.card = 24200 := by
+  rw [recordPrimeWitnessesThrough242,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough241_disjoint_block242,
+    recordPrimeWitnessesThrough241_card,
+    recordPrimeWitnessBlock242_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough242_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough242) : p ≤ 276929 := by
+  rw [recordPrimeWitnessesThrough242, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough241_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock242_upper hpBlock
+
+theorem recordPrimeWitnessesThrough242_subset :
+    recordPrimeWitnessesThrough242 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough242, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough241_subset,
+    recordPrimeWitnessBlock242_subset⟩
+
+def recordPrimeWitnessesThrough243 : Finset Nat :=
+  recordPrimeWitnessesThrough242 ∪ recordPrimeWitnessBlock243
+
+private theorem recordPrimeWitnessesThrough242_disjoint_block243 :
+    Disjoint recordPrimeWitnessesThrough242 recordPrimeWitnessBlock243 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 276929 :=
+    recordPrimeWitnessesThrough242_upper hpPrevious
+  have hpLower : 276949 ≤ p := recordPrimeWitnessBlock243_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough243_card :
+    recordPrimeWitnessesThrough243.card = 24300 := by
+  rw [recordPrimeWitnessesThrough243,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough242_disjoint_block243,
+    recordPrimeWitnessesThrough242_card,
+    recordPrimeWitnessBlock243_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough243_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough243) : p ≤ 278261 := by
+  rw [recordPrimeWitnessesThrough243, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough242_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock243_upper hpBlock
+
+theorem recordPrimeWitnessesThrough243_subset :
+    recordPrimeWitnessesThrough243 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough243, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough242_subset,
+    recordPrimeWitnessBlock243_subset⟩
+
+def recordPrimeWitnessesThrough244 : Finset Nat :=
+  recordPrimeWitnessesThrough243 ∪ recordPrimeWitnessBlock244
+
+private theorem recordPrimeWitnessesThrough243_disjoint_block244 :
+    Disjoint recordPrimeWitnessesThrough243 recordPrimeWitnessBlock244 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 278261 :=
+    recordPrimeWitnessesThrough243_upper hpPrevious
+  have hpLower : 278269 ≤ p := recordPrimeWitnessBlock244_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough244_card :
+    recordPrimeWitnessesThrough244.card = 24400 := by
+  rw [recordPrimeWitnessesThrough244,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough243_disjoint_block244,
+    recordPrimeWitnessesThrough243_card,
+    recordPrimeWitnessBlock244_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough244_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough244) : p ≤ 279571 := by
+  rw [recordPrimeWitnessesThrough244, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough243_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock244_upper hpBlock
+
+theorem recordPrimeWitnessesThrough244_subset :
+    recordPrimeWitnessesThrough244 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough244, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough243_subset,
+    recordPrimeWitnessBlock244_subset⟩
+
+def recordPrimeWitnessesThrough245 : Finset Nat :=
+  recordPrimeWitnessesThrough244 ∪ recordPrimeWitnessBlock245
+
+private theorem recordPrimeWitnessesThrough244_disjoint_block245 :
+    Disjoint recordPrimeWitnessesThrough244 recordPrimeWitnessBlock245 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 279571 :=
+    recordPrimeWitnessesThrough244_upper hpPrevious
+  have hpLower : 279577 ≤ p := recordPrimeWitnessBlock245_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough245_card :
+    recordPrimeWitnessesThrough245.card = 24500 := by
+  rw [recordPrimeWitnessesThrough245,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough244_disjoint_block245,
+    recordPrimeWitnessesThrough244_card,
+    recordPrimeWitnessBlock245_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough245_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough245) : p ≤ 280817 := by
+  rw [recordPrimeWitnessesThrough245, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough244_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock245_upper hpBlock
+
+theorem recordPrimeWitnessesThrough245_subset :
+    recordPrimeWitnessesThrough245 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough245, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough244_subset,
+    recordPrimeWitnessBlock245_subset⟩
+
+def recordPrimeWitnessesThrough246 : Finset Nat :=
+  recordPrimeWitnessesThrough245 ∪ recordPrimeWitnessBlock246
+
+private theorem recordPrimeWitnessesThrough245_disjoint_block246 :
+    Disjoint recordPrimeWitnessesThrough245 recordPrimeWitnessBlock246 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 280817 :=
+    recordPrimeWitnessesThrough245_upper hpPrevious
+  have hpLower : 280837 ≤ p := recordPrimeWitnessBlock246_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough246_card :
+    recordPrimeWitnessesThrough246.card = 24600 := by
+  rw [recordPrimeWitnessesThrough246,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough245_disjoint_block246,
+    recordPrimeWitnessesThrough245_card,
+    recordPrimeWitnessBlock246_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough246_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough246) : p ≤ 281947 := by
+  rw [recordPrimeWitnessesThrough246, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough245_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock246_upper hpBlock
+
+theorem recordPrimeWitnessesThrough246_subset :
+    recordPrimeWitnessesThrough246 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough246, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough245_subset,
+    recordPrimeWitnessBlock246_subset⟩
+
+def recordPrimeWitnessesThrough247 : Finset Nat :=
+  recordPrimeWitnessesThrough246 ∪ recordPrimeWitnessBlock247
+
+private theorem recordPrimeWitnessesThrough246_disjoint_block247 :
+    Disjoint recordPrimeWitnessesThrough246 recordPrimeWitnessBlock247 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 281947 :=
+    recordPrimeWitnessesThrough246_upper hpPrevious
+  have hpLower : 281959 ≤ p := recordPrimeWitnessBlock247_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough247_card :
+    recordPrimeWitnessesThrough247.card = 24700 := by
+  rw [recordPrimeWitnessesThrough247,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough246_disjoint_block247,
+    recordPrimeWitnessesThrough246_card,
+    recordPrimeWitnessBlock247_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough247_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough247) : p ≤ 283193 := by
+  rw [recordPrimeWitnessesThrough247, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough246_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock247_upper hpBlock
+
+theorem recordPrimeWitnessesThrough247_subset :
+    recordPrimeWitnessesThrough247 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough247, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough246_subset,
+    recordPrimeWitnessBlock247_subset⟩
+
+def recordPrimeWitnessesThrough248 : Finset Nat :=
+  recordPrimeWitnessesThrough247 ∪ recordPrimeWitnessBlock248
+
+private theorem recordPrimeWitnessesThrough247_disjoint_block248 :
+    Disjoint recordPrimeWitnessesThrough247 recordPrimeWitnessBlock248 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 283193 :=
+    recordPrimeWitnessesThrough247_upper hpPrevious
+  have hpLower : 283207 ≤ p := recordPrimeWitnessBlock248_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough248_card :
+    recordPrimeWitnessesThrough248.card = 24800 := by
+  rw [recordPrimeWitnessesThrough248,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough247_disjoint_block248,
+    recordPrimeWitnessesThrough247_card,
+    recordPrimeWitnessBlock248_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough248_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough248) : p ≤ 284527 := by
+  rw [recordPrimeWitnessesThrough248, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough247_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock248_upper hpBlock
+
+theorem recordPrimeWitnessesThrough248_subset :
+    recordPrimeWitnessesThrough248 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough248, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough247_subset,
+    recordPrimeWitnessBlock248_subset⟩
+
+def recordPrimeWitnessesThrough249 : Finset Nat :=
+  recordPrimeWitnessesThrough248 ∪ recordPrimeWitnessBlock249
+
+private theorem recordPrimeWitnessesThrough248_disjoint_block249 :
+    Disjoint recordPrimeWitnessesThrough248 recordPrimeWitnessBlock249 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 284527 :=
+    recordPrimeWitnessesThrough248_upper hpPrevious
+  have hpLower : 284539 ≤ p := recordPrimeWitnessBlock249_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough249_card :
+    recordPrimeWitnessesThrough249.card = 24900 := by
+  rw [recordPrimeWitnessesThrough249,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough248_disjoint_block249,
+    recordPrimeWitnessesThrough248_card,
+    recordPrimeWitnessBlock249_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough249_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough249) : p ≤ 285709 := by
+  rw [recordPrimeWitnessesThrough249, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough248_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock249_upper hpBlock
+
+theorem recordPrimeWitnessesThrough249_subset :
+    recordPrimeWitnessesThrough249 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough249, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough248_subset,
+    recordPrimeWitnessBlock249_subset⟩
+
+def recordPrimeWitnessesThrough250 : Finset Nat :=
+  recordPrimeWitnessesThrough249 ∪ recordPrimeWitnessBlock250
+
+private theorem recordPrimeWitnessesThrough249_disjoint_block250 :
+    Disjoint recordPrimeWitnessesThrough249 recordPrimeWitnessBlock250 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 285709 :=
+    recordPrimeWitnessesThrough249_upper hpPrevious
+  have hpLower : 285721 ≤ p := recordPrimeWitnessBlock250_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough250_card :
+    recordPrimeWitnessesThrough250.card = 25000 := by
+  rw [recordPrimeWitnessesThrough250,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough249_disjoint_block250,
+    recordPrimeWitnessesThrough249_card,
+    recordPrimeWitnessBlock250_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough250_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough250) : p ≤ 287117 := by
+  rw [recordPrimeWitnessesThrough250, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough249_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock250_upper hpBlock
+
+theorem recordPrimeWitnessesThrough250_subset :
+    recordPrimeWitnessesThrough250 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough250, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough249_subset,
+    recordPrimeWitnessBlock250_subset⟩
+
+def recordPrimeWitnessesThrough251 : Finset Nat :=
+  recordPrimeWitnessesThrough250 ∪ recordPrimeWitnessBlock251
+
+private theorem recordPrimeWitnessesThrough250_disjoint_block251 :
+    Disjoint recordPrimeWitnessesThrough250 recordPrimeWitnessBlock251 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 287117 :=
+    recordPrimeWitnessesThrough250_upper hpPrevious
+  have hpLower : 287137 ≤ p := recordPrimeWitnessBlock251_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough251_card :
+    recordPrimeWitnessesThrough251.card = 25100 := by
+  rw [recordPrimeWitnessesThrough251,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough250_disjoint_block251,
+    recordPrimeWitnessesThrough250_card,
+    recordPrimeWitnessBlock251_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough251_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough251) : p ≤ 288499 := by
+  rw [recordPrimeWitnessesThrough251, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough250_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock251_upper hpBlock
+
+theorem recordPrimeWitnessesThrough251_subset :
+    recordPrimeWitnessesThrough251 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough251, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough250_subset,
+    recordPrimeWitnessBlock251_subset⟩
+
+def recordPrimeWitnessesThrough252 : Finset Nat :=
+  recordPrimeWitnessesThrough251 ∪ recordPrimeWitnessBlock252
+
+private theorem recordPrimeWitnessesThrough251_disjoint_block252 :
+    Disjoint recordPrimeWitnessesThrough251 recordPrimeWitnessBlock252 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 288499 :=
+    recordPrimeWitnessesThrough251_upper hpPrevious
+  have hpLower : 288527 ≤ p := recordPrimeWitnessBlock252_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough252_card :
+    recordPrimeWitnessesThrough252.card = 25200 := by
+  rw [recordPrimeWitnessesThrough252,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough251_disjoint_block252,
+    recordPrimeWitnessesThrough251_card,
+    recordPrimeWitnessBlock252_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough252_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough252) : p ≤ 289717 := by
+  rw [recordPrimeWitnessesThrough252, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough251_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock252_upper hpBlock
+
+theorem recordPrimeWitnessesThrough252_subset :
+    recordPrimeWitnessesThrough252 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough252, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough251_subset,
+    recordPrimeWitnessBlock252_subset⟩
+
+def recordPrimeWitnessesThrough253 : Finset Nat :=
+  recordPrimeWitnessesThrough252 ∪ recordPrimeWitnessBlock253
+
+private theorem recordPrimeWitnessesThrough252_disjoint_block253 :
+    Disjoint recordPrimeWitnessesThrough252 recordPrimeWitnessBlock253 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 289717 :=
+    recordPrimeWitnessesThrough252_upper hpPrevious
+  have hpLower : 289721 ≤ p := recordPrimeWitnessBlock253_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough253_card :
+    recordPrimeWitnessesThrough253.card = 25300 := by
+  rw [recordPrimeWitnessesThrough253,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough252_disjoint_block253,
+    recordPrimeWitnessesThrough252_card,
+    recordPrimeWitnessBlock253_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough253_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough253) : p ≤ 290879 := by
+  rw [recordPrimeWitnessesThrough253, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough252_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock253_upper hpBlock
+
+theorem recordPrimeWitnessesThrough253_subset :
+    recordPrimeWitnessesThrough253 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough253, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough252_subset,
+    recordPrimeWitnessBlock253_subset⟩
+
+def recordPrimeWitnessesThrough254 : Finset Nat :=
+  recordPrimeWitnessesThrough253 ∪ recordPrimeWitnessBlock254
+
+private theorem recordPrimeWitnessesThrough253_disjoint_block254 :
+    Disjoint recordPrimeWitnessesThrough253 recordPrimeWitnessBlock254 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 290879 :=
+    recordPrimeWitnessesThrough253_upper hpPrevious
+  have hpLower : 290897 ≤ p := recordPrimeWitnessBlock254_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough254_card :
+    recordPrimeWitnessesThrough254.card = 25400 := by
+  rw [recordPrimeWitnessesThrough254,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough253_disjoint_block254,
+    recordPrimeWitnessesThrough253_card,
+    recordPrimeWitnessBlock254_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough254_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough254) : p ≤ 292183 := by
+  rw [recordPrimeWitnessesThrough254, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough253_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock254_upper hpBlock
+
+theorem recordPrimeWitnessesThrough254_subset :
+    recordPrimeWitnessesThrough254 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough254, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough253_subset,
+    recordPrimeWitnessBlock254_subset⟩
+
+def recordPrimeWitnessesThrough255 : Finset Nat :=
+  recordPrimeWitnessesThrough254 ∪ recordPrimeWitnessBlock255
+
+private theorem recordPrimeWitnessesThrough254_disjoint_block255 :
+    Disjoint recordPrimeWitnessesThrough254 recordPrimeWitnessBlock255 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 292183 :=
+    recordPrimeWitnessesThrough254_upper hpPrevious
+  have hpLower : 292223 ≤ p := recordPrimeWitnessBlock255_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough255_card :
+    recordPrimeWitnessesThrough255.card = 25500 := by
+  rw [recordPrimeWitnessesThrough255,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough254_disjoint_block255,
+    recordPrimeWitnessesThrough254_card,
+    recordPrimeWitnessBlock255_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough255_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough255) : p ≤ 293507 := by
+  rw [recordPrimeWitnessesThrough255, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough254_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock255_upper hpBlock
+
+theorem recordPrimeWitnessesThrough255_subset :
+    recordPrimeWitnessesThrough255 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough255, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough254_subset,
+    recordPrimeWitnessBlock255_subset⟩
+
+def recordPrimeWitnessesThrough256 : Finset Nat :=
+  recordPrimeWitnessesThrough255 ∪ recordPrimeWitnessBlock256
+
+private theorem recordPrimeWitnessesThrough255_disjoint_block256 :
+    Disjoint recordPrimeWitnessesThrough255 recordPrimeWitnessBlock256 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 293507 :=
+    recordPrimeWitnessesThrough255_upper hpPrevious
+  have hpLower : 293543 ≤ p := recordPrimeWitnessBlock256_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough256_card :
+    recordPrimeWitnessesThrough256.card = 25600 := by
+  rw [recordPrimeWitnessesThrough256,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough255_disjoint_block256,
+    recordPrimeWitnessesThrough255_card,
+    recordPrimeWitnessBlock256_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough256_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough256) : p ≤ 294809 := by
+  rw [recordPrimeWitnessesThrough256, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough255_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock256_upper hpBlock
+
+theorem recordPrimeWitnessesThrough256_subset :
+    recordPrimeWitnessesThrough256 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough256, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough255_subset,
+    recordPrimeWitnessBlock256_subset⟩
+
+def recordPrimeWitnessesThrough257 : Finset Nat :=
+  recordPrimeWitnessesThrough256 ∪ recordPrimeWitnessBlock257
+
+private theorem recordPrimeWitnessesThrough256_disjoint_block257 :
+    Disjoint recordPrimeWitnessesThrough256 recordPrimeWitnessBlock257 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 294809 :=
+    recordPrimeWitnessesThrough256_upper hpPrevious
+  have hpLower : 294821 ≤ p := recordPrimeWitnessBlock257_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough257_card :
+    recordPrimeWitnessesThrough257.card = 25700 := by
+  rw [recordPrimeWitnessesThrough257,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough256_disjoint_block257,
+    recordPrimeWitnessesThrough256_card,
+    recordPrimeWitnessBlock257_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough257_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough257) : p ≤ 296117 := by
+  rw [recordPrimeWitnessesThrough257, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough256_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock257_upper hpBlock
+
+theorem recordPrimeWitnessesThrough257_subset :
+    recordPrimeWitnessesThrough257 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough257, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough256_subset,
+    recordPrimeWitnessBlock257_subset⟩
+
+def recordPrimeWitnessesThrough258 : Finset Nat :=
+  recordPrimeWitnessesThrough257 ∪ recordPrimeWitnessBlock258
+
+private theorem recordPrimeWitnessesThrough257_disjoint_block258 :
+    Disjoint recordPrimeWitnessesThrough257 recordPrimeWitnessBlock258 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 296117 :=
+    recordPrimeWitnessesThrough257_upper hpPrevious
+  have hpLower : 296129 ≤ p := recordPrimeWitnessBlock258_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough258_card :
+    recordPrimeWitnessesThrough258.card = 25800 := by
+  rw [recordPrimeWitnessesThrough258,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough257_disjoint_block258,
+    recordPrimeWitnessesThrough257_card,
+    recordPrimeWitnessBlock258_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough258_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough258) : p ≤ 297403 := by
+  rw [recordPrimeWitnessesThrough258, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough257_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock258_upper hpBlock
+
+theorem recordPrimeWitnessesThrough258_subset :
+    recordPrimeWitnessesThrough258 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough258, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough257_subset,
+    recordPrimeWitnessBlock258_subset⟩
+
+def recordPrimeWitnessesThrough259 : Finset Nat :=
+  recordPrimeWitnessesThrough258 ∪ recordPrimeWitnessBlock259
+
+private theorem recordPrimeWitnessesThrough258_disjoint_block259 :
+    Disjoint recordPrimeWitnessesThrough258 recordPrimeWitnessBlock259 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 297403 :=
+    recordPrimeWitnessesThrough258_upper hpPrevious
+  have hpLower : 297421 ≤ p := recordPrimeWitnessBlock259_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough259_card :
+    recordPrimeWitnessesThrough259.card = 25900 := by
+  rw [recordPrimeWitnessesThrough259,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough258_disjoint_block259,
+    recordPrimeWitnessesThrough258_card,
+    recordPrimeWitnessBlock259_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough259_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough259) : p ≤ 298693 := by
+  rw [recordPrimeWitnessesThrough259, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough258_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock259_upper hpBlock
+
+theorem recordPrimeWitnessesThrough259_subset :
+    recordPrimeWitnessesThrough259 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough259, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough258_subset,
+    recordPrimeWitnessBlock259_subset⟩
+
+def recordPrimeWitnessesThrough260 : Finset Nat :=
+  recordPrimeWitnessesThrough259 ∪ recordPrimeWitnessBlock260
+
+private theorem recordPrimeWitnessesThrough259_disjoint_block260 :
+    Disjoint recordPrimeWitnessesThrough259 recordPrimeWitnessBlock260 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 298693 :=
+    recordPrimeWitnessesThrough259_upper hpPrevious
+  have hpLower : 298709 ≤ p := recordPrimeWitnessBlock260_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough260_card :
+    recordPrimeWitnessesThrough260.card = 26000 := by
+  rw [recordPrimeWitnessesThrough260,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough259_disjoint_block260,
+    recordPrimeWitnessesThrough259_card,
+    recordPrimeWitnessBlock260_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough260_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough260) : p ≤ 300023 := by
+  rw [recordPrimeWitnessesThrough260, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough259_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock260_upper hpBlock
+
+theorem recordPrimeWitnessesThrough260_subset :
+    recordPrimeWitnessesThrough260 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough260, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough259_subset,
+    recordPrimeWitnessBlock260_subset⟩
+
+def recordPrimeWitnessesThrough261 : Finset Nat :=
+  recordPrimeWitnessesThrough260 ∪ recordPrimeWitnessBlock261
+
+private theorem recordPrimeWitnessesThrough260_disjoint_block261 :
+    Disjoint recordPrimeWitnessesThrough260 recordPrimeWitnessBlock261 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 300023 :=
+    recordPrimeWitnessesThrough260_upper hpPrevious
+  have hpLower : 300043 ≤ p := recordPrimeWitnessBlock261_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough261_card :
+    recordPrimeWitnessesThrough261.card = 26100 := by
+  rw [recordPrimeWitnessesThrough261,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough260_disjoint_block261,
+    recordPrimeWitnessesThrough260_card,
+    recordPrimeWitnessBlock261_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough261_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough261) : p ≤ 301237 := by
+  rw [recordPrimeWitnessesThrough261, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough260_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock261_upper hpBlock
+
+theorem recordPrimeWitnessesThrough261_subset :
+    recordPrimeWitnessesThrough261 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough261, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough260_subset,
+    recordPrimeWitnessBlock261_subset⟩
+
+def recordPrimeWitnessesThrough262 : Finset Nat :=
+  recordPrimeWitnessesThrough261 ∪ recordPrimeWitnessBlock262
+
+private theorem recordPrimeWitnessesThrough261_disjoint_block262 :
+    Disjoint recordPrimeWitnessesThrough261 recordPrimeWitnessBlock262 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 301237 :=
+    recordPrimeWitnessesThrough261_upper hpPrevious
+  have hpLower : 301241 ≤ p := recordPrimeWitnessBlock262_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough262_card :
+    recordPrimeWitnessesThrough262.card = 26200 := by
+  rw [recordPrimeWitnessesThrough262,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough261_disjoint_block262,
+    recordPrimeWitnessesThrough261_card,
+    recordPrimeWitnessBlock262_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough262_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough262) : p ≤ 302579 := by
+  rw [recordPrimeWitnessesThrough262, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough261_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock262_upper hpBlock
+
+theorem recordPrimeWitnessesThrough262_subset :
+    recordPrimeWitnessesThrough262 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough262, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough261_subset,
+    recordPrimeWitnessBlock262_subset⟩
+
+def recordPrimeWitnessesThrough263 : Finset Nat :=
+  recordPrimeWitnessesThrough262 ∪ recordPrimeWitnessBlock263
+
+private theorem recordPrimeWitnessesThrough262_disjoint_block263 :
+    Disjoint recordPrimeWitnessesThrough262 recordPrimeWitnessBlock263 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 302579 :=
+    recordPrimeWitnessesThrough262_upper hpPrevious
+  have hpLower : 302581 ≤ p := recordPrimeWitnessBlock263_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough263_card :
+    recordPrimeWitnessesThrough263.card = 26300 := by
+  rw [recordPrimeWitnessesThrough263,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough262_disjoint_block263,
+    recordPrimeWitnessesThrough262_card,
+    recordPrimeWitnessBlock263_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough263_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough263) : p ≤ 303691 := by
+  rw [recordPrimeWitnessesThrough263, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough262_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock263_upper hpBlock
+
+theorem recordPrimeWitnessesThrough263_subset :
+    recordPrimeWitnessesThrough263 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough263, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough262_subset,
+    recordPrimeWitnessBlock263_subset⟩
+
+def recordPrimeWitnessesThrough264 : Finset Nat :=
+  recordPrimeWitnessesThrough263 ∪ recordPrimeWitnessBlock264
+
+private theorem recordPrimeWitnessesThrough263_disjoint_block264 :
+    Disjoint recordPrimeWitnessesThrough263 recordPrimeWitnessBlock264 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 303691 :=
+    recordPrimeWitnessesThrough263_upper hpPrevious
+  have hpLower : 303703 ≤ p := recordPrimeWitnessBlock264_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough264_card :
+    recordPrimeWitnessesThrough264.card = 26400 := by
+  rw [recordPrimeWitnessesThrough264,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough263_disjoint_block264,
+    recordPrimeWitnessesThrough263_card,
+    recordPrimeWitnessBlock264_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough264_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough264) : p ≤ 304901 := by
+  rw [recordPrimeWitnessesThrough264, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough263_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock264_upper hpBlock
+
+theorem recordPrimeWitnessesThrough264_subset :
+    recordPrimeWitnessesThrough264 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough264, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough263_subset,
+    recordPrimeWitnessBlock264_subset⟩
+
+def recordPrimeWitnessesThrough265 : Finset Nat :=
+  recordPrimeWitnessesThrough264 ∪ recordPrimeWitnessBlock265
+
+private theorem recordPrimeWitnessesThrough264_disjoint_block265 :
+    Disjoint recordPrimeWitnessesThrough264 recordPrimeWitnessBlock265 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 304901 :=
+    recordPrimeWitnessesThrough264_upper hpPrevious
+  have hpLower : 304903 ≤ p := recordPrimeWitnessBlock265_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough265_card :
+    recordPrimeWitnessesThrough265.card = 26500 := by
+  rw [recordPrimeWitnessesThrough265,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough264_disjoint_block265,
+    recordPrimeWitnessesThrough264_card,
+    recordPrimeWitnessBlock265_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough265_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough265) : p ≤ 306149 := by
+  rw [recordPrimeWitnessesThrough265, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough264_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock265_upper hpBlock
+
+theorem recordPrimeWitnessesThrough265_subset :
+    recordPrimeWitnessesThrough265 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough265, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough264_subset,
+    recordPrimeWitnessBlock265_subset⟩
+
+def recordPrimeWitnessesThrough266 : Finset Nat :=
+  recordPrimeWitnessesThrough265 ∪ recordPrimeWitnessBlock266
+
+private theorem recordPrimeWitnessesThrough265_disjoint_block266 :
+    Disjoint recordPrimeWitnessesThrough265 recordPrimeWitnessBlock266 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 306149 :=
+    recordPrimeWitnessesThrough265_upper hpPrevious
+  have hpLower : 306157 ≤ p := recordPrimeWitnessBlock266_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough266_card :
+    recordPrimeWitnessesThrough266.card = 26600 := by
+  rw [recordPrimeWitnessesThrough266,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough265_disjoint_block266,
+    recordPrimeWitnessesThrough265_card,
+    recordPrimeWitnessBlock266_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough266_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough266) : p ≤ 307337 := by
+  rw [recordPrimeWitnessesThrough266, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough265_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock266_upper hpBlock
+
+theorem recordPrimeWitnessesThrough266_subset :
+    recordPrimeWitnessesThrough266 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough266, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough265_subset,
+    recordPrimeWitnessBlock266_subset⟩
+
+def recordPrimeWitnessesThrough267 : Finset Nat :=
+  recordPrimeWitnessesThrough266 ∪ recordPrimeWitnessBlock267
+
+private theorem recordPrimeWitnessesThrough266_disjoint_block267 :
+    Disjoint recordPrimeWitnessesThrough266 recordPrimeWitnessBlock267 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 307337 :=
+    recordPrimeWitnessesThrough266_upper hpPrevious
+  have hpLower : 307339 ≤ p := recordPrimeWitnessBlock267_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough267_card :
+    recordPrimeWitnessesThrough267.card = 26700 := by
+  rw [recordPrimeWitnessesThrough267,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough266_disjoint_block267,
+    recordPrimeWitnessesThrough266_card,
+    recordPrimeWitnessBlock267_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough267_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough267) : p ≤ 308713 := by
+  rw [recordPrimeWitnessesThrough267, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough266_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock267_upper hpBlock
+
+theorem recordPrimeWitnessesThrough267_subset :
+    recordPrimeWitnessesThrough267 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough267, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough266_subset,
+    recordPrimeWitnessBlock267_subset⟩
+
+def recordPrimeWitnessesThrough268 : Finset Nat :=
+  recordPrimeWitnessesThrough267 ∪ recordPrimeWitnessBlock268
+
+private theorem recordPrimeWitnessesThrough267_disjoint_block268 :
+    Disjoint recordPrimeWitnessesThrough267 recordPrimeWitnessBlock268 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 308713 :=
+    recordPrimeWitnessesThrough267_upper hpPrevious
+  have hpLower : 308723 ≤ p := recordPrimeWitnessBlock268_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough268_card :
+    recordPrimeWitnessesThrough268.card = 26800 := by
+  rw [recordPrimeWitnessesThrough268,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough267_disjoint_block268,
+    recordPrimeWitnessesThrough267_card,
+    recordPrimeWitnessBlock268_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough268_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough268) : p ≤ 309989 := by
+  rw [recordPrimeWitnessesThrough268, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough267_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock268_upper hpBlock
+
+theorem recordPrimeWitnessesThrough268_subset :
+    recordPrimeWitnessesThrough268 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough268, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough267_subset,
+    recordPrimeWitnessBlock268_subset⟩
+
+def recordPrimeWitnessesThrough269 : Finset Nat :=
+  recordPrimeWitnessesThrough268 ∪ recordPrimeWitnessBlock269
+
+private theorem recordPrimeWitnessesThrough268_disjoint_block269 :
+    Disjoint recordPrimeWitnessesThrough268 recordPrimeWitnessBlock269 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 309989 :=
+    recordPrimeWitnessesThrough268_upper hpPrevious
+  have hpLower : 310019 ≤ p := recordPrimeWitnessBlock269_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough269_card :
+    recordPrimeWitnessesThrough269.card = 26900 := by
+  rw [recordPrimeWitnessesThrough269,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough268_disjoint_block269,
+    recordPrimeWitnessesThrough268_card,
+    recordPrimeWitnessBlock269_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough269_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough269) : p ≤ 311299 := by
+  rw [recordPrimeWitnessesThrough269, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough268_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock269_upper hpBlock
+
+theorem recordPrimeWitnessesThrough269_subset :
+    recordPrimeWitnessesThrough269 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough269, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough268_subset,
+    recordPrimeWitnessBlock269_subset⟩
+
+def recordPrimeWitnessesThrough270 : Finset Nat :=
+  recordPrimeWitnessesThrough269 ∪ recordPrimeWitnessBlock270
+
+private theorem recordPrimeWitnessesThrough269_disjoint_block270 :
+    Disjoint recordPrimeWitnessesThrough269 recordPrimeWitnessBlock270 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 311299 :=
+    recordPrimeWitnessesThrough269_upper hpPrevious
+  have hpLower : 311303 ≤ p := recordPrimeWitnessBlock270_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough270_card :
+    recordPrimeWitnessesThrough270.card = 27000 := by
+  rw [recordPrimeWitnessesThrough270,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough269_disjoint_block270,
+    recordPrimeWitnessesThrough269_card,
+    recordPrimeWitnessBlock270_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough270_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough270) : p ≤ 312583 := by
+  rw [recordPrimeWitnessesThrough270, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough269_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock270_upper hpBlock
+
+theorem recordPrimeWitnessesThrough270_subset :
+    recordPrimeWitnessesThrough270 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough270, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough269_subset,
+    recordPrimeWitnessBlock270_subset⟩
+
+def recordPrimeWitnessesThrough271 : Finset Nat :=
+  recordPrimeWitnessesThrough270 ∪ recordPrimeWitnessBlock271
+
+private theorem recordPrimeWitnessesThrough270_disjoint_block271 :
+    Disjoint recordPrimeWitnessesThrough270 recordPrimeWitnessBlock271 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 312583 :=
+    recordPrimeWitnessesThrough270_upper hpPrevious
+  have hpLower : 312589 ≤ p := recordPrimeWitnessBlock271_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough271_card :
+    recordPrimeWitnessesThrough271.card = 27100 := by
+  rw [recordPrimeWitnessesThrough271,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough270_disjoint_block271,
+    recordPrimeWitnessesThrough270_card,
+    recordPrimeWitnessBlock271_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough271_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough271) : p ≤ 313783 := by
+  rw [recordPrimeWitnessesThrough271, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough270_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock271_upper hpBlock
+
+theorem recordPrimeWitnessesThrough271_subset :
+    recordPrimeWitnessesThrough271 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough271, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough270_subset,
+    recordPrimeWitnessBlock271_subset⟩
+
+def recordPrimeWitnessesThrough272 : Finset Nat :=
+  recordPrimeWitnessesThrough271 ∪ recordPrimeWitnessBlock272
+
+private theorem recordPrimeWitnessesThrough271_disjoint_block272 :
+    Disjoint recordPrimeWitnessesThrough271 recordPrimeWitnessBlock272 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 313783 :=
+    recordPrimeWitnessesThrough271_upper hpPrevious
+  have hpLower : 313829 ≤ p := recordPrimeWitnessBlock272_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough272_card :
+    recordPrimeWitnessesThrough272.card = 27200 := by
+  rw [recordPrimeWitnessesThrough272,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough271_disjoint_block272,
+    recordPrimeWitnessesThrough271_card,
+    recordPrimeWitnessBlock272_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough272_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough272) : p ≤ 315047 := by
+  rw [recordPrimeWitnessesThrough272, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough271_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock272_upper hpBlock
+
+theorem recordPrimeWitnessesThrough272_subset :
+    recordPrimeWitnessesThrough272 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough272, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough271_subset,
+    recordPrimeWitnessBlock272_subset⟩
+
+def recordPrimeWitnessesThrough273 : Finset Nat :=
+  recordPrimeWitnessesThrough272 ∪ recordPrimeWitnessBlock273
+
+private theorem recordPrimeWitnessesThrough272_disjoint_block273 :
+    Disjoint recordPrimeWitnessesThrough272 recordPrimeWitnessBlock273 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 315047 :=
+    recordPrimeWitnessesThrough272_upper hpPrevious
+  have hpLower : 315059 ≤ p := recordPrimeWitnessBlock273_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough273_card :
+    recordPrimeWitnessesThrough273.card = 27300 := by
+  rw [recordPrimeWitnessesThrough273,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough272_disjoint_block273,
+    recordPrimeWitnessesThrough272_card,
+    recordPrimeWitnessBlock273_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough273_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough273) : p ≤ 316301 := by
+  rw [recordPrimeWitnessesThrough273, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough272_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock273_upper hpBlock
+
+theorem recordPrimeWitnessesThrough273_subset :
+    recordPrimeWitnessesThrough273 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough273, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough272_subset,
+    recordPrimeWitnessBlock273_subset⟩
+
+def recordPrimeWitnessesThrough274 : Finset Nat :=
+  recordPrimeWitnessesThrough273 ∪ recordPrimeWitnessBlock274
+
+private theorem recordPrimeWitnessesThrough273_disjoint_block274 :
+    Disjoint recordPrimeWitnessesThrough273 recordPrimeWitnessBlock274 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 316301 :=
+    recordPrimeWitnessesThrough273_upper hpPrevious
+  have hpLower : 316321 ≤ p := recordPrimeWitnessBlock274_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough274_card :
+    recordPrimeWitnessesThrough274.card = 27400 := by
+  rw [recordPrimeWitnessesThrough274,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough273_disjoint_block274,
+    recordPrimeWitnessesThrough273_card,
+    recordPrimeWitnessBlock274_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough274_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough274) : p ≤ 317539 := by
+  rw [recordPrimeWitnessesThrough274, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough273_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock274_upper hpBlock
+
+theorem recordPrimeWitnessesThrough274_subset :
+    recordPrimeWitnessesThrough274 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough274, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough273_subset,
+    recordPrimeWitnessBlock274_subset⟩
+
+def recordPrimeWitnessesThrough275 : Finset Nat :=
+  recordPrimeWitnessesThrough274 ∪ recordPrimeWitnessBlock275
+
+private theorem recordPrimeWitnessesThrough274_disjoint_block275 :
+    Disjoint recordPrimeWitnessesThrough274 recordPrimeWitnessBlock275 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 317539 :=
+    recordPrimeWitnessesThrough274_upper hpPrevious
+  have hpLower : 317557 ≤ p := recordPrimeWitnessBlock275_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough275_card :
+    recordPrimeWitnessesThrough275.card = 27500 := by
+  rw [recordPrimeWitnessesThrough275,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough274_disjoint_block275,
+    recordPrimeWitnessesThrough274_card,
+    recordPrimeWitnessBlock275_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough275_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough275) : p ≤ 318713 := by
+  rw [recordPrimeWitnessesThrough275, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough274_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock275_upper hpBlock
+
+theorem recordPrimeWitnessesThrough275_subset :
+    recordPrimeWitnessesThrough275 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough275, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough274_subset,
+    recordPrimeWitnessBlock275_subset⟩
+
+def recordPrimeWitnessesThrough276 : Finset Nat :=
+  recordPrimeWitnessesThrough275 ∪ recordPrimeWitnessBlock276
+
+private theorem recordPrimeWitnessesThrough275_disjoint_block276 :
+    Disjoint recordPrimeWitnessesThrough275 recordPrimeWitnessBlock276 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 318713 :=
+    recordPrimeWitnessesThrough275_upper hpPrevious
+  have hpLower : 318737 ≤ p := recordPrimeWitnessBlock276_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough276_card :
+    recordPrimeWitnessesThrough276.card = 27600 := by
+  rw [recordPrimeWitnessesThrough276,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough275_disjoint_block276,
+    recordPrimeWitnessesThrough275_card,
+    recordPrimeWitnessBlock276_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough276_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough276) : p ≤ 319901 := by
+  rw [recordPrimeWitnessesThrough276, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough275_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock276_upper hpBlock
+
+theorem recordPrimeWitnessesThrough276_subset :
+    recordPrimeWitnessesThrough276 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough276, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough275_subset,
+    recordPrimeWitnessBlock276_subset⟩
+
+def recordPrimeWitnessesThrough277 : Finset Nat :=
+  recordPrimeWitnessesThrough276 ∪ recordPrimeWitnessBlock277
+
+private theorem recordPrimeWitnessesThrough276_disjoint_block277 :
+    Disjoint recordPrimeWitnessesThrough276 recordPrimeWitnessBlock277 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 319901 :=
+    recordPrimeWitnessesThrough276_upper hpPrevious
+  have hpLower : 319919 ≤ p := recordPrimeWitnessBlock277_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough277_card :
+    recordPrimeWitnessesThrough277.card = 27700 := by
+  rw [recordPrimeWitnessesThrough277,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough276_disjoint_block277,
+    recordPrimeWitnessesThrough276_card,
+    recordPrimeWitnessBlock277_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough277_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough277) : p ≤ 321169 := by
+  rw [recordPrimeWitnessesThrough277, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough276_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock277_upper hpBlock
+
+theorem recordPrimeWitnessesThrough277_subset :
+    recordPrimeWitnessesThrough277 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough277, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough276_subset,
+    recordPrimeWitnessBlock277_subset⟩
+
+def recordPrimeWitnessesThrough278 : Finset Nat :=
+  recordPrimeWitnessesThrough277 ∪ recordPrimeWitnessBlock278
+
+private theorem recordPrimeWitnessesThrough277_disjoint_block278 :
+    Disjoint recordPrimeWitnessesThrough277 recordPrimeWitnessBlock278 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 321169 :=
+    recordPrimeWitnessesThrough277_upper hpPrevious
+  have hpLower : 321187 ≤ p := recordPrimeWitnessBlock278_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough278_card :
+    recordPrimeWitnessesThrough278.card = 27800 := by
+  rw [recordPrimeWitnessesThrough278,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough277_disjoint_block278,
+    recordPrimeWitnessesThrough277_card,
+    recordPrimeWitnessBlock278_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough278_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough278) : p ≤ 322403 := by
+  rw [recordPrimeWitnessesThrough278, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough277_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock278_upper hpBlock
+
+theorem recordPrimeWitnessesThrough278_subset :
+    recordPrimeWitnessesThrough278 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough278, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough277_subset,
+    recordPrimeWitnessBlock278_subset⟩
+
+def recordPrimeWitnessesThrough279 : Finset Nat :=
+  recordPrimeWitnessesThrough278 ∪ recordPrimeWitnessBlock279
+
+private theorem recordPrimeWitnessesThrough278_disjoint_block279 :
+    Disjoint recordPrimeWitnessesThrough278 recordPrimeWitnessBlock279 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 322403 :=
+    recordPrimeWitnessesThrough278_upper hpPrevious
+  have hpLower : 322409 ≤ p := recordPrimeWitnessBlock279_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough279_card :
+    recordPrimeWitnessesThrough279.card = 27900 := by
+  rw [recordPrimeWitnessesThrough279,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough278_disjoint_block279,
+    recordPrimeWitnessesThrough278_card,
+    recordPrimeWitnessBlock279_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough279_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough279) : p ≤ 323707 := by
+  rw [recordPrimeWitnessesThrough279, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough278_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock279_upper hpBlock
+
+theorem recordPrimeWitnessesThrough279_subset :
+    recordPrimeWitnessesThrough279 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough279, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough278_subset,
+    recordPrimeWitnessBlock279_subset⟩
+
+def recordPrimeWitnessesThrough280 : Finset Nat :=
+  recordPrimeWitnessesThrough279 ∪ recordPrimeWitnessBlock280
+
+private theorem recordPrimeWitnessesThrough279_disjoint_block280 :
+    Disjoint recordPrimeWitnessesThrough279 recordPrimeWitnessBlock280 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 323707 :=
+    recordPrimeWitnessesThrough279_upper hpPrevious
+  have hpLower : 323711 ≤ p := recordPrimeWitnessBlock280_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough280_card :
+    recordPrimeWitnessesThrough280.card = 28000 := by
+  rw [recordPrimeWitnessesThrough280,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough279_disjoint_block280,
+    recordPrimeWitnessesThrough279_card,
+    recordPrimeWitnessBlock280_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough280_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough280) : p ≤ 324949 := by
+  rw [recordPrimeWitnessesThrough280, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough279_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock280_upper hpBlock
+
+theorem recordPrimeWitnessesThrough280_subset :
+    recordPrimeWitnessesThrough280 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough280, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough279_subset,
+    recordPrimeWitnessBlock280_subset⟩
+
+def recordPrimeWitnessesThrough281 : Finset Nat :=
+  recordPrimeWitnessesThrough280 ∪ recordPrimeWitnessBlock281
+
+private theorem recordPrimeWitnessesThrough280_disjoint_block281 :
+    Disjoint recordPrimeWitnessesThrough280 recordPrimeWitnessBlock281 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 324949 :=
+    recordPrimeWitnessesThrough280_upper hpPrevious
+  have hpLower : 324953 ≤ p := recordPrimeWitnessBlock281_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough281_card :
+    recordPrimeWitnessesThrough281.card = 28100 := by
+  rw [recordPrimeWitnessesThrough281,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough280_disjoint_block281,
+    recordPrimeWitnessesThrough280_card,
+    recordPrimeWitnessBlock281_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough281_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough281) : p ≤ 326119 := by
+  rw [recordPrimeWitnessesThrough281, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough280_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock281_upper hpBlock
+
+theorem recordPrimeWitnessesThrough281_subset :
+    recordPrimeWitnessesThrough281 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough281, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough280_subset,
+    recordPrimeWitnessBlock281_subset⟩
+
+def recordPrimeWitnessesThrough282 : Finset Nat :=
+  recordPrimeWitnessesThrough281 ∪ recordPrimeWitnessBlock282
+
+private theorem recordPrimeWitnessesThrough281_disjoint_block282 :
+    Disjoint recordPrimeWitnessesThrough281 recordPrimeWitnessBlock282 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 326119 :=
+    recordPrimeWitnessesThrough281_upper hpPrevious
+  have hpLower : 326141 ≤ p := recordPrimeWitnessBlock282_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough282_card :
+    recordPrimeWitnessesThrough282.card = 28200 := by
+  rw [recordPrimeWitnessesThrough282,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough281_disjoint_block282,
+    recordPrimeWitnessesThrough281_card,
+    recordPrimeWitnessBlock282_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough282_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough282) : p ≤ 327443 := by
+  rw [recordPrimeWitnessesThrough282, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough281_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock282_upper hpBlock
+
+theorem recordPrimeWitnessesThrough282_subset :
+    recordPrimeWitnessesThrough282 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough282, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough281_subset,
+    recordPrimeWitnessBlock282_subset⟩
+
+def recordPrimeWitnessesThrough283 : Finset Nat :=
+  recordPrimeWitnessesThrough282 ∪ recordPrimeWitnessBlock283
+
+private theorem recordPrimeWitnessesThrough282_disjoint_block283 :
+    Disjoint recordPrimeWitnessesThrough282 recordPrimeWitnessBlock283 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 327443 :=
+    recordPrimeWitnessesThrough282_upper hpPrevious
+  have hpLower : 327463 ≤ p := recordPrimeWitnessBlock283_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough283_card :
+    recordPrimeWitnessesThrough283.card = 28300 := by
+  rw [recordPrimeWitnessesThrough283,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough282_disjoint_block283,
+    recordPrimeWitnessesThrough282_card,
+    recordPrimeWitnessBlock283_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough283_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough283) : p ≤ 328651 := by
+  rw [recordPrimeWitnessesThrough283, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough282_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock283_upper hpBlock
+
+theorem recordPrimeWitnessesThrough283_subset :
+    recordPrimeWitnessesThrough283 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough283, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough282_subset,
+    recordPrimeWitnessBlock283_subset⟩
+
+def recordPrimeWitnessesThrough284 : Finset Nat :=
+  recordPrimeWitnessesThrough283 ∪ recordPrimeWitnessBlock284
+
+private theorem recordPrimeWitnessesThrough283_disjoint_block284 :
+    Disjoint recordPrimeWitnessesThrough283 recordPrimeWitnessBlock284 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 328651 :=
+    recordPrimeWitnessesThrough283_upper hpPrevious
+  have hpLower : 328667 ≤ p := recordPrimeWitnessBlock284_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough284_card :
+    recordPrimeWitnessesThrough284.card = 28400 := by
+  rw [recordPrimeWitnessesThrough284,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough283_disjoint_block284,
+    recordPrimeWitnessesThrough283_card,
+    recordPrimeWitnessBlock284_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough284_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough284) : p ≤ 329957 := by
+  rw [recordPrimeWitnessesThrough284, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough283_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock284_upper hpBlock
+
+theorem recordPrimeWitnessesThrough284_subset :
+    recordPrimeWitnessesThrough284 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough284, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough283_subset,
+    recordPrimeWitnessBlock284_subset⟩
+
+def recordPrimeWitnessesThrough285 : Finset Nat :=
+  recordPrimeWitnessesThrough284 ∪ recordPrimeWitnessBlock285
+
+private theorem recordPrimeWitnessesThrough284_disjoint_block285 :
+    Disjoint recordPrimeWitnessesThrough284 recordPrimeWitnessBlock285 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 329957 :=
+    recordPrimeWitnessesThrough284_upper hpPrevious
+  have hpLower : 329969 ≤ p := recordPrimeWitnessBlock285_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough285_card :
+    recordPrimeWitnessesThrough285.card = 28500 := by
+  rw [recordPrimeWitnessesThrough285,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough284_disjoint_block285,
+    recordPrimeWitnessesThrough284_card,
+    recordPrimeWitnessBlock285_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough285_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough285) : p ≤ 331213 := by
+  rw [recordPrimeWitnessesThrough285, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough284_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock285_upper hpBlock
+
+theorem recordPrimeWitnessesThrough285_subset :
+    recordPrimeWitnessesThrough285 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough285, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough284_subset,
+    recordPrimeWitnessBlock285_subset⟩
+
+def recordPrimeWitnessesThrough286 : Finset Nat :=
+  recordPrimeWitnessesThrough285 ∪ recordPrimeWitnessBlock286
+
+private theorem recordPrimeWitnessesThrough285_disjoint_block286 :
+    Disjoint recordPrimeWitnessesThrough285 recordPrimeWitnessBlock286 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 331213 :=
+    recordPrimeWitnessesThrough285_upper hpPrevious
+  have hpLower : 331217 ≤ p := recordPrimeWitnessBlock286_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough286_card :
+    recordPrimeWitnessesThrough286.card = 28600 := by
+  rw [recordPrimeWitnessesThrough286,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough285_disjoint_block286,
+    recordPrimeWitnessesThrough285_card,
+    recordPrimeWitnessBlock286_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough286_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough286) : p ≤ 332461 := by
+  rw [recordPrimeWitnessesThrough286, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough285_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock286_upper hpBlock
+
+theorem recordPrimeWitnessesThrough286_subset :
+    recordPrimeWitnessesThrough286 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough286, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough285_subset,
+    recordPrimeWitnessBlock286_subset⟩
+
+def recordPrimeWitnessesThrough287 : Finset Nat :=
+  recordPrimeWitnessesThrough286 ∪ recordPrimeWitnessBlock287
+
+private theorem recordPrimeWitnessesThrough286_disjoint_block287 :
+    Disjoint recordPrimeWitnessesThrough286 recordPrimeWitnessBlock287 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 332461 :=
+    recordPrimeWitnessesThrough286_upper hpPrevious
+  have hpLower : 332467 ≤ p := recordPrimeWitnessBlock287_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough287_card :
+    recordPrimeWitnessesThrough287.card = 28700 := by
+  rw [recordPrimeWitnessesThrough287,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough286_disjoint_block287,
+    recordPrimeWitnessesThrough286_card,
+    recordPrimeWitnessBlock287_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough287_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough287) : p ≤ 333721 := by
+  rw [recordPrimeWitnessesThrough287, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough286_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock287_upper hpBlock
+
+theorem recordPrimeWitnessesThrough287_subset :
+    recordPrimeWitnessesThrough287 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough287, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough286_subset,
+    recordPrimeWitnessBlock287_subset⟩
+
+def recordPrimeWitnessesThrough288 : Finset Nat :=
+  recordPrimeWitnessesThrough287 ∪ recordPrimeWitnessBlock288
+
+private theorem recordPrimeWitnessesThrough287_disjoint_block288 :
+    Disjoint recordPrimeWitnessesThrough287 recordPrimeWitnessBlock288 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 333721 :=
+    recordPrimeWitnessesThrough287_upper hpPrevious
+  have hpLower : 333737 ≤ p := recordPrimeWitnessBlock288_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough288_card :
+    recordPrimeWitnessesThrough288.card = 28800 := by
+  rw [recordPrimeWitnessesThrough288,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough287_disjoint_block288,
+    recordPrimeWitnessesThrough287_card,
+    recordPrimeWitnessBlock288_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough288_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough288) : p ≤ 335033 := by
+  rw [recordPrimeWitnessesThrough288, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough287_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock288_upper hpBlock
+
+theorem recordPrimeWitnessesThrough288_subset :
+    recordPrimeWitnessesThrough288 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough288, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough287_subset,
+    recordPrimeWitnessBlock288_subset⟩
+
+def recordPrimeWitnessesThrough289 : Finset Nat :=
+  recordPrimeWitnessesThrough288 ∪ recordPrimeWitnessBlock289
+
+private theorem recordPrimeWitnessesThrough288_disjoint_block289 :
+    Disjoint recordPrimeWitnessesThrough288 recordPrimeWitnessBlock289 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 335033 :=
+    recordPrimeWitnessesThrough288_upper hpPrevious
+  have hpLower : 335047 ≤ p := recordPrimeWitnessBlock289_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough289_card :
+    recordPrimeWitnessesThrough289.card = 28900 := by
+  rw [recordPrimeWitnessesThrough289,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough288_disjoint_block289,
+    recordPrimeWitnessesThrough288_card,
+    recordPrimeWitnessBlock289_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough289_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough289) : p ≤ 336317 := by
+  rw [recordPrimeWitnessesThrough289, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough288_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock289_upper hpBlock
+
+theorem recordPrimeWitnessesThrough289_subset :
+    recordPrimeWitnessesThrough289 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough289, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough288_subset,
+    recordPrimeWitnessBlock289_subset⟩
+
+def recordPrimeWitnessesThrough290 : Finset Nat :=
+  recordPrimeWitnessesThrough289 ∪ recordPrimeWitnessBlock290
+
+private theorem recordPrimeWitnessesThrough289_disjoint_block290 :
+    Disjoint recordPrimeWitnessesThrough289 recordPrimeWitnessBlock290 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 336317 :=
+    recordPrimeWitnessesThrough289_upper hpPrevious
+  have hpLower : 336353 ≤ p := recordPrimeWitnessBlock290_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough290_card :
+    recordPrimeWitnessesThrough290.card = 29000 := by
+  rw [recordPrimeWitnessesThrough290,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough289_disjoint_block290,
+    recordPrimeWitnessesThrough289_card,
+    recordPrimeWitnessBlock290_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough290_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough290) : p ≤ 337541 := by
+  rw [recordPrimeWitnessesThrough290, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough289_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock290_upper hpBlock
+
+theorem recordPrimeWitnessesThrough290_subset :
+    recordPrimeWitnessesThrough290 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough290, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough289_subset,
+    recordPrimeWitnessBlock290_subset⟩
+
+def recordPrimeWitnessesThrough291 : Finset Nat :=
+  recordPrimeWitnessesThrough290 ∪ recordPrimeWitnessBlock291
+
+private theorem recordPrimeWitnessesThrough290_disjoint_block291 :
+    Disjoint recordPrimeWitnessesThrough290 recordPrimeWitnessBlock291 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 337541 :=
+    recordPrimeWitnessesThrough290_upper hpPrevious
+  have hpLower : 337543 ≤ p := recordPrimeWitnessBlock291_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough291_card :
+    recordPrimeWitnessesThrough291.card = 29100 := by
+  rw [recordPrimeWitnessesThrough291,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough290_disjoint_block291,
+    recordPrimeWitnessesThrough290_card,
+    recordPrimeWitnessBlock291_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough291_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough291) : p ≤ 338761 := by
+  rw [recordPrimeWitnessesThrough291, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough290_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock291_upper hpBlock
+
+theorem recordPrimeWitnessesThrough291_subset :
+    recordPrimeWitnessesThrough291 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough291, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough290_subset,
+    recordPrimeWitnessBlock291_subset⟩
+
+def recordPrimeWitnessesThrough292 : Finset Nat :=
+  recordPrimeWitnessesThrough291 ∪ recordPrimeWitnessBlock292
+
+private theorem recordPrimeWitnessesThrough291_disjoint_block292 :
+    Disjoint recordPrimeWitnessesThrough291 recordPrimeWitnessBlock292 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 338761 :=
+    recordPrimeWitnessesThrough291_upper hpPrevious
+  have hpLower : 338773 ≤ p := recordPrimeWitnessBlock292_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough292_card :
+    recordPrimeWitnessesThrough292.card = 29200 := by
+  rw [recordPrimeWitnessesThrough292,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough291_disjoint_block292,
+    recordPrimeWitnessesThrough291_card,
+    recordPrimeWitnessBlock292_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough292_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough292) : p ≤ 340183 := by
+  rw [recordPrimeWitnessesThrough292, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough291_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock292_upper hpBlock
+
+theorem recordPrimeWitnessesThrough292_subset :
+    recordPrimeWitnessesThrough292 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough292, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough291_subset,
+    recordPrimeWitnessBlock292_subset⟩
+
+def recordPrimeWitnessesThrough293 : Finset Nat :=
+  recordPrimeWitnessesThrough292 ∪ recordPrimeWitnessBlock293
+
+private theorem recordPrimeWitnessesThrough292_disjoint_block293 :
+    Disjoint recordPrimeWitnessesThrough292 recordPrimeWitnessBlock293 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 340183 :=
+    recordPrimeWitnessesThrough292_upper hpPrevious
+  have hpLower : 340201 ≤ p := recordPrimeWitnessBlock293_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough293_card :
+    recordPrimeWitnessesThrough293.card = 29300 := by
+  rw [recordPrimeWitnessesThrough293,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough292_disjoint_block293,
+    recordPrimeWitnessesThrough292_card,
+    recordPrimeWitnessBlock293_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough293_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough293) : p ≤ 341459 := by
+  rw [recordPrimeWitnessesThrough293, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough292_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock293_upper hpBlock
+
+theorem recordPrimeWitnessesThrough293_subset :
+    recordPrimeWitnessesThrough293 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough293, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough292_subset,
+    recordPrimeWitnessBlock293_subset⟩
+
+def recordPrimeWitnessesThrough294 : Finset Nat :=
+  recordPrimeWitnessesThrough293 ∪ recordPrimeWitnessBlock294
+
+private theorem recordPrimeWitnessesThrough293_disjoint_block294 :
+    Disjoint recordPrimeWitnessesThrough293 recordPrimeWitnessBlock294 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 341459 :=
+    recordPrimeWitnessesThrough293_upper hpPrevious
+  have hpLower : 341461 ≤ p := recordPrimeWitnessBlock294_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough294_card :
+    recordPrimeWitnessesThrough294.card = 29400 := by
+  rw [recordPrimeWitnessesThrough294,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough293_disjoint_block294,
+    recordPrimeWitnessesThrough293_card,
+    recordPrimeWitnessBlock294_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough294_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough294) : p ≤ 342691 := by
+  rw [recordPrimeWitnessesThrough294, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough293_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock294_upper hpBlock
+
+theorem recordPrimeWitnessesThrough294_subset :
+    recordPrimeWitnessesThrough294 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough294, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough293_subset,
+    recordPrimeWitnessBlock294_subset⟩
+
+def recordPrimeWitnessesThrough295 : Finset Nat :=
+  recordPrimeWitnessesThrough294 ∪ recordPrimeWitnessBlock295
+
+private theorem recordPrimeWitnessesThrough294_disjoint_block295 :
+    Disjoint recordPrimeWitnessesThrough294 recordPrimeWitnessBlock295 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 342691 :=
+    recordPrimeWitnessesThrough294_upper hpPrevious
+  have hpLower : 342697 ≤ p := recordPrimeWitnessBlock295_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough295_card :
+    recordPrimeWitnessesThrough295.card = 29500 := by
+  rw [recordPrimeWitnessesThrough295,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough294_disjoint_block295,
+    recordPrimeWitnessesThrough294_card,
+    recordPrimeWitnessBlock295_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough295_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough295) : p ≤ 343997 := by
+  rw [recordPrimeWitnessesThrough295, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough294_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock295_upper hpBlock
+
+theorem recordPrimeWitnessesThrough295_subset :
+    recordPrimeWitnessesThrough295 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough295, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough294_subset,
+    recordPrimeWitnessBlock295_subset⟩
+
+def recordPrimeWitnessesThrough296 : Finset Nat :=
+  recordPrimeWitnessesThrough295 ∪ recordPrimeWitnessBlock296
+
+private theorem recordPrimeWitnessesThrough295_disjoint_block296 :
+    Disjoint recordPrimeWitnessesThrough295 recordPrimeWitnessBlock296 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 343997 :=
+    recordPrimeWitnessesThrough295_upper hpPrevious
+  have hpLower : 344017 ≤ p := recordPrimeWitnessBlock296_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough296_card :
+    recordPrimeWitnessesThrough296.card = 29600 := by
+  rw [recordPrimeWitnessesThrough296,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough295_disjoint_block296,
+    recordPrimeWitnessesThrough295_card,
+    recordPrimeWitnessBlock296_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough296_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough296) : p ≤ 345271 := by
+  rw [recordPrimeWitnessesThrough296, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough295_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock296_upper hpBlock
+
+theorem recordPrimeWitnessesThrough296_subset :
+    recordPrimeWitnessesThrough296 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough296, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough295_subset,
+    recordPrimeWitnessBlock296_subset⟩
+
+def recordPrimeWitnessesThrough297 : Finset Nat :=
+  recordPrimeWitnessesThrough296 ∪ recordPrimeWitnessBlock297
+
+private theorem recordPrimeWitnessesThrough296_disjoint_block297 :
+    Disjoint recordPrimeWitnessesThrough296 recordPrimeWitnessBlock297 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 345271 :=
+    recordPrimeWitnessesThrough296_upper hpPrevious
+  have hpLower : 345307 ≤ p := recordPrimeWitnessBlock297_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough297_card :
+    recordPrimeWitnessesThrough297.card = 29700 := by
+  rw [recordPrimeWitnessesThrough297,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough296_disjoint_block297,
+    recordPrimeWitnessesThrough296_card,
+    recordPrimeWitnessBlock297_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough297_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough297) : p ≤ 346469 := by
+  rw [recordPrimeWitnessesThrough297, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough296_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock297_upper hpBlock
+
+theorem recordPrimeWitnessesThrough297_subset :
+    recordPrimeWitnessesThrough297 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough297, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough296_subset,
+    recordPrimeWitnessBlock297_subset⟩
+
+def recordPrimeWitnessesThrough298 : Finset Nat :=
+  recordPrimeWitnessesThrough297 ∪ recordPrimeWitnessBlock298
+
+private theorem recordPrimeWitnessesThrough297_disjoint_block298 :
+    Disjoint recordPrimeWitnessesThrough297 recordPrimeWitnessBlock298 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 346469 :=
+    recordPrimeWitnessesThrough297_upper hpPrevious
+  have hpLower : 346501 ≤ p := recordPrimeWitnessBlock298_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough298_card :
+    recordPrimeWitnessesThrough298.card = 29800 := by
+  rw [recordPrimeWitnessesThrough298,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough297_disjoint_block298,
+    recordPrimeWitnessesThrough297_card,
+    recordPrimeWitnessBlock298_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough298_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough298) : p ≤ 347801 := by
+  rw [recordPrimeWitnessesThrough298, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough297_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock298_upper hpBlock
+
+theorem recordPrimeWitnessesThrough298_subset :
+    recordPrimeWitnessesThrough298 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough298, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough297_subset,
+    recordPrimeWitnessBlock298_subset⟩
+
+def recordPrimeWitnessesThrough299 : Finset Nat :=
+  recordPrimeWitnessesThrough298 ∪ recordPrimeWitnessBlock299
+
+private theorem recordPrimeWitnessesThrough298_disjoint_block299 :
+    Disjoint recordPrimeWitnessesThrough298 recordPrimeWitnessBlock299 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 347801 :=
+    recordPrimeWitnessesThrough298_upper hpPrevious
+  have hpLower : 347813 ≤ p := recordPrimeWitnessBlock299_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough299_card :
+    recordPrimeWitnessesThrough299.card = 29900 := by
+  rw [recordPrimeWitnessesThrough299,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough298_disjoint_block299,
+    recordPrimeWitnessesThrough298_card,
+    recordPrimeWitnessBlock299_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough299_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough299) : p ≤ 349079 := by
+  rw [recordPrimeWitnessesThrough299, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough298_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock299_upper hpBlock
+
+theorem recordPrimeWitnessesThrough299_subset :
+    recordPrimeWitnessesThrough299 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough299, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough298_subset,
+    recordPrimeWitnessBlock299_subset⟩
+
+def recordPrimeWitnessesThrough300 : Finset Nat :=
+  recordPrimeWitnessesThrough299 ∪ recordPrimeWitnessBlock300
+
+private theorem recordPrimeWitnessesThrough299_disjoint_block300 :
+    Disjoint recordPrimeWitnessesThrough299 recordPrimeWitnessBlock300 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 349079 :=
+    recordPrimeWitnessesThrough299_upper hpPrevious
+  have hpLower : 349081 ≤ p := recordPrimeWitnessBlock300_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough300_card :
+    recordPrimeWitnessesThrough300.card = 30000 := by
+  rw [recordPrimeWitnessesThrough300,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough299_disjoint_block300,
+    recordPrimeWitnessesThrough299_card,
+    recordPrimeWitnessBlock300_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough300_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough300) : p ≤ 350377 := by
+  rw [recordPrimeWitnessesThrough300, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough299_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock300_upper hpBlock
+
+theorem recordPrimeWitnessesThrough300_subset :
+    recordPrimeWitnessesThrough300 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough300, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough299_subset,
+    recordPrimeWitnessBlock300_subset⟩
+
+def recordPrimeWitnessesThrough301 : Finset Nat :=
+  recordPrimeWitnessesThrough300 ∪ recordPrimeWitnessBlock301
+
+private theorem recordPrimeWitnessesThrough300_disjoint_block301 :
+    Disjoint recordPrimeWitnessesThrough300 recordPrimeWitnessBlock301 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 350377 :=
+    recordPrimeWitnessesThrough300_upper hpPrevious
+  have hpLower : 350381 ≤ p := recordPrimeWitnessBlock301_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough301_card :
+    recordPrimeWitnessesThrough301.card = 30100 := by
+  rw [recordPrimeWitnessesThrough301,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough300_disjoint_block301,
+    recordPrimeWitnessesThrough300_card,
+    recordPrimeWitnessBlock301_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough301_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough301) : p ≤ 351563 := by
+  rw [recordPrimeWitnessesThrough301, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough300_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock301_upper hpBlock
+
+theorem recordPrimeWitnessesThrough301_subset :
+    recordPrimeWitnessesThrough301 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough301, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough300_subset,
+    recordPrimeWitnessBlock301_subset⟩
+
+def recordPrimeWitnessesThrough302 : Finset Nat :=
+  recordPrimeWitnessesThrough301 ∪ recordPrimeWitnessBlock302
+
+private theorem recordPrimeWitnessesThrough301_disjoint_block302 :
+    Disjoint recordPrimeWitnessesThrough301 recordPrimeWitnessBlock302 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 351563 :=
+    recordPrimeWitnessesThrough301_upper hpPrevious
+  have hpLower : 351587 ≤ p := recordPrimeWitnessBlock302_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough302_card :
+    recordPrimeWitnessesThrough302.card = 30200 := by
+  rw [recordPrimeWitnessesThrough302,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough301_disjoint_block302,
+    recordPrimeWitnessesThrough301_card,
+    recordPrimeWitnessBlock302_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough302_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough302) : p ≤ 352819 := by
+  rw [recordPrimeWitnessesThrough302, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough301_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock302_upper hpBlock
+
+theorem recordPrimeWitnessesThrough302_subset :
+    recordPrimeWitnessesThrough302 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough302, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough301_subset,
+    recordPrimeWitnessBlock302_subset⟩
+
+def recordPrimeWitnessesThrough303 : Finset Nat :=
+  recordPrimeWitnessesThrough302 ∪ recordPrimeWitnessBlock303
+
+private theorem recordPrimeWitnessesThrough302_disjoint_block303 :
+    Disjoint recordPrimeWitnessesThrough302 recordPrimeWitnessBlock303 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 352819 :=
+    recordPrimeWitnessesThrough302_upper hpPrevious
+  have hpLower : 352831 ≤ p := recordPrimeWitnessBlock303_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough303_card :
+    recordPrimeWitnessesThrough303.card = 30300 := by
+  rw [recordPrimeWitnessesThrough303,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough302_disjoint_block303,
+    recordPrimeWitnessesThrough302_card,
+    recordPrimeWitnessBlock303_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough303_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough303) : p ≤ 354073 := by
+  rw [recordPrimeWitnessesThrough303, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough302_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock303_upper hpBlock
+
+theorem recordPrimeWitnessesThrough303_subset :
+    recordPrimeWitnessesThrough303 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough303, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough302_subset,
+    recordPrimeWitnessBlock303_subset⟩
+
+def recordPrimeWitnessesThrough304 : Finset Nat :=
+  recordPrimeWitnessesThrough303 ∪ recordPrimeWitnessBlock304
+
+private theorem recordPrimeWitnessesThrough303_disjoint_block304 :
+    Disjoint recordPrimeWitnessesThrough303 recordPrimeWitnessBlock304 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 354073 :=
+    recordPrimeWitnessesThrough303_upper hpPrevious
+  have hpLower : 354091 ≤ p := recordPrimeWitnessBlock304_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough304_card :
+    recordPrimeWitnessesThrough304.card = 30400 := by
+  rw [recordPrimeWitnessesThrough304,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough303_disjoint_block304,
+    recordPrimeWitnessesThrough303_card,
+    recordPrimeWitnessBlock304_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough304_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough304) : p ≤ 355307 := by
+  rw [recordPrimeWitnessesThrough304, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough303_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock304_upper hpBlock
+
+theorem recordPrimeWitnessesThrough304_subset :
+    recordPrimeWitnessesThrough304 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough304, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough303_subset,
+    recordPrimeWitnessBlock304_subset⟩
+
+def recordPrimeWitnessesThrough305 : Finset Nat :=
+  recordPrimeWitnessesThrough304 ∪ recordPrimeWitnessBlock305
+
+private theorem recordPrimeWitnessesThrough304_disjoint_block305 :
+    Disjoint recordPrimeWitnessesThrough304 recordPrimeWitnessBlock305 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 355307 :=
+    recordPrimeWitnessesThrough304_upper hpPrevious
+  have hpLower : 355321 ≤ p := recordPrimeWitnessBlock305_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough305_card :
+    recordPrimeWitnessesThrough305.card = 30500 := by
+  rw [recordPrimeWitnessesThrough305,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough304_disjoint_block305,
+    recordPrimeWitnessesThrough304_card,
+    recordPrimeWitnessBlock305_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough305_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough305) : p ≤ 356663 := by
+  rw [recordPrimeWitnessesThrough305, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough304_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock305_upper hpBlock
+
+theorem recordPrimeWitnessesThrough305_subset :
+    recordPrimeWitnessesThrough305 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough305, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough304_subset,
+    recordPrimeWitnessBlock305_subset⟩
+
+def recordPrimeWitnessesThrough306 : Finset Nat :=
+  recordPrimeWitnessesThrough305 ∪ recordPrimeWitnessBlock306
+
+private theorem recordPrimeWitnessesThrough305_disjoint_block306 :
+    Disjoint recordPrimeWitnessesThrough305 recordPrimeWitnessBlock306 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 356663 :=
+    recordPrimeWitnessesThrough305_upper hpPrevious
+  have hpLower : 356693 ≤ p := recordPrimeWitnessBlock306_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough306_card :
+    recordPrimeWitnessesThrough306.card = 30600 := by
+  rw [recordPrimeWitnessesThrough306,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough305_disjoint_block306,
+    recordPrimeWitnessesThrough305_card,
+    recordPrimeWitnessBlock306_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough306_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough306) : p ≤ 357977 := by
+  rw [recordPrimeWitnessesThrough306, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough305_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock306_upper hpBlock
+
+theorem recordPrimeWitnessesThrough306_subset :
+    recordPrimeWitnessesThrough306 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough306, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough305_subset,
+    recordPrimeWitnessBlock306_subset⟩
+
+def recordPrimeWitnessesThrough307 : Finset Nat :=
+  recordPrimeWitnessesThrough306 ∪ recordPrimeWitnessBlock307
+
+private theorem recordPrimeWitnessesThrough306_disjoint_block307 :
+    Disjoint recordPrimeWitnessesThrough306 recordPrimeWitnessBlock307 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 357977 :=
+    recordPrimeWitnessesThrough306_upper hpPrevious
+  have hpLower : 357983 ≤ p := recordPrimeWitnessBlock307_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough307_card :
+    recordPrimeWitnessesThrough307.card = 30700 := by
+  rw [recordPrimeWitnessesThrough307,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough306_disjoint_block307,
+    recordPrimeWitnessesThrough306_card,
+    recordPrimeWitnessBlock307_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough307_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough307) : p ≤ 359167 := by
+  rw [recordPrimeWitnessesThrough307, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough306_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock307_upper hpBlock
+
+theorem recordPrimeWitnessesThrough307_subset :
+    recordPrimeWitnessesThrough307 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough307, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough306_subset,
+    recordPrimeWitnessBlock307_subset⟩
+
+def recordPrimeWitnessesThrough308 : Finset Nat :=
+  recordPrimeWitnessesThrough307 ∪ recordPrimeWitnessBlock308
+
+private theorem recordPrimeWitnessesThrough307_disjoint_block308 :
+    Disjoint recordPrimeWitnessesThrough307 recordPrimeWitnessBlock308 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 359167 :=
+    recordPrimeWitnessesThrough307_upper hpPrevious
+  have hpLower : 359171 ≤ p := recordPrimeWitnessBlock308_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough308_card :
+    recordPrimeWitnessesThrough308.card = 30800 := by
+  rw [recordPrimeWitnessesThrough308,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough307_disjoint_block308,
+    recordPrimeWitnessesThrough307_card,
+    recordPrimeWitnessBlock308_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough308_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough308) : p ≤ 360637 := by
+  rw [recordPrimeWitnessesThrough308, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough307_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock308_upper hpBlock
+
+theorem recordPrimeWitnessesThrough308_subset :
+    recordPrimeWitnessesThrough308 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough308, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough307_subset,
+    recordPrimeWitnessBlock308_subset⟩
+
+def recordPrimeWitnessesThrough309 : Finset Nat :=
+  recordPrimeWitnessesThrough308 ∪ recordPrimeWitnessBlock309
+
+private theorem recordPrimeWitnessesThrough308_disjoint_block309 :
+    Disjoint recordPrimeWitnessesThrough308 recordPrimeWitnessBlock309 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 360637 :=
+    recordPrimeWitnessesThrough308_upper hpPrevious
+  have hpLower : 360649 ≤ p := recordPrimeWitnessBlock309_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough309_card :
+    recordPrimeWitnessesThrough309.card = 30900 := by
+  rw [recordPrimeWitnessesThrough309,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough308_disjoint_block309,
+    recordPrimeWitnessesThrough308_card,
+    recordPrimeWitnessBlock309_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough309_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough309) : p ≤ 361961 := by
+  rw [recordPrimeWitnessesThrough309, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough308_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock309_upper hpBlock
+
+theorem recordPrimeWitnessesThrough309_subset :
+    recordPrimeWitnessesThrough309 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough309, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough308_subset,
+    recordPrimeWitnessBlock309_subset⟩
+
+def recordPrimeWitnessesThrough310 : Finset Nat :=
+  recordPrimeWitnessesThrough309 ∪ recordPrimeWitnessBlock310
+
+private theorem recordPrimeWitnessesThrough309_disjoint_block310 :
+    Disjoint recordPrimeWitnessesThrough309 recordPrimeWitnessBlock310 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 361961 :=
+    recordPrimeWitnessesThrough309_upper hpPrevious
+  have hpLower : 361967 ≤ p := recordPrimeWitnessBlock310_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough310_card :
+    recordPrimeWitnessesThrough310.card = 31000 := by
+  rw [recordPrimeWitnessesThrough310,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough309_disjoint_block310,
+    recordPrimeWitnessesThrough309_card,
+    recordPrimeWitnessBlock310_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough310_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough310) : p ≤ 363269 := by
+  rw [recordPrimeWitnessesThrough310, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough309_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock310_upper hpBlock
+
+theorem recordPrimeWitnessesThrough310_subset :
+    recordPrimeWitnessesThrough310 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough310, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough309_subset,
+    recordPrimeWitnessBlock310_subset⟩
+
+def recordPrimeWitnessesThrough311 : Finset Nat :=
+  recordPrimeWitnessesThrough310 ∪ recordPrimeWitnessBlock311
+
+private theorem recordPrimeWitnessesThrough310_disjoint_block311 :
+    Disjoint recordPrimeWitnessesThrough310 recordPrimeWitnessBlock311 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 363269 :=
+    recordPrimeWitnessesThrough310_upper hpPrevious
+  have hpLower : 363271 ≤ p := recordPrimeWitnessBlock311_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough311_card :
+    recordPrimeWitnessesThrough311.card = 31100 := by
+  rw [recordPrimeWitnessesThrough311,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough310_disjoint_block311,
+    recordPrimeWitnessesThrough310_card,
+    recordPrimeWitnessBlock311_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough311_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough311) : p ≤ 364459 := by
+  rw [recordPrimeWitnessesThrough311, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough310_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock311_upper hpBlock
+
+theorem recordPrimeWitnessesThrough311_subset :
+    recordPrimeWitnessesThrough311 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough311, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough310_subset,
+    recordPrimeWitnessBlock311_subset⟩
+
+def recordPrimeWitnessesThrough312 : Finset Nat :=
+  recordPrimeWitnessesThrough311 ∪ recordPrimeWitnessBlock312
+
+private theorem recordPrimeWitnessesThrough311_disjoint_block312 :
+    Disjoint recordPrimeWitnessesThrough311 recordPrimeWitnessBlock312 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 364459 :=
+    recordPrimeWitnessesThrough311_upper hpPrevious
+  have hpLower : 364471 ≤ p := recordPrimeWitnessBlock312_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough312_card :
+    recordPrimeWitnessesThrough312.card = 31200 := by
+  rw [recordPrimeWitnessesThrough312,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough311_disjoint_block312,
+    recordPrimeWitnessesThrough311_card,
+    recordPrimeWitnessBlock312_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough312_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough312) : p ≤ 365689 := by
+  rw [recordPrimeWitnessesThrough312, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough311_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock312_upper hpBlock
+
+theorem recordPrimeWitnessesThrough312_subset :
+    recordPrimeWitnessesThrough312 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough312, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough311_subset,
+    recordPrimeWitnessBlock312_subset⟩
+
+def recordPrimeWitnessesThrough313 : Finset Nat :=
+  recordPrimeWitnessesThrough312 ∪ recordPrimeWitnessBlock313
+
+private theorem recordPrimeWitnessesThrough312_disjoint_block313 :
+    Disjoint recordPrimeWitnessesThrough312 recordPrimeWitnessBlock313 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 365689 :=
+    recordPrimeWitnessesThrough312_upper hpPrevious
+  have hpLower : 365699 ≤ p := recordPrimeWitnessBlock313_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough313_card :
+    recordPrimeWitnessesThrough313.card = 31300 := by
+  rw [recordPrimeWitnessesThrough313,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough312_disjoint_block313,
+    recordPrimeWitnessesThrough312_card,
+    recordPrimeWitnessBlock313_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough313_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough313) : p ≤ 366967 := by
+  rw [recordPrimeWitnessesThrough313, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough312_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock313_upper hpBlock
+
+theorem recordPrimeWitnessesThrough313_subset :
+    recordPrimeWitnessesThrough313 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough313, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough312_subset,
+    recordPrimeWitnessBlock313_subset⟩
+
+def recordPrimeWitnessesThrough314 : Finset Nat :=
+  recordPrimeWitnessesThrough313 ∪ recordPrimeWitnessBlock314
+
+private theorem recordPrimeWitnessesThrough313_disjoint_block314 :
+    Disjoint recordPrimeWitnessesThrough313 recordPrimeWitnessBlock314 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 366967 :=
+    recordPrimeWitnessesThrough313_upper hpPrevious
+  have hpLower : 366973 ≤ p := recordPrimeWitnessBlock314_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough314_card :
+    recordPrimeWitnessesThrough314.card = 31400 := by
+  rw [recordPrimeWitnessesThrough314,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough313_disjoint_block314,
+    recordPrimeWitnessesThrough313_card,
+    recordPrimeWitnessBlock314_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough314_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough314) : p ≤ 368197 := by
+  rw [recordPrimeWitnessesThrough314, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough313_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock314_upper hpBlock
+
+theorem recordPrimeWitnessesThrough314_subset :
+    recordPrimeWitnessesThrough314 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough314, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough313_subset,
+    recordPrimeWitnessBlock314_subset⟩
+
+def recordPrimeWitnessesThrough315 : Finset Nat :=
+  recordPrimeWitnessesThrough314 ∪ recordPrimeWitnessBlock315
+
+private theorem recordPrimeWitnessesThrough314_disjoint_block315 :
+    Disjoint recordPrimeWitnessesThrough314 recordPrimeWitnessBlock315 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 368197 :=
+    recordPrimeWitnessesThrough314_upper hpPrevious
+  have hpLower : 368227 ≤ p := recordPrimeWitnessBlock315_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough315_card :
+    recordPrimeWitnessesThrough315.card = 31500 := by
+  rw [recordPrimeWitnessesThrough315,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough314_disjoint_block315,
+    recordPrimeWitnessesThrough314_card,
+    recordPrimeWitnessBlock315_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough315_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough315) : p ≤ 369709 := by
+  rw [recordPrimeWitnessesThrough315, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough314_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock315_upper hpBlock
+
+theorem recordPrimeWitnessesThrough315_subset :
+    recordPrimeWitnessesThrough315 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough315, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough314_subset,
+    recordPrimeWitnessBlock315_subset⟩
+
+def recordPrimeWitnessesThrough316 : Finset Nat :=
+  recordPrimeWitnessesThrough315 ∪ recordPrimeWitnessBlock316
+
+private theorem recordPrimeWitnessesThrough315_disjoint_block316 :
+    Disjoint recordPrimeWitnessesThrough315 recordPrimeWitnessBlock316 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 369709 :=
+    recordPrimeWitnessesThrough315_upper hpPrevious
+  have hpLower : 369731 ≤ p := recordPrimeWitnessBlock316_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough316_card :
+    recordPrimeWitnessesThrough316.card = 31600 := by
+  rw [recordPrimeWitnessesThrough316,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough315_disjoint_block316,
+    recordPrimeWitnessesThrough315_card,
+    recordPrimeWitnessBlock316_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough316_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough316) : p ≤ 371099 := by
+  rw [recordPrimeWitnessesThrough316, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough315_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock316_upper hpBlock
+
+theorem recordPrimeWitnessesThrough316_subset :
+    recordPrimeWitnessesThrough316 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough316, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough315_subset,
+    recordPrimeWitnessBlock316_subset⟩
+
+def recordPrimeWitnessesThrough317 : Finset Nat :=
+  recordPrimeWitnessesThrough316 ∪ recordPrimeWitnessBlock317
+
+private theorem recordPrimeWitnessesThrough316_disjoint_block317 :
+    Disjoint recordPrimeWitnessesThrough316 recordPrimeWitnessBlock317 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 371099 :=
+    recordPrimeWitnessesThrough316_upper hpPrevious
+  have hpLower : 371131 ≤ p := recordPrimeWitnessBlock317_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough317_card :
+    recordPrimeWitnessesThrough317.card = 31700 := by
+  rw [recordPrimeWitnessesThrough317,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough316_disjoint_block317,
+    recordPrimeWitnessesThrough316_card,
+    recordPrimeWitnessBlock317_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough317_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough317) : p ≤ 372401 := by
+  rw [recordPrimeWitnessesThrough317, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough316_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock317_upper hpBlock
+
+theorem recordPrimeWitnessesThrough317_subset :
+    recordPrimeWitnessesThrough317 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough317, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough316_subset,
+    recordPrimeWitnessBlock317_subset⟩
+
+def recordPrimeWitnessesThrough318 : Finset Nat :=
+  recordPrimeWitnessesThrough317 ∪ recordPrimeWitnessBlock318
+
+private theorem recordPrimeWitnessesThrough317_disjoint_block318 :
+    Disjoint recordPrimeWitnessesThrough317 recordPrimeWitnessBlock318 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 372401 :=
+    recordPrimeWitnessesThrough317_upper hpPrevious
+  have hpLower : 372409 ≤ p := recordPrimeWitnessBlock318_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough318_card :
+    recordPrimeWitnessesThrough318.card = 31800 := by
+  rw [recordPrimeWitnessesThrough318,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough317_disjoint_block318,
+    recordPrimeWitnessesThrough317_card,
+    recordPrimeWitnessBlock318_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough318_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough318) : p ≤ 373661 := by
+  rw [recordPrimeWitnessesThrough318, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough317_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock318_upper hpBlock
+
+theorem recordPrimeWitnessesThrough318_subset :
+    recordPrimeWitnessesThrough318 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough318, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough317_subset,
+    recordPrimeWitnessBlock318_subset⟩
+
+def recordPrimeWitnessesThrough319 : Finset Nat :=
+  recordPrimeWitnessesThrough318 ∪ recordPrimeWitnessBlock319
+
+private theorem recordPrimeWitnessesThrough318_disjoint_block319 :
+    Disjoint recordPrimeWitnessesThrough318 recordPrimeWitnessBlock319 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 373661 :=
+    recordPrimeWitnessesThrough318_upper hpPrevious
+  have hpLower : 373669 ≤ p := recordPrimeWitnessBlock319_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough319_card :
+    recordPrimeWitnessesThrough319.card = 31900 := by
+  rw [recordPrimeWitnessesThrough319,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough318_disjoint_block319,
+    recordPrimeWitnessesThrough318_card,
+    recordPrimeWitnessBlock319_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough319_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough319) : p ≤ 374977 := by
+  rw [recordPrimeWitnessesThrough319, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough318_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock319_upper hpBlock
+
+theorem recordPrimeWitnessesThrough319_subset :
+    recordPrimeWitnessesThrough319 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough319, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough318_subset,
+    recordPrimeWitnessBlock319_subset⟩
+
+def recordPrimeWitnessesThrough320 : Finset Nat :=
+  recordPrimeWitnessesThrough319 ∪ recordPrimeWitnessBlock320
+
+private theorem recordPrimeWitnessesThrough319_disjoint_block320 :
+    Disjoint recordPrimeWitnessesThrough319 recordPrimeWitnessBlock320 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 374977 :=
+    recordPrimeWitnessesThrough319_upper hpPrevious
+  have hpLower : 374981 ≤ p := recordPrimeWitnessBlock320_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough320_card :
+    recordPrimeWitnessesThrough320.card = 32000 := by
+  rw [recordPrimeWitnessesThrough320,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough319_disjoint_block320,
+    recordPrimeWitnessesThrough319_card,
+    recordPrimeWitnessBlock320_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough320_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough320) : p ≤ 376127 := by
+  rw [recordPrimeWitnessesThrough320, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough319_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock320_upper hpBlock
+
+theorem recordPrimeWitnessesThrough320_subset :
+    recordPrimeWitnessesThrough320 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough320, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough319_subset,
+    recordPrimeWitnessBlock320_subset⟩
+
+def recordPrimeWitnessesThrough321 : Finset Nat :=
+  recordPrimeWitnessesThrough320 ∪ recordPrimeWitnessBlock321
+
+private theorem recordPrimeWitnessesThrough320_disjoint_block321 :
+    Disjoint recordPrimeWitnessesThrough320 recordPrimeWitnessBlock321 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 376127 :=
+    recordPrimeWitnessesThrough320_upper hpPrevious
+  have hpLower : 376133 ≤ p := recordPrimeWitnessBlock321_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough321_card :
+    recordPrimeWitnessesThrough321.card = 32100 := by
+  rw [recordPrimeWitnessesThrough321,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough320_disjoint_block321,
+    recordPrimeWitnessesThrough320_card,
+    recordPrimeWitnessBlock321_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough321_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough321) : p ≤ 377459 := by
+  rw [recordPrimeWitnessesThrough321, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough320_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock321_upper hpBlock
+
+theorem recordPrimeWitnessesThrough321_subset :
+    recordPrimeWitnessesThrough321 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough321, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough320_subset,
+    recordPrimeWitnessBlock321_subset⟩
+
+def recordPrimeWitnessesThrough322 : Finset Nat :=
+  recordPrimeWitnessesThrough321 ∪ recordPrimeWitnessBlock322
+
+private theorem recordPrimeWitnessesThrough321_disjoint_block322 :
+    Disjoint recordPrimeWitnessesThrough321 recordPrimeWitnessBlock322 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 377459 :=
+    recordPrimeWitnessesThrough321_upper hpPrevious
+  have hpLower : 377471 ≤ p := recordPrimeWitnessBlock322_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough322_card :
+    recordPrimeWitnessesThrough322.card = 32200 := by
+  rw [recordPrimeWitnessesThrough322,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough321_disjoint_block322,
+    recordPrimeWitnessesThrough321_card,
+    recordPrimeWitnessBlock322_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough322_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough322) : p ≤ 378779 := by
+  rw [recordPrimeWitnessesThrough322, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough321_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock322_upper hpBlock
+
+theorem recordPrimeWitnessesThrough322_subset :
+    recordPrimeWitnessesThrough322 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough322, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough321_subset,
+    recordPrimeWitnessBlock322_subset⟩
+
+def recordPrimeWitnessesThrough323 : Finset Nat :=
+  recordPrimeWitnessesThrough322 ∪ recordPrimeWitnessBlock323
+
+private theorem recordPrimeWitnessesThrough322_disjoint_block323 :
+    Disjoint recordPrimeWitnessesThrough322 recordPrimeWitnessBlock323 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 378779 :=
+    recordPrimeWitnessesThrough322_upper hpPrevious
+  have hpLower : 378793 ≤ p := recordPrimeWitnessBlock323_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough323_card :
+    recordPrimeWitnessesThrough323.card = 32300 := by
+  rw [recordPrimeWitnessesThrough323,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough322_disjoint_block323,
+    recordPrimeWitnessesThrough322_card,
+    recordPrimeWitnessBlock323_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough323_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough323) : p ≤ 379999 := by
+  rw [recordPrimeWitnessesThrough323, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough322_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock323_upper hpBlock
+
+theorem recordPrimeWitnessesThrough323_subset :
+    recordPrimeWitnessesThrough323 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough323, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough322_subset,
+    recordPrimeWitnessBlock323_subset⟩
+
+def recordPrimeWitnessesThrough324 : Finset Nat :=
+  recordPrimeWitnessesThrough323 ∪ recordPrimeWitnessBlock324
+
+private theorem recordPrimeWitnessesThrough323_disjoint_block324 :
+    Disjoint recordPrimeWitnessesThrough323 recordPrimeWitnessBlock324 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 379999 :=
+    recordPrimeWitnessesThrough323_upper hpPrevious
+  have hpLower : 380041 ≤ p := recordPrimeWitnessBlock324_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough324_card :
+    recordPrimeWitnessesThrough324.card = 32400 := by
+  rw [recordPrimeWitnessesThrough324,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough323_disjoint_block324,
+    recordPrimeWitnessesThrough323_card,
+    recordPrimeWitnessBlock324_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough324_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough324) : p ≤ 381373 := by
+  rw [recordPrimeWitnessesThrough324, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough323_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock324_upper hpBlock
+
+theorem recordPrimeWitnessesThrough324_subset :
+    recordPrimeWitnessesThrough324 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough324, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough323_subset,
+    recordPrimeWitnessBlock324_subset⟩
+
+def recordPrimeWitnessesThrough325 : Finset Nat :=
+  recordPrimeWitnessesThrough324 ∪ recordPrimeWitnessBlock325
+
+private theorem recordPrimeWitnessesThrough324_disjoint_block325 :
+    Disjoint recordPrimeWitnessesThrough324 recordPrimeWitnessBlock325 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 381373 :=
+    recordPrimeWitnessesThrough324_upper hpPrevious
+  have hpLower : 381377 ≤ p := recordPrimeWitnessBlock325_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough325_card :
+    recordPrimeWitnessesThrough325.card = 32500 := by
+  rw [recordPrimeWitnessesThrough325,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough324_disjoint_block325,
+    recordPrimeWitnessesThrough324_card,
+    recordPrimeWitnessBlock325_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough325_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough325) : p ≤ 382727 := by
+  rw [recordPrimeWitnessesThrough325, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough324_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock325_upper hpBlock
+
+theorem recordPrimeWitnessesThrough325_subset :
+    recordPrimeWitnessesThrough325 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough325, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough324_subset,
+    recordPrimeWitnessBlock325_subset⟩
+
+def recordPrimeWitnessesThrough326 : Finset Nat :=
+  recordPrimeWitnessesThrough325 ∪ recordPrimeWitnessBlock326
+
+private theorem recordPrimeWitnessesThrough325_disjoint_block326 :
+    Disjoint recordPrimeWitnessesThrough325 recordPrimeWitnessBlock326 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 382727 :=
+    recordPrimeWitnessesThrough325_upper hpPrevious
+  have hpLower : 382729 ≤ p := recordPrimeWitnessBlock326_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough326_card :
+    recordPrimeWitnessesThrough326.card = 32600 := by
+  rw [recordPrimeWitnessesThrough326,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough325_disjoint_block326,
+    recordPrimeWitnessesThrough325_card,
+    recordPrimeWitnessBlock326_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough326_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough326) : p ≤ 383963 := by
+  rw [recordPrimeWitnessesThrough326, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough325_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock326_upper hpBlock
+
+theorem recordPrimeWitnessesThrough326_subset :
+    recordPrimeWitnessesThrough326 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough326, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough325_subset,
+    recordPrimeWitnessBlock326_subset⟩
+
+def recordPrimeWitnessesThrough327 : Finset Nat :=
+  recordPrimeWitnessesThrough326 ∪ recordPrimeWitnessBlock327
+
+private theorem recordPrimeWitnessesThrough326_disjoint_block327 :
+    Disjoint recordPrimeWitnessesThrough326 recordPrimeWitnessBlock327 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 383963 :=
+    recordPrimeWitnessesThrough326_upper hpPrevious
+  have hpLower : 383969 ≤ p := recordPrimeWitnessBlock327_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough327_card :
+    recordPrimeWitnessesThrough327.card = 32700 := by
+  rw [recordPrimeWitnessesThrough327,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough326_disjoint_block327,
+    recordPrimeWitnessesThrough326_card,
+    recordPrimeWitnessBlock327_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough327_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough327) : p ≤ 385199 := by
+  rw [recordPrimeWitnessesThrough327, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough326_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock327_upper hpBlock
+
+theorem recordPrimeWitnessesThrough327_subset :
+    recordPrimeWitnessesThrough327 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough327, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough326_subset,
+    recordPrimeWitnessBlock327_subset⟩
+
+def recordPrimeWitnessesThrough328 : Finset Nat :=
+  recordPrimeWitnessesThrough327 ∪ recordPrimeWitnessBlock328
+
+private theorem recordPrimeWitnessesThrough327_disjoint_block328 :
+    Disjoint recordPrimeWitnessesThrough327 recordPrimeWitnessBlock328 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 385199 :=
+    recordPrimeWitnessesThrough327_upper hpPrevious
+  have hpLower : 385223 ≤ p := recordPrimeWitnessBlock328_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough328_card :
+    recordPrimeWitnessesThrough328.card = 32800 := by
+  rw [recordPrimeWitnessesThrough328,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough327_disjoint_block328,
+    recordPrimeWitnessesThrough327_card,
+    recordPrimeWitnessBlock328_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough328_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough328) : p ≤ 386429 := by
+  rw [recordPrimeWitnessesThrough328, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough327_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock328_upper hpBlock
+
+theorem recordPrimeWitnessesThrough328_subset :
+    recordPrimeWitnessesThrough328 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough328, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough327_subset,
+    recordPrimeWitnessBlock328_subset⟩
+
+def recordPrimeWitnessesThrough329 : Finset Nat :=
+  recordPrimeWitnessesThrough328 ∪ recordPrimeWitnessBlock329
+
+private theorem recordPrimeWitnessesThrough328_disjoint_block329 :
+    Disjoint recordPrimeWitnessesThrough328 recordPrimeWitnessBlock329 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 386429 :=
+    recordPrimeWitnessesThrough328_upper hpPrevious
+  have hpLower : 386431 ≤ p := recordPrimeWitnessBlock329_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough329_card :
+    recordPrimeWitnessesThrough329.card = 32900 := by
+  rw [recordPrimeWitnessesThrough329,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough328_disjoint_block329,
+    recordPrimeWitnessesThrough328_card,
+    recordPrimeWitnessBlock329_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough329_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough329) : p ≤ 387857 := by
+  rw [recordPrimeWitnessesThrough329, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough328_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock329_upper hpBlock
+
+theorem recordPrimeWitnessesThrough329_subset :
+    recordPrimeWitnessesThrough329 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough329, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough328_subset,
+    recordPrimeWitnessBlock329_subset⟩
+
+def recordPrimeWitnessesThrough330 : Finset Nat :=
+  recordPrimeWitnessesThrough329 ∪ recordPrimeWitnessBlock330
+
+private theorem recordPrimeWitnessesThrough329_disjoint_block330 :
+    Disjoint recordPrimeWitnessesThrough329 recordPrimeWitnessBlock330 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 387857 :=
+    recordPrimeWitnessesThrough329_upper hpPrevious
+  have hpLower : 387911 ≤ p := recordPrimeWitnessBlock330_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough330_card :
+    recordPrimeWitnessesThrough330.card = 33000 := by
+  rw [recordPrimeWitnessesThrough330,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough329_disjoint_block330,
+    recordPrimeWitnessesThrough329_card,
+    recordPrimeWitnessBlock330_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough330_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough330) : p ≤ 389171 := by
+  rw [recordPrimeWitnessesThrough330, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough329_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock330_upper hpBlock
+
+theorem recordPrimeWitnessesThrough330_subset :
+    recordPrimeWitnessesThrough330 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough330, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough329_subset,
+    recordPrimeWitnessBlock330_subset⟩
+
+def recordPrimeWitnessesThrough331 : Finset Nat :=
+  recordPrimeWitnessesThrough330 ∪ recordPrimeWitnessBlock331
+
+private theorem recordPrimeWitnessesThrough330_disjoint_block331 :
+    Disjoint recordPrimeWitnessesThrough330 recordPrimeWitnessBlock331 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 389171 :=
+    recordPrimeWitnessesThrough330_upper hpPrevious
+  have hpLower : 389173 ≤ p := recordPrimeWitnessBlock331_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough331_card :
+    recordPrimeWitnessesThrough331.card = 33100 := by
+  rw [recordPrimeWitnessesThrough331,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough330_disjoint_block331,
+    recordPrimeWitnessesThrough330_card,
+    recordPrimeWitnessBlock331_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough331_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough331) : p ≤ 390391 := by
+  rw [recordPrimeWitnessesThrough331, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough330_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock331_upper hpBlock
+
+theorem recordPrimeWitnessesThrough331_subset :
+    recordPrimeWitnessesThrough331 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough331, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough330_subset,
+    recordPrimeWitnessBlock331_subset⟩
+
+def recordPrimeWitnessesThrough332 : Finset Nat :=
+  recordPrimeWitnessesThrough331 ∪ recordPrimeWitnessBlock332
+
+private theorem recordPrimeWitnessesThrough331_disjoint_block332 :
+    Disjoint recordPrimeWitnessesThrough331 recordPrimeWitnessBlock332 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 390391 :=
+    recordPrimeWitnessesThrough331_upper hpPrevious
+  have hpLower : 390407 ≤ p := recordPrimeWitnessBlock332_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough332_card :
+    recordPrimeWitnessesThrough332.card = 33200 := by
+  rw [recordPrimeWitnessesThrough332,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough331_disjoint_block332,
+    recordPrimeWitnessesThrough331_card,
+    recordPrimeWitnessBlock332_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough332_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough332) : p ≤ 391679 := by
+  rw [recordPrimeWitnessesThrough332, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough331_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock332_upper hpBlock
+
+theorem recordPrimeWitnessesThrough332_subset :
+    recordPrimeWitnessesThrough332 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough332, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough331_subset,
+    recordPrimeWitnessBlock332_subset⟩
+
+def recordPrimeWitnessesThrough333 : Finset Nat :=
+  recordPrimeWitnessesThrough332 ∪ recordPrimeWitnessBlock333
+
+private theorem recordPrimeWitnessesThrough332_disjoint_block333 :
+    Disjoint recordPrimeWitnessesThrough332 recordPrimeWitnessBlock333 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 391679 :=
+    recordPrimeWitnessesThrough332_upper hpPrevious
+  have hpLower : 391691 ≤ p := recordPrimeWitnessBlock333_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough333_card :
+    recordPrimeWitnessesThrough333.card = 33300 := by
+  rw [recordPrimeWitnessesThrough333,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough332_disjoint_block333,
+    recordPrimeWitnessesThrough332_card,
+    recordPrimeWitnessBlock333_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough333_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough333) : p ≤ 392849 := by
+  rw [recordPrimeWitnessesThrough333, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough332_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock333_upper hpBlock
+
+theorem recordPrimeWitnessesThrough333_subset :
+    recordPrimeWitnessesThrough333 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough333, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough332_subset,
+    recordPrimeWitnessBlock333_subset⟩
+
+def recordPrimeWitnessesThrough334 : Finset Nat :=
+  recordPrimeWitnessesThrough333 ∪ recordPrimeWitnessBlock334
+
+private theorem recordPrimeWitnessesThrough333_disjoint_block334 :
+    Disjoint recordPrimeWitnessesThrough333 recordPrimeWitnessBlock334 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 392849 :=
+    recordPrimeWitnessesThrough333_upper hpPrevious
+  have hpLower : 392851 ≤ p := recordPrimeWitnessBlock334_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough334_card :
+    recordPrimeWitnessesThrough334.card = 33400 := by
+  rw [recordPrimeWitnessesThrough334,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough333_disjoint_block334,
+    recordPrimeWitnessesThrough333_card,
+    recordPrimeWitnessBlock334_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough334_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough334) : p ≤ 393997 := by
+  rw [recordPrimeWitnessesThrough334, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough333_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock334_upper hpBlock
+
+theorem recordPrimeWitnessesThrough334_subset :
+    recordPrimeWitnessesThrough334 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough334, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough333_subset,
+    recordPrimeWitnessBlock334_subset⟩
+
+def recordPrimeWitnessesThrough335 : Finset Nat :=
+  recordPrimeWitnessesThrough334 ∪ recordPrimeWitnessBlock335
+
+private theorem recordPrimeWitnessesThrough334_disjoint_block335 :
+    Disjoint recordPrimeWitnessesThrough334 recordPrimeWitnessBlock335 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 393997 :=
+    recordPrimeWitnessesThrough334_upper hpPrevious
+  have hpLower : 394007 ≤ p := recordPrimeWitnessBlock335_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough335_card :
+    recordPrimeWitnessesThrough335.card = 33500 := by
+  rw [recordPrimeWitnessesThrough335,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough334_disjoint_block335,
+    recordPrimeWitnessesThrough334_card,
+    recordPrimeWitnessBlock335_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough335_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough335) : p ≤ 395287 := by
+  rw [recordPrimeWitnessesThrough335, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough334_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock335_upper hpBlock
+
+theorem recordPrimeWitnessesThrough335_subset :
+    recordPrimeWitnessesThrough335 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough335, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough334_subset,
+    recordPrimeWitnessBlock335_subset⟩
+
+def recordPrimeWitnessesThrough336 : Finset Nat :=
+  recordPrimeWitnessesThrough335 ∪ recordPrimeWitnessBlock336
+
+private theorem recordPrimeWitnessesThrough335_disjoint_block336 :
+    Disjoint recordPrimeWitnessesThrough335 recordPrimeWitnessBlock336 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 395287 :=
+    recordPrimeWitnessesThrough335_upper hpPrevious
+  have hpLower : 395293 ≤ p := recordPrimeWitnessBlock336_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough336_card :
+    recordPrimeWitnessesThrough336.card = 33600 := by
+  rw [recordPrimeWitnessesThrough336,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough335_disjoint_block336,
+    recordPrimeWitnessesThrough335_card,
+    recordPrimeWitnessBlock336_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough336_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough336) : p ≤ 396637 := by
+  rw [recordPrimeWitnessesThrough336, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough335_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock336_upper hpBlock
+
+theorem recordPrimeWitnessesThrough336_subset :
+    recordPrimeWitnessesThrough336 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough336, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough335_subset,
+    recordPrimeWitnessBlock336_subset⟩
+
+def recordPrimeWitnessesThrough337 : Finset Nat :=
+  recordPrimeWitnessesThrough336 ∪ recordPrimeWitnessBlock337
+
+private theorem recordPrimeWitnessesThrough336_disjoint_block337 :
+    Disjoint recordPrimeWitnessesThrough336 recordPrimeWitnessBlock337 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 396637 :=
+    recordPrimeWitnessesThrough336_upper hpPrevious
+  have hpLower : 396647 ≤ p := recordPrimeWitnessBlock337_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough337_card :
+    recordPrimeWitnessesThrough337.card = 33700 := by
+  rw [recordPrimeWitnessesThrough337,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough336_disjoint_block337,
+    recordPrimeWitnessesThrough336_card,
+    recordPrimeWitnessBlock337_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough337_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough337) : p ≤ 398029 := by
+  rw [recordPrimeWitnessesThrough337, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough336_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock337_upper hpBlock
+
+theorem recordPrimeWitnessesThrough337_subset :
+    recordPrimeWitnessesThrough337 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough337, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough336_subset,
+    recordPrimeWitnessBlock337_subset⟩
+
+def recordPrimeWitnessesThrough338 : Finset Nat :=
+  recordPrimeWitnessesThrough337 ∪ recordPrimeWitnessBlock338
+
+private theorem recordPrimeWitnessesThrough337_disjoint_block338 :
+    Disjoint recordPrimeWitnessesThrough337 recordPrimeWitnessBlock338 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 398029 :=
+    recordPrimeWitnessesThrough337_upper hpPrevious
+  have hpLower : 398033 ≤ p := recordPrimeWitnessBlock338_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough338_card :
+    recordPrimeWitnessesThrough338.card = 33800 := by
+  rw [recordPrimeWitnessesThrough338,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough337_disjoint_block338,
+    recordPrimeWitnessesThrough337_card,
+    recordPrimeWitnessBlock338_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough338_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough338) : p ≤ 399239 := by
+  rw [recordPrimeWitnessesThrough338, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough337_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock338_upper hpBlock
+
+theorem recordPrimeWitnessesThrough338_subset :
+    recordPrimeWitnessesThrough338 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough338, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough337_subset,
+    recordPrimeWitnessBlock338_subset⟩
+
+def recordPrimeWitnessesThrough339 : Finset Nat :=
+  recordPrimeWitnessesThrough338 ∪ recordPrimeWitnessBlock339
+
+private theorem recordPrimeWitnessesThrough338_disjoint_block339 :
+    Disjoint recordPrimeWitnessesThrough338 recordPrimeWitnessBlock339 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 399239 :=
+    recordPrimeWitnessesThrough338_upper hpPrevious
+  have hpLower : 399241 ≤ p := recordPrimeWitnessBlock339_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough339_card :
+    recordPrimeWitnessesThrough339.card = 33900 := by
+  rw [recordPrimeWitnessesThrough339,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough338_disjoint_block339,
+    recordPrimeWitnessesThrough338_card,
+    recordPrimeWitnessBlock339_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough339_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough339) : p ≤ 400559 := by
+  rw [recordPrimeWitnessesThrough339, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough338_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock339_upper hpBlock
+
+theorem recordPrimeWitnessesThrough339_subset :
+    recordPrimeWitnessesThrough339 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough339, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough338_subset,
+    recordPrimeWitnessBlock339_subset⟩
+
+def recordPrimeWitnessesThrough340 : Finset Nat :=
+  recordPrimeWitnessesThrough339 ∪ recordPrimeWitnessBlock340
+
+private theorem recordPrimeWitnessesThrough339_disjoint_block340 :
+    Disjoint recordPrimeWitnessesThrough339 recordPrimeWitnessBlock340 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 400559 :=
+    recordPrimeWitnessesThrough339_upper hpPrevious
+  have hpLower : 400579 ≤ p := recordPrimeWitnessBlock340_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough340_card :
+    recordPrimeWitnessesThrough340.card = 34000 := by
+  rw [recordPrimeWitnessesThrough340,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough339_disjoint_block340,
+    recordPrimeWitnessesThrough339_card,
+    recordPrimeWitnessBlock340_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough340_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough340) : p ≤ 401987 := by
+  rw [recordPrimeWitnessesThrough340, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough339_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock340_upper hpBlock
+
+theorem recordPrimeWitnessesThrough340_subset :
+    recordPrimeWitnessesThrough340 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough340, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough339_subset,
+    recordPrimeWitnessBlock340_subset⟩
+
+def recordPrimeWitnessesThrough341 : Finset Nat :=
+  recordPrimeWitnessesThrough340 ∪ recordPrimeWitnessBlock341
+
+private theorem recordPrimeWitnessesThrough340_disjoint_block341 :
+    Disjoint recordPrimeWitnessesThrough340 recordPrimeWitnessBlock341 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 401987 :=
+    recordPrimeWitnessesThrough340_upper hpPrevious
+  have hpLower : 401993 ≤ p := recordPrimeWitnessBlock341_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough341_card :
+    recordPrimeWitnessesThrough341.card = 34100 := by
+  rw [recordPrimeWitnessesThrough341,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough340_disjoint_block341,
+    recordPrimeWitnessesThrough340_card,
+    recordPrimeWitnessBlock341_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough341_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough341) : p ≤ 403289 := by
+  rw [recordPrimeWitnessesThrough341, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough340_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock341_upper hpBlock
+
+theorem recordPrimeWitnessesThrough341_subset :
+    recordPrimeWitnessesThrough341 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough341, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough340_subset,
+    recordPrimeWitnessBlock341_subset⟩
+
+def recordPrimeWitnessesThrough342 : Finset Nat :=
+  recordPrimeWitnessesThrough341 ∪ recordPrimeWitnessBlock342
+
+private theorem recordPrimeWitnessesThrough341_disjoint_block342 :
+    Disjoint recordPrimeWitnessesThrough341 recordPrimeWitnessBlock342 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 403289 :=
+    recordPrimeWitnessesThrough341_upper hpPrevious
+  have hpLower : 403301 ≤ p := recordPrimeWitnessBlock342_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough342_card :
+    recordPrimeWitnessesThrough342.card = 34200 := by
+  rw [recordPrimeWitnessesThrough342,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough341_disjoint_block342,
+    recordPrimeWitnessesThrough341_card,
+    recordPrimeWitnessBlock342_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough342_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough342) : p ≤ 404539 := by
+  rw [recordPrimeWitnessesThrough342, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough341_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock342_upper hpBlock
+
+theorem recordPrimeWitnessesThrough342_subset :
+    recordPrimeWitnessesThrough342 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough342, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough341_subset,
+    recordPrimeWitnessBlock342_subset⟩
+
+def recordPrimeWitnessesThrough343 : Finset Nat :=
+  recordPrimeWitnessesThrough342 ∪ recordPrimeWitnessBlock343
+
+private theorem recordPrimeWitnessesThrough342_disjoint_block343 :
+    Disjoint recordPrimeWitnessesThrough342 recordPrimeWitnessBlock343 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 404539 :=
+    recordPrimeWitnessesThrough342_upper hpPrevious
+  have hpLower : 404557 ≤ p := recordPrimeWitnessBlock343_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough343_card :
+    recordPrimeWitnessesThrough343.card = 34300 := by
+  rw [recordPrimeWitnessesThrough343,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough342_disjoint_block343,
+    recordPrimeWitnessesThrough342_card,
+    recordPrimeWitnessBlock343_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough343_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough343) : p ≤ 405949 := by
+  rw [recordPrimeWitnessesThrough343, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough342_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock343_upper hpBlock
+
+theorem recordPrimeWitnessesThrough343_subset :
+    recordPrimeWitnessesThrough343 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough343, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough342_subset,
+    recordPrimeWitnessBlock343_subset⟩
+
+def recordPrimeWitnessesThrough344 : Finset Nat :=
+  recordPrimeWitnessesThrough343 ∪ recordPrimeWitnessBlock344
+
+private theorem recordPrimeWitnessesThrough343_disjoint_block344 :
+    Disjoint recordPrimeWitnessesThrough343 recordPrimeWitnessBlock344 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 405949 :=
+    recordPrimeWitnessesThrough343_upper hpPrevious
+  have hpLower : 405959 ≤ p := recordPrimeWitnessBlock344_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough344_card :
+    recordPrimeWitnessesThrough344.card = 34400 := by
+  rw [recordPrimeWitnessesThrough344,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough343_disjoint_block344,
+    recordPrimeWitnessesThrough343_card,
+    recordPrimeWitnessBlock344_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough344_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough344) : p ≤ 407357 := by
+  rw [recordPrimeWitnessesThrough344, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough343_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock344_upper hpBlock
+
+theorem recordPrimeWitnessesThrough344_subset :
+    recordPrimeWitnessesThrough344 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough344, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough343_subset,
+    recordPrimeWitnessBlock344_subset⟩
+
+def recordPrimeWitnessesThrough345 : Finset Nat :=
+  recordPrimeWitnessesThrough344 ∪ recordPrimeWitnessBlock345
+
+private theorem recordPrimeWitnessesThrough344_disjoint_block345 :
+    Disjoint recordPrimeWitnessesThrough344 recordPrimeWitnessBlock345 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 407357 :=
+    recordPrimeWitnessesThrough344_upper hpPrevious
+  have hpLower : 407359 ≤ p := recordPrimeWitnessBlock345_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough345_card :
+    recordPrimeWitnessesThrough345.card = 34500 := by
+  rw [recordPrimeWitnessesThrough345,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough344_disjoint_block345,
+    recordPrimeWitnessesThrough344_card,
+    recordPrimeWitnessBlock345_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough345_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough345) : p ≤ 408607 := by
+  rw [recordPrimeWitnessesThrough345, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough344_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock345_upper hpBlock
+
+theorem recordPrimeWitnessesThrough345_subset :
+    recordPrimeWitnessesThrough345 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough345, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough344_subset,
+    recordPrimeWitnessBlock345_subset⟩
+
+def recordPrimeWitnessesThrough346 : Finset Nat :=
+  recordPrimeWitnessesThrough345 ∪ recordPrimeWitnessBlock346
+
+private theorem recordPrimeWitnessesThrough345_disjoint_block346 :
+    Disjoint recordPrimeWitnessesThrough345 recordPrimeWitnessBlock346 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 408607 :=
+    recordPrimeWitnessesThrough345_upper hpPrevious
+  have hpLower : 408623 ≤ p := recordPrimeWitnessBlock346_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough346_card :
+    recordPrimeWitnessesThrough346.card = 34600 := by
+  rw [recordPrimeWitnessesThrough346,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough345_disjoint_block346,
+    recordPrimeWitnessesThrough345_card,
+    recordPrimeWitnessBlock346_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough346_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough346) : p ≤ 409867 := by
+  rw [recordPrimeWitnessesThrough346, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough345_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock346_upper hpBlock
+
+theorem recordPrimeWitnessesThrough346_subset :
+    recordPrimeWitnessesThrough346 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough346, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough345_subset,
+    recordPrimeWitnessBlock346_subset⟩
+
+def recordPrimeWitnessesThrough347 : Finset Nat :=
+  recordPrimeWitnessesThrough346 ∪ recordPrimeWitnessBlock347
+
+private theorem recordPrimeWitnessesThrough346_disjoint_block347 :
+    Disjoint recordPrimeWitnessesThrough346 recordPrimeWitnessBlock347 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 409867 :=
+    recordPrimeWitnessesThrough346_upper hpPrevious
+  have hpLower : 409879 ≤ p := recordPrimeWitnessBlock347_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough347_card :
+    recordPrimeWitnessesThrough347.card = 34700 := by
+  rw [recordPrimeWitnessesThrough347,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough346_disjoint_block347,
+    recordPrimeWitnessesThrough346_card,
+    recordPrimeWitnessBlock347_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough347_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough347) : p ≤ 411119 := by
+  rw [recordPrimeWitnessesThrough347, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough346_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock347_upper hpBlock
+
+theorem recordPrimeWitnessesThrough347_subset :
+    recordPrimeWitnessesThrough347 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough347, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough346_subset,
+    recordPrimeWitnessBlock347_subset⟩
+
+def recordPrimeWitnessesThrough348 : Finset Nat :=
+  recordPrimeWitnessesThrough347 ∪ recordPrimeWitnessBlock348
+
+private theorem recordPrimeWitnessesThrough347_disjoint_block348 :
+    Disjoint recordPrimeWitnessesThrough347 recordPrimeWitnessBlock348 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 411119 :=
+    recordPrimeWitnessesThrough347_upper hpPrevious
+  have hpLower : 411127 ≤ p := recordPrimeWitnessBlock348_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough348_card :
+    recordPrimeWitnessesThrough348.card = 34800 := by
+  rw [recordPrimeWitnessesThrough348,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough347_disjoint_block348,
+    recordPrimeWitnessesThrough347_card,
+    recordPrimeWitnessBlock348_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough348_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough348) : p ≤ 412303 := by
+  rw [recordPrimeWitnessesThrough348, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough347_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock348_upper hpBlock
+
+theorem recordPrimeWitnessesThrough348_subset :
+    recordPrimeWitnessesThrough348 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough348, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough347_subset,
+    recordPrimeWitnessBlock348_subset⟩
+
+def recordPrimeWitnessesThrough349 : Finset Nat :=
+  recordPrimeWitnessesThrough348 ∪ recordPrimeWitnessBlock349
+
+private theorem recordPrimeWitnessesThrough348_disjoint_block349 :
+    Disjoint recordPrimeWitnessesThrough348 recordPrimeWitnessBlock349 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 412303 :=
+    recordPrimeWitnessesThrough348_upper hpPrevious
+  have hpLower : 412333 ≤ p := recordPrimeWitnessBlock349_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough349_card :
+    recordPrimeWitnessesThrough349.card = 34900 := by
+  rw [recordPrimeWitnessesThrough349,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough348_disjoint_block349,
+    recordPrimeWitnessesThrough348_card,
+    recordPrimeWitnessBlock349_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough349_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough349) : p ≤ 413807 := by
+  rw [recordPrimeWitnessesThrough349, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough348_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock349_upper hpBlock
+
+theorem recordPrimeWitnessesThrough349_subset :
+    recordPrimeWitnessesThrough349 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough349, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough348_subset,
+    recordPrimeWitnessBlock349_subset⟩
+
+def recordPrimeWitnessesThrough350 : Finset Nat :=
+  recordPrimeWitnessesThrough349 ∪ recordPrimeWitnessBlock350
+
+private theorem recordPrimeWitnessesThrough349_disjoint_block350 :
+    Disjoint recordPrimeWitnessesThrough349 recordPrimeWitnessBlock350 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 413807 :=
+    recordPrimeWitnessesThrough349_upper hpPrevious
+  have hpLower : 413827 ≤ p := recordPrimeWitnessBlock350_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough350_card :
+    recordPrimeWitnessesThrough350.card = 35000 := by
+  rw [recordPrimeWitnessesThrough350,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough349_disjoint_block350,
+    recordPrimeWitnessesThrough349_card,
+    recordPrimeWitnessBlock350_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough350_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough350) : p ≤ 414977 := by
+  rw [recordPrimeWitnessesThrough350, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough349_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock350_upper hpBlock
+
+theorem recordPrimeWitnessesThrough350_subset :
+    recordPrimeWitnessesThrough350 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough350, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough349_subset,
+    recordPrimeWitnessBlock350_subset⟩
+
+def recordPrimeWitnessesThrough351 : Finset Nat :=
+  recordPrimeWitnessesThrough350 ∪ recordPrimeWitnessBlock351
+
+private theorem recordPrimeWitnessesThrough350_disjoint_block351 :
+    Disjoint recordPrimeWitnessesThrough350 recordPrimeWitnessBlock351 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 414977 :=
+    recordPrimeWitnessesThrough350_upper hpPrevious
+  have hpLower : 414991 ≤ p := recordPrimeWitnessBlock351_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough351_card :
+    recordPrimeWitnessesThrough351.card = 35100 := by
+  rw [recordPrimeWitnessesThrough351,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough350_disjoint_block351,
+    recordPrimeWitnessesThrough350_card,
+    recordPrimeWitnessBlock351_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough351_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough351) : p ≤ 416281 := by
+  rw [recordPrimeWitnessesThrough351, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough350_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock351_upper hpBlock
+
+theorem recordPrimeWitnessesThrough351_subset :
+    recordPrimeWitnessesThrough351 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough351, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough350_subset,
+    recordPrimeWitnessBlock351_subset⟩
+
+def recordPrimeWitnessesThrough352 : Finset Nat :=
+  recordPrimeWitnessesThrough351 ∪ recordPrimeWitnessBlock352
+
+private theorem recordPrimeWitnessesThrough351_disjoint_block352 :
+    Disjoint recordPrimeWitnessesThrough351 recordPrimeWitnessBlock352 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 416281 :=
+    recordPrimeWitnessesThrough351_upper hpPrevious
+  have hpLower : 416291 ≤ p := recordPrimeWitnessBlock352_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough352_card :
+    recordPrimeWitnessesThrough352.card = 35200 := by
+  rw [recordPrimeWitnessesThrough352,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough351_disjoint_block352,
+    recordPrimeWitnessesThrough351_card,
+    recordPrimeWitnessBlock352_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough352_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough352) : p ≤ 417631 := by
+  rw [recordPrimeWitnessesThrough352, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough351_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock352_upper hpBlock
+
+theorem recordPrimeWitnessesThrough352_subset :
+    recordPrimeWitnessesThrough352 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough352, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough351_subset,
+    recordPrimeWitnessBlock352_subset⟩
+
+def recordPrimeWitnessesThrough353 : Finset Nat :=
+  recordPrimeWitnessesThrough352 ∪ recordPrimeWitnessBlock353
+
+private theorem recordPrimeWitnessesThrough352_disjoint_block353 :
+    Disjoint recordPrimeWitnessesThrough352 recordPrimeWitnessBlock353 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 417631 :=
+    recordPrimeWitnessesThrough352_upper hpPrevious
+  have hpLower : 417643 ≤ p := recordPrimeWitnessBlock353_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough353_card :
+    recordPrimeWitnessesThrough353.card = 35300 := by
+  rw [recordPrimeWitnessesThrough353,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough352_disjoint_block353,
+    recordPrimeWitnessesThrough352_card,
+    recordPrimeWitnessBlock353_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough353_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough353) : p ≤ 418849 := by
+  rw [recordPrimeWitnessesThrough353, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough352_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock353_upper hpBlock
+
+theorem recordPrimeWitnessesThrough353_subset :
+    recordPrimeWitnessesThrough353 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough353, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough352_subset,
+    recordPrimeWitnessBlock353_subset⟩
+
+def recordPrimeWitnessesThrough354 : Finset Nat :=
+  recordPrimeWitnessesThrough353 ∪ recordPrimeWitnessBlock354
+
+private theorem recordPrimeWitnessesThrough353_disjoint_block354 :
+    Disjoint recordPrimeWitnessesThrough353 recordPrimeWitnessBlock354 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 418849 :=
+    recordPrimeWitnessesThrough353_upper hpPrevious
+  have hpLower : 418861 ≤ p := recordPrimeWitnessBlock354_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough354_card :
+    recordPrimeWitnessesThrough354.card = 35400 := by
+  rw [recordPrimeWitnessesThrough354,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough353_disjoint_block354,
+    recordPrimeWitnessesThrough353_card,
+    recordPrimeWitnessBlock354_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough354_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough354) : p ≤ 420163 := by
+  rw [recordPrimeWitnessesThrough354, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough353_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock354_upper hpBlock
+
+theorem recordPrimeWitnessesThrough354_subset :
+    recordPrimeWitnessesThrough354 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough354, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough353_subset,
+    recordPrimeWitnessBlock354_subset⟩
+
+def recordPrimeWitnessesThrough355 : Finset Nat :=
+  recordPrimeWitnessesThrough354 ∪ recordPrimeWitnessBlock355
+
+private theorem recordPrimeWitnessesThrough354_disjoint_block355 :
+    Disjoint recordPrimeWitnessesThrough354 recordPrimeWitnessBlock355 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 420163 :=
+    recordPrimeWitnessesThrough354_upper hpPrevious
+  have hpLower : 420191 ≤ p := recordPrimeWitnessBlock355_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough355_card :
+    recordPrimeWitnessesThrough355.card = 35500 := by
+  rw [recordPrimeWitnessesThrough355,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough354_disjoint_block355,
+    recordPrimeWitnessesThrough354_card,
+    recordPrimeWitnessBlock355_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough355_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough355) : p ≤ 421453 := by
+  rw [recordPrimeWitnessesThrough355, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough354_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock355_upper hpBlock
+
+theorem recordPrimeWitnessesThrough355_subset :
+    recordPrimeWitnessesThrough355 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough355, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough354_subset,
+    recordPrimeWitnessBlock355_subset⟩
+
+def recordPrimeWitnessesThrough356 : Finset Nat :=
+  recordPrimeWitnessesThrough355 ∪ recordPrimeWitnessBlock356
+
+private theorem recordPrimeWitnessesThrough355_disjoint_block356 :
+    Disjoint recordPrimeWitnessesThrough355 recordPrimeWitnessBlock356 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 421453 :=
+    recordPrimeWitnessesThrough355_upper hpPrevious
+  have hpLower : 421459 ≤ p := recordPrimeWitnessBlock356_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough356_card :
+    recordPrimeWitnessesThrough356.card = 35600 := by
+  rw [recordPrimeWitnessesThrough356,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough355_disjoint_block356,
+    recordPrimeWitnessesThrough355_card,
+    recordPrimeWitnessBlock356_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough356_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough356) : p ≤ 422803 := by
+  rw [recordPrimeWitnessesThrough356, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough355_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock356_upper hpBlock
+
+theorem recordPrimeWitnessesThrough356_subset :
+    recordPrimeWitnessesThrough356 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough356, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough355_subset,
+    recordPrimeWitnessBlock356_subset⟩
+
+def recordPrimeWitnessesThrough357 : Finset Nat :=
+  recordPrimeWitnessesThrough356 ∪ recordPrimeWitnessBlock357
+
+private theorem recordPrimeWitnessesThrough356_disjoint_block357 :
+    Disjoint recordPrimeWitnessesThrough356 recordPrimeWitnessBlock357 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 422803 :=
+    recordPrimeWitnessesThrough356_upper hpPrevious
+  have hpLower : 422827 ≤ p := recordPrimeWitnessBlock357_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough357_card :
+    recordPrimeWitnessesThrough357.card = 35700 := by
+  rw [recordPrimeWitnessesThrough357,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough356_disjoint_block357,
+    recordPrimeWitnessesThrough356_card,
+    recordPrimeWitnessBlock357_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough357_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough357) : p ≤ 424003 := by
+  rw [recordPrimeWitnessesThrough357, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough356_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock357_upper hpBlock
+
+theorem recordPrimeWitnessesThrough357_subset :
+    recordPrimeWitnessesThrough357 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough357, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough356_subset,
+    recordPrimeWitnessBlock357_subset⟩
+
+def recordPrimeWitnessesThrough358 : Finset Nat :=
+  recordPrimeWitnessesThrough357 ∪ recordPrimeWitnessBlock358
+
+private theorem recordPrimeWitnessesThrough357_disjoint_block358 :
+    Disjoint recordPrimeWitnessesThrough357 recordPrimeWitnessBlock358 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 424003 :=
+    recordPrimeWitnessesThrough357_upper hpPrevious
+  have hpLower : 424007 ≤ p := recordPrimeWitnessBlock358_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough358_card :
+    recordPrimeWitnessesThrough358.card = 35800 := by
+  rw [recordPrimeWitnessesThrough358,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough357_disjoint_block358,
+    recordPrimeWitnessesThrough357_card,
+    recordPrimeWitnessBlock358_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough358_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough358) : p ≤ 425281 := by
+  rw [recordPrimeWitnessesThrough358, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough357_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock358_upper hpBlock
+
+theorem recordPrimeWitnessesThrough358_subset :
+    recordPrimeWitnessesThrough358 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough358, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough357_subset,
+    recordPrimeWitnessBlock358_subset⟩
+
+def recordPrimeWitnessesThrough359 : Finset Nat :=
+  recordPrimeWitnessesThrough358 ∪ recordPrimeWitnessBlock359
+
+private theorem recordPrimeWitnessesThrough358_disjoint_block359 :
+    Disjoint recordPrimeWitnessesThrough358 recordPrimeWitnessBlock359 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 425281 :=
+    recordPrimeWitnessesThrough358_upper hpPrevious
+  have hpLower : 425291 ≤ p := recordPrimeWitnessBlock359_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough359_card :
+    recordPrimeWitnessesThrough359.card = 35900 := by
+  rw [recordPrimeWitnessesThrough359,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough358_disjoint_block359,
+    recordPrimeWitnessesThrough358_card,
+    recordPrimeWitnessBlock359_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough359_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough359) : p ≤ 426731 := by
+  rw [recordPrimeWitnessesThrough359, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough358_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock359_upper hpBlock
+
+theorem recordPrimeWitnessesThrough359_subset :
+    recordPrimeWitnessesThrough359 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough359, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough358_subset,
+    recordPrimeWitnessBlock359_subset⟩
+
+def recordPrimeWitnessesThrough360 : Finset Nat :=
+  recordPrimeWitnessesThrough359 ∪ recordPrimeWitnessBlock360
+
+private theorem recordPrimeWitnessesThrough359_disjoint_block360 :
+    Disjoint recordPrimeWitnessesThrough359 recordPrimeWitnessBlock360 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 426731 :=
+    recordPrimeWitnessesThrough359_upper hpPrevious
+  have hpLower : 426737 ≤ p := recordPrimeWitnessBlock360_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough360_card :
+    recordPrimeWitnessesThrough360.card = 36000 := by
+  rw [recordPrimeWitnessesThrough360,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough359_disjoint_block360,
+    recordPrimeWitnessesThrough359_card,
+    recordPrimeWitnessBlock360_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough360_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough360) : p ≤ 427991 := by
+  rw [recordPrimeWitnessesThrough360, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough359_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock360_upper hpBlock
+
+theorem recordPrimeWitnessesThrough360_subset :
+    recordPrimeWitnessesThrough360 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough360, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough359_subset,
+    recordPrimeWitnessBlock360_subset⟩
+
+def recordPrimeWitnessesThrough361 : Finset Nat :=
+  recordPrimeWitnessesThrough360 ∪ recordPrimeWitnessBlock361
+
+private theorem recordPrimeWitnessesThrough360_disjoint_block361 :
+    Disjoint recordPrimeWitnessesThrough360 recordPrimeWitnessBlock361 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 427991 :=
+    recordPrimeWitnessesThrough360_upper hpPrevious
+  have hpLower : 427993 ≤ p := recordPrimeWitnessBlock361_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough361_card :
+    recordPrimeWitnessesThrough361.card = 36100 := by
+  rw [recordPrimeWitnessesThrough361,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough360_disjoint_block361,
+    recordPrimeWitnessesThrough360_card,
+    recordPrimeWitnessBlock361_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough361_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough361) : p ≤ 429361 := by
+  rw [recordPrimeWitnessesThrough361, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough360_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock361_upper hpBlock
+
+theorem recordPrimeWitnessesThrough361_subset :
+    recordPrimeWitnessesThrough361 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough361, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough360_subset,
+    recordPrimeWitnessBlock361_subset⟩
+
+def recordPrimeWitnessesThrough362 : Finset Nat :=
+  recordPrimeWitnessesThrough361 ∪ recordPrimeWitnessBlock362
+
+private theorem recordPrimeWitnessesThrough361_disjoint_block362 :
+    Disjoint recordPrimeWitnessesThrough361 recordPrimeWitnessBlock362 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 429361 :=
+    recordPrimeWitnessesThrough361_upper hpPrevious
+  have hpLower : 429367 ≤ p := recordPrimeWitnessBlock362_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough362_card :
+    recordPrimeWitnessesThrough362.card = 36200 := by
+  rw [recordPrimeWitnessesThrough362,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough361_disjoint_block362,
+    recordPrimeWitnessesThrough361_card,
+    recordPrimeWitnessBlock362_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough362_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough362) : p ≤ 430589 := by
+  rw [recordPrimeWitnessesThrough362, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough361_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock362_upper hpBlock
+
+theorem recordPrimeWitnessesThrough362_subset :
+    recordPrimeWitnessesThrough362 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough362, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough361_subset,
+    recordPrimeWitnessBlock362_subset⟩
+
+def recordPrimeWitnessesThrough363 : Finset Nat :=
+  recordPrimeWitnessesThrough362 ∪ recordPrimeWitnessBlock363
+
+private theorem recordPrimeWitnessesThrough362_disjoint_block363 :
+    Disjoint recordPrimeWitnessesThrough362 recordPrimeWitnessBlock363 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 430589 :=
+    recordPrimeWitnessesThrough362_upper hpPrevious
+  have hpLower : 430601 ≤ p := recordPrimeWitnessBlock363_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough363_card :
+    recordPrimeWitnessesThrough363.card = 36300 := by
+  rw [recordPrimeWitnessesThrough363,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough362_disjoint_block363,
+    recordPrimeWitnessesThrough362_card,
+    recordPrimeWitnessBlock363_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough363_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough363) : p ≤ 431803 := by
+  rw [recordPrimeWitnessesThrough363, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough362_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock363_upper hpBlock
+
+theorem recordPrimeWitnessesThrough363_subset :
+    recordPrimeWitnessesThrough363 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough363, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough362_subset,
+    recordPrimeWitnessBlock363_subset⟩
+
+def recordPrimeWitnessesThrough364 : Finset Nat :=
+  recordPrimeWitnessesThrough363 ∪ recordPrimeWitnessBlock364
+
+private theorem recordPrimeWitnessesThrough363_disjoint_block364 :
+    Disjoint recordPrimeWitnessesThrough363 recordPrimeWitnessBlock364 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 431803 :=
+    recordPrimeWitnessesThrough363_upper hpPrevious
+  have hpLower : 431807 ≤ p := recordPrimeWitnessBlock364_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough364_card :
+    recordPrimeWitnessesThrough364.card = 36400 := by
+  rw [recordPrimeWitnessesThrough364,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough363_disjoint_block364,
+    recordPrimeWitnessesThrough363_card,
+    recordPrimeWitnessBlock364_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough364_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough364) : p ≤ 432983 := by
+  rw [recordPrimeWitnessesThrough364, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough363_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock364_upper hpBlock
+
+theorem recordPrimeWitnessesThrough364_subset :
+    recordPrimeWitnessesThrough364 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough364, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough363_subset,
+    recordPrimeWitnessBlock364_subset⟩
+
+def recordPrimeWitnessesThrough365 : Finset Nat :=
+  recordPrimeWitnessesThrough364 ∪ recordPrimeWitnessBlock365
+
+private theorem recordPrimeWitnessesThrough364_disjoint_block365 :
+    Disjoint recordPrimeWitnessesThrough364 recordPrimeWitnessBlock365 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 432983 :=
+    recordPrimeWitnessesThrough364_upper hpPrevious
+  have hpLower : 432989 ≤ p := recordPrimeWitnessBlock365_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough365_card :
+    recordPrimeWitnessesThrough365.card = 36500 := by
+  rw [recordPrimeWitnessesThrough365,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough364_disjoint_block365,
+    recordPrimeWitnessesThrough364_card,
+    recordPrimeWitnessBlock365_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough365_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough365) : p ≤ 434243 := by
+  rw [recordPrimeWitnessesThrough365, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough364_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock365_upper hpBlock
+
+theorem recordPrimeWitnessesThrough365_subset :
+    recordPrimeWitnessesThrough365 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough365, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough364_subset,
+    recordPrimeWitnessBlock365_subset⟩
+
+def recordPrimeWitnessesThrough366 : Finset Nat :=
+  recordPrimeWitnessesThrough365 ∪ recordPrimeWitnessBlock366
+
+private theorem recordPrimeWitnessesThrough365_disjoint_block366 :
+    Disjoint recordPrimeWitnessesThrough365 recordPrimeWitnessBlock366 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 434243 :=
+    recordPrimeWitnessesThrough365_upper hpPrevious
+  have hpLower : 434249 ≤ p := recordPrimeWitnessBlock366_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough366_card :
+    recordPrimeWitnessesThrough366.card = 36600 := by
+  rw [recordPrimeWitnessesThrough366,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough365_disjoint_block366,
+    recordPrimeWitnessesThrough365_card,
+    recordPrimeWitnessBlock366_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough366_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough366) : p ≤ 435427 := by
+  rw [recordPrimeWitnessesThrough366, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough365_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock366_upper hpBlock
+
+theorem recordPrimeWitnessesThrough366_subset :
+    recordPrimeWitnessesThrough366 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough366, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough365_subset,
+    recordPrimeWitnessBlock366_subset⟩
+
+def recordPrimeWitnessesThrough367 : Finset Nat :=
+  recordPrimeWitnessesThrough366 ∪ recordPrimeWitnessBlock367
+
+private theorem recordPrimeWitnessesThrough366_disjoint_block367 :
+    Disjoint recordPrimeWitnessesThrough366 recordPrimeWitnessBlock367 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 435427 :=
+    recordPrimeWitnessesThrough366_upper hpPrevious
+  have hpLower : 435437 ≤ p := recordPrimeWitnessBlock367_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough367_card :
+    recordPrimeWitnessesThrough367.card = 36700 := by
+  rw [recordPrimeWitnessesThrough367,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough366_disjoint_block367,
+    recordPrimeWitnessesThrough366_card,
+    recordPrimeWitnessBlock367_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough367_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough367) : p ≤ 436717 := by
+  rw [recordPrimeWitnessesThrough367, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough366_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock367_upper hpBlock
+
+theorem recordPrimeWitnessesThrough367_subset :
+    recordPrimeWitnessesThrough367 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough367, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough366_subset,
+    recordPrimeWitnessBlock367_subset⟩
+
+def recordPrimeWitnessesThrough368 : Finset Nat :=
+  recordPrimeWitnessesThrough367 ∪ recordPrimeWitnessBlock368
+
+private theorem recordPrimeWitnessesThrough367_disjoint_block368 :
+    Disjoint recordPrimeWitnessesThrough367 recordPrimeWitnessBlock368 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 436717 :=
+    recordPrimeWitnessesThrough367_upper hpPrevious
+  have hpLower : 436727 ≤ p := recordPrimeWitnessBlock368_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough368_card :
+    recordPrimeWitnessesThrough368.card = 36800 := by
+  rw [recordPrimeWitnessesThrough368,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough367_disjoint_block368,
+    recordPrimeWitnessesThrough367_card,
+    recordPrimeWitnessBlock368_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough368_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough368) : p ≤ 438143 := by
+  rw [recordPrimeWitnessesThrough368, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough367_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock368_upper hpBlock
+
+theorem recordPrimeWitnessesThrough368_subset :
+    recordPrimeWitnessesThrough368 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough368, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough367_subset,
+    recordPrimeWitnessBlock368_subset⟩
+
+def recordPrimeWitnessesThrough369 : Finset Nat :=
+  recordPrimeWitnessesThrough368 ∪ recordPrimeWitnessBlock369
+
+private theorem recordPrimeWitnessesThrough368_disjoint_block369 :
+    Disjoint recordPrimeWitnessesThrough368 recordPrimeWitnessBlock369 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 438143 :=
+    recordPrimeWitnessesThrough368_upper hpPrevious
+  have hpLower : 438169 ≤ p := recordPrimeWitnessBlock369_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough369_card :
+    recordPrimeWitnessesThrough369.card = 36900 := by
+  rw [recordPrimeWitnessesThrough369,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough368_disjoint_block369,
+    recordPrimeWitnessesThrough368_card,
+    recordPrimeWitnessBlock369_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough369_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough369) : p ≤ 439519 := by
+  rw [recordPrimeWitnessesThrough369, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough368_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock369_upper hpBlock
+
+theorem recordPrimeWitnessesThrough369_subset :
+    recordPrimeWitnessesThrough369 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough369, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough368_subset,
+    recordPrimeWitnessBlock369_subset⟩
+
+def recordPrimeWitnessesThrough370 : Finset Nat :=
+  recordPrimeWitnessesThrough369 ∪ recordPrimeWitnessBlock370
+
+private theorem recordPrimeWitnessesThrough369_disjoint_block370 :
+    Disjoint recordPrimeWitnessesThrough369 recordPrimeWitnessBlock370 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 439519 :=
+    recordPrimeWitnessesThrough369_upper hpPrevious
+  have hpLower : 439541 ≤ p := recordPrimeWitnessBlock370_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough370_card :
+    recordPrimeWitnessesThrough370.card = 37000 := by
+  rw [recordPrimeWitnessesThrough370,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough369_disjoint_block370,
+    recordPrimeWitnessesThrough369_card,
+    recordPrimeWitnessBlock370_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough370_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough370) : p ≤ 440723 := by
+  rw [recordPrimeWitnessesThrough370, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough369_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock370_upper hpBlock
+
+theorem recordPrimeWitnessesThrough370_subset :
+    recordPrimeWitnessesThrough370 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough370, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough369_subset,
+    recordPrimeWitnessBlock370_subset⟩
+
+def recordPrimeWitnessesThrough371 : Finset Nat :=
+  recordPrimeWitnessesThrough370 ∪ recordPrimeWitnessBlock371
+
+private theorem recordPrimeWitnessesThrough370_disjoint_block371 :
+    Disjoint recordPrimeWitnessesThrough370 recordPrimeWitnessBlock371 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 440723 :=
+    recordPrimeWitnessesThrough370_upper hpPrevious
+  have hpLower : 440731 ≤ p := recordPrimeWitnessBlock371_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough371_card :
+    recordPrimeWitnessesThrough371.card = 37100 := by
+  rw [recordPrimeWitnessesThrough371,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough370_disjoint_block371,
+    recordPrimeWitnessesThrough370_card,
+    recordPrimeWitnessBlock371_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough371_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough371) : p ≤ 442061 := by
+  rw [recordPrimeWitnessesThrough371, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough370_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock371_upper hpBlock
+
+theorem recordPrimeWitnessesThrough371_subset :
+    recordPrimeWitnessesThrough371 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough371, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough370_subset,
+    recordPrimeWitnessBlock371_subset⟩
+
+def recordPrimeWitnessesThrough372 : Finset Nat :=
+  recordPrimeWitnessesThrough371 ∪ recordPrimeWitnessBlock372
+
+private theorem recordPrimeWitnessesThrough371_disjoint_block372 :
+    Disjoint recordPrimeWitnessesThrough371 recordPrimeWitnessBlock372 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 442061 :=
+    recordPrimeWitnessesThrough371_upper hpPrevious
+  have hpLower : 442069 ≤ p := recordPrimeWitnessBlock372_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough372_card :
+    recordPrimeWitnessesThrough372.card = 37200 := by
+  rw [recordPrimeWitnessesThrough372,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough371_disjoint_block372,
+    recordPrimeWitnessesThrough371_card,
+    recordPrimeWitnessBlock372_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough372_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough372) : p ≤ 443231 := by
+  rw [recordPrimeWitnessesThrough372, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough371_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock372_upper hpBlock
+
+theorem recordPrimeWitnessesThrough372_subset :
+    recordPrimeWitnessesThrough372 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough372, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough371_subset,
+    recordPrimeWitnessBlock372_subset⟩
+
+def recordPrimeWitnessesThrough373 : Finset Nat :=
+  recordPrimeWitnessesThrough372 ∪ recordPrimeWitnessBlock373
+
+private theorem recordPrimeWitnessesThrough372_disjoint_block373 :
+    Disjoint recordPrimeWitnessesThrough372 recordPrimeWitnessBlock373 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 443231 :=
+    recordPrimeWitnessesThrough372_upper hpPrevious
+  have hpLower : 443237 ≤ p := recordPrimeWitnessBlock373_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough373_card :
+    recordPrimeWitnessesThrough373.card = 37300 := by
+  rw [recordPrimeWitnessesThrough373,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough372_disjoint_block373,
+    recordPrimeWitnessesThrough372_card,
+    recordPrimeWitnessBlock373_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough373_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough373) : p ≤ 444449 := by
+  rw [recordPrimeWitnessesThrough373, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough372_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock373_upper hpBlock
+
+theorem recordPrimeWitnessesThrough373_subset :
+    recordPrimeWitnessesThrough373 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough373, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough372_subset,
+    recordPrimeWitnessBlock373_subset⟩
+
+def recordPrimeWitnessesThrough374 : Finset Nat :=
+  recordPrimeWitnessesThrough373 ∪ recordPrimeWitnessBlock374
+
+private theorem recordPrimeWitnessesThrough373_disjoint_block374 :
+    Disjoint recordPrimeWitnessesThrough373 recordPrimeWitnessBlock374 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 444449 :=
+    recordPrimeWitnessesThrough373_upper hpPrevious
+  have hpLower : 444461 ≤ p := recordPrimeWitnessBlock374_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough374_card :
+    recordPrimeWitnessesThrough374.card = 37400 := by
+  rw [recordPrimeWitnessesThrough374,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough373_disjoint_block374,
+    recordPrimeWitnessesThrough373_card,
+    recordPrimeWitnessBlock374_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough374_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough374) : p ≤ 445771 := by
+  rw [recordPrimeWitnessesThrough374, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough373_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock374_upper hpBlock
+
+theorem recordPrimeWitnessesThrough374_subset :
+    recordPrimeWitnessesThrough374 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough374, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough373_subset,
+    recordPrimeWitnessBlock374_subset⟩
+
+def recordPrimeWitnessesThrough375 : Finset Nat :=
+  recordPrimeWitnessesThrough374 ∪ recordPrimeWitnessBlock375
+
+private theorem recordPrimeWitnessesThrough374_disjoint_block375 :
+    Disjoint recordPrimeWitnessesThrough374 recordPrimeWitnessBlock375 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 445771 :=
+    recordPrimeWitnessesThrough374_upper hpPrevious
+  have hpLower : 445789 ≤ p := recordPrimeWitnessBlock375_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough375_card :
+    recordPrimeWitnessesThrough375.card = 37500 := by
+  rw [recordPrimeWitnessesThrough375,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough374_disjoint_block375,
+    recordPrimeWitnessesThrough374_card,
+    recordPrimeWitnessBlock375_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough375_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough375) : p ≤ 447217 := by
+  rw [recordPrimeWitnessesThrough375, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough374_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock375_upper hpBlock
+
+theorem recordPrimeWitnessesThrough375_subset :
+    recordPrimeWitnessesThrough375 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough375, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough374_subset,
+    recordPrimeWitnessBlock375_subset⟩
+
+def recordPrimeWitnessesThrough376 : Finset Nat :=
+  recordPrimeWitnessesThrough375 ∪ recordPrimeWitnessBlock376
+
+private theorem recordPrimeWitnessesThrough375_disjoint_block376 :
+    Disjoint recordPrimeWitnessesThrough375 recordPrimeWitnessBlock376 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 447217 :=
+    recordPrimeWitnessesThrough375_upper hpPrevious
+  have hpLower : 447221 ≤ p := recordPrimeWitnessBlock376_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough376_card :
+    recordPrimeWitnessesThrough376.card = 37600 := by
+  rw [recordPrimeWitnessesThrough376,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough375_disjoint_block376,
+    recordPrimeWitnessesThrough375_card,
+    recordPrimeWitnessBlock376_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough376_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough376) : p ≤ 448667 := by
+  rw [recordPrimeWitnessesThrough376, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough375_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock376_upper hpBlock
+
+theorem recordPrimeWitnessesThrough376_subset :
+    recordPrimeWitnessesThrough376 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough376, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough375_subset,
+    recordPrimeWitnessBlock376_subset⟩
+
+def recordPrimeWitnessesThrough377 : Finset Nat :=
+  recordPrimeWitnessesThrough376 ∪ recordPrimeWitnessBlock377
+
+private theorem recordPrimeWitnessesThrough376_disjoint_block377 :
+    Disjoint recordPrimeWitnessesThrough376 recordPrimeWitnessBlock377 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 448667 :=
+    recordPrimeWitnessesThrough376_upper hpPrevious
+  have hpLower : 448687 ≤ p := recordPrimeWitnessBlock377_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough377_card :
+    recordPrimeWitnessesThrough377.card = 37700 := by
+  rw [recordPrimeWitnessesThrough377,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough376_disjoint_block377,
+    recordPrimeWitnessesThrough376_card,
+    recordPrimeWitnessBlock377_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough377_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough377) : p ≤ 449941 := by
+  rw [recordPrimeWitnessesThrough377, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough376_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock377_upper hpBlock
+
+theorem recordPrimeWitnessesThrough377_subset :
+    recordPrimeWitnessesThrough377 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough377, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough376_subset,
+    recordPrimeWitnessBlock377_subset⟩
+
+def recordPrimeWitnessesThrough378 : Finset Nat :=
+  recordPrimeWitnessesThrough377 ∪ recordPrimeWitnessBlock378
+
+private theorem recordPrimeWitnessesThrough377_disjoint_block378 :
+    Disjoint recordPrimeWitnessesThrough377 recordPrimeWitnessBlock378 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 449941 :=
+    recordPrimeWitnessesThrough377_upper hpPrevious
+  have hpLower : 449951 ≤ p := recordPrimeWitnessBlock378_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough378_card :
+    recordPrimeWitnessesThrough378.card = 37800 := by
+  rw [recordPrimeWitnessesThrough378,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough377_disjoint_block378,
+    recordPrimeWitnessesThrough377_card,
+    recordPrimeWitnessBlock378_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough378_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough378) : p ≤ 451039 := by
+  rw [recordPrimeWitnessesThrough378, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough377_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock378_upper hpBlock
+
+theorem recordPrimeWitnessesThrough378_subset :
+    recordPrimeWitnessesThrough378 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough378, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough377_subset,
+    recordPrimeWitnessBlock378_subset⟩
+
+def recordPrimeWitnessesThrough379 : Finset Nat :=
+  recordPrimeWitnessesThrough378 ∪ recordPrimeWitnessBlock379
+
+private theorem recordPrimeWitnessesThrough378_disjoint_block379 :
+    Disjoint recordPrimeWitnessesThrough378 recordPrimeWitnessBlock379 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 451039 :=
+    recordPrimeWitnessesThrough378_upper hpPrevious
+  have hpLower : 451051 ≤ p := recordPrimeWitnessBlock379_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough379_card :
+    recordPrimeWitnessesThrough379.card = 37900 := by
+  rw [recordPrimeWitnessesThrough379,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough378_disjoint_block379,
+    recordPrimeWitnessesThrough378_card,
+    recordPrimeWitnessBlock379_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough379_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough379) : p ≤ 452393 := by
+  rw [recordPrimeWitnessesThrough379, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough378_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock379_upper hpBlock
+
+theorem recordPrimeWitnessesThrough379_subset :
+    recordPrimeWitnessesThrough379 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough379, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough378_subset,
+    recordPrimeWitnessBlock379_subset⟩
+
+def recordPrimeWitnessesThrough380 : Finset Nat :=
+  recordPrimeWitnessesThrough379 ∪ recordPrimeWitnessBlock380
+
+private theorem recordPrimeWitnessesThrough379_disjoint_block380 :
+    Disjoint recordPrimeWitnessesThrough379 recordPrimeWitnessBlock380 := by
+  rw [Finset.disjoint_left]
+  intro p hpPrevious hpBlock
+  have hpUpper : p ≤ 452393 :=
+    recordPrimeWitnessesThrough379_upper hpPrevious
+  have hpLower : 452401 ≤ p := recordPrimeWitnessBlock380_lower hpBlock
+  omega
+
+set_option maxHeartbeats 0 in
+-- Exact cardinality assembly for the cumulative generated witness set.
+theorem recordPrimeWitnessesThrough380_card :
+    recordPrimeWitnessesThrough380.card = 38000 := by
+  rw [recordPrimeWitnessesThrough380,
+    Finset.card_union_of_disjoint
+      recordPrimeWitnessesThrough379_disjoint_block380,
+    recordPrimeWitnessesThrough379_card,
+    recordPrimeWitnessBlock380_card]
+  norm_num
+
+theorem recordPrimeWitnessesThrough380_upper {p : Nat}
+    (hp : p ∈ recordPrimeWitnessesThrough380) : p ≤ 453889 := by
+  rw [recordPrimeWitnessesThrough380, Finset.mem_union] at hp
+  rcases hp with hpPrevious | hpBlock
+  · exact (recordPrimeWitnessesThrough379_upper hpPrevious).trans (by norm_num)
+  · exact recordPrimeWitnessBlock380_upper hpBlock
+
+theorem recordPrimeWitnessesThrough380_subset :
+    recordPrimeWitnessesThrough380 ⊆ Nat.primesBelow 500001 := by
+  rw [recordPrimeWitnessesThrough380, Finset.union_subset_iff]
+  exact ⟨recordPrimeWitnessesThrough379_subset,
+    recordPrimeWitnessBlock380_subset⟩
+
+def recordPrimeWitnesses : Finset Nat :=
+  recordPrimeWitnessesThrough380
+
+theorem recordPrimeWitnesses_card : recordPrimeWitnesses.card = 38000 := by
+  exact recordPrimeWitnessesThrough380_card
+
+theorem recordPrimeWitnesses_subset :
+    recordPrimeWitnesses ⊆ Nat.primesBelow 500001 := by
+  exact recordPrimeWitnessesThrough380_subset
+
+end PrimeFactorUnimodality

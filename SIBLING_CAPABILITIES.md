@@ -36,7 +36,7 @@ complete headline theorem does not make every internal module portable.
 | Repository | Reviewed commit | Toolchain | Headline status | Reuse posture |
 | --- | --- | --- | --- | --- |
 | [Robin1984](https://github.com/kimihiro64/Robin1984) | `bfa72aec0c25c8ee29cefe4449d778ff30412bee` | Lean `v4.33.1` | Complete Robin equivalence; no RH proof claimed | Several proved analytic and finite modules; inspect transitive `PrimeNumberTheoremAnd` dependencies |
-| [PrimeNumberTheoremAnd fork](https://github.com/kimihiro64/PrimeNumberTheoremAnd) | `0f15a38c619298b5cd786d39a84dd4bb8997324c` | Lean `v4.33.1` | PNT development plus module-compatible analytic APIs | Use this reviewed fork when its added zero-shift or xi-divisor modules are required; pin the exact commit |
+| [PrimeNumberTheoremAnd fork](https://github.com/kimihiro64/PrimeNumberTheoremAnd) | `47fa48680663df41146704d02a5b092d792bd5b9` | Lean `v4.32.2` | PNT development plus module-compatible analytic APIs | Use individually proved leaves at this exact public commit after porting them to the child's newer toolchain |
 | [bombieri-vinogradov](https://github.com/kimihiro64/bombieri-vinogradov) | `7a1748306e026825ed6a5555516cc2f28989b2ac` | Lean `v4.33.1` | Complete Bombieri-Vinogradov theorem with released Comparator/NanoDa evidence | Headline theorem and proved analytic, sieve, and conversion layers are reusable at the exact release commit |
 | [WIPResearch](https://github.com/kimihiro64/WIPResearch) | `bdc46941c4f2e13fb84e0a338b905bb10e711357` | Lean `v4.33.1` | Exploratory CA-distribution and number-field Robin research; headline theorems remain open | Reuse only individually proved and audited leaves; inspect its local dependency boundary and namespace-coexistence warnings |
 
@@ -50,6 +50,7 @@ from or imported through another repository.
 | --- | --- | --- | --- |
 | Shifted zero-bound API needed by analytic consumers | `PrimeNumberTheoremAnd.StrongPNT.ShiftZeroBound` | Proved and used by Bombieri-Vinogradov | Public fork adaptation; inspect its exact imported StrongPNT surface |
 | Riemann-xi divisor-zero vocabulary | `PrimeNumberTheoremAnd.Mathlib.NumberTheory.LSeries.RiemannXiDivisorZeros` | Proved and used by Bombieri-Vinogradov | General analytic bridge maintained in the fork's Mathlib-style layer |
+| Elementary explicit Chebyshev bounds | `PrimeNumberTheoremAnd.IEANTN.Chebyshev`; `psi_lower`; `psi_upper` | Proved without the later finite `native_decide` certificate | Ported here at the reviewed commit as `VendorPrimeNumberTheoremAnd.ElementaryChebyshev`; do not import `psi_upper_clean`, whose small-range proof uses `native_decide` |
 
 The fork exists to expose APIs missing or unsuitable in the original PNT
 repository. Do not recreate those fixes in a new child or silently pin an older

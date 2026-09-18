@@ -26,6 +26,18 @@ def finiteDensity : List Nat → Nat → Rat
       (((p - 1 : Nat) : Rat) / (p : Rat)) * finiteDensity primes (r + 1) +
         (1 / (p : Rat)) * finiteDensity primes r
 
+@[simp] theorem finiteDensity_nil_zero : finiteDensity [] 0 = 1 := rfl
+
+@[simp] theorem finiteDensity_nil_succ (r : Nat) : finiteDensity [] (r + 1) = 0 := rfl
+
+theorem finiteDensity_singleton_zero (p : Nat) :
+    finiteDensity [p] 0 = (((p - 1 : Nat) : Rat) / (p : Rat)) := by
+  simp [finiteDensity]
+
+theorem finiteDensity_singleton_one (p : Nat) :
+    finiteDensity [p] 1 = 1 / (p : Rat) := by
+  simp [finiteDensity]
+
 /-- The finite formula for the density that the `k`-th smallest selected prime
 is `p`, given the ordered list of smaller primes. -/
 def prescribedFactorDensity (smallerPrimes : List Nat) (k p : Nat) : Rat :=

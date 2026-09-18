@@ -13,15 +13,20 @@ For each integer k at least 1 and prime p, let d_k(p) be the natural density of 
 
 ## Current status
 
-The repository defines Cambie's exact finite density recursion and proves the
-positive unimodality cases `k ≤ 3`. Exact generated certificates prove
-non-unimodality for every `4 ≤ k ≤ 20`; certified fixed-point weight sums,
-explicit prime gaps, and symmetric-sum bounds extend this to every
-`21 ≤ k ≤ 48`.
+The repository defines Cambie's exact finite density recursion, identifies it
+with natural density, and proves the positive unimodality cases `k ≤ 3`.
+Exact generated certificates prove non-unimodality for every `4 ≤ k ≤ 20`;
+certified fixed-point weight sums, explicit prime gaps, and symmetric-sum
+bounds extend this to every `21 ≤ k ≤ 48`.
 
-The bridge identifying the finite formula with natural density and the
-non-unimodality proof for every `k ≥ 49` remain open. In particular, this
-checkpoint does not yet prove the complete Erdős 690 classification.
+The current large-range development contains a closed composite-block
+certificate, generated kernel-replayable record-twin certificates, a finite
+prime-prefix/reciprocal-sum route through `k = 38,000`, and a uniform-tail
+reduction. The public all-`k` theorem is not yet unconditional: its remaining
+boundary consists of the generated certificates still being built and four
+explicit analytic prime-estimate interfaces. See [`TODO.md`](TODO.md) for the
+completion gates. This checkpoint therefore does not yet claim a complete
+formalization of Erdős 690.
 
 The release state is visible mechanically:
 

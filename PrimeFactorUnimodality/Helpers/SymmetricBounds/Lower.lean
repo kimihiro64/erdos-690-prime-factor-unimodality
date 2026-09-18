@@ -25,6 +25,18 @@ theorem weightSum_nonneg
       simp only [weightSum, List.map_cons, List.sum_cons]
       exact add_nonneg (le_of_lt (primeWeight_pos p hp)) (ih htail)
 
+theorem weightSum_pos_of_ne_nil
+    (entries : List Nat) (hentries : ∀ p ∈ entries, 1 < p)
+    (hne : entries ≠ []) :
+    0 < weightSum entries := by
+  cases entries with
+  | nil => exact (hne rfl).elim
+  | cons p entries =>
+      simp only [weightSum, List.map_cons, List.sum_cons]
+      exact add_pos_of_pos_of_nonneg
+        (primeWeight_pos p (hentries p (by simp)))
+        (weightSum_nonneg entries (fun q hq => hentries q (by simp [hq])))
+
 theorem weightEsymm_one (entries : List Nat) :
     weightEsymm entries 1 = weightSum entries := by
   induction entries with
