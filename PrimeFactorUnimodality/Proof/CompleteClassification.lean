@@ -226,6 +226,62 @@ theorem completeClassification_of_full_record_raised_cutoff_inputs
   exact completeClassification_of_full_record_short_interval_inputs
     primeCountingBounds thetaBounds shortInterval
 
+/-! Once a log-fourth theta estimate is proved at the selected cutoff, the
+source-level Abel argument and the interval argument discharge both
+unbounded inputs at that same cutoff.  This is the all-`k` assembly boundary:
+the remaining hypotheses are genuinely finite data below `X`, not an imported
+Dusart tail theorem. -/
+theorem completeClassification_of_logFourth_cutoff_inputs
+    {A C X : Real} (hX : (4e18 : Real) ≤ X)
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow X)
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow X)
+    (finiteShortInterval : HasLogCubedShortIntervalPrimeBelow X)
+    (hA0 : 0 ≤ A) (hA : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (thetaError : HasThetaLogFourthError A X) :
+    CompleteClassification := by
+  have hXpos : 0 < X := by linarith
+  have h2X : 2 ≤ X := by linarith
+  have hlogX : (42 : Real) ≤ Real.log X :=
+    forty_two_lt_log_four_e18.le.trans
+      (Real.log_le_log (by norm_num) hX)
+  have hlogXpos : 0 < Real.log X := by linarith
+  have hAlog : A / Real.log X ≤ 12167 / 500000 := by
+    apply (div_le_iff₀ hlogXpos).2
+    nlinarith
+  have thetaErrorCubic : HasThetaLogCubedError
+      (12167 / 500000 : Real) X := by
+    have converted := hasThetaLogCubedError_of_logFourthError
+      (by linarith) hA0 thetaError
+    intro x hx
+    exact (converted x hx).trans (by
+      have hx_pos : 0 < x := by linarith
+      have hlogx_pos : 0 < Real.log x := Real.log_pos (by linarith)
+      have hfactor : 0 ≤ x / (Real.log x) ^ 3 := by positivity
+      calc
+        (A / Real.log X) * x / (Real.log x) ^ 3 =
+            (A / Real.log X) * (x / (Real.log x) ^ 3) := by ring
+        _ ≤ (12167 / 500000 : Real) *
+              (x / (Real.log x) ^ 3) :=
+          mul_le_mul_of_nonneg_right hAlog hfactor
+        _ = (12167 / 500000 : Real) * x /
+              (Real.log x) ^ 3 := by ring)
+  have tailPrimeCounting : HasDusartRealPrimeCountingBoundsAbove X :=
+    hasDusartRealPrimeCountingBoundsAbove_of_core_and_theta_error
+      hXpos h2X le_rfl hA0 hA hC0 hC hlogX hcore thetaError
+  have tailShortInterval : ∀ x : Real, X ≤ x →
+      ∃ q : Nat, q.Prime ∧ x < q ∧
+        (q : Real) ≤ x + x / (Real.log x) ^ 3 := by
+    intro x hx
+    obtain ⟨q, hq, hxq, hupper⟩ :=
+      dusartPrimeInInterval_of_logFourthError_from
+        hXpos h2X (by linarith) hA0 hAlog thetaError x hx
+    exact ⟨q, hq, hxq, by convert hupper using 1 <;> ring⟩
+  exact completeClassification_of_full_record_raised_cutoff_inputs
+    hX finitePrimeCounting tailPrimeCounting finiteTheta thetaErrorCubic
+    finiteShortInterval tailShortInterval
+
 /-! The tail prime-counting obligation can equivalently be supplied in the
 published asymptotic form.  The adapter is proved in the analytic helper, so
 this theorem exposes the exact provider boundary without hiding a new axiom
