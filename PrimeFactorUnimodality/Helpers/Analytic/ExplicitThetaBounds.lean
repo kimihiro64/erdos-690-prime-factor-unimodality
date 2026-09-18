@@ -23,12 +23,12 @@ def HasDusartThetaBounds : Prop :=
       Chebyshev.theta x)
 
 /-! Published theta estimates are often supplied as a symmetric error bound.
-This interface records exactly the two error scales needed below and the
-adapter separates that analytic presentation from the asymmetric inequalities
-used by the primorial arguments. -/
+The small-`x` upper estimate is one-sided: a symmetric absolute estimate there
+would be false (for example, `theta 1 = 0`).  The second component is the
+symmetric estimate on the range where the published lower bound starts. -/
 def HasDusartSymmetricThetaBounds : Prop :=
   (∀ x : Real, 0 < x →
-    |Chebyshev.theta x - x| < x / 36260) ∧
+    Chebyshev.theta x - x < x / 36260) ∧
   (∀ x : Real, 2 < x →
     |Chebyshev.theta x - x| <
       (12323 / 10000 : Real) * x / Real.log x)
@@ -38,7 +38,7 @@ the explicit provider because the logarithm-cubed error theorem handles the
 unbounded tail, while the remaining interval is a bounded numerical check. -/
 def HasDusartSymmetricThetaBoundsBelow (X : Real) : Prop :=
   (∀ x : Real, 0 < x → x ≤ X →
-    |Chebyshev.theta x - x| < x / 36260) ∧
+    Chebyshev.theta x - x < x / 36260) ∧
   (∀ x : Real, 2 < x → x ≤ X →
     |Chebyshev.theta x - x| <
       (12323 / 10000 : Real) * x / Real.log x)
@@ -64,7 +64,8 @@ theorem hasDusartSymmetricThetaBounds_of_below_and_logCubed_from
           (12167 / 500000 : Real) * x / (Real.log x) ^ 3 < x / 36260 := by
         rw [div_lt_div_iff₀ (by positivity) (by positivity)]
         nlinarith
-      exact htail.trans_lt hratio
+      exact (le_abs_self (Chebyshev.theta x - x)).trans_lt
+        (htail.trans_lt hratio)
   · intro x hx
     by_cases hsmall : x ≤ X
     · exact finite.2 x hx hsmall
@@ -481,7 +482,6 @@ theorem hasDusartThetaBounds_of_symmetric
   constructor
   · intro x hx
     have h := bounds.1 x hx
-    rw [abs_lt] at h
     nlinarith
   · intro x hx
     have log_pos : 0 < Real.log x :=
