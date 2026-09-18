@@ -164,6 +164,15 @@ theorem hasLogCubedShortIntervalPrime_of_rows_at_large_cutoff
   hasLogCubedShortIntervalPrime_of_bounded_rows_and_large_x
     (4e18 : Real) le_rfl cover thetaError
 
+/-! The same finite/tail proof in the interval form used in the paper. -/
+theorem hasDusartShortIntervalPrime_of_rows_at_large_cutoff
+    {rows : List LogCubedPrimeRow}
+    (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    HasDusartShortIntervalPrime := by
+  exact hasDusartShortIntervalPrime_of_logCubed
+    (hasLogCubedShortIntervalPrime_of_rows_at_large_cutoff cover thetaError)
+
 end
 
 end PrimeFactorUnimodality
