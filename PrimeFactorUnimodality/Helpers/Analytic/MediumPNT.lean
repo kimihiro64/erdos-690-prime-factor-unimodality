@@ -162,8 +162,8 @@ theorem exists_hasDusartPublishedPrimeCountingBoundsAbove_of_mediumPNT_and_core
     (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4) :
     ∃ Y : Real, X ≤ Y ∧
       HasDusartPublishedPrimeCountingBoundsAbove Y := by
-  obtain ⟨Y, hXY, hpsi⟩ :=
-    exists_hasPsiLogFourthError_of_mediumPNT_above X
+  obtain ⟨Y, hXY, h4Y, htheta⟩ :=
+    exists_hasThetaLogFourthError_of_mediumPNT_above X
   have hXpos : 0 < X := by linarith
   have hYpos : 0 < Y := lt_of_lt_of_le hXpos hXY
   have hlogX : (42 : Real) ≤ Real.log X :=
@@ -175,8 +175,6 @@ theorem exists_hasDusartPublishedPrimeCountingBoundsAbove_of_mediumPNT_and_core
     exact hlogX.trans (Real.log_le_log hXpos hXY)
   have hcoreY : |primeCountingCore X| ≤ C * Y / Real.log Y ^ 4 :=
     primeCountingCore_scale_le hX1 hXY (by linarith [hlogX]) hC0 hcore
-  have htheta : HasThetaLogFourthError (648 / 1000 : Real) Y :=
-    hasThetaLogFourthError_of_psiLogFourthError_sharp (hX.trans hXY) hpsi
   have hAsym : HasDusartPrimeCountingAsymptoticAbove Y :=
     hasDusartPrimeCountingAsymptoticAbove_of_core_and_theta_error
       hYpos (by linarith [hlogY]) (by norm_num) (by norm_num)
