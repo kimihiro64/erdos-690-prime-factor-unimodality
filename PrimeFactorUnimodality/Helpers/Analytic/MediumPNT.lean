@@ -84,5 +84,17 @@ theorem exists_hasPsiLogFourthError_of_mediumPNT_at_large_cutoff :
   intro x hx
   exact hY x (hYX.trans hx)
 
+/-! The prime-power correction is also available at the same eventual cutoff.
+This records the theta estimate supplied by the source-level PNT without
+turning the fixed finite Dusart verification into an assumption. -/
+theorem exists_hasThetaLogFourthError_of_mediumPNT_at_large_cutoff :
+    ∃ X : Real, (4e18 : Real) ≤ X ∧
+      (100 : Real) ≤ Real.log X ∧
+      HasThetaLogFourthError (648 / 1000 : Real) X := by
+  obtain ⟨X, hX, hlogX, hpsi⟩ :=
+    exists_hasPsiLogFourthError_of_mediumPNT_at_large_cutoff
+  refine ⟨X, hX, hlogX, ?_⟩
+  exact hasThetaLogFourthError_of_psiLogFourthError_sharp hX hpsi
+
 end
 end PrimeFactorUnimodality
