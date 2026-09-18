@@ -383,6 +383,34 @@ theorem integral_inv_log_pow_succ_le
   integral_inv_log_pow_succ_le_of_next_bound ha hab
     (integral_inv_log_pow_next_bound ha hab) hcoef
 
+theorem abs_integral_inv_log_pow_succ_le
+    {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b)
+    (hcoef : (n + 1 : Real) < Real.log a) :
+    |∫ t in a..b, 1 / Real.log t ^ (n + 1)| ≤
+      (b / Real.log b ^ (n + 1)) /
+        (1 - (n + 1 : Real) / Real.log a) := by
+  have hfi : IntervalIntegrable
+      (fun t : Real => 1 / Real.log t ^ (n + 1))
+      MeasureTheory.volume a b := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le hab]
+    apply ContinuousOn.div continuousOn_const
+    · exact (Real.continuousOn_log.mono fun y hy =>
+        ne_of_gt (by linarith [hy.1])).pow _
+    · intro y hy
+      exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by linarith [hy.1])))
+  have hnonneg : ∀ t ∈ Set.Icc a b,
+      0 ≤ 1 / Real.log t ^ (n + 1) := by
+    intro t ht
+    have hlog : 0 < Real.log t := Real.log_pos (lt_of_lt_of_le ha ht.1)
+    exact one_div_nonneg.mpr (le_of_lt (pow_pos hlog _))
+  have hpos : 0 ≤ ∫ t in a..b, 1 / Real.log t ^ (n + 1) := by
+    have hzero : IntervalIntegrable (fun _ : Real => (0 : Real))
+        MeasureTheory.volume a b := intervalIntegrable_const
+    simpa using intervalIntegral.integral_mono_on hab hzero hfi hnonneg
+  rw [abs_of_nonneg hpos]
+  exact integral_inv_log_pow_succ_le ha hab hcoef
+
 theorem theta_remainder_integral_tail_le_of_logFourthError
     {A X x : Real} (hX : 1 < X) (hA : 0 ≤ A)
     (error : HasThetaLogFourthError A X) (hax : X ≤ x)
