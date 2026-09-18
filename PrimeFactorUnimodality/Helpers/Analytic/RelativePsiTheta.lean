@@ -145,6 +145,27 @@ theorem hasPsiLogFourthError_of_pointwise_relative_bound
     _ ≤ (A / (Real.log x) ^ 4) * x := hδmul
     _ = A * x / (Real.log x) ^ 4 := by ring
 
+/-! The normalized form matches the usual notation
+  `Eψ x = |ψ x - x| / x` used in explicit-formula developments. -/
+theorem hasPsiLogFourthError_of_normalized_bound
+    {A X : Real}
+    (hXpos : 0 < X)
+    (hE : ∀ x : Real, X ≤ x →
+      |Chebyshev.psi x - x| / x ≤ A / (Real.log x) ^ 4) :
+    HasPsiLogFourthError A X := by
+  refine hasPsiLogFourthError_of_pointwise_relative_bound
+    (δ := fun x : Real => |Chebyshev.psi x - x| / x) hXpos ?_ ?_
+  · intro x hx
+    exact hE x hx
+  · intro x hx
+    have hx_pos : 0 < x := lt_of_lt_of_le hXpos hx
+    calc
+      |Chebyshev.psi x - x| ≤
+          (|Chebyshev.psi x - x| / x) * x := by
+            field_simp [ne_of_gt hx_pos]
+            exact le_rfl
+      _ = (fun y : Real => |Chebyshev.psi y - y| / y) x * x := rfl
+
 theorem theta_upper_of_psi_relative_error
     {x ε : Real}
     (hpsi : |Chebyshev.psi x - x| ≤ ε * x) :
