@@ -970,6 +970,89 @@ theorem primeCountingCore_abs_le_of_two_le {X : Real}
   have hfixed := primeCountingCore_fixed_term_le
   nlinarith
 
+theorem primeCountingCore_abs_le_of_finite_theta_error
+    {A X : Real} (hX : (2 : Real) ≤ X) (hA : 0 ≤ A)
+    (error : HasThetaLogFourthErrorBelow A X) :
+    |primeCountingCore X| ≤
+      4000 + 720 * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) +
+      A * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 6) := by
+  have htheta : IntervalIntegrable
+      (fun t : Real => Chebyshev.theta t /
+        (t * (Real.log t) ^ 2))
+      MeasureTheory.volume 2 X := by
+    rw [intervalIntegrable_iff_integrableOn_Ioc_of_le hX]
+    exact (Chebyshev.integrableOn_theta_div_id_mul_log_sq X).mono_set
+      (by intro t ht; exact ⟨by linarith [ht.1], ht.2⟩)
+  have hbase : IntervalIntegrable
+      (fun t : Real => 1 / (Real.log t) ^ 2)
+      MeasureTheory.volume 2 X := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le hX]
+    apply ContinuousOn.div continuousOn_const
+    · exact (Real.continuousOn_log.mono fun t ht =>
+        ne_of_gt (Real.log_pos (by linarith [ht.1]))).pow _
+    · intro t ht
+      exact pow_ne_zero _
+        (ne_of_gt (Real.log_pos (by linarith [ht.1])))
+  let r : Real → Real := fun t =>
+    Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+      1 / (Real.log t) ^ 2
+  have hr : IntervalIntegrable r MeasureTheory.volume 2 X := by
+    simpa [r] using htheta.sub hbase
+  have hmajor : IntervalIntegrable
+      (fun t : Real => A / (Real.log t) ^ 6)
+      MeasureTheory.volume 2 X := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le hX]
+    apply ContinuousOn.div continuousOn_const
+    · exact (Real.continuousOn_log.mono fun t ht =>
+        ne_of_gt (Real.log_pos (by linarith [ht.1]))).pow _
+    · intro t ht
+      exact pow_ne_zero _
+        (ne_of_gt (Real.log_pos (by linarith [ht.1])))
+  have hmajor_bound : ∀ t ∈ Set.Icc (2 : Real) X,
+      |r t| ≤ A / (Real.log t) ^ 6 := by
+    intro t ht
+    have htpos : 0 < t := by linarith [ht.1]
+    have hlogpos : 0 < Real.log t := Real.log_pos (by linarith [ht.1])
+    have herr := error t ht.1 ht.2
+    have hrewrite :
+        Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+            1 / (Real.log t) ^ 2 =
+          (Chebyshev.theta t - t) /
+            (t * (Real.log t) ^ 2) := by
+      field_simp [ne_of_gt htpos, ne_of_gt hlogpos]
+    rw [show r t = (Chebyshev.theta t - t) /
+      (t * (Real.log t) ^ 2) by exact hrewrite, abs_div]
+    have hden : 0 ≤ t * (Real.log t) ^ 2 := by positivity
+    rw [abs_of_nonneg hden]
+    calc
+      |Chebyshev.theta t - t| / (t * (Real.log t) ^ 2) ≤
+          (A * t / (Real.log t) ^ 4) /
+            (t * (Real.log t) ^ 2) :=
+        div_le_div_of_nonneg_right herr hden
+      _ = A / (Real.log t) ^ 6 := by
+        field_simp [ne_of_gt htpos, ne_of_gt hlogpos]
+  have hnorm := intervalIntegral.norm_integral_le_integral_norm
+    (μ := MeasureTheory.volume) (f := r) hX
+  have hmono := intervalIntegral.integral_mono_on hX hr.norm hmajor hmajor_bound
+  have hrem :
+      |∫ t in (2 : Real)..X,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)| ≤
+        A * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 6) := by
+    calc
+      |∫ t in (2 : Real)..X, r t| ≤
+          ∫ t in (2 : Real)..X, |r t| := hnorm
+      _ ≤ ∫ t in (2 : Real)..X, A / (Real.log t) ^ 6 := hmono
+      _ = A * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 6) := by
+        rw [show (fun t : Real => A / (Real.log t) ^ 6) =
+          (fun t : Real => A * (1 / (Real.log t) ^ 6)) by
+            funext t; ring]
+        rw [intervalIntegral.integral_const_mul]
+  have hdecomp := primeCountingCore_abs_le_of_two_le hX
+  nlinarith
+
 theorem primeCountingCore_scale_le
     {C X x : Real} (hX : 1 < X) (hXx : X ≤ x)
     (hlogX : (4 : Real) < Real.log X) (hC : 0 ≤ C)
