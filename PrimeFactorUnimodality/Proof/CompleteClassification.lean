@@ -212,6 +212,22 @@ theorem completeClassification_of_wangCrapis_analytic_inputs
     inputs.finitePrimeCounting inputs.publishedPrimeCounting
     inputs.thetaBounds inputs.shortInterval
 
+/-! The direct paper-facing boundary.  Wang--Crapis state the tail argument
+using the prime-counting, Chebyshev-theta, and short-interval estimates
+themselves.  This theorem keeps those three statements visible and uses only
+the proved structural assembly below them. -/
+structure WangCrapisPaperInputs : Prop where
+  primeCounting : HasDusartPrimeCountingBounds
+  thetaBounds : HasDusartThetaBounds
+  shortInterval : HasDusartShortIntervalPrime
+
+theorem completeClassification_of_wangCrapis_paper_inputs
+    (inputs : WangCrapisPaperInputs) :
+    CompleteClassification := by
+  exact completeClassification_of_full_record_inputs
+    inputs.primeCounting inputs.thetaBounds
+    (hasUniformTailPrimePair_of_shortInterval inputs.shortInterval)
+
 end
 
 end PrimeFactorUnimodality

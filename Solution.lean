@@ -21,3 +21,11 @@ theorem PrimeFactorUnimodality.completeClassification_of_wangCrapis_inputs
     PrimeFactorUnimodality.CompleteClassification := by
   exact PrimeFactorUnimodality.completeClassification_of_wangCrapis_analytic_inputs
     inputs
+
+/-! The exact three analytic inputs used in the Wang--Crapis paper are also
+available directly, without translating through a stronger derived package. -/
+theorem PrimeFactorUnimodality.completeClassification_of_wangCrapis_paper_inputs
+    (inputs : PrimeFactorUnimodality.WangCrapisPaperInputs) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_wangCrapis_paper_inputs
+    inputs
