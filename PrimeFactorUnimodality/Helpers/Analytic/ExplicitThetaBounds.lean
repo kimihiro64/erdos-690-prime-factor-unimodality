@@ -270,6 +270,43 @@ theorem dusartPrimeInInterval_of_psiLogCubedError_from
   exact dusartPrimeInInterval_of_thetaLogCubedError_from
     hXpos h2X hlogX thetaError
 
+theorem dusartPrimeInInterval_of_psiLogFourthError_sharp
+    {A X : Real} (hXpos : 0 < X) (h2X : 2 ≤ X)
+    (hlogX : (10 : Real) < Real.log X)
+    (hXcutoff : (4e18 : Real) ≤ X)
+    (hA_nonneg : 0 ≤ A)
+    (hA_log : (A + 148 / 1000) / Real.log X ≤ 12167 / 500000)
+    (psiError : HasPsiLogFourthError A X) :
+    ∀ x : Real, X ≤ x →
+      ∃ q : Nat, q.Prime ∧ x < q ∧
+        (q : Real) ≤ x * (1 + 1 / (Real.log x) ^ 3) := by
+  have thetaError : HasThetaLogCubedError
+      (12167 / 500000 : Real) X := by
+    have htheta := hasThetaLogCubedError_of_psiLogFourthError_sharp
+      hXcutoff hA_nonneg psiError
+    intro x hx
+    have hx_pos : 0 < x := by linarith
+    have hlogx_pos : 0 < Real.log x := Real.log_pos (by linarith)
+    have hfactor : 0 ≤ x / (Real.log x) ^ 3 := by
+      exact div_nonneg hx_pos.le (pow_pos hlogx_pos 3).le
+    calc
+      |Chebyshev.theta x - x| ≤
+          ((A + 148 / 1000) / Real.log X) * x /
+            (Real.log x) ^ 3 := htheta x hx
+      _ ≤ (12167 / 500000 : Real) * x / (Real.log x) ^ 3 := by
+        calc
+          ((A + 148 / 1000) / Real.log X) * x /
+              (Real.log x) ^ 3 =
+              ((A + 148 / 1000) / Real.log X) *
+                (x / (Real.log x) ^ 3) := by ring
+          _ ≤ (12167 / 500000 : Real) *
+                (x / (Real.log x) ^ 3) :=
+            mul_le_mul_of_nonneg_right hA_log hfactor
+          _ = (12167 / 500000 : Real) * x /
+                (Real.log x) ^ 3 := by ring
+  exact dusartPrimeInInterval_of_thetaLogCubedError_from
+    hXpos h2X hlogX thetaError
+
 /-! The unbounded part of Dusart's theta estimate is a theorem, not an
 assumption: once the explicit logarithm-cubed error estimate is proved, the
 two published theta inequalities follow by elementary real arithmetic. -/
