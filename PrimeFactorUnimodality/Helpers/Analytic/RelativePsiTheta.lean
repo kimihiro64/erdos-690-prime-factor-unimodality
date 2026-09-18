@@ -203,6 +203,21 @@ theorem psi_root_bound_elementary :
   intro y hy
   exact Chebyshev.psi_le_const_mul_self hy
 
+/-! A lower prime-power correction used in Dusart's theta estimates.  This is
+  obtained directly from Mathlib's Costa--Pereira decomposition of `psi`; no
+  explicit Dusart estimate is involved. -/
+theorem psi_sub_theta_ge_theta_sqrt {x : Real} (hx : 2 ≤ x) :
+    Chebyshev.theta (x ^ (1 / 2 : Real)) ≤
+      Chebyshev.psi x - Chebyshev.theta x := by
+  have hdecomp := Chebyshev.psi_sub_theta_ge_psi_add_psi_add_psi
+    (x := x) (by linarith)
+  have hroot := Chebyshev.theta_le_psi (x ^ (1 / 2 : Real))
+  have hroot' : Chebyshev.theta (x ^ (1 / 2 : Real)) ≤
+      Chebyshev.psi (x ^ (2 : Real)⁻¹) := by
+    simpa [one_div] using hroot
+  linarith [Chebyshev.psi_nonneg (x ^ (3 : Real)⁻¹),
+    Chebyshev.psi_nonneg (x ^ (7 : Real)⁻¹)]
+
 /-! The pointwise form is the one needed for a decaying explicit error: use
   the logarithm of the current argument rather than freezing the error at a
   cutoff. -/
