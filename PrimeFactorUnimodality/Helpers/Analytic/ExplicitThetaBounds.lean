@@ -61,6 +61,7 @@ theorem hasDusartSymmetricThetaBounds_of_below_and_logCubed
         rw [div_lt_div_iff₀ (by positivity) (by positivity)]
         nlinarith
       exact htail.trans_lt hratio
+
   · intro x hx
     by_cases hsmall : x ≤ (4e18 : Real)
     · exact finite.2 x hx hsmall
@@ -86,6 +87,57 @@ theorem hasDusartSymmetricThetaBounds_of_below_and_logCubed
                 (x * Real.log x) := mul_lt_mul_of_pos_right hcoef hpos
           _ = (12323 / 10000 : Real) * x * (Real.log x) ^ 3 := by ring
       exact htail.trans_lt hratio
+
+/-! The unbounded part of Dusart's theta estimate is a theorem, not an
+assumption: once the explicit logarithm-cubed error estimate is proved, the
+two published theta inequalities follow by elementary real arithmetic. -/
+theorem dusartThetaBounds_of_logCubedError_tail
+    (thetaError : HasThetaLogCubedError
+      (12167 / 500000 : Real) (4e18 : Real)) :
+    ∀ x : Real, (4e18 : Real) ≤ x →
+      x * (1 - (12323 / 10000 : Real) / Real.log x) <
+        Chebyshev.theta x ∧
+      Chebyshev.theta x < x * (1 + 1 / 36260) := by
+  intro x hx
+  have hx_pos : 0 < x := by linarith
+  have hlog := log_large_x_gt_ten hx
+  have hlog_pos : 0 < Real.log x := by linarith
+  have htail := thetaError x hx
+  have hlog_sq : (100 : Real) < (Real.log x) ^ 2 := by
+    nlinarith [mul_self_lt_mul_self (by norm_num : (0 : Real) ≤ 10) hlog]
+  have hlog_cube : (1000 : Real) < (Real.log x) ^ 3 := by
+    have hmul := mul_lt_mul_of_pos_right hlog_sq hlog_pos
+    nlinarith
+  have hupper :
+      (12167 / 500000 : Real) * x / (Real.log x) ^ 3 < x / 36260 := by
+    rw [div_lt_div_iff₀ (by positivity) (by positivity)]
+    nlinarith
+  have hlower :
+      (12167 / 500000 : Real) * x / (Real.log x) ^ 3 <
+        (12323 / 10000 : Real) * x / Real.log x := by
+    rw [div_lt_div_iff₀ (by positivity) hlog_pos]
+    have hcoef : (12167 / 500000 : Real) <
+        (12323 / 10000 : Real) * (Real.log x) ^ 2 := by
+      nlinarith
+    have hpos : 0 < x * Real.log x := mul_pos hx_pos hlog_pos
+    calc
+      (12167 / 500000 : Real) * x * Real.log x =
+          (12167 / 500000 : Real) * (x * Real.log x) := by ring
+      _ < ((12323 / 10000 : Real) * (Real.log x) ^ 2) *
+          (x * Real.log x) := mul_lt_mul_of_pos_right hcoef hpos
+      _ = (12323 / 10000 : Real) * x * (Real.log x) ^ 3 := by ring
+  constructor
+  · have habs := neg_abs_le (Chebyshev.theta x - x)
+    have hlow := htail.trans_lt hlower
+    have htarget :
+        x * (1 - (12323 / 10000 : Real) / Real.log x) =
+      x - (12323 / 10000 : Real) * x / Real.log x := by
+      field_simp [hlog_pos.ne']
+    rw [htarget]
+    linarith
+  · have habs := le_abs_self (Chebyshev.theta x - x)
+    have hupp := htail.trans_lt hupper
+    linarith
 
 theorem hasDusartThetaBounds_of_symmetric
     (bounds : HasDusartSymmetricThetaBounds) :
