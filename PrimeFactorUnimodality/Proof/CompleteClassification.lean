@@ -162,6 +162,24 @@ theorem completeClassification_of_full_record_asymptotic_tail_inputs
       finitePrimeCounting asymptotic)
     finiteTheta cover thetaError
 
+/-! The same assembly can consume the denominator-form estimates stated in
+the Wang--Crapis paper directly.  The conversion to the comparison functions
+used by the tail is proved in `ExplicitPrimeCounting`; it is not an
+additional analytic hypothesis. -/
+theorem completeClassification_of_full_record_published_prime_counting_inputs
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
+    (published : HasDusartPublishedPrimeCountingBounds)
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
+    {rows : List LogCubedPrimeRow}
+    (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    CompleteClassification := by
+  exact completeClassification_of_full_record_rows_and_finite_theta
+    (hasDusartRealPrimeCountingBounds_of_below_and_above
+      finitePrimeCounting
+      (hasDusartRealPrimeCountingBoundsAbove_of_published published))
+    finiteTheta cover thetaError
+
 end
 
 end PrimeFactorUnimodality

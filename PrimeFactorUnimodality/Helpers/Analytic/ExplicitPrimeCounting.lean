@@ -51,6 +51,59 @@ def HasDusartRealPrimeCountingBoundsAbove (X : Real) : Prop :=
   (∀ x : Real, X ≤ x →
     (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x)
 
+/-! The prime-counting estimates are recorded in the paper in the simpler
+denominator form below.  Keep that published interface separate from the
+stronger comparison functions consumed by the tail proof; the conversion is
+elementary and therefore belongs in the formalization rather than being
+silently folded into an analytic assumption. -/
+def HasDusartPublishedPrimeCountingBounds : Prop :=
+  (∀ x : Real, (5393 : Real) < x →
+    x / (Real.log x - 1) ≤ (Nat.primeCounting ⌊x⌋₊ : Real)) ∧
+  (∀ x : Real, (60184 : Real) < x →
+    (Nat.primeCounting ⌊x⌋₊ : Real) ≤ x / (Real.log x - (11 / 10 : Real)))
+
+theorem hasDusartRealPrimeCountingBoundsAbove_of_published
+    (published : HasDusartPublishedPrimeCountingBounds) :
+    HasDusartRealPrimeCountingBoundsAbove (4e18 : Real) := by
+  constructor
+  · intro x hx
+    have hx5393 : (5393 : Real) < x := by
+      norm_num at hx ⊢
+      linarith
+    have hpublished := published.1 x hx5393
+    have hlog := log_large_x_gt_ten hx
+    have hlog_pos : 0 < Real.log x := by linarith
+    have hx_pos : 0 < x := by linarith
+    have hcomparison : dusartPiLower x ≤ x / (Real.log x - 1) := by
+      dsimp [dusartPiLower]
+      have hden : 0 < Real.log x - 1 := by linarith
+      have hrewrite :
+          x / Real.log x * (1 + 1 / Real.log x) =
+            x * (Real.log x + 1) / (Real.log x) ^ 2 := by
+        field_simp [ne_of_gt hlog_pos]
+      rw [hrewrite]
+      apply (div_le_div_iff₀ (sq_pos_of_pos hlog_pos) hden).2
+      nlinarith [sq_nonneg (Real.log x - 1)]
+    exact hcomparison.trans hpublished
+  · intro x hx
+    have hx60184 : (60184 : Real) < x := by
+      norm_num at hx ⊢
+      linarith
+    have hpublished := published.2 x hx60184
+    have hlog := log_large_x_gt_ten hx
+    have hlog_pos : 0 < Real.log x := by linarith
+    have hx_pos : 0 < x := by linarith
+    have hcomparison : x / (Real.log x - (11 / 10 : Real)) ≤ dusartPiUpper x := by
+      dsimp [dusartPiUpper]
+      have hden : 0 < Real.log x - (11 / 10 : Real) := by linarith
+      have hrewrite :
+          x / (Real.log x - (11 / 10 : Real)) ≤
+            x * (Real.log x + (6381 / 5000 : Real)) / (Real.log x) ^ 2 := by
+        apply (div_le_div_iff₀ hden (sq_pos_of_pos hlog_pos)).2
+        nlinarith [sq_nonneg (Real.log x - 1)]
+      convert hrewrite using 1 <;> field_simp <;> ring
+    exact hpublished.trans hcomparison
+
 /-! A provider form matching Dusart's explicit asymptotic formula.  The
 reduction below is deliberately arithmetic: once the asymptotic remainder is
 kernel-checked, it supplies the two comparison bounds used by the tail. -/
