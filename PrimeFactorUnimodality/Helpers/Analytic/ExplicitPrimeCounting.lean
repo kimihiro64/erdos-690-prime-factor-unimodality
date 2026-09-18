@@ -907,6 +907,45 @@ theorem primeCountingCore_abs_le (X : Real) :
       norm_num
       ring
 
+theorem primeCountingCore_fixed_term_le :
+    1 / Real.log 2 ^ 2 + 2 / Real.log 2 ^ 3 +
+        6 / Real.log 2 ^ 4 + 24 / Real.log 2 ^ 5 +
+        120 / Real.log 2 ^ 6 ≤ (2000 : Real) := by
+  have hlog : (69 : Real) / 100 < Real.log 2 := by
+    exact (by norm_num : (69 : Real) / 100 < 0.6931471803).trans
+      Real.log_two_gt_d9
+  have hp2 : ((69 : Real) / 100) ^ 2 ≤ (Real.log 2) ^ 2 :=
+    pow_le_pow_left₀ (by norm_num) hlog.le 2
+  have hp3 : ((69 : Real) / 100) ^ 3 ≤ (Real.log 2) ^ 3 :=
+    pow_le_pow_left₀ (by norm_num) hlog.le 3
+  have hp4 : ((69 : Real) / 100) ^ 4 ≤ (Real.log 2) ^ 4 :=
+    pow_le_pow_left₀ (by norm_num) hlog.le 4
+  have hp5 : ((69 : Real) / 100) ^ 5 ≤ (Real.log 2) ^ 5 :=
+    pow_le_pow_left₀ (by norm_num) hlog.le 5
+  have hp6 : ((69 : Real) / 100) ^ 6 ≤ (Real.log 2) ^ 6 :=
+    pow_le_pow_left₀ (by norm_num) hlog.le 6
+  have hi2 : 1 / (Real.log 2) ^ 2 ≤ 1 / ((69 : Real) / 100) ^ 2 :=
+    one_div_le_one_div_of_le (by positivity) hp2
+  have hi3 : 1 / (Real.log 2) ^ 3 ≤ 1 / ((69 : Real) / 100) ^ 3 :=
+    one_div_le_one_div_of_le (by positivity) hp3
+  have hi4 : 1 / (Real.log 2) ^ 4 ≤ 1 / ((69 : Real) / 100) ^ 4 :=
+    one_div_le_one_div_of_le (by positivity) hp4
+  have hi5 : 1 / (Real.log 2) ^ 5 ≤ 1 / ((69 : Real) / 100) ^ 5 :=
+    one_div_le_one_div_of_le (by positivity) hp5
+  have hi6 : 1 / (Real.log 2) ^ 6 ≤ 1 / ((69 : Real) / 100) ^ 6 :=
+    one_div_le_one_div_of_le (by positivity) hp6
+  calc
+    1 / Real.log 2 ^ 2 + 2 / Real.log 2 ^ 3 +
+          6 / Real.log 2 ^ 4 + 24 / Real.log 2 ^ 5 +
+          120 / Real.log 2 ^ 6 ≤
+        1 / ((69 : Real) / 100) ^ 2 +
+          2 / ((69 : Real) / 100) ^ 3 +
+          6 / ((69 : Real) / 100) ^ 4 +
+          24 / ((69 : Real) / 100) ^ 5 +
+          120 / ((69 : Real) / 100) ^ 6 := by
+      nlinarith [hi2, hi3, hi4, hi5, hi6]
+    _ ≤ (2000 : Real) := by norm_num
+
 theorem primeCountingCore_scale_le
     {C X x : Real} (hX : 1 < X) (hXx : X ≤ x)
     (hlogX : (4 : Real) < Real.log X) (hC : 0 ≤ C)
