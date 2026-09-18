@@ -156,6 +156,14 @@ theorem hasLogCubedShortIntervalPrime_of_bounded_rows_and_large_x
   · exact large_x_logCubedShortIntervalPrime thetaError x
       (hX.trans (le_of_lt (lt_of_not_ge hsmall)))
 
+theorem hasLogCubedShortIntervalPrime_of_rows_at_large_cutoff
+    {rows : List LogCubedPrimeRow}
+    (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    HasLogCubedShortIntervalPrime :=
+  hasLogCubedShortIntervalPrime_of_bounded_rows_and_large_x
+    (4e18 : Real) le_rfl cover thetaError
+
 end
 
 end PrimeFactorUnimodality
