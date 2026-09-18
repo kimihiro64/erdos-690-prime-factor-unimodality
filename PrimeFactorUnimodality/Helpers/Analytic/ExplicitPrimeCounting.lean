@@ -609,8 +609,7 @@ theorem explicit_integral_core_bound_of_log_margins
     (hlogMillion : (13 : Real) ≤ Real.log (1000000 : Real))
     (hlogCut : (42 : Real) ≤ Real.log (4e18 : Real))
     (hR : (4e18 : Real) / (43 : Real) ^ 4 ≤
-      X / Real.log X ^ 4)
-    (thetaError : HasThetaLogFourthErrorBelow A X) :
+      X / Real.log X ^ 4) :
     4000 +
         720 * ((999998 : Real) / Real.log 2 ^ 7 +
           (X / Real.log X ^ 7) /
@@ -773,6 +772,77 @@ theorem explicit_integral_core_bound_of_log_margins
       (13 / 6 : Real) *
         ((X / Real.log X ^ 4) / (42 : Real) ^ 3) := by positivity
   nlinarith [hR, hA_sum6, hlow6, hlow7, htail7, htail7_bound]
+
+theorem lower_bound_div_log_four_of_four_e18_le {X : Real}
+    (hX : (4e18 : Real) ≤ X) :
+    (4e18 : Real) / (43 : Real) ^ 4 ≤ X / Real.log X ^ 4 := by
+  have hlog42 : (42 : Real) < Real.log (4e18 : Real) := by
+    apply (Real.lt_log_iff_exp_lt (by norm_num)).2
+    have hexp : Real.exp 42 < (2.72 : Real) ^ 42 := by
+      rw [show (42 : Real) = (42 : ℕ) * 1 by norm_num,
+        Real.exp_nat_mul]
+      exact pow_lt_pow_left₀ (by
+        linarith [Real.exp_one_lt_d9]) (Real.exp_pos 1).le (by norm_num)
+    exact hexp.trans (by norm_num)
+  have hlog43 : Real.log (4e18 : Real) < 43 := by
+    apply (Real.log_lt_iff_lt_exp (by norm_num)).2
+    have hnum : (4e18 : Real) < (2.718 : Real) ^ (43 : Nat) := by
+      norm_num
+    have hbase : (2.718 : Real) < Real.exp 1 := by
+      norm_num
+      exact Real.exp_one_gt_d9
+    calc
+      (4e18 : Real) < (2.718 : Real) ^ (43 : Nat) := hnum
+      _ < (Real.exp 1) ^ (43 : Nat) := by
+        exact pow_lt_pow_left₀ hbase (by norm_num) (by norm_num)
+      _ = Real.exp 43 := by
+        rw [← Real.exp_nat_mul]
+        norm_num
+  have hmono :
+      (4e18 : Real) / Real.log (4e18 : Real) ^ 4 ≤
+        X / Real.log X ^ 4 :=
+    id_div_log_pow_le_of_le (n := 3) (by norm_num) hX (by linarith)
+  have hbase : (4e18 : Real) / (43 : Real) ^ 4 ≤
+      (4e18 : Real) / Real.log (4e18 : Real) ^ 4 := by
+    apply div_le_div_of_nonneg_left (by norm_num)
+      (by positivity : 0 < Real.log (4e18 : Real) ^ 4)
+    exact pow_le_pow_left₀ (by positivity) hlog43.le 4
+  exact hbase.trans hmono
+
+theorem explicit_integral_core_bound_at_large_cutoff
+    {A X : Real} (hX : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1) :
+    4000 +
+        720 * ((999998 : Real) / Real.log 2 ^ 7 +
+          (X / Real.log X ^ 7) /
+            (1 - 7 / Real.log (1000000 : Real))) +
+        A * ((999998 : Real) / Real.log 2 ^ 6 +
+          (X / Real.log X ^ 6) /
+            (1 - 6 / Real.log (1000000 : Real))) ≤
+      (3 / 5 : Real) * X / Real.log X ^ 4 := by
+  have hlog2 : (69 : Real) / 100 ≤ Real.log 2 := by
+    exact (by norm_num : (69 : Real) / 100 < 0.6931471803).le.trans
+      Real.log_two_gt_d9.le
+  have hlogMillion : (13 : Real) ≤ Real.log (1000000 : Real) := by
+    apply (Real.le_log_iff_exp_le (by positivity)).2
+    have hexp : Real.exp 13 < (3 : Real) ^ 13 := by
+      rw [show (13 : Real) = (13 : ℕ) * 1 by norm_num,
+        Real.exp_nat_mul]
+      exact pow_lt_pow_left₀ Real.exp_one_lt_three
+        (Real.exp_pos 1).le (by norm_num)
+    exact hexp.le.trans (by norm_num)
+  have hlogCut : (42 : Real) ≤ Real.log (4e18 : Real) := by
+    exact (by
+      apply (le_of_lt ?_)
+      apply (Real.lt_log_iff_exp_lt (by norm_num)).2
+      have hexp : Real.exp 42 < (2.72 : Real) ^ 42 := by
+        rw [show (42 : Real) = (42 : ℕ) * 1 by norm_num,
+          Real.exp_nat_mul]
+        exact pow_lt_pow_left₀ (by
+          linarith [Real.exp_one_lt_d9]) (Real.exp_pos 1).le (by norm_num)
+      exact hexp.trans (by norm_num))
+  exact explicit_integral_core_bound_of_log_margins hX hA0 hA1 hlog2
+    hlogMillion hlogCut (lower_bound_div_log_four_of_four_e18_le hX)
 
 theorem abs_integral_inv_log_pow_succ_le
     {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b)
