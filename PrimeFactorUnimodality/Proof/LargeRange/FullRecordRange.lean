@@ -1,6 +1,8 @@
 import PrimeFactorUnimodality.Proof.LargeRange.FullRecordAnalyticReduction
 import PrimeFactorUnimodality.Proof.LargeRange.FullRecordGapConsequence
 import PrimeFactorUnimodality.Proof.LargeRange.FullRecordNumericBounds
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapOwners
+import PrimeFactorUnimodality.Proof.LargeRange.RecordTwinClosed
 
 set_option autoImplicit false
 
@@ -25,6 +27,24 @@ theorem fullRecordRange_not_isUnimodal
     (fullRecord_prefix_le_half (hkUpper.trans (by norm_num)))
     (fullRecord_descentNumeric hkLower hkUpper)
     (record_coarse_ascentNumeric (by omega))
+
+theorem fullRecordRange_not_isUnimodal_closed
+    (k : Nat) (hkLower : 38001 ≤ k) (hkUpper : k ≤ 7300000) :
+    ¬ IsUnimodal (primeFactorDensity k) := by
+  apply fullRecordRange_not_isUnimodal (subBlock := ?_) (addBlock := ?_)
+    (twin := recordTwin_consecutive) k hkLower hkUpper
+  · intro d hd
+    by_cases hzero : d = 0
+    · subst d
+      exact recordGap_sub_not_prime_of_center_mod (by norm_num) (by norm_num)
+        (by norm_num) recordGapCenter_mod_two (by norm_num)
+    · exact fullRecordGapSubBlock d (by omega) hd
+  · intro d hd
+    by_cases hzero : d = 0
+    · subst d
+      exact recordGap_add_not_prime_of_center_mod (by norm_num) (by norm_num)
+        recordGapCenter_mod_two (by norm_num)
+    · exact fullRecordGapAddBlock d (by omega) hd
 
 end
 
