@@ -1,6 +1,7 @@
 import Mathlib.NumberTheory.Chebyshev
 import PrimeFactorUnimodality.Helpers.Analytic.PrimorialLogBounds
 import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
+import PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
 
 set_option autoImplicit false
 
