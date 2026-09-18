@@ -12,14 +12,14 @@
 \usepackage{hyperref}
 \definecolor{linkblue}{HTML}{174A7E}
 \hypersetup{colorlinks=true,linkcolor=linkblue,citecolor=linkblue,urlcolor=linkblue,
-  pdftitle={Erdos 690: Prime-Factor Density Unimodality},pdfauthor={kimihiro64}}
+  pdftitle={Erdos 690: Prime-Factor Density Unimodality},pdfauthor={Jonas Whidden}}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
 \theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}
 \theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
 \title{Erdos 690: Prime-Factor Density Unimodality}
-\author{kimihiro64}
+\author{Jonas Whidden}
 \date{September 2026}
 \begin{document}
 \begin{abstract}
@@ -135,7 +135,9 @@ The finite pieces are assembled by
 modules. The final all-$k$ reduction is
 `completeClassification_of_full_record_inputs`, which splits at the finite
 cutoff, applies the published record-gap certificate through $7{,}300{,}000$,
-and applies the uniform-tail theorem to every larger $k$.
+and applies the uniform-tail theorem to every larger $k$. In the current
+formal development the closed finite cutoff is $7{,}430{,}000$; the tail
+argument begins below that cutoff, so the two ranges overlap.
 
 \section{Formal verification and certificates}
 Definitions, density lemmas, first-difference lemmas, symmetric bounds,
