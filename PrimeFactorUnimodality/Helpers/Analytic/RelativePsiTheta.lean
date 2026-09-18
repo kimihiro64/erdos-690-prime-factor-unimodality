@@ -90,6 +90,17 @@ theorem theta_lower_of_psi_relative_error_elementary
     exact Chebyshev.psi_le_const_mul_self hy
   · positivity
 
+theorem theta_bounds_of_psi_relative_error_elementary
+    {ε : Real → Real} {b x : Real}
+    (hε : HasPsiRelativeError ε) (hb : 0 ≤ b)
+    (hx : Real.exp b ≤ x) :
+    (1 - ε b - (Real.log 4 + 4) *
+      (Real.exp (-b / 2) + Real.exp (-2 * b / 3) +
+        Real.exp (-4 * b / 5))) * x ≤ Chebyshev.theta x ∧
+      Chebyshev.theta x ≤ (1 + ε b) * x := by
+  refine ⟨theta_lower_of_psi_relative_error_elementary hx (hε b hb x hx), ?_⟩
+  exact theta_upper_of_psi_relative_error (hε b hb x hx)
+
 theorem theta_bounds_of_psi_relative_error
     {ε : Real → Real} {b x c : Real}
     (hε : HasPsiRelativeError ε) (hb : 0 ≤ b)
