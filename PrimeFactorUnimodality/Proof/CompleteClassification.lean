@@ -283,6 +283,33 @@ theorem completeClassification_of_logFourth_cutoff_inputs
     hX finitePrimeCounting tailPrimeCounting finiteTheta thetaErrorCubic
     finiteShortInterval tailShortInterval
 
+/-! A fully expanded core boundary: the opaque core inequality can be
+replaced by the explicit logarithmic-integral inequality obtained from the
+finite theta error. -/
+theorem completeClassification_of_finite_theta_error_and_integral_core
+    {A C X : Real} (hX : (4e18 : Real) ≤ X)
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow X)
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow X)
+    (finiteShortInterval : HasLogCubedShortIntervalPrimeBelow X)
+    (hA0 : 0 ≤ A) (hA : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (thetaErrorBelow : HasThetaLogFourthErrorBelow A X)
+    (thetaErrorAbove : HasThetaLogFourthErrorAbove A X)
+    (integralCoreBound :
+      4000 + 720 * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) +
+          A * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 6) ≤
+        C * X / Real.log X ^ 4) :
+    CompleteClassification := by
+  have thetaError : HasThetaLogFourthError A X :=
+    hasThetaLogFourthError_of_below_and_above
+      thetaErrorBelow thetaErrorAbove
+  have hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4 := by
+    exact (primeCountingCore_abs_le_of_finite_theta_error
+      (by linarith [hX]) hA0 thetaErrorBelow).trans integralCoreBound
+  exact completeClassification_of_logFourth_cutoff_inputs
+    hX finitePrimeCounting finiteTheta finiteShortInterval hA0 hA
+    hC0 hC hcore thetaError
+
 /-! The source-level MediumPNT selects the cutoff; this wrapper makes the
 remaining finite obligation explicit as a provider valid at every possible
 selected cutoff.  Thus the resulting conclusion is the universal
