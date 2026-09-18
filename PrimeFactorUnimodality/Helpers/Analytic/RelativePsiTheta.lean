@@ -6,6 +6,10 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 
+def HasPsiRelativeError (ε : Real → Real) : Prop :=
+  ∀ b : Real, 0 ≤ b → ∀ x : Real, Real.exp b ≤ x →
+    |Chebyshev.psi x - x| ≤ ε b * x
+
 theorem theta_upper_of_psi_relative_error
     {x ε : Real}
     (hpsi : |Chebyshev.psi x - x| ≤ ε * x) :
@@ -74,6 +78,18 @@ theorem theta_lower_of_psi_relative_error
       mul_le_mul_of_nonneg_left hthird_scale hc,
       mul_le_mul_of_nonneg_left hfifth_scale hc]
   linarith
+
+theorem theta_bounds_of_psi_relative_error
+    {ε : Real → Real} {b x c : Real}
+    (hε : HasPsiRelativeError ε) (hb : 0 ≤ b)
+    (hx : Real.exp b ≤ x)
+    (hroot : ∀ y : Real, 0 ≤ y → Chebyshev.psi y ≤ c * y)
+    (hc : 0 ≤ c) :
+    (1 - ε b - c * (Real.exp (-b / 2) + Real.exp (-2 * b / 3) +
+      Real.exp (-4 * b / 5))) * x ≤ Chebyshev.theta x ∧
+      Chebyshev.theta x ≤ (1 + ε b) * x := by
+  refine ⟨theta_lower_of_psi_relative_error hx (hε b hb x hx) hroot hc, ?_⟩
+  exact theta_upper_of_psi_relative_error (hε b hb x hx)
 
 end
 
