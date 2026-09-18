@@ -68,7 +68,7 @@ private theorem exists_logFourth_envelope_of_rpow_decay
 
 theorem exists_hasPsiLogFourthError_of_logRpowDecay
     {C c α X : Real} (hC : 0 ≤ C) (hc : 0 < c) (hα : 0 < α)
-    (hX : 0 < X) (hdecay : HasPsiLogRpowDecay C c α X) :
+    (hdecay : HasPsiLogRpowDecay C c α X) :
     ∃ Y : Real, X ≤ Y ∧ HasPsiLogFourthError 1 Y := by
   obtain ⟨T, hT⟩ := exists_logFourth_envelope_of_rpow_decay hC hc hα
   let Y : Real := max X (max (Real.exp T) 2)
