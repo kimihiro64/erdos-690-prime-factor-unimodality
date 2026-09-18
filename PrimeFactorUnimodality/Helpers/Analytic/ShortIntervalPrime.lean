@@ -26,6 +26,14 @@ def HasLogCubedShortIntervalPrime : Prop :=
     ∃ q : Nat, q.Prime ∧ x < q ∧
       (q : Real) ≤ x + x / (Real.log x) ^ 3
 
+/-- A uniform logarithmic theta error, together with its elementary numerical
+margin, is enough to produce the logarithm-cubed prime interval.  This is the
+analytic bridge used by the large-`x` provider; it deliberately exposes the
+constant and cutoff instead of hiding them in an imported theorem. -/
+def HasThetaLogCubedError (C X : Real) : Prop :=
+  ∀ x : Real, X ≤ x →
+    |Chebyshev.theta x - x| ≤ C * x / (Real.log x) ^ 3
+
 /-! The following lemma is the local version of the fully proved
 `HasPrimeInInterval.iff_theta_ge` argument in PrimeNumberTheoremAnd.  Keeping
 the conversion here makes the eventual explicit provider depend only on
@@ -56,6 +64,80 @@ theorem exists_prime_of_theta_increment {x h : Real}
   rw [Chebyshev.theta_eq_sum_primesLE,
     Chebyshev.theta_eq_sum_primesLE, prime_set_eq] at theta_increment
   exact (lt_irrefl _ theta_increment)
+
+theorem hasLogCubedShortIntervalPrime_of_thetaLogCubedError
+    {C X : Real}
+    (thetaError : HasThetaLogCubedError C X)
+    (cutoff_large : 2 ≤ X)
+    (constant_pos : 0 < C)
+    (margin : ∀ x : Real, X ≤ x →
+      C * (2 + 1 / (Real.log x) ^ 3) < 1) :
+    ∀ x : Real, X ≤ x →
+      ∃ q : Nat, q.Prime ∧ x < q ∧
+        (q : Real) ≤ x + x / (Real.log x) ^ 3 := by
+  intro x x_large
+  have x_pos : 0 < x := by linarith [cutoff_large, x_large]
+  have log_x_pos : 0 < Real.log x :=
+    Real.log_pos (by linarith [cutoff_large, x_large])
+  let h : Real := x / (Real.log x) ^ 3
+  have h_pos : 0 < h := by
+    dsimp only [h]
+    positivity
+  have xh_ge_X : X ≤ x + h := by linarith
+  have xh_pos : 0 < x + h := by linarith
+  have log_mono : Real.log x ≤ Real.log (x + h) :=
+    Real.log_le_log x_pos (by linarith)
+  have log_xh_pos : 0 < Real.log (x + h) :=
+    Real.log_pos (by linarith [cutoff_large, xh_ge_X])
+  have log_pow_mono : (Real.log x) ^ 3 ≤ (Real.log (x + h)) ^ 3 := by
+    exact pow_le_pow_left₀ log_x_pos.le log_mono 3
+  have error_x := thetaError x x_large
+  have error_xh := thetaError (x + h) xh_ge_X
+  have error_xh_upper :
+      |Chebyshev.theta (x + h) - (x + h)| ≤
+        C * (x + h) / (Real.log x) ^ 3 := by
+    calc
+      |Chebyshev.theta (x + h) - (x + h)| ≤
+          C * (x + h) / (Real.log (x + h)) ^ 3 := error_xh
+      _ ≤ C * (x + h) / (Real.log x) ^ 3 := by
+        apply div_le_div_of_nonneg_left
+        · positivity
+        · positivity
+        · exact log_pow_mono
+  have theta_x_upper :
+      Chebyshev.theta x ≤ x + C * x / (Real.log x) ^ 3 := by
+    have := (le_abs_self (Chebyshev.theta x - x)).trans error_x
+    linarith
+  have theta_xh_lower :
+      x + h - C * (x + h) / (Real.log x) ^ 3 ≤
+        Chebyshev.theta (x + h) := by
+    have := neg_abs_le (Chebyshev.theta (x + h) - (x + h))
+    linarith [error_xh_upper]
+  have margin_x := margin x x_large
+  have theta_increment :
+      Chebyshev.theta (x + h) > Chebyshev.theta x := by
+    dsimp only [h] at margin_x ⊢
+    have denominator_pos : 0 < (Real.log x) ^ 3 := by positivity
+    have margin_eq :
+        C * (2 + 1 / (Real.log x) ^ 3) =
+          C * (2 * (Real.log x) ^ 3 + 1) / (Real.log x) ^ 3 := by
+      field_simp [denominator_pos.ne']
+    rw [margin_eq] at margin_x
+    have margin' : C * (2 * (Real.log x) ^ 3 + 1) <
+        (Real.log x) ^ 3 :=
+      by simpa using (div_lt_iff₀ denominator_pos).mp margin_x
+    have error_sum :
+        C * x / (Real.log x) ^ 3 +
+          C * (x + x / (Real.log x) ^ 3) / (Real.log x) ^ 3 <
+          x / (Real.log x) ^ 3 := by
+      rw [← add_div, div_lt_iff₀ denominator_pos]
+      field_simp [denominator_pos.ne']
+      nlinarith [margin']
+    nlinarith [theta_x_upper, theta_xh_lower, error_sum]
+  obtain ⟨q, qPrime, x_lt_q, q_upper⟩ :=
+    exists_prime_of_theta_increment (le_of_lt x_pos) h_pos theta_increment
+  refine ⟨q, qPrime, x_lt_q, ?_⟩
+  simpa only [h] using q_upper
 
 theorem hasDusartShortIntervalPrime_of_logCubed
     (shortInterval : HasLogCubedShortIntervalPrime) :
