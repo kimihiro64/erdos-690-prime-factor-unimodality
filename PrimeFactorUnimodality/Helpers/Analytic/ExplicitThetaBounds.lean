@@ -268,6 +268,17 @@ theorem hasDusartThetaBounds_of_finite_and_logCubed_from
     (hasDusartSymmetricThetaBounds_of_below_and_logCubed_from
       hXpos hlogX finite thetaError)
 
+theorem hasDusartThetaBounds_of_finite_and_logFourth_from
+    {A X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (finite : HasDusartSymmetricThetaBoundsBelow X)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds :=
+  hasDusartThetaBounds_of_symmetric
+    (hasDusartSymmetricThetaBounds_of_below_and_logFourth_from
+      hXpos hlogX finite hA_nonneg hA thetaError)
+
 theorem log_primorial_lt_of_dusart
     (bounds : HasDusartThetaBounds) (q : Nat) (q_pos : 0 < q) :
     Real.log (primorial q) <
