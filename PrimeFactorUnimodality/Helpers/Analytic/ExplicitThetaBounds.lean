@@ -88,6 +88,25 @@ theorem hasDusartSymmetricThetaBounds_of_below_and_logCubed
           _ = (12323 / 10000 : Real) * x * (Real.log x) ^ 3 := by ring
       exact htail.trans_lt hratio
 
+theorem hasDusartSymmetricThetaBounds_of_below_and_logFourth
+    {A : Real} (finite : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
+    (hA : A / Real.log (4e18 : Real) ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A (4e18 : Real)) :
+    HasDusartSymmetricThetaBounds := by
+  apply hasDusartSymmetricThetaBounds_of_below_and_logCubed finite
+  intro x hx
+  have hconverted := hasThetaLogCubedError_of_logFourthError
+    (A := A) (X := (4e18 : Real)) (by norm_num) (by
+      have hlog_pos : 0 < Real.log (4e18 : Real) := by
+        exact Real.log_pos (by norm_num)
+      exact div_nonneg (by positivity) hlog_pos.le) thetaError
+  exact (hconverted x hx).trans (by
+    have hlog_pos : 0 < Real.log (4e18 : Real) := by
+      exact Real.log_pos (by norm_num)
+    have hx_pos : 0 < x := by linarith
+    have hfactor : 0 ≤ x / (Real.log x) ^ 3 := by positivity
+    exact mul_le_mul_of_nonneg_right hA hfactor)
+
 /-! The unbounded part of Dusart's theta estimate is a theorem, not an
 assumption: once the explicit logarithm-cubed error estimate is proved, the
 two published theta inequalities follow by elementary real arithmetic. -/
