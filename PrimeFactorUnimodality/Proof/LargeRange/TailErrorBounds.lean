@@ -8,6 +8,19 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 
+/-! The exact prime-pair input consumed by the uniform CRT construction.  It
+is stated separately from the analytic theorem that supplies it, so the final
+tail assembly has a transparent and auditable interface. -/
+def HasUniformTailPrimePair : Prop :=
+  ∀ r : Nat, 38000 ≤ r →
+    ∃ qPrev q : Nat,
+      ConsecutivePrimes qPrev q ∧ 3301 ≤ qPrev ∧
+      (491 / 500 : Real) * r / Real.log r < q ∧
+      (q : Real) < (2519 / 2500 : Real) *
+        ((491 / 500 : Real) * r / Real.log r) ∧
+      (491 / 500 : Real) * r / Real.log r <
+        (2519 / 2500 : Real) * qPrev
+
 theorem log_3301_gt : (81 : Real) / 10 < Real.log 3301 := by
   have power_lt : (2 : Real) ^ 41 * 3 ^ 11 < 3301 ^ 5 := by norm_num
   have logged := Real.log_lt_log (by positivity) power_lt
@@ -91,6 +104,12 @@ theorem exists_tail_consecutive_primes_rational
     nlinarith
   · have := mul_lt_mul_of_pos_left prevFactor prevPos
     nlinarith
+
+theorem hasUniformTailPrimePair_of_shortInterval
+    (shortInterval : HasDusartShortIntervalPrime) :
+    HasUniformTailPrimePair := by
+  intro r hr
+  exact exists_tail_consecutive_primes_rational shortInterval hr
 
 end
 

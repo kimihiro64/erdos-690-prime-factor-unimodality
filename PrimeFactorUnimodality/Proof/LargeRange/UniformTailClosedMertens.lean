@@ -17,14 +17,14 @@ noncomputable section
 theorem uniformTail_not_isUnimodal_closed_mertens
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     (thetaBounds : HasDusartThetaBounds)
-    (shortInterval : HasDusartShortIntervalPrime)
+    (tailPair : HasUniformTailPrimePair)
     {k : Nat} (hk : 7300001 ≤ k) :
     ¬ IsUnimodal (primeFactorDensity k) := by
   let r := k - 1
   have hr : 7300000 ≤ r := by dsimp only [r]; omega
   have hrBase : 38000 ≤ r := by omega
   obtain ⟨qPrev, q, consecutive, prevLarge, scaleLtQ, qUpper, scalePrev⟩ :=
-    exists_tail_consecutive_primes_rational shortInterval hrBase
+    tailPair r hrBase
   apply uniformConstruction_not_isUnimodal_of_closed_mertens_direct
     primeCountingBounds consecutive
   · exact tail_predecessor_gt_two (by omega : 3301 ≤ qPrev)

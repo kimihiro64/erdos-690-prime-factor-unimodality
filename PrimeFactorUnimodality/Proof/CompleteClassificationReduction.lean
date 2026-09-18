@@ -37,13 +37,13 @@ theorem completeClassification_of_finite_record_range
       (IsUnimodal (primeFactorDensity k) ↔ k ≤ 3))
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     (thetaBounds : HasDusartThetaBounds)
-    (shortInterval : HasDusartShortIntervalPrime)
+    (tailPair : HasUniformTailPrimePair)
     (k : Nat) (hk : 1 ≤ k) :
     IsUnimodal (primeFactorDensity k) ↔ k ≤ 3 := by
   have classification := completeClassification_of_finite_range_and_tail
     7430000 (by omega) finiteRange (fun k hkTail =>
       uniformTail_not_isUnimodal_closed_mertens primeCountingBounds thetaBounds
-        shortInterval (k := k) (by omega))
+        tailPair (k := k) (by omega))
   exact classification k hk
 
 end

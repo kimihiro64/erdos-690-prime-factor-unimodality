@@ -48,7 +48,7 @@ providers remain parameters here. -/
 theorem completeClassification_of_full_record_inputs
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     (thetaBounds : HasDusartThetaBounds)
-    (shortInterval : HasDusartShortIntervalPrime) :
+    (tailPair : HasUniformTailPrimePair) :
     CompleteClassification := by
   exact completeClassification_of_finite_range_and_tail
     7430000 (by omega)
@@ -62,7 +62,7 @@ theorem completeClassification_of_full_record_inputs
         · intro hkThree
           omega)
     (fun k hkTail => uniformTail_not_isUnimodal_closed_mertens
-      primeCountingBounds thetaBounds shortInterval (k := k) (by omega))
+      primeCountingBounds thetaBounds tailPair (k := k) (by omega))
 
 end
 
