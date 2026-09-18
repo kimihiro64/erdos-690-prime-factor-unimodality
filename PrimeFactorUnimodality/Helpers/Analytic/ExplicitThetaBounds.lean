@@ -2,6 +2,7 @@ import Mathlib.NumberTheory.Chebyshev
 import PrimeFactorUnimodality.Helpers.Analytic.PrimorialLogBounds
 import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 import PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
+import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
 
 set_option autoImplicit false
 
@@ -368,6 +369,35 @@ theorem dusartThetaBounds_of_logCubedError_tail
       Chebyshev.theta x < x * (1 + 1 / 36260) :=
   dusartThetaBounds_of_logCubedError_tail_from
     (by norm_num) (log_large_x_gt_ten le_rfl) thetaError
+
+theorem dusartThetaBounds_of_relativePsiError_tail_from
+    {ε : Real → Real} {c X : Real}
+    (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (hε : HasPsiRelativeError ε)
+    (hroot : ∀ y : Real, 0 ≤ y → Chebyshev.psi y ≤ c * y)
+    (hc : 0 ≤ c)
+    (upperMargin : ∀ x : Real, X ≤ x →
+      (1 + ε (Real.log X)) * x < x * (1 + 1 / 36260))
+    (lowerMargin : ∀ x : Real, X ≤ x →
+      x * (1 - (12323 / 10000 : Real) / Real.log x) <
+        (1 - ε (Real.log X) - c *
+          (Real.exp (-Real.log X / 2) +
+            Real.exp (-2 * Real.log X / 3) +
+            Real.exp (-4 * Real.log X / 5))) * x) :
+    ∀ x : Real, X ≤ x →
+      x * (1 - (12323 / 10000 : Real) / Real.log x) <
+        Chebyshev.theta x ∧
+      Chebyshev.theta x < x * (1 + 1 / 36260) := by
+  intro x hx
+  have hlogX_nonneg : 0 ≤ Real.log X := by linarith [hlogX]
+  have hExp : Real.exp (Real.log X) ≤ x := by
+    rw [Real.exp_log hXpos]
+    exact hx
+  have hbounds := theta_bounds_of_psi_relative_error
+    hε hlogX_nonneg hExp hroot hc
+  constructor
+  · exact (lowerMargin x hx).trans_le hbounds.1
+  · exact hbounds.2.trans_lt (upperMargin x hx)
 
 theorem hasDusartThetaBounds_of_symmetric
     (bounds : HasDusartSymmetricThetaBounds) :
