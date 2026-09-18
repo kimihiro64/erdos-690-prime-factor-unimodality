@@ -1429,21 +1429,15 @@ def HasDusartPublishedPrimeCountingBoundsAbove (X : Real) : Prop :=
     (Nat.primeCounting ⌊x⌋₊ : Real) ≤
       x / (Real.log x - (11 / 10 : Real)))
 
-theorem hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic
-    (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e9 : Real)) :
-    HasDusartPublishedPrimeCountingBoundsAbove (4e9 : Real) := by
+theorem hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic_from
+    {X : Real} (hlogX : (20 : Real) < Real.log X)
+    (asymptotic : HasDusartPrimeCountingAsymptoticAbove X) :
+    HasDusartPublishedPrimeCountingBoundsAbove X := by
   constructor
   · intro x hx
     obtain ⟨E, hformula, hE⟩ := asymptotic x hx
-    have hlog : (20 : Real) < Real.log x := by
-      apply (Real.lt_log_iff_exp_lt (by linarith)).2
-      have hexp_three : Real.exp 20 < (3 : Real) ^ 20 := by
-        rw [show (20 : Real) = (20 : ℕ) * 1 by norm_num,
-          Real.exp_nat_mul]
-        exact pow_lt_pow_left₀ Real.exp_one_lt_three (Real.exp_pos 1).le
-          (by norm_num)
-      have hthree : (3 : Real) ^ 20 < (4e9 : Real) := by norm_num
-      exact hexp_three.trans hthree |>.trans_le hx
+    have hlog : (20 : Real) < Real.log x :=
+      lt_of_lt_of_le hlogX (Real.log_le_log (by linarith) hx)
     have hlog_pos : 0 < Real.log x := by linarith
     have hx_pos : 0 < x := by linarith
     rw [hformula]
@@ -1469,15 +1463,8 @@ theorem hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic
     exact hmul
   · intro x hx
     obtain ⟨E, hformula, hE⟩ := asymptotic x hx
-    have hlog : (20 : Real) < Real.log x := by
-      apply (Real.lt_log_iff_exp_lt (by linarith)).2
-      have hexp_three : Real.exp 20 < (3 : Real) ^ 20 := by
-        rw [show (20 : Real) = (20 : ℕ) * 1 by norm_num,
-          Real.exp_nat_mul]
-        exact pow_lt_pow_left₀ Real.exp_one_lt_three (Real.exp_pos 1).le
-          (by norm_num)
-      have hthree : (3 : Real) ^ 20 < (4e9 : Real) := by norm_num
-      exact hexp_three.trans hthree |>.trans_le hx
+    have hlog : (20 : Real) < Real.log x :=
+      lt_of_lt_of_le hlogX (Real.log_le_log (by linarith) hx)
     have hlog_pos : 0 < Real.log x := by linarith
     have hx_pos : 0 < x := by linarith
     rw [hformula]
@@ -1502,6 +1489,21 @@ theorem hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic
       field_simp [hlog_pos.ne', (by linarith : Real.log x - (11 / 10 : Real) ≠ 0)]
     rw [htarget] at hmul
     exact hmul
+
+theorem hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic
+    (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e9 : Real)) :
+    HasDusartPublishedPrimeCountingBoundsAbove (4e9 : Real) :=
+  hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic_from
+    (by
+      apply (Real.lt_log_iff_exp_lt (by norm_num)).2
+      have hexp_three : Real.exp 20 < (3 : Real) ^ 20 := by
+        rw [show (20 : Real) = (20 : ℕ) * 1 by norm_num,
+          Real.exp_nat_mul]
+        exact pow_lt_pow_left₀ Real.exp_one_lt_three (Real.exp_pos 1).le
+          (by norm_num)
+      have hthree : (3 : Real) ^ 20 < (4e9 : Real) := by norm_num
+      exact hexp_three.trans hthree)
+    asymptotic
 
 theorem hasDusartPublishedPrimeCountingBounds_of_below_and_above
     {X : Real} (finite : HasDusartPublishedPrimeCountingBoundsBelow X)
