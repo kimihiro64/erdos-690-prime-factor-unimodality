@@ -583,6 +583,26 @@ theorem integral_inv_log_seven_le_explicit {X : Real}
   convert integral_inv_log_pow_succ_le_explicit_at_million
     (n := 6) hX seven_lt_log_million using 1 <;> norm_num
 
+theorem primeCountingCore_abs_le_of_finite_theta_error_explicit
+    {A X : Real} (hX : (1000000 : Real) ≤ X) (hA : 0 ≤ A)
+    (error : HasThetaLogFourthErrorBelow A X) :
+    |primeCountingCore X| ≤
+      4000 +
+        720 * ((999998 : Real) / Real.log 2 ^ 7 +
+          (X / Real.log X ^ 7) /
+            (1 - 7 / Real.log (1000000 : Real))) +
+        A * ((999998 : Real) / Real.log 2 ^ 6 +
+          (X / Real.log X ^ 6) /
+            (1 - 6 / Real.log (1000000 : Real))) := by
+  have hcore := primeCountingCore_abs_le_of_finite_theta_error
+    (by linarith [hX]) hA error
+  have hseven := integral_inv_log_seven_le_explicit hX
+  have hsix := integral_inv_log_six_le_explicit hX
+  have hseven' : 0 ≤ 720 := by norm_num
+  exact hcore.trans (by
+    nlinarith [mul_le_mul_of_nonneg_left hseven hseven',
+      mul_le_mul_of_nonneg_left hsix hA])
+
 theorem abs_integral_inv_log_pow_succ_le
     {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b)
     (hcoef : (n + 1 : Real) < Real.log a) :
