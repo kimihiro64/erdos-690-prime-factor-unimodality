@@ -18,6 +18,26 @@ def HasPsiLogCubedError (C X : Real) : Prop :=
   ∀ x : Real, X ≤ x →
     |Chebyshev.psi x - x| ≤ C * x / (Real.log x) ^ 3
 
+theorem hasThetaLogFourthError_of_psiLogFourthError_of_correction
+    {A B X : Real} (psiError : HasPsiLogFourthError A X)
+    (correction : ∀ x : Real, X ≤ x →
+      |Chebyshev.theta x - Chebyshev.psi x| ≤ B * x / (Real.log x) ^ 4) :
+    HasThetaLogFourthError (A + B) X := by
+  intro x hx
+  have hpsi := psiError x hx
+  have hcorrection := correction x hx
+  calc
+    |Chebyshev.theta x - x| ≤
+        |Chebyshev.theta x - Chebyshev.psi x| +
+          |Chebyshev.psi x - x| := by
+      rw [show Chebyshev.theta x - x =
+        (Chebyshev.theta x - Chebyshev.psi x) +
+          (Chebyshev.psi x - x) by ring]
+      exact abs_add_le _ _
+    _ ≤ B * x / (Real.log x) ^ 4 + A * x / (Real.log x) ^ 4 :=
+      add_le_add hcorrection hpsi
+    _ = (A + B) * x / (Real.log x) ^ 4 := by ring
+
 private def logPowFiveDivSqrt (x : Real) : Real :=
   (Real.log x) ^ 5 / Real.sqrt x
 
