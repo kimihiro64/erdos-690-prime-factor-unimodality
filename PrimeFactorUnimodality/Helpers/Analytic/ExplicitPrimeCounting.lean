@@ -316,6 +316,17 @@ theorem hasDusartRealPrimeCountingBounds_of_finite_and_asymptotic
   hasDusartRealPrimeCountingBounds_of_below_and_above finite
     (hasDusartRealPrimeCountingBoundsAbove_of_asymptotic asymptotic)
 
+theorem hasDusartRealPrimeCountingBounds_of_finite_published_and_asymptotic
+    (finite : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
+    (finitePublished : HasDusartPublishedPrimeCountingBoundsBelow (4e9 : Real))
+    (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e9 : Real)) :
+    HasDusartRealPrimeCountingBounds := by
+  have published : HasDusartPublishedPrimeCountingBounds :=
+    hasDusartPublishedPrimeCountingBounds_of_finite_and_asymptotic
+      finitePublished asymptotic
+  exact hasDusartRealPrimeCountingBounds_of_below_and_above finite
+    (hasDusartRealPrimeCountingBoundsAbove_of_published published)
+
 theorem hasDusartRealPrimeCountingBounds_of_below_and_above_at_cutoff
     (finite : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
     (tail : HasDusartRealPrimeCountingBoundsAbove (4e18 : Real)) :
