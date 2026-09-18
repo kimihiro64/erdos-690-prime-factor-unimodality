@@ -1717,6 +1717,7 @@ theorem hasDusartPrimeCountingBounds_of_finite_and_core_and_psiLogFourthError
     {A C X Y : Real}
     (finite : HasDusartRealPrimeCountingBoundsBelow Y)
     (hXpos : 0 < X) (h2X : 2 ≤ X) (hXY : X ≤ Y)
+    (hXcutoff : (4e18 : Real) ≤ X)
     (hA0 : 0 ≤ A) (hA_sharp : A + 148 / 1000 ≤ 1)
     (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
     (hlog : (42 : Real) ≤ Real.log X)
@@ -1724,9 +1725,23 @@ theorem hasDusartPrimeCountingBounds_of_finite_and_core_and_psiLogFourthError
     (psiError : HasPsiLogFourthError A X) :
     HasDusartPrimeCountingBounds := by
   apply hasDusartPrimeCountingBounds_of_finite_and_core_and_theta_error
-    finite hXpos h2X hXY hA0 (by linarith) hC0 hC hlog hcore
-  exact hasThetaLogFourthError_of_psiLogFourthError_sharp
-    (by linarith [hlog]) psiError
+    (A := A + 148 / 1000) finite hXpos h2X hXY (by linarith)
+      hA_sharp hC0 hC hlog hcore
+  exact hasThetaLogFourthError_of_psiLogFourthError_sharp hXcutoff psiError
+
+theorem hasDusartPrimeCountingAsymptoticAbove_of_core_and_psiLogFourthError
+    {A C X : Real}
+    (hXpos : 0 < X) (h2X : 2 ≤ X)
+    (hXcutoff : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA_sharp : A + 148 / 1000 ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hlog : (42 : Real) ≤ Real.log X)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (psiError : HasPsiLogFourthError A X) :
+    HasDusartPrimeCountingAsymptoticAbove X := by
+  apply hasDusartPrimeCountingAsymptoticAbove_of_core_and_theta_error
+    (A := A + 148 / 1000) hXpos h2X (by linarith) hA_sharp hC0 hC hlog hcore
+  exact hasThetaLogFourthError_of_psiLogFourthError_sharp hXcutoff psiError
 
 theorem primeCounting_sub_lower_of_dusart
     (bounds : HasDusartPrimeCountingBounds)
