@@ -115,6 +115,87 @@ def HasDusartPrimeCountingAsymptoticAbove (X : Real) : Prop :=
           (1 + 1 / Real.log x + 2 / (Real.log x) ^ 2 + E) ∧
         |E| ≤ (732 : Real) / 100 / (Real.log x) ^ 3
 
+def HasDusartPublishedPrimeCountingBoundsAbove (X : Real) : Prop :=
+  (∀ x : Real, X ≤ x →
+    x / (Real.log x - 1) ≤ (Nat.primeCounting ⌊x⌋₊ : Real)) ∧
+  (∀ x : Real, X ≤ x →
+    (Nat.primeCounting ⌊x⌋₊ : Real) ≤
+      x / (Real.log x - (11 / 10 : Real)))
+
+theorem hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic
+    (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e9 : Real)) :
+    HasDusartPublishedPrimeCountingBoundsAbove (4e9 : Real) := by
+  constructor
+  · intro x hx
+    obtain ⟨E, hformula, hE⟩ := asymptotic x hx
+    have hlog : (20 : Real) < Real.log x := by
+      apply (Real.lt_log_iff_exp_lt (by linarith)).2
+      have hexp_three : Real.exp 20 < (3 : Real) ^ 20 := by
+        rw [show (20 : Real) = (20 : ℕ) * 1 by norm_num,
+          Real.exp_nat_mul]
+        exact pow_lt_pow_left₀ Real.exp_one_lt_three (Real.exp_pos 1).le
+          (by norm_num)
+      have hthree : (3 : Real) ^ 20 < (4e9 : Real) := by norm_num
+      exact hexp_three.trans hthree |>.trans_le hx
+    have hlog_pos : 0 < Real.log x := by linarith
+    have hx_pos : 0 < x := by linarith
+    rw [hformula]
+    have hE_lower : -(732 : Real) / 100 / (Real.log x) ^ 3 ≤ E := by
+      convert neg_le_of_abs_le hE using 1 <;> ring
+    have hbracket :
+        1 + 1 / Real.log x + 2 / (Real.log x) ^ 2 + E ≥
+          Real.log x / (Real.log x - 1) := by
+      have hden : 0 < Real.log x - 1 := by linarith
+      apply (div_le_iff₀ hden).2
+      have hlog_cube : (0 : Real) < (Real.log x) ^ 3 := by positivity
+      have hE_lower' : -(732 : Real) / 100 ≤ E * (Real.log x) ^ 3 :=
+        (div_le_iff₀ hlog_cube).mp hE_lower
+      have hE_prod := mul_le_mul_of_nonneg_right hE_lower' hden.le
+      field_simp [hlog_pos.ne', hden.ne']
+      nlinarith [hE_prod, sq_nonneg (Real.log x - 20)]
+    have hfactor : 0 ≤ x / Real.log x := by positivity
+    have hmul := mul_le_mul_of_nonneg_left hbracket hfactor
+    have htarget : x / Real.log x * (Real.log x / (Real.log x - 1)) =
+        x / (Real.log x - 1) := by
+      field_simp [hlog_pos.ne', (by linarith : Real.log x - 1 ≠ 0)]
+    rw [htarget] at hmul
+    exact hmul
+  · intro x hx
+    obtain ⟨E, hformula, hE⟩ := asymptotic x hx
+    have hlog : (20 : Real) < Real.log x := by
+      apply (Real.lt_log_iff_exp_lt (by linarith)).2
+      have hexp_three : Real.exp 20 < (3 : Real) ^ 20 := by
+        rw [show (20 : Real) = (20 : ℕ) * 1 by norm_num,
+          Real.exp_nat_mul]
+        exact pow_lt_pow_left₀ Real.exp_one_lt_three (Real.exp_pos 1).le
+          (by norm_num)
+      have hthree : (3 : Real) ^ 20 < (4e9 : Real) := by norm_num
+      exact hexp_three.trans hthree |>.trans_le hx
+    have hlog_pos : 0 < Real.log x := by linarith
+    have hx_pos : 0 < x := by linarith
+    rw [hformula]
+    have hE_upper : E ≤ (732 : Real) / 100 / (Real.log x) ^ 3 :=
+      le_of_abs_le hE
+    have hbracket :
+        1 + 1 / Real.log x + 2 / (Real.log x) ^ 2 + E ≤
+          Real.log x / (Real.log x - (11 / 10 : Real)) := by
+      have hden : 0 < Real.log x - (11 / 10 : Real) := by linarith
+      apply (le_div_iff₀ hden).2
+      have hlog_cube : (0 : Real) < (Real.log x) ^ 3 := by positivity
+      have hE_upper' : E * (Real.log x) ^ 3 ≤ (732 : Real) / 100 :=
+        (le_div_iff₀ hlog_cube).mp hE_upper
+      have hE_prod := mul_le_mul_of_nonneg_right hE_upper' hden.le
+      field_simp [hlog_pos.ne', hden.ne']
+      nlinarith [hE_prod, sq_nonneg (Real.log x - 20)]
+    have hfactor : 0 ≤ x / Real.log x := by positivity
+    have hmul := mul_le_mul_of_nonneg_left hbracket hfactor
+    have htarget : x / Real.log x *
+        (Real.log x / (Real.log x - (11 / 10 : Real))) =
+        x / (Real.log x - (11 / 10 : Real)) := by
+      field_simp [hlog_pos.ne', (by linarith : Real.log x - (11 / 10 : Real) ≠ 0)]
+    rw [htarget] at hmul
+    exact hmul
+
 theorem hasDusartRealPrimeCountingBoundsAbove_of_asymptotic
     (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e9 : Real)) :
     HasDusartRealPrimeCountingBoundsAbove (4e18 : Real) := by
