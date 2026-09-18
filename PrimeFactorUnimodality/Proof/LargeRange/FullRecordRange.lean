@@ -36,14 +36,14 @@ theorem fullRecordRange_not_isUnimodal_closed
   · intro d hd
     by_cases hzero : d = 0
     · subst d
-      exact recordGap_sub_not_prime_of_center_mod (by norm_num) (by norm_num)
-        (by norm_num) recordGapCenter_mod_two (by norm_num)
+      exact recordGap_sub_not_prime_of_tail_owner (q := 13) (by norm_num)
+        (by norm_num) (by norm_num) (by decide) (by norm_num)
     · exact fullRecordGapSubBlock d (by omega) hd
   · intro d hd
     by_cases hzero : d = 0
     · subst d
-      exact recordGap_add_not_prime_of_center_mod (by norm_num) (by norm_num)
-        recordGapCenter_mod_two (by norm_num)
+      exact recordGap_add_not_prime_of_tail_owner (q := 13) (by norm_num)
+        (by norm_num) (by norm_num) (by decide) (by norm_num)
     · exact fullRecordGapAddBlock d (by omega) hd
 
 end
