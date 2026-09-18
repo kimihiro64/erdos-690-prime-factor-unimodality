@@ -183,16 +183,17 @@ theorem hasDusartSymmetricThetaBounds_of_below_and_logFourth_from
 /-! The unbounded part of Dusart's theta estimate is a theorem, not an
 assumption: once the explicit logarithm-cubed error estimate is proved, the
 two published theta inequalities follow by elementary real arithmetic. -/
-theorem dusartThetaBounds_of_logCubedError_tail
+theorem dusartThetaBounds_of_logCubedError_tail_from
+    {X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
     (thetaError : HasThetaLogCubedError
-      (12167 / 500000 : Real) (4e18 : Real)) :
-    ∀ x : Real, (4e18 : Real) ≤ x →
+      (12167 / 500000 : Real) X) :
+    ∀ x : Real, X ≤ x →
       x * (1 - (12323 / 10000 : Real) / Real.log x) <
         Chebyshev.theta x ∧
       Chebyshev.theta x < x * (1 + 1 / 36260) := by
   intro x hx
   have hx_pos : 0 < x := by linarith
-  have hlog := log_large_x_gt_ten hx
+  have hlog := lt_of_lt_of_le hlogX (Real.log_le_log hXpos hx)
   have hlog_pos : 0 < Real.log x := by linarith
   have htail := thetaError x hx
   have hlog_sq : (100 : Real) < (Real.log x) ^ 2 := by
@@ -230,6 +231,16 @@ theorem dusartThetaBounds_of_logCubedError_tail
   · have habs := le_abs_self (Chebyshev.theta x - x)
     have hupp := htail.trans_lt hupper
     linarith
+
+theorem dusartThetaBounds_of_logCubedError_tail
+    (thetaError : HasThetaLogCubedError
+      (12167 / 500000 : Real) (4e18 : Real)) :
+    ∀ x : Real, (4e18 : Real) ≤ x →
+      x * (1 - (12323 / 10000 : Real) / Real.log x) <
+        Chebyshev.theta x ∧
+      Chebyshev.theta x < x * (1 + 1 / 36260) :=
+  dusartThetaBounds_of_logCubedError_tail_from
+    (by norm_num) (log_large_x_gt_ten le_rfl) thetaError
 
 theorem hasDusartThetaBounds_of_symmetric
     (bounds : HasDusartSymmetricThetaBounds) :
