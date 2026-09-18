@@ -383,6 +383,98 @@ theorem integral_inv_log_pow_succ_le
   integral_inv_log_pow_succ_le_of_next_bound ha hab
     (integral_inv_log_pow_next_bound ha hab) hcoef
 
+theorem theta_remainder_integral_tail_le_of_logFourthError
+    {A X x : Real} (hX : 1 < X) (hA : 0 ≤ A)
+    (error : HasThetaLogFourthError A X) (hax : X ≤ x)
+    (hcoef : (6 : Real) < Real.log X) :
+    |∫ t in X..x,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)| ≤
+      A * (x / Real.log x ^ 6) /
+        (1 - 6 / Real.log X) := by
+  have htheta : IntervalIntegrable
+      (fun t : Real => Chebyshev.theta t / (t * (Real.log t) ^ 2))
+      MeasureTheory.volume X x := by
+    rw [intervalIntegrable_iff_integrableOn_Ioc_of_le hax]
+    have hX2 : 2 < X := by
+      apply (Real.log_lt_log_iff (by norm_num) (by linarith [hX])).mp
+      exact (Real.log_lt_sub_one_of_pos (by norm_num) (by norm_num)).trans
+        (by linarith [hcoef])
+    exact (Chebyshev.integrableOn_theta_div_id_mul_log_sq x).mono_set
+      (by
+        intro y hy
+        exact ⟨by linarith [hy.1, hX2], hy.2⟩)
+  have hbase : IntervalIntegrable
+      (fun t : Real => 1 / (Real.log t) ^ 2)
+      MeasureTheory.volume X x := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le hax]
+    apply ContinuousOn.div continuousOn_const
+    · exact (Real.continuousOn_log.mono fun y hy =>
+        ne_of_gt (by linarith [hy.1])).pow _
+    · intro y hy
+      exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by linarith [hy.1])))
+  let r : Real → Real := fun t =>
+    Chebyshev.theta t / (t * (Real.log t) ^ 2) - 1 / (Real.log t) ^ 2
+  have hr : IntervalIntegrable r MeasureTheory.volume X x := by
+    simpa [r] using htheta.sub hbase
+  have hmajor : IntervalIntegrable
+      (fun t : Real => A / (Real.log t) ^ 6)
+      MeasureTheory.volume X x := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le hax]
+    apply ContinuousOn.div continuousOn_const
+    · exact (Real.continuousOn_log.mono fun y hy =>
+        ne_of_gt (by linarith [hy.1])).pow _
+    · intro y hy
+      exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by linarith [hy.1])))
+  have hmajor_bound : ∀ t ∈ Set.Icc X x, |r t| ≤ A / (Real.log t) ^ 6 := by
+    intro t ht
+    change |Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+      1 / (Real.log t) ^ 2| ≤ A / (Real.log t) ^ 6
+    have htpos : 0 < t := by linarith [ht.1]
+    have hlogtpos : 0 < Real.log t := Real.log_pos (by linarith [ht.1])
+    have hlogtne : Real.log t ≠ 0 := ne_of_gt hlogtpos
+    have herr := error t ht.1
+    have hrewrite :
+        Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+            1 / (Real.log t) ^ 2 =
+          (Chebyshev.theta t - t) / (t * (Real.log t) ^ 2) := by
+      field_simp [ne_of_gt htpos, hlogtne]
+    rw [hrewrite, abs_div]
+    have hden : 0 ≤ t * (Real.log t) ^ 2 := by positivity
+    rw [abs_of_nonneg hden]
+    calc
+      |Chebyshev.theta t - t| / (t * (Real.log t) ^ 2) ≤
+          (A * t / (Real.log t) ^ 4) / (t * (Real.log t) ^ 2) :=
+        div_le_div_of_nonneg_right herr hden
+      _ = A / (Real.log t) ^ 6 := by
+        field_simp [ne_of_gt htpos, hlogtne]
+  have hnorm := intervalIntegral.norm_integral_le_integral_norm
+    (μ := MeasureTheory.volume) (f := r) hax
+  have hmono := intervalIntegral.integral_mono_on hax hr.norm hmajor hmajor_bound
+  have hcoef' : (5 + 1 : Real) < Real.log X := by
+    norm_num
+    exact hcoef
+  have htail := integral_inv_log_pow_succ_le (n := 5) hX hax hcoef'
+  change |∫ t in X..x, r t| ≤ A * (x / Real.log x ^ 6) /
+    (1 - 6 / Real.log X)
+  calc
+    |∫ t in X..x, r t| ≤ ∫ t in X..x, |r t| := hnorm
+    _ ≤ ∫ t in X..x, A / (Real.log t) ^ 6 := hmono
+    _ = A * (∫ t in X..x, 1 / (Real.log t) ^ 6) := by
+      rw [show (fun t : Real => A / (Real.log t) ^ 6) =
+        (fun t => A * (1 / (Real.log t) ^ 6)) by
+          funext t
+          ring]
+      rw [intervalIntegral.integral_const_mul]
+    _ ≤ A * ((x / Real.log x ^ 6) /
+        (1 - 6 / Real.log X)) := by
+      have hfactor : 0 ≤ A := hA
+      convert mul_le_mul_of_nonneg_left htail hfactor using 1 <;> norm_num
+    _ = A * (x / Real.log x ^ 6) /
+        (1 - 6 / Real.log X) := by ring
+
 theorem integral_inv_log_sq_expansion_five
     {x : Real} (hx : 2 ≤ x) :
     ∫ t in Set.Icc 2 x, 1 / Real.log t ^ 2 =
