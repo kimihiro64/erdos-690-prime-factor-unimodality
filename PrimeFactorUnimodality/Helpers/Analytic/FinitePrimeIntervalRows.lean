@@ -310,6 +310,18 @@ theorem hasLogCubedShortIntervalPrime_of_rows_closed
   exact logCubedUpper_monotoneOn (by norm_num at ⊢; linarith)
     (by norm_num at ⊢; linarith) hab
 
+theorem hasLogCubedShortIntervalPrimeBelow_of_rows
+    {X : Real} {rows : List LogCubedPrimeRow}
+    (cover : LogCubedPrimeRowsCoverUpTo rows X) :
+    HasLogCubedShortIntervalPrimeBelow X := by
+  intro x hx hX
+  obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
+  exact logCubedPrimeRow_provides
+    (fun {a b} ha hab => logCubedUpper_monotoneOn
+      (by norm_num at ⊢; linarith)
+      (by norm_num at ⊢; linarith) hab)
+    row hleft hright
+
 theorem hasLogCubedShortIntervalPrime_of_bounded_rows_and_large_x
     {rows : List LogCubedPrimeRow}
     (X : Real) (hX : (4e18 : Real) ≤ X)
