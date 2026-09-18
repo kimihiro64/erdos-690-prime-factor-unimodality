@@ -1,4 +1,5 @@
 import Mathlib.NumberTheory.Chebyshev
+import Mathlib.Analysis.SpecialFunctions.Log.Monotone
 import PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
 
 set_option autoImplicit false
@@ -277,6 +278,105 @@ theorem psi_sub_theta_ge_scaled_theta_sqrt
   have htheta_nn : 0 ≤ Chebyshev.theta (x ^ (1 / 2 : Real)) :=
     Chebyshev.theta_nonneg _
   nlinarith [mul_le_mul_of_nonneg_right hscale htheta_nn]
+
+private theorem exp_49_div_10_gt_125 :
+    (125 : Real) < Real.exp (49 / 10 : Real) := by
+  have h := Real.sum_le_exp_of_nonneg (x := (49 / 10 : Real))
+    (by norm_num) 12
+  norm_num [Finset.sum_range_succ, Nat.factorial] at h ⊢
+  nlinarith
+
+private theorem exp_five_gt_125 :
+    (125 : Real) < Real.exp (5 : Real) := by
+  have h := Real.sum_le_exp_of_nonneg (x := (5 : Real))
+    (by norm_num) 10
+  norm_num [Finset.sum_range_succ, Nat.factorial] at h ⊢
+  nlinarith
+
+/-! The logarithmic premise in the scaled correction is itself elementary. -/
+theorem log_cube_le_self_of_121_le {x : Real} (hx : 121 ≤ x) :
+    (Real.log x) ^ 3 ≤ x := by
+  have hx_pos : 0 < x := by linarith
+  have hlog_pos : 0 < Real.log x := Real.log_pos (by linarith)
+  have hbase : (Real.log x) ^ 3 ≤ x := by
+    by_cases hsmall : x ≤ 125
+    · have hlog : Real.log x < (49 / 10 : Real) := by
+        apply (Real.log_lt_iff_lt_exp (x := x) (y := (49 / 10 : Real)) hx_pos).2
+        exact lt_of_le_of_lt hsmall exp_49_div_10_gt_125
+      have hcuberoot : (49 / 10 : Real) ≤ x ^ (1 / 3 : Real) := by
+        apply Real.le_rpow_of_log_le (by positivity)
+        have hpow : (49 / 10 : Real) ^ 3 ≤ x := by
+          norm_num at hx ⊢
+          linarith
+        have hlogcube := Real.log_le_log (by positivity) hpow
+        rw [Real.log_pow] at hlogcube
+        nlinarith [hlogcube]
+      have hlog_le : Real.log x ≤ x ^ (1 / 3 : Real) :=
+        (le_of_lt hlog).trans hcuberoot
+      have hpow := pow_le_pow_left₀ hlog_pos.le hlog_le 3
+      calc
+        (Real.log x) ^ 3 ≤ (x ^ (1 / 3 : Real)) ^ (3 : Nat) := hpow
+        _ = x := by
+          rw [← Real.rpow_natCast, ← Real.rpow_mul (by positivity)]
+          norm_num
+    · have h125 : (125 : Real) ≤ x := le_of_not_ge hsmall
+      have hdomain : Real.exp (3 : Real) ≤ (125 : Real) := by
+        have : Real.exp 3 < (3 : Real) ^ 3 := by
+          rw [show (3 : Real) = (3 : ℕ) * 1 by norm_num,
+            Real.exp_nat_mul]
+          have hpow := pow_lt_pow_left₀ Real.exp_one_lt_three
+            (Real.exp_pos 1).le (n := 3) (by norm_num)
+          convert hpow using 1 <;> norm_num
+        norm_num at this ⊢
+        linarith
+      have hant := Real.log_div_self_rpow_antitoneOn
+        (a := (1 / 3 : Real)) (by norm_num)
+        (show Real.exp (1 / 3 : Real)⁻¹ ≤ (125 : Real) by
+          convert hdomain using 1 <;> norm_num)
+        (show Real.exp (1 / 3 : Real)⁻¹ ≤ x by
+          exact le_trans (by convert hdomain using 1 <;> norm_num) h125)
+        (show (125 : Real) ≤ x by exact h125)
+      have h125log : Real.log 125 < (5 : Real) := by
+        apply (Real.log_lt_iff_lt_exp (x := (125 : Real)) (y := (5 : Real))
+          (by norm_num)).2
+        exact exp_five_gt_125
+      have hratio : Real.log x / x ^ (1 / 3 : Real) ≤ 1 := by
+        have h := hant
+        have h125pos : 0 < (125 : Real) := by norm_num
+        have h125pow : (125 : Real) ^ (1 / 3 : Real) = 5 := by
+          have hc : ((125 : Real) ^ (1 / 3 : Real)) ^ (3 : Nat) = 125 := by
+            rw [← Real.rpow_natCast, ← Real.rpow_mul (by norm_num)]
+            norm_num
+          have hp : 0 ≤ (125 : Real) ^ (1 / 3 : Real) := by positivity
+          nlinarith
+        change Real.log x / x ^ (1 / 3 : Real) ≤
+          Real.log 125 / (125 : Real) ^ (1 / 3 : Real) at h
+        have hdiv : Real.log 125 / 5 < 1 := by nlinarith
+        calc
+          Real.log x / x ^ (1 / 3 : Real) ≤ Real.log 125 / 5 := by
+            rw [← h125pow]
+            exact h
+          _ ≤ 1 := le_of_lt hdiv
+      have hlog_le : Real.log x ≤ x ^ (1 / 3 : Real) := by
+        have hpowpos : 0 < x ^ (1 / 3 : Real) := by positivity
+        simpa using (div_le_iff₀ hpowpos).mp hratio
+      have hpow := pow_le_pow_left₀ hlog_pos.le hlog_le 3
+      calc
+        (Real.log x) ^ 3 ≤ (x ^ (1 / 3 : Real)) ^ (3 : Nat) := hpow
+        _ = x := by
+          rw [← Real.rpow_natCast, ← Real.rpow_mul (by positivity)]
+          norm_num
+  exact hbase
+
+/-! The unconditional form of the scaled correction used by the later
+  explicit theta estimates. -/
+theorem psi_sub_theta_ge_scaled_theta_sqrt_of_121_le {x : Real}
+    (hx : 121 ≤ x) :
+    Real.sqrt ((Real.log x) ^ 3 / x) *
+        Chebyshev.theta (x ^ (1 / 2 : Real)) ≤
+      Chebyshev.psi x - Chebyshev.theta x := by
+  exact psi_sub_theta_ge_scaled_theta_sqrt (by linarith)
+    (log_cube_le_self_of_121_le hx)
 
 /-! The pointwise form is the one needed for a decaying explicit error: use
   the logarithm of the current argument rather than freezing the error at a
