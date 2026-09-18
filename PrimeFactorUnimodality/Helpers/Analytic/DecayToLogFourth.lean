@@ -194,6 +194,17 @@ theorem exists_hasPsiLogFourthError_of_logRpowDecay_of_pos_coefficient
   exact hasPsiLogFourthError_of_logRpowDecay_of_envelope
     (C := C) (D := D) hYpos hdecayY henvY
 
+theorem exists_hasPsiLogFourthError_of_logRpowBigO_of_pos_coefficient
+    {D c α : Real} (hD : 0 < D) (hc : 0 < c) (hα : 0 < α)
+    (hbigO : HasPsiLogRpowBigO c α) :
+    ∃ Y : Real, HasPsiLogFourthError D Y := by
+  obtain ⟨C, X, hC, hX, hdecay⟩ :=
+    exists_hasPsiLogRpowDecay_of_isBigO hbigO
+  obtain ⟨Y, hXY, herror⟩ :=
+    exists_hasPsiLogFourthError_of_logRpowDecay_of_pos_coefficient
+      hC hD hc hα hdecay
+  exact ⟨Y, herror⟩
+
 theorem exists_hasPsiLogFourthError_of_logRpowDecay
     {C c α X : Real} (hC : 0 ≤ C) (hc : 0 < c) (hα : 0 < α)
     (hdecay : HasPsiLogRpowDecay C c α X) :
