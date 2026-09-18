@@ -121,6 +121,33 @@ theorem exists_hasThetaLogFourthError_of_mediumPNT_at_large_cutoff :
   refine ⟨X, hX, hlogX, ?_⟩
   exact hasThetaLogFourthError_of_psiLogFourthError_sharp hX hpsi
 
+/-! The same eventual theta estimate yields the logarithm-cubed prime interval
+needed by the tail argument.  This is the analytic half only; the finite
+interval range remains a separate computational input. -/
+theorem exists_dusartPrimeInInterval_of_mediumPNT
+    (X₀ : Real) :
+    ∃ X : Real, X₀ ≤ X ∧ (4e18 : Real) ≤ X ∧
+      (∀ x : Real, X ≤ x →
+        ∃ q : Nat, q.Prime ∧ x < q ∧
+          (q : Real) ≤ x * (1 + 1 / (Real.log x) ^ 3)) := by
+  obtain ⟨X, hX₀, h4X, htheta⟩ :=
+    exists_hasThetaLogFourthError_of_mediumPNT_above X₀
+  have hXpos : 0 < X := by linarith
+  have hlogX : (10 : Real) < Real.log X := by
+    have hlog4 : (42 : Real) ≤ Real.log X :=
+      forty_two_lt_log_four_e18.le.trans
+        (Real.log_le_log (by norm_num) h4X)
+    linarith
+  refine ⟨X, hX₀, h4X, ?_⟩
+  exact dusartPrimeInInterval_of_logFourthError_from
+    hXpos (by linarith) hlogX (by norm_num) (by
+      have hlog4 : (42 : Real) ≤ Real.log X :=
+        forty_two_lt_log_four_e18.le.trans
+          (Real.log_le_log (by norm_num) h4X)
+      have hlogpos : 0 < Real.log X := by linarith
+      apply (div_le_iff₀ hlogpos).2
+      nlinarith [hlog4]) htheta
+
 /-! The source-level PNT also supplies the published prime-counting tail once
 the finite Abel-summation core is bounded.  The core is transported to the
 raised cutoff by the proved monotonicity estimate; no prime-counting theorem
