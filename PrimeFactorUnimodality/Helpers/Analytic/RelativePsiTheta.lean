@@ -69,6 +69,14 @@ theorem psi_abs_error_le_elementary
   rw [abs_le]
   constructor <;> nlinarith
 
+/-! The unconditional, non-decaying provider.  It is not strong enough for
+  Dusart's sharp tail, but records the complete elementary baseline in the
+  same interface and supplies the small-side branch independently. -/
+theorem hasPsiRelativeError_elementary :
+    HasPsiRelativeError (fun _ : Real => Real.log 4 + 4) := by
+  intro b hb x hxb
+  exact psi_abs_error_le_elementary (le_trans (Real.exp_pos b).le hxb)
+
 /-! Package a tail log-fourth estimate as a global relative-error function.
   Below the cutoff the function deliberately uses the unconditional
   Chebyshev constant; above it, it is exactly the decaying analytic error. -/
