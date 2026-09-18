@@ -34,7 +34,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 510 ≤ d
                   ·
@@ -42,13 +42,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 509 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 507 ≤ d
                 ·
@@ -58,13 +58,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 507 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 506 ≤ d
                   ·
@@ -77,7 +77,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 501 ≤ d
               ·
@@ -89,13 +89,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 503 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 502 ≤ d
                   ·
@@ -103,13 +103,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 501 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 499 ≤ d
                 ·
@@ -119,13 +119,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 295237031)
       right
-      exact ⟨295236531, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨295236531, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 499 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 498 ≤ d
                   ·
@@ -138,7 +138,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
           ·
             by_cases h : 489 ≤ d
             ·
@@ -152,13 +152,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 495 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 494 ≤ d
                   ·
@@ -166,13 +166,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 493 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 491 ≤ d
                 ·
@@ -187,7 +187,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 490 ≤ d
                   ·
@@ -195,13 +195,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 489 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 485 ≤ d
               ·
@@ -218,7 +218,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 486 ≤ d
                   ·
@@ -230,7 +230,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 483 ≤ d
                 ·
@@ -240,13 +240,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 483 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 482 ≤ d
                   ·
@@ -254,13 +254,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 481 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
         ·
           by_cases h : 465 ≤ d
           ·
@@ -276,13 +276,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 11)
       right
-      exact ⟨4, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨4, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 479 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 478 ≤ d
                   ·
@@ -290,13 +290,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 477 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 475 ≤ d
                 ·
@@ -311,7 +311,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 474 ≤ d
                   ·
@@ -319,13 +319,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 473 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 469 ≤ d
               ·
@@ -337,13 +337,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 471 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 470 ≤ d
                   ·
@@ -356,7 +356,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 467 ≤ d
                 ·
@@ -366,13 +366,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 467 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 466 ≤ d
                   ·
@@ -380,13 +380,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 465 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
           ·
             by_cases h : 457 ≤ d
             ·
@@ -400,13 +400,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 463 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 462 ≤ d
                   ·
@@ -414,13 +414,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 435913)
       right
-      exact ⟨435451, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨435451, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 461 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 459 ≤ d
                 ·
@@ -430,13 +430,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 459 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 458 ≤ d
                   ·
@@ -444,13 +444,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 11)
       right
-      exact ⟨4, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨4, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 457 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 453 ≤ d
               ·
@@ -467,7 +467,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 454 ≤ d
                   ·
@@ -475,13 +475,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 453 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 451 ≤ d
                 ·
@@ -496,7 +496,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 450 ≤ d
                   ·
@@ -504,13 +504,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 10398537077)
       right
-      exact ⟨10398536627, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨10398536627, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 449 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
       ·
         by_cases h : 417 ≤ d
         ·
@@ -528,13 +528,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 447 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 446 ≤ d
                   ·
@@ -547,7 +547,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 443 ≤ d
                 ·
@@ -557,13 +557,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 443 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 442 ≤ d
                   ·
@@ -571,13 +571,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 441 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 437 ≤ d
               ·
@@ -589,13 +589,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 439 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 438 ≤ d
                   ·
@@ -608,7 +608,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 435 ≤ d
                 ·
@@ -618,13 +618,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 435 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 434 ≤ d
                   ·
@@ -632,13 +632,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 433 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
           ·
             by_cases h : 425 ≤ d
             ·
@@ -652,13 +652,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 46864500259)
       right
-      exact ⟨46864499827, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨46864499827, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 431 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 430 ≤ d
                   ·
@@ -666,13 +666,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 429 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 427 ≤ d
                 ·
@@ -687,7 +687,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 426 ≤ d
                   ·
@@ -695,13 +695,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 425 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 421 ≤ d
               ·
@@ -713,13 +713,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 423 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 422 ≤ d
                   ·
@@ -732,7 +732,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 419 ≤ d
                 ·
@@ -746,7 +746,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 418 ≤ d
                   ·
@@ -754,13 +754,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 417 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
         ·
           by_cases h : 401 ≤ d
           ·
@@ -781,7 +781,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 414 ≤ d
                   ·
@@ -789,13 +789,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 413 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 411 ≤ d
                 ·
@@ -805,13 +805,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 411 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 410 ≤ d
                   ·
@@ -824,7 +824,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 405 ≤ d
               ·
@@ -841,7 +841,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 406 ≤ d
                   ·
@@ -849,13 +849,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 405 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 403 ≤ d
                 ·
@@ -865,13 +865,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 403 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 402 ≤ d
                   ·
@@ -884,7 +884,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
           ·
             by_cases h : 393 ≤ d
             ·
@@ -898,13 +898,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 399 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 398 ≤ d
                   ·
@@ -912,13 +912,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 397 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 395 ≤ d
                 ·
@@ -928,13 +928,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 76771)
       right
-      exact ⟨76375, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨76375, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 395 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 394 ≤ d
                   ·
@@ -942,13 +942,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 393 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 389 ≤ d
               ·
@@ -960,13 +960,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 11)
       right
-      exact ⟨4, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨4, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 391 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 390 ≤ d
                   ·
@@ -979,7 +979,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 387 ≤ d
                 ·
@@ -989,13 +989,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 387 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 386 ≤ d
                   ·
@@ -1008,7 +1008,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
     ·
       by_cases h : 321 ≤ d
       ·
@@ -1028,13 +1028,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 383 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 382 ≤ d
                   ·
@@ -1042,13 +1042,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 381 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 379 ≤ d
                 ·
@@ -1063,7 +1063,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 378 ≤ d
                   ·
@@ -1071,13 +1071,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3522131)
       right
-      exact ⟨3521753, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨3521753, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 377 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 373 ≤ d
               ·
@@ -1089,13 +1089,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 375 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 374 ≤ d
                   ·
@@ -1103,13 +1103,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 373 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 371 ≤ d
                 ·
@@ -1124,7 +1124,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 370 ≤ d
                   ·
@@ -1132,13 +1132,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 369 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
           ·
             by_cases h : 361 ≤ d
             ·
@@ -1157,7 +1157,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 366 ≤ d
                   ·
@@ -1170,7 +1170,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 363 ≤ d
                 ·
@@ -1180,13 +1180,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 363 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 362 ≤ d
                   ·
@@ -1199,7 +1199,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 357 ≤ d
               ·
@@ -1215,7 +1215,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 358 ≤ d
                   ·
@@ -1223,13 +1223,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 357 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 355 ≤ d
                 ·
@@ -1239,13 +1239,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 355 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 354 ≤ d
                   ·
@@ -1253,13 +1253,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 353 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
         ·
           by_cases h : 337 ≤ d
           ·
@@ -1275,13 +1275,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 351 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 350 ≤ d
                   ·
@@ -1293,7 +1293,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 347 ≤ d
                 ·
@@ -1303,13 +1303,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 11)
       right
-      exact ⟨4, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨4, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 347 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 346 ≤ d
                   ·
@@ -1317,13 +1317,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 345 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 341 ≤ d
               ·
@@ -1335,13 +1335,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 343 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 342 ≤ d
                   ·
@@ -1349,13 +1349,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 341 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 339 ≤ d
                 ·
@@ -1365,13 +1365,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 339 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 338 ≤ d
                   ·
@@ -1384,7 +1384,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
           ·
             by_cases h : 329 ≤ d
             ·
@@ -1402,7 +1402,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 334 ≤ d
                   ·
@@ -1410,13 +1410,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 333 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 331 ≤ d
                 ·
@@ -1431,7 +1431,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 330 ≤ d
                   ·
@@ -1439,13 +1439,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 584261)
       right
-      exact ⟨583931, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨583931, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 329 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 325 ≤ d
               ·
@@ -1457,13 +1457,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 327 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 326 ≤ d
                   ·
@@ -1471,13 +1471,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 11)
       right
-      exact ⟨4, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨4, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 325 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 323 ≤ d
                 ·
@@ -1487,13 +1487,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 323 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 322 ≤ d
                   ·
@@ -1501,13 +1501,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 321 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
       ·
         by_cases h : 289 ≤ d
         ·
@@ -1525,13 +1525,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 118840913)
       right
-      exact ⟨118840593, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨118840593, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 319 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 318 ≤ d
                   ·
@@ -1544,7 +1544,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 315 ≤ d
                 ·
@@ -1554,13 +1554,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 315 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 314 ≤ d
                   ·
@@ -1568,13 +1568,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 313 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 309 ≤ d
               ·
@@ -1591,7 +1591,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 310 ≤ d
                   ·
@@ -1599,13 +1599,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 309 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 307 ≤ d
                 ·
@@ -1615,13 +1615,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 1978181)
       right
-      exact ⟨1977873, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1977873, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 307 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 306 ≤ d
                   ·
@@ -1634,7 +1634,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
           ·
             by_cases h : 297 ≤ d
             ·
@@ -1648,13 +1648,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 303 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 302 ≤ d
                   ·
@@ -1667,7 +1667,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 299 ≤ d
                 ·
@@ -1677,13 +1677,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 299 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 298 ≤ d
                   ·
@@ -1691,13 +1691,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 297 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 293 ≤ d
               ·
@@ -1714,7 +1714,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 294 ≤ d
                   ·
@@ -1722,13 +1722,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 293 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 291 ≤ d
                 ·
@@ -1738,13 +1738,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 291 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 290 ≤ d
                   ·
@@ -1757,7 +1757,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
         ·
           by_cases h : 273 ≤ d
           ·
@@ -1773,13 +1773,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 41517617321)
       right
-      exact ⟨41517617033, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨41517617033, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 287 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 286 ≤ d
                   ·
@@ -1787,13 +1787,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 285 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 283 ≤ d
                 ·
@@ -1803,13 +1803,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 283 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 282 ≤ d
                   ·
@@ -1817,13 +1817,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 11)
       right
-      exact ⟨4, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨4, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 281 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 277 ≤ d
               ·
@@ -1835,13 +1835,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 279 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 278 ≤ d
                   ·
@@ -1854,7 +1854,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 275 ≤ d
                 ·
@@ -1869,7 +1869,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 274 ≤ d
                   ·
@@ -1877,13 +1877,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 273 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
           ·
             by_cases h : 265 ≤ d
             ·
@@ -1897,13 +1897,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 271 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 270 ≤ d
                   ·
@@ -1911,13 +1911,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 33046357)
       right
-      exact ⟨33046087, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨33046087, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 269 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 267 ≤ d
                 ·
@@ -1927,13 +1927,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 267 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 266 ≤ d
                   ·
@@ -1946,7 +1946,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 261 ≤ d
               ·
@@ -1958,13 +1958,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 263 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 262 ≤ d
                   ·
@@ -1972,13 +1972,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 261 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 259 ≤ d
                 ·
@@ -1988,13 +1988,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 11)
       right
-      exact ⟨4, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨4, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 259 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 258 ≤ d
                   ·
@@ -2002,13 +2002,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 257 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
   ·
     by_cases h : 129 ≤ d
     ·
@@ -2030,13 +2030,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 255 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 254 ≤ d
                   ·
@@ -2044,13 +2044,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 253 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 251 ≤ d
                 ·
@@ -2064,7 +2064,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 250 ≤ d
                   ·
@@ -2072,13 +2072,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 249 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 245 ≤ d
               ·
@@ -2095,7 +2095,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 246 ≤ d
                   ·
@@ -2108,7 +2108,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 243 ≤ d
                 ·
@@ -2118,13 +2118,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 243 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 242 ≤ d
                   ·
@@ -2132,13 +2132,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 98112263)
       right
-      exact ⟨98112021, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨98112021, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 241 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
           ·
             by_cases h : 233 ≤ d
             ·
@@ -2156,7 +2156,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 238 ≤ d
                   ·
@@ -2164,13 +2164,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 237 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 235 ≤ d
                 ·
@@ -2185,7 +2185,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 234 ≤ d
                   ·
@@ -2193,13 +2193,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 233 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 229 ≤ d
               ·
@@ -2211,13 +2211,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 231 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 230 ≤ d
                   ·
@@ -2225,13 +2225,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 229 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 227 ≤ d
                 ·
@@ -2246,7 +2246,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 226 ≤ d
                   ·
@@ -2254,13 +2254,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 225 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
         ·
           by_cases h : 209 ≤ d
           ·
@@ -2276,13 +2276,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 223 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 222 ≤ d
                   ·
@@ -2295,7 +2295,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 219 ≤ d
                 ·
@@ -2305,13 +2305,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 219 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 218 ≤ d
                   ·
@@ -2324,7 +2324,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 213 ≤ d
               ·
@@ -2336,13 +2336,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 215 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 214 ≤ d
                   ·
@@ -2350,13 +2350,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 213 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 211 ≤ d
                 ·
@@ -2371,7 +2371,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 210 ≤ d
                   ·
@@ -2379,13 +2379,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 150247)
       right
-      exact ⟨150037, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨150037, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 209 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
           ·
             by_cases h : 201 ≤ d
             ·
@@ -2399,13 +2399,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 207 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 206 ≤ d
                   ·
@@ -2418,7 +2418,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 203 ≤ d
                 ·
@@ -2428,13 +2428,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 203 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 202 ≤ d
                   ·
@@ -2442,13 +2442,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 201 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 197 ≤ d
               ·
@@ -2460,13 +2460,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 153093667)
       right
-      exact ⟨153093467, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨153093467, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 199 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 198 ≤ d
                   ·
@@ -2474,13 +2474,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 155317)
       right
-      exact ⟨155119, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨155119, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 197 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 195 ≤ d
                 ·
@@ -2490,13 +2490,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 195 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 194 ≤ d
                   ·
@@ -2504,13 +2504,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 193 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
       ·
         by_cases h : 161 ≤ d
         ·
@@ -2532,7 +2532,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 190 ≤ d
                   ·
@@ -2540,13 +2540,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 189 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 187 ≤ d
                 ·
@@ -2556,13 +2556,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 187 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 186 ≤ d
                   ·
@@ -2575,7 +2575,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 181 ≤ d
               ·
@@ -2587,13 +2587,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 183 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 182 ≤ d
                   ·
@@ -2606,7 +2606,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 179 ≤ d
                 ·
@@ -2616,13 +2616,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3531601)
       right
-      exact ⟨3531421, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨3531421, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 179 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 178 ≤ d
                   ·
@@ -2630,13 +2630,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 177 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
           ·
             by_cases h : 169 ≤ d
             ·
@@ -2654,7 +2654,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 174 ≤ d
                   ·
@@ -2662,13 +2662,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 173 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 171 ≤ d
                 ·
@@ -2678,13 +2678,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 171 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 170 ≤ d
                   ·
@@ -2697,7 +2697,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 165 ≤ d
               ·
@@ -2709,13 +2709,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2090489)
       right
-      exact ⟨2090321, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2090321, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 167 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 166 ≤ d
                   ·
@@ -2723,13 +2723,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 165 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 163 ≤ d
                 ·
@@ -2739,13 +2739,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 163 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 162 ≤ d
                   ·
@@ -2757,7 +2757,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
         ·
           by_cases h : 145 ≤ d
           ·
@@ -2773,13 +2773,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 159 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 158 ≤ d
                   ·
@@ -2792,7 +2792,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 155 ≤ d
                 ·
@@ -2807,7 +2807,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 154 ≤ d
                   ·
@@ -2815,13 +2815,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 153 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 149 ≤ d
               ·
@@ -2838,7 +2838,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 150 ≤ d
                   ·
@@ -2846,13 +2846,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 11)
       right
-      exact ⟨4, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨4, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 149 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 147 ≤ d
                 ·
@@ -2862,13 +2862,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 147 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 146 ≤ d
                   ·
@@ -2876,13 +2876,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 145 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
           ·
             by_cases h : 137 ≤ d
             ·
@@ -2896,13 +2896,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 143 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 142 ≤ d
                   ·
@@ -2910,13 +2910,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 141 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 139 ≤ d
                 ·
@@ -2930,7 +2930,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 138 ≤ d
                   ·
@@ -2943,7 +2943,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 133 ≤ d
               ·
@@ -2955,13 +2955,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 135 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 134 ≤ d
                   ·
@@ -2969,13 +2969,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 133 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 131 ≤ d
                 ·
@@ -2985,13 +2985,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 131 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 130 ≤ d
                   ·
@@ -2999,13 +2999,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 129 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
     ·
       by_cases h : 65 ≤ d
       ·
@@ -3025,13 +3025,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 11)
       right
-      exact ⟨4, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨4, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 127 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 126 ≤ d
                   ·
@@ -3043,7 +3043,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 123 ≤ d
                 ·
@@ -3053,13 +3053,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 123 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 122 ≤ d
                   ·
@@ -3072,7 +3072,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 117 ≤ d
               ·
@@ -3084,13 +3084,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 273067)
       right
-      exact ⟨272947, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨272947, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 119 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 118 ≤ d
                   ·
@@ -3098,13 +3098,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 117 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 115 ≤ d
                 ·
@@ -3119,7 +3119,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 114 ≤ d
                   ·
@@ -3127,13 +3127,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 113 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
           ·
             by_cases h : 105 ≤ d
             ·
@@ -3147,13 +3147,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 111 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 110 ≤ d
                   ·
@@ -3165,7 +3165,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 107 ≤ d
                 ·
@@ -3175,13 +3175,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 11086507)
       right
-      exact ⟨11086399, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨11086399, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 107 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 106 ≤ d
                   ·
@@ -3189,13 +3189,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 105 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 101 ≤ d
               ·
@@ -3207,13 +3207,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 103 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 102 ≤ d
                   ·
@@ -3226,7 +3226,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 99 ≤ d
                 ·
@@ -3236,13 +3236,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 99 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 98 ≤ d
                   ·
@@ -3250,13 +3250,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 255329)
       right
-      exact ⟨255231, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨255231, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 97 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
         ·
           by_cases h : 81 ≤ d
           ·
@@ -3276,7 +3276,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 94 ≤ d
                   ·
@@ -3284,13 +3284,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 93 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 91 ≤ d
                 ·
@@ -3305,7 +3305,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 90 ≤ d
                   ·
@@ -3313,13 +3313,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 89 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 85 ≤ d
               ·
@@ -3331,13 +3331,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 87 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 86 ≤ d
                   ·
@@ -3350,7 +3350,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 83 ≤ d
                 ·
@@ -3360,13 +3360,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 83 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 82 ≤ d
                   ·
@@ -3374,13 +3374,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 81 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
           ·
             by_cases h : 73 ≤ d
             ·
@@ -3394,13 +3394,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5693971)
       right
-      exact ⟨5693891, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨5693891, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 79 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 78 ≤ d
                   ·
@@ -3413,7 +3413,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 75 ≤ d
                 ·
@@ -3423,13 +3423,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 75 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 74 ≤ d
                   ·
@@ -3437,13 +3437,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 73 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 69 ≤ d
               ·
@@ -3459,7 +3459,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 70 ≤ d
                   ·
@@ -3467,13 +3467,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 69 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 67 ≤ d
                 ·
@@ -3488,7 +3488,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 66 ≤ d
                   ·
@@ -3500,7 +3500,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
       ·
         by_cases h : 33 ≤ d
         ·
@@ -3518,13 +3518,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 63 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 62 ≤ d
                   ·
@@ -3532,13 +3532,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 61 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 59 ≤ d
                 ·
@@ -3548,13 +3548,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 77881054787)
       right
-      exact ⟨77881054727, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨77881054727, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 59 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 58 ≤ d
                   ·
@@ -3562,13 +3562,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 57 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 53 ≤ d
               ·
@@ -3580,13 +3580,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 14978729)
       right
-      exact ⟨14978673, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨14978673, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 55 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 54 ≤ d
                   ·
@@ -3594,13 +3594,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 53 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 51 ≤ d
                 ·
@@ -3610,13 +3610,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 51 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 50 ≤ d
                   ·
@@ -3624,13 +3624,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5261933)
       right
-      exact ⟨5261883, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨5261883, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 49 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
           ·
             by_cases h : 41 ≤ d
             ·
@@ -3644,13 +3644,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 47 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 46 ≤ d
                   ·
@@ -3658,13 +3658,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 45 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 43 ≤ d
                 ·
@@ -3674,13 +3674,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 43 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 42 ≤ d
                   ·
@@ -3688,13 +3688,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 290399)
       right
-      exact ⟨290357, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨290357, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 41 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 37 ≤ d
               ·
@@ -3706,13 +3706,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 39 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 38 ≤ d
                   ·
@@ -3725,7 +3725,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 35 ≤ d
                 ·
@@ -3735,13 +3735,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 649639)
       right
-      exact ⟨649603, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨649603, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 35 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 34 ≤ d
                   ·
@@ -3749,13 +3749,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 33 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
         ·
           by_cases h : 17 ≤ d
           ·
@@ -3771,13 +3771,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 194707)
       right
-      exact ⟨194675, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨194675, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 31 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 30 ≤ d
                   ·
@@ -3785,13 +3785,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 535181)
       right
-      exact ⟨535151, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨535151, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 29 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 27 ≤ d
                 ·
@@ -3801,13 +3801,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 27 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 26 ≤ d
                   ·
@@ -3820,7 +3820,7 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 21 ≤ d
               ·
@@ -3832,13 +3832,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 23 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 22 ≤ d
                   ·
@@ -3846,13 +3846,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 21 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 19 ≤ d
                 ·
@@ -3862,13 +3862,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 19 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 18 ≤ d
                   ·
@@ -3876,13 +3876,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 11)
       right
-      exact ⟨4, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨4, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 17 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
           ·
             by_cases h : 9 ≤ d
             ·
@@ -3896,13 +3896,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 15 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 14 ≤ d
                   ·
@@ -3910,13 +3910,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 5)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 13 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 11 ≤ d
                 ·
@@ -3926,13 +3926,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 52579)
       right
-      exact ⟨52567, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨52567, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 11 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 10 ≤ d
                   ·
@@ -3940,13 +3940,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 9 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
             ·
               by_cases h : 5 ≤ d
               ·
@@ -3958,13 +3958,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 57977)
       right
-      exact ⟨57969, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨57969, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 7 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 6 ≤ d
                   ·
@@ -3972,13 +3972,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 7)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 5 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
               ·
                 by_cases h : 3 ≤ d
                 ·
@@ -3988,13 +3988,13 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 3)
       right
-      exact ⟨2, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨2, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 3 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
                 ·
                   by_cases h : 2 ≤ d
                   ·
@@ -4002,12 +4002,12 @@ theorem fullRecordGapAddBlock_part0892 (d : Nat) (1 ≤ d) (d ≤ 512) : ¬(reco
                     subst d
       apply fullRecordGap_add_not_prime (q := 4357811)
       right
-      exact ⟨4357809, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨4357809, by norm_num, by norm_num, by norm_num, by norm_num⟩
                   ·
                     have : d = 1 := by omega
                     subst d
       apply fullRecordGap_add_not_prime (q := 2)
       right
-      exact ⟨1, by norm_num, by norm_num, by norm_num⟩
+      exact ⟨1, by norm_num, by norm_num, by norm_num, by norm_num⟩
 
 end PrimeFactorUnimodality

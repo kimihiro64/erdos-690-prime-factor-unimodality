@@ -3,6 +3,7 @@ import Mathlib.Data.Nat.Prime.Basic
 import Mathlib.FieldTheory.Finite.Basic
 import Mathlib.Tactic.NormNum
 import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapPrimeList
 import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapResidues
 
 set_option autoImplicit false
@@ -57,6 +58,12 @@ def RecordGapOwnerSpec (d q : Nat) : Prop :=
 theorem recordGapCenter_large : 8_000_000_000 < recordGapCenter := by
   norm_num [recordGapCenter, recordGapTailProduct, recordGapPrimeList]
 
+theorem fullRecordGap_prime_lower {q : Nat}
+    (q_mem : q ∈ recordGapPrimeList) : 13 ≤ q := by
+  revert q_mem
+  revert q
+  decide
+
 theorem recordGapOwnerSpec_dvd_sub {d q : Nat}
     (hd : d ≤ 4_000_000_000) (owner : RecordGapOwnerSpec d q) :
     q ∣ recordGapCenter - d := by
@@ -82,31 +89,6 @@ theorem recordGap_sub_not_prime {d q : Nat}
   have hcenter : 8_000_000_000 < recordGapCenter := recordGapCenter_large
   omega
 
-theorem recordGapOwnerSpec_dvd_add {d q : Nat}
-    (owner : RecordGapOwnerSpec d q) :
-    q ∣ recordGapCenter + d := by
-  rcases owner with ⟨q_mem, q_dvd_d⟩ | ⟨r, residue, d_mod⟩
-  · have q_dvd_tail : q ∣ recordGapTailProduct := by
-      exact List.dvd_prod (recordGapUsedTailOwners_mem q_mem)
-    have q_dvd_center : q ∣ recordGapCenter := by
-      exact dvd_mul_of_dvd_right q_dvd_tail 587
-    exact dvd_add q_dvd_center q_dvd_d
-  · apply (Nat.modEq_iff_dvd' (by omega : d ≤ recordGapCenter + d)).mp
-    change recordGapCenter % q = d % q
-    exact (recordGapCenter_mod_of_residue residue).trans d_mod.symm
-
-theorem recordGap_add_not_prime {d q : Nat}
-    (owner : RecordGapOwnerSpec d q) :
-    ¬(recordGapCenter + d).Prime := by
-  apply Nat.not_prime_of_dvd_of_lt (recordGapOwnerSpec_dvd_add owner) (by
-    rcases owner with ⟨q_mem, _⟩ | ⟨r, residue, _⟩
-    · exact (recordGapPrimeList_le_limit q q_mem).trans_lt (by
-        have := recordGapCenter_large
-        omega)
-    · cases residue <;> norm_num)
-  have hcenter := recordGapCenter_large
-  omega
-
 /-! The full published gap has additional archived factors beyond the compact
 owner list above.  These two interfaces accept their replayed center residue
 directly, so those factors need not be added to `RecordGapResidue`. -/
@@ -127,36 +109,66 @@ theorem recordGap_sub_not_prime_of_center_mod {d q r : Nat}
 
 theorem recordGap_add_not_prime_of_center_mod {d q r : Nat}
     (hq : 2 ≤ q) (hqBound : q ≤ 3_100_000_000)
-    (center_mod : recordGapCenter % q = r) (d_mod : d % q = r) :
+    (center_mod : recordGapCenter % q = r)
+    (d_mod : d % q = (q - r) % q) :
     ¬(recordGapCenter + d).Prime := by
   have q_dvd : q ∣ recordGapCenter + d := by
-    apply (Nat.modEq_iff_dvd' (by omega : d ≤ recordGapCenter + d)).mp
-    exact center_mod.trans d_mod.symm
+    apply (Nat.dvd_iff_mod_eq_zero).2
+    rw [Nat.add_mod, center_mod, d_mod]
+    have residue_lt : r < q := by
+      rw [← center_mod]
+      exact Nat.mod_lt _ (by omega)
+    by_cases hr : r = 0
+    · simp [hr]
+    · have residue_pos : 0 < r := Nat.pos_of_ne_zero hr
+      have hlt : q - r < q := Nat.sub_lt (by omega) residue_pos
+      rw [Nat.mod_eq_of_lt hlt]
+      rw [Nat.add_sub_of_le residue_lt.le, Nat.mod_self]
   apply Nat.not_prime_of_dvd_of_lt q_dvd hq
   have hcenter := recordGapCenter_large
   omega
 
 def FullRecordGapOwnerSpec (d q : Nat) : Prop :=
   (q ∈ recordGapPrimeList ∧ q ∣ d) ∨
-    ∃ r, q ≤ 3_100_000_000 ∧ recordGapCenter % q = r ∧ d % q = r
+    ∃ r, 2 ≤ q ∧ q ≤ 3_100_000_000 ∧ recordGapCenter % q = r ∧ d % q = r
+
+def FullRecordGapAddOwnerSpec (d q : Nat) : Prop :=
+  (q ∈ recordGapPrimeList ∧ q ∣ d) ∨
+    ∃ r, 2 ≤ q ∧ q ≤ 3_100_000_000 ∧ recordGapCenter % q = r ∧
+      d % q = (q - r) % q
 
 theorem fullRecordGap_sub_not_prime {d q : Nat}
     (hd : d ≤ 4_000_000_000) (owner : FullRecordGapOwnerSpec d q) :
     ¬(recordGapCenter - d).Prime := by
-  rcases owner with ⟨q_mem, q_dvd_d⟩ | ⟨r, q_bound, center_mod, d_mod⟩
-  · exact recordGap_sub_not_prime_of_tail_owner hd
-      (by have := recordGapPrimeList_lower q q_mem; omega)
-      (recordGapPrimeList_le_limit q q_mem) q_mem q_dvd_d
+  rcases owner with ⟨q_mem, q_dvd_d⟩ | ⟨r, hq, q_bound, center_mod, d_mod⟩
+  · have d_le_center : d ≤ recordGapCenter :=
+      hd.trans ((by norm_num : 4_000_000_000 ≤ 8_000_000_000).trans
+        recordGapCenter_large.le)
+    have q_dvd_tail : q ∣ recordGapTailProduct := List.dvd_prod q_mem
+    have q_dvd_center : q ∣ recordGapCenter := dvd_mul_of_dvd_right q_dvd_tail 587
+    have q_dvd_sub : q ∣ recordGapCenter - d := by
+      apply (Nat.modEq_iff_dvd' d_le_center).mp
+      exact q_dvd_d.modEq_zero_nat.trans q_dvd_center.zero_modEq_nat
+    apply Nat.not_prime_of_dvd_of_lt q_dvd_sub
+      (by have := fullRecordGap_prime_lower q_mem; omega)
+    have hcenter := recordGapCenter_large
+    have hq := recordGapPrimeList_le_limit q q_mem
+    omega
   · exact recordGap_sub_not_prime_of_center_mod hd (by omega) q_bound
       center_mod d_mod
 
 theorem fullRecordGap_add_not_prime {d q : Nat}
-    (owner : FullRecordGapOwnerSpec d q) :
+    (owner : FullRecordGapAddOwnerSpec d q) :
     ¬(recordGapCenter + d).Prime := by
-  rcases owner with ⟨q_mem, q_dvd_d⟩ | ⟨r, q_bound, center_mod, d_mod⟩
-  · exact recordGap_add_not_prime_of_tail_owner
-      (by have := recordGapPrimeList_lower q q_mem; omega)
-      (recordGapPrimeList_le_limit q q_mem) q_mem q_dvd_d
+  rcases owner with ⟨q_mem, q_dvd_d⟩ | ⟨r, hq, q_bound, center_mod, d_mod⟩
+  · have q_dvd_tail : q ∣ recordGapTailProduct := List.dvd_prod q_mem
+    have q_dvd_center : q ∣ recordGapCenter := dvd_mul_of_dvd_right q_dvd_tail 587
+    have q_dvd : q ∣ recordGapCenter + d := dvd_add q_dvd_center q_dvd_d
+    apply Nat.not_prime_of_dvd_of_lt q_dvd
+      (by have := fullRecordGap_prime_lower q_mem; omega)
+    have hcenter := recordGapCenter_large
+    have hq := recordGapPrimeList_le_limit q q_mem
+    omega
   · exact recordGap_add_not_prime_of_center_mod (by omega) q_bound
       center_mod d_mod
 

@@ -40,12 +40,12 @@ def leaf_proof(
         return [
             f"      apply fullRecordGap_sub_not_prime (q := {q}) (by norm_num)",
             "      right",
-            f"      exact ⟨{r}, by norm_num, by norm_num, by norm_num⟩",
+                f"      exact ⟨{r}, by norm_num, by norm_num, by norm_num, by norm_num⟩",
         ]
     return [
         f"      apply fullRecordGap_add_not_prime (q := {q})",
         "      right",
-        f"      exact ⟨{r}, by norm_num, by norm_num, by norm_num⟩",
+        f"      exact ⟨{r}, by norm_num, by norm_num, by norm_num, by norm_num⟩",
     ]
 
 
