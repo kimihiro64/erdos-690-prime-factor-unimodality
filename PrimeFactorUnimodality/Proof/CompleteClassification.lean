@@ -195,6 +195,23 @@ theorem completeClassification_of_published_analytic_inputs
       (hasDusartRealPrimeCountingBoundsAbove_of_published published))
     thetaBounds shortInterval
 
+/-! The four inputs in the preceding theorem are exactly the explicit
+analytic facts used by the published all-`k` argument.  Bundling them makes
+the remaining provider obligation explicit at the public theorem boundary;
+none of these fields is synthesized by a project axiom. -/
+structure WangCrapisAnalyticInputs : Prop where
+  finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real)
+  publishedPrimeCounting : HasDusartPublishedPrimeCountingBounds
+  thetaBounds : HasDusartSymmetricThetaBounds
+  shortInterval : HasLogCubedShortIntervalPrime
+
+theorem completeClassification_of_wangCrapis_analytic_inputs
+    (inputs : WangCrapisAnalyticInputs) :
+    CompleteClassification := by
+  exact completeClassification_of_published_analytic_inputs
+    inputs.finitePrimeCounting inputs.publishedPrimeCounting
+    inputs.thetaBounds inputs.shortInterval
+
 end
 
 end PrimeFactorUnimodality
