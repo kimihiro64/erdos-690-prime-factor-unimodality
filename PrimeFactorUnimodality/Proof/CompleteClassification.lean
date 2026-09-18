@@ -239,6 +239,34 @@ theorem completeClassification_of_full_record_core_theta_error_inputs
       coreThetaError)
     finiteTheta cover thetaError shortInterval
 
+/-! Once the finite theta and interval rows are supplied, every analytic
+interface is now discharged by the explicit proofs above. -/
+theorem completeClassification_of_full_record_explicit_dusart_inputs
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
+    {A C X : Real} (hXpos : 0 < X) (h2X : 2 ≤ X)
+    (hXcutoff : X ≤ (4e18 : Real))
+    (hA0 : 0 ≤ A) (hA : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hlog : (42 : Real) ≤ Real.log X)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (coreThetaError : HasThetaLogFourthError A X)
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
+    {dusartRows : List DusartPrimeRow}
+    (dusartCover : DusartPrimeRowsCoverBelow dusartRows)
+    {logRows : List LogCubedPrimeRow}
+    (logCover : LogCubedPrimeRowsCoverUpTo logRows (4e18 : Real))
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    CompleteClassification := by
+  exact completeClassification_of_full_record_short_interval_inputs
+    (hasDusartRealPrimeCountingBounds_of_finite_and_core_and_theta_error
+      finitePrimeCounting hXpos h2X hXcutoff hA0 hA hC0 hC hlog hcore
+      coreThetaError)
+    (hasDusartThetaBounds_of_symmetric
+      (hasDusartSymmetricThetaBounds_of_below_and_logCubed
+        finiteTheta thetaError))
+    (hasDusartShortIntervalPrime_of_rows_and_thetaError
+      dusartCover logCover thetaError)
+
 theorem completeClassification_of_full_record_finite_published_asymptotic_inputs
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
     (finitePublished : HasDusartPublishedPrimeCountingBoundsBelow (4e9 : Real))
