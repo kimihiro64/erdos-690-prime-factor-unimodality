@@ -218,6 +218,29 @@ theorem psi_sub_theta_ge_theta_sqrt {x : Real} (hx : 2 ≤ x) :
   linarith [Chebyshev.psi_nonneg (x ^ (3 : Real)⁻¹),
     Chebyshev.psi_nonneg (x ^ (7 : Real)⁻¹)]
 
+/-! The first numerical lower comparison in Dusart's Proposition 4.3 is
+  elementary at its stated cutoff. -/
+theorem psi_sub_theta_ge_one_sub_log_sqrt {x : Real} (hx : 121 ≤ x) :
+    1 - (4 * Real.log 2) / Real.log x * Real.sqrt x ≤
+      Chebyshev.psi x - Chebyshev.theta x := by
+  have hx_pos : 0 < x := by linarith
+  have hlog_pos : 0 < Real.log x := Real.log_pos (by linarith)
+  have hsqrt_pos : 0 < Real.sqrt x := Real.sqrt_pos.2 hx_pos
+  have hlog_le : Real.log x ≤ 2 * Real.sqrt x := by
+    have h := Real.log_le_rpow_div (x := x) (ε := (1 / 2 : Real))
+      hx_pos.le (by norm_num)
+    simpa [Real.sqrt_eq_rpow, mul_comm] using h
+  have hlog2 : (1 : Real) / 2 < Real.log 2 := by
+    linarith [Real.log_two_gt_d9]
+  have hratio : 1 ≤ (4 * Real.log 2) / Real.log x * Real.sqrt x := by
+    rw [show (4 * Real.log 2) / Real.log x * Real.sqrt x =
+      (4 * Real.log 2 * Real.sqrt x) / Real.log x by ring]
+    apply (le_div_iff₀ hlog_pos).2
+    nlinarith
+  have hnonneg : 0 ≤ Chebyshev.psi x - Chebyshev.theta x := by
+    linarith [Chebyshev.theta_le_psi x]
+  linarith
+
 /-! The pointwise form is the one needed for a decaying explicit error: use
   the logarithm of the current argument rather than freezing the error at a
   cutoff. -/
