@@ -291,7 +291,7 @@ theorem dusartPrimeInInterval_of_thetaLogCubedError_from
     (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) X) :
     ∀ x : Real, X ≤ x →
       ∃ q : Nat, q.Prime ∧ x < q ∧
-        (q : Real) ≤ x * (1 + 1 / (Real.log x) ^ 3) := by
+    (q : Real) ≤ x * (1 + 1 / (Real.log x) ^ 3) := by
   intro x hx
   obtain ⟨q, hq, hxq, hupper⟩ :=
     logCubedShortIntervalPrime_of_thetaLogCubedError_from
@@ -300,6 +300,36 @@ theorem dusartPrimeInInterval_of_thetaLogCubedError_from
   calc
     (q : Real) ≤ x + x / (Real.log x) ^ 3 := hupper
     _ = x * (1 + 1 / (Real.log x) ^ 3) := by ring
+
+theorem dusartPrimeInInterval_of_logFourthError_from
+    {A X : Real} (hXpos : 0 < X) (h2X : 2 ≤ X)
+    (hlogX : (10 : Real) < Real.log X) (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    ∀ x : Real, X ≤ x →
+      ∃ q : Nat, q.Prime ∧ x < q ∧
+        (q : Real) ≤ x * (1 + 1 / (Real.log x) ^ 3) := by
+  have hX : 1 < X := by
+    exact (Real.log_pos_iff hXpos.le).mp (by linarith [hlogX])
+  have cubic : HasThetaLogCubedError (12167 / 500000 : Real) X := by
+    have converted := hasThetaLogCubedError_of_logFourthError
+      hX hA_nonneg thetaError
+    intro x hx
+    exact (converted x hx).trans (by
+      have hlog_pos : 0 < Real.log X := by linarith [hlogX]
+      have hx_pos : 0 < x := by linarith
+      have hlogx_pos : 0 < Real.log x := Real.log_pos (by linarith)
+      have hfactor : 0 ≤ x / (Real.log x) ^ 3 := by
+        exact div_nonneg hx_pos.le (pow_pos hlogx_pos 3).le
+      calc
+        (A / Real.log X) * x / (Real.log x) ^ 3 =
+            (A / Real.log X) * (x / (Real.log x) ^ 3) := by ring
+        _ ≤ (12167 / 500000 : Real) *
+              (x / (Real.log x) ^ 3) :=
+          mul_le_mul_of_nonneg_right hA hfactor
+        _ = (12167 / 500000 : Real) * x / (Real.log x) ^ 3 := by ring)
+  exact dusartPrimeInInterval_of_thetaLogCubedError_from
+    hXpos h2X hlogX cubic
 
 /-- Applying the short-interval theorem at the left member of a consecutive
 prime pair bounds the right member. -/
