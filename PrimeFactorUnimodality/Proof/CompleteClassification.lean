@@ -194,6 +194,38 @@ theorem completeClassification_of_full_record_cutoff_split_inputs
   exact completeClassification_of_full_record_split_analytic_inputs
     finitePrimeCounting tailPrimeCounting finiteTheta cover thetaError
 
+/-! The same all-`k` assembly at an arbitrary raised analytic cutoff.  This
+is the boundary consumed by a source-level PNT proof whose eventual threshold
+is not definitionally the paper's numerical cutoff. -/
+theorem completeClassification_of_full_record_raised_cutoff_inputs
+    {X : Real} (hX : (4e18 : Real) ≤ X)
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow X)
+    (tailPrimeCounting : HasDusartRealPrimeCountingBoundsAbove X)
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow X)
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) X)
+    (finiteShortInterval : HasLogCubedShortIntervalPrimeBelow X)
+    (tailShortInterval : ∀ x : Real, X ≤ x →
+      ∃ q : Nat, q.Prime ∧ x < q ∧
+        (q : Real) ≤ x + x / (Real.log x) ^ 3) :
+    CompleteClassification := by
+  have hXpos : 0 < X := by linarith
+  have hlogX : (10 : Real) < Real.log X := by
+    have hlog4 : (42 : Real) ≤ Real.log X :=
+      forty_two_lt_log_four_e18.le.trans
+        (Real.log_le_log (by norm_num) hX)
+    linarith
+  have primeCountingBounds : HasDusartRealPrimeCountingBounds :=
+    hasDusartRealPrimeCountingBounds_of_below_and_above
+      finitePrimeCounting tailPrimeCounting
+  have thetaBounds : HasDusartSymmetricThetaBounds :=
+    hasDusartSymmetricThetaBounds_of_below_and_logCubed_from
+      hXpos hlogX finiteTheta thetaError
+  have shortInterval : HasDusartShortIntervalPrime :=
+    hasLogCubedShortIntervalPrime_of_below_and_above
+      (by linarith [hX]) finiteShortInterval tailShortInterval
+  exact completeClassification_of_full_record_short_interval_inputs
+    primeCountingBounds thetaBounds shortInterval
+
 /-! The tail prime-counting obligation can equivalently be supplied in the
 published asymptotic form.  The adapter is proved in the analytic helper, so
 this theorem exposes the exact provider boundary without hiding a new axiom
