@@ -241,6 +241,24 @@ theorem psi_sub_theta_ge_one_sub_log_sqrt {x : Real} (hx : 121 ≤ x) :
     linarith [Chebyshev.theta_le_psi x]
   linarith
 
+/-! The same correction, with Mathlib's explicit elementary lower estimate for
+  `theta (sqrt x)` left visible. -/
+theorem psi_sub_theta_ge_elementary_sqrt_lower {x : Real} (hx : 121 ≤ x) :
+    (Real.sqrt x - 1) * Real.log 2 - Real.log (Real.sqrt x + 2) -
+        2 * Real.sqrt (Real.sqrt x) * Real.log (Real.sqrt x) ≤
+      Chebyshev.psi x - Chebyshev.theta x := by
+  have hx_two : 2 ≤ x := by linarith
+  have hsqrt_two : 1 ≤ Real.sqrt x := by
+    have hsquare : (Real.sqrt x) ^ 2 = x := Real.sq_sqrt (by positivity)
+    have hsqrt_nonneg : 0 ≤ Real.sqrt x := Real.sqrt_nonneg x
+    nlinarith
+  have htheta := Chebyshev.theta_ge' hsqrt_two
+  have hcorr := psi_sub_theta_ge_theta_sqrt hx_two
+  have hrewrite : x ^ (1 / 2 : Real) = Real.sqrt x := by
+    rw [Real.sqrt_eq_rpow]
+  rw [hrewrite] at hcorr
+  exact htheta.trans hcorr
+
 /-! The pointwise form is the one needed for a decaying explicit error: use
   the logarithm of the current argument rather than freezing the error at a
   cutoff. -/
