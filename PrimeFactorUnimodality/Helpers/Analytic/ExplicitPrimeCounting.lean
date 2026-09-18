@@ -251,6 +251,20 @@ theorem integral_inv_log_sq_expansion_five
     integral_inv_log_pow_succ_eq (n := 5) hx]
   ring_nf
 
+theorem integral_inv_log_sq_expansion_five_interval
+    {x : Real} (hx : 2 ≤ x) :
+    ∫ t in (2 : Real)..x, 1 / Real.log t ^ 2 =
+      x / Real.log x ^ 2 + 2 * x / Real.log x ^ 3 +
+        6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+          120 * x / Real.log x ^ 6 -
+        2 * (1 / Real.log 2 ^ 2 + 2 / Real.log 2 ^ 3 +
+          6 / Real.log 2 ^ 4 + 24 / Real.log 2 ^ 5 +
+          120 / Real.log 2 ^ 6) +
+        720 * ∫ t in (2 : Real)..x, 1 / Real.log t ^ 7 := by
+  simpa only [MeasureTheory.integral_Icc_eq_integral_Ioc,
+    intervalIntegral.integral_of_le hx] using
+    integral_inv_log_sq_expansion_five hx
+
 theorem theta_integral_split
     {x : Real} (hx : 2 ≤ x) :
     (∫ t in (2 : Real)..x,
@@ -281,6 +295,68 @@ theorem theta_integral_split
         1 / (Real.log t) ^ 2) := rfl
   rw [hpoint] at hsub
   linarith
+
+theorem primeCounting_from_theta_expansion_five
+    {x : Real} (hx : 2 ≤ x) :
+    (Nat.primeCounting ⌊x⌋₊ : Real) =
+      Chebyshev.theta x / Real.log x +
+        x / Real.log x ^ 2 + 2 * x / Real.log x ^ 3 +
+          6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+            120 * x / Real.log x ^ 6 -
+          2 * (1 / Real.log 2 ^ 2 + 2 / Real.log 2 ^ 3 +
+            6 / Real.log 2 ^ 4 + 24 / Real.log 2 ^ 5 +
+            120 / Real.log 2 ^ 6) +
+          720 * (∫ t in (2 : Real)..x, 1 / Real.log t ^ 7) +
+        ∫ t in (2 : Real)..x,
+          (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+            1 / (Real.log t) ^ 2) := by
+  calc
+    (Nat.primeCounting ⌊x⌋₊ : Real) =
+        Chebyshev.theta x / Real.log x +
+          ∫ t in (2 : Real)..x,
+            Chebyshev.theta t / (t * (Real.log t) ^ 2) :=
+      primeCounting_from_theta_integral hx
+    _ = Chebyshev.theta x / Real.log x +
+          ((∫ t in (2 : Real)..x, 1 / (Real.log t) ^ 2) +
+            ∫ t in (2 : Real)..x,
+              (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+                1 / (Real.log t) ^ 2)) := by
+      rw [theta_integral_split hx]
+    _ = Chebyshev.theta x / Real.log x +
+        x / Real.log x ^ 2 + 2 * x / Real.log x ^ 3 +
+          6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+            120 * x / Real.log x ^ 6 -
+          2 * (1 / Real.log 2 ^ 2 + 2 / Real.log 2 ^ 3 +
+            6 / Real.log 2 ^ 4 + 24 / Real.log 2 ^ 5 +
+            120 / Real.log 2 ^ 6) +
+          720 * (∫ t in (2 : Real)..x, 1 / Real.log t ^ 7) +
+        ∫ t in (2 : Real)..x,
+          (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+            1 / (Real.log t) ^ 2) := by
+      have hmain := integral_inv_log_sq_expansion_five_interval hx
+      calc
+        Chebyshev.theta x / Real.log x +
+              ((∫ t in (2 : Real)..x, 1 / (Real.log t) ^ 2) +
+                ∫ t in (2 : Real)..x,
+                  (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+                    1 / (Real.log t) ^ 2)) =
+            Chebyshev.theta x / Real.log x +
+              ((x / Real.log x ^ 2 + 2 * x / Real.log x ^ 3 +
+                6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+                120 * x / Real.log x ^ 6 -
+                2 * (1 / Real.log 2 ^ 2 + 2 / Real.log 2 ^ 3 +
+                  6 / Real.log 2 ^ 4 + 24 / Real.log 2 ^ 5 +
+                  120 / Real.log 2 ^ 6) +
+                720 * ∫ t in (2 : Real)..x, 1 / Real.log t ^ 7) +
+                ∫ t in (2 : Real)..x,
+                  (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+                    1 / (Real.log t) ^ 2)) := by
+          exact congrArg (fun z : Real =>
+            Chebyshev.theta x / Real.log x +
+              (z + ∫ t in (2 : Real)..x,
+                (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+                  1 / (Real.log t) ^ 2))) hmain
+        _ = _ := by ring
 
 theorem theta_remainder_pointwise_le_of_logFourthError
     {A X x : Real} (hX : 1 < X)
