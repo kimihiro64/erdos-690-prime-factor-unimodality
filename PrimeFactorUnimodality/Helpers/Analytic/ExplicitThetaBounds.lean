@@ -40,16 +40,17 @@ def HasDusartSymmetricThetaBoundsBelow (X : Real) : Prop :=
     |Chebyshev.theta x - x| <
       (12323 / 10000 : Real) * x / Real.log x)
 
-theorem hasDusartSymmetricThetaBounds_of_below_and_logCubed
-    (finite : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
-    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+theorem hasDusartSymmetricThetaBounds_of_below_and_logCubed_from
+    {X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (finite : HasDusartSymmetricThetaBoundsBelow X)
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) X) :
     HasDusartSymmetricThetaBounds := by
   constructor
   · intro x hx
-    by_cases hsmall : x ≤ (4e18 : Real)
+    by_cases hsmall : x ≤ X
     · exact finite.1 x hx hsmall
-    · have hlarge : (4e18 : Real) ≤ x := le_of_lt (lt_of_not_ge hsmall)
-      have hlog := log_large_x_gt_ten hlarge
+    · have hlarge : X ≤ x := le_of_lt (lt_of_not_ge hsmall)
+      have hlog := lt_of_lt_of_le hlogX (Real.log_le_log hXpos hlarge)
       have hlog_pos : 0 < Real.log x := by linarith
       have hlog_cube : (1000 : Real) < (Real.log x) ^ 3 := by
         nlinarith [mul_self_lt_mul_self (by norm_num : (0 : Real) ≤ 10) hlog,
@@ -63,10 +64,10 @@ theorem hasDusartSymmetricThetaBounds_of_below_and_logCubed
       exact htail.trans_lt hratio
 
   · intro x hx
-    by_cases hsmall : x ≤ (4e18 : Real)
+    by_cases hsmall : x ≤ X
     · exact finite.2 x hx hsmall
-    · have hlarge : (4e18 : Real) ≤ x := le_of_lt (lt_of_not_ge hsmall)
-      have hlog := log_large_x_gt_ten hlarge
+    · have hlarge : X ≤ x := le_of_lt (lt_of_not_ge hsmall)
+      have hlog := lt_of_lt_of_le hlogX (Real.log_le_log hXpos hlarge)
       have hlog_pos : 0 < Real.log x := by linarith
       have htail := thetaError x hlarge
       have hratio :
@@ -87,6 +88,13 @@ theorem hasDusartSymmetricThetaBounds_of_below_and_logCubed
                 (x * Real.log x) := mul_lt_mul_of_pos_right hcoef hpos
           _ = (12323 / 10000 : Real) * x * (Real.log x) ^ 3 := by ring
       exact htail.trans_lt hratio
+
+theorem hasDusartSymmetricThetaBounds_of_below_and_logCubed
+    (finite : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    HasDusartSymmetricThetaBounds :=
+  hasDusartSymmetricThetaBounds_of_below_and_logCubed_from
+    (by norm_num) (log_large_x_gt_ten le_rfl) finite thetaError
 
 theorem hasDusartSymmetricThetaBounds_of_below_and_logFourth
     {A : Real} (finite : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
@@ -143,6 +151,34 @@ theorem hasDusartSymmetricThetaBounds_of_unit_logFourth
     (by norm_num)
     one_div_log_four_e18_le_dusart_constant
     thetaError
+
+theorem hasDusartSymmetricThetaBounds_of_below_and_logFourth_from
+    {A X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (finite : HasDusartSymmetricThetaBoundsBelow X)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartSymmetricThetaBounds := by
+  have hX : 1 < X := by
+    exact (Real.log_pos_iff hXpos.le).mp (by linarith [hlogX])
+  apply hasDusartSymmetricThetaBounds_of_below_and_logCubed_from
+    hXpos hlogX finite
+  intro x hx
+  have hconverted := hasThetaLogCubedError_of_logFourthError
+    (A := A) (X := X) hX hA_nonneg thetaError
+  exact (hconverted x hx).trans (by
+    have hlog_pos : 0 < Real.log X := by linarith [hlogX]
+    have hx_pos : 0 < x := by linarith
+    have hlogx_pos : 0 < Real.log x := Real.log_pos (by linarith)
+    have hfactor : 0 ≤ x / (Real.log x) ^ 3 := by
+      exact div_nonneg hx_pos.le (pow_pos hlogx_pos 3).le
+    calc
+      (A / Real.log X) * x / (Real.log x) ^ 3 =
+          (A / Real.log X) * (x / (Real.log x) ^ 3) := by ring
+      _ ≤ (12167 / 500000 : Real) *
+            (x / (Real.log x) ^ 3) :=
+        mul_le_mul_of_nonneg_right hA hfactor
+      _ = (12167 / 500000 : Real) * x / (Real.log x) ^ 3 := by ring)
 
 /-! The unbounded part of Dusart's theta estimate is a theorem, not an
 assumption: once the explicit logarithm-cubed error estimate is proved, the
