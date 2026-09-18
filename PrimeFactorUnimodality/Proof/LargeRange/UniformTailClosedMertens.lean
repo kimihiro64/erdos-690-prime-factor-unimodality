@@ -1,5 +1,6 @@
 import PrimeFactorUnimodality.Proof.LargeRange.ClosedMertensTailBounds
 import PrimeFactorUnimodality.Proof.LargeRange.ClosedMertensUniformReduction
+import PrimeFactorUnimodality.Proof.LargeRange.TailErrorBounds
 import PrimeFactorUnimodality.Proof.LargeRange.TailPrimeCountingBounds
 
 set_option autoImplicit false
