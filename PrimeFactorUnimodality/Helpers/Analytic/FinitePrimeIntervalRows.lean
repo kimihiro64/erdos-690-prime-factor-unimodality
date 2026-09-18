@@ -99,6 +99,14 @@ def LogCubedPrimeRowsCover (rows : List LogCubedPrimeRow) : Prop :=
   ∀ x : Real, 3275 ≤ x →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+/-! A bounded cover is the form used when the explicit analytic argument is
+split at a large cutoff.  Keeping the cutoff in the proposition means the
+finite table has no obligation to describe the unbounded range handled by the
+theta-error argument. -/
+def LogCubedPrimeRowsCoverUpTo (rows : List LogCubedPrimeRow) (X : Real) : Prop :=
+  ∀ x : Real, 3275 ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
 theorem logCubedPrimeRow_provides
     (upper_mono : ∀ {a b : Real}, 3275 ≤ a → a ≤ b →
       logCubedUpper a ≤ logCubedUpper b)
@@ -129,10 +137,24 @@ theorem hasLogCubedShortIntervalPrime_of_rows_closed
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCover rows) :
     HasLogCubedShortIntervalPrime := by
-  apply hasLogCubedShortIntervalPrime_of_rows
+  refine hasLogCubedShortIntervalPrime_of_rows ?_ cover
   intro a b ha hab
   exact logCubedUpper_monotoneOn ha (le_trans ha hab) hab
-  exact cover
+
+theorem hasLogCubedShortIntervalPrime_of_bounded_rows_and_large_x
+    {rows : List LogCubedPrimeRow}
+    (X : Real) (hX : (4e18 : Real) ≤ X)
+    (cover : LogCubedPrimeRowsCoverUpTo rows X)
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    HasLogCubedShortIntervalPrime := by
+  intro x hx
+  by_cases hsmall : x ≤ X
+  · obtain ⟨row, row_mem, left_mem, right_mem⟩ := cover x hx hsmall
+    exact logCubedPrimeRow_provides
+      (fun {a b} ha hab => logCubedUpper_monotoneOn ha (le_trans ha hab) hab)
+      row left_mem right_mem
+  · exact large_x_logCubedShortIntervalPrime thetaError x
+      (hX.trans (le_of_lt (lt_of_not_ge hsmall)))
 
 end
 
