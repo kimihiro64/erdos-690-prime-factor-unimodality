@@ -123,8 +123,9 @@ theorem hasPsiLogFourthError_of_logRpowDecay_of_envelope
 theorem exists_hasPsiLogFourthError_of_logRpowDecay
     {C c α X : Real} (hC : 0 ≤ C) (hc : 0 < c) (hα : 0 < α)
     (hdecay : HasPsiLogRpowDecay C c α X) :
-    ∃ Y : Real, X ≤ Y ∧ HasPsiLogFourthError 1 Y := by
-  obtain ⟨T, hT⟩ := exists_logFourth_envelope_of_rpow_decay hC hc hα
+    ∃ Y : Real, X ≤ Y ∧ HasPsiLogFourthError C Y := by
+  obtain ⟨T, hT⟩ := exists_logFourth_envelope_of_rpow_decay
+    (C := (1 : Real)) (by norm_num) hc hα
   let Y : Real := max X (max (Real.exp T) 2)
   refine ⟨Y, le_max_left _ _, ?_⟩
   intro x hx
@@ -134,16 +135,24 @@ theorem exists_hasPsiLogFourthError_of_logRpowDecay
     le_trans (le_max_right (Real.exp T) 2) hmax_le_x
   have hx_pos : 0 < x := by linarith
   have hlog_pos : 0 < Real.log x := Real.log_pos (by linarith)
-  have henv := hT (Real.log x) ((Real.le_log_iff_exp_le hx_pos).2
+  have henv_unit := hT (Real.log x) ((Real.le_log_iff_exp_le hx_pos).2
     (le_trans (le_max_left (Real.exp T) 2) hmax_le_x))
+  have henv : C * Real.exp (-c * (Real.log x) ^ α) ≤
+      C / (Real.log x) ^ (4 : ℕ) := by
+    have hscaled := mul_le_mul_of_nonneg_left henv_unit hC
+    simp only [one_mul] at hscaled
+    calc
+      C * Real.exp (-c * (Real.log x) ^ α) ≤
+          C * (1 / (Real.log x) ^ (4 : ℕ)) := hscaled
+      _ = C / (Real.log x) ^ (4 : ℕ) := by ring
   have hbound := hdecay x (le_trans (le_max_left _ _) hx)
   calc
     |Chebyshev.psi x - x| ≤
         C * x * Real.exp (-c * (Real.log x) ^ α) := hbound
     _ = (C * Real.exp (-c * (Real.log x) ^ α)) * x := by ring
-    _ ≤ (1 / (Real.log x) ^ (4 : ℕ)) * x :=
+    _ ≤ (C / (Real.log x) ^ (4 : ℕ)) * x :=
       mul_le_mul_of_nonneg_right henv hx_pos.le
-    _ = 1 * x / (Real.log x) ^ 4 := by ring
+    _ = C * x / (Real.log x) ^ 4 := by ring
 
 private theorem sqrtLog_pow_eight_eq_log_pow_four
     {t : Real} (ht : 0 ≤ t) :
