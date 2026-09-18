@@ -117,6 +117,24 @@ theorem hasDusartSymmetricThetaBounds_of_below_and_logFourth
         mul_le_mul_of_nonneg_right hA hfactor
       _ = (12167 / 500000 : Real) * x / (Real.log x) ^ 3 := by ring)
 
+theorem one_div_log_four_e18_le_dusart_constant :
+    1 / Real.log (4e18 : Real) ≤ (12167 / 500000 : Real) := by
+  have hbase : Real.exp 1 < (2.72 : Real) := by
+    linarith [Real.exp_one_lt_d9]
+  have hexp : Real.exp 42 < (4e18 : Real) := by
+    calc
+      Real.exp 42 = Real.exp 1 ^ 42 := by
+        rw [show (42 : Real) = (42 : ℕ) * 1 by norm_num,
+          Real.exp_nat_mul]
+      _ < (2.72 : Real) ^ 42 := by
+        exact pow_lt_pow_left₀ hbase (Real.exp_pos 1).le (by norm_num)
+      _ < (4e18 : Real) := by norm_num
+  have hlog : (42 : Real) < Real.log (4e18 : Real) := by
+    exact (Real.lt_log_iff_exp_lt (by norm_num)).2 hexp
+  have hlog_pos : 0 < Real.log (4e18 : Real) := by linarith
+  apply (div_le_iff₀ hlog_pos).2
+  nlinarith
+
 /-! The unbounded part of Dusart's theta estimate is a theorem, not an
 assumption: once the explicit logarithm-cubed error estimate is proved, the
 two published theta inequalities follow by elementary real arithmetic. -/
