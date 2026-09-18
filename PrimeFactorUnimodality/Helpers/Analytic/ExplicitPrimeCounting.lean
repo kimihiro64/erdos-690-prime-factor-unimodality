@@ -877,6 +877,36 @@ def primeCountingCore (X : Real) : Real :=
       (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
         1 / (Real.log t) ^ 2)
 
+/-! The core is separated into the three quantities that must be bounded in
+the finite Abel estimate.  This is purely structural; no explicit prime
+number theorem is hidden in the decomposition. -/
+theorem primeCountingCore_abs_le (X : Real) :
+    |primeCountingCore X| ≤
+      2 * |1 / Real.log 2 ^ 2 + 2 / Real.log 2 ^ 3 +
+        6 / Real.log 2 ^ 4 + 24 / Real.log 2 ^ 5 +
+        120 / Real.log 2 ^ 6| +
+      720 * |∫ t in (2 : Real)..X, 1 / Real.log t ^ 7| +
+      |∫ t in (2 : Real)..X,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)| := by
+  let k : Real := 1 / Real.log 2 ^ 2 + 2 / Real.log 2 ^ 3 +
+    6 / Real.log 2 ^ 4 + 24 / Real.log 2 ^ 5 +
+    120 / Real.log 2 ^ 6
+  let i : Real := ∫ t in (2 : Real)..X, 1 / Real.log t ^ 7
+  let j : Real := ∫ t in (2 : Real)..X,
+    (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+      1 / (Real.log t) ^ 2)
+  change |-2 * k + 720 * i + j| ≤ 2 * |k| + 720 * |i| + |j|
+  calc
+    |-2 * k + 720 * i + j| ≤ |-2 * k + 720 * i| + |j| :=
+      abs_add_le _ _
+    _ ≤ (|-2 * k| + |720 * i|) + |j| := by
+      exact add_le_add_right (abs_add_le _ _) _
+    _ = 2 * |k| + 720 * |i| + |j| := by
+      rw [abs_mul, abs_mul]
+      norm_num
+      ring
+
 theorem primeCountingCore_scale_le
     {C X x : Real} (hX : 1 < X) (hXx : X ≤ x)
     (hlogX : (4 : Real) < Real.log X) (hC : 0 ≤ C)
