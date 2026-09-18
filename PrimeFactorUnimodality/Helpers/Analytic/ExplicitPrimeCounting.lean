@@ -961,6 +961,23 @@ theorem primeCounting_remainder_abs_le_of_core_and_theta_error
             (1 - 6 / Real.log X) := by
           linarith
 
+theorem primeCounting_remainder_abs_le_of_core_and_logFourthError
+    {A X x : Real} (hX : 1 < X) (h2X : 2 ≤ X) (hXx : X ≤ x)
+    (hA : 0 ≤ A) (error : HasThetaLogFourthError A X)
+    (hcoef : (7 : Real) < Real.log X) :
+    |(Nat.primeCounting ⌊x⌋₊ : Real) -
+        (x / Real.log x + x / Real.log x ^ 2 +
+          2 * x / Real.log x ^ 3)| ≤
+      A * x / Real.log x ^ 5 + 6 * x / Real.log x ^ 4 +
+        24 * x / Real.log x ^ 5 + 120 * x / Real.log x ^ 6 +
+        |primeCountingCore X| +
+        720 * ((x / Real.log x ^ 7) /
+          (1 - 7 / Real.log X)) +
+        A * (x / Real.log x ^ 6) /
+          (1 - 6 / Real.log X) := by
+  exact primeCounting_remainder_abs_le_of_core_and_theta_error
+    hX h2X hXx hA (error x hXx) error hcoef
+
 theorem theta_remainder_pointwise_le_of_logFourthError
     {A X x : Real} (hX : 1 < X)
     (error : HasThetaLogFourthError A X) (hx : X ≤ x) :
