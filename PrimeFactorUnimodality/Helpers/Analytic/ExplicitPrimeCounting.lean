@@ -1400,6 +1400,28 @@ theorem hasDusartPrimeCountingAsymptoticAbove_of_explicitRemainder
       _ = (732 : Real) / 100 / (Real.log x) ^ 3 := by
         field_simp [ne_of_gt hx_pos, ne_of_gt hlog_pos]
 
+/-! The Abel-summation argument supplies the all-`x` remainder bound from the
+explicit theta error and the finite core estimate.  This is the theorem that
+connects those two analytic obligations to the Dusart asymptotic interface;
+the latter is not imported as an external black box. -/
+theorem hasDusartPrimeCountingAsymptoticAbove_of_core_and_theta_error
+    {A C X : Real}
+    (hXpos : 0 < X) (h2X : 2 ≤ X)
+    (hA0 : 0 ≤ A) (hA : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hlog : (42 : Real) ≤ Real.log X)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (error : HasThetaLogFourthError A X) :
+    HasDusartPrimeCountingAsymptoticAbove X := by
+  have hX : 1 < X := by
+    have hlog_pos : 0 < Real.log X := lt_of_lt_of_le (by norm_num) hlog
+    exact (Real.log_pos_iff hXpos.le).mp hlog_pos
+  apply hasDusartPrimeCountingAsymptoticAbove_of_explicitRemainder
+    hXpos (by linarith [hlog])
+  intro x hx
+  exact primeCounting_remainder_abs_le_732
+    hX h2X hx hA0 hA hC0 hC hlog hcore error
+
 def HasDusartPublishedPrimeCountingBoundsAbove (X : Real) : Prop :=
   (∀ x : Real, X ≤ x →
     x / (Real.log x - 1) ≤ (Nat.primeCounting ⌊x⌋₊ : Real)) ∧
