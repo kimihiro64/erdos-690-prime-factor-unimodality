@@ -107,6 +107,35 @@ theorem recordGap_add_not_prime {d q : Nat}
   have hcenter := recordGapCenter_large
   omega
 
+/-! The full published gap has additional archived factors beyond the compact
+owner list above.  These two interfaces accept their replayed center residue
+directly, so those factors need not be added to `RecordGapResidue`. -/
+
+theorem recordGap_sub_not_prime_of_center_mod {d q r : Nat}
+    (hd : d ≤ 4_000_000_000) (hq : 2 ≤ q) (hqBound : q ≤ 3_100_000_000)
+    (center_mod : recordGapCenter % q = r) (d_mod : d % q = r) :
+    ¬(recordGapCenter - d).Prime := by
+  have d_le_center : d ≤ recordGapCenter :=
+    hd.trans ((by norm_num : 4_000_000_000 ≤ 8_000_000_000).trans
+      recordGapCenter_large.le)
+  have q_dvd : q ∣ recordGapCenter - d := by
+    apply (Nat.modEq_iff_dvd' d_le_center).mp
+    exact d_mod.trans center_mod.symm
+  apply Nat.not_prime_of_dvd_of_lt q_dvd hq
+  have hcenter := recordGapCenter_large
+  omega
+
+theorem recordGap_add_not_prime_of_center_mod {d q r : Nat}
+    (hq : 2 ≤ q) (hqBound : q ≤ 3_100_000_000)
+    (center_mod : recordGapCenter % q = r) (d_mod : d % q = r) :
+    ¬(recordGapCenter + d).Prime := by
+  have q_dvd : q ∣ recordGapCenter + d := by
+    apply (Nat.modEq_iff_dvd' (by omega : d ≤ recordGapCenter + d)).mp
+    exact center_mod.trans d_mod.symm
+  apply Nat.not_prime_of_dvd_of_lt q_dvd hq
+  have hcenter := recordGapCenter_large
+  omega
+
 /-- A prime occurring in the full primorial tail divides the record center.
 This broader form is used by the million-term published gap, whose owner set
 is much larger than the optimized 4,751-term sub-block. -/
