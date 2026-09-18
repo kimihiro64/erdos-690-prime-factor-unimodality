@@ -2,6 +2,10 @@ import PrimeFactorUnimodality.Proof.ClassificationThrough38000Closed
 import PrimeFactorUnimodality.Proof.CompleteClassificationReduction
 import PrimeFactorUnimodality.Proof.LargeRange.FullRecordRange
 import PrimeFactorUnimodality.Proof.LargeRange.UniformTail
+import PrimeFactorUnimodality.Proof.LargeRange.TailErrorBounds
+import PrimeFactorUnimodality.Helpers.Analytic.ExplicitPrimeCounting
+import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
+import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 
 set_option autoImplicit false
 
@@ -63,6 +67,19 @@ theorem completeClassification_of_full_record_inputs
           omega)
     (fun k hkTail => uniformTail_not_isUnimodal_closed_mertens
       primeCountingBounds thetaBounds tailPair (k := k) (by omega))
+
+/-! This is the public all-`k` assembly in the analytic forms used by the
+published estimates: real-variable prime counting, symmetric theta error,
+and a logarithm-cubed prime interval. -/
+theorem completeClassification_of_full_record_logCubed_inputs
+    (primeCountingBounds : HasDusartRealPrimeCountingBounds)
+    (thetaBounds : HasDusartSymmetricThetaBounds)
+    (shortInterval : HasLogCubedShortIntervalPrime) :
+    CompleteClassification := by
+  exact completeClassification_of_full_record_inputs
+    (hasDusartPrimeCountingBounds_of_real primeCountingBounds)
+    (hasDusartThetaBounds_of_symmetric thetaBounds)
+    (hasUniformTailPrimePair_of_logCubedShortInterval shortInterval)
 
 end
 

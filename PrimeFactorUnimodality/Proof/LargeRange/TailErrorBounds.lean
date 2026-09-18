@@ -1,4 +1,5 @@
 import PrimeFactorUnimodality.Proof.LargeRange.TailNumerics
+import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 
 set_option autoImplicit false
 
@@ -110,6 +111,12 @@ theorem hasUniformTailPrimePair_of_shortInterval
     HasUniformTailPrimePair := by
   intro r hr
   exact exists_tail_consecutive_primes_rational shortInterval hr
+
+theorem hasUniformTailPrimePair_of_logCubedShortInterval
+    (shortInterval : HasLogCubedShortIntervalPrime) :
+    HasUniformTailPrimePair :=
+  hasUniformTailPrimePair_of_shortInterval
+    (hasDusartShortIntervalPrime_of_logCubed shortInterval)
 
 end
 
