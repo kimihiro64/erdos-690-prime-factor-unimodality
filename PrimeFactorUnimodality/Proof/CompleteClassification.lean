@@ -145,6 +145,23 @@ theorem completeClassification_of_full_record_cutoff_split_inputs
   exact completeClassification_of_full_record_split_analytic_inputs
     finitePrimeCounting tailPrimeCounting finiteTheta cover thetaError
 
+/-! The tail prime-counting obligation can equivalently be supplied in the
+published asymptotic form.  The adapter is proved in the analytic helper, so
+this theorem exposes the exact provider boundary without hiding a new axiom
+inside the all-`k` assembly. -/
+theorem completeClassification_of_full_record_asymptotic_tail_inputs
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
+    (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e18 : Real))
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
+    {rows : List LogCubedPrimeRow}
+    (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    CompleteClassification := by
+  exact completeClassification_of_full_record_cutoff_split_inputs
+    finitePrimeCounting
+    (hasDusartRealPrimeCountingBoundsAbove_of_asymptotic asymptotic)
+    finiteTheta cover thetaError
+
 end
 
 end PrimeFactorUnimodality

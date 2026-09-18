@@ -1,6 +1,7 @@
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.NumberTheory.PrimeCounting
 import PrimeFactorUnimodality.Helpers.PrimeSequence.AverageGap
+import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 
 set_option autoImplicit false
 
@@ -49,6 +50,83 @@ def HasDusartRealPrimeCountingBoundsAbove (X : Real) : Prop :=
     dusartPiLower x ≤ (Nat.primeCounting ⌊x⌋₊ : Real)) ∧
   (∀ x : Real, X ≤ x →
     (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x)
+
+/-! A provider form matching Dusart's explicit asymptotic formula.  The
+reduction below is deliberately arithmetic: once the asymptotic remainder is
+kernel-checked, it supplies the two comparison bounds used by the tail. -/
+def HasDusartPrimeCountingAsymptoticAbove (X : Real) : Prop :=
+  ∀ x : Real, X ≤ x →
+    ∃ E : Real,
+      (Nat.primeCounting ⌊x⌋₊ : Real) =
+        x / Real.log x *
+          (1 + 1 / Real.log x + 2 / (Real.log x) ^ 2 + E) ∧
+        |E| ≤ (732 : Real) / 100 / (Real.log x) ^ 3
+
+theorem hasDusartRealPrimeCountingBoundsAbove_of_asymptotic
+    (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e18 : Real)) :
+    HasDusartRealPrimeCountingBoundsAbove (4e18 : Real) := by
+  constructor
+  · intro x hx
+    obtain ⟨E, hformula, hE⟩ := asymptotic x hx
+    have hlog := log_large_x_gt_ten hx
+    have hlog_pos : 0 < Real.log x := by linarith
+    have hx_pos : 0 < x := by linarith
+    have hlog_sq : (100 : Real) < (Real.log x) ^ 2 := by
+      nlinarith [mul_self_lt_mul_self (by norm_num : (0 : Real) ≤ 10) hlog]
+    have hlog_cube : (1000 : Real) < (Real.log x) ^ 3 := by
+      nlinarith [mul_self_lt_mul_self (by norm_num : (0 : Real) ≤ 10) hlog,
+        mul_pos hlog_pos (show 0 < (Real.log x) ^ 2 by positivity)]
+    rw [hformula]
+    have hElower : -(732 : Real) / 100 / (Real.log x) ^ 3 ≤ E := by
+      convert neg_le_of_abs_le hE using 1 <;> ring
+    have hmain : (1 : Real) + 1 / Real.log x + 2 / (Real.log x) ^ 2 + E ≥
+        1 + 1 / Real.log x := by
+      have hrem : (732 : Real) / 100 / (Real.log x) ^ 3 ≤
+          2 / (Real.log x) ^ 2 := by
+        field_simp
+        nlinarith [hlog_cube]
+      have hElower' : -(2 / (Real.log x) ^ 2) ≤ E := by
+        calc
+          -(2 / (Real.log x) ^ 2) ≤
+              -((732 : Real) / 100 / (Real.log x) ^ 3) := by
+                linarith
+          _ ≤ E := by convert hElower using 1 <;> ring
+      linarith
+    have hfactor : 0 ≤ x / Real.log x := by positivity
+    have := mul_le_mul_of_nonneg_left hmain.le hfactor
+    convert this using 1 <;> dsimp [dusartPiLower] <;> field_simp <;> ring
+  · intro x hx
+    obtain ⟨E, hformula, hE⟩ := asymptotic x hx
+    have hlog := log_large_x_gt_ten hx
+    have hlog_pos : 0 < Real.log x := by linarith
+    have hx_pos : 0 < x := by linarith
+    have hupper : (1 : Real) + 1 / Real.log x + 2 / (Real.log x) ^ 2 + E ≤
+        1 + (6381 : Real) / 5000 / Real.log x := by
+      have hEupper : E ≤ (732 : Real) / 100 / (Real.log x) ^ 3 :=
+        le_of_abs_le hE
+      have hlog_sq : (100 : Real) < (Real.log x) ^ 2 := by
+        nlinarith [mul_self_lt_mul_self (by norm_num : (0 : Real) ≤ 10) hlog]
+      have hlog_pos' : 0 ≤ Real.log x := hlog_pos.le
+      have hcoef :
+          2 / (Real.log x) ^ 2 + (732 : Real) / 100 / (Real.log x) ^ 3 ≤
+            (1381 : Real) / 5000 / Real.log x := by
+        field_simp
+        nlinarith
+      calc
+        1 + 1 / Real.log x + 2 / (Real.log x) ^ 2 + E =
+            1 + 1 / Real.log x + (2 / (Real.log x) ^ 2 + E) := by ring
+        _ ≤ 1 + 1 / Real.log x +
+            (2 / (Real.log x) ^ 2 + (732 : Real) / 100 /
+              (Real.log x) ^ 3) := by linarith
+        _ ≤ 1 + 1 / Real.log x + (1381 : Real) / 5000 / Real.log x :=
+          by
+            convert add_le_add_left hcoef (1 + 1 / Real.log x) using 1 <;> ring
+        _ = 1 + (6381 : Real) / 5000 / Real.log x := by ring
+    rw [hformula]
+    dsimp [dusartPiUpper]
+    have hfactor : 0 ≤ x / Real.log x := by positivity
+    have := mul_le_mul_of_nonneg_left hupper hfactor
+    convert this using 1 <;> dsimp [dusartPiUpper] <;> field_simp <;> ring
 
 theorem hasDusartRealPrimeCountingBounds_of_below_and_above
     {X : Real} (finite : HasDusartRealPrimeCountingBoundsBelow X)
