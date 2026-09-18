@@ -204,8 +204,7 @@ theorem completeClassification_of_full_record_asymptotic_tail_inputs
     (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
-    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
-    (shortInterval : HasDusartShortIntervalPrime) :
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
     CompleteClassification := by
   exact completeClassification_of_full_record_rows_and_finite_theta
     (hasDusartRealPrimeCountingBounds_of_finite_and_asymptotic
@@ -227,8 +226,7 @@ theorem completeClassification_of_full_record_core_theta_error_inputs
     (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
-    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
-    (shortInterval : HasDusartShortIntervalPrime) :
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
     CompleteClassification := by
   exact completeClassification_of_full_record_rows_and_finite_theta
     (hasDusartRealPrimeCountingBounds_of_finite_and_core_and_theta_error
@@ -303,8 +301,7 @@ theorem completeClassification_of_full_record_finite_published_asymptotic_inputs
     (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
-    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
-    (shortInterval : HasDusartShortIntervalPrime) :
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
     CompleteClassification := by
   exact completeClassification_of_full_record_rows_and_finite_theta
     (hasDusartRealPrimeCountingBounds_of_finite_published_and_asymptotic
@@ -321,8 +318,7 @@ theorem completeClassification_of_full_record_published_prime_counting_inputs
     (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
-    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
-    (shortInterval : HasDusartShortIntervalPrime) :
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
     CompleteClassification := by
   exact completeClassification_of_full_record_rows_and_finite_theta
     (hasDusartRealPrimeCountingBounds_of_below_and_above
