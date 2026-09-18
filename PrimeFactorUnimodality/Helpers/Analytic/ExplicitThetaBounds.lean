@@ -399,6 +399,40 @@ theorem dusartThetaBounds_of_relativePsiError_tail_from
   · exact (lowerMargin x hx).trans_le hbounds.1
   · exact hbounds.2.trans_lt (upperMargin x hx)
 
+/-! Direct provider boundary for a decaying relative ψ estimate.  The margins
+  are pointwise in `x`, so an eventual explicit BKLNW/Dusart estimate can be
+  inserted without losing its logarithmic decay at a fixed cutoff. -/
+theorem hasDusartThetaBounds_of_relativePsiError_at_log
+    {ε : Real → Real} {c : Real}
+    (hε : HasPsiRelativeError ε)
+    (hroot : ∀ y : Real, 0 ≤ y → Chebyshev.psi y ≤ c * y)
+    (hc : 0 ≤ c)
+    (upperMargin : ∀ x : Real, 2 ≤ x →
+      (1 + ε (Real.log x)) * x < x * (1 + 1 / 36260))
+    (lowerMargin : ∀ x : Real, 2 < x →
+      x * (1 - (12323 / 10000 : Real) / Real.log x) <
+        (1 - ε (Real.log x) - c *
+          (Real.exp (-Real.log x / 2) +
+            Real.exp (-2 * Real.log x / 3) +
+            Real.exp (-4 * Real.log x / 5))) * x) :
+    HasDusartThetaBounds := by
+  constructor
+  · intro x hx
+    by_cases hsmall : x < 2
+    · rw [Chebyshev.theta_eq_zero_of_lt_two hsmall]
+      have : 0 < x * (1 + 1 / 36260) := by positivity
+      exact this
+    · have hx2 : 2 ≤ x := le_of_not_gt hsmall
+      have hlogx_nonneg : 0 ≤ Real.log x :=
+        (Real.log_pos (by linarith)).le
+      have hpsi := hε (Real.log x) hlogx_nonneg x
+        (le_of_eq (Real.exp_log (by linarith)))
+      exact (theta_upper_of_psi_relative_error hpsi).trans_lt
+        (upperMargin x hx2)
+  · intro x hx
+    exact (lowerMargin x hx).trans_le
+      (theta_lower_of_psi_relative_error_at_log hε hroot hc (by linarith))
+
 theorem hasDusartThetaBounds_of_symmetric
     (bounds : HasDusartSymmetricThetaBounds) :
     HasDusartThetaBounds := by
