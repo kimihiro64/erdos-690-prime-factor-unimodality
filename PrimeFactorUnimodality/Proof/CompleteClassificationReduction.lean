@@ -14,6 +14,24 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 
+/-! A reusable finite/tail assembly.  The cutoff is an explicit parameter so
+future record-range improvements do not change the universal theorem's
+logical shape. -/
+theorem completeClassification_of_finite_range_and_tail
+    (cutoff : Nat) (hcutoff : 3 ≤ cutoff)
+    (finiteRange : ∀ k : Nat, 1 ≤ k → k ≤ cutoff →
+      (IsUnimodal (primeFactorDensity k) ↔ k ≤ 3))
+    (tail : ∀ k : Nat, cutoff < k → ¬ IsUnimodal (primeFactorDensity k)) :
+    CompleteClassification := by
+  intro k hk
+  by_cases hkFinite : k ≤ cutoff
+  · exact finiteRange k hk hkFinite
+  · constructor
+    · intro unimodal
+      exact (tail k (by omega)) unimodal |>.elim
+    · intro hkThree
+      omega
+
 theorem completeClassification_of_finite_record_range
     (finiteRange : ∀ k : Nat, 1 ≤ k → k ≤ 7300000 →
       (IsUnimodal (primeFactorDensity k) ↔ k ≤ 3))
@@ -22,16 +40,11 @@ theorem completeClassification_of_finite_record_range
     (shortInterval : HasDusartShortIntervalPrime)
     (k : Nat) (hk : 1 ≤ k) :
     IsUnimodal (primeFactorDensity k) ↔ k ≤ 3 := by
-  by_cases hkFinite : k ≤ 7300000
-  · have atK := finiteRange k
-    have atPositive := atK hk
-    exact atPositive hkFinite
-  · constructor
-    · intro unimodal
-      exact ((uniformTail_not_isUnimodal_closed_mertens primeCountingBounds
-        thetaBounds shortInterval (k := k) (by omega)) unimodal).elim
-    · intro hkThree
-      omega
+  have classification := completeClassification_of_finite_range_and_tail
+    7300000 (by omega) finiteRange (fun k hkTail =>
+      uniformTail_not_isUnimodal_closed_mertens primeCountingBounds thetaBounds
+        shortInterval (k := k) (by omega))
+  exact classification k hk
 
 end
 
