@@ -452,6 +452,42 @@ theorem integral_inv_log_pow_succ_le
   integral_inv_log_pow_succ_le_of_next_bound ha hab
     (integral_inv_log_pow_next_bound ha hab) hcoef
 
+theorem integral_inv_log_pow_succ_le_split_at_million
+    {n : Nat} {X : Real} (hX : (1000000 : Real) ≤ X)
+    (hcoef : (n + 1 : Real) < Real.log (1000000 : Real)) :
+    (∫ t in (2 : Real)..X, 1 / Real.log t ^ (n + 1)) ≤
+      (∫ t in (2 : Real)..(1000000 : Real),
+        1 / Real.log t ^ (n + 1)) +
+      (X / Real.log X ^ (n + 1)) /
+        (1 - (n + 1 : Real) / Real.log (1000000 : Real)) := by
+  have hcont : ContinuousOn
+      (fun t : Real => 1 / Real.log t ^ (n + 1))
+      (Set.Icc (2 : Real) X) := by
+    apply ContinuousOn.div continuousOn_const
+    · exact (Real.continuousOn_log.mono fun t ht =>
+        ne_of_gt (by linarith [ht.1])).pow _
+    · intro t ht
+      exact pow_ne_zero _
+        (ne_of_gt (Real.log_pos (by linarith [ht.1])))
+  have hleft : IntervalIntegrable
+      (fun t : Real => 1 / Real.log t ^ (n + 1))
+      MeasureTheory.volume 2 (1000000 : Real) := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le (by norm_num : (2 : Real) ≤ 1000000)]
+    exact hcont.mono (Set.Icc_subset_Icc le_rfl hX)
+  have hright : IntervalIntegrable
+      (fun t : Real => 1 / Real.log t ^ (n + 1))
+      MeasureTheory.volume (1000000 : Real) X := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le hX]
+    exact hcont.mono (Set.Icc_subset_Icc (by norm_num) le_rfl)
+  have hsplit := intervalIntegral.integral_add_adjacent_intervals hleft hright
+  have htail := integral_inv_log_pow_succ_le
+    (n := n) (a := (1000000 : Real)) (b := X)
+    (by norm_num) hX hcoef
+  rw [← hsplit]
+  exact add_le_add_left htail _
+
 theorem abs_integral_inv_log_pow_succ_le
     {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b)
     (hcoef : (n + 1 : Real) < Real.log a) :
