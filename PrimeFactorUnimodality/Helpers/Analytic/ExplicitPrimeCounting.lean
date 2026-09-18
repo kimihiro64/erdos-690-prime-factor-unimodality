@@ -1649,6 +1649,20 @@ theorem hasDusartRealPrimeCountingBounds_of_below_and_above
     · exact finite.2 x hx hsmall
     · exact tail.2 x (le_of_lt (lt_of_not_ge hsmall))
 
+theorem hasDusartRealPrimeCountingBounds_of_finite_and_core_and_theta_error
+    {A C X Y : Real}
+    (finite : HasDusartRealPrimeCountingBoundsBelow Y)
+    (hXpos : 0 < X) (h2X : 2 ≤ X) (hXY : X ≤ Y)
+    (hA0 : 0 ≤ A) (hA : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hlog : (42 : Real) ≤ Real.log X)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (error : HasThetaLogFourthError A X) :
+    HasDusartRealPrimeCountingBounds :=
+  hasDusartRealPrimeCountingBounds_of_below_and_above finite
+    (hasDusartRealPrimeCountingBoundsAbove_of_core_and_theta_error
+      hXpos h2X hXY hA0 hA hC0 hC hlog hcore error)
+
 theorem hasDusartRealPrimeCountingBounds_of_finite_and_asymptotic
     (finite : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
     (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e9 : Real)) :
@@ -1683,6 +1697,20 @@ theorem hasDusartPrimeCountingBounds_of_real
   · intro n hn
     simpa only [Nat.floor_natCast] using
       bounds.2 (n : Real) (by exact_mod_cast hn)
+
+theorem hasDusartPrimeCountingBounds_of_finite_and_core_and_theta_error
+    {A C X Y : Real}
+    (finite : HasDusartRealPrimeCountingBoundsBelow Y)
+    (hXpos : 0 < X) (h2X : 2 ≤ X) (hXY : X ≤ Y)
+    (hA0 : 0 ≤ A) (hA : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hlog : (42 : Real) ≤ Real.log X)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (error : HasThetaLogFourthError A X) :
+    HasDusartPrimeCountingBounds :=
+  hasDusartPrimeCountingBounds_of_real
+    (hasDusartRealPrimeCountingBounds_of_finite_and_core_and_theta_error
+      finite hXpos h2X hXY hA0 hA hC0 hC hlog hcore error)
 
 theorem primeCounting_sub_lower_of_dusart
     (bounds : HasDusartPrimeCountingBounds)
