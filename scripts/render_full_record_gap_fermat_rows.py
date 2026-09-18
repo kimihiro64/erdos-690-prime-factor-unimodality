@@ -58,7 +58,7 @@ def main() -> None:
         (args.output_dir / f"{name}.lean").write_text(row(indices))
         rows.append(name)
     assembly = "\n".join(f"import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapFermat.Rows.{name}" for name in rows)
-    (args.output_dir.parent / "FullRecordGapFermat.lean").write_text(assembly + "\n")
+    (args.output_dir.parent.parent / "FullRecordGapFermat.lean").write_text(assembly + "\n")
     print(f"wrote {len(rows)} rows for {len(offsets)} witnesses")
 
 if __name__ == "__main__":
