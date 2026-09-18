@@ -796,6 +796,34 @@ theorem primeCounting_remainder_split
   field_simp [hlogx]
   ring
 
+/-! The part independent of `x` after the threshold split.  Naming it makes
+the remaining finite verification explicit rather than burying it in a
+long asymptotic expression. -/
+def primeCountingCore (X : Real) : Real :=
+  -2 * (1 / Real.log 2 ^ 2 + 2 / Real.log 2 ^ 3 +
+    6 / Real.log 2 ^ 4 + 24 / Real.log 2 ^ 5 +
+    120 / Real.log 2 ^ 6) +
+    720 * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) +
+    ∫ t in (2 : Real)..X,
+      (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+        1 / (Real.log t) ^ 2)
+
+theorem primeCounting_remainder_core_tail_decomposition
+    {X x : Real} (h2X : 2 ≤ X) (hXx : X ≤ x) :
+    (Nat.primeCounting ⌊x⌋₊ : Real) -
+        (x / Real.log x + x / Real.log x ^ 2 +
+          2 * x / Real.log x ^ 3) =
+      (Chebyshev.theta x - x) / Real.log x +
+        6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+          120 * x / Real.log x ^ 6 + primeCountingCore X +
+        720 * (∫ t in X..x, 1 / Real.log t ^ 7) +
+        ∫ t in X..x,
+          (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+            1 / (Real.log t) ^ 2) := by
+  rw [primeCounting_remainder_split h2X hXx]
+  unfold primeCountingCore
+  ring
+
 theorem theta_remainder_pointwise_le_of_logFourthError
     {A X x : Real} (hX : 1 < X)
     (error : HasThetaLogFourthError A X) (hx : X ≤ x) :
