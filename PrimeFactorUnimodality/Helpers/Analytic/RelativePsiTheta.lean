@@ -125,6 +125,26 @@ theorem hasPsiLogFourthError_of_relativeError_decay
       mul_le_mul_of_nonneg_right hdec hx_pos.le
     _ = A * x / (Real.log x) ^ 4 := by ring
 
+/-! A pointwise form of the same conversion is useful when the analytic
+  argument produces a numerical error function rather than a bound indexed by
+  the logarithmic parameter. -/
+theorem hasPsiLogFourthError_of_pointwise_relative_bound
+    {A X : Real} {δ : Real → Real}
+    (hXpos : 0 < X)
+    (hδ : ∀ x : Real, X ≤ x →
+      δ x ≤ A / (Real.log x) ^ 4)
+    (hε : ∀ x : Real, X ≤ x →
+      |Chebyshev.psi x - x| ≤ δ x * x) :
+    HasPsiLogFourthError A X := by
+  intro x hx
+  have hx_pos : 0 < x := lt_of_lt_of_le hXpos hx
+  have hδx := hδ x hx
+  have hδmul := mul_le_mul_of_nonneg_right hδx hx_pos.le
+  calc
+    |Chebyshev.psi x - x| ≤ δ x * x := hε x hx
+    _ ≤ (A / (Real.log x) ^ 4) * x := hδmul
+    _ = A * x / (Real.log x) ^ 4 := by ring
+
 theorem theta_upper_of_psi_relative_error
     {x ε : Real}
     (hpsi : |Chebyshev.psi x - x| ≤ ε * x) :
