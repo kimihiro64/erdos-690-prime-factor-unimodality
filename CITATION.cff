@@ -3,8 +3,8 @@ message: "If you use this formalization, cite the repository and its mathematica
 type: software
 title: "Erdos 690: Prime-Factor Density Unimodality"
 authors:
-  - family-names: "kimihiro64"
-    given-names: "kimihiro64"
+  - family-names: "Whidden"
+    given-names: "Jonas"
 abstract: >-
   Lean formalization of the finite density recursion and non-unimodality certificates for ordered distinct prime factors.
 license: Apache-2.0
