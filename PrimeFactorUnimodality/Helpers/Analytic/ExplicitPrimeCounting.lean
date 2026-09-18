@@ -330,6 +330,59 @@ theorem integral_inv_log_pow_succ_le_of_next_bound
   field_simp [ne_of_gt hloga] at htarget ⊢
   nlinarith
 
+theorem integral_inv_log_pow_next_bound
+    {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b) :
+    (∫ t in a..b, 1 / Real.log t ^ (n + 2)) ≤
+      (∫ t in a..b, 1 / Real.log t ^ (n + 1)) / Real.log a := by
+  have hcont : ∀ m : Nat, ContinuousOn
+      (fun t : Real => 1 / Real.log t ^ m) (Set.uIcc a b) := by
+    intro m
+    rw [Set.uIcc_of_le hab]
+    apply ContinuousOn.div continuousOn_const
+    · exact (Real.continuousOn_log.mono fun y hy =>
+        ne_of_gt (by linarith [hy.1])).pow _
+    · intro y hy
+      exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by linarith [hy.1])))
+  have hfi : IntervalIntegrable
+      (fun t : Real => 1 / Real.log t ^ (n + 2))
+      MeasureTheory.volume a b := (hcont (n + 2)).intervalIntegrable
+  have hgi : IntervalIntegrable
+      (fun t : Real => (1 / Real.log a) * (1 / Real.log t ^ (n + 1)))
+      MeasureTheory.volume a b :=
+    ((continuousOn_const.mul (hcont (n + 1))).intervalIntegrable)
+  have hmono : ∀ t ∈ Set.Icc a b,
+      1 / Real.log t ^ (n + 2) ≤
+        (1 / Real.log a) * (1 / Real.log t ^ (n + 1)) := by
+    intro t ht
+    have htpos : 0 < t := by linarith [ht.1]
+    have hloga : 0 < Real.log a := Real.log_pos ha
+    have hlogt : 0 < Real.log t := Real.log_pos (by linarith [ht.1])
+    have hlog_le : Real.log a ≤ Real.log t :=
+      Real.log_le_log (by linarith) ht.1
+    have hinv : 1 / Real.log t ≤ 1 / Real.log a :=
+      (one_div_le_one_div_of_le hloga hlog_le)
+    have hpow : 0 ≤ 1 / Real.log t ^ (n + 1) := by positivity
+    calc
+      1 / Real.log t ^ (n + 2) =
+          (1 / Real.log t ^ (n + 1)) * (1 / Real.log t) := by
+            field_simp [ne_of_gt hlogt]
+            rw [show n + 2 = (n + 1) + 1 by omega, pow_succ, pow_succ,
+              pow_succ]
+      _ ≤ (1 / Real.log t ^ (n + 1)) * (1 / Real.log a) :=
+        mul_le_mul_of_nonneg_left hinv hpow
+      _ = (1 / Real.log a) * (1 / Real.log t ^ (n + 1)) := by ring
+  have hintegral := intervalIntegral.integral_mono_on hab hfi hgi hmono
+  simpa [div_eq_mul_inv, mul_comm] using hintegral
+
+theorem integral_inv_log_pow_succ_le
+    {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b)
+    (hcoef : (n + 1 : Real) < Real.log a) :
+    (∫ t in a..b, 1 / Real.log t ^ (n + 1)) ≤
+      (b / Real.log b ^ (n + 1)) /
+        (1 - (n + 1 : Real) / Real.log a) :=
+  integral_inv_log_pow_succ_le_of_next_bound ha hab
+    (integral_inv_log_pow_next_bound ha hab) hcoef
+
 theorem integral_inv_log_sq_expansion_five
     {x : Real} (hx : 2 ≤ x) :
     ∫ t in Set.Icc 2 x, 1 / Real.log t ^ 2 =
