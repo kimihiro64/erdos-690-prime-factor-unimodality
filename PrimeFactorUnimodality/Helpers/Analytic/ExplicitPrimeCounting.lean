@@ -1081,6 +1081,69 @@ theorem primeCounting_remainder_abs_le_of_scaled_core
   have hcore' := primeCountingCore_scale_le hX hXx hlogX hC hcore
   linarith
 
+theorem primeCounting_remainder_abs_le_of_log_coefficient
+    {A C X x : Real} (hX : 1 < X) (h2X : 2 ≤ X) (hXx : X ≤ x)
+    (hA : 0 ≤ A) (hC : 0 ≤ C)
+    (hlogX : (7 : Real) < Real.log X)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (error : HasThetaLogFourthError A X) :
+    |(Nat.primeCounting ⌊x⌋₊ : Real) -
+        (x / Real.log x + x / Real.log x ^ 2 +
+          2 * x / Real.log x ^ 3)| ≤
+      (A / Real.log X) * (x / Real.log x ^ 4) +
+        6 * (x / Real.log x ^ 4) +
+        (24 / Real.log X) * (x / Real.log x ^ 4) +
+        (120 / Real.log X ^ 2) * (x / Real.log x ^ 4) +
+        C * (x / Real.log x ^ 4) +
+        (720 / (Real.log X ^ 3 * (1 - 7 / Real.log X))) *
+          (x / Real.log x ^ 4) +
+        (A / (Real.log X ^ 2 * (1 - 6 / Real.log X))) *
+          (x / Real.log x ^ 4) := by
+  have hlogXpos : 0 < Real.log X := Real.log_pos hX
+  have hcoef4 : (4 : Real) < Real.log X := by linarith
+  have hraw := primeCounting_remainder_abs_le_of_scaled_core
+    hX h2X hXx hA hC hcoef4 hcore error hlogX
+  have hpow1 := id_div_log_pow_add_le (m := 1) hX hXx
+  have hpow2 := id_div_log_pow_add_le (m := 2) hX hXx
+  have hpow3 := id_div_log_pow_add_le (m := 3) hX hXx
+  have hden7 : 0 < 1 - 7 / Real.log X := by
+    rw [sub_pos]
+    exact (div_lt_iff₀ hlogXpos).2 (by linarith)
+  have hden6 : 0 < 1 - 6 / Real.log X := by
+    rw [sub_pos]
+    exact (div_lt_iff₀ hlogXpos).2 (by linarith)
+  have h1 : A * x / Real.log x ^ 5 ≤
+      (A / Real.log X) * (x / Real.log x ^ 4) := by
+    have h := mul_le_mul_of_nonneg_left hpow1 hA
+    convert h using 1 <;> norm_num <;> ring
+  have h24 : 24 * x / Real.log x ^ 5 ≤
+      (24 / Real.log X) * (x / Real.log x ^ 4) := by
+    have h := mul_le_mul_of_nonneg_left hpow1 (by norm_num : (0 : Real) ≤ 24)
+    convert h using 1 <;> norm_num <;> ring
+  have h120 : 120 * x / Real.log x ^ 6 ≤
+      (120 / Real.log X ^ 2) * (x / Real.log x ^ 4) := by
+    have h := mul_le_mul_of_nonneg_left hpow2 (by norm_num : (0 : Real) ≤ 120)
+    convert h using 1 <;> norm_num <;> ring
+  have h720 : 720 * ((x / Real.log x ^ 7) /
+        (1 - 7 / Real.log X)) ≤
+      (720 / (Real.log X ^ 3 * (1 - 7 / Real.log X))) *
+        (x / Real.log x ^ 4) := by
+    have hfactor : 0 ≤ 720 / (1 - 7 / Real.log X) := by positivity
+    have h := mul_le_mul_of_nonneg_left hpow3 hfactor
+    convert h using 1 <;> norm_num <;>
+      field_simp [ne_of_gt hlogXpos, ne_of_gt hden7] <;> ring
+  have hAtail : A * (x / Real.log x ^ 6) /
+        (1 - 6 / Real.log X) ≤
+      (A / (Real.log X ^ 2 * (1 - 6 / Real.log X))) *
+        (x / Real.log x ^ 4) := by
+    have hfactor : 0 ≤ A / (1 - 6 / Real.log X) := by positivity
+    have h := mul_le_mul_of_nonneg_left hpow2 hfactor
+    convert h using 1 <;> norm_num <;>
+      field_simp [ne_of_gt hlogXpos, ne_of_gt hden6] <;> ring
+  have hcore' := primeCountingCore_scale_le hX hXx hcoef4 hC hcore
+  ring_nf at hraw h1 h24 h120 h720 hAtail hcore' ⊢
+  linarith
+
 theorem theta_remainder_pointwise_le_of_logFourthError
     {A X x : Real} (hX : 1 < X)
     (error : HasThetaLogFourthError A X) (hx : X ≤ x) :
