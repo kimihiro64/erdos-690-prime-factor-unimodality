@@ -259,6 +259,15 @@ theorem hasDusartThetaBounds_of_symmetric
     ring_nf at hleft ⊢
     linarith
 
+theorem hasDusartThetaBounds_of_finite_and_logCubed_from
+    {X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (finite : HasDusartSymmetricThetaBoundsBelow X)
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) X) :
+    HasDusartThetaBounds :=
+  hasDusartThetaBounds_of_symmetric
+    (hasDusartSymmetricThetaBounds_of_below_and_logCubed_from
+      hXpos hlogX finite thetaError)
+
 theorem log_primorial_lt_of_dusart
     (bounds : HasDusartThetaBounds) (q : Nat) (q_pos : 0 < q) :
     Real.log (primorial q) <
