@@ -34,6 +34,7 @@ from scripts.mathlib_candidates import (
     mathlib_manifest_failures,
 )
 from scripts.render_full_record_gap_fermat import render_witness
+from scripts.render_full_record_gap_fermat_rows import row as render_fermat_row
 from scripts.render_record_gap_coverage import render_chunk
 from scripts.render_record_gap_fermat import render_fast
 from scripts.render_record_gap_prime_list import render as render_record_gap_prime_list
@@ -113,6 +114,15 @@ def test_full_record_gap_fermat_renderer_is_resumable_kernel_reflection() -> Non
     assert "reduce_mod_char" in rendered
     assert "native_decide" not in rendered
     assert "not_prime_of_pow_ne_one" in rendered
+
+
+def test_full_record_gap_fermat_rows_share_one_list_replay() -> None:
+    rendered = render_fermat_row([(1, -19), (2, 15)])
+    assert "fullRecordGapRow00001_values" in rendered
+    assert "fullRecordGapRow00001_fermat" in rendered
+    assert "theorem fullRecordGapTerm00001_not_prime" in rendered
+    assert "theorem fullRecordGapTerm00002_not_prime" in rendered
+    assert rendered.count(":= by\n  decide") == 1
 
 
 def test_nested_lean_comments_are_removed() -> None:
