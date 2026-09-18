@@ -75,6 +75,39 @@ def HasThetaLogCubedError (C X : Real) : Prop :=
   ∀ x : Real, X ≤ x →
     |Chebyshev.theta x - x| ≤ C * x / (Real.log x) ^ 3
 
+/-! A stronger logarithmic remainder is converted here into the exact
+logarithm-cubed scale used by the Dusart interval argument.  This is useful
+when the analytic estimate is obtained first with one extra logarithm in the
+denominator. -/
+def HasThetaLogFourthError (A X : Real) : Prop :=
+  ∀ x : Real, X ≤ x →
+    |Chebyshev.theta x - x| ≤ A * x / (Real.log x) ^ 4
+
+theorem hasThetaLogCubedError_of_logFourthError
+    {A X : Real} (hX : 1 < X) (hA : 0 ≤ A)
+    (error : HasThetaLogFourthError A X) :
+    HasThetaLogCubedError (A / Real.log X) X := by
+  intro x hx
+  have hx_pos : 0 < x := by linarith
+  have hX_pos : 0 < X := by linarith
+  have hlogX_pos : 0 < Real.log X := Real.log_pos hX
+  have hlogx_pos : 0 < Real.log x := by
+    exact Real.log_pos (by linarith)
+  have hlog_mono : Real.log X ≤ Real.log x :=
+    Real.log_le_log hX_pos hx
+  have hbase : 0 ≤ A * x / (Real.log x) ^ 3 := by positivity
+  have hquot :
+      (A * x / (Real.log x) ^ 3) / Real.log x ≤
+        (A * x / (Real.log x) ^ 3) / Real.log X := by
+    exact div_le_div_of_nonneg_left hbase hlogX_pos hlog_mono
+  calc
+    |Chebyshev.theta x - x| ≤ A * x / (Real.log x) ^ 4 := error x hx
+    _ = (A * x / (Real.log x) ^ 3) / Real.log x := by
+      field_simp [hlogx_pos.ne']
+    _ ≤ (A * x / (Real.log x) ^ 3) / Real.log X := hquot
+    _ = (A / Real.log X) * x / (Real.log x) ^ 3 := by
+      field_simp [hlogX_pos.ne']
+
 /-! The following lemma is the local version of the fully proved
 `HasPrimeInInterval.iff_theta_ge` argument in PrimeNumberTheoremAnd.  Keeping
 the conversion here makes the eventual explicit provider depend only on
