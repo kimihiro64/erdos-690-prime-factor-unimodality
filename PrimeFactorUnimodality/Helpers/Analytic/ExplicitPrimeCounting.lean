@@ -93,6 +93,65 @@ theorem integral_inv_log_sq_eq
           (ne_of_gt (pow_pos (Real.log_pos
             (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)))
 
+theorem integral_inv_log_cubed_eq
+    {x : Real} (hx : 2 ≤ x) :
+    ∫ t in Set.Icc 2 x, 1 / Real.log t ^ 3 =
+      x / Real.log x ^ 3 - 2 / Real.log 2 ^ 3 +
+        3 * ∫ t in Set.Icc 2 x, 1 / Real.log t ^ 4 := by
+  suffices h_ibp : ∀ a b : Real, 2 ≤ a → a ≤ b →
+      ∫ t in a..b, (1 / (Real.log t) ^ 3) =
+        (b / (Real.log b) ^ 3) - (a / (Real.log a) ^ 3) +
+          3 * ∫ t in a..b, (1 / (Real.log t) ^ 4) by
+    simpa only [MeasureTheory.integral_Icc_eq_integral_Ioc,
+      intervalIntegral.integral_of_le hx] using h_ibp 2 x (by norm_num) hx
+  intro a b ha hab
+  have h_deriv : ∀ t ∈ Set.Icc a b,
+      deriv (fun t ↦ t / (Real.log t) ^ 3) t =
+        1 / (Real.log t) ^ 3 - 3 * (1 / (Real.log t) ^ 4) := by
+    intro t ht
+    norm_num [Real.differentiableAt_log,
+      ne_of_gt (show 0 < Real.log t from Real.log_pos <| by linarith [ht.1]),
+      ne_of_gt (show 0 < t from by linarith [ht.1])]
+    ring_nf
+    grind
+  have h_ftc : ∫ t in a..b, deriv (fun t ↦ t / (Real.log t) ^ 3) t =
+      (b / (Real.log b) ^ 3) - (a / (Real.log a) ^ 3) := by
+    rw [intervalIntegral.integral_deriv_eq_sub']
+    · rfl
+    · exact fun y hy ↦ DifferentiableAt.div differentiableAt_id
+        (DifferentiableAt.pow (Real.differentiableAt_log
+          (by cases Set.mem_uIcc.mp hy <;> linarith)) _)
+        (pow_ne_zero _ <| ne_of_gt <| Real.log_pos <|
+          by cases Set.mem_uIcc.mp hy <;> linarith)
+    · rw [Set.uIcc_of_le hab]
+      have hlog_cont := Real.continuousOn_log.mono fun y (hy : y ∈ Set.Icc a b) ↦
+        ne_of_gt <| by linarith [hy.1]
+      have hpow_ne : ∀ n : Nat, ∀ y ∈ Set.Icc a b,
+          Real.log y ^ n ≠ 0 :=
+        fun n y hy ↦ pow_ne_zero n <| ne_of_gt <| Real.log_pos <|
+          by linarith [hy.1]
+      exact ContinuousOn.congr (ContinuousOn.sub
+        (continuousOn_const.div (hlog_cont.pow _) (hpow_ne _))
+        (continuousOn_const.mul <| continuousOn_const.div
+          (hlog_cont.pow _) (hpow_ne _))) h_deriv
+  rw [← h_ftc, intervalIntegral.integral_congr fun t ht =>
+    h_deriv t <| by simpa [hab] using ht]
+  rw [intervalIntegral.integral_sub]
+  · norm_num
+  · exact ContinuousOn.intervalIntegrable (continuousOn_of_forall_continuousAt
+      fun y hy ↦ ContinuousAt.div continuousAt_const
+        (ContinuousAt.pow (Real.continuousAt_log
+          (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)
+        (ne_of_gt (pow_pos (Real.log_pos
+          (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)))
+  · exact ContinuousOn.intervalIntegrable
+      (continuousOn_const.mul <| continuousOn_of_forall_continuousAt
+        fun y hy ↦ ContinuousAt.div continuousAt_const
+          (ContinuousAt.pow (Real.continuousAt_log
+            (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)
+          (ne_of_gt (pow_pos (Real.log_pos
+            (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)))
+
 /-- The exact explicit prime-counting statements needed downstream.  This
 interface lets the structural argument compile independently of the eventual
 proof of the analytic provider. -/
