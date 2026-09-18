@@ -842,6 +842,21 @@ def primeCountingCore (X : Real) : Real :=
       (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
         1 / (Real.log t) ^ 2)
 
+theorem primeCountingCore_scale_le
+    {C X x : Real} (hX : 1 < X) (hXx : X ≤ x)
+    (hlogX : (4 : Real) < Real.log X) (hC : 0 ≤ C)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4) :
+    |primeCountingCore X| ≤ C * x / Real.log x ^ 4 := by
+  have hkernel := id_div_log_pow_le_of_le (n := 3) hX hXx (by
+    norm_num
+    exact hlogX)
+  calc
+    |primeCountingCore X| ≤ C * X / Real.log X ^ 4 := hcore
+    _ = C * (X / Real.log X ^ 4) := by ring
+    _ ≤ C * (x / Real.log x ^ 4) :=
+      mul_le_mul_of_nonneg_left hkernel hC
+    _ = C * x / Real.log x ^ 4 := by ring
+
 theorem primeCounting_remainder_core_tail_decomposition
     {X x : Real} (h2X : 2 ≤ X) (hXx : X ≤ x) :
     (Nat.primeCounting ⌊x⌋₊ : Real) -
