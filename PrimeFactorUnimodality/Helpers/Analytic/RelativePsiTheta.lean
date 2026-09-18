@@ -152,6 +152,27 @@ theorem theta_lower_of_psi_relative_error
       mul_le_mul_of_nonneg_left hfifth_scale hc]
   linarith
 
+/-! The pointwise form is the one needed for a decaying explicit error: use
+  the logarithm of the current argument rather than freezing the error at a
+  cutoff. -/
+theorem theta_lower_of_psi_relative_error_at_log
+    {x c : Real} {ε : Real → Real}
+    (hε : HasPsiRelativeError ε)
+    (hroot : ∀ y : Real, 0 ≤ y → Chebyshev.psi y ≤ c * y)
+    (hc : 0 ≤ c) (hx : 1 < x) :
+    (1 - ε (Real.log x) - c *
+      (Real.exp (-Real.log x / 2) +
+        Real.exp (-2 * Real.log x / 3) +
+        Real.exp (-4 * Real.log x / 5))) * x ≤
+      Chebyshev.theta x := by
+  have hx_pos : 0 < x := by linarith
+  have hlogx_nonneg : 0 ≤ Real.log x := (Real.log_pos hx).le
+  have hpsi := hε (Real.log x) hlogx_nonneg x
+    (le_of_eq (Real.exp_log hx_pos))
+  exact theta_lower_of_psi_relative_error
+    (b := Real.log x) (x := x) (ε := ε (Real.log x))
+    (c := c) (le_of_eq (Real.exp_log hx_pos)) hpsi hroot hc
+
 theorem theta_lower_of_psi_relative_error_elementary
     {b x ε : Real} (hx : Real.exp b ≤ x)
     (hpsi : |Chebyshev.psi x - x| ≤ ε * x) :
