@@ -15,6 +15,18 @@ namespace PrimeFactorUnimodality
 /-- An elementary approximation to `r / log₂ r`. -/
 def elementaryTailScale (r : Nat) : Nat := r / Nat.log 2 r
 
+/-! A closed provider for the wider elementary prime-pair bounds.  These are
+not the sharper `HasUniformTailPrimePair` bounds consumed by the current CRT
+numerics, but packaging them makes the unconditional elementary result
+available as an explicit input for the next tail optimization. -/
+def HasElementaryTailPrimePair : Prop :=
+  ∀ r : Nat, 8600001 ≤ r →
+    ∃ qPrev q : Nat,
+      ConsecutivePrimes qPrev q ∧
+      (69 / 130 : Real) * r / Real.log r - 10 / 13 < qPrev ∧
+      elementaryTailScale r < q ∧
+      (q : Real) < (546 / 575 : Real) * r / Real.log r
+
 theorem elementaryTailScale_cast_le_div (r : Nat) :
     (elementaryTailScale r : Real) ≤ r / (Nat.log 2 r : Nat) := by
   exact Nat.cast_div_le
@@ -217,6 +229,10 @@ theorem exists_elementary_tail_consecutive_primes_real {r : Nat}
       _ < (546 / 575 : Real) * r / Real.log r := by
         ring_nf at scaleUpper ⊢
         nlinarith
+
+theorem hasElementaryTailPrimePair : HasElementaryTailPrimePair := by
+  intro r hr
+  exact exists_elementary_tail_consecutive_primes_real hr
 
 private theorem oneMillionTwoHundredFiftyThousand_mul_le_two_pow {L : Nat}
     (hL : 25 ≤ L) :
