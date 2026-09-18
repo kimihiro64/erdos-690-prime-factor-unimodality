@@ -139,6 +139,45 @@ theorem hasLogCubedShortIntervalPrime_of_thetaLogCubedError
   refine ⟨q, qPrime, x_lt_q, ?_⟩
   simpa only [h] using q_upper
 
+private theorem log_large_x_gt_ten {x : Real} (hx : (4e18 : Real) ≤ x) :
+    (10 : Real) < Real.log x := by
+  have x_pos : 0 < x := by linarith
+  apply (Real.lt_log_iff_exp_lt x_pos).2
+  have exp_ten : Real.exp 10 < (3 : Real) ^ 10 := by
+    calc
+      Real.exp 10 = Real.exp 1 ^ 10 := by
+        rw [show (10 : Real) = (10 : ℕ) * 1 by norm_num,
+          Real.exp_nat_mul]
+      _ < (3 : Real) ^ 10 := by
+        exact pow_lt_pow_left₀ Real.exp_one_lt_three (Real.exp_pos 1).le
+          (by norm_num)
+  have : (3 : Real) ^ 10 < (4e18 : Real) := by norm_num
+  exact (exp_ten.trans this).trans_le hx
+
+private theorem large_x_theta_margin {x : Real} (hx : (4e18 : Real) ≤ x) :
+    (12167 / 500000 : Real) * (2 + 1 / (Real.log x) ^ 3) < 1 := by
+  have hlog := log_large_x_gt_ten hx
+  have hlog_pos : 0 < Real.log x := by linarith
+  have hlog_sq : (100 : Real) < (Real.log x) ^ 2 := by
+    nlinarith [mul_self_lt_mul_self (by norm_num : (0 : Real) ≤ 10) hlog]
+  have hlog_cube : (1000 : Real) < (Real.log x) ^ 3 := by
+    have hmul := mul_lt_mul_of_pos_right hlog_sq hlog_pos
+    nlinarith
+  have hinv : 1 / (Real.log x) ^ 3 < (1 : Real) / 1000 := by
+    exact one_div_lt_one_div_of_lt (by norm_num) hlog_cube
+  nlinarith
+
+theorem large_x_logCubedShortIntervalPrime
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    ∀ x : Real, (4e18 : Real) ≤ x →
+      ∃ q : Nat, q.Prime ∧ x < q ∧
+        (q : Real) ≤ x + x / (Real.log x) ^ 3 := by
+  apply hasLogCubedShortIntervalPrime_of_thetaLogCubedError thetaError
+  · norm_num
+  · norm_num
+  · intro x hx
+    exact large_x_theta_margin hx
+
 theorem hasDusartShortIntervalPrime_of_logCubed
     (shortInterval : HasLogCubedShortIntervalPrime) :
     HasDusartShortIntervalPrime := by
