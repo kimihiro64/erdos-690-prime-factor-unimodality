@@ -182,5 +182,41 @@ theorem exists_hasDusartPublishedPrimeCountingBoundsAbove_of_mediumPNT_and_core
   exact ⟨Y, hXY, hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic_from
     hYpos (by linarith [hlogY]) hAsym⟩
 
+/-! A single common raised cutoff packages the two unbounded Dusart inputs
+used by the all-`k` tail: published prime counting and prime selection. -/
+theorem exists_mediumPNT_dusart_tail_inputs
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4) :
+    ∃ Y : Real, X ≤ Y ∧
+      HasDusartPublishedPrimeCountingBoundsAbove Y ∧
+      (∀ x : Real, Y ≤ x →
+        ∃ q : Nat, q.Prime ∧ x < q ∧
+          (q : Real) ≤ x * (1 + 1 / (Real.log x) ^ 3)) := by
+  obtain ⟨Y, hXY, hpublished⟩ :=
+    exists_hasDusartPublishedPrimeCountingBoundsAbove_of_mediumPNT_and_core
+      hX hC0 hC hcore
+  obtain ⟨Z, hYZ, h4Z, htheta⟩ :=
+    exists_hasThetaLogFourthError_of_mediumPNT_above Y
+  have hZpos : 0 < Z := by linarith [hX]
+  have hlogZ : (10 : Real) < Real.log Z := by
+    have hlog4 : (42 : Real) ≤ Real.log Z :=
+      forty_two_lt_log_four_e18.le.trans
+        (Real.log_le_log (by norm_num) h4Z)
+    linarith
+  have hpublishedZ : HasDusartPublishedPrimeCountingBoundsAbove Z := by
+    constructor <;> intro x hx
+    · exact hpublished.1 x (hYZ.trans hx)
+    · exact hpublished.2 x (hYZ.trans hx)
+  refine ⟨Z, hXY.trans hYZ, hpublishedZ, ?_⟩
+  exact dusartPrimeInInterval_of_logFourthError_from
+    hZpos (by linarith) hlogZ (by norm_num) (by
+      have hlog4 : (42 : Real) ≤ Real.log Z :=
+        forty_two_lt_log_four_e18.le.trans
+          (Real.log_le_log (by norm_num) h4Z)
+      have hlogpos : 0 < Real.log Z := by linarith
+      apply (div_le_iff₀ hlogpos).2
+      nlinarith [hlog4]) htheta
+
 end
 end PrimeFactorUnimodality
