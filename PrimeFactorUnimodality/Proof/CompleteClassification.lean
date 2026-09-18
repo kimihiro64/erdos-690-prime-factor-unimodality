@@ -96,6 +96,27 @@ theorem completeClassification_of_full_record_interval_certificates
     (hasDusartShortIntervalPrime_of_rows_and_thetaError
       dusartCover logCover thetaError)
 
+theorem completeClassification_of_full_record_fourth_theta_error
+    (primeCountingBounds : HasDusartRealPrimeCountingBounds)
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
+    {A : Real}
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log (4e18 : Real) ≤ 12167 / 500000)
+    {dusartRows : List DusartPrimeRow}
+    (dusartCover : DusartPrimeRowsCoverBelow dusartRows)
+    {logRows : List LogCubedPrimeRow}
+    (logCover : LogCubedPrimeRowsCoverUpTo logRows (4e18 : Real))
+    (thetaError : HasThetaLogFourthError A (4e18 : Real)) :
+    CompleteClassification := by
+  have cubic : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real) :=
+    hasThetaLogCubedError_of_logFourthError
+      (A := A) (X := (4e18 : Real)) (by norm_num) (by positivity) thetaError
+  exact completeClassification_of_full_record_interval_certificates
+    primeCountingBounds
+    (hasDusartSymmetricThetaBounds_of_below_and_logFourth
+      finiteTheta hA_nonneg hA thetaError)
+    dusartCover logCover cubic
+
 /-! The finite-row presentation is the concrete form needed by the eventual
 analytic provider: it keeps the medium range as one bounded cover and uses
 the proved theta-error implication above the cutoff. -/

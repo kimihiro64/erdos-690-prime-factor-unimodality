@@ -90,6 +90,7 @@ theorem hasDusartSymmetricThetaBounds_of_below_and_logCubed
 
 theorem hasDusartSymmetricThetaBounds_of_below_and_logFourth
     {A : Real} (finite : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
+    (hA_nonneg : 0 ≤ A)
     (hA : A / Real.log (4e18 : Real) ≤ 12167 / 500000)
     (thetaError : HasThetaLogFourthError A (4e18 : Real)) :
     HasDusartSymmetricThetaBounds := by
@@ -99,13 +100,22 @@ theorem hasDusartSymmetricThetaBounds_of_below_and_logFourth
     (A := A) (X := (4e18 : Real)) (by norm_num) (by
       have hlog_pos : 0 < Real.log (4e18 : Real) := by
         exact Real.log_pos (by norm_num)
-      exact div_nonneg (by positivity) hlog_pos.le) thetaError
+      exact hA_nonneg) thetaError
   exact (hconverted x hx).trans (by
     have hlog_pos : 0 < Real.log (4e18 : Real) := by
       exact Real.log_pos (by norm_num)
     have hx_pos : 0 < x := by linarith
-    have hfactor : 0 ≤ x / (Real.log x) ^ 3 := by positivity
-    exact mul_le_mul_of_nonneg_right hA hfactor)
+    have hlogx_pos : 0 < Real.log x := Real.log_pos (by linarith)
+    have hfactor : 0 ≤ x / (Real.log x) ^ 3 := by
+      exact div_nonneg hx_pos.le (pow_pos hlogx_pos 3).le
+    calc
+      (A / Real.log (4e18 : Real)) * x / (Real.log x) ^ 3 =
+          (A / Real.log (4e18 : Real)) *
+            (x / (Real.log x) ^ 3) := by ring
+      _ ≤ (12167 / 500000 : Real) *
+            (x / (Real.log x) ^ 3) :=
+        mul_le_mul_of_nonneg_right hA hfactor
+      _ = (12167 / 500000 : Real) * x / (Real.log x) ^ 3 := by ring)
 
 /-! The unbounded part of Dusart's theta estimate is a theorem, not an
 assumption: once the explicit logarithm-cubed error estimate is proved, the
