@@ -286,6 +286,50 @@ theorem integral_inv_log_pow_succ_eq_interval
           (ne_of_gt (pow_pos (Real.log_pos
             (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)))
 
+theorem integral_inv_log_pow_succ_le_of_next_bound
+    {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b)
+    (hnext : (∫ t in a..b, 1 / Real.log t ^ (n + 2)) ≤
+      (∫ t in a..b, 1 / Real.log t ^ (n + 1)) / Real.log a)
+    (hcoef : (n + 1 : Real) < Real.log a) :
+    (∫ t in a..b, 1 / Real.log t ^ (n + 1)) ≤
+      (b / Real.log b ^ (n + 1)) /
+        (1 - (n + 1 : Real) / Real.log a) := by
+  have hloga : 0 < Real.log a := Real.log_pos ha
+  have hden : 0 < 1 - (n + 1 : Real) / Real.log a := by
+    rw [sub_pos]
+    apply (div_lt_iff₀ hloga).2
+    nlinarith [hcoef]
+  have hleft : 0 ≤ a / Real.log a ^ (n + 1) := by positivity
+  have hidentity := integral_inv_log_pow_succ_eq_interval
+    (n := n) ha hab
+  have hcoef_nonneg : 0 ≤ (n + 1 : Real) := by positivity
+  have hmul := mul_le_mul_of_nonneg_left hnext hcoef_nonneg
+  have hineq :
+      (∫ t in a..b, 1 / Real.log t ^ (n + 1)) ≤
+        b / Real.log b ^ (n + 1) +
+          (n + 1 : Real) *
+            ((∫ t in a..b, 1 / Real.log t ^ (n + 1)) /
+              Real.log a) := by
+    calc
+      (∫ t in a..b, 1 / Real.log t ^ (n + 1)) =
+          b / Real.log b ^ (n + 1) - a / Real.log a ^ (n + 1) +
+            (n + 1 : Real) *
+              ∫ t in a..b, 1 / Real.log t ^ (n + 2) := hidentity
+      _ ≤ b / Real.log b ^ (n + 1) +
+            (n + 1 : Real) *
+              ∫ t in a..b, 1 / Real.log t ^ (n + 2) := by
+        nlinarith
+      _ ≤ b / Real.log b ^ (n + 1) +
+            (n + 1 : Real) *
+              ((∫ t in a..b, 1 / Real.log t ^ (n + 1)) /
+                Real.log a) := by
+        simpa [add_comm] using add_le_add_left hmul
+          (b / Real.log b ^ (n + 1))
+  apply (le_div_iff₀ hden).2
+  have htarget := hineq
+  field_simp [ne_of_gt hloga] at htarget ⊢
+  nlinarith
+
 theorem integral_inv_log_sq_expansion_five
     {x : Real} (hx : 2 ≤ x) :
     ∫ t in Set.Icc 2 x, 1 / Real.log t ^ 2 =
