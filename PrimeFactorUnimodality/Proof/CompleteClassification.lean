@@ -1,5 +1,6 @@
 import PrimeFactorUnimodality.Proof.ClassificationThrough38000Closed
 import PrimeFactorUnimodality.Proof.CompleteClassificationReduction
+import PrimeFactorUnimodality.Proof.LargeRange.FullRecordRange
 import PrimeFactorUnimodality.Proof.LargeRange.UniformTail
 
 set_option autoImplicit false
@@ -37,8 +38,33 @@ theorem completeClassification_of_explicit_inputs
     (shortInterval : HasDusartShortIntervalPrime) :
     CompleteClassification := by
   intro k hk
-  exact completeClassification_with_explicit_inputs primeCountingBounds reciprocalEstimate
+    exact completeClassification_with_explicit_inputs primeCountingBounds reciprocalEstimate
     thetaBounds shortInterval k hk
+
+/-! The exact all-`k` reduction after the full published record-gap range is
+available.  This is the final finite/tail assembly; only the analytic tail
+providers remain parameters here. -/
+
+theorem completeClassification_of_full_record_inputs
+    (primeCountingBounds : HasDusartPrimeCountingBounds)
+    (thetaBounds : HasDusartThetaBounds)
+    (shortInterval : HasDusartShortIntervalPrime) :
+    CompleteClassification := by
+  intro k hk
+  by_cases hkSmall : k ≤ 38000
+  · exact completeClassification_through38000_closed k hk hkSmall
+  by_cases hkRecord : k ≤ 7300000
+  · constructor
+    · intro unimodal
+      exact ((fullRecordRange_not_isUnimodal_closed k (by omega) hkRecord) unimodal).elim
+    · intro hkThree
+      omega
+  · constructor
+    · intro unimodal
+      exact ((uniformTail_not_isUnimodal_closed_mertens primeCountingBounds thetaBounds
+        shortInterval (k := k) (by omega)) unimodal).elim
+    · intro hkThree
+      omega
 
 end
 
