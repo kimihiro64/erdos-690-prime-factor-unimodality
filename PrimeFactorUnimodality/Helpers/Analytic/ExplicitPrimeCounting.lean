@@ -183,6 +183,30 @@ theorem theta_integral_split
   rw [hpoint] at hsub
   linarith
 
+theorem theta_remainder_pointwise_le_of_logFourthError
+    {A X x : Real} (hX : 1 < X)
+    (error : HasThetaLogFourthError A X) (hx : X ≤ x) :
+    |Chebyshev.theta x / (x * (Real.log x) ^ 2) -
+        1 / (Real.log x) ^ 2| ≤ A / (Real.log x) ^ 6 := by
+  have hx_pos : 0 < x := by linarith
+  have hlogx_pos : 0 < Real.log x := Real.log_pos (by linarith)
+  have hlogx_ne : Real.log x ≠ 0 := ne_of_gt hlogx_pos
+  have herror := error x hx
+  have hrewrite :
+      Chebyshev.theta x / (x * (Real.log x) ^ 2) -
+        1 / (Real.log x) ^ 2 =
+        (Chebyshev.theta x - x) / (x * (Real.log x) ^ 2) := by
+    field_simp [ne_of_gt hx_pos, hlogx_ne]
+  rw [hrewrite, abs_div]
+  have hden : 0 ≤ x * (Real.log x) ^ 2 := by positivity
+  rw [abs_of_nonneg hden]
+  calc
+    |Chebyshev.theta x - x| / (x * (Real.log x) ^ 2) ≤
+        (A * x / (Real.log x) ^ 4) / (x * (Real.log x) ^ 2) :=
+      div_le_div_of_nonneg_right herror hden
+    _ = A / (Real.log x) ^ 6 := by
+      field_simp [ne_of_gt hx_pos, hlogx_ne]
+
 /-- The exact explicit prime-counting statements needed downstream.  This
 interface lets the structural argument compile independently of the eventual
 proof of the analytic provider. -/
