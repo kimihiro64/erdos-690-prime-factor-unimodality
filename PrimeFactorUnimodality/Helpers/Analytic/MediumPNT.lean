@@ -116,10 +116,14 @@ theorem exists_hasThetaLogFourthError_of_mediumPNT_at_large_cutoff :
     ∃ X : Real, (4e18 : Real) ≤ X ∧
       (100 : Real) ≤ Real.log X ∧
       HasThetaLogFourthError (648 / 1000 : Real) X := by
-  obtain ⟨X, hX, hlogX, hpsi⟩ :=
-    exists_hasPsiLogFourthError_of_mediumPNT_at_large_cutoff
-  refine ⟨X, hX, hlogX, ?_⟩
-  exact hasThetaLogFourthError_of_psiLogFourthError_sharp hX hpsi
+  obtain ⟨X, hX, h4X, htheta⟩ :=
+    exists_hasThetaLogFourthError_of_mediumPNT_above
+      (max (4e18 : Real) (Real.exp 100))
+  have hexp : Real.exp 100 ≤ X := by
+    exact (le_max_right (4e18 : Real) (Real.exp 100)).trans hX
+  have hlogX : (100 : Real) ≤ Real.log X := by
+    exact (Real.le_log_iff_exp_le (by positivity)).2 hexp
+  exact ⟨X, h4X, hlogX, htheta⟩
 
 /-! The same eventual theta estimate yields the logarithm-cubed prime interval
 needed by the tail argument.  This is the analytic half only; the finite
