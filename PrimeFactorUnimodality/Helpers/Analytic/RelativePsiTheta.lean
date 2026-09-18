@@ -56,6 +56,33 @@ theorem psi_relative_error_of_logFourthError
         _ ≤ A * (x / b ^ 4) := mul_le_mul_of_nonneg_left hratio hA
     _ = (A / b ^ 4) * x := by ring
 
+/-! Conversely, a relative ψ theorem with a logarithmic decay estimate gives
+  the tail predicate consumed by the explicit theta and prime-counting
+  interfaces.  This is the exact provider boundary for an independently
+  formalized BKLNW/Dusart estimate. -/
+theorem hasPsiLogFourthError_of_relativeError_decay
+    {ε : Real → Real} {A X : Real}
+    (hXpos : 0 < X) (hlogX : 0 < Real.log X)
+    (hε : HasPsiRelativeError ε)
+    (hdecay : ∀ b : Real, Real.log X ≤ b → ε b ≤ A / b ^ 4) :
+    HasPsiLogFourthError A X := by
+  intro x hx
+  have hx_pos : 0 < x := lt_of_lt_of_le hXpos hx
+  have hXgt1 : 1 < X := (Real.log_pos_iff hXpos.le).mp hlogX
+  have hlogx_pos : 0 < Real.log x :=
+    Real.log_pos (lt_of_lt_of_le hXgt1 hx)
+  have hlogX_le : Real.log X ≤ Real.log x :=
+    Real.log_le_log hXpos hx
+  have hrel : |Chebyshev.psi x - x| ≤ ε (Real.log x) * x := by
+    simpa [Real.exp_log hx_pos] using
+      hε (Real.log x) hlogx_pos.le x (le_of_eq (Real.exp_log hx_pos))
+  have hdec := hdecay (Real.log x) hlogX_le
+  calc
+    |Chebyshev.psi x - x| ≤ ε (Real.log x) * x := hrel
+    _ ≤ (A / (Real.log x) ^ 4) * x :=
+      mul_le_mul_of_nonneg_right hdec hx_pos.le
+    _ = A * x / (Real.log x) ^ 4 := by ring
+
 theorem theta_upper_of_psi_relative_error
     {x ε : Real}
     (hpsi : |Chebyshev.psi x - x| ≤ ε * x) :
