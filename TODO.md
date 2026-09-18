@@ -28,6 +28,10 @@
   (manifest semantic SHA-256 `aa4dbd835d585be69cbc8d4529cfef5e72f19b13f21dfdafcc5359e4e0d403fd`).
 - [ ] Discharge the explicit theta, prime-counting, and short-interval
   analytic interfaces from kernel-checked theorems.
+  The prime-counting tail is now reduced by a proved adapter from Dusart's
+  explicit asymptotic formula (with remainder `7.32 / log^3 x`); the remaining
+  obligation is the asymptotic provider itself together with the finite
+  cutoff providers.
   The reciprocal-prime interface is now discharged by the proved Mertens
   estimate throughout the uniform tail `k ≥ 8,600,002`; the focused closed
   reduction and tail theorem both compile without that hypothesis.
