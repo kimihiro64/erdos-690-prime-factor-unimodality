@@ -29,6 +29,26 @@ def HasDusartPrimeCountingBounds : Prop :=
   (∀ n : Nat, 2 ≤ n →
     (Nat.primeCounting n : Real) ≤ dusartPiUpper n)
 
+/-! A real-variable form is convenient when importing an explicit analytic
+estimate stated for `π x`.  The final tail lemmas use the natural-number form
+above, so this adapter is kept here rather than repeated at each call site. -/
+def HasDusartRealPrimeCountingBounds : Prop :=
+  (∀ x : Real, 599 ≤ x →
+    dusartPiLower x ≤ (Nat.primeCounting ⌊x⌋₊ : Real)) ∧
+  (∀ x : Real, 2 ≤ x →
+    (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x)
+
+theorem hasDusartPrimeCountingBounds_of_real
+    (bounds : HasDusartRealPrimeCountingBounds) :
+    HasDusartPrimeCountingBounds := by
+  constructor
+  · intro n hn
+    simpa only [Nat.floor_natCast] using
+      bounds.1 (n : Real) (by exact_mod_cast hn)
+  · intro n hn
+    simpa only [Nat.floor_natCast] using
+      bounds.2 (n : Real) (by exact_mod_cast hn)
+
 theorem primeCounting_sub_lower_of_dusart
     (bounds : HasDusartPrimeCountingBounds)
     {x y : Nat} (hx : 2 ≤ x) (hy : 599 ≤ y) (hxy : x ≤ y) :
