@@ -62,6 +62,19 @@ theorem exists_hasPsiLogFourthError_of_mediumPNT_above (X₀ : Real) :
   intro x hx
   exact hY x ((le_max_right X₀ Y).trans hx)
 
+/-! A general theta version of the preceding adapter.  The cutoff is raised
+past both the caller's threshold and the point where the sharp elementary
+prime-power correction is valid. -/
+theorem exists_hasThetaLogFourthError_of_mediumPNT_above (X₀ : Real) :
+    ∃ X : Real, X₀ ≤ X ∧ (4e18 : Real) ≤ X ∧
+      HasThetaLogFourthError (648 / 1000 : Real) X := by
+  obtain ⟨Y, hY, hpsi⟩ :=
+    exists_hasPsiLogFourthError_of_mediumPNT_above (max X₀ (4e18 : Real))
+  have hX₀Y : X₀ ≤ Y := (le_max_left _ _).trans hY
+  have h4Y : (4e18 : Real) ≤ Y := (le_max_right _ _).trans hY
+  exact ⟨Y, hX₀Y, h4Y,
+    hasThetaLogFourthError_of_psiLogFourthError_sharp h4Y hpsi⟩
+
 /-! The eventual cutoff can be raised to the paper's analytic cutoff without
 changing the proved error estimate.  This is the form consumed by the
 Dusart tail interfaces. -/
