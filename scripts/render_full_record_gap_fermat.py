@@ -14,8 +14,6 @@ import sys
 from pathlib import Path
 from typing import Any
 
-import gmpy2  # type: ignore[import-untyped]
-
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -134,6 +132,19 @@ end PrimeFactorUnimodality
 """
 
 
+def render_assembly(count: int) -> str:
+    imports = "\n".join(
+        f"import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapFermat.Part{label(index)}"
+        for index in range(1, count + 1)
+    )
+    return f"""{imports}
+
+set_option autoImplicit false
+
+/-! Assembly of the kernel-replayed Fermat witnesses for the full record gap. -/
+"""
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("manifest", type=Path)
@@ -155,12 +166,18 @@ def main() -> None:
 
     for index, offset in enumerate(selected, start=args.start):
         modulus = center + offset
-        residue = int(gmpy2.powmod(3, modulus - 1, modulus))
+        residue = pow(3, modulus - 1, modulus)
         if residue == 1:
             raise ValueError(f"offset {offset} is a base-3 probable prime")
         target = args.output_dir / f"Part{label(index)}.lean"
         target.write_text(render_witness(index, offset, modulus, residue))
         print(f"wrote witness {index}/{len(offsets)} for offset {offset}")
+
+    end = args.start + args.count - 1
+    if end == len(offsets):
+        assembly_target = args.output_dir.parent / "FullRecordGapFermat.lean"
+        assembly_target.write_text(render_assembly(len(offsets)))
+        print(f"wrote assembly for {len(offsets)} witnesses")
 
 
 if __name__ == "__main__":
