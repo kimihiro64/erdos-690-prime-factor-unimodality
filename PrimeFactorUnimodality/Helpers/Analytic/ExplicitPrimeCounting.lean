@@ -1027,6 +1027,28 @@ theorem primeCounting_remainder_abs_le_of_core_and_logFourthError
   exact primeCounting_remainder_abs_le_of_core_and_theta_error
     hX h2X hXx hA (error x hXx) error hcoef
 
+theorem primeCounting_remainder_abs_le_of_scaled_core
+    {A C X x : Real} (hX : 1 < X) (h2X : 2 ≤ X) (hXx : X ≤ x)
+    (hA : 0 ≤ A) (hC : 0 ≤ C)
+    (hlogX : (4 : Real) < Real.log X)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (error : HasThetaLogFourthError A X)
+    (hcoef : (7 : Real) < Real.log X) :
+    |(Nat.primeCounting ⌊x⌋₊ : Real) -
+        (x / Real.log x + x / Real.log x ^ 2 +
+          2 * x / Real.log x ^ 3)| ≤
+      A * x / Real.log x ^ 5 + 6 * x / Real.log x ^ 4 +
+        24 * x / Real.log x ^ 5 + 120 * x / Real.log x ^ 6 +
+        C * x / Real.log x ^ 4 +
+        720 * ((x / Real.log x ^ 7) /
+          (1 - 7 / Real.log X)) +
+        A * (x / Real.log x ^ 6) /
+          (1 - 6 / Real.log X) := by
+  have hraw := primeCounting_remainder_abs_le_of_core_and_logFourthError
+    hX h2X hXx hA error hcoef
+  have hcore' := primeCountingCore_scale_le hX hXx hlogX hC hcore
+  linarith
+
 theorem theta_remainder_pointwise_le_of_logFourthError
     {A X x : Real} (hX : 1 < X)
     (error : HasThetaLogFourthError A X) (hx : X ≤ x) :
