@@ -6,6 +6,7 @@ import PrimeFactorUnimodality.Proof.LargeRange.TailErrorBounds
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitPrimeCounting
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
+import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
 import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 
 set_option autoImplicit false
@@ -281,6 +282,28 @@ theorem completeClassification_of_logFourth_cutoff_inputs
   exact completeClassification_of_full_record_raised_cutoff_inputs
     hX finitePrimeCounting tailPrimeCounting finiteTheta thetaErrorCubic
     finiteShortInterval tailShortInterval
+
+/-! The source-level MediumPNT selects the cutoff; this wrapper makes the
+remaining finite obligation explicit as a provider valid at every possible
+selected cutoff.  Thus the resulting conclusion is the universal
+classification, with no hidden fixed cutoff and no finite bound on `k`. -/
+theorem completeClassification_of_mediumPNT_and_finite_provider
+    (finitePrimeCounting : ∀ X : Real, (4e18 : Real) ≤ X →
+      HasDusartRealPrimeCountingBoundsBelow X)
+    (finiteTheta : ∀ X : Real, (4e18 : Real) ≤ X →
+      HasDusartSymmetricThetaBoundsBelow X)
+    (finiteShortInterval : ∀ X : Real, (4e18 : Real) ≤ X →
+      HasLogCubedShortIntervalPrimeBelow X)
+    (coreBound : ∀ X : Real, (4e18 : Real) ≤ X →
+      |primeCountingCore X| ≤ (3 / 5 : Real) * X / Real.log X ^ 4) :
+    CompleteClassification := by
+  obtain ⟨X, hX, h4X, thetaError⟩ :=
+    exists_hasThetaLogFourthError_of_mediumPNT_above (4e18 : Real)
+  exact completeClassification_of_logFourth_cutoff_inputs
+    h4X (finitePrimeCounting X h4X) (finiteTheta X h4X)
+    (finiteShortInterval X h4X)
+    (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+    (coreBound X h4X) thetaError
 
 /-! The tail prime-counting obligation can equivalently be supplied in the
 published asymptotic form.  The adapter is proved in the analytic helper, so
