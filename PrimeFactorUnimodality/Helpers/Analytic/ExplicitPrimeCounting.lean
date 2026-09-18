@@ -599,6 +599,134 @@ theorem primeCounting_from_theta_expansion_five
                   1 / (Real.log t) ^ 2))) hmain
         _ = _ := by ring
 
+/-! The expansion can be split at any explicit threshold.  This is the
+non-numerical interface used by the later Dusart estimate: the interval
+`2..X` is a fixed core, while all dependence on `x ≥ X` is in the two tails.
+-/
+theorem integral_inv_log_seven_split
+    {X x : Real} (h2X : 2 ≤ X) (hXx : X ≤ x) :
+    (∫ t in (2 : Real)..x, 1 / Real.log t ^ 7) =
+      (∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) +
+        ∫ t in X..x, 1 / Real.log t ^ 7 := by
+  have hcont : ContinuousOn (fun t : Real => 1 / Real.log t ^ 7)
+      (Set.Icc 2 x) := by
+    apply ContinuousOn.div continuousOn_const
+    · exact (Real.continuousOn_log.mono fun y hy =>
+        ne_of_gt (by linarith [hy.1])).pow _
+    · intro y hy
+      exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by linarith [hy.1])))
+  have hleft : IntervalIntegrable (fun t : Real => 1 / Real.log t ^ 7)
+      MeasureTheory.volume 2 X := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le h2X]
+    exact hcont.mono (Set.Icc_subset_Icc le_rfl hXx)
+  have hright : IntervalIntegrable (fun t : Real => 1 / Real.log t ^ 7)
+      MeasureTheory.volume X x := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le hXx]
+    exact hcont.mono (Set.Icc_subset_Icc h2X le_rfl)
+  exact (intervalIntegral.integral_add_adjacent_intervals hleft hright).symm
+
+theorem theta_remainder_integral_split
+    {X x : Real} (h2X : 2 ≤ X) (hXx : X ≤ x) :
+    (∫ t in (2 : Real)..x,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)) =
+      (∫ t in (2 : Real)..X,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)) +
+        ∫ t in X..x,
+          (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+            1 / (Real.log t) ^ 2) := by
+  have htheta : ∀ y : Real, 2 ≤ y →
+      IntervalIntegrable
+        (fun t : Real => Chebyshev.theta t / (t * (Real.log t) ^ 2))
+        MeasureTheory.volume 2 y := by
+    intro y hy
+    rw [intervalIntegrable_iff_integrableOn_Ioc_of_le hy]
+    exact (Chebyshev.integrableOn_theta_div_id_mul_log_sq y).mono_set
+      (Set.Ioc_subset_Icc_self)
+  have hbase : ∀ y : Real, 2 ≤ y →
+      IntervalIntegrable (fun t : Real => 1 / (Real.log t) ^ 2)
+        MeasureTheory.volume 2 y := by
+    intro y hy
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le hy]
+    apply ContinuousOn.div continuousOn_const
+    · exact (Real.continuousOn_log.mono fun z hz =>
+        ne_of_gt (by linarith [hz.1])).pow _
+    · intro z hz
+      exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by linarith [hz.1])))
+  have hrem : ∀ y : Real, 2 ≤ y →
+      IntervalIntegrable
+        (fun t : Real =>
+          Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+            1 / (Real.log t) ^ 2)
+        MeasureTheory.volume 2 y := by
+    intro y hy
+    exact (htheta y hy).sub (hbase y hy)
+  have hright : IntervalIntegrable
+      (fun t : Real =>
+        Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)
+      MeasureTheory.volume X x := by
+    rw [intervalIntegrable_iff_integrableOn_Ioc_of_le hXx]
+    exact (hrem x (h2X.trans hXx)).1.mono_set (by
+      intro z hz
+      exact ⟨by linarith [hz.1, h2X], hz.2⟩)
+  exact (intervalIntegral.integral_add_adjacent_intervals
+    (hrem X h2X) hright).symm
+
+theorem primeCounting_from_theta_expansion_five_split
+    {X x : Real} (h2X : 2 ≤ X) (hXx : X ≤ x) :
+    (Nat.primeCounting ⌊x⌋₊ : Real) =
+      Chebyshev.theta x / Real.log x +
+        x / Real.log x ^ 2 + 2 * x / Real.log x ^ 3 +
+          6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+            120 * x / Real.log x ^ 6 -
+          2 * (1 / Real.log 2 ^ 2 + 2 / Real.log 2 ^ 3 +
+            6 / Real.log 2 ^ 4 + 24 / Real.log 2 ^ 5 +
+            120 / Real.log 2 ^ 6) +
+          720 * ((∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) +
+            ∫ t in X..x, 1 / Real.log t ^ 7) +
+        ((∫ t in (2 : Real)..X,
+            (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+              1 / (Real.log t) ^ 2)) +
+          ∫ t in X..x,
+            (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+              1 / (Real.log t) ^ 2)) := by
+  rw [primeCounting_from_theta_expansion_five (h2X.trans hXx),
+    integral_inv_log_seven_split h2X hXx,
+    theta_remainder_integral_split h2X hXx]
+
+/-! A remainder-normalized form of the split expansion.  No estimate is hidden
+here: this is just the exact identity in the shape needed for Dusart's
+fourth-order error bound. -/
+theorem primeCounting_remainder_split
+    {X x : Real} (h2X : 2 ≤ X) (hXx : X ≤ x) :
+    (Nat.primeCounting ⌊x⌋₊ : Real) -
+        (x / Real.log x + x / Real.log x ^ 2 +
+          2 * x / Real.log x ^ 3) =
+      (Chebyshev.theta x - x) / Real.log x +
+        6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+          120 * x / Real.log x ^ 6 -
+        2 * (1 / Real.log 2 ^ 2 + 2 / Real.log 2 ^ 3 +
+          6 / Real.log 2 ^ 4 + 24 / Real.log 2 ^ 5 +
+          120 / Real.log 2 ^ 6) +
+        720 * ((∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) +
+          ∫ t in X..x, 1 / Real.log t ^ 7) +
+        ((∫ t in (2 : Real)..X,
+            (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+              1 / (Real.log t) ^ 2)) +
+          ∫ t in X..x,
+            (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+              1 / (Real.log t) ^ 2)) := by
+  have hx : 2 ≤ x := h2X.trans hXx
+  have hlogx : Real.log x ≠ 0 := ne_of_gt (Real.log_pos (by linarith))
+  rw [primeCounting_from_theta_expansion_five_split h2X hXx]
+  field_simp [hlogx]
+  ring
+
 theorem theta_remainder_pointwise_le_of_logFourthError
     {A X x : Real} (hX : 1 < X)
     (error : HasThetaLogFourthError A X) (hx : X ≤ x) :
