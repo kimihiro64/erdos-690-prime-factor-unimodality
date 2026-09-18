@@ -15,7 +15,7 @@ theorem completeClassification_with_explicit_inputs
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     (reciprocalEstimate : HasDusartReciprocalPrimeEstimate Mertens.M)
     (thetaBounds : HasDusartThetaBounds)
-    (shortInterval : HasDusartShortIntervalPrime)
+    (tailPair : HasUniformTailPrimePair)
     (k : Nat) (hk : 1 ≤ k) :
     IsUnimodal (primeFactorDensity k) ↔ k ≤ 3 := by
   by_cases hkFinite : k ≤ 38000
@@ -23,7 +23,7 @@ theorem completeClassification_with_explicit_inputs
   · constructor
     · intro unimodal
       exact (uniformTail_not_isUnimodal primeCountingBounds reciprocalEstimate
-        mertensConstant_lt_two_thirds.le thetaBounds shortInterval
+        mertensConstant_lt_two_thirds.le thetaBounds tailPair
         (k := k) (by omega)) unimodal
     · intro hkThree
       omega
@@ -35,11 +35,11 @@ theorem completeClassification_of_explicit_inputs
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     (reciprocalEstimate : HasDusartReciprocalPrimeEstimate Mertens.M)
     (thetaBounds : HasDusartThetaBounds)
-    (shortInterval : HasDusartShortIntervalPrime) :
+    (tailPair : HasUniformTailPrimePair) :
     CompleteClassification := by
   intro k hk
     exact completeClassification_with_explicit_inputs primeCountingBounds reciprocalEstimate
-    thetaBounds shortInterval k hk
+    thetaBounds tailPair k hk
 
 /-! The exact all-`k` reduction after the full published record-gap range is
 available.  This is the final finite/tail assembly; only the analytic tail

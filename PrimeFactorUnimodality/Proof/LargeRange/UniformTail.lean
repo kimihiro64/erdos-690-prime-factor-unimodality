@@ -1,4 +1,5 @@
 import PrimeFactorUnimodality.Proof.LargeRange.TailAscentBounds
+import PrimeFactorUnimodality.Proof.LargeRange.TailErrorBounds
 import PrimeFactorUnimodality.Proof.LargeRange.TailPrimeCountingBounds
 import PrimeFactorUnimodality.Proof.LargeRange.UniformAnalyticReduction
 
@@ -16,13 +17,13 @@ theorem uniformTail_not_isUnimodal
     (reciprocalEstimate : HasDusartReciprocalPrimeEstimate mertens)
     (mertens_le : mertens ≤ (2 : Real) / 3)
     (thetaBounds : HasDusartThetaBounds)
-    (shortInterval : HasDusartShortIntervalPrime)
+    (tailPair : HasUniformTailPrimePair)
     {k : Nat} (hk : 38001 ≤ k) :
     ¬ IsUnimodal (primeFactorDensity k) := by
   let r := k - 1
   have hr : 38000 ≤ r := by dsimp only [r]; omega
   obtain ⟨qPrev, q, consecutive, prevLarge, scaleLtQ, qUpper, scalePrev⟩ :=
-    exists_tail_consecutive_primes_rational shortInterval hr
+    tailPair r hr
   apply uniformConstruction_not_isUnimodal_of_dusart_reciprocal_direct
     primeCountingBounds reciprocalEstimate consecutive
   · exact tail_predecessor_gt_two (by omega : 3301 ≤ qPrev)
