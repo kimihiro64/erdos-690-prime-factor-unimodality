@@ -547,6 +547,42 @@ theorem integral_inv_log_pow_succ_le_explicit_at_million
             (1 - (n + 1 : Real) / Real.log (1000000 : Real)) := by
       exact add_le_add_right hlow _
 
+theorem six_lt_log_million :
+    (6 : Real) < Real.log (1000000 : Real) := by
+  apply (Real.lt_log_iff_exp_lt (by norm_num)).2
+  have hexp : Real.exp 6 < (3 : Real) ^ 6 := by
+    rw [show (6 : Real) = (6 : ℕ) * 1 by norm_num, Real.exp_nat_mul]
+    exact pow_lt_pow_left₀ Real.exp_one_lt_three
+      (Real.exp_pos 1).le (by norm_num)
+  exact hexp.trans (by norm_num)
+
+theorem seven_lt_log_million :
+    (7 : Real) < Real.log (1000000 : Real) := by
+  apply (Real.lt_log_iff_exp_lt (by norm_num)).2
+  have hexp : Real.exp 7 < (3 : Real) ^ 7 := by
+    rw [show (7 : Real) = (7 : ℕ) * 1 by norm_num, Real.exp_nat_mul]
+    exact pow_lt_pow_left₀ Real.exp_one_lt_three
+      (Real.exp_pos 1).le (by norm_num)
+  exact hexp.trans (by norm_num)
+
+theorem integral_inv_log_six_le_explicit {X : Real}
+    (hX : (1000000 : Real) ≤ X) :
+    (∫ t in (2 : Real)..X, 1 / Real.log t ^ 6) ≤
+      (999998 : Real) / Real.log 2 ^ 6 +
+      (X / Real.log X ^ 6) /
+        (1 - 6 / Real.log (1000000 : Real)) := by
+  convert integral_inv_log_pow_succ_le_explicit_at_million
+    (n := 5) hX six_lt_log_million using 1 <;> norm_num
+
+theorem integral_inv_log_seven_le_explicit {X : Real}
+    (hX : (1000000 : Real) ≤ X) :
+    (∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) ≤
+      (999998 : Real) / Real.log 2 ^ 7 +
+      (X / Real.log X ^ 7) /
+        (1 - 7 / Real.log (1000000 : Real)) := by
+  convert integral_inv_log_pow_succ_le_explicit_at_million
+    (n := 6) hX seven_lt_log_million using 1 <;> norm_num
+
 theorem abs_integral_inv_log_pow_succ_le
     {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b)
     (hcoef : (n + 1 : Real) < Real.log a) :
