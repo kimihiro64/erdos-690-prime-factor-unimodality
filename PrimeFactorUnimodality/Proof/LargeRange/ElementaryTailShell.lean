@@ -1,4 +1,5 @@
 import PrimeFactorUnimodality.Proof.LargeRange.TailStructuralBounds
+import PrimeFactorUnimodality.Helpers.Analytic.ElementaryPrimeCounting
 
 set_option autoImplicit false
 
@@ -37,6 +38,20 @@ theorem elementary_tail_shell_numeric {q : Nat} (hq : 3501 ≤ q) :
     nlinarith [pPos]
   norm_num only [Nat.cast_mul, Nat.cast_ofNat] at widthBound ⊢
   nlinarith [pPos, pOne]
+
+/-! The same elementary shell estimate can be converted directly into a
+kernel-checked prime-count lower bound.  Keeping this bridge next to the
+numeric estimate makes the elementary tail route usable without importing
+the conditional Dusart prime-counting interface. -/
+theorem elementary_tail_shell_count_from_numeric
+    {q target : Nat} (hq : 3501 ≤ q)
+    (numeric : (target : Real) *
+        Real.log ((9 * primorial q : Nat) : Real) <
+      (86 : Real) / 100 * (9 * primorial q) -
+        (111 : Real) / 100 * (4 * primorial q)) :
+    target ≤ Nat.primeCounting (9 * primorial q) -
+      Nat.primeCounting (4 * primorial q) := by
+  exact elementary_tail_shell_count hq numeric
 
 end
 
