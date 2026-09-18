@@ -135,6 +135,15 @@ theorem one_div_log_four_e18_le_dusart_constant :
   apply (div_le_iff₀ hlog_pos).2
   nlinarith
 
+theorem hasDusartSymmetricThetaBounds_of_unit_logFourth
+    (finite : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
+    (thetaError : HasThetaLogFourthError 1 (4e18 : Real)) :
+    HasDusartSymmetricThetaBounds :=
+  hasDusartSymmetricThetaBounds_of_below_and_logFourth finite
+    (by norm_num)
+    one_div_log_four_e18_le_dusart_constant
+    thetaError
+
 /-! The unbounded part of Dusart's theta estimate is a theorem, not an
 assumption: once the explicit logarithm-cubed error estimate is proved, the
 two published theta inequalities follow by elementary real arithmetic. -/
