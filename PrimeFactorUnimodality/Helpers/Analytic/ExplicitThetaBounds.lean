@@ -202,6 +202,27 @@ theorem hasDusartSymmetricThetaBounds_of_psiLogFourthError
     hXpos hlogX finite (by linarith) hA_log
   exact hasThetaLogFourthError_of_psiLogFourthError hXcutoff psiError
 
+/-! Exact-cutoff provider form for a directly proved logarithmic-power decay
+estimate.  The envelope is the only numerical tail obligation; the conversion
+to the published theta constants is fully kernel-checked here. -/
+theorem hasDusartSymmetricThetaBounds_of_logRpowDecay_of_envelope
+    {c α X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (finite : HasDusartSymmetricThetaBoundsBelow X)
+    (hXcutoff : (4e18 : Real) ≤ X)
+    (hA_log : (2 : Real) / Real.log X ≤ 12167 / 500000)
+    (hdecay : HasPsiLogRpowDecay 1 c α X)
+    (henvelope : ∀ x : Real, X ≤ x →
+      Real.exp (-c * (Real.log x) ^ α) ≤
+        1 / (Real.log x) ^ (4 : ℕ)) :
+    HasDusartSymmetricThetaBounds := by
+  apply hasDusartSymmetricThetaBounds_of_psiLogFourthError (A := 1)
+    hXpos hlogX finite hXcutoff (by norm_num) (by
+      convert hA_log using 1 <;> norm_num)
+  exact hasPsiLogFourthError_of_logRpowDecay_of_envelope
+    hXpos hdecay (by
+      intro x hx
+      simpa using henvelope x hx)
+
 theorem hasDusartSymmetricThetaBounds_of_psiLogFourthError_sharp
     {A X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
     (finite : HasDusartSymmetricThetaBoundsBelow X)
