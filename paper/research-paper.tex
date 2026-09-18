@@ -81,7 +81,8 @@ In Lean, the definitions are `primeFactorDensity`, `IsUnimodal`, and
 `CompleteClassification` in `Definitions/KthPrimeFactor.lean`; the universal
 conditional assembly is packaged in `completeClassification_of_full_record_inputs`
 in `Proof/CompleteClassification.lean`, and the public `Solution.lean` exposes
-the same all-$k$ target while the provider interfaces remain to be discharged.
+the same all-$k$ target. The cutoff-specific bounded-row theorem supplies the
+finite-range analytic input to the final assembly.
 
 \section{The exact finite density formula}
 For a finite list $L$ and $r\geq0$, define
@@ -171,8 +172,7 @@ visible in the proof architecture. The public target is the universal
 statement (1), whose quantifier ranges over every positive integer $k$; no
 finite checkpoint is part of its specification. The finite and record-range
 arguments and the uniform CRT tail are assembled at that universal boundary,
-with the provider interfaces kept explicit rather than hidden in a project
-axiom.
+with the provider inputs kept explicit rather than hidden in a project axiom.
 
 \section*{Acknowledgements}
 I thank Stijn Cambie for the recurrence and initial ranges, Shouqiao Wang and
