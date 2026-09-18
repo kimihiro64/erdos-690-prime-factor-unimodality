@@ -1,5 +1,6 @@
 import Mathlib.Analysis.Complex.ExponentialBounds
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
+import Mathlib.NumberTheory.Chebyshev
 import PrimeFactorUnimodality.Helpers.PrimeSequence.Consecutive
 
 set_option autoImplicit false
@@ -24,6 +25,37 @@ def HasLogCubedShortIntervalPrime : Prop :=
   ∀ x : Real, 3275 ≤ x →
     ∃ q : Nat, q.Prime ∧ x < q ∧
       (q : Real) ≤ x + x / (Real.log x) ^ 3
+
+/-! The following lemma is the local version of the fully proved
+`HasPrimeInInterval.iff_theta_ge` argument in PrimeNumberTheoremAnd.  Keeping
+the conversion here makes the eventual explicit provider depend only on
+Chebyshev's finite prime sum, rather than on that repository's larger
+secondary-definition import closure. -/
+theorem exists_prime_of_theta_increment {x h : Real}
+    (x_nonneg : 0 ≤ x) (h_pos : 0 < h)
+    (theta_increment : Chebyshev.theta (x + h) > Chebyshev.theta x) :
+    ∃ q : Nat, q.Prime ∧ x < q ∧ (q : Real) ≤ x + h := by
+  have x_le_xh : x ≤ x + h := by linarith
+  have floor_mono : ⌊x⌋₊ ≤ ⌊x + h⌋₊ := Nat.floor_mono x_le_xh
+  by_contra no_prime
+  push_neg at no_prime
+  have prime_set_eq : Nat.primesLE ⌊x⌋₊ = Nat.primesLE ⌊x + h⌋₊ := by
+    apply Finset.Subset.antisymm (Nat.primesLE_mono floor_mono)
+    intro q hq
+    rw [Nat.mem_primesLE] at hq ⊢
+    have q_le_upper : q ≤ ⌊x + h⌋₊ := hq.1
+    have q_le_real : (q : Real) ≤ x + h := by
+      exact (Nat.cast_le.mpr q_le_upper).trans (Nat.floor_le (by linarith))
+    have not_above_x : ¬ x < (q : Real) := by
+      intro x_lt_q
+      exact (not_lt_of_ge q_le_real) (no_prime q hq.2 x_lt_q)
+    have q_le_x : (q : Real) ≤ x := le_of_not_gt not_above_x
+    have q_le_floor_x : q ≤ ⌊x⌋₊ := by
+      exact Nat.le_floor q_le_x
+    exact ⟨q_le_floor_x, hq.2⟩
+  rw [Chebyshev.theta_eq_sum_primesLE,
+    Chebyshev.theta_eq_sum_primesLE, prime_set_eq] at theta_increment
+  exact (lt_irrefl _ theta_increment)
 
 theorem hasDusartShortIntervalPrime_of_logCubed
     (shortInterval : HasLogCubedShortIntervalPrime) :
