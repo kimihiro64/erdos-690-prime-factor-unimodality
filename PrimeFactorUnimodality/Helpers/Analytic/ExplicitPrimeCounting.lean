@@ -234,6 +234,58 @@ theorem integral_inv_log_pow_succ_eq
           (ne_of_gt (pow_pos (Real.log_pos
             (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)))
 
+theorem integral_inv_log_pow_succ_eq_interval
+    {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b) :
+    ∫ t in a..b, 1 / Real.log t ^ (n + 1) =
+      b / Real.log b ^ (n + 1) - a / Real.log a ^ (n + 1) +
+        (n + 1 : Real) *
+          ∫ t in a..b, 1 / Real.log t ^ (n + 2) := by
+  have h_deriv : ∀ t ∈ Set.Icc a b,
+      deriv (fun t ↦ t / (Real.log t) ^ (n + 1)) t =
+        1 / (Real.log t) ^ (n + 1) -
+          (n + 1 : Real) * (1 / (Real.log t) ^ (n + 2)) := by
+    intro t ht
+    exact deriv_log_power_kernel (n := n) (by linarith [ht.1])
+  have h_ftc : ∫ t in a..b,
+      deriv (fun t ↦ t / (Real.log t) ^ (n + 1)) t =
+      (b / (Real.log b) ^ (n + 1)) -
+        (a / (Real.log a) ^ (n + 1)) := by
+    rw [intervalIntegral.integral_deriv_eq_sub']
+    · rfl
+    · exact fun y hy ↦ DifferentiableAt.div differentiableAt_id
+        (DifferentiableAt.pow (Real.differentiableAt_log
+          (by cases Set.mem_uIcc.mp hy <;> linarith)) _)
+        (pow_ne_zero _ <| ne_of_gt <| Real.log_pos <|
+          by cases Set.mem_uIcc.mp hy <;> linarith)
+    · rw [Set.uIcc_of_le hab]
+      have hlog_cont := Real.continuousOn_log.mono
+        fun y (hy : y ∈ Set.Icc a b) ↦ ne_of_gt <| by linarith [hy.1]
+      have hpow_ne : ∀ m : Nat, ∀ y ∈ Set.Icc a b,
+          Real.log y ^ m ≠ 0 :=
+        fun m y hy ↦ pow_ne_zero m <| ne_of_gt <| Real.log_pos <|
+          by linarith [hy.1]
+      exact ContinuousOn.congr (ContinuousOn.sub
+        (continuousOn_const.div (hlog_cont.pow _) (hpow_ne _))
+        (continuousOn_const.mul <| continuousOn_const.div
+          (hlog_cont.pow _) (hpow_ne _))) h_deriv
+  rw [← h_ftc, intervalIntegral.integral_congr fun t ht =>
+    h_deriv t <| by simpa [hab] using ht]
+  rw [intervalIntegral.integral_sub]
+  · norm_num
+  · exact ContinuousOn.intervalIntegrable (continuousOn_of_forall_continuousAt
+      fun y hy ↦ ContinuousAt.div continuousAt_const
+        (ContinuousAt.pow (Real.continuousAt_log
+          (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)
+        (ne_of_gt (pow_pos (Real.log_pos
+          (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)))
+  · exact ContinuousOn.intervalIntegrable
+      (continuousOn_const.mul <| continuousOn_of_forall_continuousAt
+        fun y hy ↦ ContinuousAt.div continuousAt_const
+          (ContinuousAt.pow (Real.continuousAt_log
+            (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)
+          (ne_of_gt (pow_pos (Real.log_pos
+            (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)))
+
 theorem integral_inv_log_sq_expansion_five
     {x : Real} (hx : 2 ≤ x) :
     ∫ t in Set.Icc 2 x, 1 / Real.log t ^ 2 =
