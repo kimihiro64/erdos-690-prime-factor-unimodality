@@ -66,6 +66,25 @@ private theorem exists_logFourth_envelope_of_rpow_decay
     exact (le_div_iff₀ ht4pos).2 (by simpa [mul_assoc, mul_comm, mul_left_comm]
       using hmul')
 
+theorem hasPsiLogFourthError_of_logRpowDecay_of_envelope
+    {C c α X : Real} (hX : 0 < X)
+    (hdecay : HasPsiLogRpowDecay C c α X)
+    (henvelope : ∀ x : Real, X ≤ x →
+      C * Real.exp (-c * (Real.log x) ^ α) ≤
+        1 / (Real.log x) ^ (4 : ℕ)) :
+    HasPsiLogFourthError 1 X := by
+  intro x hx
+  have hx_pos : 0 < x := lt_of_lt_of_le hX hx
+  have herror := hdecay x hx
+  have henvelope_x := henvelope x hx
+  calc
+    |Chebyshev.psi x - x| ≤
+        C * x * Real.exp (-c * (Real.log x) ^ α) := herror
+    _ = (C * Real.exp (-c * (Real.log x) ^ α)) * x := by ring
+    _ ≤ (1 / (Real.log x) ^ (4 : ℕ)) * x :=
+      mul_le_mul_of_nonneg_right henvelope_x hx_pos.le
+    _ = 1 * x / (Real.log x) ^ 4 := by ring
+
 theorem exists_hasPsiLogFourthError_of_logRpowDecay
     {C c α X : Real} (hC : 0 ≤ C) (hc : 0 < c) (hα : 0 < α)
     (hdecay : HasPsiLogRpowDecay C c α X) :
