@@ -16,7 +16,7 @@ theorem fullRecordRange_not_isUnimodal
     (subBlock : ∀ d, d ≤ 455703 → ¬(recordGapCenter - d).Prime)
     (addBlock : ∀ d, d ≤ 657401 → ¬(recordGapCenter + d).Prime)
     (twin : ConsecutivePrimes recordLower recordUpper)
-    (k : Nat) (hkLower : 38001 ≤ k) (hkUpper : k ≤ 7400000) :
+    (k : Nat) (hkLower : 38001 ≤ k) (hkUpper : k ≤ 7430000) :
     ¬ IsUnimodal (primeFactorDensity k) := by
   apply fullRecordInputs_not_isUnimodal_of_closed_mertens k (by omega)
     (fullRecordGap_primeGap_ge_of_blocks subBlock addBlock)
@@ -29,7 +29,7 @@ theorem fullRecordRange_not_isUnimodal
     (record_coarse_ascentNumeric (by omega))
 
 theorem fullRecordRange_not_isUnimodal_closed
-    (k : Nat) (hkLower : 38001 ≤ k) (hkUpper : k ≤ 7400000) :
+    (k : Nat) (hkLower : 38001 ≤ k) (hkUpper : k ≤ 7430000) :
     ¬ IsUnimodal (primeFactorDensity k) := by
   apply fullRecordRange_not_isUnimodal (subBlock := ?_) (addBlock := ?_)
     (twin := recordTwin_consecutive) k hkLower hkUpper

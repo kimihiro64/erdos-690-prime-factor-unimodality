@@ -70,7 +70,7 @@ private theorem log_21_lt_61_div_20 :
   nlinarith [Real.log_two_lt_d9]
 
 theorem fullRecord_prefix_log_log_lt {k : Nat}
-    (hkLower : 38001 ≤ k) (hkUpper : k ≤ 7400000) :
+    (hkLower : 38001 ≤ k) (hkUpper : k ≤ 7430000) :
     Real.log (Real.log ((primeAt (k - 2) - 1 : Nat) : Real)) <
       (61 : Real) / 20 := by
   have prefixLarge : 2 ≤ primeAt (k - 2) - 1 := by
@@ -122,8 +122,29 @@ theorem fullRecord_prefix_mertensError_lt {k : Nat} (hk : 38001 ≤ k) :
   rw [div_lt_iff₀ logPos]
   nlinarith [mertensErrorConstant_lt_901_div_100]
 
+theorem fullRecord_prefix_mertensError_lt_sharp {k : Nat} (hk : 38001 ≤ k) :
+    mertensErrorConstant /
+        Real.log ((primeAt (k - 2) - 1 : Nat) : Real) <
+      (871 : Real) / 1000 := by
+  have indexEq : k - 2 + 2 = k := by omega
+  have lower := Nat.add_two_le_nth_prime (k - 2)
+  rw [indexEq] at lower
+  have prefixLower : 32768 ≤ primeAt (k - 2) - 1 := by omega
+  have log32768 : (1035 : Real) / 100 < Real.log 32768 := by
+    rw [show (32768 : Real) = 2 ^ (15 : Nat) by norm_num, Real.log_pow]
+    norm_num
+    nlinarith [Real.log_two_gt_d9]
+  have logLower : (1035 : Real) / 100 <
+      Real.log ((primeAt (k - 2) - 1 : Nat) : Real) :=
+    log32768.trans_le
+      (Real.log_le_log (by norm_num) (by exact_mod_cast prefixLower))
+  have logPos : 0 < Real.log ((primeAt (k - 2) - 1 : Nat) : Real) := by
+    linarith
+  rw [div_lt_iff₀ logPos]
+  nlinarith [mertensErrorConstant_lt_901_div_100]
+
 theorem fullRecord_descentNumeric {k : Nat}
-    (hkLower : 38001 ≤ k) (hkUpper : k ≤ 7400000) :
+    (hkLower : 38001 ≤ k) (hkUpper : k ≤ 7430000) :
     ((k - 1 : Nat) : Real) < 1113107 *
       (Real.log (Real.log (((recordGapCenter - 455703) / 2 : Nat) : Real)) -
         Real.log (Real.log ((primeAt (k - 2) - 1 : Nat) : Real)) -
@@ -131,12 +152,12 @@ theorem fullRecord_descentNumeric {k : Nat}
           Real.log (((recordGapCenter - 455703) / 2 : Nat) : Real) -
         mertensErrorConstant /
           Real.log ((primeAt (k - 2) - 1 : Nat) : Real)) := by
-  have kBound : ((k - 1 : Nat) : Real) ≤ 7399999 := by
-    exact_mod_cast (show k - 1 ≤ 7399999 by omega)
+  have kBound : ((k - 1 : Nat) : Real) ≤ 7429999 := by
+    exact_mod_cast (show k - 1 ≤ 7429999 by omega)
   nlinarith [log_log_fullRecordHalfLower_gt,
     fullRecord_prefix_log_log_lt hkLower hkUpper,
     fullRecordHalf_mertensError_lt,
-    fullRecord_prefix_mertensError_lt hkLower]
+    fullRecord_prefix_mertensError_lt_sharp hkLower]
 
 end
 
