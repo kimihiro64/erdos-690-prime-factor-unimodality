@@ -6,6 +6,15 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 
+theorem theta_upper_of_psi_relative_error
+    {x ε : Real} (hx : 0 ≤ x)
+    (hpsi : |Chebyshev.psi x - x| ≤ ε * x) :
+    Chebyshev.theta x ≤ (1 + ε) * x := by
+  have hupper : Chebyshev.psi x ≤ (1 + ε) * x := by
+    have habs := (abs_le.mp hpsi).2
+    linarith
+  exact (Chebyshev.theta_le_psi x).trans hupper
+
 /-! The lower half of the standard `psi`-to-`theta` argument.  The analytic
 input is deliberately a relative error for `psi`; the only additional input
 is a uniform upper bound for `psi` at the three prime-power roots. -/
