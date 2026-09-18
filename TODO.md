@@ -37,8 +37,10 @@
   bounds give `(n, floor (5n/4)]`; a consecutive-prime selector using the
   `13/10` bound is compiled at the post-record scale `r / floor(log₂ r)` for every
   `r ≥ 8,600,001`, with the sharper `5/4` selector available from `2^25`.
-  Use these closed selectors to replace the remaining short-interval
-  interface before formalizing any deeper Dusart input.
+  These selectors are now packaged as `HasElementaryTailPrimePair`; their
+  wider ratios are not yet sufficient for the current CRT descent/ascent
+  numerics, so the sharper `HasUniformTailPrimePair` remains the actual open
+  tail input.
 - [x] Replace the old fixed-`k` Challenge/Solution surface with the exact
   all-`k` statement. The Solution proof remains pending until the analytic
   interfaces and full generated certificates are closed.
