@@ -151,7 +151,7 @@ this theorem exposes the exact provider boundary without hiding a new axiom
 inside the all-`k` assembly. -/
 theorem completeClassification_of_full_record_asymptotic_tail_inputs
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
-    (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e18 : Real))
+    (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e9 : Real))
     (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))

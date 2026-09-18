@@ -63,11 +63,14 @@ def HasDusartPrimeCountingAsymptoticAbove (X : Real) : Prop :=
         |E| ≤ (732 : Real) / 100 / (Real.log x) ^ 3
 
 theorem hasDusartRealPrimeCountingBoundsAbove_of_asymptotic
-    (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e18 : Real)) :
+    (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e9 : Real)) :
     HasDusartRealPrimeCountingBoundsAbove (4e18 : Real) := by
   constructor
   · intro x hx
-    obtain ⟨E, hformula, hE⟩ := asymptotic x hx
+    have hx9 : (4e9 : Real) ≤ x := by
+      norm_num at hx ⊢
+      linarith
+    obtain ⟨E, hformula, hE⟩ := asymptotic x hx9
     have hlog := log_large_x_gt_ten hx
     have hlog_pos : 0 < Real.log x := by linarith
     have hx_pos : 0 < x := by linarith
@@ -96,7 +99,10 @@ theorem hasDusartRealPrimeCountingBoundsAbove_of_asymptotic
     have := mul_le_mul_of_nonneg_left hmain.le hfactor
     convert this using 1 <;> dsimp [dusartPiLower] <;> field_simp <;> ring
   · intro x hx
-    obtain ⟨E, hformula, hE⟩ := asymptotic x hx
+    have hx9 : (4e9 : Real) ≤ x := by
+      norm_num at hx ⊢
+      linarith
+    obtain ⟨E, hformula, hE⟩ := asymptotic x hx9
     have hlog := log_large_x_gt_ten hx
     have hlog_pos : 0 < Real.log x := by linarith
     have hx_pos : 0 < x := by linarith
