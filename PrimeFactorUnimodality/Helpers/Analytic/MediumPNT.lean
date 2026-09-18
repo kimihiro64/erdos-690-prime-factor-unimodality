@@ -34,9 +34,27 @@ theorem hasPsiLogRpowBigO_of_mediumPNT :
 
 theorem exists_hasPsiLogFourthError_of_mediumPNT :
     ∃ Y : Real, HasPsiLogFourthError (1 / 2) Y := by
-  obtain ⟨c, hc, hbigO⟩ := hasPsiLogRpowBigO_of_mediumPNT
+  obtain ⟨c, _, hbigO⟩ := hasPsiLogRpowBigO_of_mediumPNT
   exact exists_hasPsiLogFourthError_of_logRpowBigO_of_pos_coefficient
     (D := (1 : Real) / 2) (by norm_num) hbigO
+
+/-! The eventual cutoff can be raised to the paper's analytic cutoff without
+changing the proved error estimate.  This is the form consumed by the
+Dusart tail interfaces. -/
+theorem exists_hasPsiLogFourthError_of_mediumPNT_at_paper_cutoff :
+    ∃ X : Real, (4e18 : Real) ≤ X ∧
+      (42 : Real) ≤ Real.log X ∧ HasPsiLogFourthError (1 / 2) X := by
+  obtain ⟨Y, hY⟩ := exists_hasPsiLogFourthError_of_mediumPNT
+  let X : Real := max (4e18 : Real) Y
+  have hX : (4e18 : Real) ≤ X := le_max_left _ _
+  have hYX : Y ≤ X := le_max_right _ _
+  have hlogX : (42 : Real) ≤ Real.log X := by
+    have hlog_mono : Real.log (4e18 : Real) ≤ Real.log X :=
+      Real.log_le_log (by norm_num) hX
+    linarith [forty_two_lt_log_four_e18]
+  refine ⟨X, hX, hlogX, ?_⟩
+  intro x hx
+  exact hY x (hYX.trans hx)
 
 end
 end PrimeFactorUnimodality
