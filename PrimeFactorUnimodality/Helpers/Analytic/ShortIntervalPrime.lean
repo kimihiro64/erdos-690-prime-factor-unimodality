@@ -178,6 +178,21 @@ theorem large_x_logCubedShortIntervalPrime
   · intro x hx
     exact large_x_theta_margin hx
 
+/-! Dusart's Proposition 5.4(a), in the multiplicative form used in the
+paper.  The existence argument is the theta-increment proof above; this
+lemma only performs the exact normalization from `x + x / log(x)^3`. -/
+theorem dusartLargeXPrimeInInterval_of_thetaLogCubedError
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    ∀ x : Real, (4e18 : Real) ≤ x →
+      ∃ q : Nat, q.Prime ∧ x < q ∧
+        (q : Real) ≤ x * (1 + 1 / (Real.log x) ^ 3) := by
+  intro x hx
+  obtain ⟨q, hq, hxq, hupper⟩ := large_x_logCubedShortIntervalPrime thetaError x hx
+  refine ⟨q, hq, hxq, ?_⟩
+  calc
+    (q : Real) ≤ x + x / (Real.log x) ^ 3 := hupper
+    _ = x * (1 + 1 / (Real.log x) ^ 3) := by ring
+
 theorem hasDusartShortIntervalPrime_of_logCubed
     (shortInterval : HasLogCubedShortIntervalPrime) :
     HasDusartShortIntervalPrime := by
