@@ -1,5 +1,6 @@
 import PrimeNumberTheoremAnd.MediumPNT
 import PrimeFactorUnimodality.Helpers.Analytic.DecayToLogFourth
+import PrimeFactorUnimodality.Helpers.Analytic.ExplicitPrimeCounting
 
 set_option autoImplicit false
 
@@ -106,6 +107,38 @@ theorem exists_hasThetaLogFourthError_of_mediumPNT_at_large_cutoff :
     exists_hasPsiLogFourthError_of_mediumPNT_at_large_cutoff
   refine ⟨X, hX, hlogX, ?_⟩
   exact hasThetaLogFourthError_of_psiLogFourthError_sharp hX hpsi
+
+/-! The source-level PNT also supplies the published prime-counting tail once
+the finite Abel-summation core is bounded.  The core is transported to the
+raised cutoff by the proved monotonicity estimate; no prime-counting theorem
+is imported at this boundary. -/
+theorem exists_hasDusartPublishedPrimeCountingBoundsAbove_of_mediumPNT_and_core
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4) :
+    ∃ Y : Real, X ≤ Y ∧
+      HasDusartPublishedPrimeCountingBoundsAbove Y := by
+  obtain ⟨Y, hXY, hpsi⟩ :=
+    exists_hasPsiLogFourthError_of_mediumPNT_above X
+  have hXpos : 0 < X := by linarith
+  have hYpos : 0 < Y := lt_of_lt_of_le hXpos hXY
+  have hlogX : (42 : Real) ≤ Real.log X :=
+    forty_two_lt_log_four_e18.le.trans
+      (Real.log_le_log (by norm_num) hX)
+  have hX1 : 1 < X := by
+    exact (Real.log_pos_iff hXpos.le).mp (by linarith)
+  have hlogY : (42 : Real) ≤ Real.log Y := by
+    exact hlogX.trans (Real.log_le_log hXpos hXY)
+  have hcoreY : |primeCountingCore X| ≤ C * Y / Real.log Y ^ 4 :=
+    primeCountingCore_scale_le hX1 hXY (by linarith [hlogX]) hC0 hcore
+  have htheta : HasThetaLogFourthError (648 / 1000 : Real) Y :=
+    hasThetaLogFourthError_of_psiLogFourthError_sharp (hX.trans hXY) hpsi
+  have hAsym : HasDusartPrimeCountingAsymptoticAbove Y :=
+    hasDusartPrimeCountingAsymptoticAbove_of_core_and_theta_error
+      hYpos (by linarith [hlogY]) (by norm_num) (by norm_num)
+      hC0 hC hlogY hcoreY htheta
+  exact ⟨Y, hXY, hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic_from
+    hYpos (by linarith [hlogY]) hAsym⟩
 
 end
 end PrimeFactorUnimodality
