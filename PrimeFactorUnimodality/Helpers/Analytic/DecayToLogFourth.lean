@@ -153,6 +153,47 @@ theorem exists_hasPsiLogFourthError_of_logRpowDecay_unit
   exact (hasPsiLogFourthError_of_logRpowDecay_of_envelope
     (C := C) (D := 1) hYpos hdecayY henvY) x hx
 
+/-! Any strictly positive target coefficient can be reached by increasing the
+cutoff.  This is the quantitative form needed when an explicit PNT supplies
+an arbitrary Big-O constant but the downstream Dusart budget reserves a
+smaller fixed coefficient. -/
+theorem exists_hasPsiLogFourthError_of_logRpowDecay_of_pos_coefficient
+    {C D c α X : Real} (hC : 0 ≤ C) (hD : 0 < D)
+    (hc : 0 < c) (hα : 0 < α)
+    (hdecay : HasPsiLogRpowDecay C c α X) :
+    ∃ Y : Real, X ≤ Y ∧ HasPsiLogFourthError D Y := by
+  have hCD : 0 ≤ C / D := div_nonneg hC hD.le
+  obtain ⟨T, hT⟩ := exists_logFourth_envelope_of_rpow_decay
+    (C := C / D) hCD hc hα
+  let Y : Real := max X (max (Real.exp T) 2)
+  refine ⟨Y, le_max_left _ _, ?_⟩
+  have hYpos : 0 < Y := by
+    dsimp [Y]
+    positivity
+  have hdecayY : HasPsiLogRpowDecay C c α Y := by
+    intro z hz
+    exact hdecay z (le_trans (le_max_left X (max (Real.exp T) 2)) hz)
+  have henvY : ∀ z : Real, Y ≤ z →
+      C * Real.exp (-c * (Real.log z) ^ α) ≤
+        D / (Real.log z) ^ (4 : ℕ) := by
+    intro z hz
+    have hz_pos : 0 < z := lt_of_lt_of_le hYpos hz
+    have hzmax : max (Real.exp T) 2 ≤ z :=
+      le_trans (le_max_right X (max (Real.exp T) 2)) hz
+    have henv_unit := hT (Real.log z) ((Real.le_log_iff_exp_le hz_pos).2
+      (le_trans (le_max_left (Real.exp T) 2) hzmax))
+    have hscaled := mul_le_mul_of_nonneg_left henv_unit hD.le
+    have hscaled' : C * Real.exp (-c * (Real.log z) ^ α) ≤
+        D * (1 / (Real.log z) ^ (4 : ℕ)) := by
+      calc
+        C * Real.exp (-c * (Real.log z) ^ α) =
+            D * ((C / D) * Real.exp (-c * (Real.log z) ^ α)) := by
+              field_simp
+        _ ≤ D * (1 / (Real.log z) ^ (4 : ℕ)) := hscaled
+    simpa [div_eq_mul_inv, mul_comm, mul_left_comm, mul_assoc] using hscaled'
+  exact hasPsiLogFourthError_of_logRpowDecay_of_envelope
+    (C := C) (D := D) hYpos hdecayY henvY
+
 theorem exists_hasPsiLogFourthError_of_logRpowDecay
     {C c α X : Real} (hC : 0 ≤ C) (hc : 0 < c) (hα : 0 < α)
     (hdecay : HasPsiLogRpowDecay C c α X) :
