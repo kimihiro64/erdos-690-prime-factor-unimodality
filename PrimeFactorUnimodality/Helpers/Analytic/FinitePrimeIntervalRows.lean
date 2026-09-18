@@ -86,6 +86,127 @@ theorem logCubedUpper_monotoneOn :
     have log_four_pos : 0 < (Real.log x) ^ 4 := by positivity
     nlinarith [mul_pos log_sq_pos (by nlinarith [log_gt_three])]
 
+def dusartUpper (x : Real) : Real :=
+  x * (1 + (1 / 2 : Real) / (Real.log x) ^ 2)
+
+theorem dusartUpper_monotoneOn :
+    MonotoneOn dusartUpper (Set.Ici (3275 : Real)) := by
+  apply monotoneOn_of_deriv_nonneg (convex_Ici (3275 : Real))
+  · have hlog : ContinuousOn (fun y : Real => Real.log y)
+        (Set.Ici (3275 : Real)) := by
+      exact continuousOn_id.log (by
+        intro x hx
+        have hx_pos : (0 : Real) < x := by
+          norm_num at hx ⊢
+          linarith
+        simpa only [id_eq] using hx_pos.ne')
+    have hden : ContinuousOn (fun y : Real => (Real.log y) ^ 2)
+        (Set.Ici (3275 : Real)) := hlog.pow 2
+    exact continuousOn_id.mul
+      (continuousOn_const.add
+        (continuousOn_const.div hden (by
+          intro x hx
+          have : 0 < Real.log x := by
+            exact Real.log_pos (by norm_num at hx ⊢; linarith)
+          positivity)))
+  · have hlog : DifferentiableOn ℝ (fun y : Real => Real.log y)
+        (interior (Set.Ici (3275 : Real))) := by
+      exact differentiableOn_id.log (by
+        intro x hx
+        have hx' : (3275 : Real) < x := by
+          simpa only [interior_Ici, Set.mem_Ioi] using hx
+        simpa only [id_eq] using (show x ≠ 0 by linarith))
+    have hden : DifferentiableOn ℝ
+        (fun y : Real => (Real.log y) ^ 2)
+        (interior (Set.Ici (3275 : Real))) := hlog.pow 2
+    exact differentiableOn_id.mul
+      ((differentiableOn_const (1 : Real)).add
+        ((differentiableOn_const (1 / 2 : Real)).div hden (by
+          intro x hx
+          have : 0 < Real.log x := by
+            exact Real.log_pos (by norm_num at hx ⊢; linarith)
+          positivity)))
+  · intro x hx
+    simp only [interior_Ici, Set.mem_Ioi] at hx
+    have x_ne : x ≠ 0 := by linarith
+    have hlog_pos : 0 < Real.log x := Real.log_pos (by linarith)
+    have hlog_gt_two : (2 : Real) < Real.log x := by
+      apply (Real.lt_log_iff_exp_lt (by linarith)).2
+      have hexp : Real.exp 2 < (9 : Real) := by
+        rw [show (2 : Real) = 1 + 1 by norm_num, Real.exp_add]
+        have hone : Real.exp 1 < 3 := Real.exp_one_lt_d9.trans (by norm_num)
+        nlinarith [mul_self_lt_mul_self (Real.exp_pos 1).le hone]
+      have : (9 : Real) < x := by linarith
+      exact hexp.trans this
+    have hderiv := (hasDerivAt_id x).mul
+      ((hasDerivAt_const x (1 : Real)).add
+        ((hasDerivAt_const x (1 / 2 : Real)).div
+          ((Real.hasDerivAt_log x_ne).pow 2)
+            (pow_ne_zero 2 hlog_pos.ne')))
+    simp only [id_eq] at hderiv
+    change 0 ≤ deriv (id * (fun y : Real =>
+      1 + (1 / 2 : Real) / Real.log y ^ 2)) x
+    have hfun : (id * (fun y : Real =>
+        1 + (1 / 2 : Real) / Real.log y ^ 2)) =
+        id * ((fun x : Real => 1) + (fun x : Real => 1 / 2) /
+          Real.log ^ 2) := by
+      funext y
+      simp [Pi.mul_apply, Pi.add_apply, id_eq]
+    rw [hfun]
+    rw [hderiv.deriv]
+    simp only [Pi.add_apply, Pi.div_apply, Pi.pow_apply, id_eq]
+    field_simp [x_ne, hlog_pos.ne']
+    norm_num at *
+    nlinarith [mul_pos (show 0 < Real.log x by linarith)
+      (show 0 < (Real.log x) ^ 2 by positivity)]
+
+structure DusartPrimeRow where
+  left : Nat
+  right : Nat
+  prime : Nat
+  left_large : 3275 ≤ left
+  right_lt_prime : right < prime
+  prime_prime : prime.Prime
+  prime_upper : (prime : Real) ≤ dusartUpper left
+
+def DusartPrimeRowsCoverBelow (rows : List DusartPrimeRow) : Prop :=
+  ∀ x : Real, 3275 ≤ x → x ≤ 89693 →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem dusartPrimeRow_provides
+    (row : DusartPrimeRow) {x : Real}
+    (left_mem : (row.left : Real) ≤ x)
+    (right_mem : x ≤ row.right) :
+    ∃ q : Nat, q.Prime ∧ x < q ∧
+      (q : Real) ≤ x * (1 + 1 / (2 * (Real.log x) ^ 2)) := by
+  refine ⟨row.prime, row.prime_prime, ?_, ?_⟩
+  · have right_lt_prime : (row.right : Real) < row.prime := by
+      exact_mod_cast row.right_lt_prime
+    exact_mod_cast right_mem.trans_lt right_lt_prime
+  · have hbound : (row.prime : Real) ≤ dusartUpper x :=
+      row.prime_upper.trans (dusartUpper_monotoneOn
+        (show (row.left : Real) ∈ Set.Ici (3275 : Real) by
+          change (3275 : Real) ≤ row.left
+          exact_mod_cast row.left_large)
+        (show x ∈ Set.Ici (3275 : Real) by
+          have hleft : (3275 : Real) ≤ row.left := by
+            exact_mod_cast row.left_large
+          norm_num at ⊢
+          linarith [hleft, left_mem]) left_mem)
+    have hrewrite : dusartUpper x =
+        x * (1 + 1 / (2 * (Real.log x) ^ 2)) := by
+      dsimp [dusartUpper]
+      field_simp
+    exact hrewrite ▸ hbound
+
+theorem hasDusartShortIntervalPrimeBelow_of_rows
+    {rows : List DusartPrimeRow}
+    (cover : DusartPrimeRowsCoverBelow rows) :
+    HasDusartShortIntervalPrimeBelow (89693 : Real) := by
+  intro x hx hX
+  obtain ⟨row, row_mem, left_mem, right_mem⟩ := cover x hx hX
+  exact dusartPrimeRow_provides row left_mem right_mem
+
 structure LogCubedPrimeRow where
   left : Nat
   right : Nat
@@ -165,6 +286,17 @@ theorem hasLogCubedShortIntervalPrime_of_rows_at_large_cutoff
     HasLogCubedShortIntervalPrime :=
   hasLogCubedShortIntervalPrime_of_bounded_rows_and_large_x
     (4e18 : Real) le_rfl cover thetaError
+
+theorem hasDusartShortIntervalPrime_of_rows_and_thetaError
+    {dusartRows : List DusartPrimeRow}
+    (dusartCover : DusartPrimeRowsCoverBelow dusartRows)
+    {logRows : List LogCubedPrimeRow}
+    (logCover : LogCubedPrimeRowsCoverUpTo logRows (4e18 : Real))
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    HasDusartShortIntervalPrime := by
+  exact hasDusartShortIntervalPrime_of_below_and_logCubed
+    (hasDusartShortIntervalPrimeBelow_of_rows dusartCover)
+    (hasLogCubedShortIntervalPrime_of_rows_at_large_cutoff logCover thetaError)
 
 end
 
