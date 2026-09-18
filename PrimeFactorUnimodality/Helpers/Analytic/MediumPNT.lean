@@ -182,6 +182,34 @@ theorem exists_hasDusartPublishedPrimeCountingBoundsAbove_of_mediumPNT_and_core
   exact ⟨Y, hXY, hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic_from
     hYpos (by linarith [hlogY]) hAsym⟩
 
+theorem exists_hasDusartRealPrimeCountingBoundsAbove_of_mediumPNT_and_core
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4) :
+    ∃ Y : Real, X ≤ Y ∧
+      HasDusartRealPrimeCountingBoundsAbove Y := by
+  obtain ⟨Y, hXY, h4Y, htheta⟩ :=
+    exists_hasThetaLogFourthError_of_mediumPNT_above X
+  have hXpos : 0 < X := by linarith
+  have hX1 : 1 < X := by
+    have hlogX : (42 : Real) ≤ Real.log X :=
+      forty_two_lt_log_four_e18.le.trans
+        (Real.log_le_log (by norm_num) hX)
+    exact (Real.log_pos_iff hXpos.le).mp (by linarith)
+  have hlogX : (42 : Real) ≤ Real.log X :=
+    forty_two_lt_log_four_e18.le.trans
+      (Real.log_le_log (by norm_num) hX)
+  have hcoreY : |primeCountingCore X| ≤ C * Y / Real.log Y ^ 4 :=
+    primeCountingCore_scale_le hX1 hXY (by linarith [hlogX]) hC0 hcore
+  have hlogY : (42 : Real) ≤ Real.log Y :=
+    hlogX.trans (Real.log_le_log hXpos hXY)
+  have hYpos : 0 < Y := lt_of_lt_of_le hXpos hXY
+  have hbounds : HasDusartRealPrimeCountingBoundsAbove Y :=
+    hasDusartRealPrimeCountingBoundsAbove_of_core_and_theta_error
+      hYpos (by linarith [hlogY]) le_rfl
+      (by norm_num) (by norm_num) hC0 hC hlogY hcoreY htheta
+  exact ⟨Y, hXY, hbounds⟩
+
 /-! A single common raised cutoff packages the two unbounded Dusart inputs
 used by the all-`k` tail: published prime counting and prime selection. -/
 theorem exists_mediumPNT_dusart_tail_inputs
