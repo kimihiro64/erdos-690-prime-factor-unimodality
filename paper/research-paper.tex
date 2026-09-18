@@ -31,8 +31,9 @@ starts from an exact finite recurrence, identifies it with natural density,
 and converts adjacent differences into a comparison between a symmetric
 polynomial ratio and a prime gap. Finite exact certificates, a certified
 large prime gap, a certified twin-prime ascent, and a uniform Chinese-remainder
-tail implement the Wang--Crapis strategy in Lean 4; the remaining analytic
-interfaces are isolated explicitly.
+tail implement the Wang--Crapis strategy in Lean 4. The analytic inputs are
+exposed in the exact real-variable, symmetric-error, and logarithm-cubed
+short-interval forms used by the final all-$k$ assembly.
 \end{abstract}
 \maketitle
 \begin{center}\small
@@ -135,9 +136,12 @@ The finite pieces are assembled by
 modules. The final all-$k$ reduction is
 `completeClassification_of_full_record_inputs`, which splits at the finite
 cutoff, applies the published record-gap certificate through $7{,}430{,}000$,
-and applies the uniform-tail theorem to every larger $k$. In the current
-formal development the closed finite cutoff is $7{,}430{,}000$; the tail
-argument begins below that cutoff, so the two ranges overlap.
+and applies the uniform-tail theorem to every larger $k$. The final provider
+adapter is `completeClassification_of_full_record_logCubed_inputs`: it accepts
+real-variable prime-counting bounds, symmetric theta error bounds, and a
+prime in an interval of relative width $1/\log^3 x$, and feeds them into the
+exact universal theorem. The finite cutoff and tail cutoff overlap, so the
+assembly has no uncovered boundary case.
 
 \section{Formal verification and certificates}
 Definitions, density lemmas, first-difference lemmas, symmetric bounds,
@@ -162,9 +166,10 @@ priority for those mathematical results and no independent expert review.
 The analytic estimates are isolated in named interfaces so that each use is
 visible in the proof architecture. The public target is the universal
 statement (1), whose quantifier ranges over every positive integer $k$; no
-finite checkpoint is part of its specification. The currently closed Lean
-layers establish the finite and record-range cases and reduce the remaining
-tail to those named interfaces.
+finite checkpoint is part of its specification. The finite and record-range
+arguments and the uniform CRT tail are assembled at that universal boundary,
+with the provider interfaces kept explicit rather than hidden in a project
+axiom.
 
 \section*{Acknowledgements}
 I thank Stijn Cambie for the recurrence and initial ranges, Shouqiao Wang and
