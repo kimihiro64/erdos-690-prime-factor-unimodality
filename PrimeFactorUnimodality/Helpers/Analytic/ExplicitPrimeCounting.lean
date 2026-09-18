@@ -21,6 +21,16 @@ def dusartPiLower (x : Real) : Real :=
 def dusartPiUpper (x : Real) : Real :=
   x / Real.log x * (1 + (6381 / 5000 : Real) / Real.log x)
 
+/-! The exact Abel-summation identity underlying the prime-counting
+asymptotic.  Keeping the identity in this namespace makes the later
+remainder estimates explicit instead of treating `π` as an opaque provider. -/
+theorem primeCounting_from_theta_integral {x : Real} (hx : 2 ≤ x) :
+    (Nat.primeCounting ⌊x⌋₊ : Real) =
+      Chebyshev.theta x / Real.log x +
+        ∫ t in (2 : Real)..x,
+          Chebyshev.theta t / (t * (Real.log t) ^ 2) := by
+  exact Chebyshev.primeCounting_eq_theta_div_log_add_integral hx
+
 /-- The exact explicit prime-counting statements needed downstream.  This
 interface lets the structural argument compile independently of the eventual
 proof of the analytic provider. -/
