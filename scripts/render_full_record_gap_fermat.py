@@ -14,6 +14,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+import gmpy2  # type: ignore[import-untyped]
+
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -78,7 +80,7 @@ def term_expression(offset: int) -> str:
 def render_witness(index: int, offset: int, modulus: int) -> str:
     name = label(index)
     term = term_expression(offset)
-    residue = pow(2, modulus - 1, modulus)
+    residue = int(gmpy2.powmod(2, modulus - 1, modulus))
     if residue == 1:
         raise ValueError(f"base 2 is a Fermat pseudoprime for offset {offset}")
     return f"""import Mathlib.Tactic.ReduceModChar
