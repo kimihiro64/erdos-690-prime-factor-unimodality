@@ -450,7 +450,7 @@ theorem hasDusartThetaBounds_of_relativePsiError_at_log_elementary
             Real.exp (-4 * Real.log x / 5))) * x) :
     HasDusartThetaBounds := by
   exact hasDusartThetaBounds_of_relativePsiError_at_log hε
-    (fun y hy => Chebyshev.psi_le_const_mul_self hy)
+    psi_root_bound_elementary
     (by positivity) upperMargin lowerMargin
 
 theorem hasDusartThetaBounds_of_symmetric
