@@ -98,6 +98,16 @@ theorem completeClassification_of_full_record_bounded_rows
     (hasLogCubedShortIntervalPrime_of_bounded_rows_and_large_x
       X hX cover thetaError)
 
+theorem completeClassification_of_full_record_rows_at_large_cutoff
+    (primeCountingBounds : HasDusartRealPrimeCountingBounds)
+    (thetaBounds : HasDusartSymmetricThetaBounds)
+    {rows : List LogCubedPrimeRow}
+    (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    CompleteClassification := by
+  exact completeClassification_of_full_record_bounded_rows
+    primeCountingBounds thetaBounds (4e18 : Real) le_rfl cover thetaError
+
 end
 
 end PrimeFactorUnimodality
