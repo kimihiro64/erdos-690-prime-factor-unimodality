@@ -243,6 +243,67 @@ theorem hasThetaLogFourthError_of_psiLogFourthError
           add_le_add hcorrection le_rfl
         _ = (A + 1) * x / (Real.log x) ^ 4 := by ring
 
+theorem hasThetaLogFourthError_of_psiLogFourthError_sharp
+    {A X : Real} (hX : (4e18 : Real) ≤ X)
+    (psiError : HasPsiLogFourthError A X) :
+    HasThetaLogFourthError (A + 148 / 1000) X := by
+  intro x hx
+  have hx_cutoff : (4e18 : Real) ≤ x := hX.trans hx
+  have hx_pos : 0 < x := by linarith
+  have hlogx_pos : 0 < Real.log x := Real.log_pos (by linarith)
+  have hsqrt_pos : 0 < Real.sqrt x := Real.sqrt_pos.2 hx_pos
+  have hpsi := psiError x hx
+  have hratio := logPowFiveDivSqrt_cutoff_le hx_cutoff
+  have hratio' : (Real.log x) ^ 5 / Real.sqrt x ≤
+      (43 : Real) ^ 5 / 2000000000 := hratio
+  have hscaled : 2 * (Real.log x) ^ 5 / Real.sqrt x ≤
+      (148 / 1000 : Real) := by
+    calc
+      2 * (Real.log x) ^ 5 / Real.sqrt x ≤
+          2 * ((43 : Real) ^ 5 / 2000000000) := by
+        rw [show 2 * (Real.log x) ^ 5 / Real.sqrt x =
+          2 * ((Real.log x) ^ 5 / Real.sqrt x) by ring]
+        exact mul_le_mul_of_nonneg_left hratio' (by norm_num)
+      _ ≤ (148 / 1000 : Real) := by norm_num
+  have hscaled' : 2 * (Real.log x) ^ 5 ≤
+      (148 / 1000 : Real) * Real.sqrt x := by
+    exact (div_le_iff₀ hsqrt_pos).mp hscaled
+  have hcorrection_sharp :
+      2 * Real.sqrt x * Real.log x ≤
+        (148 / 1000 : Real) * x / (Real.log x) ^ 4 := by
+    apply (le_div_iff₀ (by positivity : 0 < (Real.log x) ^ 4)).2
+    calc
+      2 * Real.sqrt x * Real.log x * (Real.log x) ^ 4 =
+          (2 * (Real.log x) ^ 5) * Real.sqrt x := by ring
+      _ ≤ (148 / 1000 : Real) * Real.sqrt x * Real.sqrt x :=
+        mul_le_mul_of_nonneg_right hscaled' hsqrt_pos.le
+      _ = (148 / 1000 : Real) * x := by
+        calc
+          (148 / 1000 : Real) * Real.sqrt x * Real.sqrt x =
+              (148 / 1000 : Real) * (Real.sqrt x * Real.sqrt x) := by ring
+          _ = (148 / 1000 : Real) * x := by
+            rw [show Real.sqrt x * Real.sqrt x = x by
+              simpa [pow_two] using Real.sq_sqrt hx_pos.le]
+  have hdiff := Chebyshev.psi_sub_theta_le (x := x) (by linarith)
+  have htheta_le_psi := Chebyshev.theta_le_psi x
+  have hcorrection_abs :
+      |Chebyshev.theta x - Chebyshev.psi x| ≤
+        2 * Real.sqrt x * Real.log x := by
+    rw [abs_sub_comm, abs_of_nonneg (sub_nonneg.mpr htheta_le_psi)]
+    linarith
+  calc
+    |Chebyshev.theta x - x| ≤
+        |Chebyshev.theta x - Chebyshev.psi x| +
+          |Chebyshev.psi x - x| := by
+      rw [show Chebyshev.theta x - x =
+        (Chebyshev.theta x - Chebyshev.psi x) +
+          (Chebyshev.psi x - x) by ring]
+      exact abs_add_le _ _
+    _ ≤ (148 / 1000 : Real) * x / (Real.log x) ^ 4 +
+          A * x / (Real.log x) ^ 4 :=
+      add_le_add (hcorrection_abs.trans hcorrection_sharp) hpsi
+    _ = (A + 148 / 1000) * x / (Real.log x) ^ 4 := by ring
+
 end
 
 end PrimeFactorUnimodality
