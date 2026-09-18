@@ -77,7 +77,10 @@ k\leq3. \tag{1}
 
 In Lean, the definitions are `primeFactorDensity`, `IsUnimodal`, and
 `CompleteClassification` in `Definitions/KthPrimeFactor.lean`; the all-$k$
-assembly theorem is `Proof/CompleteClassification.lean`.
+conditional assembly theorem is
+`completeClassification_with_explicit_inputs` in
+`Proof/CompleteClassification.lean`; the unconditional universal statement
+is the public target in `Solution.lean`.
 
 \section{The exact finite density formula}
 For a finite list $L$ and $r\geq0$, define
