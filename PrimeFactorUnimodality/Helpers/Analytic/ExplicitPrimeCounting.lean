@@ -603,6 +603,177 @@ theorem primeCountingCore_abs_le_of_finite_theta_error_explicit
     nlinarith [mul_le_mul_of_nonneg_left hseven hseven',
       mul_le_mul_of_nonneg_left hsix hA])
 
+theorem explicit_integral_core_bound_of_log_margins
+    {A X : Real} (hX : (4e18 : Real) ≤ X) (hA0 : 0 ≤ A)
+    (hA1 : A ≤ 1) (hlog2 : (69 : Real) / 100 ≤ Real.log 2)
+    (hlogMillion : (13 : Real) ≤ Real.log (1000000 : Real))
+    (hlogCut : (42 : Real) ≤ Real.log (4e18 : Real))
+    (hR : (4e18 : Real) / (43 : Real) ^ 4 ≤
+      X / Real.log X ^ 4)
+    (thetaError : HasThetaLogFourthErrorBelow A X) :
+    4000 +
+        720 * ((999998 : Real) / Real.log 2 ^ 7 +
+          (X / Real.log X ^ 7) /
+            (1 - 7 / Real.log (1000000 : Real))) +
+        A * ((999998 : Real) / Real.log 2 ^ 6 +
+          (X / Real.log X ^ 6) /
+            (1 - 6 / Real.log (1000000 : Real))) ≤
+      (3 / 5 : Real) * X / Real.log X ^ 4 := by
+  have hlogX : (0 : Real) < Real.log X := by
+    exact Real.log_pos (by linarith [hX])
+  have hR0 : 0 ≤ X / Real.log X ^ 4 := by positivity
+  have hlogM : 0 < Real.log (1000000 : Real) := by linarith
+  have hfrac7 : (7 : Real) / Real.log (1000000 : Real) ≤ 7 / 13 := by
+    apply (div_le_iff₀ hlogM).2
+    nlinarith
+  have hfrac6 : (6 : Real) / Real.log (1000000 : Real) ≤ 6 / 13 := by
+    apply (div_le_iff₀ hlogM).2
+    nlinarith
+  have hden7 : (6 : Real) / 13 ≤
+      1 - 7 / Real.log (1000000 : Real) := by linarith
+  have hden6 : (7 : Real) / 13 ≤
+      1 - 6 / Real.log (1000000 : Real) := by linarith
+  have hden7pos : 0 < 1 - 7 / Real.log (1000000 : Real) :=
+    lt_of_lt_of_le (by norm_num) hden7
+  have hden6pos : 0 < 1 - 6 / Real.log (1000000 : Real) :=
+    lt_of_lt_of_le (by norm_num) hden6
+  have hinv7 : 1 / (1 - 7 / Real.log (1000000 : Real)) ≤
+      (13 : Real) / 6 :=
+    one_div_le_one_div_of_le (by norm_num) hden7
+  have hinv6 : 1 / (1 - 6 / Real.log (1000000 : Real)) ≤
+      (13 : Real) / 7 :=
+    one_div_le_one_div_of_le (by norm_num) hden6
+  have hpow6 : ((69 : Real) / 100) ^ 6 ≤ (Real.log 2) ^ 6 :=
+    pow_le_pow_left₀ (by norm_num) hlog2 6
+  have hpow7 : ((69 : Real) / 100) ^ 7 ≤ (Real.log 2) ^ 7 :=
+    pow_le_pow_left₀ (by norm_num) hlog2 7
+  have hi6 : 1 / (Real.log 2) ^ 6 ≤
+      1 / ((69 : Real) / 100) ^ 6 :=
+    one_div_le_one_div_of_le (by positivity) hpow6
+  have hi7 : 1 / (Real.log 2) ^ 7 ≤
+      1 / ((69 : Real) / 100) ^ 7 :=
+    one_div_le_one_div_of_le (by positivity) hpow7
+  have hlow6 : (999998 : Real) / Real.log 2 ^ 6 ≤ 10000000 := by
+    calc
+      (999998 : Real) / Real.log 2 ^ 6 =
+          999998 * (1 / Real.log 2 ^ 6) := by ring
+      _ ≤ 999998 * (1 / ((69 : Real) / 100) ^ 6) :=
+        mul_le_mul_of_nonneg_left hi6 (by norm_num)
+      _ ≤ 10000000 := by norm_num
+  have hlow7 : (999998 : Real) / Real.log 2 ^ 7 ≤ 14000000 := by
+    calc
+      (999998 : Real) / Real.log 2 ^ 7 =
+          999998 * (1 / Real.log 2 ^ 7) := by ring
+      _ ≤ 999998 * (1 / ((69 : Real) / 100) ^ 7) :=
+        mul_le_mul_of_nonneg_left hi7 (by norm_num)
+      _ ≤ 14000000 := by norm_num
+  have hlogCut' : (4 : Real) < Real.log (4e18 : Real) := by
+    linarith
+  have hpowRel6 : X / Real.log X ^ 6 ≤
+      (X / Real.log X ^ 4) / (42 : Real) ^ 2 := by
+    calc
+      X / Real.log X ^ 6 ≤
+          (X / Real.log X ^ 4) /
+            Real.log (4e18) ^ 2 :=
+        id_div_log_pow_add_le (n := 2) (by norm_num) hX hlogCut'
+      _ ≤ (X / Real.log X ^ 4) / (42 : Real) ^ 2 := by
+        exact div_le_div_of_nonneg_left hR0 (by positivity)
+          (pow_le_pow_left₀ (by norm_num) hlogCut 2)
+  have hpowRel7 : X / Real.log X ^ 7 ≤
+      (X / Real.log X ^ 4) / (42 : Real) ^ 3 := by
+    calc
+      X / Real.log X ^ 7 ≤
+          (X / Real.log X ^ 4) /
+            Real.log (4e18) ^ 3 :=
+        id_div_log_pow_add_le (n := 3) (by norm_num) hX hlogCut'
+      _ ≤ (X / Real.log X ^ 4) / (42 : Real) ^ 3 := by
+        exact div_le_div_of_nonneg_left hR0 (by positivity)
+          (pow_le_pow_left₀ (by norm_num) hlogCut 3)
+  have htail7 :
+      (X / Real.log X ^ 7) /
+          (1 - 7 / Real.log (1000000 : Real)) ≤
+        ((13 : Real) / 6) *
+          ((X / Real.log X ^ 4) / (42 : Real) ^ 3) := by
+    calc
+      (X / Real.log X ^ 7) /
+          (1 - 7 / Real.log (1000000 : Real)) =
+          (X / Real.log X ^ 7) *
+            (1 / (1 - 7 / Real.log (1000000 : Real))) := by ring
+      _ ≤ ((13 : Real) / 6) *
+          (X / Real.log X ^ 7) :=
+        mul_le_mul_of_nonneg_left hinv7 (by positivity)
+      _ ≤ ((13 : Real) / 6) *
+          ((X / Real.log X ^ 4) / (42 : Real) ^ 3) := by
+        gcongr
+  have htail6 :
+      (X / Real.log X ^ 6) /
+          (1 - 6 / Real.log (1000000 : Real)) ≤
+        ((13 : Real) / 7) *
+          ((X / Real.log X ^ 4) / (42 : Real) ^ 2) := by
+    calc
+      (X / Real.log X ^ 6) /
+          (1 - 6 / Real.log (1000000 : Real)) =
+          (X / Real.log X ^ 6) *
+            (1 / (1 - 6 / Real.log (1000000 : Real))) := by ring
+      _ ≤ ((13 : Real) / 7) *
+          (X / Real.log X ^ 6) :=
+        mul_le_mul_of_nonneg_left hinv6 (by positivity)
+      _ ≤ ((13 : Real) / 7) *
+          ((X / Real.log X ^ 4) / (42 : Real) ^ 2) := by
+        gcongr
+  have hlow6' : 0 ≤ (999998 : Real) / Real.log 2 ^ 6 := by positivity
+  have hlow7' : 0 ≤ (999998 : Real) / Real.log 2 ^ 7 := by positivity
+  have htail6' : 0 ≤
+      (X / Real.log X ^ 6) /
+        (1 - 6 / Real.log (1000000 : Real)) :=
+    div_nonneg (by positivity) hden6pos.le
+  have htail7' : 0 ≤
+      (X / Real.log X ^ 7) /
+        (1 - 7 / Real.log (1000000 : Real)) :=
+    div_nonneg (by positivity) hden7pos.le
+  have hA6 := mul_le_mul_of_nonneg_left htail6 hA0
+  have hA7 := mul_le_mul_of_nonneg_left htail7 hA0
+  have hA_tail6 : A *
+      ((X / Real.log X ^ 6) /
+        (1 - 6 / Real.log (1000000 : Real))) ≤
+      (13 / 7 : Real) *
+        ((X / Real.log X ^ 4) / (42 : Real) ^ 2) := by
+    calc
+      A * ((X / Real.log X ^ 6) /
+          (1 - 6 / Real.log (1000000 : Real))) ≤
+          A * ((13 / 7 : Real) *
+            ((X / Real.log X ^ 4) / (42 : Real) ^ 2)) := hA6
+      _ ≤ (13 / 7 : Real) *
+          ((X / Real.log X ^ 4) / (42 : Real) ^ 2) := by
+        exact (mul_le_mul_of_nonneg_right hA1 (by positivity)).trans_eq
+          (by ring)
+  have hA_low6 : A * ((999998 : Real) / Real.log 2 ^ 6) ≤
+      (999998 : Real) / Real.log 2 ^ 6 := by
+    exact (mul_le_mul_of_nonneg_right hA1 hlow6').trans_eq (by ring)
+  have hA_sum6 : A * ((999998 : Real) / Real.log 2 ^ 6 +
+        (X / Real.log X ^ 6) /
+          (1 - 6 / Real.log (1000000 : Real))) ≤
+      (999998 : Real) / Real.log 2 ^ 6 +
+        (13 / 7 : Real) *
+          ((X / Real.log X ^ 4) / (42 : Real) ^ 2) := by
+    calc
+      A * ((999998 : Real) / Real.log 2 ^ 6 +
+          (X / Real.log X ^ 6) /
+            (1 - 6 / Real.log (1000000 : Real))) =
+          A * (999998 / Real.log 2 ^ 6) +
+            A * ((X / Real.log X ^ 6) /
+              (1 - 6 / Real.log (1000000 : Real))) := by ring
+      _ ≤ (999998 : Real) / Real.log 2 ^ 6 +
+          (13 / 7 : Real) *
+            ((X / Real.log X ^ 4) / (42 : Real) ^ 2) :=
+        add_le_add hA_low6 hA_tail6
+  have hbase7 : (0 : Real) ≤
+      (999998 : Real) / Real.log 2 ^ 7 := hlow7'
+  have htail7_bound : 0 ≤
+      (13 / 6 : Real) *
+        ((X / Real.log X ^ 4) / (42 : Real) ^ 3) := by positivity
+  nlinarith [hR, hA_sum6, hlow6, hlow7, htail7, htail7_bound]
+
 theorem abs_integral_inv_log_pow_succ_le
     {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b)
     (hcoef : (n + 1 : Real) < Real.log a) :
