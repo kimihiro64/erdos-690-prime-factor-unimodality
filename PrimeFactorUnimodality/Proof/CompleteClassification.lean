@@ -82,6 +82,20 @@ theorem completeClassification_of_full_record_short_interval_inputs
     (hasDusartThetaBounds_of_symmetric thetaBounds)
     (hasUniformTailPrimePair_of_shortInterval shortInterval)
 
+theorem completeClassification_of_full_record_interval_certificates
+    (primeCountingBounds : HasDusartRealPrimeCountingBounds)
+    (thetaBounds : HasDusartSymmetricThetaBounds)
+    {dusartRows : List DusartPrimeRow}
+    (dusartCover : DusartPrimeRowsCoverBelow dusartRows)
+    {logRows : List LogCubedPrimeRow}
+    (logCover : LogCubedPrimeRowsCoverUpTo logRows (4e18 : Real))
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    CompleteClassification := by
+  exact completeClassification_of_full_record_short_interval_inputs
+    primeCountingBounds thetaBounds
+    (hasDusartShortIntervalPrime_of_rows_and_thetaError
+      dusartCover logCover thetaError)
+
 /-! The finite-row presentation is the concrete form needed by the eventual
 analytic provider: it keeps the medium range as one bounded cover and uses
 the proved theta-error implication above the cutoff. -/
