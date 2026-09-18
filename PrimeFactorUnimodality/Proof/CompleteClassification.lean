@@ -10,7 +10,7 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 
-theorem completeClassification
+theorem completeClassification_with_explicit_inputs
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     (reciprocalEstimate : HasDusartReciprocalPrimeEstimate Mertens.M)
     (thetaBounds : HasDusartThetaBounds)
@@ -37,7 +37,7 @@ theorem completeClassification_of_explicit_inputs
     (shortInterval : HasDusartShortIntervalPrime) :
     CompleteClassification := by
   intro k hk
-  exact completeClassification primeCountingBounds reciprocalEstimate
+  exact completeClassification_with_explicit_inputs primeCountingBounds reciprocalEstimate
     thetaBounds shortInterval k hk
 
 end
