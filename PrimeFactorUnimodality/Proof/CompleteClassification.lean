@@ -139,9 +139,11 @@ theorem completeClassification_of_full_record_bounded_rows
     {rows : List LogCubedPrimeRow}
     (X : Real) (hX : (4e18 : Real) ≤ X)
     (cover : LogCubedPrimeRowsCoverUpTo rows X)
-    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
-    (shortInterval : HasDusartShortIntervalPrime) :
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
     CompleteClassification := by
+  have shortInterval : HasDusartShortIntervalPrime :=
+    hasLogCubedShortIntervalPrime_of_bounded_rows_and_large_x
+      rows X hX cover thetaError
   exact completeClassification_of_full_record_short_interval_inputs
     primeCountingBounds thetaBounds shortInterval
 
@@ -151,11 +153,9 @@ theorem completeClassification_of_full_record_rows_at_large_cutoff
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
     (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
-    (shortInterval : HasDusartShortIntervalPrime) :
     CompleteClassification := by
   exact completeClassification_of_full_record_bounded_rows
     primeCountingBounds thetaBounds (4e18 : Real) le_rfl cover thetaError
-    shortInterval
 
 theorem completeClassification_of_full_record_rows_and_finite_theta
     (primeCountingBounds : HasDusartRealPrimeCountingBounds)
@@ -163,12 +163,11 @@ theorem completeClassification_of_full_record_rows_and_finite_theta
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
     (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
-    (shortInterval : HasDusartShortIntervalPrime) :
     CompleteClassification := by
   exact completeClassification_of_full_record_rows_at_large_cutoff
     primeCountingBounds
     (hasDusartSymmetricThetaBounds_of_below_and_logCubed finiteTheta thetaError)
-    cover thetaError shortInterval
+    cover thetaError
 
 theorem completeClassification_of_full_record_split_analytic_inputs
     {X : Real}
@@ -178,12 +177,11 @@ theorem completeClassification_of_full_record_split_analytic_inputs
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
     (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
-    (shortInterval : HasDusartShortIntervalPrime) :
     CompleteClassification := by
   exact completeClassification_of_full_record_rows_and_finite_theta
     (hasDusartRealPrimeCountingBounds_of_below_and_above
       finitePrimeCounting tailPrimeCounting)
-    finiteTheta cover thetaError shortInterval
+    finiteTheta cover thetaError
 
 theorem completeClassification_of_full_record_cutoff_split_inputs
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
@@ -191,11 +189,10 @@ theorem completeClassification_of_full_record_cutoff_split_inputs
     (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
-    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
-    (shortInterval : HasDusartShortIntervalPrime) :
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
     CompleteClassification := by
   exact completeClassification_of_full_record_split_analytic_inputs
-    finitePrimeCounting tailPrimeCounting finiteTheta cover thetaError shortInterval
+    finitePrimeCounting tailPrimeCounting finiteTheta cover thetaError
 
 /-! The tail prime-counting obligation can equivalently be supplied in the
 published asymptotic form.  The adapter is proved in the analytic helper, so
@@ -213,7 +210,7 @@ theorem completeClassification_of_full_record_asymptotic_tail_inputs
   exact completeClassification_of_full_record_rows_and_finite_theta
     (hasDusartRealPrimeCountingBounds_of_finite_and_asymptotic
       finitePrimeCounting asymptotic)
-    finiteTheta cover thetaError shortInterval
+    finiteTheta cover thetaError
 
 /-! The tail can be supplied directly by the kernel-checked Abel argument.
 This is the all-cutoff boundary used by the eventual explicit provider: no
@@ -237,7 +234,7 @@ theorem completeClassification_of_full_record_core_theta_error_inputs
     (hasDusartRealPrimeCountingBounds_of_finite_and_core_and_theta_error
       finitePrimeCounting hXpos h2X hXcutoff hA0 hA hC0 hC hlog hcore
       coreThetaError)
-    finiteTheta cover thetaError shortInterval
+    finiteTheta cover thetaError
 
 /-! Once the finite theta and interval rows are supplied, every analytic
 interface is now discharged by the explicit proofs above. -/
@@ -312,7 +309,7 @@ theorem completeClassification_of_full_record_finite_published_asymptotic_inputs
   exact completeClassification_of_full_record_rows_and_finite_theta
     (hasDusartRealPrimeCountingBounds_of_finite_published_and_asymptotic
       finitePrimeCounting finitePublished asymptotic)
-    finiteTheta cover thetaError shortInterval
+    finiteTheta cover thetaError
 
 /-! The same assembly can consume the denominator-form estimates stated in
 the Wang--Crapis paper directly.  The conversion to the comparison functions
@@ -331,7 +328,7 @@ theorem completeClassification_of_full_record_published_prime_counting_inputs
     (hasDusartRealPrimeCountingBounds_of_below_and_above
       finitePrimeCounting
       (hasDusartRealPrimeCountingBoundsAbove_of_published published))
-    finiteTheta cover thetaError shortInterval
+    finiteTheta cover thetaError
 
 /-! Public assembly with the analytic inputs in the form used by the paper:
 the finite prime-counting check is combined with the published tail estimate,
