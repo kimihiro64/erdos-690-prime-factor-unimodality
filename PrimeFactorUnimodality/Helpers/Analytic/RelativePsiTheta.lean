@@ -259,6 +259,25 @@ theorem psi_sub_theta_ge_elementary_sqrt_lower {x : Real} (hx : 121 ≤ x) :
   rw [hrewrite] at hcorr
   exact htheta.trans hcorr
 
+/-! Algebraic part of the second Proposition 4.3 comparison.  The logarithmic
+  cube inequality is kept as an explicit elementary premise; this isolates it
+  from the prime-power argument and makes its eventual interval proof
+  independently auditable. -/
+theorem psi_sub_theta_ge_scaled_theta_sqrt
+    {x : Real} (hx : 2 ≤ x) (hlog_cube : (Real.log x) ^ 3 ≤ x) :
+    Real.sqrt ((Real.log x) ^ 3 / x) *
+        Chebyshev.theta (x ^ (1 / 2 : Real)) ≤
+      Chebyshev.psi x - Chebyshev.theta x := by
+  have hcorr := psi_sub_theta_ge_theta_sqrt hx
+  have hx_pos : 0 < x := by linarith
+  have hratio : (Real.log x) ^ 3 / x ≤ 1 :=
+    (div_le_iff₀ hx_pos).2 (by simpa using hlog_cube)
+  have hscale : Real.sqrt ((Real.log x) ^ 3 / x) ≤ 1 :=
+    Real.sqrt_le_one.mpr hratio
+  have htheta_nn : 0 ≤ Chebyshev.theta (x ^ (1 / 2 : Real)) :=
+    Chebyshev.theta_nonneg _
+  nlinarith [mul_le_mul_of_nonneg_right hscale htheta_nn]
+
 /-! The pointwise form is the one needed for a decaying explicit error: use
   the logarithm of the current argument rather than freezing the error at a
   cutoff. -/
