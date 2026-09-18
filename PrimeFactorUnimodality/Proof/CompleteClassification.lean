@@ -310,6 +310,26 @@ theorem completeClassification_of_finite_theta_error_and_integral_core
     hX finitePrimeCounting finiteTheta finiteShortInterval hA0 hA
     hC0 hC hcore thetaError
 
+theorem completeClassification_of_theta_error_rows_and_integral_core
+    {A C X : Real} (hX : (4e18 : Real) ≤ X)
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow X)
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow X)
+    (finiteShortInterval : HasLogCubedShortIntervalPrimeBelow X)
+    (hA0 : 0 ≤ A) (hA : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    {rows : List (ThetaLogFourthErrorRow A)}
+    (cover : ThetaLogFourthErrorRowsCoverUpTo rows X)
+    (thetaErrorAbove : HasThetaLogFourthErrorAbove A X)
+    (integralCoreBound :
+      4000 + 720 * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) +
+          A * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 6) ≤
+        C * X / Real.log X ^ 4) :
+    CompleteClassification := by
+  exact completeClassification_of_finite_theta_error_and_integral_core
+    hX finitePrimeCounting finiteTheta finiteShortInterval hA0 hA hC0 hC
+    (hasThetaLogFourthErrorBelow_of_rows cover) thetaErrorAbove
+    integralCoreBound
+
 /-! The source-level MediumPNT selects the cutoff; this wrapper makes the
 remaining finite obligation explicit as a provider valid at every possible
 selected cutoff.  Thus the resulting conclusion is the universal
