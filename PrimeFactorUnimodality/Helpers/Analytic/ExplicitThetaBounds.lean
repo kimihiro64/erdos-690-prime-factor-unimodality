@@ -125,8 +125,8 @@ theorem hasDusartSymmetricThetaBounds_of_below_and_logFourth
         mul_le_mul_of_nonneg_right hA hfactor
       _ = (12167 / 500000 : Real) * x / (Real.log x) ^ 3 := by ring)
 
-theorem one_div_log_four_e18_le_dusart_constant :
-    1 / Real.log (4e18 : Real) ≤ (12167 / 500000 : Real) := by
+theorem forty_two_lt_log_four_e18 :
+    (42 : Real) < Real.log (4e18 : Real) := by
   have hbase : Real.exp 1 < (2.72 : Real) := by
     linarith [Real.exp_one_lt_d9]
   have hexp : Real.exp 42 < (4e18 : Real) := by
@@ -139,6 +139,11 @@ theorem one_div_log_four_e18_le_dusart_constant :
       _ < (4e18 : Real) := by norm_num
   have hlog : (42 : Real) < Real.log (4e18 : Real) := by
     exact (Real.lt_log_iff_exp_lt (by norm_num)).2 hexp
+  exact hlog
+
+theorem one_div_log_four_e18_le_dusart_constant :
+    1 / Real.log (4e18 : Real) ≤ (12167 / 500000 : Real) := by
+  have hlog := forty_two_lt_log_four_e18
   have hlog_pos : 0 < Real.log (4e18 : Real) := by linarith
   apply (div_le_iff₀ hlog_pos).2
   nlinarith
