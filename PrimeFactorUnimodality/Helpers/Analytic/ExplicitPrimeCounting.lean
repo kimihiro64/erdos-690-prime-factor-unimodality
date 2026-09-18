@@ -3,6 +3,7 @@ import Mathlib.NumberTheory.PrimeCounting
 import PrimeFactorUnimodality.Helpers.PrimeSequence.AverageGap
 import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 import PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
+import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
 
 set_option autoImplicit false
 
@@ -1742,6 +1743,39 @@ theorem hasDusartPrimeCountingAsymptoticAbove_of_core_and_psiLogFourthError
   apply hasDusartPrimeCountingAsymptoticAbove_of_core_and_theta_error
     (A := A + 148 / 1000) hXpos h2X (by linarith) hA_sharp hC0 hC hlog hcore
   exact hasThetaLogFourthError_of_psiLogFourthError_sharp hXcutoff psiError
+
+theorem hasDusartPrimeCountingBounds_of_finite_and_core_and_relativePsiError
+    {ε : Real → Real} {A C X Y : Real}
+    (finite : HasDusartRealPrimeCountingBoundsBelow Y)
+    (hXpos : 0 < X) (h2X : 2 ≤ X) (hXY : X ≤ Y)
+    (hXcutoff : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA_sharp : A + 148 / 1000 ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hlog : (42 : Real) ≤ Real.log X)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (hε : HasPsiRelativeError ε)
+    (hdecay : ∀ b : Real, Real.log X ≤ b → ε b ≤ A / b ^ 4) :
+    HasDusartPrimeCountingBounds := by
+  exact hasDusartPrimeCountingBounds_of_finite_and_core_and_psiLogFourthError
+    finite hXpos h2X hXY hXcutoff hA0 hA_sharp hC0 hC hlog hcore
+    (hasPsiLogFourthError_of_relativeError_decay hXpos (by linarith [hlog])
+      hε hdecay)
+
+theorem hasDusartPrimeCountingAsymptoticAbove_of_core_and_relativePsiError
+    {ε : Real → Real} {A C X : Real}
+    (hXpos : 0 < X) (h2X : 2 ≤ X)
+    (hXcutoff : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA_sharp : A + 148 / 1000 ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hlog : (42 : Real) ≤ Real.log X)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (hε : HasPsiRelativeError ε)
+    (hdecay : ∀ b : Real, Real.log X ≤ b → ε b ≤ A / b ^ 4) :
+    HasDusartPrimeCountingAsymptoticAbove X := by
+  exact hasDusartPrimeCountingAsymptoticAbove_of_core_and_psiLogFourthError
+    hXpos h2X hXcutoff hA0 hA_sharp hC0 hC hlog hcore
+    (hasPsiLogFourthError_of_relativeError_decay hXpos (by linarith [hlog])
+      hε hdecay)
 
 theorem primeCounting_sub_lower_of_dusart
     (bounds : HasDusartPrimeCountingBounds)
