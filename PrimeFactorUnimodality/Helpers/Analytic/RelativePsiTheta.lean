@@ -56,6 +56,39 @@ theorem psi_relative_error_of_logFourthError
         _ ≤ A * (x / b ^ 4) := mul_le_mul_of_nonneg_left hratio hA
     _ = (A / b ^ 4) * x := by ring
 
+/-! The elementary Chebyshev bound also controls the absolute error, not just
+  `psi` from above.  This is the finite-side branch of the global provider
+  below. -/
+theorem psi_abs_error_le_elementary
+    {x : Real} (hx : 0 ≤ x) :
+    |Chebyshev.psi x - x| ≤ (Real.log 4 + 4) * x := by
+  have hpsi := Chebyshev.psi_le_const_mul_self hx
+  have hnonneg := Chebyshev.psi_nonneg x
+  have hlog : 0 ≤ Real.log (4 : Real) := by positivity
+  have hcoef : 1 ≤ Real.log 4 + 4 := by linarith
+  rw [abs_le]
+  constructor <;> nlinarith
+
+/-! Package a tail log-fourth estimate as a global relative-error function.
+  Below the cutoff the function deliberately uses the unconditional
+  Chebyshev constant; above it, it is exactly the decaying analytic error. -/
+theorem hasPsiRelativeError_of_logFourthError
+    {A X : Real} (hXpos : 0 < X) (hlogX : 0 < Real.log X)
+    (psiError : HasPsiLogFourthError A X) :
+    HasPsiRelativeError (fun b : Real =>
+      if Real.log X ≤ b then A / b ^ 4 else Real.log 4 + 4) := by
+  intro b hb x hxb
+  by_cases hcut : Real.log X ≤ b
+  · change |Chebyshev.psi x - x| ≤
+      (if Real.log X ≤ b then A / b ^ 4 else Real.log 4 + 4) * x
+    simp only [if_pos hcut]
+    exact psi_relative_error_of_logFourthError
+      hXpos hlogX hcut hxb psiError
+  · change |Chebyshev.psi x - x| ≤
+      (if Real.log X ≤ b then A / b ^ 4 else Real.log 4 + 4) * x
+    simp only [if_neg hcut]
+    exact psi_abs_error_le_elementary (le_trans (Real.exp_pos b).le hxb)
+
 /-! Conversely, a relative ψ theorem with a logarithmic decay estimate gives
   the tail predicate consumed by the explicit theta and prime-counting
   interfaces.  This is the exact provider boundary for an independently
