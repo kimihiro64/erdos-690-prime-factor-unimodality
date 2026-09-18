@@ -215,6 +215,30 @@ theorem completeClassification_of_full_record_asymptotic_tail_inputs
       finitePrimeCounting asymptotic)
     finiteTheta cover thetaError shortInterval
 
+/-! The tail can be supplied directly by the kernel-checked Abel argument.
+This is the all-cutoff boundary used by the eventual explicit provider: no
+pre-packaged Dusart asymptotic is assumed here. -/
+theorem completeClassification_of_full_record_core_theta_error_inputs
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
+    {A C X : Real} (hXpos : 0 < X) (h2X : 2 ≤ X)
+    (hXcutoff : X ≤ (4e18 : Real))
+    (hA0 : 0 ≤ A) (hA : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hlog : (42 : Real) ≤ Real.log X)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (coreThetaError : HasThetaLogFourthError A X)
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
+    {rows : List LogCubedPrimeRow}
+    (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
+    (shortInterval : HasDusartShortIntervalPrime) :
+    CompleteClassification := by
+  exact completeClassification_of_full_record_rows_and_finite_theta
+    (hasDusartRealPrimeCountingBounds_of_finite_and_core_and_theta_error
+      finitePrimeCounting hXpos h2X hXcutoff hA0 hA hC0 hC hlog hcore
+      coreThetaError)
+    finiteTheta cover thetaError shortInterval
+
 theorem completeClassification_of_full_record_finite_published_asymptotic_inputs
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
     (finitePublished : HasDusartPublishedPrimeCountingBoundsBelow (4e9 : Real))
