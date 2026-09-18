@@ -140,8 +140,11 @@ and applies the uniform-tail theorem to every larger $k$. The final provider
 adapter is `completeClassification_of_full_record_logCubed_inputs`: it accepts
 real-variable prime-counting bounds, symmetric theta error bounds, and a
 prime in an interval of relative width $1/\log^3 x$, and feeds them into the
-exact universal theorem. The finite cutoff and tail cutoff overlap, so the
-assembly has no uncovered boundary case.
+exact universal theorem. The concrete finite-range interface is a bounded
+list of verified prime rows, combined with the large-$x$ theta-error lemma by
+`completeClassification_of_full_record_rows_at_large_cutoff`. The finite
+cutoff and tail cutoff overlap, so the assembly has no uncovered boundary
+case.
 
 \section{Formal verification and certificates}
 Definitions, density lemmas, first-difference lemmas, symmetric bounds,
