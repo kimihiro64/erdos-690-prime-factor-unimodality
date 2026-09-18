@@ -200,6 +200,18 @@ theorem hasDusartSymmetricThetaBounds_of_psiLogFourthError
     hXpos hlogX finite (by linarith) hA_log
   exact hasThetaLogFourthError_of_psiLogFourthError hXcutoff psiError
 
+theorem hasDusartSymmetricThetaBounds_of_psiLogFourthError_sharp
+    {A X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (finite : HasDusartSymmetricThetaBoundsBelow X)
+    (hXcutoff : (4e18 : Real) ≤ X)
+    (hA_nonneg : 0 ≤ A)
+    (hA_log : (A + 148 / 1000) / Real.log X ≤ 12167 / 500000)
+    (psiError : HasPsiLogFourthError A X) :
+    HasDusartSymmetricThetaBounds := by
+  apply hasDusartSymmetricThetaBounds_of_below_and_logFourth_from
+    hXpos hlogX finite (by linarith) hA_log
+  exact hasThetaLogFourthError_of_psiLogFourthError_sharp hXcutoff psiError
+
 theorem hasDusartSymmetricThetaBounds_of_psiLogCubedError
     {C X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
     (finite : HasDusartSymmetricThetaBoundsBelow X)
