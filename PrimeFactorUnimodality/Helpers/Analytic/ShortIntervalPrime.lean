@@ -46,7 +46,7 @@ theorem exists_prime_of_theta_increment {x h : Real}
   have x_le_xh : x ≤ x + h := by linarith
   have floor_mono : ⌊x⌋₊ ≤ ⌊x + h⌋₊ := Nat.floor_mono x_le_xh
   by_contra no_prime
-  push_neg at no_prime
+  push Not at no_prime
   have prime_set_eq : Nat.primesLE ⌊x⌋₊ = Nat.primesLE ⌊x + h⌋₊ := by
     apply Finset.Subset.antisymm (Nat.primesLE_mono floor_mono)
     intro q hq
