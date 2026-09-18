@@ -50,21 +50,19 @@ theorem completeClassification_of_full_record_inputs
     (thetaBounds : HasDusartThetaBounds)
     (shortInterval : HasDusartShortIntervalPrime) :
     CompleteClassification := by
-  intro k hk
-  by_cases hkSmall : k ≤ 38000
-  · exact completeClassification_through38000_closed k hk hkSmall
-  by_cases hkRecord : k ≤ 7300000
-  · constructor
-    · intro unimodal
-      exact ((fullRecordRange_not_isUnimodal_closed k (by omega) hkRecord) unimodal).elim
-    · intro hkThree
-      omega
-  · constructor
-    · intro unimodal
-      exact ((uniformTail_not_isUnimodal_closed_mertens primeCountingBounds thetaBounds
-        shortInterval (k := k) (by omega)) unimodal).elim
-    · intro hkThree
-      omega
+  exact completeClassification_of_finite_range_and_tail
+    7300000 (by omega)
+    (fun k hk hkRecord => by
+      by_cases hkSmall : k ≤ 38000
+      · exact completeClassification_through38000_closed k hk hkSmall
+      · constructor
+        · intro unimodal
+          exact ((fullRecordRange_not_isUnimodal_closed k (by omega) hkRecord)
+            unimodal).elim
+        · intro hkThree
+          omega)
+    (fun k hkTail => uniformTail_not_isUnimodal_closed_mertens
+      primeCountingBounds thetaBounds shortInterval (k := k) (by omega))
 
 end
 
