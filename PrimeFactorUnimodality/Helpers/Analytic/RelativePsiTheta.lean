@@ -79,6 +79,17 @@ theorem theta_lower_of_psi_relative_error
       mul_le_mul_of_nonneg_left hfifth_scale hc]
   linarith
 
+theorem theta_lower_of_psi_relative_error_elementary
+    {b x ε : Real} (hx : Real.exp b ≤ x)
+    (hpsi : |Chebyshev.psi x - x| ≤ ε * x) :
+    (1 - ε - (Real.log 4 + 4) *
+      (Real.exp (-b / 2) + Real.exp (-2 * b / 3) +
+        Real.exp (-4 * b / 5))) * x ≤ Chebyshev.theta x := by
+  apply theta_lower_of_psi_relative_error hx hpsi
+  · intro y hy
+    exact Chebyshev.psi_le_const_mul_self hy
+  · positivity
+
 theorem theta_bounds_of_psi_relative_error
     {ε : Real → Real} {b x c : Real}
     (hε : HasPsiRelativeError ε) (hb : 0 ≤ b)
