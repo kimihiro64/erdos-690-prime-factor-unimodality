@@ -90,13 +90,13 @@ structure LogCubedPrimeRow where
   left : Nat
   right : Nat
   prime : Nat
-  left_large : 3275 ≤ left
+  left_large : 89693 ≤ left
   right_lt_prime : right < prime
   prime_prime : prime.Prime
   prime_upper : (prime : Real) ≤ logCubedUpper left
 
 def LogCubedPrimeRowsCover (rows : List LogCubedPrimeRow) : Prop :=
-  ∀ x : Real, 3275 ≤ x →
+  ∀ x : Real, 89693 ≤ x →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
 /-! A bounded cover is the form used when the explicit analytic argument is
@@ -104,11 +104,11 @@ split at a large cutoff.  Keeping the cutoff in the proposition means the
 finite table has no obligation to describe the unbounded range handled by the
 theta-error argument. -/
 def LogCubedPrimeRowsCoverUpTo (rows : List LogCubedPrimeRow) (X : Real) : Prop :=
-  ∀ x : Real, 3275 ≤ x → x ≤ X →
+  ∀ x : Real, 89693 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
 theorem logCubedPrimeRow_provides
-    (upper_mono : ∀ {a b : Real}, 3275 ≤ a → a ≤ b →
+    (upper_mono : ∀ {a b : Real}, 89693 ≤ a → a ≤ b →
       logCubedUpper a ≤ logCubedUpper b)
     (row : LogCubedPrimeRow) {x : Real}
     (left_mem : (row.left : Real) ≤ x)
@@ -124,7 +124,7 @@ theorem logCubedPrimeRow_provides
       (by exact_mod_cast row.left_large) left_mem)
 
 theorem hasLogCubedShortIntervalPrime_of_rows
-    (upper_mono : ∀ {a b : Real}, 3275 ≤ a → a ≤ b →
+    (upper_mono : ∀ {a b : Real}, 89693 ≤ a → a ≤ b →
       logCubedUpper a ≤ logCubedUpper b)
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCover rows) :
@@ -139,7 +139,8 @@ theorem hasLogCubedShortIntervalPrime_of_rows_closed
     HasLogCubedShortIntervalPrime := by
   refine hasLogCubedShortIntervalPrime_of_rows ?_ cover
   intro a b ha hab
-  exact logCubedUpper_monotoneOn ha (le_trans ha hab) hab
+  exact logCubedUpper_monotoneOn (by norm_num at ⊢; linarith)
+    (by norm_num at ⊢; linarith) hab
 
 theorem hasLogCubedShortIntervalPrime_of_bounded_rows_and_large_x
     {rows : List LogCubedPrimeRow}
@@ -151,7 +152,8 @@ theorem hasLogCubedShortIntervalPrime_of_bounded_rows_and_large_x
   by_cases hsmall : x ≤ X
   · obtain ⟨row, row_mem, left_mem, right_mem⟩ := cover x hx hsmall
     exact logCubedPrimeRow_provides
-      (fun {a b} ha hab => logCubedUpper_monotoneOn ha (le_trans ha hab) hab)
+      (fun {a b} ha hab => logCubedUpper_monotoneOn (by norm_num at ⊢; linarith)
+        (by norm_num at ⊢; linarith) hab)
       row left_mem right_mem
   · exact large_x_logCubedShortIntervalPrime thetaError x
       (hX.trans (le_of_lt (lt_of_not_ge hsmall)))
@@ -163,15 +165,6 @@ theorem hasLogCubedShortIntervalPrime_of_rows_at_large_cutoff
     HasLogCubedShortIntervalPrime :=
   hasLogCubedShortIntervalPrime_of_bounded_rows_and_large_x
     (4e18 : Real) le_rfl cover thetaError
-
-/-! The same finite/tail proof in the interval form used in the paper. -/
-theorem hasDusartShortIntervalPrime_of_rows_at_large_cutoff
-    {rows : List LogCubedPrimeRow}
-    (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
-    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
-    HasDusartShortIntervalPrime := by
-  exact hasDusartShortIntervalPrime_of_logCubed
-    (hasLogCubedShortIntervalPrime_of_rows_at_large_cutoff cover thetaError)
 
 end
 

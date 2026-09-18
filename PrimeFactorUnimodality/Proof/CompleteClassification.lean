@@ -72,15 +72,15 @@ theorem completeClassification_of_full_record_inputs
 /-! This is the public all-`k` assembly in the analytic forms used by the
 published estimates: real-variable prime counting, symmetric theta error,
 and a logarithm-cubed prime interval. -/
-theorem completeClassification_of_full_record_logCubed_inputs
+theorem completeClassification_of_full_record_short_interval_inputs
     (primeCountingBounds : HasDusartRealPrimeCountingBounds)
     (thetaBounds : HasDusartSymmetricThetaBounds)
-    (shortInterval : HasLogCubedShortIntervalPrime) :
+    (shortInterval : HasDusartShortIntervalPrime) :
     CompleteClassification := by
   exact completeClassification_of_full_record_inputs
     (hasDusartPrimeCountingBounds_of_real primeCountingBounds)
     (hasDusartThetaBounds_of_symmetric thetaBounds)
-    (hasUniformTailPrimePair_of_logCubedShortInterval shortInterval)
+    (hasUniformTailPrimePair_of_shortInterval shortInterval)
 
 /-! The finite-row presentation is the concrete form needed by the eventual
 analytic provider: it keeps the medium range as one bounded cover and uses
@@ -91,34 +91,36 @@ theorem completeClassification_of_full_record_bounded_rows
     {rows : List LogCubedPrimeRow}
     (X : Real) (hX : (4e18 : Real) ≤ X)
     (cover : LogCubedPrimeRowsCoverUpTo rows X)
-    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
+    (shortInterval : HasDusartShortIntervalPrime) :
     CompleteClassification := by
-  exact completeClassification_of_full_record_logCubed_inputs
-    primeCountingBounds thetaBounds
-    (hasLogCubedShortIntervalPrime_of_bounded_rows_and_large_x
-      X hX cover thetaError)
+  exact completeClassification_of_full_record_short_interval_inputs
+    primeCountingBounds thetaBounds shortInterval
 
 theorem completeClassification_of_full_record_rows_at_large_cutoff
     (primeCountingBounds : HasDusartRealPrimeCountingBounds)
     (thetaBounds : HasDusartSymmetricThetaBounds)
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
-    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
+    (shortInterval : HasDusartShortIntervalPrime) :
     CompleteClassification := by
   exact completeClassification_of_full_record_bounded_rows
     primeCountingBounds thetaBounds (4e18 : Real) le_rfl cover thetaError
+    shortInterval
 
 theorem completeClassification_of_full_record_rows_and_finite_theta
     (primeCountingBounds : HasDusartRealPrimeCountingBounds)
     (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
-    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
+    (shortInterval : HasDusartShortIntervalPrime) :
     CompleteClassification := by
   exact completeClassification_of_full_record_rows_at_large_cutoff
     primeCountingBounds
     (hasDusartSymmetricThetaBounds_of_below_and_logCubed finiteTheta thetaError)
-    cover thetaError
+    cover thetaError shortInterval
 
 theorem completeClassification_of_full_record_split_analytic_inputs
     {X : Real}
@@ -127,12 +129,13 @@ theorem completeClassification_of_full_record_split_analytic_inputs
     (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
-    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
+    (shortInterval : HasDusartShortIntervalPrime) :
     CompleteClassification := by
   exact completeClassification_of_full_record_rows_and_finite_theta
     (hasDusartRealPrimeCountingBounds_of_below_and_above
       finitePrimeCounting tailPrimeCounting)
-    finiteTheta cover thetaError
+    finiteTheta cover thetaError shortInterval
 
 theorem completeClassification_of_full_record_cutoff_split_inputs
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
@@ -140,10 +143,11 @@ theorem completeClassification_of_full_record_cutoff_split_inputs
     (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
-    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
+    (shortInterval : HasDusartShortIntervalPrime) :
     CompleteClassification := by
   exact completeClassification_of_full_record_split_analytic_inputs
-    finitePrimeCounting tailPrimeCounting finiteTheta cover thetaError
+    finitePrimeCounting tailPrimeCounting finiteTheta cover thetaError shortInterval
 
 /-! The tail prime-counting obligation can equivalently be supplied in the
 published asymptotic form.  The adapter is proved in the analytic helper, so
@@ -155,12 +159,13 @@ theorem completeClassification_of_full_record_asymptotic_tail_inputs
     (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
-    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
+    (shortInterval : HasDusartShortIntervalPrime) :
     CompleteClassification := by
   exact completeClassification_of_full_record_rows_and_finite_theta
     (hasDusartRealPrimeCountingBounds_of_finite_and_asymptotic
       finitePrimeCounting asymptotic)
-    finiteTheta cover thetaError
+    finiteTheta cover thetaError shortInterval
 
 /-! The same assembly can consume the denominator-form estimates stated in
 the Wang--Crapis paper directly.  The conversion to the comparison functions
@@ -172,13 +177,14 @@ theorem completeClassification_of_full_record_published_prime_counting_inputs
     (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
     {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
-    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real))
+    (shortInterval : HasDusartShortIntervalPrime) :
     CompleteClassification := by
   exact completeClassification_of_full_record_rows_and_finite_theta
     (hasDusartRealPrimeCountingBounds_of_below_and_above
       finitePrimeCounting
       (hasDusartRealPrimeCountingBoundsAbove_of_published published))
-    finiteTheta cover thetaError
+    finiteTheta cover thetaError shortInterval
 
 /-! Public assembly with the analytic inputs in the form used by the paper:
 the finite prime-counting check is combined with the published tail estimate,
@@ -187,9 +193,9 @@ theorem completeClassification_of_published_analytic_inputs
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
     (published : HasDusartPublishedPrimeCountingBounds)
     (thetaBounds : HasDusartSymmetricThetaBounds)
-    (shortInterval : HasLogCubedShortIntervalPrime) :
+    (shortInterval : HasDusartShortIntervalPrime) :
     CompleteClassification := by
-  exact completeClassification_of_full_record_logCubed_inputs
+  exact completeClassification_of_full_record_short_interval_inputs
     (hasDusartRealPrimeCountingBounds_of_below_and_above
       finitePrimeCounting
       (hasDusartRealPrimeCountingBoundsAbove_of_published published))
@@ -203,7 +209,7 @@ structure WangCrapisAnalyticInputs : Prop where
   finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real)
   publishedPrimeCounting : HasDusartPublishedPrimeCountingBounds
   thetaBounds : HasDusartSymmetricThetaBounds
-  shortInterval : HasLogCubedShortIntervalPrime
+  shortInterval : HasDusartShortIntervalPrime
 
 theorem completeClassification_of_wangCrapis_analytic_inputs
     (inputs : WangCrapisAnalyticInputs) :

@@ -112,12 +112,6 @@ theorem hasUniformTailPrimePair_of_shortInterval
   intro r hr
   exact exists_tail_consecutive_primes_rational shortInterval hr
 
-theorem hasUniformTailPrimePair_of_logCubedShortInterval
-    (shortInterval : HasLogCubedShortIntervalPrime) :
-    HasUniformTailPrimePair :=
-  hasUniformTailPrimePair_of_shortInterval
-    (hasDusartShortIntervalPrime_of_logCubed shortInterval)
-
 end
 
 end PrimeFactorUnimodality

@@ -18,13 +18,54 @@ def HasDusartShortIntervalPrime : Prop :=
     ∃ q : Nat, q.Prime ∧ x < q ∧
       (q : Real) ≤ x * (1 + 1 / (2 * (Real.log x) ^ 2))
 
-/-! Dusart's published prime-in-interval result is often stated with the
-stronger width `x / log(x)^3`.  Keep that statement separate and provide the
-exact conversion needed by the CRT construction. -/
+/-! Dusart's Proposition 5.4 prime-in-interval result has cutoff `89693` and
+the stronger width `x / log(x)^3`.  The separate `HasDusartShortIntervalPrime`
+statement above is the weaker `1/(2 log(x)^2)` estimate, whose cutoff is
+`3275`; the two estimates must not be conflated. -/
 def HasLogCubedShortIntervalPrime : Prop :=
-  ∀ x : Real, 3275 ≤ x →
+  ∀ x : Real, 89693 ≤ x →
     ∃ q : Nat, q.Prime ∧ x < q ∧
       (q : Real) ≤ x + x / (Real.log x) ^ 3
+
+def HasDusartShortIntervalPrimeBelow (X : Real) : Prop :=
+  ∀ x : Real, 3275 ≤ x → x ≤ X →
+    ∃ q : Nat, q.Prime ∧ x < q ∧
+      (q : Real) ≤ x * (1 + 1 / (2 * (Real.log x) ^ 2))
+
+theorem hasDusartShortIntervalPrime_of_below_and_logCubed
+    (finite : HasDusartShortIntervalPrimeBelow (89693 : Real))
+    (tail : HasLogCubedShortIntervalPrime) :
+    HasDusartShortIntervalPrime := by
+  intro x hx
+  by_cases hsmall : x ≤ (89693 : Real)
+  · exact finite x hx hsmall
+  · have hlarge : (89693 : Real) ≤ x :=
+      le_of_lt (lt_of_not_ge hsmall)
+    obtain ⟨q, hq, hxq, hupper⟩ := tail x hlarge
+    have hx_pos : 0 < x := by linarith
+    have hlog_pos : 0 < Real.log x :=
+      Real.log_pos (by linarith)
+    have hlog_gt_two : (2 : Real) < Real.log x := by
+      apply (Real.lt_log_iff_exp_lt hx_pos).2
+      have hexp : Real.exp 2 < (9 : Real) := by
+        rw [show (2 : Real) = 1 + 1 by norm_num, Real.exp_add]
+        have hone : Real.exp 1 < 3 :=
+          Real.exp_one_lt_d9.trans (by norm_num)
+        nlinarith [mul_self_lt_mul_self (Real.exp_pos 1).le hone]
+      exact hexp.trans (by linarith)
+    have hwidth : x / (Real.log x) ^ 3 ≤
+        x / (2 * (Real.log x) ^ 2) := by
+      rw [div_le_div_iff₀ (by positivity) (by positivity)]
+      have hsq : 2 * (Real.log x) ^ 2 ≤ (Real.log x) ^ 3 := by
+        have hmul := mul_le_mul_of_nonneg_right hlog_gt_two.le
+          (sq_nonneg (Real.log x))
+        nlinarith
+      nlinarith [mul_le_mul_of_nonneg_left hsq hx_pos.le]
+    refine ⟨q, hq, hxq, ?_⟩
+    calc
+      (q : Real) ≤ x + x / (Real.log x) ^ 3 := hupper
+      _ ≤ x + x / (2 * (Real.log x) ^ 2) := by linarith
+      _ = x * (1 + 1 / (2 * (Real.log x) ^ 2)) := by ring
 
 /-- A uniform logarithmic theta error, together with its elementary numerical
 margin, is enough to produce the logarithm-cubed prime interval.  This is the
@@ -192,34 +233,6 @@ theorem dusartLargeXPrimeInInterval_of_thetaLogCubedError
   calc
     (q : Real) ≤ x + x / (Real.log x) ^ 3 := hupper
     _ = x * (1 + 1 / (Real.log x) ^ 3) := by ring
-
-theorem hasDusartShortIntervalPrime_of_logCubed
-    (shortInterval : HasLogCubedShortIntervalPrime) :
-    HasDusartShortIntervalPrime := by
-  intro x hx
-  obtain ⟨q, qPrime, hxq, hq⟩ := shortInterval x hx
-  have x_pos : (0 : Real) < x := by linarith
-  have log_x_gt_two : (2 : Real) < Real.log x := by
-    have exp_two_lt : Real.exp 2 < (9 : Real) := by
-      rw [show (2 : Real) = 1 + 1 by norm_num, Real.exp_add]
-      have exp_one_lt_three : Real.exp 1 < 3 :=
-        Real.exp_one_lt_d9.trans (by norm_num)
-      nlinarith [mul_self_lt_mul_self (Real.exp_pos 1).le exp_one_lt_three]
-    apply (Real.lt_log_iff_exp_lt x_pos).2
-    exact exp_two_lt.trans (by linarith)
-  have log_x_pos : 0 < Real.log x := by linarith
-  have width_le : x / (Real.log x) ^ 3 ≤ x / (2 * (Real.log x) ^ 2) := by
-    rw [div_le_div_iff₀ (by positivity) (by positivity)]
-    have hsq : 2 * (Real.log x) ^ 2 ≤ (Real.log x) ^ 3 := by
-      have hmul := mul_le_mul_of_nonneg_right log_x_gt_two.le
-        (sq_nonneg (Real.log x))
-      nlinarith
-    nlinarith [mul_le_mul_of_nonneg_left hsq x_pos.le]
-  refine ⟨q, qPrime, hxq, ?_⟩
-  calc
-    (q : Real) ≤ x + x / (Real.log x) ^ 3 := hq
-    _ ≤ x + x / (2 * (Real.log x) ^ 2) := by linarith [width_le]
-    _ = x * (1 + 1 / (2 * (Real.log x) ^ 2)) := by ring
 
 /-- Applying the short-interval theorem at the left member of a consecutive
 prime pair bounds the right member. -/
