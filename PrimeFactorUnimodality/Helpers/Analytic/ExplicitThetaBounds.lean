@@ -205,7 +205,6 @@ theorem hasDusartSymmetricThetaBounds_of_psiLogCubedError
     {C X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
     (finite : HasDusartSymmetricThetaBoundsBelow X)
     (hXcutoff : (4e18 : Real) ≤ X)
-    (hC_nonneg : 0 ≤ C)
     (hC_log : C + 1 / Real.log X ≤ 12167 / 500000)
     (psiError : HasPsiLogCubedError C X) :
     HasDusartSymmetricThetaBounds := by
