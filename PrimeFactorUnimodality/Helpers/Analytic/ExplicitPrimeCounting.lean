@@ -286,6 +286,40 @@ theorem integral_inv_log_pow_succ_eq_interval
           (ne_of_gt (pow_pos (Real.log_pos
             (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)))
 
+theorem strictMonoOn_id_div_log_pow
+    {n : Nat} {a : Real} (ha : 1 < a)
+    (hcoef : (n + 1 : Real) < Real.log a) :
+    StrictMonoOn (fun t : Real => t / Real.log t ^ (n + 1)) (Set.Ici a) := by
+  apply strictMonoOn_of_deriv_pos (convex_Ici a)
+  · apply ContinuousOn.div continuousOn_id
+    · exact (Real.continuousOn_log.mono (fun y hy =>
+        have hy' : a ≤ y := hy
+        ne_of_gt (by linarith [ha, hy']))).pow _
+    · intro y hy
+      have hy' : a ≤ y := hy
+      exact pow_ne_zero _
+        (ne_of_gt (Real.log_pos (lt_of_lt_of_le ha hy')))
+  · intro t ht
+    have hta : a < t := by simpa only [interior_Ici, Set.mem_Ioi] using ht
+    have hlog : 0 < Real.log t := Real.log_pos (lt_trans ha hta)
+    have hlog_gt : (n + 1 : Real) < Real.log t :=
+      lt_of_lt_of_le hcoef (Real.log_le_log (by linarith) hta.le)
+    rw [deriv_log_power_kernel (n := n) (by linarith)]
+    have hnum : 0 < Real.log t - (n + 1 : Real) := by linarith
+    field_simp [ne_of_gt hlog]
+    have hp : 0 < Real.log t ^ n * Real.log t :=
+      mul_pos (pow_pos hlog n) hlog
+    simpa [pow_succ] using (mul_lt_mul_of_pos_left hlog_gt hp)
+
+theorem id_div_log_pow_le_of_le
+    {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b)
+    (hcoef : (n + 1 : Real) < Real.log a) :
+    a / Real.log a ^ (n + 1) ≤ b / Real.log b ^ (n + 1) := by
+  rcases hab.eq_or_lt with rfl | hlt
+  · rfl
+  · exact (strictMonoOn_id_div_log_pow ha hcoef
+      (Set.mem_Ici.mpr le_rfl) (Set.mem_Ici.mpr hab) hlt).le
+
 theorem integral_inv_log_pow_succ_le_of_next_bound
     {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b)
     (hnext : (∫ t in a..b, 1 / Real.log t ^ (n + 2)) ≤
