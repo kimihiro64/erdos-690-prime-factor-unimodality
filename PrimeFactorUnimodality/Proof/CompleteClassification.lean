@@ -267,6 +267,38 @@ theorem completeClassification_of_full_record_explicit_dusart_inputs
     (hasDusartShortIntervalPrime_of_rows_and_thetaError
       dusartCover logCover thetaError)
 
+/-! At the paper's stated cutoff, the same log-fourth theta estimate feeds all
+three Dusart interfaces: theta bounds, prime counting, and short intervals. -/
+theorem completeClassification_of_full_record_unit_logFourth_inputs
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
+    {A C : Real} (hA0 : 0 ≤ A) (hA : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hcore : |primeCountingCore (4e18 : Real)| ≤
+      C * (4e18 : Real) / Real.log (4e18 : Real) ^ 4)
+    (thetaError : HasThetaLogFourthError A (4e18 : Real))
+    (hA_log : A / Real.log (4e18 : Real) ≤ 12167 / 500000)
+    {dusartRows : List DusartPrimeRow}
+    (dusartCover : DusartPrimeRowsCoverBelow dusartRows)
+    {logRows : List LogCubedPrimeRow}
+    (logCover : LogCubedPrimeRowsCoverUpTo logRows (4e18 : Real)) :
+    CompleteClassification := by
+  have hlog42 : (42 : Real) ≤ Real.log (4e18 : Real) :=
+    forty_two_lt_log_four_e18.le
+  have cubic : HasThetaLogCubedError
+      (12167 / 500000 : Real) (4e18 : Real) :=
+    hasThetaLogCubedError_of_logFourthError
+      (by norm_num) hA0 thetaError
+  exact completeClassification_of_full_record_short_interval_inputs
+    (hasDusartRealPrimeCountingBounds_of_finite_and_core_and_theta_error
+      finitePrimeCounting (by norm_num) (by norm_num) le_rfl
+      hA0 hA hC0 hC hlog42 hcore thetaError)
+    (hasDusartThetaBounds_of_finite_and_logFourth_from
+      (by norm_num) (log_large_x_gt_ten le_rfl) finiteTheta hA0 hA_log
+      thetaError)
+    (hasDusartShortIntervalPrime_of_rows_and_thetaError
+      dusartCover logCover cubic)
+
 theorem completeClassification_of_full_record_finite_published_asymptotic_inputs
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
     (finitePublished : HasDusartPublishedPrimeCountingBoundsBelow (4e9 : Real))
