@@ -75,6 +75,23 @@ def HasThetaLogCubedError (C X : Real) : Prop :=
   ∀ x : Real, X ≤ x →
     |Chebyshev.theta x - x| ≤ C * x / (Real.log x) ^ 3
 
+def HasThetaLogCubedErrorBelow (C X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    |Chebyshev.theta x - x| ≤ C * x / (Real.log x) ^ 3
+
+def HasThetaLogCubedErrorAbove (C X : Real) : Prop :=
+  ∀ x : Real, X ≤ x →
+    |Chebyshev.theta x - x| ≤ C * x / (Real.log x) ^ 3
+
+theorem hasThetaLogCubedError_of_below_and_above
+    {C X : Real} (finite : HasThetaLogCubedErrorBelow C X)
+    (tail : HasThetaLogCubedErrorAbove C X) :
+    HasThetaLogCubedError C 2 := by
+  intro x hx
+  by_cases hsmall : x ≤ X
+  · exact finite x hx hsmall
+  · exact tail x (le_of_lt (lt_of_not_ge hsmall))
+
 /-! A stronger logarithmic remainder is converted here into the exact
 logarithm-cubed scale used by the Dusart interval argument.  This is useful
 when the analytic estimate is obtained first with one extra logarithm in the
