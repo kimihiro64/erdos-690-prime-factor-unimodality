@@ -62,6 +62,12 @@ def HasDusartPublishedPrimeCountingBounds : Prop :=
   (∀ x : Real, (60184 : Real) < x →
     (Nat.primeCounting ⌊x⌋₊ : Real) ≤ x / (Real.log x - (11 / 10 : Real)))
 
+def HasDusartPublishedPrimeCountingBoundsBelow (X : Real) : Prop :=
+  (∀ x : Real, (5393 : Real) < x → x ≤ X →
+    x / (Real.log x - 1) ≤ (Nat.primeCounting ⌊x⌋₊ : Real)) ∧
+  (∀ x : Real, (60184 : Real) < x → x ≤ X →
+    (Nat.primeCounting ⌊x⌋₊ : Real) ≤ x / (Real.log x - (11 / 10 : Real)))
+
 theorem hasDusartRealPrimeCountingBoundsAbove_of_published
     (published : HasDusartPublishedPrimeCountingBounds) :
     HasDusartRealPrimeCountingBoundsAbove (4e18 : Real) := by
@@ -195,6 +201,27 @@ theorem hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic
       field_simp [hlog_pos.ne', (by linarith : Real.log x - (11 / 10 : Real) ≠ 0)]
     rw [htarget] at hmul
     exact hmul
+
+theorem hasDusartPublishedPrimeCountingBounds_of_below_and_above
+    {X : Real} (finite : HasDusartPublishedPrimeCountingBoundsBelow X)
+    (tail : HasDusartPublishedPrimeCountingBoundsAbove X) :
+    HasDusartPublishedPrimeCountingBounds := by
+  constructor
+  · intro x hx
+    by_cases hsmall : x ≤ X
+    · exact finite.1 x hx hsmall
+    · exact tail.1 x (le_of_lt (lt_of_not_ge hsmall))
+  · intro x hx
+    by_cases hsmall : x ≤ X
+    · exact finite.2 x hx hsmall
+    · exact tail.2 x (le_of_lt (lt_of_not_ge hsmall))
+
+theorem hasDusartPublishedPrimeCountingBounds_of_finite_and_asymptotic
+    (finite : HasDusartPublishedPrimeCountingBoundsBelow (4e9 : Real))
+    (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e9 : Real)) :
+    HasDusartPublishedPrimeCountingBounds := by
+  exact hasDusartPublishedPrimeCountingBounds_of_below_and_above finite
+    (hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic asymptotic)
 
 theorem hasDusartRealPrimeCountingBoundsAbove_of_asymptotic
     (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e9 : Real)) :
