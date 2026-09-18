@@ -56,5 +56,21 @@ theorem exists_hasPsiLogFourthError_of_mediumPNT_at_paper_cutoff :
   intro x hx
   exact hY x (hYX.trans hx)
 
+theorem exists_hasPsiLogFourthError_of_mediumPNT_at_large_cutoff :
+    ∃ X : Real, (4e18 : Real) ≤ X ∧
+      (100 : Real) ≤ Real.log X ∧ HasPsiLogFourthError (1 / 2) X := by
+  obtain ⟨Y, hY⟩ := exists_hasPsiLogFourthError_of_mediumPNT
+  let X : Real := max (4e18 : Real) (max (Real.exp 100) Y)
+  have hX : (4e18 : Real) ≤ X := le_max_left _ _
+  have hexp : Real.exp 100 ≤ X :=
+    le_trans (le_max_left (Real.exp 100) Y) (le_max_right (4e18 : Real) _)
+  have hYX : Y ≤ X :=
+    le_trans (le_max_right (Real.exp 100) Y) (le_max_right (4e18 : Real) _)
+  have hlogX : (100 : Real) ≤ Real.log X := by
+    exact (Real.le_log_iff_exp_le (by positivity)).2 hexp
+  refine ⟨X, hX, hlogX, ?_⟩
+  intro x hx
+  exact hY x (hYX.trans hx)
+
 end
 end PrimeFactorUnimodality
