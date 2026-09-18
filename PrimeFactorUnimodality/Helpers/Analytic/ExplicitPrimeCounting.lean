@@ -334,6 +334,24 @@ theorem inv_log_pow_le_of_le
     exact pow_le_pow_left₀ hqx hinv m
   simpa [div_pow] using hpow
 
+theorem id_div_log_pow_add_le
+    {m : Nat} {X x : Real} (hX : 1 < X) (hXx : X ≤ x) :
+    x / Real.log x ^ (4 + m) ≤
+      (x / Real.log x ^ 4) / Real.log X ^ m := by
+  have hxpos : 0 < x := by linarith
+  have hlogx : 0 < Real.log x := Real.log_pos (by linarith)
+  have hbase : 0 ≤ x / Real.log x ^ 4 :=
+    div_nonneg hxpos.le (pow_nonneg hlogx.le _)
+  have hpow := inv_log_pow_le_of_le (m := m) hX hXx
+  calc
+    x / Real.log x ^ (4 + m) =
+        (x / Real.log x ^ 4) * (1 / Real.log x ^ m) := by
+      field_simp [ne_of_gt hlogx]
+      rw [pow_add]
+    _ ≤ (x / Real.log x ^ 4) * (1 / Real.log X ^ m) :=
+      mul_le_mul_of_nonneg_left hpow hbase
+    _ = (x / Real.log x ^ 4) / Real.log X ^ m := by ring
+
 theorem integral_inv_log_pow_succ_le_of_next_bound
     {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b)
     (hnext : (∫ t in a..b, 1 / Real.log t ^ (n + 2)) ≤
