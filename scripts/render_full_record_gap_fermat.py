@@ -14,8 +14,6 @@ import sys
 from pathlib import Path
 from typing import Any
 
-import gmpy2  # type: ignore[import-untyped]
-
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -80,10 +78,7 @@ def term_expression(offset: int) -> str:
 def render_witness(index: int, offset: int, modulus: int) -> str:
     name = label(index)
     term = term_expression(offset)
-    residue = int(gmpy2.powmod(2, modulus - 1, modulus))
-    if residue == 1:
-        raise ValueError(f"base 2 is a Fermat pseudoprime for offset {offset}")
-    return f"""import Mathlib.Tactic.ReduceModChar
+    return f"""import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod
 import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCenter
 
 set_option autoImplicit false
@@ -100,42 +95,19 @@ def fullRecordGapValue{name} : Nat := {modulus}
 theorem fullRecordGapTerm{name}_eq_value :
     {term} = fullRecordGapValue{name} := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  rfl
+  norm_num [fullRecordGapCenterValue, fullRecordGapValue{name}]
 
 set_option maxHeartbeats 0 in
-theorem fullRecordGapLiteral{name}_two_pow :
-    (2 : ZMod {modulus}) ^ ({modulus} - 1) =
-      (({residue} : Nat) : ZMod {modulus}) := by
-  reduce_mod_char
-
-theorem fullRecordGapValue{name}_two_pow :
-    (2 : ZMod fullRecordGapValue{name}) ^ (fullRecordGapValue{name} - 1) =
-      (({residue} : Nat) : ZMod fullRecordGapValue{name}) := by
-  change (2 : ZMod {modulus}) ^ ({modulus} - 1) =
-    (({residue} : Nat) : ZMod {modulus})
-  exact fullRecordGapLiteral{name}_two_pow
-
-theorem fullRecordGapValue{name}_residue_ne_one :
-    (({residue} : Nat) : ZMod fullRecordGapValue{name}) ≠ 1 := by
-  intro residue_eq_one
-  have modulus_gt_one : 1 < fullRecordGapValue{name} := by
-    norm_num [fullRecordGapValue{name}]
-  have value_eq_one :=
-    (ZMod.val_eq_one modulus_gt_one
-      (({residue} : Nat) : ZMod fullRecordGapValue{name})).mpr residue_eq_one
-  rw [ZMod.val_natCast_of_lt (by norm_num [fullRecordGapValue{name}])] at value_eq_one
-  norm_num at value_eq_one
-
-theorem fullRecordGapLiteral{name}_two_pow_ne_one :
-    (2 : ZMod fullRecordGapValue{name}) ^ (fullRecordGapValue{name} - 1) ≠ 1 := by
-  rw [fullRecordGapValue{name}_two_pow]
-  exact fullRecordGapValue{name}_residue_ne_one
+theorem fullRecordGapLiteral{name}_fast_pow_mod_ne_one :
+    fastPowMod 3 fullRecordGapValue{name} (fullRecordGapValue{name} - 1) ≠ 1 := by
+  decide
 
 theorem fullRecordGapTerm{name}_not_prime : ¬({term}).Prime := by
   rw [fullRecordGapTerm{name}_eq_value]
-  apply not_prime_of_two_pow_ne_one
+  apply not_prime_of_fastPowMod_ne_one (a := 3)
+  · norm_num
   · norm_num [fullRecordGapValue{name}]
-  · exact fullRecordGapLiteral{name}_two_pow_ne_one
+  · exact fullRecordGapLiteral{name}_fast_pow_mod_ne_one
 
 end PrimeFactorUnimodality
 """

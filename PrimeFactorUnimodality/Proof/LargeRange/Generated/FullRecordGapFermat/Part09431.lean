@@ -3,6 +3,7 @@ import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCenter
 
 set_option autoImplicit false
 set_option maxRecDepth 10000000
+set_option exponentiation.threshold 100000
 set_option linter.style.longLine false
 
 /-! Generated kernel-replayed Fermat witness for full-gap offset 565566. -/
@@ -14,7 +15,7 @@ def fullRecordGapValue09431 : Nat := 3125353491167441173339255266487429789550700
 theorem fullRecordGapTerm09431_eq_value :
     recordGapCenter + 565566 = fullRecordGapValue09431 := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  rfl
+  norm_num [fullRecordGapCenterValue, fullRecordGapValue09431]
 
 set_option maxHeartbeats 0 in
 theorem fullRecordGapLiteral09431_fast_pow_mod_ne_one :
