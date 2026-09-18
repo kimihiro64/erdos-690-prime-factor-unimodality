@@ -52,8 +52,7 @@ def HasDusartRealPrimeCountingBoundsAbove (X : Real) : Prop :=
 
 theorem hasDusartRealPrimeCountingBounds_of_below_and_above
     {X : Real} (finite : HasDusartRealPrimeCountingBoundsBelow X)
-    (tail : HasDusartRealPrimeCountingBoundsAbove X)
-    (cutoff_lower : (2 : Real) ≤ X) :
+    (tail : HasDusartRealPrimeCountingBoundsAbove X) :
     HasDusartRealPrimeCountingBounds := by
   constructor
   · intro x hx
