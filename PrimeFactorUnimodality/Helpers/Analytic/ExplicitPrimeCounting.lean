@@ -320,6 +320,20 @@ theorem id_div_log_pow_le_of_le
   · exact (strictMonoOn_id_div_log_pow ha hcoef
       (Set.mem_Ici.mpr le_rfl) (Set.mem_Ici.mpr hab) hlt).le
 
+theorem inv_log_pow_le_of_le
+    {m : Nat} {X x : Real} (hX : 1 < X) (hXx : X ≤ x) :
+    1 / Real.log x ^ m ≤ 1 / Real.log X ^ m := by
+  have hlogX : 0 < Real.log X := Real.log_pos hX
+  have hlog_le : Real.log X ≤ Real.log x :=
+    Real.log_le_log (by linarith) hXx
+  have hlogx : 0 < Real.log x := lt_of_lt_of_le hlogX hlog_le
+  have hinv : 1 / Real.log x ≤ 1 / Real.log X :=
+    one_div_le_one_div_of_le hlogX hlog_le
+  have hqx : 0 ≤ 1 / Real.log x := one_div_nonneg.mpr hlogx.le
+  have hpow : (1 / Real.log x) ^ m ≤ (1 / Real.log X) ^ m := by
+    exact pow_le_pow_left₀ hqx hinv m
+  simpa [div_pow] using hpow
+
 theorem integral_inv_log_pow_succ_le_of_next_bound
     {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b)
     (hnext : (∫ t in a..b, 1 / Real.log t ^ (n + 2)) ≤
