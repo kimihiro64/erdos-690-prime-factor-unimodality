@@ -433,6 +433,26 @@ theorem hasDusartThetaBounds_of_relativePsiError_at_log
     exact (lowerMargin x hx).trans_le
       (theta_lower_of_psi_relative_error_at_log hε hroot hc (by linarith))
 
+/-! The root estimate needed by the preceding provider is elementary and does
+not belong in the sharp Dusart input.  Exposing this specialization keeps the
+provider boundary faithful to the actual analytic obligation: a relative
+error estimate for `psi`, together with the two numerical margin checks. -/
+theorem hasDusartThetaBounds_of_relativePsiError_at_log_elementary
+    {ε : Real → Real}
+    (hε : HasPsiRelativeError ε)
+    (upperMargin : ∀ x : Real, 2 ≤ x →
+      (1 + ε (Real.log x)) * x < x * (1 + 1 / 36260))
+    (lowerMargin : ∀ x : Real, 2 < x →
+      x * (1 - (12323 / 10000 : Real) / Real.log x) <
+        (1 - ε (Real.log x) - (Real.log 4 + 4) *
+          (Real.exp (-Real.log x / 2) +
+            Real.exp (-2 * Real.log x / 3) +
+            Real.exp (-4 * Real.log x / 5))) * x) :
+    HasDusartThetaBounds := by
+  exact hasDusartThetaBounds_of_relativePsiError_at_log hε
+    (fun y hy => Chebyshev.psi_le_const_mul_self hy)
+    (by positivity) upperMargin lowerMargin
+
 theorem hasDusartThetaBounds_of_symmetric
     (bounds : HasDusartSymmetricThetaBounds) :
     HasDusartThetaBounds := by
