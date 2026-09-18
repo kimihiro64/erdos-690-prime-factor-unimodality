@@ -13,3 +13,11 @@ when `k ≤ 3`.
 theorem PrimeFactorUnimodality.completeClassification :
     PrimeFactorUnimodality.CompleteClassification := by
   sorry
+
+/-! The public assembly with every analytic input named explicitly.  No
+provider is inferred or hidden at this boundary. -/
+theorem PrimeFactorUnimodality.completeClassification_of_wangCrapis_inputs
+    (inputs : PrimeFactorUnimodality.WangCrapisAnalyticInputs) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_wangCrapis_analytic_inputs
+    inputs
