@@ -824,6 +824,58 @@ theorem primeCounting_remainder_core_tail_decomposition
   unfold primeCountingCore
   ring
 
+theorem primeCounting_boundary_remainder_le
+    {A X x : Real} (hX : 1 < X) (hXx : X ≤ x) (hA : 0 ≤ A)
+    (herror : |Chebyshev.theta x - x| ≤ A * x / (Real.log x) ^ 4) :
+    |(Chebyshev.theta x - x) / Real.log x +
+        6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+          120 * x / Real.log x ^ 6| ≤
+      A * x / Real.log x ^ 5 + 6 * x / Real.log x ^ 4 +
+        24 * x / Real.log x ^ 5 + 120 * x / Real.log x ^ 6 := by
+  have hxpos : 0 < x := by linarith
+  have hlogx : 0 < Real.log x := Real.log_pos (by linarith)
+  have htheta :
+      |(Chebyshev.theta x - x) / Real.log x| ≤
+        A * x / Real.log x ^ 5 := by
+    rw [abs_div, abs_of_pos hlogx]
+    calc
+      |Chebyshev.theta x - x| / Real.log x ≤
+          (A * x / Real.log x ^ 4) / Real.log x :=
+        div_le_div_of_nonneg_right herror hlogx.le
+      _ = A * x / Real.log x ^ 5 := by
+        field_simp [ne_of_gt hlogx]
+  have h6 : 0 ≤ 6 * x / Real.log x ^ 4 := by positivity
+  have h24 : 0 ≤ 24 * x / Real.log x ^ 5 := by positivity
+  have h120 : 0 ≤ 120 * x / Real.log x ^ 6 := by positivity
+  calc
+    |(Chebyshev.theta x - x) / Real.log x +
+          6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+            120 * x / Real.log x ^ 6| ≤
+        |(Chebyshev.theta x - x) / Real.log x| +
+          |6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+            120 * x / Real.log x ^ 6| := by
+      calc
+        |(Chebyshev.theta x - x) / Real.log x +
+              6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+                120 * x / Real.log x ^ 6| =
+            |(Chebyshev.theta x - x) / Real.log x +
+              (6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+                120 * x / Real.log x ^ 6)| := by
+                  congr 1
+                  ring
+        _ ≤ |(Chebyshev.theta x - x) / Real.log x| +
+              |6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+                120 * x / Real.log x ^ 6| := abs_add_le _ _
+    _ = |(Chebyshev.theta x - x) / Real.log x| +
+          (6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+            120 * x / Real.log x ^ 6) := by
+      rw [abs_of_nonneg (by linarith :
+        0 ≤ 6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+          120 * x / Real.log x ^ 6)]
+    _ ≤ A * x / Real.log x ^ 5 + 6 * x / Real.log x ^ 4 +
+          24 * x / Real.log x ^ 5 + 120 * x / Real.log x ^ 6 := by
+      linarith
+
 theorem theta_remainder_pointwise_le_of_logFourthError
     {A X x : Real} (hX : 1 < X)
     (error : HasThetaLogFourthError A X) (hx : X ≤ x) :
