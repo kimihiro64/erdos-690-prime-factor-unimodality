@@ -50,13 +50,25 @@ theorem exists_hasPsiLogFourthError_of_mediumPNT :
   exact exists_hasPsiLogFourthError_of_logRpowBigO_of_pos_coefficient
     (D := (1 : Real) / 2) (by norm_num) hbigO
 
+/-! The cutoff can be raised past any externally chosen analytic threshold.
+Keeping this general avoids baking the paper's numerical cutoff into the
+source-level PNT adapter. -/
+theorem exists_hasPsiLogFourthError_of_mediumPNT_above (X₀ : Real) :
+    ∃ X : Real, X₀ ≤ X ∧ HasPsiLogFourthError (1 / 2) X := by
+  obtain ⟨Y, hY⟩ := exists_hasPsiLogFourthError_of_mediumPNT
+  let X : Real := max X₀ Y
+  refine ⟨X, le_max_left _ _, ?_⟩
+  intro x hx
+  exact hY x ((le_max_right X₀ Y).trans hx)
+
 /-! The eventual cutoff can be raised to the paper's analytic cutoff without
 changing the proved error estimate.  This is the form consumed by the
 Dusart tail interfaces. -/
 theorem exists_hasPsiLogFourthError_of_mediumPNT_at_paper_cutoff :
     ∃ X : Real, (4e18 : Real) ≤ X ∧
       (42 : Real) ≤ Real.log X ∧ HasPsiLogFourthError (1 / 2) X := by
-  obtain ⟨Y, hY⟩ := exists_hasPsiLogFourthError_of_mediumPNT
+  obtain ⟨Y, hY, herror⟩ :=
+    exists_hasPsiLogFourthError_of_mediumPNT_above (4e18 : Real)
   let X : Real := max (4e18 : Real) Y
   have hX : (4e18 : Real) ≤ X := le_max_left _ _
   have hYX : Y ≤ X := le_max_right _ _
@@ -65,13 +77,13 @@ theorem exists_hasPsiLogFourthError_of_mediumPNT_at_paper_cutoff :
       Real.log_le_log (by norm_num) hX
     linarith [forty_two_lt_log_four_e18]
   refine ⟨X, hX, hlogX, ?_⟩
-  intro x hx
-  exact hY x (hYX.trans hx)
+  exact fun x hx => herror x (hYX.trans hx)
 
 theorem exists_hasPsiLogFourthError_of_mediumPNT_at_large_cutoff :
     ∃ X : Real, (4e18 : Real) ≤ X ∧
       (100 : Real) ≤ Real.log X ∧ HasPsiLogFourthError (1 / 2) X := by
-  obtain ⟨Y, hY⟩ := exists_hasPsiLogFourthError_of_mediumPNT
+  obtain ⟨Y, hY, herror⟩ :=
+    exists_hasPsiLogFourthError_of_mediumPNT_above (max (4e18 : Real) (Real.exp 100))
   let X : Real := max (4e18 : Real) (max (Real.exp 100) Y)
   have hX : (4e18 : Real) ≤ X := le_max_left _ _
   have hexp : Real.exp 100 ≤ X :=
@@ -81,8 +93,7 @@ theorem exists_hasPsiLogFourthError_of_mediumPNT_at_large_cutoff :
   have hlogX : (100 : Real) ≤ Real.log X := by
     exact (Real.le_log_iff_exp_le (by positivity)).2 hexp
   refine ⟨X, hX, hlogX, ?_⟩
-  intro x hx
-  exact hY x (hYX.trans hx)
+  exact fun x hx => herror x (hYX.trans hx)
 
 /-! The prime-power correction is also available at the same eventual cutoff.
 This records the theta estimate supplied by the source-level PNT without
