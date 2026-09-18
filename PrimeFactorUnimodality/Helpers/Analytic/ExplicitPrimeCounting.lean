@@ -876,6 +876,91 @@ theorem primeCounting_boundary_remainder_le
           24 * x / Real.log x ^ 5 + 120 * x / Real.log x ^ 6 := by
       linarith
 
+theorem primeCounting_remainder_abs_le_of_core_and_theta_error
+    {A X x : Real} (hX : 1 < X) (h2X : 2 ≤ X) (hXx : X ≤ x)
+    (hA : 0 ≤ A) (herror : |Chebyshev.theta x - x| ≤
+      A * x / (Real.log x) ^ 4)
+    (error : HasThetaLogFourthError A X)
+    (hcoef : (7 : Real) < Real.log X) :
+    |(Nat.primeCounting ⌊x⌋₊ : Real) -
+        (x / Real.log x + x / Real.log x ^ 2 +
+          2 * x / Real.log x ^ 3)| ≤
+      A * x / Real.log x ^ 5 + 6 * x / Real.log x ^ 4 +
+        24 * x / Real.log x ^ 5 + 120 * x / Real.log x ^ 6 +
+        |primeCountingCore X| +
+        720 * ((x / Real.log x ^ 7) /
+          (1 - 7 / Real.log X)) +
+        A * (x / Real.log x ^ 6) /
+          (1 - 6 / Real.log X) := by
+  have hboundary := primeCounting_boundary_remainder_le hX hXx hA herror
+  have htail := primeCounting_explicit_tail_le_of_logFourthError
+    hX hA error hXx hcoef
+  calc
+    |(Nat.primeCounting ⌊x⌋₊ : Real) -
+          (x / Real.log x + x / Real.log x ^ 2 +
+            2 * x / Real.log x ^ 3)| =
+        |((Chebyshev.theta x - x) / Real.log x +
+            6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+              120 * x / Real.log x ^ 6) + primeCountingCore X +
+          (720 * (∫ t in X..x, 1 / Real.log t ^ 7) +
+            ∫ t in X..x,
+          (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+                1 / (Real.log t) ^ 2))| := by
+          rw [primeCounting_remainder_core_tail_decomposition h2X hXx]
+          congr 1
+          ring
+    _ = |((Chebyshev.theta x - x) / Real.log x +
+            6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+              120 * x / Real.log x ^ 6) +
+          (primeCountingCore X +
+            (720 * (∫ t in X..x, 1 / Real.log t ^ 7) +
+              ∫ t in X..x,
+                (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+                  1 / (Real.log t) ^ 2)))| := by
+          congr 1
+          ring
+    _ ≤ |(Chebyshev.theta x - x) / Real.log x +
+          6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+            120 * x / Real.log x ^ 6| +
+          |primeCountingCore X +
+            (720 * (∫ t in X..x, 1 / Real.log t ^ 7) +
+              ∫ t in X..x,
+                (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+                  1 / (Real.log t) ^ 2))| := by
+          exact abs_add_le _ _
+    _ ≤ |(Chebyshev.theta x - x) / Real.log x +
+          6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+            120 * x / Real.log x ^ 6| +
+          (|primeCountingCore X| +
+            |720 * (∫ t in X..x, 1 / Real.log t ^ 7) +
+              ∫ t in X..x,
+                (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+                  1 / (Real.log t) ^ 2)|) := by
+          have hsplit := abs_add_le
+            (primeCountingCore X)
+            (720 * (∫ t in X..x, 1 / Real.log t ^ 7) +
+              ∫ t in X..x,
+                (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+                  1 / (Real.log t) ^ 2))
+          exact add_le_add_right hsplit _
+    _ = |(Chebyshev.theta x - x) / Real.log x +
+          6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+            120 * x / Real.log x ^ 6| +
+          |primeCountingCore X| +
+          |720 * (∫ t in X..x, 1 / Real.log t ^ 7) +
+            ∫ t in X..x,
+              (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+                1 / (Real.log t) ^ 2)| := by
+          ring
+    _ ≤ A * x / Real.log x ^ 5 + 6 * x / Real.log x ^ 4 +
+          24 * x / Real.log x ^ 5 + 120 * x / Real.log x ^ 6 +
+          |primeCountingCore X| +
+          720 * ((x / Real.log x ^ 7) /
+            (1 - 7 / Real.log X)) +
+          A * (x / Real.log x ^ 6) /
+            (1 - 6 / Real.log X) := by
+          linarith
+
 theorem theta_remainder_pointwise_le_of_logFourthError
     {A X x : Real} (hX : 1 < X)
     (error : HasThetaLogFourthError A X) (hx : X ≤ x) :
