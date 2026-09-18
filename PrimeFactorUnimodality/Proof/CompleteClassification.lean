@@ -27,6 +27,19 @@ theorem completeClassification
     · intro hkThree
       omega
 
+/-- The same classification packaged as the project's exact universal target.
+This wrapper is intentionally parameterized only by the explicit analytic
+providers still used by the pointwise assembly theorem. -/
+theorem completeClassification_of_explicit_inputs
+    (primeCountingBounds : HasDusartPrimeCountingBounds)
+    (reciprocalEstimate : HasDusartReciprocalPrimeEstimate Mertens.M)
+    (thetaBounds : HasDusartThetaBounds)
+    (shortInterval : HasDusartShortIntervalPrime) :
+    CompleteClassification := by
+  intro k hk
+  exact completeClassification primeCountingBounds reciprocalEstimate
+    thetaBounds shortInterval k hk
+
 end
 
 end PrimeFactorUnimodality
