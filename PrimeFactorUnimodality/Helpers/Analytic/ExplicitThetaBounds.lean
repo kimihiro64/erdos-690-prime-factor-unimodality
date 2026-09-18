@@ -43,6 +43,24 @@ def HasDusartSymmetricThetaBoundsBelow (X : Real) : Prop :=
     |Chebyshev.theta x - x| <
       (12323 / 10000 : Real) * x / Real.log x)
 
+/-! The interval below `2` is not part of the numerical certificate.  The
+theta sum is zero there, so its one-sided upper estimate is elementary. -/
+theorem hasDusartSymmetricThetaBoundsBelow_of_upper_lower
+    {X : Real}
+    (upper : ∀ x : Real, 2 ≤ x → x ≤ X →
+      Chebyshev.theta x - x < x / 36260)
+    (lower : ∀ x : Real, 2 < x → x ≤ X →
+      |Chebyshev.theta x - x| <
+        (12323 / 10000 : Real) * x / Real.log x) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  constructor
+  · intro x hx hxx
+    by_cases hsmall : x < 2
+    · rw [Chebyshev.theta_eq_zero_of_lt_two hsmall]
+      nlinarith
+    · exact upper x (le_of_not_gt hsmall) hxx
+  · exact lower
+
 theorem hasDusartSymmetricThetaBounds_of_below_and_logCubed_from
     {X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
     (finite : HasDusartSymmetricThetaBoundsBelow X)
