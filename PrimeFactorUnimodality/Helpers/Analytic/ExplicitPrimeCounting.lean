@@ -1144,6 +1144,65 @@ theorem primeCounting_remainder_abs_le_of_log_coefficient
   ring_nf at hraw h1 h24 h120 h720 hAtail hcore' ⊢
   linarith
 
+theorem log_coefficient_le_732
+    {A C X : Real} (hA0 : 0 ≤ A) (hA : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hlog : (42 : Real) ≤ Real.log X) :
+    A / Real.log X + 6 + 24 / Real.log X +
+        120 / Real.log X ^ 2 + C +
+        720 / (Real.log X ^ 3 * (1 - 7 / Real.log X)) +
+        A / (Real.log X ^ 2 * (1 - 6 / Real.log X)) ≤
+      (732 : Real) / 100 := by
+  have hlogpos : 0 < Real.log X := lt_of_lt_of_le (by norm_num) hlog
+  have h1 : A / Real.log X ≤ (1 : Real) / 42 := by
+    calc
+      A / Real.log X ≤ 1 / Real.log X :=
+        div_le_div_of_nonneg_right hA hlogpos.le
+      _ ≤ (1 : Real) / 42 :=
+        one_div_le_one_div_of_le (by norm_num) hlog
+  have h24 : 24 / Real.log X ≤ (24 : Real) / 42 := by
+    exact div_le_div_of_nonneg_left
+      (by norm_num) (by norm_num) hlog
+  have hsq : (42 : Real) ^ 2 ≤ Real.log X ^ 2 := by
+    exact pow_le_pow_left₀ (by norm_num) hlog 2
+  have h120 : 120 / Real.log X ^ 2 ≤ (120 : Real) / 42 ^ 2 := by
+    have hinv := one_div_le_one_div_of_le (by norm_num) hsq
+    exact div_le_div_of_nonneg_left (by norm_num) (by norm_num) hsq
+  have h7div : 7 / Real.log X ≤ (1 : Real) / 6 := by
+    apply (div_le_iff₀ hlogpos).2
+    nlinarith
+  have h6div : 6 / Real.log X ≤ (1 : Real) / 7 := by
+    apply (div_le_iff₀ hlogpos).2
+    nlinarith
+  have hden7 : (5 : Real) / 6 ≤ 1 - 7 / Real.log X := by linarith
+  have hden6 : (6 : Real) / 7 ≤ 1 - 6 / Real.log X := by linarith
+  have hL3 : (42 : Real) ^ 3 ≤ Real.log X ^ 3 := by
+    exact pow_le_pow_left₀ (by norm_num) hlog 3
+  have hprod7 : (42 : Real) ^ 3 * (5 / 6 : Real) ≤
+      Real.log X ^ 3 * (1 - 7 / Real.log X) := by
+    exact mul_le_mul hL3 hden7 (by positivity) (by positivity)
+  have hprod6 : (42 : Real) ^ 2 * (6 / 7 : Real) ≤
+      Real.log X ^ 2 * (1 - 6 / Real.log X) := by
+    exact mul_le_mul hsq hden6 (by positivity) (by positivity)
+  have htail7 : 720 / (Real.log X ^ 3 * (1 - 7 / Real.log X)) ≤
+      720 / ((42 : Real) ^ 3 * (5 / 6 : Real)) := by
+    have h := one_div_le_one_div_of_le
+      (by positivity : (0 : Real) < 42 ^ 3 * (5 / 6 : Real)) hprod7
+    have hm := mul_le_mul_of_nonneg_left h (by norm_num : (0 : Real) ≤ 720)
+    convert hm using 1 <;> ring
+  have htailA : A / (Real.log X ^ 2 * (1 - 6 / Real.log X)) ≤
+      1 / ((42 : Real) ^ 2 * (6 / 7 : Real)) := by
+    calc
+      A / (Real.log X ^ 2 * (1 - 6 / Real.log X)) ≤
+          1 / (Real.log X ^ 2 * (1 - 6 / Real.log X)) := by
+        exact div_le_div_of_nonneg_right hA
+          (by positivity)
+      _ ≤ 1 / ((42 : Real) ^ 2 * (6 / 7 : Real)) := by
+        exact one_div_le_one_div_of_le
+          (by positivity : (0 : Real) < 42 ^ 2 * (6 / 7 : Real)) hprod6
+  norm_num at h1 h24 h120 htail7 htailA
+  linarith
+
 theorem theta_remainder_pointwise_le_of_logFourthError
     {A X x : Real} (hX : 1 < X)
     (error : HasThetaLogFourthError A X) (hx : X ≤ x) :
