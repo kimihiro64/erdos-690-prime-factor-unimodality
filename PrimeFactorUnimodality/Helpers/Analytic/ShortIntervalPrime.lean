@@ -27,6 +27,24 @@ def HasLogCubedShortIntervalPrime : Prop :=
     ∃ q : Nat, q.Prime ∧ x < q ∧
       (q : Real) ≤ x + x / (Real.log x) ^ 3
 
+def HasLogCubedShortIntervalPrimeBelow (X : Real) : Prop :=
+  ∀ x : Real, 89693 ≤ x → x ≤ X →
+    ∃ q : Nat, q.Prime ∧ x < q ∧
+      (q : Real) ≤ x + x / (Real.log x) ^ 3
+
+/-! General finite/tail gluing for the logarithm-cubed interval estimate. -/
+theorem hasLogCubedShortIntervalPrime_of_below_and_above
+    {X : Real} (hX : (89693 : Real) ≤ X)
+    (finite : HasLogCubedShortIntervalPrimeBelow X)
+    (tail : ∀ x : Real, X ≤ x →
+      ∃ q : Nat, q.Prime ∧ x < q ∧
+        (q : Real) ≤ x + x / (Real.log x) ^ 3) :
+    HasLogCubedShortIntervalPrime := by
+  intro x hx
+  by_cases hsmall : x ≤ X
+  · exact finite x hx hsmall
+  · exact tail x (le_of_lt (lt_of_not_ge hsmall))
+
 def HasDusartShortIntervalPrimeBelow (X : Real) : Prop :=
   ∀ x : Real, 3275 ≤ x → x ≤ X →
     ∃ q : Nat, q.Prime ∧ x < q ∧
@@ -364,6 +382,18 @@ theorem dusartPrimeInInterval_of_logFourthError_from
         _ = (12167 / 500000 : Real) * x / (Real.log x) ^ 3 := by ring)
   exact dusartPrimeInInterval_of_thetaLogCubedError_from
     hXpos h2X hlogX cubic
+
+theorem hasLogCubedShortIntervalPrime_of_below_and_logFourthError
+    {A X : Real} (hX : (89693 : Real) ≤ X)
+    (hXpos : 0 < X) (h2X : 2 ≤ X) (hlogX : (10 : Real) < Real.log X)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (finite : HasLogCubedShortIntervalPrimeBelow X)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasLogCubedShortIntervalPrime := by
+  exact hasLogCubedShortIntervalPrime_of_below_and_above hX finite
+    (dusartPrimeInInterval_of_logFourthError_from
+      hXpos h2X hlogX hA_nonneg hA thetaError)
 
 /-- Applying the short-interval theorem at the left member of a consecutive
 prime pair bounds the right member. -/
