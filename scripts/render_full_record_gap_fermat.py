@@ -74,24 +74,21 @@ def term_expression(offset: int) -> str:
     return f"recordGapCenter + {offset}"
 
 
-def render_witness(index: int, offset: int, modulus: int, residue: int) -> str:
+def render_witness(index: int, offset: int, modulus: int) -> str:
     name = label(index)
     term = term_expression(offset)
-    return f"""import Mathlib.Tactic.ReduceModChar
+    return f"""import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod
 import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCenter
 
 set_option autoImplicit false
 set_option maxRecDepth 10000000
-set_option exponentiation.threshold 100000
 set_option linter.style.longLine false
 
-/-! Generated base-3 Fermat replay for full-gap offset {offset}. -/
+/-! Generated kernel-replayed Fermat witness for full-gap offset {offset}. -/
 
 namespace PrimeFactorUnimodality
 
 def fullRecordGapValue{name} : Nat := {modulus}
-
-def fullRecordGapResidue{name} : Nat := {residue}
 
 theorem fullRecordGapTerm{name}_eq_value :
     {term} = fullRecordGapValue{name} := by
@@ -99,34 +96,16 @@ theorem fullRecordGapTerm{name}_eq_value :
   norm_num [fullRecordGapCenterValue, fullRecordGapValue{name}]
 
 set_option maxHeartbeats 0 in
--- Proof-producing modular exponentiation of a roughly 62,000-bit exponent.
-theorem fullRecordGapLiteral{name}_three_pow :
-    (3 : ZMod {modulus}) ^ {modulus - 1} =
-      (({residue} : Nat) : ZMod {modulus}) := by
-  reduce_mod_char
-
-theorem fullRecordGapResidue{name}_ne_one :
-    ((fullRecordGapResidue{name} : Nat) : ZMod fullRecordGapValue{name}) ≠ 1 := by
-  intro residue_eq_one
-  have modulus_gt_one : 1 < fullRecordGapValue{name} := by
-    norm_num [fullRecordGapValue{name}]
-  have value_eq_one :=
-    (ZMod.val_eq_one modulus_gt_one
-      ((fullRecordGapResidue{name} : Nat) : ZMod fullRecordGapValue{name})).mpr
-      residue_eq_one
-  rw [ZMod.val_natCast_of_lt (by
-    norm_num [fullRecordGapResidue{name}, fullRecordGapValue{name}])] at value_eq_one
-  norm_num [fullRecordGapResidue{name}] at value_eq_one
+theorem fullRecordGapLiteral{name}_fast_pow_mod_ne_one :
+    fastPowMod 3 fullRecordGapValue{name} (fullRecordGapValue{name} - 1) ≠ 1 := by
+  decide
 
 theorem fullRecordGapTerm{name}_not_prime : ¬({term}).Prime := by
   rw [fullRecordGapTerm{name}_eq_value]
-  apply not_prime_of_pow_ne_one (a := 3)
+  apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
   · norm_num [fullRecordGapValue{name}]
-  · change (3 : ZMod {modulus}) ^ {modulus - 1} ≠ 1
-    rw [fullRecordGapLiteral{name}_three_pow]
-    simpa only [fullRecordGapResidue{name}, fullRecordGapValue{name}] using
-      fullRecordGapResidue{name}_ne_one
+  · exact fullRecordGapLiteral{name}_fast_pow_mod_ne_one
 
 end PrimeFactorUnimodality
 """
@@ -166,11 +145,8 @@ def main() -> None:
 
     for index, offset in enumerate(selected, start=args.start):
         modulus = center + offset
-        residue = pow(3, modulus - 1, modulus)
-        if residue == 1:
-            raise ValueError(f"offset {offset} is a base-3 probable prime")
         target = args.output_dir / f"Part{label(index)}.lean"
-        target.write_text(render_witness(index, offset, modulus, residue))
+        target.write_text(render_witness(index, offset, modulus))
         print(f"wrote witness {index}/{len(offsets)} for offset {offset}")
 
     end = args.start + args.count - 1
