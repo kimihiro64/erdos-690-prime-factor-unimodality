@@ -134,6 +134,17 @@ theorem completeClassification_of_full_record_split_analytic_inputs
       finitePrimeCounting tailPrimeCounting)
     finiteTheta cover thetaError
 
+theorem completeClassification_of_full_record_cutoff_split_inputs
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
+    (tailPrimeCounting : HasDusartRealPrimeCountingBoundsAbove (4e18 : Real))
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
+    {rows : List LogCubedPrimeRow}
+    (cover : LogCubedPrimeRowsCoverUpTo rows (4e18 : Real))
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    CompleteClassification := by
+  exact completeClassification_of_full_record_split_analytic_inputs
+    finitePrimeCounting tailPrimeCounting finiteTheta cover thetaError
+
 end
 
 end PrimeFactorUnimodality
