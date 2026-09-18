@@ -117,6 +117,19 @@ theorem completeClassification_of_full_record_fourth_theta_error
       finiteTheta hA_nonneg hA thetaError)
     dusartCover logCover cubic
 
+theorem completeClassification_of_full_record_unit_fourth_theta_error
+    (primeCountingBounds : HasDusartRealPrimeCountingBounds)
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
+    {dusartRows : List DusartPrimeRow}
+    (dusartCover : DusartPrimeRowsCoverBelow dusartRows)
+    {logRows : List LogCubedPrimeRow}
+    (logCover : LogCubedPrimeRowsCoverUpTo logRows (4e18 : Real))
+    (thetaError : HasThetaLogFourthError 1 (4e18 : Real)) :
+    CompleteClassification := by
+  exact completeClassification_of_full_record_fourth_theta_error
+    primeCountingBounds finiteTheta (by norm_num) (by norm_num)
+    dusartCover logCover thetaError
+
 /-! The finite-row presentation is the concrete form needed by the eventual
 analytic provider: it keeps the medium range as one bounded cover and uses
 the proved theta-error implication above the cutoff. -/
