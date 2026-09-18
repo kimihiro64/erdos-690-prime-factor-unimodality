@@ -22,11 +22,12 @@ bounds extend this to every `21 ≤ k ≤ 48`.
 The current large-range development contains a closed composite-block
 certificate, generated kernel-replayable record-twin certificates, a finite
 prime-prefix/reciprocal-sum route through `k = 38,000`, and a uniform-tail
-reduction. The public all-`k` theorem is not yet unconditional: its remaining
-boundary consists of the generated certificates still being built and four
-explicit analytic prime-estimate interfaces. See [`TODO.md`](TODO.md) for the
-completion gates. This checkpoint therefore does not yet claim a complete
-formalization of Erdős 690.
+reduction. The public Challenge/Solution boundary now states the exact
+universal all-`k` theorem, but the Solution proof is not yet unconditional:
+its remaining boundary consists of the generated certificates still being
+built and the explicit analytic prime-estimate interfaces. See
+[`TODO.md`](TODO.md) for the completion gates. This checkpoint therefore does
+not yet claim a complete formalization of Erdős 690.
 
 The release state is visible mechanically:
 

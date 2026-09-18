@@ -34,8 +34,9 @@
   `r ≥ 8,600,001`, with the sharper `5/4` selector available from `2^25`.
   Use these closed selectors to replace the remaining short-interval
   interface before formalizing any deeper Dusart input.
-- [ ] Replace the template Challenge/Solution surface with the exact all-`k`
-  statement and remove every release sentinel.
+- [x] Replace the old fixed-`k` Challenge/Solution surface with the exact
+  all-`k` statement. The Solution proof remains pending until the analytic
+  interfaces and full generated certificates are closed.
 - [ ] Run the research and release profiles, inspect the axiom surface, and
   run Comparator on a clean tree.
 - [ ] Commit and push the completed proof to preserve timestamped provenance.
