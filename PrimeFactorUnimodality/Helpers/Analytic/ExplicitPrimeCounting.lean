@@ -148,6 +148,13 @@ theorem hasDusartRealPrimeCountingBounds_of_below_and_above
     · exact finite.2 x hx hsmall
     · exact tail.2 x (le_of_lt (lt_of_not_ge hsmall))
 
+theorem hasDusartRealPrimeCountingBounds_of_finite_and_asymptotic
+    (finite : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
+    (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e9 : Real)) :
+    HasDusartRealPrimeCountingBounds :=
+  hasDusartRealPrimeCountingBounds_of_below_and_above finite
+    (hasDusartRealPrimeCountingBoundsAbove_of_asymptotic asymptotic)
+
 theorem hasDusartRealPrimeCountingBounds_of_below_and_above_at_cutoff
     (finite : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
     (tail : HasDusartRealPrimeCountingBoundsAbove (4e18 : Real)) :
