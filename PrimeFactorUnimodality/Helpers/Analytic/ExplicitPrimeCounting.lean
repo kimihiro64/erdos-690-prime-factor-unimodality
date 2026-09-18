@@ -1364,18 +1364,19 @@ def HasDusartPrimeCountingAsymptoticAbove (X : Real) : Prop :=
 unnormalized form produced by Abel summation.  This theorem performs the
 normalization into Dusart's published `E` form entirely in Lean. -/
 theorem hasDusartPrimeCountingAsymptoticAbove_of_explicitRemainder
-    (hbound : ∀ x : Real, (4e9 : Real) ≤ x →
+    {X : Real} (hXpos : 0 < X) (hlogX : (20 : Real) < Real.log X)
+    (hbound : ∀ x : Real, X ≤ x →
       |(Nat.primeCounting ⌊x⌋₊ : Real) -
           (x / Real.log x + x / (Real.log x) ^ 2 +
             2 * x / (Real.log x) ^ 3)| ≤
         (732 : Real) / 100 * x / (Real.log x) ^ 4) :
-    HasDusartPrimeCountingAsymptoticAbove (4e9 : Real) := by
+    HasDusartPrimeCountingAsymptoticAbove X := by
   intro x hx
   have hx_pos : 0 < x := by linarith
   have hlog_pos : 0 < Real.log x := by
-    exact Real.log_pos (by
-      norm_num at hx ⊢
-      linarith)
+    have hlogx : (20 : Real) < Real.log x :=
+      lt_of_lt_of_le hlogX (Real.log_le_log hXpos hx)
+    linarith
   let E : Real :=
     ((Nat.primeCounting ⌊x⌋₊ : Real) -
       (x / Real.log x + x / (Real.log x) ^ 2 +
