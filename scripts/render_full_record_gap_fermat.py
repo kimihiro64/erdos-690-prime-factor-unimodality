@@ -93,7 +93,7 @@ def fullRecordGapValue{name} : Nat := {modulus}
 theorem fullRecordGapTerm{name}_eq_value :
     {term} = fullRecordGapValue{name} := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  norm_num [fullRecordGapCenterValue, fullRecordGapValue{name}]
+  rfl
 
 set_option maxHeartbeats 0 in
 theorem fullRecordGapLiteral{name}_fast_pow_mod_ne_one :

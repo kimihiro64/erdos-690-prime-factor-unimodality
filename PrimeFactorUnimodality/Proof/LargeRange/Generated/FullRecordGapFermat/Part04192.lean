@@ -14,7 +14,7 @@ def fullRecordGapValue04192 : Nat := 3125353491167441173339255266487429789550700
 theorem fullRecordGapTerm04192_eq_value :
     recordGapCenter + 106920 = fullRecordGapValue04192 := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  norm_num [fullRecordGapCenterValue, fullRecordGapValue04192]
+  rfl
 
 set_option maxHeartbeats 0 in
 theorem fullRecordGapLiteral04192_fast_pow_mod_ne_one :
