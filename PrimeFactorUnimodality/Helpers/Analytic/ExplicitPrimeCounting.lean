@@ -1203,6 +1203,39 @@ theorem log_coefficient_le_732
   norm_num at h1 h24 h120 htail7 htailA
   linarith
 
+theorem primeCounting_remainder_abs_le_732
+    {A C X x : Real} (hX : 1 < X) (h2X : 2 ≤ X) (hXx : X ≤ x)
+    (hA0 : 0 ≤ A) (hA : A ≤ 1) (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hlog : (42 : Real) ≤ Real.log X)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (error : HasThetaLogFourthError A X) :
+    |(Nat.primeCounting ⌊x⌋₊ : Real) -
+        (x / Real.log x + x / Real.log x ^ 2 +
+          2 * x / Real.log x ^ 3)| ≤
+      (732 : Real) / 100 * x / Real.log x ^ 4 := by
+  have henv := primeCounting_remainder_abs_le_of_log_coefficient
+    hX h2X hXx hA0 hC0 (by linarith) hcore error
+  have hcoef := log_coefficient_le_732 hA0 hA hC0 hC hlog
+  have hxpos : 0 < x := by linarith
+  have hlogx : 0 < Real.log x := Real.log_pos (by linarith)
+  have hbase : 0 ≤ x / Real.log x ^ 4 := by positivity
+  have hscaled := mul_le_mul_of_nonneg_right hcoef hbase
+  calc
+    |(Nat.primeCounting ⌊x⌋₊ : Real) -
+          (x / Real.log x + x / Real.log x ^ 2 +
+            2 * x / Real.log x ^ 3)| ≤
+        (A / Real.log X) * (x / Real.log x ^ 4) +
+          6 * (x / Real.log x ^ 4) +
+          (24 / Real.log X) * (x / Real.log x ^ 4) +
+          (120 / Real.log X ^ 2) * (x / Real.log x ^ 4) +
+          C * (x / Real.log x ^ 4) +
+          (720 / (Real.log X ^ 3 * (1 - 7 / Real.log X))) *
+            (x / Real.log x ^ 4) +
+          (A / (Real.log X ^ 2 * (1 - 6 / Real.log X))) *
+            (x / Real.log x ^ 4) := henv
+    _ ≤ (732 : Real) / 100 * x / Real.log x ^ 4 := by
+      convert hscaled using 1 <;> ring
+
 theorem theta_remainder_pointwise_le_of_logFourthError
     {A X x : Real} (hX : 1 < X)
     (error : HasThetaLogFourthError A X) (hx : X ≤ x) :
