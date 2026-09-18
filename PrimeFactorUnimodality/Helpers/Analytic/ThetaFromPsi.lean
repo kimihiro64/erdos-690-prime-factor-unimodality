@@ -304,6 +304,14 @@ theorem hasThetaLogFourthError_of_psiLogFourthError_sharp
       add_le_add (hcorrection_abs.trans hcorrection_sharp) hpsi
     _ = (A + 148 / 1000) * x / (Real.log x) ^ 4 := by ring
 
+theorem hasThetaLogCubedError_of_psiLogFourthError_sharp
+    {A X : Real} (hX : (4e18 : Real) ≤ X) (hA : 0 ≤ A)
+    (psiError : HasPsiLogFourthError A X) :
+    HasThetaLogCubedError ((A + 148 / 1000) / Real.log X) X := by
+  apply hasThetaLogCubedError_of_logFourthError
+    (by linarith [hX]) (by linarith)
+  exact hasThetaLogFourthError_of_psiLogFourthError_sharp hX psiError
+
 end
 
 end PrimeFactorUnimodality
