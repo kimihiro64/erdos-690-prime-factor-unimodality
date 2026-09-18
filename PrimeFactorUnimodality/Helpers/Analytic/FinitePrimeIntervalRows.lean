@@ -228,6 +228,42 @@ def LogCubedPrimeRowsCoverUpTo (rows : List LogCubedPrimeRow) (X : Real) : Prop 
   ∀ x : Real, 89693 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+/-! A finite theta-error table has the same shape as the interval table, but
+the row carries the analytic inequality which its (small) rational
+certificate establishes.  Keeping this as a list-level interface is
+important: the proof of the global estimate consumes one cover, while the
+certificate generator may choose its own row width and arithmetic encoding.
+No theorem about theta is imported here; every row must provide its own
+kernel-checked local estimate. -/
+structure ThetaLogFourthErrorRow (A : Real) where
+  left : Nat
+  right : Nat
+  left_large : 2 ≤ left
+  left_le_right : left ≤ right
+  error : ∀ x : Real, (left : Real) ≤ x → x ≤ right →
+    |Chebyshev.theta x - x| ≤ A * x / (Real.log x) ^ 4
+
+def ThetaLogFourthErrorRowsCoverUpTo
+    {A : Real} (rows : List (ThetaLogFourthErrorRow A)) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem hasThetaLogFourthErrorBelow_of_rows
+    {A X : Real} {rows : List (ThetaLogFourthErrorRow A)}
+    (cover : ThetaLogFourthErrorRowsCoverUpTo rows X) :
+    HasThetaLogFourthErrorBelow A X := by
+  intro x hx2 hxX
+  obtain ⟨row, hrow, hleft, hright⟩ := cover x hx2 hxX
+  exact row.error x hleft hright
+
+theorem hasThetaLogFourthError_of_rows_and_tail
+    {A X : Real} {rows : List (ThetaLogFourthErrorRow A)}
+    (cover : ThetaLogFourthErrorRowsCoverUpTo rows X)
+    (tail : HasThetaLogFourthErrorAbove A X) :
+    HasThetaLogFourthError A 2 := by
+  exact hasThetaLogFourthError_of_below_and_above
+    (hasThetaLogFourthErrorBelow_of_rows cover) tail
+
 theorem logCubedPrimeRow_provides
     (upper_mono : ∀ {a b : Real}, 89693 ≤ a → a ≤ b →
       logCubedUpper a ≤ logCubedUpper b)
