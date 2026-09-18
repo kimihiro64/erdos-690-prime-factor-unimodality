@@ -8,2313 +8,585 @@ set_option linter.style.longLine false
 namespace PrimeFactorUnimodality
 
 def fullRecordGapRow00030_values : List Nat :=
-  [fullRecordGapCenterValue + 427796,
-    fullRecordGapCenterValue + 427886,
-    fullRecordGapCenterValue + 427998,
-    fullRecordGapCenterValue + 428018,
-    fullRecordGapCenterValue + 428066,
-    fullRecordGapCenterValue + 428082,
-    fullRecordGapCenterValue + 428102,
-    fullRecordGapCenterValue + 428118,
-    fullRecordGapCenterValue + 428132,
-    fullRecordGapCenterValue + 428216,
-    fullRecordGapCenterValue + 428228,
-    fullRecordGapCenterValue + 428258,
-    fullRecordGapCenterValue + 428276,
-    fullRecordGapCenterValue + 428282,
-    fullRecordGapCenterValue + 428396,
-    fullRecordGapCenterValue + 428426,
-    fullRecordGapCenterValue + 428438,
-    fullRecordGapCenterValue + 428486,
-    fullRecordGapCenterValue + 428652,
-    fullRecordGapCenterValue + 428762,
-    fullRecordGapCenterValue + 428838,
-    fullRecordGapCenterValue + 428888,
-    fullRecordGapCenterValue + 428898,
-    fullRecordGapCenterValue + 429038,
-    fullRecordGapCenterValue + 429356,
-    fullRecordGapCenterValue + 429558,
-    fullRecordGapCenterValue + 429578,
-    fullRecordGapCenterValue + 429698,
-    fullRecordGapCenterValue + 429752,
-    fullRecordGapCenterValue + 429782,
-    fullRecordGapCenterValue + 429882,
-    fullRecordGapCenterValue + 429978,
-    fullRecordGapCenterValue + 430158,
-    fullRecordGapCenterValue + 430242,
-    fullRecordGapCenterValue + 430266,
-    fullRecordGapCenterValue + 430278,
-    fullRecordGapCenterValue + 430286,
-    fullRecordGapCenterValue + 430328,
-    fullRecordGapCenterValue + 430446,
-    fullRecordGapCenterValue + 430662,
-    fullRecordGapCenterValue + 430706,
-    fullRecordGapCenterValue + 430796,
-    fullRecordGapCenterValue + 430886,
-    fullRecordGapCenterValue + 430922,
-    fullRecordGapCenterValue + 430988,
-    fullRecordGapCenterValue + 431058,
-    fullRecordGapCenterValue + 431286,
-    fullRecordGapCenterValue + 431322,
-    fullRecordGapCenterValue + 431336,
-    fullRecordGapCenterValue + 431502,
-    fullRecordGapCenterValue + 431666,
-    fullRecordGapCenterValue + 431672,
-    fullRecordGapCenterValue + 431778,
-    fullRecordGapCenterValue + 431798,
-    fullRecordGapCenterValue + 431826,
-    fullRecordGapCenterValue + 432008,
-    fullRecordGapCenterValue + 432392,
-    fullRecordGapCenterValue + 432462,
-    fullRecordGapCenterValue + 432518,
-    fullRecordGapCenterValue + 432716,
-    fullRecordGapCenterValue + 432728,
-    fullRecordGapCenterValue + 432902,
-    fullRecordGapCenterValue + 432962,
-    fullRecordGapCenterValue + 432968,
-    fullRecordGapCenterValue + 433038,
-    fullRecordGapCenterValue + 433052,
-    fullRecordGapCenterValue + 433106,
-    fullRecordGapCenterValue + 433148,
-    fullRecordGapCenterValue + 433190,
-    fullRecordGapCenterValue + 433298,
-    fullRecordGapCenterValue + 433406,
-    fullRecordGapCenterValue + 433626,
-    fullRecordGapCenterValue + 433658,
-    fullRecordGapCenterValue + 433662,
-    fullRecordGapCenterValue + 433718,
-    fullRecordGapCenterValue + 433722,
-    fullRecordGapCenterValue + 433802,
-    fullRecordGapCenterValue + 433910,
-    fullRecordGapCenterValue + 433970,
-    fullRecordGapCenterValue + 434022,
-    fullRecordGapCenterValue + 434046,
-    fullRecordGapCenterValue + 434162,
-    fullRecordGapCenterValue + 434222,
-    fullRecordGapCenterValue + 434270,
-    fullRecordGapCenterValue + 434438,
-    fullRecordGapCenterValue + 434570,
-    fullRecordGapCenterValue + 434702,
-    fullRecordGapCenterValue + 434802,
-    fullRecordGapCenterValue + 434822,
-    fullRecordGapCenterValue + 434886,
-    fullRecordGapCenterValue + 435146,
-    fullRecordGapCenterValue + 435170,
-    fullRecordGapCenterValue + 435282,
-    fullRecordGapCenterValue + 435362,
-    fullRecordGapCenterValue + 435542,
-    fullRecordGapCenterValue + 435572,
-    fullRecordGapCenterValue + 435668,
-    fullRecordGapCenterValue + 435692,
-    fullRecordGapCenterValue + 435716,
-    fullRecordGapCenterValue + 435738,
-    fullRecordGapCenterValue + 435752,
-    fullRecordGapCenterValue + 435818,
-    fullRecordGapCenterValue + 435836,
-    fullRecordGapCenterValue + 435866,
-    fullRecordGapCenterValue + 436026,
-    fullRecordGapCenterValue + 436052,
-    fullRecordGapCenterValue + 436070,
-    fullRecordGapCenterValue + 436166,
-    fullRecordGapCenterValue + 436242,
-    fullRecordGapCenterValue + 436298,
-    fullRecordGapCenterValue + 436466,
-    fullRecordGapCenterValue + 436472,
-    fullRecordGapCenterValue + 436490,
-    fullRecordGapCenterValue + 436532,
-    fullRecordGapCenterValue + 436556,
-    fullRecordGapCenterValue + 436578,
-    fullRecordGapCenterValue + 436602,
-    fullRecordGapCenterValue + 436616,
-    fullRecordGapCenterValue + 436782,
-    fullRecordGapCenterValue + 436808,
-    fullRecordGapCenterValue + 436838,
-    fullRecordGapCenterValue + 437012,
-    fullRecordGapCenterValue + 437042,
-    fullRecordGapCenterValue + 437102,
-    fullRecordGapCenterValue + 437252,
-    fullRecordGapCenterValue + 437336,
-    fullRecordGapCenterValue + 437406,
-    fullRecordGapCenterValue + 437432,
-    fullRecordGapCenterValue + 437442,
-    fullRecordGapCenterValue + 437498,
-    fullRecordGapCenterValue + 437516,
-    fullRecordGapCenterValue + 437538,
-    fullRecordGapCenterValue + 437588,
-    fullRecordGapCenterValue + 437678,
-    fullRecordGapCenterValue + 437732,
-    fullRecordGapCenterValue + 437768,
-    fullRecordGapCenterValue + 437816,
-    fullRecordGapCenterValue + 437838,
-    fullRecordGapCenterValue + 437876,
-    fullRecordGapCenterValue + 438182,
-    fullRecordGapCenterValue + 438188,
-    fullRecordGapCenterValue + 438222,
-    fullRecordGapCenterValue + 438296,
-    fullRecordGapCenterValue + 438356,
-    fullRecordGapCenterValue + 438378,
-    fullRecordGapCenterValue + 438392,
-    fullRecordGapCenterValue + 438722,
-    fullRecordGapCenterValue + 438726,
-    fullRecordGapCenterValue + 438846,
-    fullRecordGapCenterValue + 438926,
-    fullRecordGapCenterValue + 439086,
-    fullRecordGapCenterValue + 439230,
-    fullRecordGapCenterValue + 439316,
-    fullRecordGapCenterValue + 439352,
-    fullRecordGapCenterValue + 439430,
-    fullRecordGapCenterValue + 439442,
-    fullRecordGapCenterValue + 439458,
-    fullRecordGapCenterValue + 439598,
-    fullRecordGapCenterValue + 439646,
-    fullRecordGapCenterValue + 439652,
-    fullRecordGapCenterValue + 439832,
-    fullRecordGapCenterValue + 439862,
-    fullRecordGapCenterValue + 439910,
-    fullRecordGapCenterValue + 439962,
-    fullRecordGapCenterValue + 440072,
-    fullRecordGapCenterValue + 440178,
-    fullRecordGapCenterValue + 440210,
-    fullRecordGapCenterValue + 440246,
-    fullRecordGapCenterValue + 440408,
-    fullRecordGapCenterValue + 440456,
-    fullRecordGapCenterValue + 440718,
-    fullRecordGapCenterValue + 440738,
-    fullRecordGapCenterValue + 440798,
-    fullRecordGapCenterValue + 440822,
-    fullRecordGapCenterValue + 440826,
-    fullRecordGapCenterValue + 440862,
-    fullRecordGapCenterValue + 441102,
-    fullRecordGapCenterValue + 441110,
-    fullRecordGapCenterValue + 441282,
-    fullRecordGapCenterValue + 441290,
-    fullRecordGapCenterValue + 441318,
-    fullRecordGapCenterValue + 441362,
-    fullRecordGapCenterValue + 441366,
-    fullRecordGapCenterValue + 441542,
-    fullRecordGapCenterValue + 441578,
-    fullRecordGapCenterValue + 441582,
-    fullRecordGapCenterValue + 441722,
-    fullRecordGapCenterValue + 441746,
-    fullRecordGapCenterValue + 441758,
-    fullRecordGapCenterValue + 441806,
-    fullRecordGapCenterValue + 441858,
-    fullRecordGapCenterValue + 441906,
-    fullRecordGapCenterValue + 441992,
-    fullRecordGapCenterValue + 442158,
-    fullRecordGapCenterValue + 442172,
-    fullRecordGapCenterValue + 442268,
-    fullRecordGapCenterValue + 442418,
-    fullRecordGapCenterValue + 442466,
-    fullRecordGapCenterValue + 442478,
-    fullRecordGapCenterValue + 442626,
-    fullRecordGapCenterValue + 442698,
-    fullRecordGapCenterValue + 442808,
-    fullRecordGapCenterValue + 442916,
-    fullRecordGapCenterValue + 443012,
-    fullRecordGapCenterValue + 443018,
-    fullRecordGapCenterValue + 443048,
-    fullRecordGapCenterValue + 443082,
-    fullRecordGapCenterValue + 443192,
-    fullRecordGapCenterValue + 443306,
-    fullRecordGapCenterValue + 443396,
-    fullRecordGapCenterValue + 443426,
-    fullRecordGapCenterValue + 443438,
-    fullRecordGapCenterValue + 443528,
-    fullRecordGapCenterValue + 443570,
-    fullRecordGapCenterValue + 443636,
-    fullRecordGapCenterValue + 443658,
-    fullRecordGapCenterValue + 443882,
-    fullRecordGapCenterValue + 444008,
-    fullRecordGapCenterValue + 444126,
-    fullRecordGapCenterValue + 444162,
-    fullRecordGapCenterValue + 444326,
-    fullRecordGapCenterValue + 444386,
-    fullRecordGapCenterValue + 444398,
-    fullRecordGapCenterValue + 444426,
-    fullRecordGapCenterValue + 444476,
-    fullRecordGapCenterValue + 444530,
-    fullRecordGapCenterValue + 444558,
-    fullRecordGapCenterValue + 444806,
-    fullRecordGapCenterValue + 444908,
-    fullRecordGapCenterValue + 444966,
-    fullRecordGapCenterValue + 444998,
-    fullRecordGapCenterValue + 445002,
-    fullRecordGapCenterValue + 445022,
-    fullRecordGapCenterValue + 445070,
-    fullRecordGapCenterValue + 445106,
-    fullRecordGapCenterValue + 445112,
-    fullRecordGapCenterValue + 445182,
-    fullRecordGapCenterValue + 445202,
-    fullRecordGapCenterValue + 445226,
-    fullRecordGapCenterValue + 445268,
-    fullRecordGapCenterValue + 445292,
-    fullRecordGapCenterValue + 445358,
-    fullRecordGapCenterValue + 445448,
-    fullRecordGapCenterValue + 445490,
-    fullRecordGapCenterValue + 445646,
-    fullRecordGapCenterValue + 445722,
-    fullRecordGapCenterValue + 445736,
-    fullRecordGapCenterValue + 445772,
-    fullRecordGapCenterValue + 445790,
-    fullRecordGapCenterValue + 445838,
-    fullRecordGapCenterValue + 445862,
-    fullRecordGapCenterValue + 445868,
-    fullRecordGapCenterValue + 445902,
-    fullRecordGapCenterValue + 445938,
-    fullRecordGapCenterValue + 445982,
-    fullRecordGapCenterValue + 446036]
+  [fullRecordGapCenterValue - 305878,
+    fullRecordGapCenterValue - 305818,
+    fullRecordGapCenterValue - 305814,
+    fullRecordGapCenterValue - 305692,
+    fullRecordGapCenterValue - 305638,
+    fullRecordGapCenterValue - 305454,
+    fullRecordGapCenterValue - 305212,
+    fullRecordGapCenterValue - 305202,
+    fullRecordGapCenterValue - 305142,
+    fullRecordGapCenterValue - 305134,
+    fullRecordGapCenterValue - 305062,
+    fullRecordGapCenterValue - 305044,
+    fullRecordGapCenterValue - 304918,
+    fullRecordGapCenterValue - 304834,
+    fullRecordGapCenterValue - 304762,
+    fullRecordGapCenterValue - 304534,
+    fullRecordGapCenterValue - 304518,
+    fullRecordGapCenterValue - 304498,
+    fullRecordGapCenterValue - 304338,
+    fullRecordGapCenterValue - 304324,
+    fullRecordGapCenterValue - 304294,
+    fullRecordGapCenterValue - 304098,
+    fullRecordGapCenterValue - 304078,
+    fullRecordGapCenterValue - 303988,
+    fullRecordGapCenterValue - 303694,
+    fullRecordGapCenterValue - 303652,
+    fullRecordGapCenterValue - 303532,
+    fullRecordGapCenterValue - 303522,
+    fullRecordGapCenterValue - 303412,
+    fullRecordGapCenterValue - 303172,
+    fullRecordGapCenterValue - 303018,
+    fullRecordGapCenterValue - 302754,
+    fullRecordGapCenterValue - 302308,
+    fullRecordGapCenterValue - 302298,
+    fullRecordGapCenterValue - 302154,
+    fullRecordGapCenterValue - 301762,
+    fullRecordGapCenterValue - 301612,
+    fullRecordGapCenterValue - 301564,
+    fullRecordGapCenterValue - 301468,
+    fullRecordGapCenterValue - 301348,
+    fullRecordGapCenterValue - 301234,
+    fullRecordGapCenterValue - 301174,
+    fullRecordGapCenterValue - 300954,
+    fullRecordGapCenterValue - 300862,
+    fullRecordGapCenterValue - 300774,
+    fullRecordGapCenterValue - 300772,
+    fullRecordGapCenterValue - 300754,
+    fullRecordGapCenterValue - 300738,
+    fullRecordGapCenterValue - 300522,
+    fullRecordGapCenterValue - 300442,
+    fullRecordGapCenterValue - 300418,
+    fullRecordGapCenterValue - 300394,
+    fullRecordGapCenterValue - 300178,
+    fullRecordGapCenterValue - 300052,
+    fullRecordGapCenterValue - 300022,
+    fullRecordGapCenterValue - 299938,
+    fullRecordGapCenterValue - 299878,
+    fullRecordGapCenterValue - 299674,
+    fullRecordGapCenterValue - 299658,
+    fullRecordGapCenterValue - 299634,
+    fullRecordGapCenterValue - 299542,
+    fullRecordGapCenterValue - 299518,
+    fullRecordGapCenterValue - 299514,
+    fullRecordGapCenterValue - 299458]
 
 set_option maxHeartbeats 0 in
 theorem fullRecordGapRow00030_fermat : ∀ n ∈ fullRecordGapRow00030_values,
     fastPowMod 3 n (n - 1) ≠ 1 := by
   decide
 
-theorem fullRecordGapTerm07425_not_prime : ¬(recordGapCenter + 427796).Prime := by
+theorem fullRecordGapTerm01857_not_prime : ¬(recordGapCenter - 305878).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 427796]
+  · norm_num [fullRecordGapCenterValue - 305878]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07426_not_prime : ¬(recordGapCenter + 427886).Prime := by
+theorem fullRecordGapTerm01858_not_prime : ¬(recordGapCenter - 305818).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 427886]
+  · norm_num [fullRecordGapCenterValue - 305818]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07427_not_prime : ¬(recordGapCenter + 427998).Prime := by
+theorem fullRecordGapTerm01859_not_prime : ¬(recordGapCenter - 305814).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 427998]
+  · norm_num [fullRecordGapCenterValue - 305814]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07428_not_prime : ¬(recordGapCenter + 428018).Prime := by
+theorem fullRecordGapTerm01860_not_prime : ¬(recordGapCenter - 305692).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428018]
+  · norm_num [fullRecordGapCenterValue - 305692]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07429_not_prime : ¬(recordGapCenter + 428066).Prime := by
+theorem fullRecordGapTerm01861_not_prime : ¬(recordGapCenter - 305638).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428066]
+  · norm_num [fullRecordGapCenterValue - 305638]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07430_not_prime : ¬(recordGapCenter + 428082).Prime := by
+theorem fullRecordGapTerm01862_not_prime : ¬(recordGapCenter - 305454).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428082]
+  · norm_num [fullRecordGapCenterValue - 305454]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07431_not_prime : ¬(recordGapCenter + 428102).Prime := by
+theorem fullRecordGapTerm01863_not_prime : ¬(recordGapCenter - 305212).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428102]
+  · norm_num [fullRecordGapCenterValue - 305212]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07432_not_prime : ¬(recordGapCenter + 428118).Prime := by
+theorem fullRecordGapTerm01864_not_prime : ¬(recordGapCenter - 305202).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428118]
+  · norm_num [fullRecordGapCenterValue - 305202]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07433_not_prime : ¬(recordGapCenter + 428132).Prime := by
+theorem fullRecordGapTerm01865_not_prime : ¬(recordGapCenter - 305142).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428132]
+  · norm_num [fullRecordGapCenterValue - 305142]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07434_not_prime : ¬(recordGapCenter + 428216).Prime := by
+theorem fullRecordGapTerm01866_not_prime : ¬(recordGapCenter - 305134).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428216]
+  · norm_num [fullRecordGapCenterValue - 305134]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07435_not_prime : ¬(recordGapCenter + 428228).Prime := by
+theorem fullRecordGapTerm01867_not_prime : ¬(recordGapCenter - 305062).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428228]
+  · norm_num [fullRecordGapCenterValue - 305062]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07436_not_prime : ¬(recordGapCenter + 428258).Prime := by
+theorem fullRecordGapTerm01868_not_prime : ¬(recordGapCenter - 305044).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428258]
+  · norm_num [fullRecordGapCenterValue - 305044]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07437_not_prime : ¬(recordGapCenter + 428276).Prime := by
+theorem fullRecordGapTerm01869_not_prime : ¬(recordGapCenter - 304918).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428276]
+  · norm_num [fullRecordGapCenterValue - 304918]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07438_not_prime : ¬(recordGapCenter + 428282).Prime := by
+theorem fullRecordGapTerm01870_not_prime : ¬(recordGapCenter - 304834).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428282]
+  · norm_num [fullRecordGapCenterValue - 304834]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07439_not_prime : ¬(recordGapCenter + 428396).Prime := by
+theorem fullRecordGapTerm01871_not_prime : ¬(recordGapCenter - 304762).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428396]
+  · norm_num [fullRecordGapCenterValue - 304762]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07440_not_prime : ¬(recordGapCenter + 428426).Prime := by
+theorem fullRecordGapTerm01872_not_prime : ¬(recordGapCenter - 304534).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428426]
+  · norm_num [fullRecordGapCenterValue - 304534]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07441_not_prime : ¬(recordGapCenter + 428438).Prime := by
+theorem fullRecordGapTerm01873_not_prime : ¬(recordGapCenter - 304518).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428438]
+  · norm_num [fullRecordGapCenterValue - 304518]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07442_not_prime : ¬(recordGapCenter + 428486).Prime := by
+theorem fullRecordGapTerm01874_not_prime : ¬(recordGapCenter - 304498).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428486]
+  · norm_num [fullRecordGapCenterValue - 304498]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07443_not_prime : ¬(recordGapCenter + 428652).Prime := by
+theorem fullRecordGapTerm01875_not_prime : ¬(recordGapCenter - 304338).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428652]
+  · norm_num [fullRecordGapCenterValue - 304338]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07444_not_prime : ¬(recordGapCenter + 428762).Prime := by
+theorem fullRecordGapTerm01876_not_prime : ¬(recordGapCenter - 304324).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428762]
+  · norm_num [fullRecordGapCenterValue - 304324]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07445_not_prime : ¬(recordGapCenter + 428838).Prime := by
+theorem fullRecordGapTerm01877_not_prime : ¬(recordGapCenter - 304294).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428838]
+  · norm_num [fullRecordGapCenterValue - 304294]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07446_not_prime : ¬(recordGapCenter + 428888).Prime := by
+theorem fullRecordGapTerm01878_not_prime : ¬(recordGapCenter - 304098).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428888]
+  · norm_num [fullRecordGapCenterValue - 304098]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07447_not_prime : ¬(recordGapCenter + 428898).Prime := by
+theorem fullRecordGapTerm01879_not_prime : ¬(recordGapCenter - 304078).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 428898]
+  · norm_num [fullRecordGapCenterValue - 304078]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07448_not_prime : ¬(recordGapCenter + 429038).Prime := by
+theorem fullRecordGapTerm01880_not_prime : ¬(recordGapCenter - 303988).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 429038]
+  · norm_num [fullRecordGapCenterValue - 303988]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07449_not_prime : ¬(recordGapCenter + 429356).Prime := by
+theorem fullRecordGapTerm01881_not_prime : ¬(recordGapCenter - 303694).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 429356]
+  · norm_num [fullRecordGapCenterValue - 303694]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07450_not_prime : ¬(recordGapCenter + 429558).Prime := by
+theorem fullRecordGapTerm01882_not_prime : ¬(recordGapCenter - 303652).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 429558]
+  · norm_num [fullRecordGapCenterValue - 303652]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07451_not_prime : ¬(recordGapCenter + 429578).Prime := by
+theorem fullRecordGapTerm01883_not_prime : ¬(recordGapCenter - 303532).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 429578]
+  · norm_num [fullRecordGapCenterValue - 303532]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07452_not_prime : ¬(recordGapCenter + 429698).Prime := by
+theorem fullRecordGapTerm01884_not_prime : ¬(recordGapCenter - 303522).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 429698]
+  · norm_num [fullRecordGapCenterValue - 303522]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07453_not_prime : ¬(recordGapCenter + 429752).Prime := by
+theorem fullRecordGapTerm01885_not_prime : ¬(recordGapCenter - 303412).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 429752]
+  · norm_num [fullRecordGapCenterValue - 303412]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07454_not_prime : ¬(recordGapCenter + 429782).Prime := by
+theorem fullRecordGapTerm01886_not_prime : ¬(recordGapCenter - 303172).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 429782]
+  · norm_num [fullRecordGapCenterValue - 303172]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07455_not_prime : ¬(recordGapCenter + 429882).Prime := by
+theorem fullRecordGapTerm01887_not_prime : ¬(recordGapCenter - 303018).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 429882]
+  · norm_num [fullRecordGapCenterValue - 303018]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07456_not_prime : ¬(recordGapCenter + 429978).Prime := by
+theorem fullRecordGapTerm01888_not_prime : ¬(recordGapCenter - 302754).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 429978]
+  · norm_num [fullRecordGapCenterValue - 302754]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07457_not_prime : ¬(recordGapCenter + 430158).Prime := by
+theorem fullRecordGapTerm01889_not_prime : ¬(recordGapCenter - 302308).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 430158]
+  · norm_num [fullRecordGapCenterValue - 302308]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07458_not_prime : ¬(recordGapCenter + 430242).Prime := by
+theorem fullRecordGapTerm01890_not_prime : ¬(recordGapCenter - 302298).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 430242]
+  · norm_num [fullRecordGapCenterValue - 302298]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07459_not_prime : ¬(recordGapCenter + 430266).Prime := by
+theorem fullRecordGapTerm01891_not_prime : ¬(recordGapCenter - 302154).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 430266]
+  · norm_num [fullRecordGapCenterValue - 302154]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07460_not_prime : ¬(recordGapCenter + 430278).Prime := by
+theorem fullRecordGapTerm01892_not_prime : ¬(recordGapCenter - 301762).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 430278]
+  · norm_num [fullRecordGapCenterValue - 301762]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07461_not_prime : ¬(recordGapCenter + 430286).Prime := by
+theorem fullRecordGapTerm01893_not_prime : ¬(recordGapCenter - 301612).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 430286]
+  · norm_num [fullRecordGapCenterValue - 301612]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07462_not_prime : ¬(recordGapCenter + 430328).Prime := by
+theorem fullRecordGapTerm01894_not_prime : ¬(recordGapCenter - 301564).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 430328]
+  · norm_num [fullRecordGapCenterValue - 301564]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07463_not_prime : ¬(recordGapCenter + 430446).Prime := by
+theorem fullRecordGapTerm01895_not_prime : ¬(recordGapCenter - 301468).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 430446]
+  · norm_num [fullRecordGapCenterValue - 301468]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07464_not_prime : ¬(recordGapCenter + 430662).Prime := by
+theorem fullRecordGapTerm01896_not_prime : ¬(recordGapCenter - 301348).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 430662]
+  · norm_num [fullRecordGapCenterValue - 301348]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07465_not_prime : ¬(recordGapCenter + 430706).Prime := by
+theorem fullRecordGapTerm01897_not_prime : ¬(recordGapCenter - 301234).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 430706]
+  · norm_num [fullRecordGapCenterValue - 301234]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07466_not_prime : ¬(recordGapCenter + 430796).Prime := by
+theorem fullRecordGapTerm01898_not_prime : ¬(recordGapCenter - 301174).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 430796]
+  · norm_num [fullRecordGapCenterValue - 301174]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07467_not_prime : ¬(recordGapCenter + 430886).Prime := by
+theorem fullRecordGapTerm01899_not_prime : ¬(recordGapCenter - 300954).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 430886]
+  · norm_num [fullRecordGapCenterValue - 300954]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07468_not_prime : ¬(recordGapCenter + 430922).Prime := by
+theorem fullRecordGapTerm01900_not_prime : ¬(recordGapCenter - 300862).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 430922]
+  · norm_num [fullRecordGapCenterValue - 300862]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07469_not_prime : ¬(recordGapCenter + 430988).Prime := by
+theorem fullRecordGapTerm01901_not_prime : ¬(recordGapCenter - 300774).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 430988]
+  · norm_num [fullRecordGapCenterValue - 300774]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07470_not_prime : ¬(recordGapCenter + 431058).Prime := by
+theorem fullRecordGapTerm01902_not_prime : ¬(recordGapCenter - 300772).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 431058]
+  · norm_num [fullRecordGapCenterValue - 300772]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07471_not_prime : ¬(recordGapCenter + 431286).Prime := by
+theorem fullRecordGapTerm01903_not_prime : ¬(recordGapCenter - 300754).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 431286]
+  · norm_num [fullRecordGapCenterValue - 300754]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07472_not_prime : ¬(recordGapCenter + 431322).Prime := by
+theorem fullRecordGapTerm01904_not_prime : ¬(recordGapCenter - 300738).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 431322]
+  · norm_num [fullRecordGapCenterValue - 300738]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07473_not_prime : ¬(recordGapCenter + 431336).Prime := by
+theorem fullRecordGapTerm01905_not_prime : ¬(recordGapCenter - 300522).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 431336]
+  · norm_num [fullRecordGapCenterValue - 300522]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07474_not_prime : ¬(recordGapCenter + 431502).Prime := by
+theorem fullRecordGapTerm01906_not_prime : ¬(recordGapCenter - 300442).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 431502]
+  · norm_num [fullRecordGapCenterValue - 300442]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07475_not_prime : ¬(recordGapCenter + 431666).Prime := by
+theorem fullRecordGapTerm01907_not_prime : ¬(recordGapCenter - 300418).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 431666]
+  · norm_num [fullRecordGapCenterValue - 300418]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07476_not_prime : ¬(recordGapCenter + 431672).Prime := by
+theorem fullRecordGapTerm01908_not_prime : ¬(recordGapCenter - 300394).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 431672]
+  · norm_num [fullRecordGapCenterValue - 300394]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07477_not_prime : ¬(recordGapCenter + 431778).Prime := by
+theorem fullRecordGapTerm01909_not_prime : ¬(recordGapCenter - 300178).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 431778]
+  · norm_num [fullRecordGapCenterValue - 300178]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07478_not_prime : ¬(recordGapCenter + 431798).Prime := by
+theorem fullRecordGapTerm01910_not_prime : ¬(recordGapCenter - 300052).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 431798]
+  · norm_num [fullRecordGapCenterValue - 300052]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07479_not_prime : ¬(recordGapCenter + 431826).Prime := by
+theorem fullRecordGapTerm01911_not_prime : ¬(recordGapCenter - 300022).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 431826]
+  · norm_num [fullRecordGapCenterValue - 300022]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07480_not_prime : ¬(recordGapCenter + 432008).Prime := by
+theorem fullRecordGapTerm01912_not_prime : ¬(recordGapCenter - 299938).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 432008]
+  · norm_num [fullRecordGapCenterValue - 299938]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07481_not_prime : ¬(recordGapCenter + 432392).Prime := by
+theorem fullRecordGapTerm01913_not_prime : ¬(recordGapCenter - 299878).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 432392]
+  · norm_num [fullRecordGapCenterValue - 299878]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07482_not_prime : ¬(recordGapCenter + 432462).Prime := by
+theorem fullRecordGapTerm01914_not_prime : ¬(recordGapCenter - 299674).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 432462]
+  · norm_num [fullRecordGapCenterValue - 299674]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07483_not_prime : ¬(recordGapCenter + 432518).Prime := by
+theorem fullRecordGapTerm01915_not_prime : ¬(recordGapCenter - 299658).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 432518]
+  · norm_num [fullRecordGapCenterValue - 299658]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07484_not_prime : ¬(recordGapCenter + 432716).Prime := by
+theorem fullRecordGapTerm01916_not_prime : ¬(recordGapCenter - 299634).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 432716]
+  · norm_num [fullRecordGapCenterValue - 299634]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07485_not_prime : ¬(recordGapCenter + 432728).Prime := by
+theorem fullRecordGapTerm01917_not_prime : ¬(recordGapCenter - 299542).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 432728]
+  · norm_num [fullRecordGapCenterValue - 299542]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07486_not_prime : ¬(recordGapCenter + 432902).Prime := by
+theorem fullRecordGapTerm01918_not_prime : ¬(recordGapCenter - 299518).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 432902]
+  · norm_num [fullRecordGapCenterValue - 299518]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07487_not_prime : ¬(recordGapCenter + 432962).Prime := by
+theorem fullRecordGapTerm01919_not_prime : ¬(recordGapCenter - 299514).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 432962]
+  · norm_num [fullRecordGapCenterValue - 299514]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 
-theorem fullRecordGapTerm07488_not_prime : ¬(recordGapCenter + 432968).Prime := by
+theorem fullRecordGapTerm01920_not_prime : ¬(recordGapCenter - 299458).Prime := by
   rw [recordGapCenter_eq_fullRecordGapCenterValue]
   apply not_prime_of_fastPowMod_ne_one (a := 3)
   · norm_num
-  · norm_num [fullRecordGapCenterValue + 432968]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07489_not_prime : ¬(recordGapCenter + 433038).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 433038]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07490_not_prime : ¬(recordGapCenter + 433052).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 433052]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07491_not_prime : ¬(recordGapCenter + 433106).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 433106]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07492_not_prime : ¬(recordGapCenter + 433148).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 433148]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07493_not_prime : ¬(recordGapCenter + 433190).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 433190]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07494_not_prime : ¬(recordGapCenter + 433298).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 433298]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07495_not_prime : ¬(recordGapCenter + 433406).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 433406]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07496_not_prime : ¬(recordGapCenter + 433626).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 433626]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07497_not_prime : ¬(recordGapCenter + 433658).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 433658]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07498_not_prime : ¬(recordGapCenter + 433662).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 433662]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07499_not_prime : ¬(recordGapCenter + 433718).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 433718]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07500_not_prime : ¬(recordGapCenter + 433722).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 433722]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07501_not_prime : ¬(recordGapCenter + 433802).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 433802]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07502_not_prime : ¬(recordGapCenter + 433910).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 433910]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07503_not_prime : ¬(recordGapCenter + 433970).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 433970]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07504_not_prime : ¬(recordGapCenter + 434022).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 434022]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07505_not_prime : ¬(recordGapCenter + 434046).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 434046]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07506_not_prime : ¬(recordGapCenter + 434162).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 434162]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07507_not_prime : ¬(recordGapCenter + 434222).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 434222]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07508_not_prime : ¬(recordGapCenter + 434270).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 434270]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07509_not_prime : ¬(recordGapCenter + 434438).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 434438]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07510_not_prime : ¬(recordGapCenter + 434570).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 434570]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07511_not_prime : ¬(recordGapCenter + 434702).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 434702]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07512_not_prime : ¬(recordGapCenter + 434802).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 434802]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07513_not_prime : ¬(recordGapCenter + 434822).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 434822]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07514_not_prime : ¬(recordGapCenter + 434886).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 434886]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07515_not_prime : ¬(recordGapCenter + 435146).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 435146]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07516_not_prime : ¬(recordGapCenter + 435170).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 435170]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07517_not_prime : ¬(recordGapCenter + 435282).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 435282]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07518_not_prime : ¬(recordGapCenter + 435362).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 435362]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07519_not_prime : ¬(recordGapCenter + 435542).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 435542]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07520_not_prime : ¬(recordGapCenter + 435572).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 435572]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07521_not_prime : ¬(recordGapCenter + 435668).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 435668]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07522_not_prime : ¬(recordGapCenter + 435692).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 435692]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07523_not_prime : ¬(recordGapCenter + 435716).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 435716]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07524_not_prime : ¬(recordGapCenter + 435738).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 435738]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07525_not_prime : ¬(recordGapCenter + 435752).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 435752]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07526_not_prime : ¬(recordGapCenter + 435818).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 435818]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07527_not_prime : ¬(recordGapCenter + 435836).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 435836]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07528_not_prime : ¬(recordGapCenter + 435866).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 435866]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07529_not_prime : ¬(recordGapCenter + 436026).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436026]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07530_not_prime : ¬(recordGapCenter + 436052).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436052]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07531_not_prime : ¬(recordGapCenter + 436070).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436070]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07532_not_prime : ¬(recordGapCenter + 436166).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436166]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07533_not_prime : ¬(recordGapCenter + 436242).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436242]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07534_not_prime : ¬(recordGapCenter + 436298).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436298]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07535_not_prime : ¬(recordGapCenter + 436466).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436466]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07536_not_prime : ¬(recordGapCenter + 436472).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436472]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07537_not_prime : ¬(recordGapCenter + 436490).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436490]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07538_not_prime : ¬(recordGapCenter + 436532).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436532]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07539_not_prime : ¬(recordGapCenter + 436556).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436556]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07540_not_prime : ¬(recordGapCenter + 436578).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436578]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07541_not_prime : ¬(recordGapCenter + 436602).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436602]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07542_not_prime : ¬(recordGapCenter + 436616).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436616]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07543_not_prime : ¬(recordGapCenter + 436782).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436782]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07544_not_prime : ¬(recordGapCenter + 436808).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436808]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07545_not_prime : ¬(recordGapCenter + 436838).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 436838]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07546_not_prime : ¬(recordGapCenter + 437012).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437012]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07547_not_prime : ¬(recordGapCenter + 437042).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437042]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07548_not_prime : ¬(recordGapCenter + 437102).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437102]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07549_not_prime : ¬(recordGapCenter + 437252).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437252]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07550_not_prime : ¬(recordGapCenter + 437336).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437336]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07551_not_prime : ¬(recordGapCenter + 437406).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437406]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07552_not_prime : ¬(recordGapCenter + 437432).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437432]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07553_not_prime : ¬(recordGapCenter + 437442).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437442]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07554_not_prime : ¬(recordGapCenter + 437498).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437498]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07555_not_prime : ¬(recordGapCenter + 437516).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437516]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07556_not_prime : ¬(recordGapCenter + 437538).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437538]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07557_not_prime : ¬(recordGapCenter + 437588).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437588]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07558_not_prime : ¬(recordGapCenter + 437678).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437678]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07559_not_prime : ¬(recordGapCenter + 437732).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437732]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07560_not_prime : ¬(recordGapCenter + 437768).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437768]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07561_not_prime : ¬(recordGapCenter + 437816).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437816]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07562_not_prime : ¬(recordGapCenter + 437838).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437838]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07563_not_prime : ¬(recordGapCenter + 437876).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 437876]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07564_not_prime : ¬(recordGapCenter + 438182).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 438182]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07565_not_prime : ¬(recordGapCenter + 438188).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 438188]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07566_not_prime : ¬(recordGapCenter + 438222).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 438222]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07567_not_prime : ¬(recordGapCenter + 438296).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 438296]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07568_not_prime : ¬(recordGapCenter + 438356).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 438356]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07569_not_prime : ¬(recordGapCenter + 438378).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 438378]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07570_not_prime : ¬(recordGapCenter + 438392).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 438392]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07571_not_prime : ¬(recordGapCenter + 438722).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 438722]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07572_not_prime : ¬(recordGapCenter + 438726).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 438726]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07573_not_prime : ¬(recordGapCenter + 438846).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 438846]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07574_not_prime : ¬(recordGapCenter + 438926).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 438926]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07575_not_prime : ¬(recordGapCenter + 439086).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 439086]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07576_not_prime : ¬(recordGapCenter + 439230).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 439230]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07577_not_prime : ¬(recordGapCenter + 439316).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 439316]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07578_not_prime : ¬(recordGapCenter + 439352).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 439352]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07579_not_prime : ¬(recordGapCenter + 439430).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 439430]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07580_not_prime : ¬(recordGapCenter + 439442).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 439442]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07581_not_prime : ¬(recordGapCenter + 439458).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 439458]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07582_not_prime : ¬(recordGapCenter + 439598).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 439598]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07583_not_prime : ¬(recordGapCenter + 439646).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 439646]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07584_not_prime : ¬(recordGapCenter + 439652).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 439652]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07585_not_prime : ¬(recordGapCenter + 439832).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 439832]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07586_not_prime : ¬(recordGapCenter + 439862).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 439862]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07587_not_prime : ¬(recordGapCenter + 439910).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 439910]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07588_not_prime : ¬(recordGapCenter + 439962).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 439962]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07589_not_prime : ¬(recordGapCenter + 440072).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 440072]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07590_not_prime : ¬(recordGapCenter + 440178).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 440178]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07591_not_prime : ¬(recordGapCenter + 440210).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 440210]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07592_not_prime : ¬(recordGapCenter + 440246).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 440246]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07593_not_prime : ¬(recordGapCenter + 440408).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 440408]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07594_not_prime : ¬(recordGapCenter + 440456).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 440456]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07595_not_prime : ¬(recordGapCenter + 440718).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 440718]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07596_not_prime : ¬(recordGapCenter + 440738).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 440738]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07597_not_prime : ¬(recordGapCenter + 440798).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 440798]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07598_not_prime : ¬(recordGapCenter + 440822).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 440822]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07599_not_prime : ¬(recordGapCenter + 440826).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 440826]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07600_not_prime : ¬(recordGapCenter + 440862).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 440862]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07601_not_prime : ¬(recordGapCenter + 441102).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441102]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07602_not_prime : ¬(recordGapCenter + 441110).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441110]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07603_not_prime : ¬(recordGapCenter + 441282).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441282]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07604_not_prime : ¬(recordGapCenter + 441290).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441290]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07605_not_prime : ¬(recordGapCenter + 441318).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441318]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07606_not_prime : ¬(recordGapCenter + 441362).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441362]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07607_not_prime : ¬(recordGapCenter + 441366).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441366]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07608_not_prime : ¬(recordGapCenter + 441542).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441542]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07609_not_prime : ¬(recordGapCenter + 441578).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441578]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07610_not_prime : ¬(recordGapCenter + 441582).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441582]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07611_not_prime : ¬(recordGapCenter + 441722).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441722]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07612_not_prime : ¬(recordGapCenter + 441746).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441746]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07613_not_prime : ¬(recordGapCenter + 441758).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441758]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07614_not_prime : ¬(recordGapCenter + 441806).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441806]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07615_not_prime : ¬(recordGapCenter + 441858).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441858]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07616_not_prime : ¬(recordGapCenter + 441906).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441906]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07617_not_prime : ¬(recordGapCenter + 441992).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 441992]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07618_not_prime : ¬(recordGapCenter + 442158).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 442158]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07619_not_prime : ¬(recordGapCenter + 442172).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 442172]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07620_not_prime : ¬(recordGapCenter + 442268).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 442268]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07621_not_prime : ¬(recordGapCenter + 442418).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 442418]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07622_not_prime : ¬(recordGapCenter + 442466).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 442466]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07623_not_prime : ¬(recordGapCenter + 442478).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 442478]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07624_not_prime : ¬(recordGapCenter + 442626).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 442626]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07625_not_prime : ¬(recordGapCenter + 442698).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 442698]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07626_not_prime : ¬(recordGapCenter + 442808).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 442808]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07627_not_prime : ¬(recordGapCenter + 442916).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 442916]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07628_not_prime : ¬(recordGapCenter + 443012).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 443012]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07629_not_prime : ¬(recordGapCenter + 443018).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 443018]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07630_not_prime : ¬(recordGapCenter + 443048).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 443048]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07631_not_prime : ¬(recordGapCenter + 443082).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 443082]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07632_not_prime : ¬(recordGapCenter + 443192).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 443192]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07633_not_prime : ¬(recordGapCenter + 443306).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 443306]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07634_not_prime : ¬(recordGapCenter + 443396).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 443396]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07635_not_prime : ¬(recordGapCenter + 443426).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 443426]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07636_not_prime : ¬(recordGapCenter + 443438).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 443438]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07637_not_prime : ¬(recordGapCenter + 443528).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 443528]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07638_not_prime : ¬(recordGapCenter + 443570).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 443570]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07639_not_prime : ¬(recordGapCenter + 443636).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 443636]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07640_not_prime : ¬(recordGapCenter + 443658).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 443658]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07641_not_prime : ¬(recordGapCenter + 443882).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 443882]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07642_not_prime : ¬(recordGapCenter + 444008).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 444008]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07643_not_prime : ¬(recordGapCenter + 444126).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 444126]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07644_not_prime : ¬(recordGapCenter + 444162).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 444162]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07645_not_prime : ¬(recordGapCenter + 444326).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 444326]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07646_not_prime : ¬(recordGapCenter + 444386).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 444386]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07647_not_prime : ¬(recordGapCenter + 444398).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 444398]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07648_not_prime : ¬(recordGapCenter + 444426).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 444426]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07649_not_prime : ¬(recordGapCenter + 444476).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 444476]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07650_not_prime : ¬(recordGapCenter + 444530).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 444530]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07651_not_prime : ¬(recordGapCenter + 444558).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 444558]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07652_not_prime : ¬(recordGapCenter + 444806).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 444806]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07653_not_prime : ¬(recordGapCenter + 444908).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 444908]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07654_not_prime : ¬(recordGapCenter + 444966).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 444966]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07655_not_prime : ¬(recordGapCenter + 444998).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 444998]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07656_not_prime : ¬(recordGapCenter + 445002).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445002]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07657_not_prime : ¬(recordGapCenter + 445022).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445022]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07658_not_prime : ¬(recordGapCenter + 445070).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445070]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07659_not_prime : ¬(recordGapCenter + 445106).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445106]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07660_not_prime : ¬(recordGapCenter + 445112).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445112]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07661_not_prime : ¬(recordGapCenter + 445182).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445182]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07662_not_prime : ¬(recordGapCenter + 445202).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445202]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07663_not_prime : ¬(recordGapCenter + 445226).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445226]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07664_not_prime : ¬(recordGapCenter + 445268).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445268]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07665_not_prime : ¬(recordGapCenter + 445292).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445292]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07666_not_prime : ¬(recordGapCenter + 445358).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445358]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07667_not_prime : ¬(recordGapCenter + 445448).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445448]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07668_not_prime : ¬(recordGapCenter + 445490).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445490]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07669_not_prime : ¬(recordGapCenter + 445646).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445646]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07670_not_prime : ¬(recordGapCenter + 445722).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445722]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07671_not_prime : ¬(recordGapCenter + 445736).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445736]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07672_not_prime : ¬(recordGapCenter + 445772).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445772]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07673_not_prime : ¬(recordGapCenter + 445790).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445790]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07674_not_prime : ¬(recordGapCenter + 445838).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445838]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07675_not_prime : ¬(recordGapCenter + 445862).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445862]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07676_not_prime : ¬(recordGapCenter + 445868).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445868]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07677_not_prime : ¬(recordGapCenter + 445902).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445902]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07678_not_prime : ¬(recordGapCenter + 445938).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445938]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07679_not_prime : ¬(recordGapCenter + 445982).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 445982]
-  · apply fullRecordGapRow00030_fermat
-    simp [fullRecordGapRow00030_values]
-
-theorem fullRecordGapTerm07680_not_prime : ¬(recordGapCenter + 446036).Prime := by
-  rw [recordGapCenter_eq_fullRecordGapCenterValue]
-  apply not_prime_of_fastPowMod_ne_one (a := 3)
-  · norm_num
-  · norm_num [fullRecordGapCenterValue + 446036]
+  · norm_num [fullRecordGapCenterValue - 299458]
   · apply fullRecordGapRow00030_fermat
     simp [fullRecordGapRow00030_values]
 

@@ -28,8 +28,9 @@ def witness(index: int, offset: int, row_name: str) -> str:
             f"  · apply {row_name}_fermat\n"
             f"    simp [{row_name}_values]\n")
 
-def row(indices: list[tuple[int, int]]) -> str:
-    row_name = f"fullRecordGapRow{label((indices[0][0] - 1) // 256 + 1)}"
+def row(indices: list[tuple[int, int]], row_name: str | None = None) -> str:
+    if row_name is None:
+        row_name = f"fullRecordGapRow{label((indices[0][0] - 1) // 256 + 1)}"
     values = ",\n    ".join(value(offset) for _, offset in indices)
     header = ("import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod\n"
               "import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCenter\n\n"
@@ -47,7 +48,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("manifest", type=Path)
     parser.add_argument("output_dir", type=Path)
-    parser.add_argument("--row-size", type=int, default=256)
+    parser.add_argument("--row-size", type=int, default=64)
     args = parser.parse_args()
     offsets = validate_manifest(json.loads(args.manifest.read_text()))
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -55,7 +56,9 @@ def main() -> None:
     for start in range(0, len(offsets), args.row_size):
         indices = list(enumerate(offsets[start:start + args.row_size], start=start + 1))
         name = f"Row{start // args.row_size + 1:04d}"
-        (args.output_dir / f"{name}.lean").write_text(row(indices))
+        (args.output_dir / f"{name}.lean").write_text(
+            row(indices, f"fullRecordGapRow{label(start // args.row_size + 1)}")
+        )
         rows.append(name)
     assembly = "\n".join(f"import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapFermat.Rows.{name}" for name in rows)
     (args.output_dir.parent.parent / "FullRecordGapFermat.lean").write_text(assembly + "\n")
