@@ -381,6 +381,24 @@ theorem completeClassification_of_mediumPNT_and_finite_provider
     (by norm_num) (by norm_num) (by norm_num) (by norm_num)
     (coreBound X h4X) thetaError
 
+theorem completeClassification_of_mediumPNT_and_finite_error_provider
+    (finitePrimeCounting : ∀ X : Real, (4e18 : Real) ≤ X →
+      HasDusartRealPrimeCountingBoundsBelow X)
+    (finiteTheta : ∀ X : Real, (4e18 : Real) ≤ X →
+      HasDusartSymmetricThetaBoundsBelow X)
+    (finiteShortInterval : ∀ X : Real, (4e18 : Real) ≤ X →
+      HasLogCubedShortIntervalPrimeBelow X)
+    (finiteThetaError : ∀ X : Real, (4e18 : Real) ≤ X →
+      HasThetaLogFourthErrorBelow (648 / 1000 : Real) X) :
+    CompleteClassification := by
+  obtain ⟨X, hX, h4X, thetaError⟩ :=
+    exists_hasThetaLogFourthError_of_mediumPNT_above (4e18 : Real)
+  exact completeClassification_of_finite_theta_error_at_large_cutoff
+    h4X (finitePrimeCounting X h4X) (finiteTheta X h4X)
+    (finiteShortInterval X h4X) (by norm_num) (by norm_num)
+    (finiteThetaError X h4X)
+    (fun x hx => thetaError x hx)
+
 /-! The tail prime-counting obligation can equivalently be supplied in the
 published asymptotic form.  The adapter is proved in the analytic helper, so
 this theorem exposes the exact provider boundary without hiding a new axiom
