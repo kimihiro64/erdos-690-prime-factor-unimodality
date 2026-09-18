@@ -152,6 +152,16 @@ theorem theta_lower_of_psi_relative_error
       mul_le_mul_of_nonneg_left hfifth_scale hc]
   linarith
 
+/-! Mathlib's elementary Chebyshev estimate is enough for the uniform root
+  bound used in the prime-power correction.  This is intentionally separate
+  from the sharp relative error theorem: the latter is the genuine Dusart
+  obligation, while this auxiliary bound is already proved unconditionally. -/
+theorem psi_root_bound_elementary :
+    ∀ y : Real, 0 ≤ y →
+      Chebyshev.psi y ≤ (Real.log 4 + 4) * y := by
+  intro y hy
+  exact Chebyshev.psi_le_const_mul_self hy
+
 /-! The pointwise form is the one needed for a decaying explicit error: use
   the logarithm of the current argument rather than freezing the error at a
   cutoff. -/
