@@ -4,6 +4,7 @@ import PrimeFactorUnimodality.Helpers.PrimeSequence.AverageGap
 import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 import PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
 import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
+import PrimeFactorUnimodality.Helpers.Analytic.DecayToLogFourth
 
 set_option autoImplicit false
 
@@ -1743,6 +1744,27 @@ theorem hasDusartPrimeCountingAsymptoticAbove_of_core_and_psiLogFourthError
   apply hasDusartPrimeCountingAsymptoticAbove_of_core_and_theta_error
     (A := A + 148 / 1000) hXpos h2X (by linarith) hA_sharp hC0 hC hlog hcore
   exact hasThetaLogFourthError_of_psiLogFourthError_sharp hXcutoff psiError
+
+/-! The same prime-counting tail can consume a directly formalized
+log-power decay estimate.  This keeps the analytic provider at the exact
+cutoff instead of hiding it behind a published Dusart declaration. -/
+theorem hasDusartPrimeCountingAsymptoticAbove_of_core_and_logRpowDecay
+    {A C c α X : Real}
+    (hXpos : 0 < X) (h2X : 2 ≤ X)
+    (hXcutoff : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA_sharp : A + 148 / 1000 ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hlog : (42 : Real) ≤ Real.log X)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (hdecay : HasPsiLogRpowDecay A c α X)
+    (henvelope : ∀ x : Real, X ≤ x →
+      A * Real.exp (-c * (Real.log x) ^ α) ≤
+        A / (Real.log x) ^ (4 : ℕ)) :
+    HasDusartPrimeCountingAsymptoticAbove X := by
+  apply hasDusartPrimeCountingAsymptoticAbove_of_core_and_psiLogFourthError
+    hXpos h2X hXcutoff hA0 hA_sharp hC0 hC hlog hcore
+  exact hasPsiLogFourthError_of_logRpowDecay_of_envelope
+    hXpos hdecay henvelope
 
 theorem hasDusartPrimeCountingBounds_of_finite_and_core_and_relativePsiError
     {ε : Real → Real} {A C X Y : Real}

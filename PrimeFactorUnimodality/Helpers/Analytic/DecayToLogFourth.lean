@@ -106,8 +106,8 @@ theorem hasPsiLogFourthError_of_logRpowDecay_of_envelope
     (hdecay : HasPsiLogRpowDecay C c α X)
     (henvelope : ∀ x : Real, X ≤ x →
       C * Real.exp (-c * (Real.log x) ^ α) ≤
-        1 / (Real.log x) ^ (4 : ℕ)) :
-    HasPsiLogFourthError 1 X := by
+        C / (Real.log x) ^ (4 : ℕ)) :
+    HasPsiLogFourthError C X := by
   intro x hx
   have hx_pos : 0 < x := lt_of_lt_of_le hX hx
   have herror := hdecay x hx
@@ -116,9 +116,9 @@ theorem hasPsiLogFourthError_of_logRpowDecay_of_envelope
     |Chebyshev.psi x - x| ≤
         C * x * Real.exp (-c * (Real.log x) ^ α) := herror
     _ = (C * Real.exp (-c * (Real.log x) ^ α)) * x := by ring
-    _ ≤ (1 / (Real.log x) ^ (4 : ℕ)) * x :=
+    _ ≤ (C / (Real.log x) ^ (4 : ℕ)) * x :=
       mul_le_mul_of_nonneg_right henvelope_x hx_pos.le
-    _ = 1 * x / (Real.log x) ^ 4 := by ring
+    _ = C * x / (Real.log x) ^ 4 := by ring
 
 theorem exists_hasPsiLogFourthError_of_logRpowDecay
     {C c α X : Real} (hC : 0 ≤ C) (hc : 0 < c) (hα : 0 < α)
