@@ -234,6 +234,23 @@ theorem integral_inv_log_pow_succ_eq
           (ne_of_gt (pow_pos (Real.log_pos
             (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)))
 
+theorem integral_inv_log_sq_expansion_five
+    {x : Real} (hx : 2 ≤ x) :
+    ∫ t in Set.Icc 2 x, 1 / Real.log t ^ 2 =
+      x / Real.log x ^ 2 + 2 * x / Real.log x ^ 3 +
+        6 * x / Real.log x ^ 4 + 24 * x / Real.log x ^ 5 +
+          120 * x / Real.log x ^ 6 -
+        2 * (1 / Real.log 2 ^ 2 + 2 / Real.log 2 ^ 3 +
+          6 / Real.log 2 ^ 4 + 24 / Real.log 2 ^ 5 +
+          120 / Real.log 2 ^ 6) +
+        720 * ∫ t in Set.Icc 2 x, 1 / Real.log t ^ 7 := by
+  rw [integral_inv_log_pow_succ_eq (n := 1) hx,
+    integral_inv_log_pow_succ_eq (n := 2) hx,
+    integral_inv_log_pow_succ_eq (n := 3) hx,
+    integral_inv_log_pow_succ_eq (n := 4) hx,
+    integral_inv_log_pow_succ_eq (n := 5) hx]
+  ring_nf
+
 theorem theta_integral_split
     {x : Real} (hx : 2 ≤ x) :
     (∫ t in (2 : Real)..x,
