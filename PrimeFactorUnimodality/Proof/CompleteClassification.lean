@@ -110,7 +110,7 @@ theorem completeClassification_of_full_record_fourth_theta_error
     CompleteClassification := by
   have cubic : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real) :=
     hasThetaLogCubedError_of_logFourthError
-      (A := A) (X := (4e18 : Real)) (by norm_num) (by positivity) thetaError
+      (A := A) (X := (4e18 : Real)) (by norm_num) hA_nonneg thetaError
   exact completeClassification_of_full_record_interval_certificates
     primeCountingBounds
     (hasDusartSymmetricThetaBounds_of_below_and_logFourth
