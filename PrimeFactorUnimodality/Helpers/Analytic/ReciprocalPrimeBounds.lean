@@ -44,6 +44,37 @@ def HasDusartReciprocalPrimeEstimate (mertens : Real) : Prop :=
     reciprocalPrimeSumBelow (n + 1) ≤
       Real.log (Real.log n) + mertens + dusartReciprocalError n)
 
+def HasDusartReciprocalPrimeEstimateBelow (mertens : Real) (X : Nat) : Prop :=
+  (∀ n : Nat, 2 ≤ n → n ≤ X →
+    Real.log (Real.log n) + mertens - dusartReciprocalError n ≤
+      reciprocalPrimeSumBelow (n + 1)) ∧
+  (∀ n : Nat, 10372 ≤ n → n ≤ X →
+    reciprocalPrimeSumBelow (n + 1) ≤
+      Real.log (Real.log n) + mertens + dusartReciprocalError n)
+
+def HasDusartReciprocalPrimeEstimateAbove (mertens : Real) (X : Nat) : Prop :=
+  (∀ n : Nat, X ≤ n → 2 ≤ n →
+    Real.log (Real.log n) + mertens - dusartReciprocalError n ≤
+      reciprocalPrimeSumBelow (n + 1)) ∧
+  (∀ n : Nat, X ≤ n → 10372 ≤ n →
+    reciprocalPrimeSumBelow (n + 1) ≤
+      Real.log (Real.log n) + mertens + dusartReciprocalError n)
+
+theorem hasDusartReciprocalPrimeEstimate_of_below_and_above
+    {mertens : Real} {X : Nat}
+    (finite : HasDusartReciprocalPrimeEstimateBelow mertens X)
+    (tail : HasDusartReciprocalPrimeEstimateAbove mertens X) :
+    HasDusartReciprocalPrimeEstimate mertens := by
+  constructor
+  · intro n hn
+    by_cases hsmall : n ≤ X
+    · exact finite.1 n hn hsmall
+    · exact tail.1 n (le_of_lt (Nat.lt_of_not_ge hsmall)) hn
+  · intro n hn
+    by_cases hsmall : n ≤ X
+    · exact finite.2 n hn hsmall
+    · exact tail.2 n (le_of_lt (Nat.lt_of_not_ge hsmall)) hn
+
 theorem reciprocalPrimeSumBelow_sub_lower_of_dusart
     {mertens : Real} (estimate : HasDusartReciprocalPrimeEstimate mertens)
     {x y : Nat} (hx : 10372 ≤ x) (hy : 2 ≤ y) :
