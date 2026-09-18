@@ -228,9 +228,9 @@ theorem log_large_x_gt_ten {x : Real} (hx : (4e18 : Real) ≤ x) :
   have : (3 : Real) ^ 10 < (4e18 : Real) := by norm_num
   exact (exp_ten.trans this).trans_le hx
 
-private theorem large_x_theta_margin {x : Real} (hx : (4e18 : Real) ≤ x) :
+private theorem theta_margin_of_log_gt_ten {x : Real}
+    (hlog : (10 : Real) < Real.log x) :
     (12167 / 500000 : Real) * (2 + 1 / (Real.log x) ^ 3) < 1 := by
-  have hlog := log_large_x_gt_ten hx
   have hlog_pos : 0 < Real.log x := by linarith
   have hlog_sq : (100 : Real) < (Real.log x) ^ 2 := by
     nlinarith [mul_self_lt_mul_self (by norm_num : (0 : Real) ≤ 10) hlog]
@@ -240,6 +240,25 @@ private theorem large_x_theta_margin {x : Real} (hx : (4e18 : Real) ≤ x) :
   have hinv : 1 / (Real.log x) ^ 3 < (1 : Real) / 1000 := by
     exact one_div_lt_one_div_of_lt (by norm_num) hlog_cube
   nlinarith
+
+private theorem large_x_theta_margin {x : Real} (hx : (4e18 : Real) ≤ x) :
+    (12167 / 500000 : Real) * (2 + 1 / (Real.log x) ^ 3) < 1 :=
+  theta_margin_of_log_gt_ten (log_large_x_gt_ten hx)
+
+theorem logCubedShortIntervalPrime_of_thetaLogCubedError_from
+    {X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) X) :
+    ∀ x : Real, X ≤ x →
+      ∃ q : Nat, q.Prime ∧ x < q ∧
+        (q : Real) ≤ x + x / (Real.log x) ^ 3 := by
+  have hXgt1 : 1 < X := by
+    exact (Real.log_pos_iff hXpos.le).mp (by linarith [hlogX])
+  apply hasLogCubedShortIntervalPrime_of_thetaLogCubedError thetaError
+  · linarith
+  · norm_num
+  · intro x hx
+    exact theta_margin_of_log_gt_ten
+      (lt_of_lt_of_le hlogX (Real.log_le_log hXpos hx))
 
 theorem large_x_logCubedShortIntervalPrime
     (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
@@ -262,6 +281,21 @@ theorem dusartLargeXPrimeInInterval_of_thetaLogCubedError
         (q : Real) ≤ x * (1 + 1 / (Real.log x) ^ 3) := by
   intro x hx
   obtain ⟨q, hq, hxq, hupper⟩ := large_x_logCubedShortIntervalPrime thetaError x hx
+  refine ⟨q, hq, hxq, ?_⟩
+  calc
+    (q : Real) ≤ x + x / (Real.log x) ^ 3 := hupper
+    _ = x * (1 + 1 / (Real.log x) ^ 3) := by ring
+
+theorem dusartPrimeInInterval_of_thetaLogCubedError_from
+    {X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) X) :
+    ∀ x : Real, X ≤ x →
+      ∃ q : Nat, q.Prime ∧ x < q ∧
+        (q : Real) ≤ x * (1 + 1 / (Real.log x) ^ 3) := by
+  intro x hx
+  obtain ⟨q, hq, hxq, hupper⟩ :=
+    logCubedShortIntervalPrime_of_thetaLogCubedError_from
+      hXpos hlogX thetaError x hx
   refine ⟨q, hq, hxq, ?_⟩
   calc
     (q : Real) ≤ x + x / (Real.log x) ^ 3 := hupper
