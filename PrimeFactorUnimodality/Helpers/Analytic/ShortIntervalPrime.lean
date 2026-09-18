@@ -1,3 +1,4 @@
+import Mathlib.Analysis.Complex.ExponentialBounds
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import PrimeFactorUnimodality.Helpers.PrimeSequence.Consecutive
 
@@ -35,18 +36,21 @@ theorem hasDusartShortIntervalPrime_of_logCubed
       rw [show (2 : Real) = 1 + 1 by norm_num, Real.exp_add]
       have exp_one_lt_three : Real.exp 1 < 3 :=
         Real.exp_one_lt_d9.trans (by norm_num)
-      nlinarith [sq_lt_sq (Real.exp_pos 1) exp_one_lt_three]
-    apply (lt_log_iff_exp_lt x_pos).2
+      nlinarith [mul_self_lt_mul_self (Real.exp_pos 1).le exp_one_lt_three]
+    apply (Real.lt_log_iff_exp_lt x_pos).2
     exact exp_two_lt.trans (by linarith)
   have log_x_pos : 0 < Real.log x := by linarith
-  have log_sq_pos : 0 < (Real.log x) ^ 2 := sq_pos_of_pos log_x_pos
   have width_le : x / (Real.log x) ^ 3 ≤ x / (2 * (Real.log x) ^ 2) := by
     rw [div_le_div_iff₀ (by positivity) (by positivity)]
-    nlinarith [log_x_gt_two]
+    have hsq : 2 * (Real.log x) ^ 2 ≤ (Real.log x) ^ 3 := by
+      have hmul := mul_le_mul_of_nonneg_right log_x_gt_two.le
+        (sq_nonneg (Real.log x))
+      nlinarith
+    nlinarith [mul_le_mul_of_nonneg_left hsq x_pos.le]
   refine ⟨q, qPrime, hxq, ?_⟩
   calc
     (q : Real) ≤ x + x / (Real.log x) ^ 3 := hq
-    _ ≤ x + x / (2 * (Real.log x) ^ 2) := add_le_add_left width_le _
+    _ ≤ x + x / (2 * (Real.log x) ^ 2) := by linarith [width_le]
     _ = x * (1 + 1 / (2 * (Real.log x) ^ 2)) := by ring
 
 /-- Applying the short-interval theorem at the left member of a consecutive
