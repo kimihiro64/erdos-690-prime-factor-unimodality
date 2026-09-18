@@ -1430,14 +1430,14 @@ def HasDusartPublishedPrimeCountingBoundsAbove (X : Real) : Prop :=
       x / (Real.log x - (11 / 10 : Real)))
 
 theorem hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic_from
-    {X : Real} (hlogX : (20 : Real) < Real.log X)
+    {X : Real} (hXpos : 0 < X) (hlogX : (20 : Real) < Real.log X)
     (asymptotic : HasDusartPrimeCountingAsymptoticAbove X) :
     HasDusartPublishedPrimeCountingBoundsAbove X := by
   constructor
   · intro x hx
     obtain ⟨E, hformula, hE⟩ := asymptotic x hx
     have hlog : (20 : Real) < Real.log x :=
-      lt_of_lt_of_le hlogX (Real.log_le_log (by linarith) hx)
+      lt_of_lt_of_le hlogX (Real.log_le_log hXpos hx)
     have hlog_pos : 0 < Real.log x := by linarith
     have hx_pos : 0 < x := by linarith
     rw [hformula]
@@ -1464,7 +1464,7 @@ theorem hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic_from
   · intro x hx
     obtain ⟨E, hformula, hE⟩ := asymptotic x hx
     have hlog : (20 : Real) < Real.log x :=
-      lt_of_lt_of_le hlogX (Real.log_le_log (by linarith) hx)
+      lt_of_lt_of_le hlogX (Real.log_le_log hXpos hx)
     have hlog_pos : 0 < Real.log x := by linarith
     have hx_pos : 0 < x := by linarith
     rw [hformula]
@@ -1494,6 +1494,7 @@ theorem hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic
     (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e9 : Real)) :
     HasDusartPublishedPrimeCountingBoundsAbove (4e9 : Real) :=
   hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic_from
+    (by norm_num)
     (by
       apply (Real.lt_log_iff_exp_lt (by norm_num)).2
       have hexp_three : Real.exp 20 < (3 : Real) ^ 20 := by
@@ -1527,7 +1528,8 @@ theorem hasDusartPublishedPrimeCountingBounds_of_finite_and_asymptotic
     (hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic asymptotic)
 
 theorem hasDusartRealPrimeCountingBoundsAbove_of_asymptotic_from
-    {X Y : Real} (hlogX : (20 : Real) < Real.log X) (hXY : X ≤ Y)
+    {X Y : Real} (hXpos : 0 < X) (hlogX : (20 : Real) < Real.log X)
+    (hXY : X ≤ Y)
     (asymptotic : HasDusartPrimeCountingAsymptoticAbove X) :
     HasDusartRealPrimeCountingBoundsAbove Y := by
   constructor
@@ -1535,7 +1537,7 @@ theorem hasDusartRealPrimeCountingBoundsAbove_of_asymptotic_from
     have hXx : X ≤ x := hXY.trans hx
     obtain ⟨E, hformula, hE⟩ := asymptotic x hXx
     have hlog : (10 : Real) < Real.log x := by
-      have hlog' := lt_of_lt_of_le hlogX (Real.log_le_log (by linarith) hXx)
+      have hlog' := lt_of_lt_of_le hlogX (Real.log_le_log hXpos hXx)
       linarith
     have hlog_pos : 0 < Real.log x := by linarith
     have hx_pos : 0 < x := by linarith
@@ -1567,7 +1569,7 @@ theorem hasDusartRealPrimeCountingBoundsAbove_of_asymptotic_from
     have hXx : X ≤ x := hXY.trans hx
     obtain ⟨E, hformula, hE⟩ := asymptotic x hXx
     have hlog : (10 : Real) < Real.log x := by
-      have hlog' := lt_of_lt_of_le hlogX (Real.log_le_log (by linarith) hXx)
+      have hlog' := lt_of_lt_of_le hlogX (Real.log_le_log hXpos hXx)
       linarith
     have hlog_pos : 0 < Real.log x := by linarith
     have hx_pos : 0 < x := by linarith
@@ -1603,6 +1605,7 @@ theorem hasDusartRealPrimeCountingBoundsAbove_of_asymptotic
     (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e9 : Real)) :
     HasDusartRealPrimeCountingBoundsAbove (4e18 : Real) :=
   hasDusartRealPrimeCountingBoundsAbove_of_asymptotic_from
+    (by norm_num)
     (by
       apply (Real.lt_log_iff_exp_lt (by norm_num)).2
       have hexp_three : Real.exp 20 < (3 : Real) ^ 20 := by
@@ -1630,7 +1633,7 @@ theorem hasDusartRealPrimeCountingBoundsAbove_of_core_and_theta_error
     hasDusartPrimeCountingAsymptoticAbove_of_core_and_theta_error
       hXpos h2X hA0 hA hC0 hC hlog hcore error
   exact hasDusartRealPrimeCountingBoundsAbove_of_asymptotic_from
-    (by linarith [hlog]) hXY asymptotic
+    hXpos (by linarith [hlog]) hXY asymptotic
 
 theorem hasDusartRealPrimeCountingBounds_of_below_and_above
     {X : Real} (finite : HasDusartRealPrimeCountingBoundsBelow X)
