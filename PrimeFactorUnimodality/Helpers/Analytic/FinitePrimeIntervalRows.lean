@@ -269,7 +269,6 @@ theorem hasThetaLogFourthError_of_rows_and_psiLogFourthError
     {A X : Real} {rows : List (ThetaLogFourthErrorRow (A + 148 / 1000))}
     (cover : ThetaLogFourthErrorRowsCoverUpTo rows X)
     (hXcutoff : (4e18 : Real) ≤ X)
-    (hA_nonneg : 0 ≤ A)
     (psiError : HasPsiLogFourthError A X) :
     HasThetaLogFourthError (A + 148 / 1000) 2 := by
   apply hasThetaLogFourthError_of_rows_and_tail cover
