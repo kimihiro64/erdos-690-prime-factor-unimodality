@@ -155,7 +155,7 @@ theorem dusartUpper_monotoneOn :
       simp [Pi.mul_apply, Pi.add_apply, id_eq]
     rw [hfun]
     rw [hderiv.deriv]
-    simp only [Pi.add_apply, Pi.div_apply, Pi.pow_apply, id_eq]
+    simp only [Pi.add_apply, Pi.div_apply, Pi.pow_apply]
     field_simp [x_ne, hlog_pos.ne']
     norm_num at *
     nlinarith [mul_pos (show 0 < Real.log x by linarith)
