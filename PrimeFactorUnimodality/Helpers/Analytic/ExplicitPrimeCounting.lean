@@ -503,6 +503,47 @@ theorem theta_remainder_integral_tail_le_of_logFourthError
     _ = A * (x / Real.log x ^ 6) /
         (1 - 6 / Real.log X) := by ring
 
+theorem primeCounting_explicit_tail_le_of_logFourthError
+    {A X x : Real} (hX : 1 < X) (hA : 0 ≤ A)
+    (error : HasThetaLogFourthError A X) (hax : X ≤ x)
+    (hcoef : (7 : Real) < Real.log X) :
+    |720 * (∫ t in X..x, 1 / Real.log t ^ 7) +
+        ∫ t in X..x,
+          (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+            1 / (Real.log t) ^ 2)| ≤
+      720 * ((x / Real.log x ^ 7) /
+        (1 - 7 / Real.log X)) +
+        A * (x / Real.log x ^ 6) /
+          (1 - 6 / Real.log X) := by
+  have hlog0 := abs_integral_inv_log_pow_succ_le (n := 6) hX hax (by
+    norm_num
+    exact hcoef)
+  have hlog : |∫ t in X..x, 1 / Real.log t ^ 7| ≤
+      (x / Real.log x ^ 7) / (1 - 7 / Real.log X) := by
+    convert hlog0 using 1 <;> norm_num
+  have htheta := theta_remainder_integral_tail_le_of_logFourthError
+    hX hA error hax (by linarith)
+  calc
+    |720 * (∫ t in X..x, 1 / Real.log t ^ 7) +
+          ∫ t in X..x,
+            (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+              1 / (Real.log t) ^ 2)| ≤
+        |720 * (∫ t in X..x, 1 / Real.log t ^ 7)| +
+          |∫ t in X..x,
+            (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+              1 / (Real.log t) ^ 2)| := abs_add_le _ _
+    _ = 720 * |∫ t in X..x, 1 / Real.log t ^ 7| +
+          |∫ t in X..x,
+            (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+              1 / (Real.log t) ^ 2)| := by
+      rw [abs_mul, abs_of_nonneg (by norm_num : (0 : Real) ≤ 720)]
+    _ ≤ 720 * ((x / Real.log x ^ 7) /
+          (1 - 7 / Real.log X)) +
+          A * (x / Real.log x ^ 6) /
+            (1 - 6 / Real.log X) := by
+      exact add_le_add
+        (mul_le_mul_of_nonneg_left hlog (by norm_num)) htheta
+
 theorem integral_inv_log_sq_expansion_five
     {x : Real} (hx : 2 ≤ x) :
     ∫ t in Set.Icc 2 x, 1 / Real.log t ^ 2 =
