@@ -1,4 +1,5 @@
 import Mathlib.NumberTheory.Chebyshev
+import PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
 
 set_option autoImplicit false
 
@@ -9,6 +10,51 @@ noncomputable section
 def HasPsiRelativeError (ε : Real → Real) : Prop :=
   ∀ b : Real, 0 ≤ b → ∀ x : Real, Real.exp b ≤ x →
     |Chebyshev.psi x - x| ≤ ε b * x
+
+/-! A tail log-fourth estimate supplies the relative form used by the
+  prime-power correction argument.  The cutoff is kept explicit: below the
+  cutoff a separate finite provider is required. -/
+theorem psi_relative_error_of_logFourthError
+    {A X b x : Real}
+    (hXpos : 0 < X) (hlogX : 0 < Real.log X)
+    (hb : Real.log X ≤ b) (hxb : Real.exp b ≤ x)
+    (psiError : HasPsiLogFourthError A X) :
+    |Chebyshev.psi x - x| ≤ (A / b ^ 4) * x := by
+  have hX : X ≤ x := by
+    calc
+      X = Real.exp (Real.log X) := by rw [Real.exp_log hXpos]
+      _ ≤ Real.exp b := Real.exp_le_exp.mpr hb
+      _ ≤ x := hxb
+  have hlogX_nonneg : 0 ≤ Real.log X := hlogX.le
+  have hb_nonneg : 0 ≤ b := hlogX_nonneg.trans hb
+  have hx_pos : 0 < x := lt_of_lt_of_le (Real.exp_pos b) hxb
+  have hlogx : b ≤ Real.log x := by
+    exact (Real.le_log_iff_exp_le hx_pos).2 hxb
+  have hpow : b ^ 4 ≤ (Real.log x) ^ 4 := by
+    exact pow_le_pow_left₀ hb_nonneg hlogx 4
+  have hpow_pos : 0 < b ^ 4 := pow_pos (lt_of_lt_of_le hlogX hb) 4
+  have hscaled := psiError x hX
+  have hAprod : 0 ≤ A * (X / (Real.log X) ^ 4) := by
+    have hcut := psiError X le_rfl
+    have hnonneg := abs_nonneg (Chebyshev.psi X - X)
+    exact le_trans hnonneg (by simpa [div_eq_mul_inv, mul_assoc] using hcut)
+  have hA : 0 ≤ A := by
+    by_contra hAneg
+    have hA_lt : A < 0 := lt_of_not_ge hAneg
+    have hfactor : 0 < X / (Real.log X) ^ 4 :=
+      div_pos hXpos (pow_pos hlogX 4)
+    have : A * (X / (Real.log X) ^ 4) < 0 :=
+      mul_neg_of_neg_of_pos hA_lt hfactor
+    linarith
+  have hratio : x / (Real.log x) ^ 4 ≤ x / b ^ 4 := by
+    exact div_le_div_of_nonneg_left hx_pos.le hpow_pos hpow
+  calc
+    |Chebyshev.psi x - x| ≤ A * x / (Real.log x) ^ 4 := hscaled
+    _ ≤ A * (x / b ^ 4) := by
+      calc
+        A * x / (Real.log x) ^ 4 = A * (x / (Real.log x) ^ 4) := by ring
+        _ ≤ A * (x / b ^ 4) := mul_le_mul_of_nonneg_left hratio hA
+    _ = (A / b ^ 4) * x := by ring
 
 theorem theta_upper_of_psi_relative_error
     {x ε : Real}
