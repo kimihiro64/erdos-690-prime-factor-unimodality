@@ -1526,16 +1526,17 @@ theorem hasDusartPublishedPrimeCountingBounds_of_finite_and_asymptotic
   exact hasDusartPublishedPrimeCountingBounds_of_below_and_above finite
     (hasDusartPublishedPrimeCountingBoundsAbove_of_asymptotic asymptotic)
 
-theorem hasDusartRealPrimeCountingBoundsAbove_of_asymptotic
-    (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e9 : Real)) :
-    HasDusartRealPrimeCountingBoundsAbove (4e18 : Real) := by
+theorem hasDusartRealPrimeCountingBoundsAbove_of_asymptotic_from
+    {X Y : Real} (hlogX : (20 : Real) < Real.log X) (hXY : X ≤ Y)
+    (asymptotic : HasDusartPrimeCountingAsymptoticAbove X) :
+    HasDusartRealPrimeCountingBoundsAbove Y := by
   constructor
   · intro x hx
-    have hx9 : (4e9 : Real) ≤ x := by
-      norm_num at hx ⊢
+    have hXx : X ≤ x := hXY.trans hx
+    obtain ⟨E, hformula, hE⟩ := asymptotic x hXx
+    have hlog : (10 : Real) < Real.log x := by
+      have hlog' := lt_of_lt_of_le hlogX (Real.log_le_log (by linarith) hXx)
       linarith
-    obtain ⟨E, hformula, hE⟩ := asymptotic x hx9
-    have hlog := log_large_x_gt_ten hx
     have hlog_pos : 0 < Real.log x := by linarith
     have hx_pos : 0 < x := by linarith
     have hlog_sq : (100 : Real) < (Real.log x) ^ 2 := by
@@ -1563,11 +1564,11 @@ theorem hasDusartRealPrimeCountingBoundsAbove_of_asymptotic
     have := mul_le_mul_of_nonneg_left hmain.le hfactor
     convert this using 1 <;> dsimp [dusartPiLower] <;> field_simp <;> ring
   · intro x hx
-    have hx9 : (4e9 : Real) ≤ x := by
-      norm_num at hx ⊢
+    have hXx : X ≤ x := hXY.trans hx
+    obtain ⟨E, hformula, hE⟩ := asymptotic x hXx
+    have hlog : (10 : Real) < Real.log x := by
+      have hlog' := lt_of_lt_of_le hlogX (Real.log_le_log (by linarith) hXx)
       linarith
-    obtain ⟨E, hformula, hE⟩ := asymptotic x hx9
-    have hlog := log_large_x_gt_ten hx
     have hlog_pos : 0 < Real.log x := by linarith
     have hx_pos : 0 < x := by linarith
     have hupper : (1 : Real) + 1 / Real.log x + 2 / (Real.log x) ^ 2 + E ≤
@@ -1597,6 +1598,21 @@ theorem hasDusartRealPrimeCountingBoundsAbove_of_asymptotic
     have hfactor : 0 ≤ x / Real.log x := by positivity
     have := mul_le_mul_of_nonneg_left hupper hfactor
     convert this using 1 <;> dsimp [dusartPiUpper] <;> field_simp <;> ring
+
+theorem hasDusartRealPrimeCountingBoundsAbove_of_asymptotic
+    (asymptotic : HasDusartPrimeCountingAsymptoticAbove (4e9 : Real)) :
+    HasDusartRealPrimeCountingBoundsAbove (4e18 : Real) :=
+  hasDusartRealPrimeCountingBoundsAbove_of_asymptotic_from
+    (by
+      apply (Real.lt_log_iff_exp_lt (by norm_num)).2
+      have hexp_three : Real.exp 20 < (3 : Real) ^ 20 := by
+        rw [show (20 : Real) = (20 : ℕ) * 1 by norm_num,
+          Real.exp_nat_mul]
+        exact pow_lt_pow_left₀ Real.exp_one_lt_three (Real.exp_pos 1).le
+          (by norm_num)
+      have hthree : (3 : Real) ^ 20 < (4e9 : Real) := by norm_num
+      exact hexp_three.trans hthree)
+    (by norm_num) asymptotic
 
 theorem hasDusartRealPrimeCountingBounds_of_below_and_above
     {X : Real} (finite : HasDusartRealPrimeCountingBoundsBelow X)
