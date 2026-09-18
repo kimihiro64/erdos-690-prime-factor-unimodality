@@ -139,7 +139,7 @@ theorem hasLogCubedShortIntervalPrime_of_thetaLogCubedError
   refine ⟨q, qPrime, x_lt_q, ?_⟩
   simpa only [h] using q_upper
 
-private theorem log_large_x_gt_ten {x : Real} (hx : (4e18 : Real) ≤ x) :
+theorem log_large_x_gt_ten {x : Real} (hx : (4e18 : Real) ≤ x) :
     (10 : Real) < Real.log x := by
   have x_pos : 0 < x := by linarith
   apply (Real.lt_log_iff_exp_lt x_pos).2

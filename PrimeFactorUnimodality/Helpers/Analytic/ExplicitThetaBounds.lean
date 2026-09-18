@@ -1,5 +1,6 @@
 import Mathlib.NumberTheory.Chebyshev
 import PrimeFactorUnimodality.Helpers.Analytic.PrimorialLogBounds
+import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 
 set_option autoImplicit false
 
@@ -28,6 +29,63 @@ def HasDusartSymmetricThetaBounds : Prop :=
   (∀ x : Real, 2 < x →
     |Chebyshev.theta x - x| <
       (12323 / 10000 : Real) * x / Real.log x)
+
+/-! A finite-range presentation of the same estimates.  This is useful for
+the explicit provider because the logarithm-cubed error theorem handles the
+unbounded tail, while the remaining interval is a bounded numerical check. -/
+def HasDusartSymmetricThetaBoundsBelow (X : Real) : Prop :=
+  (∀ x : Real, 0 < x → x ≤ X →
+    |Chebyshev.theta x - x| < x / 36260) ∧
+  (∀ x : Real, 2 < x → x ≤ X →
+    |Chebyshev.theta x - x| <
+      (12323 / 10000 : Real) * x / Real.log x)
+
+theorem hasDusartSymmetricThetaBounds_of_below_and_logCubed
+    (finite : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    HasDusartSymmetricThetaBounds := by
+  constructor
+  · intro x hx
+    by_cases hsmall : x ≤ (4e18 : Real)
+    · exact finite.1 x hx hsmall
+    · have hlarge : (4e18 : Real) ≤ x := le_of_lt (lt_of_not_ge hsmall)
+      have hlog := log_large_x_gt_ten hlarge
+      have hlog_pos : 0 < Real.log x := by linarith
+      have hlog_cube : (1000 : Real) < (Real.log x) ^ 3 := by
+        nlinarith [mul_self_lt_mul_self (by norm_num : (0 : Real) ≤ 10) hlog,
+          mul_pos (show (0 : Real) < Real.log x by linarith)
+            (show (0 : Real) < (Real.log x) ^ 2 by positivity)]
+      have htail := thetaError x hlarge
+      have hratio :
+          (12167 / 500000 : Real) * x / (Real.log x) ^ 3 < x / 36260 := by
+        rw [div_lt_div_iff₀ (by positivity) (by positivity)]
+        nlinarith
+      exact htail.trans_lt hratio
+  · intro x hx
+    by_cases hsmall : x ≤ (4e18 : Real)
+    · exact finite.2 x hx hsmall
+    · have hlarge : (4e18 : Real) ≤ x := le_of_lt (lt_of_not_ge hsmall)
+      have hlog := log_large_x_gt_ten hlarge
+      have hlog_pos : 0 < Real.log x := by linarith
+      have htail := thetaError x hlarge
+      have hratio :
+          (12167 / 500000 : Real) * x / (Real.log x) ^ 3 <
+            (12323 / 10000 : Real) * x / Real.log x := by
+        rw [div_lt_div_iff₀ (by positivity) hlog_pos]
+        have hlog_sq : (100 : Real) < (Real.log x) ^ 2 := by
+          nlinarith [mul_self_lt_mul_self (by norm_num : (0 : Real) ≤ 10) hlog]
+        have hcoef : (12167 / 500000 : Real) <
+            (12323 / 10000 : Real) * (Real.log x) ^ 2 := by
+          nlinarith
+        have hpos : 0 < x * Real.log x := mul_pos (by linarith) hlog_pos
+        calc
+          (12167 / 500000 : Real) * x * Real.log x =
+              (12167 / 500000 : Real) * (x * Real.log x) := by ring
+          _ <
+              ((12323 / 10000 : Real) * (Real.log x) ^ 2) *
+                (x * Real.log x) := mul_lt_mul_of_pos_right hcoef hpos
+          _ = (12323 / 10000 : Real) * x * (Real.log x) ^ 3 := by ring
+      exact htail.trans_lt hratio
 
 theorem hasDusartThetaBounds_of_symmetric
     (bounds : HasDusartSymmetricThetaBounds) :
