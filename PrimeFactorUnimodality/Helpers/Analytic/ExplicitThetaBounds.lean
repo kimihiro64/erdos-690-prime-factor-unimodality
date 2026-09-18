@@ -63,7 +63,6 @@ theorem hasDusartSymmetricThetaBounds_of_below_and_logCubed_from
         rw [div_lt_div_iff₀ (by positivity) (by positivity)]
         nlinarith
       exact htail.trans_lt hratio
-
   · intro x hx
     by_cases hsmall : x ≤ X
     · exact finite.2 x hx hsmall
