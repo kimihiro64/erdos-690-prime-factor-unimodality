@@ -5,6 +5,7 @@ import PrimeFactorUnimodality.Proof.LargeRange.UniformTail
 import PrimeFactorUnimodality.Proof.LargeRange.TailErrorBounds
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitPrimeCounting
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
 import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 
 set_option autoImplicit false
@@ -80,6 +81,22 @@ theorem completeClassification_of_full_record_logCubed_inputs
     (hasDusartPrimeCountingBounds_of_real primeCountingBounds)
     (hasDusartThetaBounds_of_symmetric thetaBounds)
     (hasUniformTailPrimePair_of_logCubedShortInterval shortInterval)
+
+/-! The finite-row presentation is the concrete form needed by the eventual
+analytic provider: it keeps the medium range as one bounded cover and uses
+the proved theta-error implication above the cutoff. -/
+theorem completeClassification_of_full_record_bounded_rows
+    (primeCountingBounds : HasDusartRealPrimeCountingBounds)
+    (thetaBounds : HasDusartSymmetricThetaBounds)
+    {rows : List LogCubedPrimeRow}
+    (X : Real) (hX : (4e18 : Real) ≤ X)
+    (cover : LogCubedPrimeRowsCoverUpTo rows X)
+    (thetaError : HasThetaLogCubedError (12167 / 500000 : Real) (4e18 : Real)) :
+    CompleteClassification := by
+  exact completeClassification_of_full_record_logCubed_inputs
+    primeCountingBounds thetaBounds
+    (hasLogCubedShortIntervalPrime_of_bounded_rows_and_large_x
+      X hX cover thetaError)
 
 end
 
