@@ -152,6 +152,88 @@ theorem integral_inv_log_cubed_eq
           (ne_of_gt (pow_pos (Real.log_pos
             (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)))
 
+theorem deriv_log_power_kernel
+    {n : Nat} {t : Real} (ht : 1 < t) :
+    deriv (fun y : Real => y / (Real.log y) ^ (n + 1)) t =
+      1 / (Real.log t) ^ (n + 1) -
+        (n + 1 : Real) * (1 / (Real.log t) ^ (n + 2)) := by
+  have htpos : 0 < t := by linarith
+  have hlogpos : 0 < Real.log t := Real.log_pos ht
+  have hlogne : Real.log t ≠ 0 := ne_of_gt hlogpos
+  have hderiv := (hasDerivAt_id t).div
+    ((Real.hasDerivAt_log (ne_of_gt htpos)).pow (n + 1))
+    (pow_ne_zero _ hlogne)
+  convert hderiv.deriv using 1
+  · rfl
+  · simp only [id_eq, Pi.pow_apply]
+    rw [show n + 1 - 1 = n by omega]
+    field_simp [hlogne]
+    rw [pow_succ]
+    ring_nf
+    norm_num [Nat.cast_add, Nat.cast_one]
+    ring
+
+theorem integral_inv_log_pow_succ_eq
+    {n : Nat} {x : Real} (hx : 2 ≤ x) :
+    ∫ t in Set.Icc 2 x, 1 / Real.log t ^ (n + 1) =
+      x / Real.log x ^ (n + 1) - 2 / Real.log 2 ^ (n + 1) +
+        (n + 1 : Real) *
+          ∫ t in Set.Icc 2 x, 1 / Real.log t ^ (n + 2) := by
+  suffices h_ibp : ∀ a b : Real, 2 ≤ a → a ≤ b →
+      ∫ t in a..b, (1 / (Real.log t) ^ (n + 1)) =
+        (b / (Real.log b) ^ (n + 1)) -
+          (a / (Real.log a) ^ (n + 1)) +
+          (n + 1 : Real) *
+            ∫ t in a..b, (1 / (Real.log t) ^ (n + 2)) by
+    simpa only [MeasureTheory.integral_Icc_eq_integral_Ioc,
+      intervalIntegral.integral_of_le hx] using h_ibp 2 x (by norm_num) hx
+  intro a b ha hab
+  have h_deriv : ∀ t ∈ Set.Icc a b,
+      deriv (fun t ↦ t / (Real.log t) ^ (n + 1)) t =
+        1 / (Real.log t) ^ (n + 1) -
+          (n + 1 : Real) * (1 / (Real.log t) ^ (n + 2)) := by
+    intro t ht
+    exact deriv_log_power_kernel (n := n) (by linarith [ht.1])
+  have h_ftc : ∫ t in a..b,
+      deriv (fun t ↦ t / (Real.log t) ^ (n + 1)) t =
+      (b / (Real.log b) ^ (n + 1)) -
+        (a / (Real.log a) ^ (n + 1)) := by
+    rw [intervalIntegral.integral_deriv_eq_sub']
+    · rfl
+    · exact fun y hy ↦ DifferentiableAt.div differentiableAt_id
+        (DifferentiableAt.pow (Real.differentiableAt_log
+          (by cases Set.mem_uIcc.mp hy <;> linarith)) _)
+        (pow_ne_zero _ <| ne_of_gt <| Real.log_pos <|
+          by cases Set.mem_uIcc.mp hy <;> linarith)
+    · rw [Set.uIcc_of_le hab]
+      have hlog_cont := Real.continuousOn_log.mono
+        fun y (hy : y ∈ Set.Icc a b) ↦ ne_of_gt <| by linarith [hy.1]
+      have hpow_ne : ∀ m : Nat, ∀ y ∈ Set.Icc a b,
+          Real.log y ^ m ≠ 0 :=
+        fun m y hy ↦ pow_ne_zero m <| ne_of_gt <| Real.log_pos <|
+          by linarith [hy.1]
+      exact ContinuousOn.congr (ContinuousOn.sub
+        (continuousOn_const.div (hlog_cont.pow _) (hpow_ne _))
+        (continuousOn_const.mul <| continuousOn_const.div
+          (hlog_cont.pow _) (hpow_ne _))) h_deriv
+  rw [← h_ftc, intervalIntegral.integral_congr fun t ht =>
+    h_deriv t <| by simpa [hab] using ht]
+  rw [intervalIntegral.integral_sub]
+  · norm_num
+  · exact ContinuousOn.intervalIntegrable (continuousOn_of_forall_continuousAt
+      fun y hy ↦ ContinuousAt.div continuousAt_const
+        (ContinuousAt.pow (Real.continuousAt_log
+          (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)
+        (ne_of_gt (pow_pos (Real.log_pos
+          (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)))
+  · exact ContinuousOn.intervalIntegrable
+      (continuousOn_const.mul <| continuousOn_of_forall_continuousAt
+        fun y hy ↦ ContinuousAt.div continuousAt_const
+          (ContinuousAt.pow (Real.continuousAt_log
+            (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)
+          (ne_of_gt (pow_pos (Real.log_pos
+            (by linarith [Set.mem_Icc.mp (by simpa [hab] using hy)])) _)))
+
 theorem theta_integral_split
     {x : Real} (hx : 2 ≤ x) :
     (∫ t in (2 : Real)..x,
