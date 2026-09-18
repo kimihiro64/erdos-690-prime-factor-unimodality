@@ -1,4 +1,5 @@
 import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
+import PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
 
 set_option autoImplicit false
 
@@ -263,6 +264,17 @@ theorem hasThetaLogFourthError_of_rows_and_tail
     HasThetaLogFourthError A 2 := by
   exact hasThetaLogFourthError_of_below_and_above
     (hasThetaLogFourthErrorBelow_of_rows cover) tail
+
+theorem hasThetaLogFourthError_of_rows_and_psiLogFourthError
+    {A X : Real} {rows : List (ThetaLogFourthErrorRow (A + 148 / 1000))}
+    (cover : ThetaLogFourthErrorRowsCoverUpTo rows X)
+    (hXcutoff : (4e18 : Real) ≤ X)
+    (hA_nonneg : 0 ≤ A)
+    (psiError : HasPsiLogFourthError A X) :
+    HasThetaLogFourthError (A + 148 / 1000) 2 := by
+  apply hasThetaLogFourthError_of_rows_and_tail cover
+  exact hasThetaLogFourthError_of_psiLogFourthError_sharp
+    hXcutoff psiError
 
 theorem logCubedPrimeRow_provides
     (upper_mono : ∀ {a b : Real}, 89693 ≤ a → a ≤ b →
