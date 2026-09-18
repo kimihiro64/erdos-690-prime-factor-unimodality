@@ -102,12 +102,12 @@ private theorem exists_logFourth_envelope_of_rpow_decay
       using hmul')
 
 theorem hasPsiLogFourthError_of_logRpowDecay_of_envelope
-    {C c α X : Real} (hX : 0 < X)
+    {C D c α X : Real} (hX : 0 < X)
     (hdecay : HasPsiLogRpowDecay C c α X)
     (henvelope : ∀ x : Real, X ≤ x →
       C * Real.exp (-c * (Real.log x) ^ α) ≤
-        C / (Real.log x) ^ (4 : ℕ)) :
-    HasPsiLogFourthError C X := by
+        D / (Real.log x) ^ (4 : ℕ)) :
+    HasPsiLogFourthError D X := by
   intro x hx
   have hx_pos : 0 < x := lt_of_lt_of_le hX hx
   have herror := hdecay x hx
@@ -116,9 +116,42 @@ theorem hasPsiLogFourthError_of_logRpowDecay_of_envelope
     |Chebyshev.psi x - x| ≤
         C * x * Real.exp (-c * (Real.log x) ^ α) := herror
     _ = (C * Real.exp (-c * (Real.log x) ^ α)) * x := by ring
-    _ ≤ (C / (Real.log x) ^ (4 : ℕ)) * x :=
+    _ ≤ (D / (Real.log x) ^ (4 : ℕ)) * x :=
       mul_le_mul_of_nonneg_right henvelope_x hx_pos.le
-    _ = C * x / (Real.log x) ^ 4 := by ring
+    _ = D * x / (Real.log x) ^ 4 := by ring_nf
+
+/-! The same conversion with a unit coefficient is useful when an explicit
+PNT gives an arbitrary Big-O constant: the cutoff absorbs that constant. -/
+theorem exists_hasPsiLogFourthError_of_logRpowDecay_unit
+    {C c α X : Real} (hC : 0 ≤ C) (hc : 0 < c) (hα : 0 < α)
+    (hdecay : HasPsiLogRpowDecay C c α X) :
+    ∃ Y : Real, X ≤ Y ∧ HasPsiLogFourthError 1 Y := by
+  obtain ⟨T, hT⟩ := exists_logFourth_envelope_of_rpow_decay hC hc hα
+  let Y : Real := max X (max (Real.exp T) 2)
+  refine ⟨Y, le_max_left _ _, ?_⟩
+  intro x hx
+  have hmax_le_x : max (Real.exp T) 2 ≤ x :=
+    le_trans (le_max_right X (max (Real.exp T) 2)) hx
+  have hx2 : (2 : Real) ≤ x :=
+    le_trans (le_max_right (Real.exp T) 2) hmax_le_x
+  have hx_pos : 0 < x := by linarith
+  have hYpos : 0 < Y := by
+    dsimp [Y]
+    positivity
+  have hdecayY : HasPsiLogRpowDecay C c α Y := by
+    intro z hz
+    exact hdecay z (le_trans (le_max_left X (max (Real.exp T) 2)) hz)
+  have henvY : ∀ z : Real, Y ≤ z →
+      C * Real.exp (-c * (Real.log z) ^ α) ≤
+        1 / (Real.log z) ^ (4 : ℕ) := by
+    intro z hz
+    have hz_pos : 0 < z := lt_of_lt_of_le hYpos hz
+    have hzmax : max (Real.exp T) 2 ≤ z :=
+      le_trans (le_max_right X (max (Real.exp T) 2)) hz
+    exact hT (Real.log z) ((Real.le_log_iff_exp_le hz_pos).2
+      (le_trans (le_max_left (Real.exp T) 2) hzmax))
+  exact (hasPsiLogFourthError_of_logRpowDecay_of_envelope
+    (C := C) (D := 1) hYpos hdecayY henvY) x hx
 
 theorem exists_hasPsiLogFourthError_of_logRpowDecay
     {C c α X : Real} (hC : 0 ≤ C) (hc : 0 < c) (hα : 0 < α)
