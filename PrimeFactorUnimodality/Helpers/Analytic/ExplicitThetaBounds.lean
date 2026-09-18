@@ -18,6 +18,34 @@ def HasDusartThetaBounds : Prop :=
     x * (1 - (12323 / 10000 : Real) / Real.log x) <
       Chebyshev.theta x)
 
+/-! Published theta estimates are often supplied as a symmetric error bound.
+This interface records exactly the two error scales needed below and the
+adapter separates that analytic presentation from the asymmetric inequalities
+used by the primorial arguments. -/
+def HasDusartSymmetricThetaBounds : Prop :=
+  (∀ x : Real, 0 < x →
+    |Chebyshev.theta x - x| < x / 36260) ∧
+  (∀ x : Real, 2 < x →
+    |Chebyshev.theta x - x| <
+      (12323 / 10000 : Real) * x / Real.log x)
+
+theorem hasDusartThetaBounds_of_symmetric
+    (bounds : HasDusartSymmetricThetaBounds) :
+    HasDusartThetaBounds := by
+  constructor
+  · intro x hx
+    have h := bounds.1 x hx
+    rw [abs_lt] at h
+    nlinarith
+  · intro x hx
+    have log_pos : 0 < Real.log x :=
+      Real.log_pos (by linarith)
+    have h := bounds.2 x hx
+    rw [abs_lt] at h
+    have hleft := h.1
+    ring_nf at hleft ⊢
+    linarith
+
 theorem log_primorial_lt_of_dusart
     (bounds : HasDusartThetaBounds) (q : Nat) (q_pos : 0 < q) :
     Real.log (primorial q) <
