@@ -488,6 +488,45 @@ theorem integral_inv_log_pow_succ_le_split_at_million
   rw [← hsplit]
   exact add_le_add_left htail _
 
+theorem integral_inv_log_pow_succ_low_le_at_million
+    (n : Nat) :
+    (∫ t in (2 : Real)..(1000000 : Real),
+      1 / Real.log t ^ (n + 1)) ≤
+      (999998 : Real) / Real.log 2 ^ (n + 1) := by
+  have hcont : ContinuousOn
+      (fun t : Real => 1 / Real.log t ^ (n + 1))
+      (Set.Icc (2 : Real) (1000000 : Real)) := by
+    apply ContinuousOn.div continuousOn_const
+    · exact (Real.continuousOn_log.mono fun t ht =>
+        ne_of_gt (by linarith [ht.1])).pow _
+    · intro t ht
+      exact pow_ne_zero _
+        (ne_of_gt (Real.log_pos (by linarith [ht.1])))
+  have hfi : IntervalIntegrable
+      (fun t : Real => 1 / Real.log t ^ (n + 1))
+      MeasureTheory.volume 2 (1000000 : Real) := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le (by norm_num : (2 : Real) ≤ 1000000)]
+    exact hcont
+  have hgi : IntervalIntegrable
+      (fun _ : Real => 1 / Real.log 2 ^ (n + 1))
+      MeasureTheory.volume 2 (1000000 : Real) :=
+    intervalIntegrable_const
+  have hpoint : ∀ t ∈ Set.Icc (2 : Real) (1000000 : Real),
+      1 / Real.log t ^ (n + 1) ≤ 1 / Real.log 2 ^ (n + 1) := by
+    intro t ht
+    exact inv_log_pow_le_of_le (m := n + 1) (by norm_num) ht.1
+  have hmono := intervalIntegral.integral_mono_on
+    (by norm_num : (2 : Real) ≤ 1000000) hfi hgi hpoint
+  calc
+    (∫ t in (2 : Real)..(1000000 : Real),
+        1 / Real.log t ^ (n + 1)) ≤
+        ∫ t in (2 : Real)..(1000000 : Real),
+          (1 / Real.log 2 ^ (n + 1)) := hmono
+    _ = (999998 : Real) / Real.log 2 ^ (n + 1) := by
+      rw [intervalIntegral.integral_const]
+      norm_num
+
 theorem abs_integral_inv_log_pow_succ_le
     {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b)
     (hcoef : (n + 1 : Real) < Real.log a) :
