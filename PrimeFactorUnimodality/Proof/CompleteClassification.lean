@@ -180,6 +180,21 @@ theorem completeClassification_of_full_record_published_prime_counting_inputs
       (hasDusartRealPrimeCountingBoundsAbove_of_published published))
     finiteTheta cover thetaError
 
+/-! Public assembly with the analytic inputs in the form used by the paper:
+the finite prime-counting check is combined with the published tail estimate,
+while the theta and short-interval estimates are supplied globally. -/
+theorem completeClassification_of_published_analytic_inputs
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
+    (published : HasDusartPublishedPrimeCountingBounds)
+    (thetaBounds : HasDusartSymmetricThetaBounds)
+    (shortInterval : HasLogCubedShortIntervalPrime) :
+    CompleteClassification := by
+  exact completeClassification_of_full_record_logCubed_inputs
+    (hasDusartRealPrimeCountingBounds_of_below_and_above
+      finitePrimeCounting
+      (hasDusartRealPrimeCountingBoundsAbove_of_published published))
+    thetaBounds shortInterval
+
 end
 
 end PrimeFactorUnimodality
