@@ -32,6 +32,18 @@ theorem hasPsiLogRpowBigO_of_mediumPNT :
   simpa [Real.norm_eq_abs, Function.id_def, norm_sub, norm_mul,
     Real.norm_of_nonneg hx0, abs_of_nonneg (Real.exp_pos _).le] using hsource
 
+/-! Keep the source theorem available in the quantitative decay interface as
+well.  This is the form used when an eventual estimate must be transported
+through another analytic argument; it avoids re-opening the asymptotic
+normalization at each use site. -/
+theorem exists_hasPsiLogRpowDecay_of_mediumPNT :
+    ∃ C c α X : Real, 0 ≤ C ∧ 0 < c ∧ 0 < α ∧
+      HasPsiLogRpowDecay C c α X := by
+  obtain ⟨c, hc, hbigO⟩ := hasPsiLogRpowBigO_of_mediumPNT
+  obtain ⟨C, X, hC, hX, hdecay⟩ :=
+    exists_hasPsiLogRpowDecay_of_isBigO hbigO
+  exact ⟨C, c, (1 : Real) / 10, X, hC, hc, by norm_num, hdecay⟩
+
 theorem exists_hasPsiLogFourthError_of_mediumPNT :
     ∃ Y : Real, HasPsiLogFourthError (1 / 2) Y := by
   obtain ⟨c, _, hbigO⟩ := hasPsiLogRpowBigO_of_mediumPNT
