@@ -527,6 +527,26 @@ theorem integral_inv_log_pow_succ_low_le_at_million
       rw [intervalIntegral.integral_const]
       norm_num
 
+theorem integral_inv_log_pow_succ_le_explicit_at_million
+    {n : Nat} {X : Real} (hX : (1000000 : Real) ≤ X)
+    (hcoef : (n + 1 : Real) < Real.log (1000000 : Real)) :
+    (∫ t in (2 : Real)..X, 1 / Real.log t ^ (n + 1)) ≤
+      (999998 : Real) / Real.log 2 ^ (n + 1) +
+      (X / Real.log X ^ (n + 1)) /
+        (1 - (n + 1 : Real) / Real.log (1000000 : Real)) := by
+  have hsplit := integral_inv_log_pow_succ_le_split_at_million hX hcoef
+  have hlow := integral_inv_log_pow_succ_low_le_at_million n
+  calc
+    (∫ t in (2 : Real)..X, 1 / Real.log t ^ (n + 1)) ≤
+        (∫ t in (2 : Real)..(1000000 : Real),
+          1 / Real.log t ^ (n + 1)) +
+          (X / Real.log X ^ (n + 1)) /
+            (1 - (n + 1 : Real) / Real.log (1000000 : Real)) := hsplit
+    _ ≤ (999998 : Real) / Real.log 2 ^ (n + 1) +
+          (X / Real.log X ^ (n + 1)) /
+            (1 - (n + 1 : Real) / Real.log (1000000 : Real)) := by
+      exact add_le_add_right hlow _
+
 theorem abs_integral_inv_log_pow_succ_le
     {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b)
     (hcoef : (n + 1 : Real) < Real.log a) :
