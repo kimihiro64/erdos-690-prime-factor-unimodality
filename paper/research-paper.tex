@@ -31,7 +31,8 @@ starts from an exact finite recurrence, identifies it with natural density,
 and converts adjacent differences into a comparison between a symmetric
 polynomial ratio and a prime gap. Finite exact certificates, a certified
 large prime gap, a certified twin-prime ascent, and a uniform Chinese-remainder
-tail implement the Wang--Crapis strategy in Lean 4.
+tail implement the Wang--Crapis strategy in Lean 4; the remaining analytic
+interfaces are isolated explicitly.
 \end{abstract}
 \maketitle
 \begin{center}\small
@@ -48,10 +49,10 @@ $k$ rises to a mode and then decreases. The first three positions are
 unimodal. The complete answer is negative from the fourth position onward:
 every $k\geq4$ has a strict descent followed later by a strict ascent.
 
-This repository is a kernel-checked Lean 4 formalization of that all-$k$
-result. Its central design choice is to make the density identity and the
-sign criterion explicit, so that finite computation is used only for finite
-integer data and never as an unexamined oracle.
+This repository is a Lean 4 formalization of the structural proof and its
+all-$k$ assembly. Its central design choice is to make the density identity
+and sign criterion explicit, so that finite computation is used only for
+finite integer data and never as an unexamined oracle.
 
 \section{Statement}
 For $n\geq1$, write $q_1(n)<\cdots<q_{\omega(n)}(n)$ for its distinct prime
@@ -77,9 +78,9 @@ k\leq3. \tag{1}
 
 In Lean, the definitions are `primeFactorDensity`, `IsUnimodal`, and
 `CompleteClassification` in `Definitions/KthPrimeFactor.lean`; the universal
-assembly is packaged in `completeClassification_of_full_record_inputs` in
-`Proof/CompleteClassification.lean`, and the public `Solution.lean` exposes
-the same all-$k$ statement.
+conditional assembly is packaged in `completeClassification_of_full_record_inputs`
+in `Proof/CompleteClassification.lean`, and the public `Solution.lean` exposes
+the same all-$k$ target while the provider interfaces remain to be discharged.
 
 \section{The exact finite density formula}
 For a finite list $L$ and $r\geq0$, define
@@ -145,8 +146,9 @@ external numerical output.
 
 The public `Challenge.lean`/`Solution.lean` pair is a narrow theorem boundary:
 it exposes `CompleteClassification` itself, with no fixed-$k$ substitution and
-no hidden range restriction. The comparator axiom boundary is limited to
-`propext`, `Quot.sound`, and `Classical.choice`.
+no hidden range restriction. The internal all-$k$ reduction names its
+remaining explicit analytic inputs rather than treating them as project
+axioms.
 
 \section{Source relationship and limitations}
 The recurrence and initial ranges formalize Cambie's work. The large-range
@@ -156,9 +158,11 @@ explicit estimates provide analytic background. This repository claims no
 priority for those mathematical results and no independent expert review.
 
 The analytic estimates are isolated in named interfaces so that each use is
-visible in the proof architecture. The theorem proved at the public boundary
-is the universal statement (1), whose quantifier ranges over every positive
-integer $k$; no finite checkpoint is part of its specification.
+visible in the proof architecture. The public target is the universal
+statement (1), whose quantifier ranges over every positive integer $k$; no
+finite checkpoint is part of its specification. The currently closed Lean
+layers establish the finite and record-range cases and reduce the remaining
+tail to those named interfaces.
 
 \section*{Acknowledgements}
 I thank Stijn Cambie for the recurrence and initial ranges, Shouqiao Wang and
