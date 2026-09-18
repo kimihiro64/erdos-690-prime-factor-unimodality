@@ -123,6 +123,40 @@ theorem uniformConstruction_not_isUnimodal
           gapLe.trans_lt (ascentRatio i (by simpa only [P] using hi)) }
   simpa [show k - 2 + 2 = k by omega] using certificate.not_isUnimodal
 
+/-! The structural valley theorem also has a provider-free boundary.  This
+form is the interface used by the elementary Chebyshev tail: its only
+prime-counting inputs are the two concrete shell inequalities themselves. -/
+theorem uniformConstruction_not_isUnimodal_of_explicit_shell_count
+    {qPrev q k bound : Nat}
+    (consecutive : ConsecutivePrimes qPrev q)
+    (qPrev_gt_two : 2 < qPrev)
+    (hk : 2 ≤ k)
+    (two_le_count :
+      2 ≤ Nat.primeCounting (9 * primorial q) -
+        Nat.primeCounting (4 * primorial q))
+    (interval_short :
+      9 * primorial q - 4 * primorial q <
+        (Nat.primeCounting (9 * primorial q) -
+          Nat.primeCounting (4 * primorial q) - 1) * bound)
+    (descentDefined :
+      k - 1 ≤ Nat.primeCounting' (2 * primorial q + 1) - 1)
+    (descentRatio : ∀ a < primorial q,
+      densityRatio
+          (primesBelow
+            (primeAt (Nat.primeCounting' (a + 2 * primorial q + 1) - 1)))
+          (k - 1) < 2 * qPrev + 1)
+    (ascentRatio :
+      ∀ i < Nat.primeCounting (9 * primorial q) -
+          Nat.primeCounting (4 * primorial q) - 1,
+        (bound : Rat) <
+          densityRatio
+            (primesBelow
+              (primeAt (Nat.primeCounting (4 * primorial q) + i)))
+            (k - 1)) :
+    ¬ IsUnimodal (primeFactorDensity k) := by
+  exact uniformConstruction_not_isUnimodal consecutive qPrev_gt_two hk
+    two_le_count interval_short descentDefined descentRatio ascentRatio
+
 /-- Discharge the two prime-count hypotheses of
 `uniformConstruction_not_isUnimodal` from Dusart's explicit bounds and two
 purely numerical inequalities. -/
