@@ -1,5 +1,6 @@
 import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 import PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
+import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
 
 set_option autoImplicit false
 
@@ -321,6 +322,39 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_rows
       (by norm_num at ⊢; linarith)
       (by norm_num at ⊢; linarith) hab)
     row hleft hright
+
+structure DusartThetaBoundsRow where
+  left : Nat
+  right : Nat
+  left_large : 2 ≤ left
+  left_le_right : left ≤ right
+  upper : ∀ x : Real, (left : Real) ≤ x → x ≤ right →
+    Chebyshev.theta x - x < x / 36260
+  lower : ∀ x : Real, 2 < x → (left : Real) ≤ x → x ≤ right →
+    |Chebyshev.theta x - x| <
+      (12323 / 10000 : Real) * x / Real.log x
+
+def DusartThetaBoundsRowsCoverUpTo
+    (rows : List DusartThetaBoundsRow) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_rows
+    {X : Real} {rows : List DusartThetaBoundsRow}
+    (cover : DusartThetaBoundsRowsCoverUpTo rows X) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
+  · intro x hx hX
+    by_cases hsmall : x < 2
+    · rw [Chebyshev.theta_eq_zero_of_lt_two hsmall]
+      nlinarith
+    · obtain ⟨row, hrow, hleft, hright⟩ := cover x
+        (le_of_not_gt hsmall) hX
+      exact row.upper x hleft hright
+  · intro x hx hX
+    obtain ⟨row, hrow, hleft, hright⟩ := cover x
+      (by linarith) hX
+    exact row.lower x hx hleft hright
 
 theorem hasLogCubedShortIntervalPrime_of_bounded_rows_and_large_x
     {rows : List LogCubedPrimeRow}
