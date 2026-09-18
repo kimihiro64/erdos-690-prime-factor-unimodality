@@ -38,6 +38,33 @@ def HasDusartRealPrimeCountingBounds : Prop :=
   (∀ x : Real, 2 ≤ x →
     (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x)
 
+def HasDusartRealPrimeCountingBoundsBelow (X : Real) : Prop :=
+  (∀ x : Real, 599 ≤ x → x ≤ X →
+    dusartPiLower x ≤ (Nat.primeCounting ⌊x⌋₊ : Real)) ∧
+  (∀ x : Real, 2 ≤ x → x ≤ X →
+    (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x)
+
+def HasDusartRealPrimeCountingBoundsAbove (X : Real) : Prop :=
+  (∀ x : Real, X ≤ x →
+    dusartPiLower x ≤ (Nat.primeCounting ⌊x⌋₊ : Real)) ∧
+  (∀ x : Real, X ≤ x →
+    (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x)
+
+theorem hasDusartRealPrimeCountingBounds_of_below_and_above
+    {X : Real} (finite : HasDusartRealPrimeCountingBoundsBelow X)
+    (tail : HasDusartRealPrimeCountingBoundsAbove X)
+    (cutoff_lower : (2 : Real) ≤ X) :
+    HasDusartRealPrimeCountingBounds := by
+  constructor
+  · intro x hx
+    by_cases hsmall : x ≤ X
+    · exact finite.1 x hx hsmall
+    · exact tail.1 x (le_of_lt (lt_of_not_ge hsmall))
+  · intro x hx
+    by_cases hsmall : x ≤ X
+    · exact finite.2 x hx hsmall
+    · exact tail.2 x (le_of_lt (lt_of_not_ge hsmall))
+
 theorem hasDusartPrimeCountingBounds_of_real
     (bounds : HasDusartRealPrimeCountingBounds) :
     HasDusartPrimeCountingBounds := by
