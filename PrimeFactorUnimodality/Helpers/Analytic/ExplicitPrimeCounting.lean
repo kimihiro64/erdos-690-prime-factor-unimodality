@@ -1614,6 +1614,24 @@ theorem hasDusartRealPrimeCountingBoundsAbove_of_asymptotic
       exact hexp_three.trans hthree)
     (by norm_num) asymptotic
 
+/-! Direct composition of the kernel-checked Abel estimate with the published
+comparison bounds.  This is the public all-cutoff theorem: the only analytic
+inputs left are the explicit theta error and the finite core inequality. -/
+theorem hasDusartRealPrimeCountingBoundsAbove_of_core_and_theta_error
+    {A C X Y : Real}
+    (hXpos : 0 < X) (h2X : 2 ≤ X) (hXY : X ≤ Y)
+    (hA0 : 0 ≤ A) (hA : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hlog : (42 : Real) ≤ Real.log X)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (error : HasThetaLogFourthError A X) :
+    HasDusartRealPrimeCountingBoundsAbove Y := by
+  have asymptotic : HasDusartPrimeCountingAsymptoticAbove X :=
+    hasDusartPrimeCountingAsymptoticAbove_of_core_and_theta_error
+      hXpos h2X hA0 hA hC0 hC hlog hcore error
+  exact hasDusartRealPrimeCountingBoundsAbove_of_asymptotic_from
+    (by linarith [hlog]) hXY asymptotic
+
 theorem hasDusartRealPrimeCountingBounds_of_below_and_above
     {X : Real} (finite : HasDusartRealPrimeCountingBoundsBelow X)
     (tail : HasDusartRealPrimeCountingBoundsAbove X) :
