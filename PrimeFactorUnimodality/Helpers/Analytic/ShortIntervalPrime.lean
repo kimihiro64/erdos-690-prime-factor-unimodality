@@ -16,6 +16,39 @@ def HasDusartShortIntervalPrime : Prop :=
     ∃ q : Nat, q.Prime ∧ x < q ∧
       (q : Real) ≤ x * (1 + 1 / (2 * (Real.log x) ^ 2))
 
+/-! Dusart's published prime-in-interval result is often stated with the
+stronger width `x / log(x)^3`.  Keep that statement separate and provide the
+exact conversion needed by the CRT construction. -/
+def HasLogCubedShortIntervalPrime : Prop :=
+  ∀ x : Real, 3275 ≤ x →
+    ∃ q : Nat, q.Prime ∧ x < q ∧
+      (q : Real) ≤ x + x / (Real.log x) ^ 3
+
+theorem hasDusartShortIntervalPrime_of_logCubed
+    (shortInterval : HasLogCubedShortIntervalPrime) :
+    HasDusartShortIntervalPrime := by
+  intro x hx
+  obtain ⟨q, qPrime, hxq, hq⟩ := shortInterval x hx
+  have x_pos : (0 : Real) < x := by linarith
+  have log_x_gt_two : (2 : Real) < Real.log x := by
+    have exp_two_lt : Real.exp 2 < (9 : Real) := by
+      rw [show (2 : Real) = 1 + 1 by norm_num, Real.exp_add]
+      have exp_one_lt_three : Real.exp 1 < 3 :=
+        Real.exp_one_lt_d9.trans (by norm_num)
+      nlinarith [sq_lt_sq (Real.exp_pos 1) exp_one_lt_three]
+    apply (lt_log_iff_exp_lt x_pos).2
+    exact exp_two_lt.trans (by linarith)
+  have log_x_pos : 0 < Real.log x := by linarith
+  have log_sq_pos : 0 < (Real.log x) ^ 2 := sq_pos_of_pos log_x_pos
+  have width_le : x / (Real.log x) ^ 3 ≤ x / (2 * (Real.log x) ^ 2) := by
+    rw [div_le_div_iff₀ (by positivity) (by positivity)]
+    nlinarith [log_x_gt_two]
+  refine ⟨q, qPrime, hxq, ?_⟩
+  calc
+    (q : Real) ≤ x + x / (Real.log x) ^ 3 := hq
+    _ ≤ x + x / (2 * (Real.log x) ^ 2) := add_le_add_left width_le _
+    _ = x * (1 + 1 / (2 * (Real.log x) ^ 2)) := by ring
+
 /-- Applying the short-interval theorem at the left member of a consecutive
 prime pair bounds the right member. -/
 theorem ConsecutivePrimes.right_le_shortInterval_upper
