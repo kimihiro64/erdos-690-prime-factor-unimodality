@@ -18,6 +18,79 @@ def HasPsiSqrtLogDecay (C c X : Real) : Prop :=
   ∀ x : Real, X ≤ x →
     |Chebyshev.psi x - x| ≤ C * x * Real.exp (-c * Real.sqrt (Real.log x))
 
+def HasPsiLogRpowDecay (C c α X : Real) : Prop :=
+  ∀ x : Real, X ≤ x →
+    |Chebyshev.psi x - x| ≤
+      C * x * Real.exp (-c * (Real.log x) ^ α)
+
+private theorem exists_logFourth_envelope_of_rpow_decay
+    {C c α : Real} (hC : 0 ≤ C) (hc : 0 < c) (hα : 0 < α) :
+    ∃ T : Real, ∀ t : Real, T ≤ t →
+      C * Real.exp (-c * t ^ α) ≤ 1 / t ^ (4 : ℕ) := by
+  by_cases hCzero : C = 0
+  · refine ⟨1, ?_⟩
+    intro t ht
+    rw [hCzero, zero_mul]
+    exact div_nonneg zero_le_one (by positivity)
+  · have hCpos : 0 < C := lt_of_le_of_ne hC (Ne.symm hCzero)
+    have hbase :
+        Tendsto (fun u : Real => u ^ (4 / α : Real) * Real.exp (-c * u))
+          atTop (𝓝 0) :=
+      tendsto_rpow_mul_exp_neg_mul_atTop_nhds_zero (4 / α) c hc
+    have harg : Tendsto (fun t : Real => t ^ α) atTop atTop :=
+      tendsto_rpow_atTop hα
+    have hcomp :
+        Tendsto (fun t : Real => (t ^ α) ^ (4 / α : Real) *
+          Real.exp (-c * t ^ α)) atTop (𝓝 0) := hbase.comp harg
+    have hsmall : ∀ᶠ t : Real in atTop,
+        (t ^ α) ^ (4 / α : Real) * Real.exp (-c * t ^ α) < C⁻¹ := by
+      exact hcomp.eventually (Iio_mem_nhds (inv_pos.mpr hCpos))
+    obtain ⟨T, hT⟩ := eventually_atTop.1 hsmall
+    refine ⟨max T 1, ?_⟩
+    intro t ht
+    have ht1 : 1 ≤ t := le_trans (le_max_right T 1) ht
+    have ht0 : 0 ≤ t := ht1.le
+    have hpow : (t ^ α) ^ (4 / α : Real) = t ^ (4 : ℕ) := by
+      rw [← Real.rpow_mul ht0]
+      field_simp [ne_of_gt hα]
+      norm_num [Real.rpow_natCast]
+    have hsmall_t := hT t (le_trans (le_max_left T 1) ht)
+    have hmul := (mul_lt_mul_of_pos_left hsmall_t hCpos).le
+    have hmul' : C * t ^ (4 : ℕ) * Real.exp (-c * t ^ α) ≤ 1 := by
+      calc
+        C * t ^ (4 : ℕ) * Real.exp (-c * t ^ α) =
+            C * ((t ^ α) ^ (4 / α : Real) *
+              Real.exp (-c * t ^ α)) := by rw [hpow]; ring
+        _ ≤ 1 := by simpa [hCpos.ne'] using hmul
+    have ht4pos : 0 < t ^ (4 : ℕ) := by positivity
+    exact (le_div_iff₀ ht4pos).2 (by simpa [mul_assoc, mul_comm, mul_left_comm]
+      using hmul')
+
+theorem exists_hasPsiLogFourthError_of_logRpowDecay
+    {C c α X : Real} (hC : 0 ≤ C) (hc : 0 < c) (hα : 0 < α)
+    (hX : 0 < X) (hdecay : HasPsiLogRpowDecay C c α X) :
+    ∃ Y : Real, X ≤ Y ∧ HasPsiLogFourthError 1 Y := by
+  obtain ⟨T, hT⟩ := exists_logFourth_envelope_of_rpow_decay hC hc hα
+  let Y : Real := max X (max (Real.exp T) 2)
+  refine ⟨Y, le_max_left _ _, ?_⟩
+  intro x hx
+  have hmax_le_x : max (Real.exp T) 2 ≤ x :=
+    le_trans (le_max_right X (max (Real.exp T) 2)) hx
+  have hx2 : (2 : Real) ≤ x :=
+    le_trans (le_max_right (Real.exp T) 2) hmax_le_x
+  have hx_pos : 0 < x := by linarith
+  have hlog_pos : 0 < Real.log x := Real.log_pos (by linarith)
+  have henv := hT (Real.log x) ((Real.le_log_iff_exp_le hx_pos).2
+    (le_trans (le_max_left (Real.exp T) 2) hmax_le_x))
+  have hbound := hdecay x (le_trans (le_max_left _ _) hx)
+  calc
+    |Chebyshev.psi x - x| ≤
+        C * x * Real.exp (-c * (Real.log x) ^ α) := hbound
+    _ = (C * Real.exp (-c * (Real.log x) ^ α)) * x := by ring
+    _ ≤ (1 / (Real.log x) ^ (4 : ℕ)) * x :=
+      mul_le_mul_of_nonneg_right henv hx_pos.le
+    _ = 1 * x / (Real.log x) ^ 4 := by ring
+
 private theorem sqrtLog_pow_eight_eq_log_pow_four
     {t : Real} (ht : 0 ≤ t) :
     (Real.sqrt t) ^ (8 : ℕ) = t ^ (4 : ℕ) := by
