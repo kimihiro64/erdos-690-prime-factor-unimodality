@@ -13,7 +13,7 @@
   record-twin certificates without `native_decide`.
 - [ ] Extend the record-gap certificate to the full published block and raise
   the finite record range to the source proof's cutoff `k = 8,600,001`.
-  The closed finite descent range is currently `k ≤ 7,400,000`; it overlaps
+  The closed finite descent range is currently `k ≤ 7,430,000`; it overlaps
   the independently proved tail starting at `k ≥ 7,300,001`.
   The archive leaves 10,918 interior terms without a listed factor; closing
   this item requires kernel replay of their published Fermat tests or new
