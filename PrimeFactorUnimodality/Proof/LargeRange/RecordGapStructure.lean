@@ -82,6 +82,31 @@ theorem recordGap_sub_not_prime {d q : Nat}
   have hcenter : 8_000_000_000 < recordGapCenter := recordGapCenter_large
   omega
 
+theorem recordGapOwnerSpec_dvd_add {d q : Nat}
+    (owner : RecordGapOwnerSpec d q) :
+    q ∣ recordGapCenter + d := by
+  rcases owner with ⟨q_mem, q_dvd_d⟩ | ⟨r, residue, d_mod⟩
+  · have q_dvd_tail : q ∣ recordGapTailProduct := by
+      exact List.dvd_prod (recordGapUsedTailOwners_mem q_mem)
+    have q_dvd_center : q ∣ recordGapCenter := by
+      exact dvd_mul_of_dvd_right q_dvd_tail 587
+    exact dvd_add q_dvd_center q_dvd_d
+  · apply (Nat.modEq_iff_dvd' (by omega : d ≤ recordGapCenter + d)).mp
+    change recordGapCenter % q = d % q
+    exact (recordGapCenter_mod_of_residue residue).trans d_mod.symm
+
+theorem recordGap_add_not_prime {d q : Nat}
+    (owner : RecordGapOwnerSpec d q) :
+    ¬(recordGapCenter + d).Prime := by
+  apply Nat.not_prime_of_dvd_of_lt (recordGapOwnerSpec_dvd_add owner) (by
+    rcases owner with ⟨q_mem, _⟩ | ⟨r, residue, _⟩
+    · exact (recordGapPrimeList_le_limit q q_mem).trans_lt (by
+        have := recordGapCenter_large
+        omega)
+    · cases residue <;> norm_num)
+  have hcenter := recordGapCenter_large
+  omega
+
 /-- A prime occurring in the full primorial tail divides the record center.
 This broader form is used by the million-term published gap, whose owner set
 is much larger than the optimized 4,751-term sub-block. -/
