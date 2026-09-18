@@ -7,7 +7,7 @@ namespace PrimeFactorUnimodality
 noncomputable section
 
 theorem theta_upper_of_psi_relative_error
-    {x ε : Real} (hx : 0 ≤ x)
+    {x ε : Real}
     (hpsi : |Chebyshev.psi x - x| ≤ ε * x) :
     Chebyshev.theta x ≤ (1 + ε) * x := by
   have hupper : Chebyshev.psi x ≤ (1 + ε) * x := by
