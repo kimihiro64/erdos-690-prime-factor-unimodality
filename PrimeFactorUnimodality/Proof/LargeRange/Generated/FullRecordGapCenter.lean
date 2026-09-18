@@ -2,6 +2,7 @@ import PrimeFactorUnimodality.Proof.LargeRange.RecordGapStructure
 
 set_option autoImplicit false
 set_option maxRecDepth 10000000
+set_option exponentiation.threshold 100000
 set_option linter.style.longLine false
 
 /-! Literal bridge for the published full record-gap center. -/
