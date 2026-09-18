@@ -18,9 +18,10 @@
   The archive leaves 10,918 interior terms without a listed factor; closing
   this item requires kernel replay of their published Fermat tests or new
   divisor certificates, not merely trusting the 64-bit residue log.  The
-  replay has been rendered as 43 shared Lean row modules (256 witnesses per
+  replay has been rendered as 171 shared Lean row modules (64 witnesses per
   row), preserving the original witness theorem names without one source file
-  per witness.
+  per witness.  The row modules are the reusable unit; the 10,918 witness
+  theorems remain individually addressable inside them.
   `scripts/audit_full_record_gap.py` now independently accounts for every one
   of the 1,113,105 interior offsets: 1,087,142 have cheap primorial owners,
   15,045 use listed factors, and exactly 10,918 remain in the replay queue
