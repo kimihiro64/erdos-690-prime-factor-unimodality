@@ -64,6 +64,12 @@ theorem hasDusartRealPrimeCountingBounds_of_below_and_above
     · exact finite.2 x hx hsmall
     · exact tail.2 x (le_of_lt (lt_of_not_ge hsmall))
 
+theorem hasDusartRealPrimeCountingBounds_of_below_and_above_at_cutoff
+    (finite : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
+    (tail : HasDusartRealPrimeCountingBoundsAbove (4e18 : Real)) :
+    HasDusartRealPrimeCountingBounds :=
+  hasDusartRealPrimeCountingBounds_of_below_and_above finite tail
+
 theorem hasDusartPrimeCountingBounds_of_real
     (bounds : HasDusartRealPrimeCountingBounds) :
     HasDusartPrimeCountingBounds := by
