@@ -136,6 +136,30 @@ theorem recordGap_add_not_prime_of_center_mod {d q r : Nat}
   have hcenter := recordGapCenter_large
   omega
 
+def FullRecordGapOwnerSpec (d q : Nat) : Prop :=
+  (q ∈ recordGapPrimeList ∧ q ∣ d) ∨
+    ∃ r, q ≤ 3_100_000_000 ∧ recordGapCenter % q = r ∧ d % q = r
+
+theorem fullRecordGap_sub_not_prime {d q : Nat}
+    (hd : d ≤ 4_000_000_000) (owner : FullRecordGapOwnerSpec d q) :
+    ¬(recordGapCenter - d).Prime := by
+  rcases owner with ⟨q_mem, q_dvd_d⟩ | ⟨r, q_bound, center_mod, d_mod⟩
+  · exact recordGap_sub_not_prime_of_tail_owner hd
+      (by have := recordGapPrimeList_lower q q_mem; omega)
+      (recordGapPrimeList_le_limit q q_mem) q_mem q_dvd_d
+  · exact recordGap_sub_not_prime_of_center_mod hd (by omega) q_bound
+      center_mod d_mod
+
+theorem fullRecordGap_add_not_prime {d q : Nat}
+    (owner : FullRecordGapOwnerSpec d q) :
+    ¬(recordGapCenter + d).Prime := by
+  rcases owner with ⟨q_mem, q_dvd_d⟩ | ⟨r, q_bound, center_mod, d_mod⟩
+  · exact recordGap_add_not_prime_of_tail_owner
+      (by have := recordGapPrimeList_lower q q_mem; omega)
+      (recordGapPrimeList_le_limit q q_mem) q_mem q_dvd_d
+  · exact recordGap_add_not_prime_of_center_mod (by omega) q_bound
+      center_mod d_mod
+
 /-- A prime occurring in the full primorial tail divides the record center.
 This broader form is used by the million-term published gap, whose owner set
 is much larger than the optimized 4,751-term sub-block. -/

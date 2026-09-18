@@ -588,6 +588,10 @@ theorem recordGapPrimeList_le_limit :
     ∀ q ∈ recordGapPrimeList, q ≤ 43103 := by
   decide
 
+theorem recordGapPrimeList_lower :
+    ∀ q ∈ recordGapPrimeList, 13 ≤ q := by
+  decide
+
 /-- Tail primes actually selected as owners in the bounded block. -/
 def recordGapUsedTailOwners : List Nat :=
   [13, 17, 19, 23, 29, 31, 37, 41,
