@@ -8,6 +8,7 @@ namespace PrimeFactorUnimodality
 noncomputable section
 
 open Filter Set
+open Asymptotics
 open scoped Topology
 
 /-! A quantitative interface for the error term supplied by an explicit
@@ -22,6 +23,40 @@ def HasPsiLogRpowDecay (C c α X : Real) : Prop :=
   ∀ x : Real, X ≤ x →
     |Chebyshev.psi x - x| ≤
       C * x * Real.exp (-c * (Real.log x) ^ α)
+
+def HasPsiLogRpowBigO (c α : Real) : Prop :=
+  (fun x : Real => |Chebyshev.psi x - x|) =O[atTop]
+    (fun x : Real => x * Real.exp (-c * (Real.log x) ^ α))
+
+theorem exists_hasPsiLogRpowDecay_of_isBigO
+    {c α : Real} (hbigO : HasPsiLogRpowBigO c α) :
+    ∃ C X : Real, 0 ≤ C ∧ 0 < X ∧ HasPsiLogRpowDecay C c α X := by
+  change (fun x : Real => |Chebyshev.psi x - x|) =O[atTop]
+    (fun x : Real => x * Real.exp (-c * (Real.log x) ^ α)) at hbigO
+  rw [isBigO_iff] at hbigO
+  obtain ⟨K, hK⟩ := hbigO
+  obtain ⟨T, hT⟩ := eventually_atTop.1 hK
+  let C : Real := max K 0 + 1
+  let X : Real := max T 2
+  refine ⟨C, X, ?_, by dsimp [X]; linarith [le_max_right T 2], ?_⟩
+  · dsimp [C]
+    linarith [le_max_right K 0]
+  · intro x hx
+    have hx2 : (2 : Real) ≤ x := le_trans (le_max_right T 2) hx
+    have hx_pos : 0 < x := by linarith
+    have hg : 0 ≤ x * Real.exp (-c * (Real.log x) ^ α) := by positivity
+    have hKx := hT x (le_trans (le_max_left T 2) hx)
+    have hKC : K ≤ C := by
+      dsimp [C]
+      linarith [le_max_left K 0]
+    calc
+      |Chebyshev.psi x - x| ≤
+          K * (x * Real.exp (-c * (Real.log x) ^ α)) := by
+        simpa [Real.norm_eq_abs, norm_mul, Real.norm_of_nonneg hx_pos.le,
+          abs_of_nonneg (Real.exp_pos _).le] using hKx
+      _ ≤ C * (x * Real.exp (-c * (Real.log x) ^ α)) :=
+        mul_le_mul_of_nonneg_right hKC hg
+      _ = C * x * Real.exp (-c * (Real.log x) ^ α) := by ring
 
 private theorem exists_logFourth_envelope_of_rpow_decay
     {C c α : Real} (hC : 0 ≤ C) (hc : 0 < c) (hα : 0 < α) :
