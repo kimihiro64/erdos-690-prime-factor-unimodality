@@ -14,6 +14,10 @@ def HasPsiLogFourthError (A X : Real) : Prop :=
   ∀ x : Real, X ≤ x →
     |Chebyshev.psi x - x| ≤ A * x / (Real.log x) ^ 4
 
+def HasPsiLogCubedError (C X : Real) : Prop :=
+  ∀ x : Real, X ≤ x →
+    |Chebyshev.psi x - x| ≤ C * x / (Real.log x) ^ 3
+
 private def logPowFiveDivSqrt (x : Real) : Real :=
   (Real.log x) ^ 5 / Real.sqrt x
 
@@ -158,6 +162,53 @@ private theorem primePowerCorrection_le_logFourth
     _ ≤ Real.sqrt x * Real.sqrt x :=
       mul_le_mul_of_nonneg_right hmain' hsqrt_pos.le
     _ = x := by simpa [pow_two] using Real.sq_sqrt hx_pos.le
+
+theorem hasThetaLogCubedError_of_psiLogCubedError
+    {C X : Real} (hX : (4e18 : Real) ≤ X)
+    (hlogX : 0 < Real.log X)
+    (psiError : HasPsiLogCubedError C X) :
+    HasThetaLogCubedError (C + 1 / Real.log X) X := by
+  intro x hx
+  have hx_cutoff : (4e18 : Real) ≤ x := hX.trans hx
+  have hx_pos : 0 < x := by linarith
+  have hlogx_pos : 0 < Real.log x := Real.log_pos (by linarith)
+  have hlog_mono : Real.log X ≤ Real.log x := by
+    have hXpos : 0 < X := by
+      linarith [hX]
+    exact Real.log_le_log hXpos hx
+  have hpsi := psiError x hx
+  have hcorrection := primePowerCorrection_le_logFourth hx_cutoff
+  have hcorrection_cubic :
+      2 * Real.sqrt x * Real.log x ≤
+        (1 / Real.log X) * x / (Real.log x) ^ 3 := by
+    calc
+      2 * Real.sqrt x * Real.log x ≤ x / (Real.log x) ^ 4 := hcorrection
+      _ = (x / (Real.log x) ^ 3) / Real.log x := by
+        field_simp [hlogx_pos.ne']
+      _ ≤ (x / (Real.log x) ^ 3) / Real.log X := by
+        have hbase : 0 ≤ x / (Real.log x) ^ 3 := by positivity
+        exact div_le_div_of_nonneg_left hbase hlogX hlog_mono
+      _ = (1 / Real.log X) * x / (Real.log x) ^ 3 := by
+        field_simp [hlogX.ne']
+  have hdiff := Chebyshev.psi_sub_theta_le (x := x) (by linarith)
+  have htheta_le_psi := Chebyshev.theta_le_psi x
+  have hcorrection_abs :
+      |Chebyshev.theta x - Chebyshev.psi x| ≤
+        2 * Real.sqrt x * Real.log x := by
+    rw [abs_sub_comm, abs_of_nonneg (sub_nonneg.mpr htheta_le_psi)]
+    linarith
+  calc
+    |Chebyshev.theta x - x| ≤
+        |Chebyshev.theta x - Chebyshev.psi x| +
+          |Chebyshev.psi x - x| := by
+      rw [show Chebyshev.theta x - x =
+        (Chebyshev.theta x - Chebyshev.psi x) +
+          (Chebyshev.psi x - x) by ring]
+      exact abs_add_le _ _
+    _ ≤ (1 / Real.log X) * x / (Real.log x) ^ 3 +
+          C * x / (Real.log x) ^ 3 :=
+      add_le_add (hcorrection_abs.trans hcorrection_cubic) hpsi
+    _ = (C + 1 / Real.log X) * x / (Real.log x) ^ 3 := by ring
 
 theorem hasThetaLogFourthError_of_psiLogFourthError
     {A X : Real} (hX : (4e18 : Real) ≤ X)
