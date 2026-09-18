@@ -59,11 +59,13 @@ private theorem log_800000000_lt_21 :
   norm_num at logged ⊢
   nlinarith [Real.log_three_lt_d9]
 
-private theorem log_21_lt_78_div_25 :
-    Real.log 21 < (78 : Real) / 25 := by
-  have powerLt : (21 : Real) ^ 2 < 2 ^ (9 : Nat) := by norm_num
+private theorem log_21_lt_61_div_20 :
+    Real.log 21 < (61 : Real) / 20 := by
+  have powerLt : (21 : Real) ^ 10 < 2 ^ (28 : Nat) * 3 ^ (10 : Nat) := by
+    norm_num
   have logged := Real.log_lt_log (by positivity) powerLt
-  rw [Real.log_pow, Real.log_pow] at logged
+  rw [Real.log_pow, Real.log_mul (by positivity) (by positivity),
+    Real.log_pow, Real.log_pow] at logged
   norm_num at logged ⊢
   nlinarith [Real.log_two_lt_d9]
 
@@ -87,7 +89,7 @@ theorem fullRecord_prefix_log_log_lt {k : Nat}
       Real.log ((primeAt (k - 2) - 1 : Nat) : Real) < 21 :=
     (Real.log_le_log (by exact_mod_cast (show 0 < primeAt (k - 2) - 1 by omega))
       (by exact_mod_cast prefixLe)).trans_lt log_800000000_lt_21
-  exact (Real.log_lt_log innerPos innerLt).trans log_21_lt_78_div_25
+  exact (Real.log_lt_log innerPos innerLt).trans log_21_lt_61_div_20
 
 theorem fullRecordHalf_mertensError_lt :
     mertensErrorConstant /
