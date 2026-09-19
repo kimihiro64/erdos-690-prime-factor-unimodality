@@ -80,3 +80,22 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_split_cor
     PrimeFactorUnimodality.CompleteClassification := by
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_split_core_row_provider
     hX hC0 hC provider
+
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_split_core_rows
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (primeCountingRows : ∀ Y : Real, X ≤ Y →
+      ∃ rows : List PrimeFactorUnimodality.DusartPrimeCountingRow,
+        PrimeFactorUnimodality.DusartPrimeCountingRowsCoverFrom599 rows Y)
+    (thetaRows : ∀ Y : Real, X ≤ Y →
+      ∃ rows : List PrimeFactorUnimodality.DusartThetaBoundsRow,
+        PrimeFactorUnimodality.DusartThetaBoundsRowsCoverUpTo rows Y)
+    (shortIntervalRows : ∀ Y : Real, X ≤ Y →
+      ∃ rows : List PrimeFactorUnimodality.LogCubedPrimeRow,
+        PrimeFactorUnimodality.LogCubedPrimeRowsCoverUpTo rows Y)
+    (core : ∀ Y : Real, X ≤ Y →
+      4000 + 720 * (∫ t in (2 : Real)..Y, 1 / Real.log t ^ 7) + 10 * Y ≤
+        C * Y / Real.log Y ^ 4) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_split_core_rows
+    hX hC0 hC primeCountingRows thetaRows shortIntervalRows core

@@ -598,6 +598,35 @@ theorem completeClassification_of_mediumPNT_and_split_core_row_provider
   · exact small_integral_remainder_le_ten_mul (by linarith [hX])
   · exact provider.core Y hXY
 
+/-! The fixed grouped table supplies the only small prime-counting field in
+the core-row interface.  Large prime-counting, theta, and short-interval
+lists remain independent inputs, so each can be generated and checked by its
+own compact certificate. -/
+theorem completeClassification_of_mediumPNT_and_split_core_rows
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (primeCountingRows : ∀ Y : Real, X ≤ Y →
+      ∃ rows : List DusartPrimeCountingRow,
+        DusartPrimeCountingRowsCoverFrom599 rows Y)
+    (thetaRows : ∀ Y : Real, X ≤ Y →
+      ∃ rows : List DusartThetaBoundsRow,
+        DusartThetaBoundsRowsCoverUpTo rows Y)
+    (shortIntervalRows : ∀ Y : Real, X ≤ Y →
+      ∃ rows : List LogCubedPrimeRow,
+        LogCubedPrimeRowsCoverUpTo rows Y)
+    (core : ∀ Y : Real, X ≤ Y →
+      4000 + 720 * (∫ t in (2 : Real)..Y, 1 / Real.log t ^ 7) + 10 * Y ≤
+        C * Y / Real.log Y ^ 4) :
+    CompleteClassification := by
+  apply completeClassification_of_mediumPNT_and_split_core_row_provider
+    hX hC0 hC
+  exact {
+    primeCountingRows := primeCountingRows
+    primeCountingSmallUpper := fun _ _ => dusartSmallUpperIntervalRows_provide
+    thetaRows := thetaRows
+    shortIntervalRows := shortIntervalRows
+    core := core }
+
 private theorem completeClassification_of_mediumPNT_and_finite_error_provider
     (finitePrimeCounting : ∀ X : Real, (4e18 : Real) ≤ X →
       HasDusartRealPrimeCountingBoundsBelow X)
