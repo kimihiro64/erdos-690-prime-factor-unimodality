@@ -492,6 +492,32 @@ theorem completeClassification_of_mediumPNT_and_selected_finite_inputs
     h4Y finitePrimeCounting tailPrimeCounting finiteTheta thetaErrorCubic
     finiteShortInterval tailShortInterval
 
+/-! Fully corrected selected-cutoff boundary.  The finite provider supplies
+the Abel remainder over `[2,Y]`; MediumPNT supplies the sharp theta tail from
+`Y` onward. -/
+theorem completeClassification_of_mediumPNT_and_selected_split_inputs
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (finiteInputs : ∀ Y : Real, X ≤ Y →
+      HasDusartRealPrimeCountingBoundsBelow Y ∧
+      HasDusartSymmetricThetaBoundsBelow Y ∧
+      HasLogCubedShortIntervalPrimeBelow Y ∧
+      ∃ R : Real,
+        |∫ t in (2 : Real)..Y,
+            (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+              1 / (Real.log t) ^ 2)| ≤ R ∧
+        4000 + 720 * (∫ t in (2 : Real)..Y, 1 / Real.log t ^ 7) + R ≤
+          C * Y / Real.log Y ^ 4) :
+    CompleteClassification := by
+  obtain ⟨Y, hXY, h4Y, thetaError⟩ :=
+    exists_hasThetaLogFourthError_of_mediumPNT_above X
+  obtain ⟨finitePrimeCounting, finiteTheta, finiteShortInterval,
+      R, hsmall, hcoreBound⟩ := finiteInputs Y hXY
+  exact completeClassification_of_split_theta_error_and_integral_core
+    h4Y (by linarith) le_rfl finitePrimeCounting finiteTheta
+    finiteShortInterval (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) hsmall thetaError (by simpa using hcoreBound)
+
 theorem completeClassification_of_mediumPNT_and_finite_error_provider
     (finitePrimeCounting : ∀ X : Real, (4e18 : Real) ≤ X →
       HasDusartRealPrimeCountingBoundsBelow X)
