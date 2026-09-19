@@ -1041,7 +1041,9 @@ private theorem completeClassification_of_mediumPNT_and_integer_interval_split_r
 
 /-! The compact small-prime table is fixed data, so callers supplying the
 large endpoint tables should not have to repeat its list or its cover. -/
-private structure MediumPNTFiniteIntegerIntervalTailProvider : Prop where
+/-! Compact all-`k` finite boundary.  The small prime-counting interval table
+is fixed below; callers provide only the large-cutoff endpoint families. -/
+structure MediumPNTFiniteIntegerIntervalTailProvider : Prop where
   primeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
     ∃ rows : List DusartPrimeCountingEndpointRow,
       DusartPrimeCountingEndpointRowsCoverFrom599 rows X
@@ -1055,7 +1057,7 @@ private structure MediumPNTFiniteIntegerIntervalTailProvider : Prop where
     ∃ rows : List (ThetaLogFourthEndpointRow (648 / 1000 : Real)),
       ThetaLogFourthEndpointRowsCoverUpTo rows X
 
-private theorem completeClassification_of_mediumPNT_and_integer_interval_tail_provider
+theorem completeClassification_of_mediumPNT_and_integer_interval_tail_provider
     (provider : MediumPNTFiniteIntegerIntervalTailProvider) :
     CompleteClassification := by
   exact completeClassification_of_mediumPNT_and_integer_interval_split_row_provider

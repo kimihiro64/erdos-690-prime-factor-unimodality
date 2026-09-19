@@ -294,3 +294,11 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_bundled_r
     PrimeFactorUnimodality.CompleteClassification := by
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_bundled_row_provider
     provider
+
+/-! Compact endpoint-row boundary: the fixed small prime-counting table is
+reused, so the provider contains only the large-cutoff families. -/
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_interval_tail_provider
+    (provider : PrimeFactorUnimodality.MediumPNTFiniteIntegerIntervalTailProvider) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_interval_tail_provider
+    provider
