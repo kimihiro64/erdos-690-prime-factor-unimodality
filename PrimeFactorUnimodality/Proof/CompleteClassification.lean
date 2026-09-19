@@ -496,9 +496,9 @@ structure MediumPNTFiniteIntegerSplitRowProvider : Prop where
   primeCountingSmallIntegerCover :
     DusartPrimeCountingUpperIntegerRowsCover
       primeCountingSmallIntegerRows
-  thetaRows : ∀ X : Real, (4e18 : Real) ≤ X →
-    ∃ rows : List DusartThetaBoundsRow,
-      DusartThetaBoundsRowsCoverUpTo rows X
+  thetaEndpointRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List DusartThetaEndpointRow,
+      DusartThetaEndpointRowsCoverUpTo rows X
   shortIntervalRows : ∀ X : Real, (4e18 : Real) ≤ X →
     ∃ rows : List LogCubedPrimeRow,
       LogCubedPrimeRowsCoverUpTo rows X
@@ -515,8 +515,8 @@ theorem completeClassification_of_mediumPNT_and_integer_split_row_provider
     exact hasDusartRealPrimeCountingBoundsBelow_of_rows_from599 hcover
       (real_primeCounting_upper_of_integer_rows
         provider.primeCountingSmallIntegerCover)
-  · obtain ⟨rows, hcover⟩ := provider.thetaRows X hX
-    exact hasDusartSymmetricThetaBoundsBelow_of_rows hcover
+  · obtain ⟨rows, hcover⟩ := provider.thetaEndpointRows X hX
+    exact hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows hcover
   · obtain ⟨rows, hcover⟩ := provider.shortIntervalRows X hX
     exact hasLogCubedShortIntervalPrimeBelow_of_rows hcover
   · obtain ⟨rows, hcover⟩ := provider.thetaErrorEndpointRows X hX

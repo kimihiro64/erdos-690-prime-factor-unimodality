@@ -419,6 +419,122 @@ structure DusartThetaBoundsRow where
     |Chebyshev.theta x - x| <
       (12323 / 10000 : Real) * x / Real.log x
 
+structure DusartThetaEndpointRow where
+  left : Nat
+  right : Nat
+  left_large : 2 ≤ left
+  left_le_right : left ≤ right
+  theta_lower : Real
+  theta_upper : Real
+  theta_lower_le : theta_lower ≤ Chebyshev.theta left
+  theta_right_le : Chebyshev.theta right ≤ theta_upper
+  upper_error : theta_upper - left < (left : Real) / 36260
+  lower_upper_error : theta_upper - left <
+    (12323 / 10000 : Real) * (left : Real) / Real.log right
+  lower_lower_error : right - theta_lower <
+    (12323 / 10000 : Real) * (left : Real) / Real.log right
+
+def DusartThetaEndpointRowsCoverUpTo
+    (rows : List DusartThetaEndpointRow) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem dusartThetaEndpointRow_provides
+    (row : DusartThetaEndpointRow) {x : Real}
+    (hleft : (row.left : Real) ≤ x) (hright : x ≤ row.right) :
+    DusartThetaBoundsRow := by
+  have hleft2 : (2 : Real) ≤ row.left := by exact_mod_cast row.left_large
+  have hright2 : (2 : Real) ≤ (row.right : Real) := by
+    exact le_trans hleft2 (by exact_mod_cast row.left_le_right)
+  have hlogx_pos : 0 < Real.log x := Real.log_pos (by linarith [hleft2, hleft])
+  have hlogr_pos : 0 < Real.log (row.right : Real) := Real.log_pos (by linarith)
+  have htheta_lower : row.theta_lower ≤ Chebyshev.theta x :=
+    row.theta_lower_le.trans (Chebyshev.theta_mono hleft)
+  have htheta_upper : Chebyshev.theta x ≤ row.theta_upper :=
+    (Chebyshev.theta_mono hright).trans row.theta_right_le
+  have hlog_mono : Real.log x ≤ Real.log (row.right : Real) :=
+    Real.log_le_log (by linarith) hright
+  have hratio : (row.left : Real) / Real.log (row.right : Real) ≤
+      x / Real.log x := by
+    apply (div_le_div_iff₀ hlogr_pos hlogx_pos).2
+    calc
+      (row.left : Real) * Real.log x ≤
+          (row.left : Real) * Real.log (row.right : Real) :=
+        mul_le_mul_of_nonneg_left hlog_mono (by positivity)
+      _ ≤ x * Real.log (row.right : Real) :=
+        mul_le_mul_of_nonneg_right hleft (by positivity)
+  refine {
+    left := row.left
+    right := row.right
+    left_large := row.left_large
+    left_le_right := row.left_le_right
+    upper := ?_
+    lower := ?_
+  }
+  · intro y hyl hyr
+    have htheta_y_upper : Chebyshev.theta y ≤ row.theta_upper :=
+      (Chebyshev.theta_mono hyr).trans row.theta_right_le
+    have hleft_y : (row.left : Real) ≤ y := hyl
+    calc
+      Chebyshev.theta y - y ≤ row.theta_upper - row.left := by linarith
+      _ < (row.left : Real) / 36260 := row.upper_error
+      _ ≤ y / 36260 := by
+        exact div_le_div_of_nonneg_right hleft_y (by norm_num)
+  · intro y hy2 hyl hyr
+    have htheta_y_lower : row.theta_lower ≤ Chebyshev.theta y :=
+      row.theta_lower_le.trans (Chebyshev.theta_mono hyl)
+    have htheta_y_upper : Chebyshev.theta y ≤ row.theta_upper :=
+      (Chebyshev.theta_mono hyr).trans row.theta_right_le
+    have hylog_pos : 0 < Real.log y := Real.log_pos (by linarith)
+    have hratio_y : (row.left : Real) / Real.log (row.right : Real) ≤
+        y / Real.log y := by
+      apply (div_le_div_iff₀ hlogr_pos hylog_pos).2
+      calc
+        (row.left : Real) * Real.log y ≤
+            (row.left : Real) * Real.log (row.right : Real) :=
+          mul_le_mul_of_nonneg_left
+            (Real.log_le_log (by linarith) hyr) (by positivity)
+        _ ≤ y * Real.log (row.right : Real) :=
+          mul_le_mul_of_nonneg_right hyl (by positivity)
+    have hupper : Chebyshev.theta y - y <
+        (12323 / 10000 : Real) * y / Real.log y := by
+      calc
+        Chebyshev.theta y - y ≤ row.theta_upper - row.left := by linarith
+        _ < (12323 / 10000 : Real) * (row.left : Real) /
+            Real.log (row.right : Real) := row.lower_upper_error
+        _ ≤ (12323 / 10000 : Real) * y / Real.log y := by
+          exact mul_le_mul_of_nonneg_left hratio_y (by norm_num)
+    have hlower : -(12323 / 10000 : Real) * y / Real.log y <
+        Chebyshev.theta y - y := by
+      have hdiff : y - Chebyshev.theta y <
+          (12323 / 10000 : Real) * y / Real.log y := by
+        calc
+          y - Chebyshev.theta y ≤ row.right - row.theta_lower := by linarith
+          _ < (12323 / 10000 : Real) * (row.left : Real) /
+              Real.log (row.right : Real) := row.lower_lower_error
+          _ ≤ (12323 / 10000 : Real) * y / Real.log y := by
+            exact mul_le_mul_of_nonneg_left hratio_y (by norm_num)
+      linarith
+    exact (abs_lt).2 ⟨hlower, hupper⟩
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
+    {X : Real} {rows : List DusartThetaEndpointRow}
+    (cover : DusartThetaEndpointRowsCoverUpTo rows X) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
+  · intro x hx hX
+    by_cases hsmall : x < 2
+    · rw [Chebyshev.theta_eq_zero_of_lt_two hsmall]
+      nlinarith
+    · obtain ⟨row, hrow, hleft, hright⟩ := cover x
+        (le_of_not_gt hsmall) hX
+      exact (dusartThetaEndpointRow_provides row hleft hright).upper x
+        hleft hright
+  · intro x hx hX
+    obtain ⟨row, hrow, hleft, hright⟩ := cover x (by linarith) hX
+    exact (dusartThetaEndpointRow_provides row hleft hright).lower x hx
+      hleft hright
+
 def DusartThetaBoundsRowsCoverUpTo
     (rows : List DusartThetaBoundsRow) (X : Real) : Prop :=
   ∀ x : Real, 2 ≤ x → x ≤ X →
