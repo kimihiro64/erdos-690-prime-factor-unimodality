@@ -554,24 +554,34 @@ theorem completeClassification_of_mediumPNT_and_selected_finite_inputs
 /-! Fully corrected selected-cutoff boundary.  The finite provider supplies
 the Abel remainder over `[2,Y]`; MediumPNT supplies the sharp theta tail from
 `Y` onward. -/
+structure MediumPNTSelectedSplitInputs (X C : Real) : Prop where
+  cutoff : Real
+  lower : X ≤ cutoff
+  large : (4e18 : Real) ≤ cutoff
+  thetaError : HasThetaLogFourthError (648 / 1000 : Real) cutoff
+  primeCounting : HasDusartRealPrimeCountingBoundsBelow cutoff
+  theta : HasDusartSymmetricThetaBoundsBelow cutoff
+  shortInterval : HasLogCubedShortIntervalPrimeBelow cutoff
+  remainder : ∃ R : Real,
+    |∫ t in (2 : Real)..cutoff,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)| ≤ R ∧
+      4000 + 720 * (∫ t in (2 : Real)..cutoff, 1 / Real.log t ^ 7) + R ≤
+        C * cutoff / Real.log cutoff ^ 4
+
 theorem completeClassification_of_mediumPNT_and_selected_split_inputs
     {X C : Real} (hX : (4e18 : Real) ≤ X)
     (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
-    (finiteInputs : ∀ Y : Real, X ≤ Y →
-      HasDusartRealPrimeCountingBoundsBelow Y ∧
-      HasDusartSymmetricThetaBoundsBelow Y ∧
-      HasLogCubedShortIntervalPrimeBelow Y ∧
-      ∃ R : Real,
-        |∫ t in (2 : Real)..Y,
-            (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
-              1 / (Real.log t) ^ 2)| ≤ R ∧
-        4000 + 720 * (∫ t in (2 : Real)..Y, 1 / Real.log t ^ 7) + R ≤
-          C * Y / Real.log Y ^ 4) :
+    (selectedInputs : MediumPNTSelectedSplitInputs X C) :
     CompleteClassification := by
-  obtain ⟨Y, hXY, h4Y, thetaError⟩ :=
-    exists_hasThetaLogFourthError_of_mediumPNT_above X
-  obtain ⟨finitePrimeCounting, finiteTheta, finiteShortInterval,
-      R, hsmall, hcoreBound⟩ := finiteInputs Y hXY
+  let Y := selectedInputs.cutoff
+  have hXY : X ≤ Y := selectedInputs.lower
+  have h4Y : (4e18 : Real) ≤ Y := selectedInputs.large
+  have thetaError := selectedInputs.thetaError
+  have finitePrimeCounting := selectedInputs.primeCounting
+  have finiteTheta := selectedInputs.theta
+  have finiteShortInterval := selectedInputs.shortInterval
+  obtain ⟨R, hsmall, hcoreBound⟩ := selectedInputs.remainder
   exact completeClassification_of_split_theta_error_and_integral_core
     h4Y (by linarith) le_rfl finitePrimeCounting finiteTheta
     finiteShortInterval (by norm_num) (by norm_num)

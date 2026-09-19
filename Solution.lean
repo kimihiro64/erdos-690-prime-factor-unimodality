@@ -147,19 +147,11 @@ theorem PrimeFactorUnimodality.completeClassification_of_split_theta_error_and_r
 theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_split_inputs
     {X C : Real} (hX : (4e18 : Real) ≤ X)
     (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
-    (finiteInputs : ∀ Y : Real, X ≤ Y →
-      PrimeFactorUnimodality.HasDusartRealPrimeCountingBoundsBelow Y ∧
-      PrimeFactorUnimodality.HasDusartSymmetricThetaBoundsBelow Y ∧
-      PrimeFactorUnimodality.HasLogCubedShortIntervalPrimeBelow Y ∧
-      ∃ R : Real,
-        |∫ t in (2 : Real)..Y,
-            (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
-              1 / (Real.log t) ^ 2)| ≤ R ∧
-        4000 + 720 * (∫ t in (2 : Real)..Y, 1 / Real.log t ^ 7) + R ≤
-          C * Y / Real.log Y ^ 4) :
+    (selectedInputs :
+      PrimeFactorUnimodality.MediumPNTSelectedSplitInputs X C) :
     PrimeFactorUnimodality.CompleteClassification := by
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_split_inputs
-    hX hC0 hC finiteInputs
+    hX hC0 hC selectedInputs
 
 /-! Public boundary for the corrected row-based proof.  The finite theta
 error is not requested from `2`; its prefix is discharged by the explicit
