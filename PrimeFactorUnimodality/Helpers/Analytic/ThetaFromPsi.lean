@@ -229,13 +229,10 @@ theorem hasThetaLogCubedError_of_psiLogCubedError
         exact div_le_div_of_nonneg_left hbase hlogX hlog_mono
       _ = (1 / Real.log X) * x / (Real.log x) ^ 3 := by
         field_simp [hlogX.ne']
-  have hdiff := Chebyshev.psi_sub_theta_le (x := x) (by linarith)
-  have htheta_le_psi := Chebyshev.theta_le_psi x
   have hcorrection_abs :
       |Chebyshev.theta x - Chebyshev.psi x| ≤
-        2 * Real.sqrt x * Real.log x := by
-    rw [abs_sub_comm, abs_of_nonneg (sub_nonneg.mpr htheta_le_psi)]
-    linarith
+        2 * Real.sqrt x * Real.log x :=
+    theta_sub_psi_abs_le_sqrt_log (by linarith)
   calc
     |Chebyshev.theta x - x| ≤
         |Chebyshev.theta x - Chebyshev.psi x| +
@@ -255,16 +252,11 @@ theorem hasThetaLogFourthError_of_psiLogFourthError
     HasThetaLogFourthError (A + 1) X := by
   intro x hx
   have hx_cutoff : (4e18 : Real) ≤ x := hX.trans hx
-  have hx_pos : 0 < x := by linarith
   have hpsi := psiError x hx
-  have hcorrection := primePowerCorrection_le_logFourth hx_cutoff
-  have hdiff := Chebyshev.psi_sub_theta_le (x := x) (by linarith)
-  have htheta_le_psi := Chebyshev.theta_le_psi x
   have hcorrection_abs :
       |Chebyshev.theta x - Chebyshev.psi x| ≤
-        2 * Real.sqrt x * Real.log x := by
-    rw [abs_sub_comm, abs_of_nonneg (sub_nonneg.mpr htheta_le_psi)]
-    linarith
+        x / (Real.log x) ^ 4 :=
+    theta_sub_psi_abs_le_logFourth hx_cutoff
   calc
     |Chebyshev.theta x - x| ≤
         |Chebyshev.theta x - Chebyshev.psi x| +
@@ -273,14 +265,10 @@ theorem hasThetaLogFourthError_of_psiLogFourthError
         (Chebyshev.theta x - Chebyshev.psi x) +
           (Chebyshev.psi x - x) by ring]
       exact abs_add_le _ _
-    _ ≤ 2 * Real.sqrt x * Real.log x +
+    _ ≤ x / (Real.log x) ^ 4 +
           A * x / (Real.log x) ^ 4 :=
       add_le_add hcorrection_abs hpsi
-    _ ≤ (A + 1) * x / (Real.log x) ^ 4 := by
-      calc
-        _ ≤ x / (Real.log x) ^ 4 + A * x / (Real.log x) ^ 4 :=
-          add_le_add hcorrection le_rfl
-        _ = (A + 1) * x / (Real.log x) ^ 4 := by ring
+    _ = (A + 1) * x / (Real.log x) ^ 4 := by ring
 
 theorem hasThetaLogFourthError_of_psiLogFourthError_sharp
     {A X : Real} (hX : (4e18 : Real) ≤ X)
