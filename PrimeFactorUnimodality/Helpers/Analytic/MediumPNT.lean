@@ -182,6 +182,25 @@ theorem hasLogCubedShortIntervalPrime_of_finite_and_mediumPNT
       refine ⟨q, hq, hxq, ?_⟩
       simpa [mul_add, mul_one] using hupper)
 
+/-! If the source theorem supplies an explicit upper bound for its eventual
+cutoff, one finite table at that upper bound is enough.  This is the form
+used by a bounded computational provider: the table is not duplicated for
+each existential cutoff chosen by the asymptotic argument. -/
+theorem hasLogCubedShortIntervalPrime_of_finite_and_bounded_mediumPNT
+    {X₀ B : Real} (hX₀ : (89693 : Real) ≤ X₀)
+    (hXB : X₀ ≤ B)
+    (finite : HasLogCubedShortIntervalPrimeBelow B)
+    (tail : ∃ X : Real, X₀ ≤ X ∧ X ≤ B ∧
+      (∀ x : Real, X ≤ x →
+        ∃ q : Nat, q.Prime ∧ x < q ∧
+          (q : Real) ≤ x + x / (Real.log x) ^ 3)) :
+    HasLogCubedShortIntervalPrime := by
+  obtain ⟨X, hX₀X, hXB', htail⟩ := tail
+  apply hasLogCubedShortIntervalPrime_of_below_and_above hX₀
+    finite
+  intro x hx
+  exact htail x (hXB'.trans hx)
+
 theorem hasDusartShortIntervalPrime_of_finite_and_mediumPNT
     {X₀ : Real} (hX₀ : (89693 : Real) ≤ X₀)
     (finiteDusart : HasDusartShortIntervalPrimeBelow (89693 : Real))

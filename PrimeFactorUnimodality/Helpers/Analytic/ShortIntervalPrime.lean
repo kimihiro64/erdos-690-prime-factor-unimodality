@@ -32,6 +32,13 @@ def HasLogCubedShortIntervalPrimeBelow (X : Real) : Prop :=
     ∃ q : Nat, q.Prime ∧ x < q ∧
       (q : Real) ≤ x + x / (Real.log x) ^ 3
 
+theorem hasLogCubedShortIntervalPrimeBelow_mono
+    {X Y : Real} (hXY : X ≤ Y)
+    (finite : HasLogCubedShortIntervalPrimeBelow Y) :
+    HasLogCubedShortIntervalPrimeBelow X := by
+  intro x hx hX
+  exact finite x hx (hX.trans hXY)
+
 /-! General finite/tail gluing for the logarithm-cubed interval estimate. -/
 theorem hasLogCubedShortIntervalPrime_of_below_and_above
     {X : Real} (hX : (89693 : Real) ≤ X)
@@ -49,6 +56,13 @@ def HasDusartShortIntervalPrimeBelow (X : Real) : Prop :=
   ∀ x : Real, 3275 ≤ x → x ≤ X →
     ∃ q : Nat, q.Prime ∧ x < q ∧
       (q : Real) ≤ x * (1 + 1 / (2 * (Real.log x) ^ 2))
+
+theorem hasDusartShortIntervalPrimeBelow_mono
+    {X Y : Real} (hXY : X ≤ Y)
+    (finite : HasDusartShortIntervalPrimeBelow Y) :
+    HasDusartShortIntervalPrimeBelow X := by
+  intro x hx hX
+  exact finite x hx (hX.trans hXY)
 
 theorem dusartShortIntervalUpper_of_logCubed
     {x q : Real} (hx : (89693 : Real) ≤ x)
