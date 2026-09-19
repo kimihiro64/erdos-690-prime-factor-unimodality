@@ -1411,6 +1411,21 @@ theorem primeCountingCore_abs_le_at_large_cutoff_of_theta_error
       hXmillion
       hA0 error).trans (explicit_integral_core_bound_at_large_cutoff hX hA0 hA1)
 
+theorem primeCountingCore_abs_plus_10000_le_at_large_cutoff_of_theta_error
+    {A X : Real} (hX : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
+    (error : HasThetaLogFourthErrorBelow A X) :
+    |primeCountingCore X| + 10000 ≤
+      (3 / 5 : Real) * X / Real.log X ^ 4 := by
+  have hXmillion : (1000000 : Real) ≤ X := by
+    norm_num at hX ⊢
+    linarith
+  have hcore := primeCountingCore_abs_le_of_finite_theta_error_explicit
+    hXmillion hA0 error
+  have hmargin := explicit_integral_core_bound_at_large_cutoff_with_10000
+    hX hA0 hA1
+  nlinarith
+
 theorem abs_integral_inv_log_pow_succ_le
     {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b)
     (hcoef : (n + 1 : Real) < Real.log a) :
