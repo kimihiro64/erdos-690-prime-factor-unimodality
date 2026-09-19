@@ -288,7 +288,8 @@ theorem dusartPrimeCounting_upper_below_ten :
           (by norm_num) (by linarith) (by linarith) (by norm_num)
         · have hlogx3 : Real.log x ≤ Real.log 3 :=
             Real.log_le_log (by linarith) (by linarith)
-          exact (hlogx3.trans_lt LogTables.log_3_lt).trans_le (by norm_num)
+          exact hlogx3.trans_lt
+            (LogTables.log_3_lt.trans_le (by norm_num))
         · norm_num
       · by_cases h4 : x < 4
         · apply interval_lower 3 4 (1386296 / 1000000)
@@ -306,7 +307,8 @@ theorem dusartPrimeCounting_upper_below_ten :
               (by norm_num) (by linarith) (by linarith) (by norm_num)
             · have hlogx5 : Real.log x ≤ Real.log 5 :=
                 Real.log_le_log (by linarith) (by linarith)
-              exact (hlogx5.trans_lt LogTables.log_5_lt).trans_le (by norm_num)
+              exact hlogx5.trans_lt
+                (LogTables.log_5_lt.trans_le (by norm_num))
             · norm_num
           · by_cases h6 : x < 6
             · apply interval_lower 5 6 (1791761 / 1000000)
@@ -324,7 +326,8 @@ theorem dusartPrimeCounting_upper_below_ten :
                   (by norm_num) (by linarith) (by linarith) (by norm_num)
                 · have hlogx7 : Real.log x ≤ Real.log 7 :=
                     Real.log_le_log (by linarith) (by linarith)
-                  exact (hlogx7.trans_lt LogTables.log_7_lt).trans_le (by norm_num)
+                  exact hlogx7.trans_lt
+                    (LogTables.log_7_lt.trans_le (by norm_num))
                 · norm_num
               · by_cases h8 : x < 8
                 · apply interval_lower 7 8 (2079444 / 1000000)
@@ -429,6 +432,7 @@ theorem real_primeCounting_upper_of_integer_rows
 the whole integer interval by monotonicity.  This is the compact form used by
 the finite certificate layer; its coverage list need not contain one row for
 every integer in `[10, 599)`. -/
+set_option autoImplicit true in
 structure DusartPrimeCountingUpperIntegerIntervalRow where
   left right : Nat
   left_large : 10 ≤ left
