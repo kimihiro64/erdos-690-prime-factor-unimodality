@@ -387,6 +387,14 @@ theorem logCubedWidth_monotoneOn :
     have log_sq_pos : 0 < (Real.log x) ^ 2 := by positivity
     nlinarith [mul_pos log_sq_pos (by nlinarith [log_gt_three])]
 
+theorem logCubedWidth_lower_of_endpoint
+    {g x : Nat}
+    (hendpoint : (g : Real) ≤ logCubedWidth 89693)
+    (hx : (89693 : Real) ≤ x) :
+    (g : Real) ≤ logCubedWidth x := by
+  exact hendpoint.trans
+    (logCubedWidth_monotoneOn (by norm_num) (by exact hx))
+
 def dusartUpper (x : Real) : Real :=
   x * (1 + (1 / 2 : Real) / (Real.log x) ^ 2)
 
