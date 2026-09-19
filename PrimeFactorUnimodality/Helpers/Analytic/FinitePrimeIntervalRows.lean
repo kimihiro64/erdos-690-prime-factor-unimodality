@@ -13573,7 +13573,7 @@ theorem hasDusartShortIntervalPrimeBelow_of_rows
     (cover : DusartPrimeRowsCoverBelow rows) :
     HasDusartShortIntervalPrimeBelow (89693 : Real) := by
   intro x hx hX
-  obtain ⟨row, row_mem, left_mem, right_mem⟩ := cover x hx hX
+  obtain ⟨row, row_mem, left_mem, right_mem⟩ := cover x hx (by linarith)
   exact dusartPrimeRow_provides row left_mem right_mem
 
 theorem hasDusartShortIntervalPrimeBelow_of_rows_up_to
@@ -13581,7 +13581,7 @@ theorem hasDusartShortIntervalPrimeBelow_of_rows_up_to
     (cover : DusartPrimeRowsCoverUpTo rows X) :
     HasDusartShortIntervalPrimeBelow X := by
   intro x hx hX
-  obtain ⟨row, row_mem, left_mem, right_mem⟩ := cover x hx hX
+  obtain ⟨row, row_mem, left_mem, right_mem⟩ := cover x hx (by linarith)
   exact dusartPrimeRow_provides row left_mem right_mem
 
 theorem hasDusartShortIntervalPrimeBelow_3275_23158 :
@@ -14317,7 +14317,7 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_gap_log_rows
     (cover : FinitePrimeGapLogIndexedRowsCoverUpTo rows X) :
     HasLogCubedShortIntervalPrimeBelow X := by
   intro x hx hX
-  obtain ⟨i, hleft, hright⟩ := cover x hx hX
+  obtain ⟨i, hleft, hright⟩ := cover x hx (by linarith)
   exact finitePrimeGapLogRow_provides_half_open (rows i) hleft hright
 
 theorem hasDusartShortIntervalPrimeBelow_of_indexed_gap_log_rows
