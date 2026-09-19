@@ -481,6 +481,23 @@ structure MediumPNTSelectedFiniteInputs (A X : Real) : Prop where
   theta : HasDusartSymmetricThetaBoundsBelow cutoff
   shortInterval : HasLogCubedShortIntervalPrimeBelow cutoff
 
+theorem mediumPNTSelectedFiniteInputs_of_cutoff
+    {A X Y : Real}
+    (hXY : X ≤ Y) (h4Y : (4e18 : Real) ≤ Y)
+    (thetaError : HasThetaLogFourthError A Y)
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow Y)
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow Y)
+    (finiteShortInterval : HasLogCubedShortIntervalPrimeBelow Y) :
+    MediumPNTSelectedFiniteInputs A X := by
+  exact {
+    cutoff := Y
+    lower := hXY
+    large := h4Y
+    thetaError := thetaError
+    primeCounting := finitePrimeCounting
+    theta := finiteTheta
+    shortInterval := finiteShortInterval }
+
 theorem completeClassification_of_mediumPNT_and_selected_finite_inputs
     {A C X : Real} (hX : (4e18 : Real) ≤ X)
     (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
@@ -568,6 +585,31 @@ structure MediumPNTSelectedSplitInputs (X C : Real) : Prop where
           1 / (Real.log t) ^ 2)| ≤ R ∧
       4000 + 720 * (∫ t in (2 : Real)..cutoff, 1 / Real.log t ^ 7) + R ≤
         C * cutoff / Real.log cutoff ^ 4
+
+theorem mediumPNTSelectedSplitInputs_of_cutoff
+    {X C Y R : Real}
+    (hXY : X ≤ Y) (h4Y : (4e18 : Real) ≤ Y)
+    (thetaError : HasThetaLogFourthErrorAbove (648 / 1000 : Real) Y)
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow Y)
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow Y)
+    (finiteShortInterval : HasLogCubedShortIntervalPrimeBelow Y)
+    (hsmall :
+      |∫ t in (2 : Real)..Y,
+          (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+            1 / (Real.log t) ^ 2)| ≤ R)
+    (hcore :
+      4000 + 720 * (∫ t in (2 : Real)..Y, 1 / Real.log t ^ 7) + R ≤
+        C * Y / Real.log Y ^ 4) :
+    MediumPNTSelectedSplitInputs X C := by
+  exact {
+    cutoff := Y
+    lower := hXY
+    large := h4Y
+    thetaError := thetaError
+    primeCounting := finitePrimeCounting
+    theta := finiteTheta
+    shortInterval := finiteShortInterval
+    remainder := ⟨R, hsmall, hcore⟩ }
 
 theorem completeClassification_of_mediumPNT_and_selected_split_inputs
     {X C : Real} (hX : (4e18 : Real) ≤ X)
