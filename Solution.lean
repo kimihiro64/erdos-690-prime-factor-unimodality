@@ -311,3 +311,10 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_i
     PrimeFactorUnimodality.CompleteClassification := by
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_interval_indexed_tail_provider
     provider
+
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_interval_prefix_provider
+    (provider :
+      PrimeFactorUnimodality.MediumPNTFiniteIntegerIntervalPrefixProvider) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_interval_prefix_provider
+    provider

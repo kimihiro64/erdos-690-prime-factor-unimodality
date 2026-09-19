@@ -1117,6 +1117,42 @@ theorem completeClassification_of_mediumPNT_and_integer_interval_indexed_tail_pr
     obtain ⟨i, hleft, hright⟩ := hcover x hx hX'
     exact ⟨rows i, List.mem_ofFn.mpr ⟨i, rfl⟩, hleft, hright⟩
 
+/-! A prefix-family presentation is useful when the same ordered certificate
+table is queried at many cutoffs.  The rows themselves occur once as
+`Nat → row`; each cutoff supplies only the finite prefix that covers it. -/
+structure MediumPNTFiniteIntegerIntervalPrefixProvider : Prop where
+  primeCountingRows : Nat → DusartPrimeCountingEndpointRow
+  primeCountingPrefix : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ n : Nat,
+      DusartPrimeCountingEndpointIndexedCoverFrom599
+        (fun i : Fin n => primeCountingRows i) X
+  thetaEndpointRows : Nat → DusartThetaEndpointRow
+  thetaEndpointPrefix : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ n : Nat,
+      DusartThetaEndpointIndexedCoverUpTo
+        (fun i : Fin n => thetaEndpointRows i) X
+  shortIntervalRows : Nat → LogCubedPrimeRow
+  shortIntervalPrefix : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ n : Nat,
+      LogCubedPrimeIndexedCoverUpTo
+        (fun i : Fin n => shortIntervalRows i) X
+  thetaErrorEndpointRows : Nat →
+    ThetaLogFourthEndpointRow (648 / 1000 : Real)
+  thetaErrorEndpointPrefix : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ n : Nat,
+      ThetaLogFourthEndpointIndexedCoverUpTo
+        (fun i : Fin n => thetaErrorEndpointRows i) X
+
+theorem completeClassification_of_mediumPNT_and_integer_interval_prefix_provider
+    (provider : MediumPNTFiniteIntegerIntervalPrefixProvider) :
+    CompleteClassification := by
+  apply completeClassification_of_mediumPNT_and_integer_interval_indexed_tail_provider
+  exact {
+    primeCountingRows := fun X hX => provider.primeCountingPrefix X hX
+    thetaEndpointRows := fun X hX => provider.thetaEndpointPrefix X hX
+    shortIntervalRows := fun X hX => provider.shortIntervalPrefix X hX
+    thetaErrorEndpointRows := fun X hX => provider.thetaErrorEndpointPrefix X hX }
+
 /-! The tail prime-counting obligation can equivalently be supplied in the
 published asymptotic form.  The adapter is proved in the analytic helper, so
 this theorem exposes the exact provider boundary without hiding a new axiom
