@@ -110,6 +110,41 @@ structure FinitePrimeGapLogRow where
   right_lt_witness : right < witness
   witness_width : (witness : Real) - left ≤ logCubedWidth left
 
+inductive FinitePrimeGapLogRowsChain : Nat → Nat →
+    List FinitePrimeGapLogRow → Prop
+  | empty {a b : Nat} (h : b < a) :
+      FinitePrimeGapLogRowsChain a b []
+  | cons {a b : Nat} (row : FinitePrimeGapLogRow)
+      (hleft : row.left ≤ a)
+      (hordered : row.left ≤ row.right)
+      {tail : List FinitePrimeGapLogRow}
+      (htail : FinitePrimeGapLogRowsChain (row.right + 1) b tail) :
+      FinitePrimeGapLogRowsChain a b (row :: tail)
+
+theorem finitePrimeGapLogRowsCover_of_chain
+    {a b : Nat} {rows : List FinitePrimeGapLogRow}
+    (chain : FinitePrimeGapLogRowsChain a b rows) :
+    ∀ x : Real, (a : Real) ≤ x → x ≤ b →
+      ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right := by
+  induction chain with
+  | empty h =>
+      intro x hax hxb
+      have hab : (b : Real) < a := by exact_mod_cast h
+      linarith
+  | @cons a b row hleft hordered tail htail ih =>
+      intro x hax hxb
+      by_cases hrow : x ≤ row.right
+      · refine ⟨row, by simp, ?_, hrow⟩
+        have hleft' : (row.left : Real) ≤ a := by
+          exact_mod_cast hleft
+        exact hleft'.trans hax
+      · have hright : (row.right + 1 : Real) ≤ x := by
+          have hlt : (row.right : Real) < x := lt_of_not_ge hrow
+          linarith
+        obtain ⟨next, hnext, hnext_left, hnext_right⟩ :=
+          ih x hright hxb
+        exact ⟨next, by simp [hnext], hnext_left, hnext_right⟩
+
 def FinitePrimeGapLogRow.of_gap_row
     {g : Nat} (row : FinitePrimeGapRow g)
     (hleft : (89693 : Nat) ≤ row.left)
@@ -708,6 +743,15 @@ def FinitePrimeGapLogRowsCoverUpTo
     (rows : List FinitePrimeGapLogRow) (X : Real) : Prop :=
   ∀ x : Real, 89693 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem finitePrimeGapLogRowsCoverUpTo_of_chain
+    {b : Nat} {X : Real} {rows : List FinitePrimeGapLogRow}
+    (chain : FinitePrimeGapLogRowsChain 89693 b rows)
+    (hX : X ≤ b) :
+    FinitePrimeGapLogRowsCoverUpTo rows X := by
+  intro x hx hupper
+  exact finitePrimeGapLogRowsCover_of_chain chain x hx
+    (hupper.trans hX)
 
 def FinitePrimeGapLogRowsCoverFrom
     (rows : List FinitePrimeGapLogRow) (a X : Real) : Prop :=
