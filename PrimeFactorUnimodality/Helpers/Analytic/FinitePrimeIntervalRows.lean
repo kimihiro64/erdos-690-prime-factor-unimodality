@@ -126,23 +126,24 @@ inductive FinitePrimeGapLogRowsChain : Nat → Nat →
 theorem finitePrimeGapLogRowsCover_of_chain
     {a b : Nat} {rows : List FinitePrimeGapLogRow}
     (chain : FinitePrimeGapLogRowsChain a b rows) :
-    ∀ x : Real, (a : Real) ≤ x → x ≤ b →
-      ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right := by
+    ∀ x : Real, (a : Real) ≤ x → x < (b : Real) + 1 →
+      ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x < (row.right : Real) + 1 := by
   induction chain with
   | @empty a b h =>
       intro x hax hxb
       have hab : (b : Real) < a := by exact_mod_cast h
+      have hba : (b : Real) + 1 ≤ a := by
+        exact_mod_cast (Nat.succ_le_of_lt h)
       linarith
   | @cons a b row hleft hordered tail htail ih =>
       intro x hax hxb
-      by_cases hrow : x ≤ row.right
+      by_cases hrow : x < (row.right : Real) + 1
       · refine ⟨row, by simp, ?_, hrow⟩
         have hleft' : (row.left : Real) ≤ a := by
           exact_mod_cast hleft
         exact hleft'.trans hax
       · have hright : ((row.right + 1 : Nat) : Real) ≤ x := by
-          have hlt : (row.right : Real) < x := lt_of_not_ge hrow
-          have hstep : (row.right : Real) + 1 ≤ x := by linarith
+          have hstep : (row.right : Real) + 1 ≤ x := le_of_not_gt hrow
           simpa using hstep
         obtain ⟨next, hnext, hnext_left, hnext_right⟩ :=
           ih x hright hxb
@@ -156,12 +157,15 @@ def FinitePrimeGapLogRow.of_gap_row
     (hproduct : (g : Real) * L ^ 3 ≤ row.left) :
     FinitePrimeGapLogRow := by
   have hwidth : (g : Real) ≤ logCubedWidth row.left := by
-    have ha_pos : 0 < (row.left : Real) := by linarith
-    have hlog_pos : 0 < Real.log row.left := Real.log_pos (by linarith)
+    have ha_pos : 0 < (row.left : Real) := by
+      exact_mod_cast (show 0 < row.left by omega)
+    have hlog_pos : 0 < Real.log row.left := by
+      apply Real.log_pos
+      exact_mod_cast (show (1 : Nat) < row.left by omega)
     have hpow : (Real.log row.left) ^ 3 ≤ L ^ 3 :=
       pow_le_pow_left₀ hlog_pos.le hlog 3
     have hbound : (g : Real) * (Real.log row.left) ^ 3 ≤ row.left := by
-      exact (mul_le_mul_of_nonneg_left hpow (by positivity)).trans hproduct
+      exact (mul_le_mul_of_nonneg_left hpow (Nat.cast_nonneg g)).trans hproduct
     apply (le_div_iff₀ (pow_pos hlog_pos 3)).2
     simpa [logCubedWidth] using hbound
   refine {
@@ -176,8 +180,15 @@ def FinitePrimeGapLogRow.of_gap_row
   have hgap : (row.witness : Real) - row.left ≤ (g : Real) := by
     have hleft_witness : row.left ≤ row.witness :=
       row.left_le_right.trans (Nat.le_of_lt row.right_lt_witness)
-    rw [Nat.cast_sub hleft_witness]
-    exact_mod_cast (by omega : row.witness - row.left ≤ g)
+    calc
+      (row.witness : Real) - row.left =
+          ((row.witness - row.left : Nat) : Real) := by
+            rw [Nat.cast_sub hleft_witness]
+      _ ≤ (g : Real) := by
+        have hnat : row.witness - row.left ≤ g := by
+          have hbound := row.witness_le_left_add_gap
+          omega
+        exact_mod_cast hnat
   exact hgap.trans hwidth
 
 def finitePrimeGapLogRow_of_explicit
@@ -189,12 +200,16 @@ def finitePrimeGapLogRow_of_explicit
     (hproduct : (q - p : Real) * L ^ 3 ≤ p) :
     FinitePrimeGapLogRow := by
   have hwidth : (q - p : Real) ≤ logCubedWidth p := by
-    have hp_pos : 0 < (p : Real) := by linarith
-    have hlog_pos : 0 < Real.log p := Real.log_pos (by linarith)
+    have hp_pos : 0 < (p : Real) := by
+      exact_mod_cast (show 0 < p by omega)
+    have hlog_pos : 0 < Real.log p := by
+      apply Real.log_pos
+      exact_mod_cast (show (1 : Nat) < p by omega)
     have hpow : (Real.log p) ^ 3 ≤ L ^ 3 :=
       pow_le_pow_left₀ hlog_pos.le hlog 3
     have hbound : (q - p : Real) * (Real.log p) ^ 3 ≤ p := by
-      exact (mul_le_mul_of_nonneg_left hpow (by positivity)).trans hproduct
+      exact (mul_le_mul_of_nonneg_left hpow
+        (sub_nonneg.mpr (by exact_mod_cast (Nat.le_of_lt hpq)))).trans hproduct
     apply (le_div_iff₀ (pow_pos hlog_pos 3)).2
     simpa [logCubedWidth] using hbound
   refine {
@@ -236,22 +251,22 @@ theorem finitePrimeGapRowsCover_append
 
 theorem finitePrimeGapBound_of_rows_cover
     {a b g : Nat} {rows : List (FinitePrimeGapRow g)}
-    (cover : FinitePrimeGapRowsCover rows) :
+    (cover : FinitePrimeGapRowsCover (a := a) (b := b) (g := g) rows) :
     FinitePrimeGapBound a b g := by
   intro n hna hnb
   obtain ⟨row, hrow, hleft, hright⟩ :=
-    cover (a := a) (b := b) (g := g) n hna hnb
+    cover n hna hnb
   refine ⟨row.witness, row.witness_prime, ?_, ?_⟩
   · exact lt_of_le_of_lt hright row.right_lt_witness
   · exact le_trans row.witness_le_left_add_gap (Nat.add_le_add_right hleft g)
 
 theorem finitePrimeGapBound_of_indexed_rows_cover
     {a b g n : Nat} {rows : Fin n → FinitePrimeGapRow g}
-    (cover : FinitePrimeGapIndexedRowsCover rows) :
+    (cover : FinitePrimeGapIndexedRowsCover (a := a) (b := b) (g := g) rows) :
     FinitePrimeGapBound a b g := by
   intro x hxa hxb
   obtain ⟨i, hleft, hright⟩ :=
-    cover (a := a) (b := b) (g := g) x hxa hxb
+    cover x hxa hxb
   refine ⟨(rows i).witness, (rows i).witness_prime, ?_, ?_⟩
   · exact lt_of_le_of_lt hright (rows i).right_lt_witness
   · exact le_trans (rows i).witness_le_left_add_gap
@@ -259,12 +274,12 @@ theorem finitePrimeGapBound_of_indexed_rows_cover
 
 theorem finitePrimeGapIndexedRowsCover_of_list
     {a b g : Nat} {rows : List (FinitePrimeGapRow g)}
-    (cover : FinitePrimeGapRowsCover rows) :
-    FinitePrimeGapIndexedRowsCover
+    (cover : FinitePrimeGapRowsCover (a := a) (b := b) (g := g) rows) :
+    FinitePrimeGapIndexedRowsCover (a := a) (b := b) (g := g)
       (fun i : Fin rows.length => rows.get i) := by
   intro x hxa hxb
   obtain ⟨row, hrow, hleft, hright⟩ :=
-    cover (a := a) (b := b) (g := g) x hxa hxb
+    cover x hxa hxb
   obtain ⟨i, hi, hget⟩ := List.getElem_of_mem hrow
   refine ⟨⟨i, hi⟩, ?_⟩
   simpa [List.get_eq_getElem, hget] using And.intro hleft hright
@@ -306,8 +321,11 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_finite_prime_gap_bound
       (g : Real) ≤ x / (Real.log x) ^ 3) :
     HasLogCubedShortIntervalPrimeBelow X := by
   intro x hx hxx
+  have hnonneg : (0 : Real) ≤ x := by linarith [hx]
+  have hlow : (89689 : Real) ≤ x := by linarith [hx]
   exact exists_prime_in_real_interval_of_finite_prime_gap_bound gap
-    (by linarith) (by linarith) (hxx.trans hXb)
+    hnonneg hlow
+    (hxx.trans hXb)
     (width x hx hxx)
 
 theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_prime_gap_certificate
@@ -326,7 +344,7 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_gap_rows
     (hX : (89693 : Real) ≤ X)
     (hXb : X ≤ b)
     {rows : Fin n → FinitePrimeGapRow g}
-    (cover : FinitePrimeGapIndexedRowsCover rows)
+    (cover : FinitePrimeGapIndexedRowsCover (a := 89689) (b := b) (g := g) rows)
     (width : ∀ x : Real, 89693 ≤ x → x ≤ X →
       (g : Real) ≤ x / (Real.log x) ^ 3) :
     HasLogCubedShortIntervalPrimeBelow X :=
@@ -375,7 +393,8 @@ checked independently, and the kernel only has to check the two coverage
 proofs and the numerical junction. -/
 theorem indexed_interval_cover_append
     {α : Type} {m X : Real} {n₁ n₂ : Nat}
-    (left right : Fin n₁ → α) (leftEndpoint rightEndpoint : α → Nat)
+    (left : Fin n₁ → α) (right : Fin n₂ → α)
+    (leftEndpoint rightEndpoint : α → Nat)
     {P Q : Real → Prop}
     (hleft : ∀ x : Real, P x → Q x → x ≤ m →
       ∃ i : Fin n₁,
@@ -469,7 +488,9 @@ theorem logCubedUpper_monotoneOn :
     field_simp [x_ne, log_pos.ne']
     have log_sq_pos : 0 < (Real.log x) ^ 2 := by positivity
     have log_four_pos : 0 < (Real.log x) ^ 4 := by positivity
-    nlinarith [mul_pos log_sq_pos (by nlinarith [log_gt_three])]
+    have hfactor : 0 ≤ (Real.log x) ^ 2 * (Real.log x - 3) :=
+      mul_nonneg log_sq_pos.le (by linarith)
+    nlinarith [hfactor]
 
 theorem logCubedWidth_monotoneOn :
     MonotoneOn logCubedWidth (Set.Ici (3275 : Real)) := by
@@ -527,7 +548,11 @@ theorem logCubedWidth_monotoneOn :
     rw [hderiv.deriv]
     field_simp [x_ne, log_pos.ne']
     have log_sq_pos : 0 < (Real.log x) ^ 2 := by positivity
-    nlinarith [mul_pos log_sq_pos (by nlinarith [log_gt_three])]
+    have hfactor : 0 ≤ (Real.log x) ^ 2 * (Real.log x - 3) :=
+      mul_nonneg log_sq_pos.le (by linarith)
+    simp only [Pi.pow_apply] at *
+    norm_num at *
+    nlinarith [hfactor]
 
 theorem logCubedWidth_lower_of_endpoint
     {g x : Nat}
@@ -535,7 +560,8 @@ theorem logCubedWidth_lower_of_endpoint
     (hx : (89693 : Real) ≤ x) :
     (g : Real) ≤ logCubedWidth x := by
   exact hendpoint.trans
-    (logCubedWidth_monotoneOn (by norm_num) (by exact hx))
+    (logCubedWidth_monotoneOn (a := (89693 : Real)) (b := (x : Real))
+      (by norm_num) (Set.mem_Ici.mpr (by linarith [hx])) hx)
 
 theorem logCubedWidth_lower_of_log_upper
     {a g : Nat} {L : Real}
@@ -558,10 +584,48 @@ theorem logCubedWidth_lower_of_log_upper
   exact (le_div_iff₀ (pow_pos hlog_pos 3)).2 (by
     simpa [logCubedWidth] using hbound)
 
+/-! A small certified exponential lower bound used for the finite endpoint
+checks below.  It reduces each check to the library's decimal lower bound for
+`exp 1` and the elementary inequality `1 + r ≤ exp r`. -/
+lemma exp_lower_nat_add (n : Nat) {r : Real} (hr : 0 ≤ r) :
+    ((27182818283 : Real) / 10000000000) ^ n *
+        (1 + r + r ^ 2 / 2 + r ^ 3 / 6 + r ^ 4 / 24 + r ^ 5 / 120 +
+          r ^ 6 / 720 + r ^ 7 / 5040 + r ^ 8 / 40320 + r ^ 9 / 362880) ≤
+      Real.exp (n + r) := by
+  have hbase : (27182818283 : Real) / 10000000000 ≤ Real.exp 1 := by
+    exact (by norm_num :
+      (27182818283 : Real) / 10000000000 ≤ 2.7182818283).trans
+      Real.exp_one_gt_d9.le
+  have hpow : ((27182818283 : Real) / 10000000000) ^ n ≤
+      (Real.exp 1) ^ n := by
+    exact pow_le_pow_left₀ (by positivity) hbase n
+  have hsum : 1 + r + r ^ 2 / 2 + r ^ 3 / 6 + r ^ 4 / 24 + r ^ 5 / 120 +
+      r ^ 6 / 720 + r ^ 7 / 5040 + r ^ 8 / 40320 + r ^ 9 / 362880 ≤
+      Real.exp r := by
+    have h := Real.sum_le_exp_of_nonneg hr 10
+    norm_num [Finset.sum_range_succ, pow_succ] at h ⊢
+    linarith [h]
+  calc
+    ((27182818283 : Real) / 10000000000) ^ n *
+        (1 + r + r ^ 2 / 2 + r ^ 3 / 6 + r ^ 4 / 24 + r ^ 5 / 120 +
+          r ^ 6 / 720 + r ^ 7 / 5040 + r ^ 8 / 40320 + r ^ 9 / 362880) ≤
+        (Real.exp 1) ^ n * (1 + r + r ^ 2 / 2 + r ^ 3 / 6 + r ^ 4 / 24 +
+          r ^ 5 / 120 + r ^ 6 / 720 + r ^ 7 / 5040 + r ^ 8 / 40320 +
+          r ^ 9 / 362880) :=
+      mul_le_mul_of_nonneg_right hpow (by positivity)
+    _ ≤ (Real.exp 1) ^ n * Real.exp r :=
+      mul_le_mul_of_nonneg_left hsum (by positivity)
+    _ = Real.exp (n + r) := by
+      rw [← Real.exp_nat_mul, ← Real.exp_add]
+      congr 1
+      ring
+
 theorem log_89693_le_1141_over_100 :
     Real.log (89693 : Real) ≤ (1141 : Real) / 100 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 11 (r := (41 : Real) / 100) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem logCubedWidth_89693_ge_60 :
     (60 : Real) ≤ logCubedWidth 89693 := by
@@ -572,7 +636,9 @@ theorem logCubedWidth_89693_ge_60 :
 theorem log_100000_le_116_over_10 :
     Real.log (100000 : Real) ≤ (116 : Real) / 10 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 11 (r := (6 : Real) / 10) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_1141_over_100_of_3275_le
     {a : Nat} (ha : 3275 ≤ a) (ha89693 : a ≤ 89693) :
@@ -588,7 +654,9 @@ theorem log_le_1141_over_100_of_3275_le
 theorem log_3802_le_33_over_4 :
     Real.log (3802 : Real) ≤ (33 : Real) / 4 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 8 (r := (1 : Real) / 4) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_33_over_4_of_3275_le
     {a : Nat} (ha : 3275 ≤ a) (ha3802 : a ≤ 3802) :
@@ -604,7 +672,9 @@ theorem log_le_33_over_4_of_3275_le
 theorem log_4670_le_169_over_20 :
     Real.log (4670 : Real) ≤ (169 : Real) / 20 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 8 (r := (9 : Real) / 20) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_169_over_20_of_3803_le
     {a : Nat} (ha : 3803 ≤ a) (ha4670 : a ≤ 4670) :
@@ -620,7 +690,9 @@ theorem log_le_169_over_20_of_3803_le
 theorem log_4914_le_17_over_2 :
     Real.log (4914 : Real) ≤ (17 : Real) / 2 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 8 (r := (1 : Real) / 2) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_17_over_2_of_4673_le
     {a : Nat} (ha : 4673 ≤ a) (ha4914 : a ≤ 4914) :
@@ -636,7 +708,9 @@ theorem log_le_17_over_2_of_4673_le
 theorem log_5166_le_171_over_20 :
     Real.log (5166 : Real) ≤ (171 : Real) / 20 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 8 (r := (11 : Real) / 20) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_171_over_20_of_4919_le
     {a : Nat} (ha : 4919 ≤ a) (ha5166 : a ≤ 5166) :
@@ -652,7 +726,9 @@ theorem log_le_171_over_20_of_4919_le
 theorem log_5431_le_43_over_5 :
     Real.log (5431 : Real) ≤ (43 : Real) / 5 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 8 (r := (3 : Real) / 5) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_43_over_5_of_5167_le
     {a : Nat} (ha : 5167 ≤ a) (ha5431 : a ≤ 5431) :
@@ -668,7 +744,9 @@ theorem log_le_43_over_5_of_5167_le
 theorem log_5710_le_173_over_20 :
     Real.log (5710 : Real) ≤ (173 : Real) / 20 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 8 (r := (13 : Real) / 20) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_173_over_20_of_5437_le
     {a : Nat} (ha : 5437 ≤ a) (ha5710 : a ≤ 5710) :
@@ -684,7 +762,9 @@ theorem log_le_173_over_20_of_5437_le
 theorem log_6002_le_87_over_10 :
     Real.log (6002 : Real) ≤ (87 : Real) / 10 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 8 (r := (7 : Real) / 10) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_87_over_10_of_5711_le
     {a : Nat} (ha : 5711 ≤ a) (ha6002 : a ≤ 6002) :
@@ -700,7 +780,9 @@ theorem log_le_87_over_10_of_5711_le
 theorem log_6310_le_35_over_4 :
     Real.log (6310 : Real) ≤ (35 : Real) / 4 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 8 (r := (3 : Real) / 4) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_35_over_4_of_6007_le
     {a : Nat} (ha : 6007 ≤ a) (ha6310 : a ≤ 6310) :
@@ -716,7 +798,9 @@ theorem log_le_35_over_4_of_6007_le
 theorem log_6634_le_44_over_5 :
     Real.log (6634 : Real) ≤ (44 : Real) / 5 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 8 (r := (4 : Real) / 5) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_44_over_5_of_6311_le
     {a : Nat} (ha : 6311 ≤ a) (ha6634 : a ≤ 6634) :
@@ -732,7 +816,9 @@ theorem log_le_44_over_5_of_6311_le
 theorem log_6974_le_177_over_20 :
     Real.log (6974 : Real) ≤ (177 : Real) / 20 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 8 (r := (17 : Real) / 20) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_177_over_20_of_6637_le
     {a : Nat} (ha : 6637 ≤ a) (ha6974 : a ≤ 6974) :
@@ -748,7 +834,9 @@ theorem log_le_177_over_20_of_6637_le
 theorem log_7331_le_89_over_10 :
     Real.log (7331 : Real) ≤ (89 : Real) / 10 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 8 (r := (9 : Real) / 10) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_89_over_10_of_6977_le
     {a : Nat} (ha : 6977 ≤ a) (ha7331 : a ≤ 7331) :
@@ -764,7 +852,9 @@ theorem log_le_89_over_10_of_6977_le
 theorem log_7707_le_179_over_20 :
     Real.log (7707 : Real) ≤ (179 : Real) / 20 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 8 (r := (19 : Real) / 20) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_179_over_20_of_7333_le
     {a : Nat} (ha : 7333 ≤ a) (ha7707 : a ≤ 7707) :
@@ -780,7 +870,9 @@ theorem log_le_179_over_20_of_7333_le
 theorem log_8103_le_9 :
     Real.log (8103 : Real) ≤ (9 : Real) := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := 0) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_9_of_7717_le
     {a : Nat} (ha : 7717 ≤ a) (ha8103 : a ≤ 8103) :
@@ -796,7 +888,9 @@ theorem log_le_9_of_7717_le
 theorem log_8518_le_181_over_20 :
     Real.log (8518 : Real) ≤ (181 : Real) / 20 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (1 : Real) / 20) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_181_over_20_of_8111_le
     {a : Nat} (ha : 8111 ≤ a) (ha8518 : a ≤ 8518) :
@@ -812,7 +906,9 @@ theorem log_le_181_over_20_of_8111_le
 theorem log_8955_le_91_over_10 :
     Real.log (8955 : Real) ≤ (91 : Real) / 10 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (1 : Real) / 10) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_91_over_10_of_8521_le
     {a : Nat} (ha : 8521 ≤ a) (ha8955 : a ≤ 8955) :
@@ -828,7 +924,9 @@ theorem log_le_91_over_10_of_8521_le
 theorem log_9414_le_183_over_20 :
     Real.log (9414 : Real) ≤ (183 : Real) / 20 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (3 : Real) / 20) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_183_over_20_of_8963_le
     {a : Nat} (ha : 8963 ≤ a) (ha9414 : a ≤ 9414) :
@@ -844,7 +942,9 @@ theorem log_le_183_over_20_of_8963_le
 theorem log_9897_le_46_over_5 :
     Real.log (9897 : Real) ≤ (46 : Real) / 5 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (1 : Real) / 5) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_46_over_5_of_9419_le
     {a : Nat} (ha : 9419 ≤ a) (ha9897 : a ≤ 9897) :
@@ -860,7 +960,9 @@ theorem log_le_46_over_5_of_9419_le
 theorem log_10404_le_37_over_4 :
     Real.log (10404 : Real) ≤ (37 : Real) / 4 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (1 : Real) / 4) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_37_over_4_of_9901_le
     {a : Nat} (ha : 9901 ≤ a) (ha10404 : a ≤ 10404) :
@@ -876,7 +978,9 @@ theorem log_le_37_over_4_of_9901_le
 theorem log_10938_le_93_over_10 :
     Real.log (10938 : Real) ≤ (93 : Real) / 10 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (3 : Real) / 10) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_93_over_10_of_10427_le
     {a : Nat} (ha : 10427 ≤ a) (ha10938 : a ≤ 10938) :
@@ -892,7 +996,9 @@ theorem log_le_93_over_10_of_10427_le
 theorem log_11498_le_187_over_20 :
     Real.log (11498 : Real) ≤ (187 : Real) / 20 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (7 : Real) / 20) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_187_over_20_of_10939_le
     {a : Nat} (ha : 10939 ≤ a) (ha11498 : a ≤ 11498) :
@@ -908,7 +1014,9 @@ theorem log_le_187_over_20_of_10939_le
 theorem log_12088_le_47_over_5 :
     Real.log (12088 : Real) ≤ (47 : Real) / 5 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (2 : Real) / 5) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_47_over_5_of_11503_le
     {a : Nat} (ha : 11503 ≤ a) (ha12088 : a ≤ 12088) :
@@ -924,7 +1032,9 @@ theorem log_le_47_over_5_of_11503_le
 theorem log_12708_le_189_over_20 :
     Real.log (12708 : Real) ≤ (189 : Real) / 20 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (9 : Real) / 20) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_189_over_20_of_12097_le
     {a : Nat} (ha : 12097 ≤ a) (ha12708 : a ≤ 12708) :
@@ -940,7 +1050,9 @@ theorem log_le_189_over_20_of_12097_le
 theorem log_13359_le_19_over_2 :
     Real.log (13359 : Real) ≤ (19 : Real) / 2 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (1 : Real) / 2) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_19_over_2_of_12713_le
     {a : Nat} (ha : 12713 ≤ a) (ha13359 : a ≤ 13359) :
@@ -956,7 +1068,9 @@ theorem log_le_19_over_2_of_12713_le
 theorem log_14044_le_191_over_20 :
     Real.log (14044 : Real) ≤ (191 : Real) / 20 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (11 : Real) / 20) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_191_over_20_of_13367_le
     {a : Nat} (ha : 13367 ≤ a) (ha14044 : a ≤ 14044) :
@@ -972,7 +1086,9 @@ theorem log_le_191_over_20_of_13367_le
 theorem log_14764_le_48_over_5 :
     Real.log (14764 : Real) ≤ (48 : Real) / 5 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (3 : Real) / 5) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_48_over_5_of_14051_le
     {a : Nat} (ha : 14051 ≤ a) (ha14764 : a ≤ 14764) :
@@ -988,7 +1104,9 @@ theorem log_le_48_over_5_of_14051_le
 theorem log_15521_le_193_over_20 :
     Real.log (15521 : Real) ≤ (193 : Real) / 20 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (13 : Real) / 20) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_193_over_20_of_14767_le
     {a : Nat} (ha : 14767 ≤ a) (ha15521 : a ≤ 15521) :
@@ -1004,7 +1122,9 @@ theorem log_le_193_over_20_of_14767_le
 theorem log_16317_le_97_over_10 :
     Real.log (16317 : Real) ≤ (97 : Real) / 10 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (7 : Real) / 10) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_97_over_10_of_15527_le
     {a : Nat} (ha : 15527 ≤ a) (ha16317 : a ≤ 16317) :
@@ -1020,7 +1140,9 @@ theorem log_le_97_over_10_of_15527_le
 theorem log_23155_le_201_over_20 :
     Real.log (23155 : Real) ≤ (201 : Real) / 20 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 10 (r := (1 : Real) / 20) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_201_over_20_of_22027_le
     {a : Nat} (ha : 22027 ≤ a) (ha23155 : a ≤ 23155) :
@@ -1037,7 +1159,9 @@ theorem log_le_201_over_20_of_22027_le
 theorem log_22026_le_10_over_1 :
     Real.log (22026 : Real) ≤ (10 : Real) / 1 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 10 (r := 0) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_10_over_1_of_20959_le
     {a : Nat} (ha : 20959 ≤ a) (ha22026 : a ≤ 22026) :
@@ -1054,7 +1178,9 @@ theorem log_le_10_over_1_of_20959_le
 theorem log_20952_le_199_over_20 :
     Real.log (20952 : Real) ≤ (199 : Real) / 20 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (19 : Real) / 20) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_199_over_20_of_19937_le
     {a : Nat} (ha : 19937 ≤ a) (ha20952 : a ≤ 20952) :
@@ -1071,7 +1197,9 @@ theorem log_le_199_over_20_of_19937_le
 theorem log_19930_le_99_over_10 :
     Real.log (19930 : Real) ≤ (99 : Real) / 10 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (9 : Real) / 10) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_99_over_10_of_18959_le
     {a : Nat} (ha : 18959 ≤ a) (ha19930 : a ≤ 19930) :
@@ -1088,7 +1216,9 @@ theorem log_le_99_over_10_of_18959_le
 theorem log_18958_le_197_over_20 :
     Real.log (18958 : Real) ≤ (197 : Real) / 20 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (17 : Real) / 20) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_197_over_20_of_18041_le
     {a : Nat} (ha : 18041 ≤ a) (ha18958 : a ≤ 18958) :
@@ -1105,7 +1235,9 @@ theorem log_le_197_over_20_of_18041_le
 theorem log_18033_le_49_over_5 :
     Real.log (18033 : Real) ≤ (49 : Real) / 5 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (8 : Real) / 10) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_49_over_5_of_17159_le
     {a : Nat} (ha : 17159 ≤ a) (ha18033 : a ≤ 18033) :
@@ -1122,7 +1254,9 @@ theorem log_le_49_over_5_of_17159_le
 theorem log_17154_le_39_over_4 :
     Real.log (17154 : Real) ≤ (39 : Real) / 4 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
-  interval_decide
+  have h := exp_lower_nat_add 9 (r := (3 : Real) / 4) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
 
 theorem log_le_39_over_4_of_16319_le
     {a : Nat} (ha : 16319 ≤ a) (ha17154 : a ≤ 17154) :
@@ -1147,7 +1281,7 @@ theorem log_le_116_over_10_of_89693_le
     · exact_mod_cast ha100000
   exact hmono.trans log_100000_le_116_over_10
 
-theorem finitePrimeGapLogRow_of_explicit_100000
+def finitePrimeGapLogRow_of_explicit_100000
     {p q : Nat} (hq : q.Prime) (hpq : p < q)
     (hproduct : (q - p : Real) * ((116 : Real) / 10) ^ 3 ≤ p)
     (hleft_large : 89693 ≤ p) (hp100000 : p ≤ 100000) :
