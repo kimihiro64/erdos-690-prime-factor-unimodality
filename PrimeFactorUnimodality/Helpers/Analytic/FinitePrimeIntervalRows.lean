@@ -13818,6 +13818,25 @@ structure ThetaLogFourthEndpointRow (A : Real) where
   lower_error : right - theta_lower ≤
     A * (left : Real) / (Real.log right) ^ 4
 
+def thetaLogFourthEndpointRow_two (A : Real) (hA0 : 0 ≤ A) :
+    ThetaLogFourthEndpointRow A :=
+  { left := 2
+    right := 2
+    left_large := by norm_num
+    left_le_right := by norm_num
+    theta_lower := Chebyshev.theta 2
+    theta_upper := Chebyshev.theta 2
+    theta_lower_le := le_rfl
+    theta_right_le := le_rfl
+    upper_error := by
+      have hlog : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
+      norm_num
+      positivity
+    lower_error := by
+      have hlog : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
+      norm_num
+      positivity }
+
 def ThetaLogFourthEndpointRowsCoverUpTo
     {A : Real} (rows : List (ThetaLogFourthEndpointRow A)) (X : Real) : Prop :=
   ∀ x : Real, 2 ≤ x → x ≤ X →
@@ -13843,6 +13862,14 @@ def ThetaLogFourthEndpointRowsCoverFrom
     (x₀ X : Real) : Prop :=
   ∀ x : Real, x₀ ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem thetaLogFourthEndpointRow_two_cover (A : Real) (hA0 : 0 ≤ A) :
+    ThetaLogFourthEndpointRowsCoverFrom
+      [thetaLogFourthEndpointRow_two A hA0] 2 2 := by
+  intro x hx hX
+  have hx2 : x = 2 := by linarith
+  subst x
+  exact ⟨thetaLogFourthEndpointRow_two A hA0, by simp, by norm_num, by norm_num⟩
 
 def ThetaLogFourthEndpointIndexedCoverFrom {n : Nat} {A : Real}
     (rows : Fin n → ThetaLogFourthEndpointRow A)
@@ -13989,6 +14016,32 @@ theorem hasThetaLogFourthErrorOn_of_endpoint_rows_from
   intro x hx hxX
   obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hxX
   exact thetaLogFourthEndpointRow_provides hA0 row hleft hright
+
+theorem hasThetaLogFourthErrorBelow_of_prefix_and_endpoint_rows
+    {A x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
+    (prefix : HasThetaLogFourthErrorBelow A x₀)
+    {rows : List (ThetaLogFourthEndpointRow A)}
+    (cover : ThetaLogFourthEndpointRowsCoverFrom rows x₀ X)
+    (hA0 : 0 ≤ A) :
+    HasThetaLogFourthErrorBelow A X := by
+  intro x hx hX
+  by_cases hsmall : x ≤ x₀
+  · exact prefix x hx hsmall
+  · exact hasThetaLogFourthErrorOn_of_endpoint_rows_from hA0 cover x
+      (le_of_not_ge hsmall) hX
+
+theorem hasThetaLogFourthErrorBelow_of_indexed_prefix_and_endpoint_rows
+    {A x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
+    (prefix : HasThetaLogFourthErrorBelow A x₀)
+    {n : Nat} {rows : Fin n → ThetaLogFourthEndpointRow A}
+    (cover : ThetaLogFourthEndpointIndexedCoverFrom rows x₀ X)
+    (hA0 : 0 ≤ A) :
+    HasThetaLogFourthErrorBelow A X := by
+  intro x hx hX
+  by_cases hsmall : x ≤ x₀
+  · exact prefix x hx hsmall
+  · obtain ⟨i, hleft, hright⟩ := cover x (le_of_not_ge hsmall) hX
+    exact thetaLogFourthEndpointRow_provides hA0 (rows i) hleft hright
 
 theorem hasThetaLogFourthErrorAbove_of_endpoint_rows_from_and_tail
     {A x₀ X : Real} (hA0 : 0 ≤ A)
@@ -14366,14 +14419,60 @@ structure DusartThetaEndpointRow where
   lower_lower_error : right - theta_lower <
     (12323 / 10000 : Real) * (left : Real) / Real.log right
 
+/-! Exact singleton endpoint facts are useful as the seed rows of generated
+finite tables.  They do not appeal to a pre-packaged Dusart estimate: at a
+singleton both endpoint errors are zero, and the remaining obligations are
+just positivity of `log 2`. -/
+def dusartThetaEndpointRow_two : DusartThetaEndpointRow :=
+  { left := 2
+    right := 2
+    left_large := by norm_num
+    left_le_right := by norm_num
+    theta_lower := Chebyshev.theta 2
+    theta_upper := Chebyshev.theta 2
+    theta_lower_le := le_rfl
+    theta_right_le := le_rfl
+    upper_error := by
+      have hlog : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
+      norm_num
+      positivity
+    lower_upper_error := by
+      have hlog : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
+      norm_num
+      positivity
+    lower_lower_error := by
+      have hlog : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
+      norm_num
+      positivity }
+
 def DusartThetaEndpointRowsCoverUpTo
     (rows : List DusartThetaEndpointRow) (X : Real) : Prop :=
   ∀ x : Real, 2 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+/-! Endpoint rows are only used after the finite theta prefix.  Requiring
+them to cover from `2` would be false: the endpoint error budgets are the
+large-`x` Dusart budgets, not a small-`x` theta estimate. -/
+def DusartThetaEndpointRowsCoverFrom
+    (rows : List DusartThetaEndpointRow) (x₀ X : Real) : Prop :=
+  ∀ x : Real, x₀ ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem dusartThetaEndpointRow_two_cover :
+    DusartThetaEndpointRowsCoverUpTo [dusartThetaEndpointRow_two] 2 := by
+  intro x hx hX
+  have hx2 : x = 2 := by linarith
+  subst x
+  exact ⟨dusartThetaEndpointRow_two, by simp, by norm_num, by norm_num⟩
+
 def DusartThetaEndpointIndexedCoverUpTo {n : Nat}
     (rows : Fin n → DusartThetaEndpointRow) (X : Real) : Prop :=
   ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+
+def DusartThetaEndpointIndexedCoverFrom {n : Nat}
+    (rows : Fin n → DusartThetaEndpointRow) (x₀ X : Real) : Prop :=
+  ∀ x : Real, x₀ ≤ x → x ≤ X →
     ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
 
 theorem dusartThetaEndpointIndexedCover_of_list
@@ -14381,6 +14480,14 @@ theorem dusartThetaEndpointIndexedCover_of_list
     (cover : DusartThetaEndpointRowsCoverUpTo rows X) :
     DusartThetaEndpointIndexedCoverUpTo
       (fun i : Fin rows.length => rows.get i) X := by
+  exact indexed_interval_cover_of_list_cover rows
+      (fun row => row.left) (fun row => row.right) cover
+
+theorem dusartThetaEndpointIndexedCoverFrom_of_list
+    {x₀ X : Real} {rows : List DusartThetaEndpointRow}
+    (cover : DusartThetaEndpointRowsCoverFrom rows x₀ X) :
+    DusartThetaEndpointIndexedCoverFrom
+      (fun i : Fin rows.length => rows.get i) x₀ X := by
   exact indexed_interval_cover_of_list_cover rows
     (fun row => row.left) (fun row => row.right) cover
 
@@ -14397,6 +14504,23 @@ theorem dusartThetaEndpointIndexedCoverUpTo_append
     (fun y hy _ hym => hleft y hy hym)
     (fun y hy _ hym hyX => hright y hy hyX)
     x hx trivial hX
+
+theorem dusartThetaEndpointIndexedCoverFrom_append
+    {x₀ m X : Real} {n₁ n₂ : Nat}
+    {left : Fin n₁ → DusartThetaEndpointRow}
+    {right : Fin n₂ → DusartThetaEndpointRow}
+    (hleft : DusartThetaEndpointIndexedCoverFrom left x₀ m)
+    (hright : DusartThetaEndpointIndexedCoverFrom right m X) :
+    DusartThetaEndpointIndexedCoverFrom (Fin.append left right) x₀ X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨i, hleft_lower, hleft_upper⟩ := hleft x hx hxm
+    refine ⟨Fin.castAdd n₂ i, ?_⟩
+    simpa [Fin.append_left] using And.intro hleft_lower hleft_upper
+  · obtain ⟨i, hright_lower, hright_upper⟩ :=
+      hright x (le_of_not_ge hxm) hX
+    refine ⟨Fin.natAdd n₁ i, ?_⟩
+    simpa [Fin.append_right] using And.intro hright_lower hright_upper
 
 theorem hasDusartSymmetricThetaBoundsBelow_of_indexed_endpoint_rows
     {n : Nat} {X : Real}
@@ -14522,8 +14646,52 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
         hleft hright
   · intro x hx hX
     obtain ⟨row, hrow, hleft, hright⟩ := cover x (by linarith) hX
-    exact (dusartThetaEndpointRow_provides row hleft hright).lower x hx
+      exact (dusartThetaEndpointRow_provides row hleft hright).lower x hx
       hleft hright
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_prefix_and_endpoint_rows
+    {x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
+    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    {rows : List DusartThetaEndpointRow}
+    (cover : DusartThetaEndpointRowsCoverFrom rows x₀ X) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
+  · intro x hx hX
+    by_cases hsmall : x ≤ x₀
+    · exact prefix.1 x hx hsmall
+    · obtain ⟨row, hrow, hleft, hright⟩ := cover x
+        (le_of_not_ge hsmall) hX
+      exact (dusartThetaEndpointRow_provides row hleft hright).upper
+        x hleft hright
+  · intro x hx hX
+    by_cases hsmall : x ≤ x₀
+    · exact prefix.2 x hx hsmall
+    · obtain ⟨row, hrow, hleft, hright⟩ := cover x
+        (le_of_not_ge hsmall) hX
+      exact (dusartThetaEndpointRow_provides row hleft hright).lower
+        x hx hleft hright
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_indexed_prefix_and_endpoint_rows
+    {n : Nat} {x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
+    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    {rows : Fin n → DusartThetaEndpointRow}
+    (cover : DusartThetaEndpointIndexedCoverFrom rows x₀ X) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
+  · intro x hx hX
+    by_cases hsmall : x ≤ x₀
+    · exact prefix.1 x hx hsmall
+    · obtain ⟨i, hleft, hright⟩ := cover x
+        (le_of_not_ge hsmall) hX
+      exact (dusartThetaEndpointRow_provides (rows i) hleft hright).upper
+        x hleft hright
+  · intro x hx hX
+    by_cases hsmall : x ≤ x₀
+    · exact prefix.2 x hx hsmall
+    · obtain ⟨i, hleft, hright⟩ := cover x
+        (le_of_not_ge hsmall) hX
+      exact (dusartThetaEndpointRow_provides (rows i) hleft hright).lower
+        x hleft hright
 
 def DusartThetaBoundsRowsCoverUpTo
     (rows : List DusartThetaBoundsRow) (X : Real) : Prop :=
