@@ -82,6 +82,17 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_finite_prime_gap_bound
     (by linarith) (by linarith) (hxx.trans hXb)
     (width x hx hxx)
 
+theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_prime_gap_certificate
+    {X : Real} {b g : Nat}
+    (hX : (89693 : Real) ≤ X)
+    (hXb : X ≤ b)
+    (certificate : FinitePrimeGapIndexedCertificate 89689 b g)
+    (width : ∀ x : Real, 89693 ≤ x → x ≤ X →
+      (g : Real) ≤ x / (Real.log x) ^ 3) :
+    HasLogCubedShortIntervalPrimeBelow X :=
+  hasLogCubedShortIntervalPrimeBelow_of_finite_prime_gap_bound
+    hX hXb (finitePrimeGapBound_of_indexed_certificate certificate) width
+
 theorem indexed_interval_cover_of_list_cover
     {α : Type} (rows : List α) (left right : α → Nat)
     {P Q : Real → Prop}
