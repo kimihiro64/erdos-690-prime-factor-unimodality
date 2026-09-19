@@ -40,18 +40,91 @@ The existing `FinitePrimeIntervalRows.lean` should become a small import
 facade.  Compile each new module before importing it into the facade.  Do not
 change theorem statements merely to make the split easier.
 
-### Close the analytic provider
+### Close the analytic provider by one canonical route
 
-`Proof/CompleteClassification.lean` already contains the adapters and the
-paper-facing `WangCrapisAnalyticInputs` boundary.  Avoid adding another provider
-abstraction.  Supply concrete proofs for its four fields, reusing the existing
-MediumPNT, Abel, theta-error, finite endpoint-row, and 89,693-prefix results.
-The endpoint data may be generated, but the adapters and all unbounded
-arguments are non-certificate work and come first.
+`Proof/CompleteClassification.lean` currently exposes many alternative
+conditional packages.  Luna must not choose among them ad hoc or regard any of
+those wrappers as closure.  The canonical final route is the three-field
+`WangCrapisPaperInputs` boundary, because it states exactly the global analytic
+facts used by the paper and does not force an infeasible endpoint enumeration
+through `4e18` merely to construct `WangCrapisAnalyticInputs`.
 
-The final internal theorem should have type `CompleteClassification`; only
-then should `PrimeFactorUnimodality.completeClassification` in the two public
-files be filled.
+Create `Proof/Analytic/WangCrapisClosed.lean` and close these declarations,
+with these names and types:
+
+- `wangCrapis_primeCounting : HasDusartPrimeCountingBounds`;
+- `wangCrapis_thetaBounds : HasDusartThetaBounds`;
+- `wangCrapis_shortInterval : HasDusartShortIntervalPrime`;
+- `wangCrapisPaperInputs : WangCrapisPaperInputs`;
+- `completeClassification_closed : CompleteClassification`, proved by
+  `completeClassification_of_wangCrapis_paper_inputs wangCrapisPaperInputs`.
+
+The first three declarations are the actual missing mathematics.  Prove the
+explicit Dusart estimates from the sorry-free zero-free-region, Chebyshev,
+Abel-summation, logarithm-envelope, and finite low-endpoint lemmas in this
+repository.  Do not import a prepackaged Dusart theorem, repackage one as an
+assumption, or substitute the existential-cutoff theorem from `MediumPNT` for
+an explicit cutoff.  If a finite low range remains after the unbounded proof,
+represent it as compact indexed rows with reusable assemblers.  Do not attempt
+to enumerate prime-counting or theta endpoint rows all the way to `4e18`.
+
+The intended source decomposition is:
+
+- `Helpers/Analytic/DusartThetaClosed.lean` exports
+  `wangCrapis_thetaBounds` after proving the explicit theta error and its
+  finite low endpoint facts;
+- `Helpers/Analytic/DusartPrimeCountingClosed.lean` exports
+  `wangCrapis_primeCounting` by the proved Abel conversion and its finite
+  low endpoint facts;
+- `Helpers/Analytic/DusartShortIntervalClosed.lean` exports
+  `wangCrapis_shortInterval`, using the compiled prefix through `89693` and
+  the explicit theta estimate above that point;
+- `Proof/Analytic/WangCrapisClosed.lean` only assembles those three exports.
+
+Preserve the existing generic declarations in `DecayToLogFourth.lean`,
+`ExplicitPrimeCounting.lean`, `ExplicitThetaBounds.lean`,
+`ShortIntervalPrime.lean`, and `MediumPNT.lean`; repair their elaboration
+errors before writing the final assembly.  The fixed-cutoff
+`Dusart599IndexedFiniteCertificate` route remains a useful generic interface,
+but it is not the selected final route and is not a license to generate a
+table through `4e18`.
+
+### Raise the finite record theorem to the published cutoff
+
+This is non-certificate proof work and must be completed before any expensive
+replay.  The side-condition module already reaches `k = 8,600,001`, but the
+numeric descent and every downstream assembly are still hard-coded to
+`7,430,000`.  Merely extending the record-gap owners does not close this gap.
+
+Change and prove, in dependency order:
+
+1. `fullRecord_prefix_log_log_lt` in
+   `Proof/LargeRange/FullRecordNumericBounds.lean`, with
+   `hkUpper : k ≤ 8600001`.
+2. `fullRecord_descentNumeric` in the same file, with
+   `hkUpper : k ≤ 8600001`.  Its current proof explicitly uses
+   `k - 1 ≤ 7429999`; reproduce the sharper numerical argument from the
+   source paper (or prove stronger logarithmic/Mertens bounds) rather than
+   changing only the numeral.
+3. `fullRecordRange_not_isUnimodal` and
+   `fullRecordRange_not_isUnimodal_closed` in
+   `Proof/LargeRange/FullRecordRange.lean`, both through `8600001`.
+4. `completeClassification_of_finite_record_range` in
+   `Proof/CompleteClassificationReduction.lean`, with cutoff `8600001` and
+   tail beginning at `8600002`.
+5. `completeClassification_of_full_record_inputs` in
+   `Proof/CompleteClassification.lean`, with cutoff `8600001`; every adapter
+   above it must elaborate without reintroducing `7430000`.
+
+Keep the independently proved tail's earlier validity (`k ≥ 7,300,001`) if it
+is useful, but the public finite theorem and final split must still state the
+paper's full `8,600,001` cutoff.  A final source scan for `7430000` and
+`7429999` outside historical comments must return no live theorem dependency.
+
+The final internal theorem is `completeClassification_closed`; only after that
+declaration is source-complete should both public declarations named
+`PrimeFactorUnimodality.completeClassification` in `Challenge.lean` and
+`Solution.lean` be filled with it.
 
 ### Verify dependency cleanliness
 
@@ -121,6 +194,131 @@ Do not combine the lower and upper primality computations into one giant Lean
 declaration.  They should remain separately cacheable CI targets even after
 their internal steps are row-compressed.
 
+## Exact finite-certificate consumer matrix
+
+The certificate skeleton is complete only when each producer below exists in
+source, exports the stated stable name, and its non-generated consumer has
+already elaborated against a representative row.  A generated file merely
+existing is not enough.
+
+### Small record range (`49 ≤ k ≤ 38000`)
+
+- `Generated/RecordPrimeWitnesses.lean` must export
+  `recordPrimeWitnesses_card` and `recordPrimeWitnesses_subset`;
+  `RecordPrefixBounds.lean` must then elaborate
+  `record_primeCounting_500001_ge`, `record_prefix_primeAt_le_500000`, and
+  `record_prefix_log_log_lt`.
+- `Generated/RecordReciprocalBlocks.lean` must export
+  `roundedReciprocalSieveSumBelow_500001_eq`;
+  `RecordReciprocalCertificate.lean` must then elaborate
+  `reciprocalPrimeSumBelow_500001_lt`.
+- The compressed lower and upper power traces must preserve
+  `recordLower_main_kernel`, `recordLower_proper_2_kernel`,
+  `recordLower_proper_3_kernel`, `recordLower_proper_17_kernel`,
+  `recordLower_proper_4950817_kernel`, and the corresponding five
+  `recordUpper_*_kernel` declarations, plus `recordUpperWitnessBase`.
+  `RecordTwinClosed.lean` must then elaborate `recordTwinCertificate`,
+  `recordTwin_isTwinPrime`, and `recordTwin_consecutive`.
+- `ClassificationThrough38000Closed.lean` must elaborate
+  `completeClassification_through38000_closed` from those closed consumers.
+
+The prime-witness and reciprocal sources already exist; unless CI finds an
+elaboration error, they are build/fix work rather than open mathematical
+design.  Do not redesign them while a non-certificate obligation remains.
+
+### Full published record gap (`38001 ≤ k ≤ 8600001`)
+
+- The compact subtraction owner rows must export
+  `fullRecordGapSubBlock (d : Nat) (lower : 1 ≤ d) (upper : d ≤ 455703) :
+  ¬(recordGapCenter - d).Prime`.
+- The compact addition owner rows must export
+  `fullRecordGapAddBlock (d : Nat) (lower : 1 ≤ d) (upper : d ≤ 657401) :
+  ¬(recordGapCenter + d).Prime`.
+- Their only non-generated assembly API is
+  `fullRecordGapSubBlock_of_rows` and `fullRecordGapAddBlock_of_rows` from
+  `RecordGapOwnerRows.lean`.
+- The 10,918 Fermat-only offsets remain theorem-addressable, but their replay
+  data is stored and checked in the existing 171 shared rows.  The compact
+  owner table references those row results; it must not emit a file or a full
+  modular-power trace per offset.
+- `FullRecordRange.lean` consumes exactly the two block theorems and
+  `recordTwin_consecutive`; after the numeric-cutoff work above it must export
+  `fullRecordRange_not_isUnimodal_closed` through `8600001`.
+
+Before full generation, compile one 512-offset mixed owner row and one 8--32
+step power-trace row.  That representative-row benchmark is a source-design
+gate, not an optional performance experiment.
+
+## Remaining elaboration-risk audit
+
+No claim that “only CI remains” is valid until Luna has run focused builds for
+all non-generated modules below.  They contain new or currently unbuilt APIs
+whose source shape alone does not prove elaboration:
+
+1. the five-way `FinitePrimeIntervalRows` split and its facade;
+2. `DecayToLogFourth`, `ExplicitThetaBounds`, `ExplicitPrimeCounting`,
+   `ShortIntervalPrime`, and `MediumPNT`;
+3. the three `Dusart*Closed` modules and `WangCrapisClosed`;
+4. `RecordGapOwnerRows`, `FullRecordNumericBounds`,
+   `CompleteClassificationReduction`, and `CompleteClassification`;
+5. the reusable compressed `PowerTrace` assembler and one lower/upper sample;
+6. all non-generated consumers named in the certificate matrix above.
+
+When a focused build reports an elaboration error, fix source immediately and
+continue down this list.  Do not wait for a full certificate replay to finish.
+
+### Known source-policy failures from the current fast check
+
+The September 19 fast check is not clean.  Luna must close these named issues
+rather than discovering them at release time:
+
+- `Challenge.lean` directly imports the project module
+  `PrimeFactorUnimodality.Definitions.KthPrimeFactor`; restore the required
+  challenge boundary while preserving the exact all-`k` statement.
+- Put imports in ordinal order in `ExplicitPrimeCounting.lean`,
+  `ExplicitThetaBounds.lean`, `FinitePrimeIntervalRows.lean`,
+  `MediumPNT.lean`, `RelativePsiTheta.lean`, `CompleteClassification.lean`,
+  `ElementaryTailShell.lean`, and `TailErrorBounds.lean`.
+- The old `FullRecordGapFermat` rows and `FullRecordGapOwners` forest produce
+  thousands of missing-module-documentation and import-order failures.  The
+  compact replacement generators must emit compliant module documentation and
+  sorted imports from their first prototype.  Do not mechanically repair the
+  obsolete per-witness forest before replacing it.
+- `Solution.lean` and `Challenge.lean` remain the only intentional `sorry`
+  surfaces; both disappear when `completeClassification_closed` is installed.
+
+The fast check also confirmed a clean documentation manifest, clean public
+boundary, and current submission link.  Its current failure is therefore a
+real open gate, not a tooling crash.
+
+## Definition of “skeleton complete; only CI remains”
+
+All of the following must be true simultaneously:
+
+- every module and declaration named above exists in tracked source;
+- every non-generated module builds locally, except that a final consumer may
+  be blocked solely by a named generated import that is already committed;
+- all compact generators have emitted their complete row data and deterministic
+  manifests, not merely prototypes;
+- generated facades export every stable producer name in the matrix, and the
+  old per-witness forests are no longer imported by the active graph;
+- `PrimeFactorUnimodality.lean` imports `Proof.Analytic.WangCrapisClosed`, and
+  both public theorem bodies use `completeClassification_closed` with no
+  placeholder;
+- repository scans find no `sorry`, `admit`, project-local `axiom`, bodyless
+  `constant`, `opaque`, or `native_decide` in the active proof graph;
+- source scans find no live `7430000`/`7429999` cutoff and no accidental
+  assumption-backed Dusart provider;
+- deterministic generator tests and the fast policy check pass;
+- CI is re-enabled with foundation jobs before separately cacheable heavy
+  certificate jobs.
+
+Only the kernel replay of the already committed generated rows, followed by
+`#print axioms` and release checks, may remain after this gate.  If code still
+needs to be designed, a theorem body still needs to be written, a generator
+has not emitted its final data, or a consumer has never elaborated against a
+representative row, then the project is not yet in the “waiting on CI” state.
+
 ## CI staging
 
 The workflow is intentionally disabled at the GitHub level until source work
@@ -130,7 +328,10 @@ expensive certificate phase and must depend on that job.  Run large targets
 one at a time if memory pressure appears; preserve `.lake` caches between
 diagnostic runs.
 
-The repository's tracked source is currently about 605 MiB uncompressed and
-about 165 MiB in Git's packed object database.  Nearly all of the size is the
-generated certificate source above.  The public-boundary limit is now 1 GiB;
-that change does not remove or rewrite any data.
+The tracked files currently contain `633,923,177` bytes (about 604.6 MiB) of
+logical data, while Git's packed object database is about 165 MiB.  Filesystem
+tools report about 808 MiB allocated for the worktree excluding `.git` and
+`.lake`; the thousands of small generated files add block-allocation overhead,
+but most of the roughly 634 MB figure really is tracked generated certificate
+source.  The public-boundary limit is now 1 GiB; that change does not remove or
+rewrite any data.
