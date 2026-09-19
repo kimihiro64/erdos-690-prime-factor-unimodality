@@ -162,6 +162,37 @@ def HasThetaLogRpowDecay (C c α X : Real) : Prop :=
     |Chebyshev.theta x - x| ≤
       C * x * Real.exp (-c * (Real.log x) ^ α)
 
+/-! A direct classical-bound interface for theta.  The envelope hypothesis is
+kept explicit: proving it is part of the numerical zero-free-region argument,
+not an imported Dusart estimate. -/
+def HasThetaClassicalBound (A B C R X : Real) : Prop :=
+  ∀ x : Real, X ≤ x →
+    |Chebyshev.theta x - x| ≤
+      A * (Real.log x / R) ^ B *
+        Real.exp (-C * (Real.log x / R) ^ ((1 : Real) / 2)) * x
+
+theorem hasThetaLogFourthError_of_classicalBound_of_envelope
+    {A B C R D X : Real} (hX : 0 < X)
+    (bound : HasThetaClassicalBound A B C R X)
+    (envelope : ∀ x : Real, X ≤ x →
+      A * (Real.log x / R) ^ B *
+          Real.exp (-C * (Real.log x / R) ^ ((1 : Real) / 2)) ≤
+        D / (Real.log x) ^ (4 : ℕ)) :
+    HasThetaLogFourthError D X := by
+  intro x hx
+  have hx_pos : 0 < x := lt_of_lt_of_le hX hx
+  have hbound := bound x hx
+  have henvelope := envelope x hx
+  calc
+    |Chebyshev.theta x - x| ≤
+        A * (Real.log x / R) ^ B *
+            Real.exp (-C * (Real.log x / R) ^ ((1 : Real) / 2)) * x := hbound
+    _ = (A * (Real.log x / R) ^ B *
+          Real.exp (-C * (Real.log x / R) ^ ((1 : Real) / 2))) * x := by ring
+    _ ≤ (D / (Real.log x) ^ (4 : ℕ)) * x :=
+      mul_le_mul_of_nonneg_right henvelope hx_pos.le
+    _ = D * x / (Real.log x) ^ 4 := by ring_nf
+
 theorem hasThetaLogFourthError_of_logRpowDecay_of_envelope
     {C D c α X : Real} (hX : 0 < X)
     (hdecay : HasThetaLogRpowDecay C c α X)
