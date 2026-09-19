@@ -1197,6 +1197,56 @@ theorem completeClassification_of_mediumPNT_and_integer_interval_prefix_provider
     shortIntervalRows := fun X hX => provider.shortIntervalPrefix X hX
     thetaErrorEndpointRows := fun X hX => provider.thetaErrorEndpointPrefix X hX }
 
+/-! A bundled prefix family is the compact certificate boundary for generators
+that compute all four endpoint estimates from the same ordered partition.
+The partition is stored once; only its finite prefix length varies with the
+cutoff. -/
+structure MediumPNTFiniteIntegerIntervalPrefixBundle where
+  primeCounting : DusartPrimeCountingEndpointRow
+  theta : DusartThetaEndpointRow
+  shortInterval : LogCubedPrimeRow
+  thetaError : ThetaLogFourthEndpointRow (648 / 1000 : Real)
+
+structure MediumPNTFiniteIntegerIntervalPrefixBundleCover
+    {n : Nat} (rows : Fin n → MediumPNTFiniteIntegerIntervalPrefixBundle) (X : Real) : Prop where
+  primeCounting : DusartPrimeCountingEndpointIndexedCoverFrom599
+    (fun i => (rows i).primeCounting) X
+  theta : DusartThetaEndpointIndexedCoverUpTo
+    (fun i => (rows i).theta) X
+  shortInterval : LogCubedPrimeIndexedCoverUpTo
+    (fun i => (rows i).shortInterval) X
+  thetaError : ThetaLogFourthEndpointIndexedCoverUpTo
+    (fun i => (rows i).thetaError) X
+
+structure MediumPNTFiniteIntegerIntervalBundledPrefixProvider : Prop where
+  rows : Nat → MediumPNTFiniteIntegerIntervalPrefixBundle
+  prefix : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ n : Nat,
+      MediumPNTFiniteIntegerIntervalPrefixBundleCover
+        (fun i : Fin n => rows i) X
+
+theorem completeClassification_of_mediumPNT_and_integer_interval_bundled_prefix_provider
+    (provider : MediumPNTFiniteIntegerIntervalBundledPrefixProvider) :
+    CompleteClassification := by
+  apply completeClassification_of_mediumPNT_and_integer_interval_prefix_provider
+  exact {
+    primeCountingRows := fun i => (provider.rows i).primeCounting
+    primeCountingPrefix := fun X hX => by
+      obtain ⟨n, hcover⟩ := provider.prefix X hX
+      exact ⟨n, hcover.primeCounting⟩
+    thetaEndpointRows := fun i => (provider.rows i).theta
+    thetaEndpointPrefix := fun X hX => by
+      obtain ⟨n, hcover⟩ := provider.prefix X hX
+      exact ⟨n, hcover.theta⟩
+    shortIntervalRows := fun i => (provider.rows i).shortInterval
+    shortIntervalPrefix := fun X hX => by
+      obtain ⟨n, hcover⟩ := provider.prefix X hX
+      exact ⟨n, hcover.shortInterval⟩
+    thetaErrorEndpointRows := fun i => (provider.rows i).thetaError
+    thetaErrorEndpointPrefix := fun X hX => by
+      obtain ⟨n, hcover⟩ := provider.prefix X hX
+      exact ⟨n, hcover.thetaError⟩ }
+
 /-! The tail prime-counting obligation can equivalently be supplied in the
 published asymptotic form.  The adapter is proved in the analytic helper, so
 this theorem exposes the exact provider boundary without hiding a new axiom
