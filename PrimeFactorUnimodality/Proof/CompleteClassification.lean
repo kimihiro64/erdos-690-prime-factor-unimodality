@@ -558,7 +558,7 @@ structure MediumPNTSelectedSplitInputs (X C : Real) : Prop where
   cutoff : Real
   lower : X ≤ cutoff
   large : (4e18 : Real) ≤ cutoff
-  thetaError : HasThetaLogFourthError (648 / 1000 : Real) cutoff
+  thetaError : HasThetaLogFourthErrorAbove (648 / 1000 : Real) cutoff
   primeCounting : HasDusartRealPrimeCountingBoundsBelow cutoff
   theta : HasDusartSymmetricThetaBoundsBelow cutoff
   shortInterval : HasLogCubedShortIntervalPrimeBelow cutoff
