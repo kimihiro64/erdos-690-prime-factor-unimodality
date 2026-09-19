@@ -18,6 +18,18 @@ def HasPsiLogCubedError (C X : Real) : Prop :=
   ∀ x : Real, X ≤ x →
     |Chebyshev.psi x - x| ≤ C * x / (Real.log x) ^ 3
 
+/-! The elementary prime-power remainder between `psi` and `theta`.  This is
+the exact correction used by the explicit theta arguments; exposing it once
+keeps later decay and log-power conversions from duplicating the same sign
+and absolute-value calculation. -/
+theorem theta_sub_psi_abs_le_sqrt_log {x : Real} (hx : (2 : Real) ≤ x) :
+    |Chebyshev.theta x - Chebyshev.psi x| ≤
+      2 * Real.sqrt x * Real.log x := by
+  have hdiff := Chebyshev.psi_sub_theta_le (x := x) (by linarith)
+  have htheta_le_psi := Chebyshev.theta_le_psi x
+  rw [abs_sub_comm, abs_of_nonneg (sub_nonneg.mpr htheta_le_psi)]
+  linarith
+
 theorem hasThetaLogFourthError_of_psiLogFourthError_of_correction
     {A B X : Real} (psiError : HasPsiLogFourthError A X)
     (correction : ∀ x : Real, X ≤ x →
