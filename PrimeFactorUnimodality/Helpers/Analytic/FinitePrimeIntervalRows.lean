@@ -17,6 +17,54 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 
+/-! A finite prime-gap computation can be stated purely over `Nat`; the
+real-variable short-interval conclusion is then a separate theorem.  This
+keeps the computational kernel from seeing any real logarithm expressions. -/
+def FinitePrimeGapBound (a b g : Nat) : Prop :=
+  ∀ n : Nat, a ≤ n → n ≤ b →
+    ∃ q : Nat, q.Prime ∧ n < q ∧ q ≤ n + g
+
+theorem exists_prime_in_real_interval_of_finite_prime_gap_bound
+    {a b g : Nat} {x : Real}
+    (gap : FinitePrimeGapBound a b g)
+    (hx_nonneg : 0 ≤ x) (hx_lower : (a : Real) ≤ x)
+    (hx_upper : x ≤ b)
+    (width : (g : Real) ≤ x / (Real.log x) ^ 3) :
+    ∃ q : Nat, q.Prime ∧ x < q ∧
+      (q : Real) ≤ x + x / (Real.log x) ^ 3 := by
+  let n : Nat := ⌊x⌋₊
+  have hn_lower : a ≤ n := by
+    exact Nat.le_floor hx_lower
+  have hn_upper : n ≤ b := by
+    exact Nat.floor_le_of_le hx_upper
+  obtain ⟨q, hq_prime, hnq, hq_upper⟩ := gap n hn_lower hn_upper
+  have hn_floor : (n : Real) ≤ x := by
+    exact Nat.floor_le hx_nonneg
+  have hx_floor : x < (n : Real) + 1 := by
+    simpa only [n] using Nat.lt_floor_add_one x
+  have hq_lower : (n : Real) + 1 ≤ q := by
+    exact_mod_cast (Nat.succ_le_iff.mpr hnq)
+  refine ⟨q, hq_prime, ?_, ?_⟩
+  · have hq_real : (n : Real) + 1 ≤ (q : Real) := by
+      exact hq_lower
+    linarith
+  · have hq_upper_real : (q : Real) ≤ (n : Real) + g := by
+      exact_mod_cast hq_upper
+    linarith
+
+theorem hasLogCubedShortIntervalPrimeBelow_of_finite_prime_gap_bound
+    {X : Real} {b g : Nat}
+    (hX : (89693 : Real) ≤ X)
+    (hXb : X ≤ b)
+    (gap : FinitePrimeGapBound 89689 b g)
+    (width : ∀ x : Real, 89693 ≤ x → x ≤ X →
+      (g : Real) ≤ x / (Real.log x) ^ 3) :
+    HasLogCubedShortIntervalPrimeBelow X := by
+  intro x hx hxx
+  exact exists_prime_in_real_interval_of_finite_prime_gap_bound gap
+    (by linarith) (by linarith) (hxx.trans hXb)
+    (width x hx hxx)
+
 theorem indexed_interval_cover_of_list_cover
     {α : Type} (rows : List α) (left right : α → Nat)
     {P Q : Real → Prop}
