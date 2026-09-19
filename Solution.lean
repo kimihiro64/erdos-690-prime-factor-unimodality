@@ -54,9 +54,9 @@ theorem PrimeFactorUnimodality.completeClassification_of_dusart_finite_certifica
     certificate
 
 theorem PrimeFactorUnimodality.completeClassification_of_dusart_split_finite_certificate
-    {A C x₀ : Real}
+    {A C x₀ R : Real}
     (certificate :
-      PrimeFactorUnimodality.DusartSplitFiniteCertificate A C x₀) :
+      PrimeFactorUnimodality.DusartSplitFiniteCertificate A C x₀ R) :
     PrimeFactorUnimodality.CompleteClassification := by
   exact PrimeFactorUnimodality.completeClassification_of_dusart_split_finite_certificate
     certificate

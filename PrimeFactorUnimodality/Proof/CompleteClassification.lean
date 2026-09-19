@@ -993,7 +993,7 @@ theorem completeClassification_of_dusart_finite_certificate
 /-! Split certificate boundary with no opaque finite core theorem.  The sharp
 theta table starts at `x₀`; its prefix contributes only `smallRemainder`, and
 `thetaTail` is the valid analytic estimate beginning at the fixed cutoff. -/
-structure DusartSplitFiniteCertificate (A C x₀ : Real) : Prop where
+structure DusartSplitFiniteCertificate (A C x₀ R : Real) : Prop where
   primeCountingRows : List DusartPrimeCountingEndpointRow
   primeCountingCover :
     DusartPrimeCountingEndpointRowsCoverFrom599
@@ -1012,14 +1012,14 @@ structure DusartSplitFiniteCertificate (A C x₀ : Real) : Prop where
   smallRemainder :
     |∫ t in (2 : Real)..x₀,
         (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
-          1 / (Real.log t) ^ 2)| ≤ C * x₀
+          1 / (Real.log t) ^ 2)| ≤ R
   hA0 : 0 ≤ A
   hA1 : A ≤ 1
   hC0 : 0 ≤ C
   hC : C ≤ 3 / 5
   integralCoreBound :
     4000 + 720 * (∫ t in (2 : Real)..(4e18 : Real),
-        1 / Real.log t ^ 7) + C * x₀ +
+        1 / Real.log t ^ 7) + R +
         A * (∫ t in x₀..(4e18 : Real), 1 / Real.log t ^ 6) ≤
       C * (4e18 : Real) / Real.log (4e18 : Real) ^ 4
 
