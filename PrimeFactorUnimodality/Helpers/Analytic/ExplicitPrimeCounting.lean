@@ -382,6 +382,41 @@ structure DusartPrimeCountingUpperIntegerIntervalRow where
   numerical : (Nat.primeCounting right : Real) ≤
     (left : Real) / logUpper + (6381 / 5000 : Real) * left / logUpper ^ 2
 
+theorem dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
+    {left right a b c : Nat} (hleft : 10 ≤ left)
+    (hle : left ≤ right) (hUpos :
+      0 < (a : Real) * (693148 / 1000000 : Real) +
+        (b : Real) * (1098613 / 1000000 : Real) +
+        (c : Real) * (1609438 / 1000000 : Real))
+    (hsmooth : left ≤ 2 ^ a * 3 ^ b * 5 ^ c)
+    (hnumerical : (Nat.primeCounting right : Real) ≤
+      (left : Real) /
+          ((a : Real) * (693148 / 1000000 : Real) +
+            (b : Real) * (1098613 / 1000000 : Real) +
+            (c : Real) * (1609438 / 1000000 : Real)) +
+        (6381 / 5000 : Real) * left /
+          ((a : Real) * (693148 / 1000000 : Real) +
+            (b : Real) * (1098613 / 1000000 : Real) +
+            (c : Real) * (1609438 / 1000000 : Real)) ^ 2) :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  let U : Real :=
+    (a : Real) * (693148 / 1000000 : Real) +
+      (b : Real) * (1098613 / 1000000 : Real) +
+      (c : Real) * (1609438 / 1000000 : Real)
+  refine {
+    left := left
+    right := right
+    left_large := hleft
+    left_le_right := hle
+    logUpper := U
+    logUpper_pos := ?_
+    log_bound := ?_
+    numerical := ?_ }
+  · exact hUpos
+  · dsimp [U]
+    exact log_nat_le_smooth_upper (by omega) hsmooth
+  · simpa [U] using hnumerical
+
 def DusartPrimeCountingUpperIntegerIntervalRowsCover
     (rows : List DusartPrimeCountingUpperIntegerIntervalRow) : Prop :=
   ∀ n : Nat, 10 ≤ n → n < 599 →
