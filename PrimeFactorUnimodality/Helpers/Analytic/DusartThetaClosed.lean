@@ -94,6 +94,43 @@ theorem wangCrapis_thetaBounds_of_mediumPNT
   exact wangCrapis_thetaBounds_of_logFourthTail
     hYpos (by linarith) (finite Y h4Y) (by norm_num) hA thetaError
 
+/-! The source-level decay route can also provide the theta provider directly.
+The finite endpoint argument is the only bounded input: the arbitrary
+coefficient delivered by the PNT is absorbed by raising the selected cutoff
+to an explicit exponential threshold. -/
+theorem wangCrapis_thetaBounds_of_mediumPNT_via_decay
+    (finite : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasDusartSymmetricThetaBoundsBelow Y) :
+    HasDusartThetaBounds := by
+  obtain ⟨C, Y₀, hC, h4Y₀, thetaError₀⟩ :=
+    exists_hasThetaLogFourthError_of_mediumPNT_via_decay
+  let L : Real := max 100 (((C + 1) * 500000 / 12167) + 1)
+  let Y : Real := max Y₀ (Real.exp L)
+  have hY₀ : Y₀ ≤ Y := le_max_left _ _
+  have hexpY : Real.exp L ≤ Y := le_max_right _ _
+  have hYpos : 0 < Y := by
+    exact (Real.exp_pos L).trans_le hexpY
+  have h4Y : (4e18 : Real) ≤ Y := h4Y₀.trans hY₀
+  have hlogY : (10 : Real) < Real.log Y := by
+    have hL100 : (100 : Real) ≤ L := le_max_left _ _
+    have hlog : L ≤ Real.log Y :=
+      (Real.le_log_iff_exp_le hYpos).2 hexpY
+    linarith
+  have thetaError : HasThetaLogFourthError (C + 1) Y := by
+    intro x hx
+    exact thetaError₀ x (hY₀.trans hx)
+  have hA0 : 0 ≤ C + 1 := by linarith
+  have hA : (C + 1) / Real.log Y ≤ 12167 / 500000 := by
+    have hlogYpos : 0 < Real.log Y := by linarith
+    apply (div_le_iff₀ hlogYpos).2
+    have hLcoef : ((C + 1) * 500000 / 12167) + 1 ≤ L :=
+      le_max_right _ _
+    have hLlog : L ≤ Real.log Y :=
+      (Real.le_log_iff_exp_le hYpos).2 hexpY
+    nlinarith
+  exact wangCrapis_thetaBounds_of_logFourthTail
+    hYpos hlogY (finite Y h4Y) hA0 hA thetaError
+
 end
 
 end PrimeFactorUnimodality
