@@ -126,6 +126,10 @@ def HasThetaLogFourthErrorAbove (A X : Real) : Prop :=
   ∀ x : Real, X ≤ x →
     |Chebyshev.theta x - x| ≤ A * x / (Real.log x) ^ 4
 
+def HasThetaLogFourthErrorOn (A x₀ X : Real) : Prop :=
+  ∀ x : Real, x₀ ≤ x → x ≤ X →
+    |Chebyshev.theta x - x| ≤ A * x / (Real.log x) ^ 4
+
 theorem hasThetaLogFourthError_of_below_and_above
     {A X : Real} (finite : HasThetaLogFourthErrorBelow A X)
     (tail : HasThetaLogFourthErrorAbove A X) :
