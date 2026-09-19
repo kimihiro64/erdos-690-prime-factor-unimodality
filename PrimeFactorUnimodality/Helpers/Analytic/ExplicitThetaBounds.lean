@@ -1,9 +1,9 @@
 import Mathlib.NumberTheory.Chebyshev
+import PrimeFactorUnimodality.Helpers.Analytic.DecayToLogFourth
 import PrimeFactorUnimodality.Helpers.Analytic.PrimorialLogBounds
+import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
 import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 import PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
-import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
-import PrimeFactorUnimodality.Helpers.Analytic.DecayToLogFourth
 
 set_option autoImplicit false
 

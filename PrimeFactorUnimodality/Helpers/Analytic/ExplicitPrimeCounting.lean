@@ -1,11 +1,11 @@
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.NumberTheory.PrimeCounting
-import PrimeFactorUnimodality.Helpers.PrimeSequence.AverageGap
+import PrimeFactorUnimodality.Helpers.Analytic.DecayToLogFourth
 import PrimeFactorUnimodality.Helpers.Analytic.ElementaryLogBounds
+import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
 import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 import PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
-import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
-import PrimeFactorUnimodality.Helpers.Analytic.DecayToLogFourth
+import PrimeFactorUnimodality.Helpers.PrimeSequence.AverageGap
 
 set_option autoImplicit false
 

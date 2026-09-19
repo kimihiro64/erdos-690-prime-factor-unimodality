@@ -1,5 +1,5 @@
-import Mathlib.NumberTheory.Chebyshev
 import Mathlib.Analysis.SpecialFunctions.Log.Monotone
+import Mathlib.NumberTheory.Chebyshev
 import PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
 
 set_option autoImplicit false
