@@ -227,6 +227,25 @@ theorem hasDusartShortIntervalPrime_of_finite_and_mediumPNT
     (hasLogCubedShortIntervalPrime_of_finite_and_mediumPNT hX₀
       finiteLogCubed)
 
+/-! The combined short-interval interface also has a selected-cutoff form.
+Only one finite log-cubed verification, at the cutoff selected by the
+analytic tail theorem, is needed; no provider quantified over all possible
+cutoffs is required. -/
+theorem hasDusartShortIntervalPrime_of_selected_finite_and_mediumPNT
+    {X₀ : Real} (hX₀ : (89693 : Real) ≤ X₀)
+    (finiteDusart : HasDusartShortIntervalPrimeBelow (89693 : Real))
+    (selected : ∃ X : Real, X₀ ≤ X ∧
+      HasLogCubedShortIntervalPrimeBelow X ∧
+      (∀ x : Real, X ≤ x →
+        ∃ q : Nat, q.Prime ∧ x < q ∧
+          (q : Real) ≤ x + x / (Real.log x) ^ 3)) :
+    HasDusartShortIntervalPrime := by
+  obtain ⟨X, hX₀X, finiteLogCubed, tail⟩ := selected
+  exact hasDusartShortIntervalPrime_of_below_and_logCubed
+    finiteDusart
+    (hasLogCubedShortIntervalPrime_of_selected_finite_and_mediumPNT
+      hX₀ ⟨X, hX₀X, finiteLogCubed, tail⟩)
+
 /-! The source-level PNT also supplies the published prime-counting tail once
 the finite Abel-summation core is bounded.  The core is transported to the
 raised cutoff by the proved monotonicity estimate; no prime-counting theorem
