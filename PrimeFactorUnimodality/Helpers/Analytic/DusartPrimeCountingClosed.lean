@@ -1,5 +1,6 @@
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitPrimeCounting
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
+import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
 import PrimeFactorUnimodality.Helpers.FiniteCertificates.SmallPrimeCountingIntervals
 
 set_option autoImplicit false
@@ -32,6 +33,31 @@ theorem wangCrapis_primeCountingPrefix :
   exact hasDusartRealPrimeCountingBoundsBelow_of_endpoint_rows
     dusartPrimeCountingEndpointRow_1000_cover
     dusartSmallUpperIntervalRows_provide
+
+/-! Direct Abel assembly for the prime-counting provider.  The finite
+prime-counting rows are kept separate from the theta remainder: the latter
+supplies the finite core at `X`, while the source-level asymptotic conversion
+supplies the unbounded tail above the same cutoff. -/
+theorem wangCrapis_primeCounting_of_finite_and_thetaTail
+    {A X Y : Real}
+    (finite : HasDusartRealPrimeCountingBoundsBelow Y)
+    (h4X : (4e18 : Real) ≤ X)
+    (hXpos : 0 < X) (h2X : 2 ≤ X) (hXY : X ≤ Y)
+    (hA0 : 0 ≤ A) (hA : A ≤ 1)
+    (hlog : (42 : Real) ≤ Real.log X)
+    (thetaBelow : HasThetaLogFourthErrorBelow A X)
+    (thetaAbove : HasThetaLogFourthErrorAbove A X) :
+    HasDusartPrimeCountingBounds := by
+  have thetaError : HasThetaLogFourthError A X := by
+    intro x hx
+    exact thetaAbove x hx
+  have hcore : |primeCountingCore X| ≤
+    (3 / 5 : Real) * X / Real.log X ^ 4 :=
+    primeCountingCore_abs_le_at_large_cutoff_of_theta_error
+      h4X hA0 hA thetaBelow
+  exact hasDusartPrimeCountingBounds_of_finite_and_core_and_theta_error
+    finite hXpos h2X hXY hA0 hA (by norm_num) (by norm_num) hlog hcore
+    thetaError
 
 end
 
