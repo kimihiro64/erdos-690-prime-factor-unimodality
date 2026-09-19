@@ -92,6 +92,20 @@ def FinitePrimeGapIndexedRowsCover
   ∀ x : Nat, a ≤ x → x ≤ b →
     ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
 
+theorem finitePrimeGapRowsCover_append
+    {a m b g : Nat}
+    {left right : List (FinitePrimeGapRow g)}
+    (hleft : FinitePrimeGapRowsCover (a := a) (b := m) left)
+    (hright : FinitePrimeGapRowsCover (a := m + 1) (b := b) right) :
+    FinitePrimeGapRowsCover (a := a) (b := b) (left ++ right) := by
+  intro n hna hnb
+  by_cases hnm : n ≤ m
+  · obtain ⟨row, hrow, hrow_left, hrow_right⟩ := hleft n hna hnm
+    exact ⟨row, by simp [hrow], hrow_left, hrow_right⟩
+  · obtain ⟨row, hrow, hrow_left, hrow_right⟩ :=
+      hright n (by omega) hnb
+    exact ⟨row, by simp [hrow], hrow_left, hrow_right⟩
+
 theorem finitePrimeGapBound_of_rows_cover
     {a b g : Nat} {rows : List (FinitePrimeGapRow g)}
     (cover : FinitePrimeGapRowsCover rows) :
