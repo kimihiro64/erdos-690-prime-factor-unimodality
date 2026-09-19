@@ -1893,6 +1893,20 @@ theorem primeCountingCore_abs_le_of_two_le {X : Real}
   have hfixed := primeCountingCore_fixed_term_le
   nlinarith
 
+/-! The Abel decomposition only consumes the absolute value of its integral
+remainder.  Exposing that fact separately lets a finite certificate split the
+small interval from the range where a sharp logarithmic theta estimate is
+valid; it does not force the sharp estimate to hold at `x = 2`. -/
+theorem primeCountingCore_abs_le_of_integral_remainder {X R : Real}
+    (hX : (2 : Real) ≤ X)
+    (hrem : |∫ t in (2 : Real)..X,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)| ≤
+      R) :
+    |primeCountingCore X| ≤
+      4000 + 720 * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) + R := by
+  exact (primeCountingCore_abs_le_of_two_le hX).trans (by linarith)
+
 theorem primeCountingCore_abs_le_of_finite_theta_error
     {A X : Real} (hX : (2 : Real) ≤ X) (hA : 0 ≤ A)
     (error : HasThetaLogFourthErrorBelow A X) :
