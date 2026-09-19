@@ -13166,6 +13166,24 @@ theorem dusartPrimeRowsCoverUpTo_append
   · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
     exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
 
+def DusartPrimeRowsCoverFrom
+    (rows : List DusartPrimeRow) (A X : Real) : Prop :=
+  ∀ x : Real, A ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem dusartPrimeRowsCoverUpTo_append_from
+    {m X : Real} {left right : List DusartPrimeRow}
+    (hleft : DusartPrimeRowsCoverUpTo left m)
+    (hright : DusartPrimeRowsCoverFrom right m X) :
+    DusartPrimeRowsCoverUpTo (left ++ right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x
+      (le_of_not_ge hxm) hX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+
 theorem dusartPrimeRows_3275_3802_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_3802 (3802 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
