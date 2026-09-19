@@ -518,6 +518,49 @@ theorem completeClassification_of_mediumPNT_and_selected_split_inputs
     finiteShortInterval (by norm_num) (by norm_num)
     (by norm_num) (by norm_num) hsmall thetaError (by simpa using hcoreBound)
 
+/-! This is the certificate boundary for the corrected all-cutoff argument.
+Unlike the legacy provider below, it does not ask for the false statement
+`|theta x - x| ≤ .648*x/log⁴ x` starting at `2`.  The theta rows begin at the
+cutoff supplied by MediumPNT; the finite prefix is represented only by the
+Abel-remainder bound. -/
+structure MediumPNTFiniteSplitRemainderRowProvider (X C : Real) : Prop where
+  primeCountingRows : ∀ Y : Real, X ≤ Y →
+    ∃ rows : List DusartPrimeCountingRow,
+      DusartPrimeCountingRowsCoverFrom599 rows Y
+  primeCountingSmallUpper : ∀ Y : Real, X ≤ Y →
+    ∀ x : Real, 2 ≤ x → x < 599 →
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x
+  thetaRows : ∀ Y : Real, X ≤ Y →
+    ∃ rows : List DusartThetaBoundsRow,
+      DusartThetaBoundsRowsCoverUpTo rows Y
+  shortIntervalRows : ∀ Y : Real, X ≤ Y →
+    ∃ rows : List LogCubedPrimeRow,
+      LogCubedPrimeRowsCoverUpTo rows Y
+  remainder : ∀ Y : Real, X ≤ Y →
+    ∃ R : Real,
+      |∫ t in (2 : Real)..Y,
+          (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+            1 / (Real.log t) ^ 2)| ≤ R ∧
+      4000 + 720 * (∫ t in (2 : Real)..Y, 1 / Real.log t ^ 7) + R ≤
+        C * Y / Real.log Y ^ 4
+
+theorem completeClassification_of_mediumPNT_and_split_remainder_row_provider
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (provider : MediumPNTFiniteSplitRemainderRowProvider X C) :
+    CompleteClassification := by
+  apply completeClassification_of_mediumPNT_and_selected_split_inputs hX hC0 hC
+  intro Y hXY
+  obtain ⟨primeRows, primeCover⟩ := provider.primeCountingRows Y hXY
+  obtain ⟨thetaRows, thetaCover⟩ := provider.thetaRows Y hXY
+  obtain ⟨shortRows, shortCover⟩ := provider.shortIntervalRows Y hXY
+  obtain ⟨R, hR, hcore⟩ := provider.remainder Y hXY
+  exact ⟨hasDusartRealPrimeCountingBoundsBelow_of_rows_from599 primeCover
+      (provider.primeCountingSmallUpper Y hXY),
+    hasDusartSymmetricThetaBoundsBelow_of_rows thetaCover,
+    hasLogCubedShortIntervalPrimeBelow_of_rows shortCover,
+    R, hR, hcore⟩
+
 theorem completeClassification_of_mediumPNT_and_finite_error_provider
     (finitePrimeCounting : ∀ X : Real, (4e18 : Real) ≤ X →
       HasDusartRealPrimeCountingBoundsBelow X)

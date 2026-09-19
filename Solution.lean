@@ -87,3 +87,14 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_
     PrimeFactorUnimodality.CompleteClassification := by
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_split_inputs
     hX hC0 hC finiteInputs
+
+/-! Public boundary for the corrected row-based proof.  The finite theta
+error is not requested from `2`; its prefix is discharged by the explicit
+Abel-remainder field in the provider. -/
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_split_remainder_row_provider
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (provider : PrimeFactorUnimodality.MediumPNTFiniteSplitRemainderRowProvider X C) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_split_remainder_row_provider
+    hX hC0 hC provider
