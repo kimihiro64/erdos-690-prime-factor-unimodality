@@ -251,3 +251,40 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_split_cor
     PrimeFactorUnimodality.CompleteClassification := by
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_split_core_rows
     hX hC0 hC primeCountingRows thetaRows shortIntervalRows core
+
+/-! Public all-`k` source boundary with no certificate representation
+committed into the theorem statement.  The finite providers are ordinary
+bounded propositions; the unbounded Dusart estimates come from the proved
+MediumPNT adapter. -/
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_finite_error_provider
+    (finitePrimeCounting : ∀ X : Real, (4e18 : Real) ≤ X →
+      PrimeFactorUnimodality.HasDusartRealPrimeCountingBoundsBelow X)
+    (finiteTheta : ∀ X : Real, (4e18 : Real) ≤ X →
+      PrimeFactorUnimodality.HasDusartSymmetricThetaBoundsBelow X)
+    (finiteShortInterval : ∀ X : Real, (4e18 : Real) ≤ X →
+      PrimeFactorUnimodality.HasLogCubedShortIntervalPrimeBelow X)
+    (finiteThetaError : ∀ X : Real, (4e18 : Real) ≤ X →
+      PrimeFactorUnimodality.HasThetaLogFourthErrorBelow
+        (648 / 1000 : Real) X) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_finite_error_provider
+    finitePrimeCounting finiteTheta finiteShortInterval finiteThetaError
+
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_row_provider
+    (finitePrimeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
+      ∃ rows : List PrimeFactorUnimodality.DusartPrimeRow,
+        PrimeFactorUnimodality.DusartPrimeRowsCoverUpTo rows X)
+    (finiteThetaRows : ∀ X : Real, (4e18 : Real) ≤ X →
+      ∃ rows : List PrimeFactorUnimodality.DusartThetaBoundsRow,
+        PrimeFactorUnimodality.DusartThetaBoundsRowsCoverUpTo rows X)
+    (finiteShortIntervalRows : ∀ X : Real, (4e18 : Real) ≤ X →
+      ∃ rows : List PrimeFactorUnimodality.LogCubedPrimeRow,
+        PrimeFactorUnimodality.LogCubedPrimeRowsCoverUpTo rows X)
+    (finiteThetaErrorRows : ∀ X : Real, (4e18 : Real) ≤ X →
+      ∃ rows : List (PrimeFactorUnimodality.ThetaLogFourthErrorRow
+        (648 / 1000 : Real)),
+        PrimeFactorUnimodality.ThetaLogFourthErrorRowsCoverUpTo rows X) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_row_provider
+    finitePrimeCountingRows finiteThetaRows finiteShortIntervalRows
+    finiteThetaErrorRows

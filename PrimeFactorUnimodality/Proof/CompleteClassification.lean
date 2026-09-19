@@ -856,7 +856,10 @@ theorem completeClassification_of_mediumPNT_and_split_core_rows
     shortIntervalRows := shortIntervalRows
     core := core }
 
-private theorem completeClassification_of_mediumPNT_and_finite_error_provider
+/-! Public source-level all-`k` assembly.  The four finite providers are
+independent bounded obligations; the unbounded part is proved by the
+source-level MediumPNT adapter. -/
+theorem completeClassification_of_mediumPNT_and_finite_error_provider
     (finitePrimeCounting : ∀ X : Real, (4e18 : Real) ≤ X →
       HasDusartRealPrimeCountingBoundsBelow X)
     (finiteTheta : ∀ X : Real, (4e18 : Real) ≤ X →
@@ -878,7 +881,7 @@ private theorem completeClassification_of_mediumPNT_and_finite_error_provider
 The row lists may be generated independently for each selected cutoff; this
 keeps the theorem independent of certificate representation while making all
 four finite obligations explicit. -/
-private theorem completeClassification_of_mediumPNT_and_row_provider
+theorem completeClassification_of_mediumPNT_and_row_provider
     (finitePrimeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
       ∃ rows : List DusartPrimeCountingRow,
         DusartPrimeCountingRowsCoverUpTo rows X)
@@ -906,7 +909,7 @@ private theorem completeClassification_of_mediumPNT_and_row_provider
 /-! A bundled version of the same boundary is convenient for the final
 certificate-producing layer.  It is a proposition, so packaging it does not
 introduce data or an additional computational assumption. -/
-private structure MediumPNTFiniteRowProvider : Prop where
+structure MediumPNTFiniteRowProvider : Prop where
   primeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
     ∃ rows : List DusartPrimeCountingRow,
       DusartPrimeCountingRowsCoverUpTo rows X
@@ -920,7 +923,7 @@ private structure MediumPNTFiniteRowProvider : Prop where
     ∃ rows : List (ThetaLogFourthErrorRow (648 / 1000 : Real)),
       ThetaLogFourthErrorRowsCoverUpTo rows X
 
-private theorem completeClassification_of_mediumPNT_and_bundled_row_provider
+theorem completeClassification_of_mediumPNT_and_bundled_row_provider
     (provider : MediumPNTFiniteRowProvider) :
     CompleteClassification := by
   exact completeClassification_of_mediumPNT_and_row_provider
