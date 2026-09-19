@@ -1397,7 +1397,8 @@ theorem explicit_integral_core_bound_of_log_margins
             (by norm_num : (0 : Real) ≤ 720)
           have htail7s := mul_le_mul_of_nonneg_left htail7
             (by norm_num : (0 : Real) ≤ 720)
-          nlinarith [hA_sum6, hlow7s, htail7s]
+          have hA6' := hA_sum6
+          linarith [hA6', hlow6, hlow7s, htail7s]
     _ ≤ (3 / 5 : Real) * X / Real.log X ^ 4 := by
           have hnum :
               (4000 : Real) + 720 * (14000000 +
@@ -1407,7 +1408,8 @@ theorem explicit_integral_core_bound_of_log_margins
                 (3 / 5 : Real) * ((4e18 : Real) / 43 ^ 4) := by
             norm_num
           ring_nf at hR ⊢
-          nlinarith [hR, hnum]
+          ring_nf at hnum
+          linarith [hR, hnum]
 
 theorem lower_bound_div_log_four_of_four_e18_le {X : Real}
     (hX : (4e18 : Real) ≤ X) :
@@ -1461,10 +1463,10 @@ theorem explicit_integral_core_bound_at_large_cutoff
       Real.log_two_gt_d9.le
   have hlogMillion : (13 : Real) ≤ Real.log (1000000 : Real) := by
     apply (Real.le_log_iff_exp_le (by positivity)).2
-    have hexp : Real.exp 13 < (3 : Real) ^ 13 := by
+    have hexp : Real.exp 13 < (2.72 : Real) ^ 13 := by
       rw [show (13 : Real) = (13 : ℕ) * 1 by norm_num,
         Real.exp_nat_mul]
-      exact pow_lt_pow_left₀ Real.exp_one_lt_three
+      exact pow_lt_pow_left₀ (by linarith [Real.exp_one_lt_d9])
         (Real.exp_pos 1).le (by norm_num)
     exact hexp.le.trans (by norm_num)
   have hlogCut : (42 : Real) ≤ Real.log (4e18 : Real) := by
@@ -1477,9 +1479,9 @@ theorem explicit_integral_core_bound_at_large_cutoff
         exact pow_lt_pow_left₀ (by
           linarith [Real.exp_one_lt_d9]) (Real.exp_pos 1).le (by norm_num)
       exact hexp.trans (by norm_num))
-  exact (explicit_integral_core_bound_of_log_margins hX hA0 hA1 hlog2
-    hlogMillion hlogCut (lower_bound_div_log_four_of_four_e18_le hX)).trans
-      (by linarith)
+  have hstrong := explicit_integral_core_bound_of_log_margins hX hA0 hA1 hlog2
+    hlogMillion hlogCut (lower_bound_div_log_four_of_four_e18_le hX)
+  linarith
 
 theorem explicit_integral_core_bound_at_large_cutoff_with_10000
     {A X : Real} (hX : (4e18 : Real) ≤ X)
@@ -1497,10 +1499,10 @@ theorem explicit_integral_core_bound_at_large_cutoff_with_10000
       Real.log_two_gt_d9.le
   have hlogMillion : (13 : Real) ≤ Real.log (1000000 : Real) := by
     apply (Real.le_log_iff_exp_le (by positivity)).2
-    have hexp : Real.exp 13 < (3 : Real) ^ 13 := by
+    have hexp : Real.exp 13 < (2.72 : Real) ^ 13 := by
       rw [show (13 : Real) = (13 : ℕ) * 1 by norm_num,
         Real.exp_nat_mul]
-      exact pow_lt_pow_left₀ Real.exp_one_lt_three
+      exact pow_lt_pow_left₀ (by linarith [Real.exp_one_lt_d9])
         (Real.exp_pos 1).le (by norm_num)
     exact hexp.le.trans (by norm_num)
   have hlogCut : (42 : Real) ≤ Real.log (4e18 : Real) := by
@@ -1982,11 +1984,9 @@ theorem primeCountingCore_abs_le (X : Real) :
     |-2 * k + 720 * i + j| ≤ |-2 * k + 720 * i| + |j| :=
       abs_add_le _ _
     _ ≤ (|-2 * k| + |720 * i|) + |j| := by
-      exact add_le_add_right (abs_add_le _ _) _
+      exact add_le_add_left (abs_add_le (-2 * k) (720 * i)) |j|
     _ = 2 * |k| + 720 * |i| + |j| := by
       rw [abs_mul, abs_mul]
-      norm_num
-      ring
 
 theorem primeCountingCore_fixed_term_le :
     1 / Real.log 2 ^ 2 + 2 / Real.log 2 ^ 3 +
@@ -2024,8 +2024,8 @@ theorem primeCountingCore_fixed_term_le :
           6 / ((69 : Real) / 100) ^ 4 +
           24 / ((69 : Real) / 100) ^ 5 +
           120 / ((69 : Real) / 100) ^ 6 := by
-      nlinarith [hi2, hi3, hi4, hi5, hi6]
-    _ ≤ (2000 : Real) := by norm_num
+      linarith [hi2, hi3, hi4, hi5, hi6]
+    _ ≤ (2000 : Real) := by norm_num [div_eq_mul_inv]
 
 theorem integral_inv_log_seven_nonneg {X : Real} (hX : (2 : Real) ≤ X) :
     0 ≤ ∫ t in (2 : Real)..X, 1 / Real.log t ^ 7 := by
