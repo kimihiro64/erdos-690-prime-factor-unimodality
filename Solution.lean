@@ -46,6 +46,13 @@ theorem PrimeFactorUnimodality.completeClassification_of_explicit_dusart_inputs
   exact PrimeFactorUnimodality.completeClassification_of_explicit_dusart_inputs
     primeCountingBounds thetaBounds shortInterval
 
+theorem PrimeFactorUnimodality.completeClassification_of_dusart_finite_certificate
+    {A C : Real}
+    (certificate : PrimeFactorUnimodality.DusartFiniteCertificate A C) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_dusart_finite_certificate
+    certificate
+
 /-! Public boundary for a source-level MediumPNT proof: only finite analytic
 facts at the cutoff selected by that proof remain to be supplied. -/
 theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_inputs

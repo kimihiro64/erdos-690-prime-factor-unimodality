@@ -954,6 +954,42 @@ theorem completeClassification_of_full_record_unit_logFourth_inputs
     (hasDusartShortIntervalPrime_of_rows_and_thetaError
       dusartCover logCover cubic)
 
+/-! Exact fixed-cutoff certificate boundary for the paper's all-`k` proof.
+The theta rows certify only the finite Dusart bounds; `thetaError` is the
+separate log-fourth tail estimate used above the cutoff. -/
+structure DusartFiniteCertificate (A C : Real) : Prop where
+  primeCountingRows : List DusartPrimeCountingEndpointRow
+  primeCountingCover :
+    DusartPrimeCountingEndpointRowsCoverFrom599
+      primeCountingRows (4e18 : Real)
+  thetaRows : List DusartThetaEndpointRow
+  thetaCover :
+    DusartThetaEndpointRowsCoverUpTo thetaRows (4e18 : Real)
+  dusartShortRows : List DusartPrimeRow
+  dusartShortCover : DusartPrimeRowsCoverBelow dusartShortRows
+  logRows : List LogCubedPrimeRow
+  logCover : LogCubedPrimeRowsCoverUpTo logRows (4e18 : Real)
+  hA0 : 0 ≤ A
+  hA1 : A ≤ 1
+  hA_log : A / Real.log (4e18 : Real) ≤ 12167 / 500000
+  hC0 : 0 ≤ C
+  hC : C ≤ 3 / 5
+  hcore : |primeCountingCore (4e18 : Real)| ≤
+    C * (4e18 : Real) / Real.log (4e18 : Real) ^ 4
+  thetaError : HasThetaLogFourthError A (4e18 : Real)
+
+theorem completeClassification_of_dusart_finite_certificate
+    {A C : Real} (certificate : DusartFiniteCertificate A C) :
+    CompleteClassification := by
+  exact completeClassification_of_full_record_unit_logFourth_inputs
+    (hasDusartRealPrimeCountingBoundsBelow_of_endpoint_rows
+      certificate.primeCountingCover dusartSmallUpperIntervalRows_provide)
+    (hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
+      certificate.thetaCover)
+    certificate.hA0 certificate.hA1 certificate.hC0 certificate.hC
+    certificate.hcore certificate.thetaError certificate.hA_log
+    certificate.dusartShortCover certificate.logCover
+
 theorem completeClassification_of_full_record_finite_published_asymptotic_inputs
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
     (finitePublished : HasDusartPublishedPrimeCountingBoundsBelow (4e9 : Real))
