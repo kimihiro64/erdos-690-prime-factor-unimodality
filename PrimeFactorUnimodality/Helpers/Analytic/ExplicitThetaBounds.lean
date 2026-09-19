@@ -99,9 +99,19 @@ theorem hasDusartSymmetricThetaBoundsAbove_of_logFourthError
     have hratio :
         (12167 / 500000 : Real) * x / (Real.log x) ^ 3 <
           x / 36260 := by
-      rw [div_lt_div_iff₀ (by positivity) (by positivity)]
-      nlinarith [mul_self_lt_mul_self (by norm_num : (0 : Real) ≤ 10) hlogx,
-        mul_pos hlogx_pos (show 0 < (Real.log x) ^ 2 by positivity)]
+      rw [div_lt_div_iff₀ (pow_pos hlogx_pos 3) (by norm_num)]
+      have hsq : (10 : Real) ^ 2 < (Real.log x) ^ 2 := by
+        nlinarith [sq_nonneg (Real.log x - 10)]
+      have hcube : (10 : Real) ^ 3 < (Real.log x) ^ 3 := by
+        have hmul := mul_lt_mul_of_pos_left hsq hlogx_pos
+        nlinarith
+      have hconstant :
+          (12167 / 500000 : Real) * 36260 < (10 : Real) ^ 3 := by
+        norm_num
+      have hscaled :
+          (12167 / 500000 : Real) * 36260 < (Real.log x) ^ 3 :=
+        hconstant.trans hcube
+      convert (mul_lt_mul_of_pos_left hscaled hx_pos) using 1 <;> ring
     exact (le_abs_self (Chebyshev.theta x - x)).trans_lt
       (htheta'.trans_lt hratio)
   · intro x _hx2 hx

@@ -435,9 +435,13 @@ theorem hasLogCubedShortIntervalPrime_of_below_and_logFourthError
     (finite : HasLogCubedShortIntervalPrimeBelow X)
     (thetaError : HasThetaLogFourthError A X) :
     HasLogCubedShortIntervalPrime := by
-  exact hasLogCubedShortIntervalPrime_of_below_and_above hX finite
-    (dusartPrimeInInterval_of_logFourthError_from
-      hXpos h2X hlogX hA_nonneg hA thetaError)
+  apply hasLogCubedShortIntervalPrime_of_below_and_above hX finite
+  intro x hx
+  obtain ⟨q, hq, hxq, hupper⟩ :=
+    dusartPrimeInInterval_of_logFourthError_from
+      hXpos h2X hlogX hA_nonneg hA thetaError x hx
+  refine ⟨q, hq, hxq, ?_⟩
+  convert hupper using 1 <;> ring
 
 /-- Applying the short-interval theorem at the left member of a consecutive
 prime pair bounds the right member. -/

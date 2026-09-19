@@ -74,14 +74,17 @@ theorem dusartPiUpper_monotoneOn :
         (Set.Ici (10 : Real)) := by
       exact continuousOn_id.log (by
         intro x hx
-        have hx_pos : (0 : Real) < x := by linarith [hx]
+        have hx' : (10 : Real) ≤ x := hx
+        have hx_pos : (0 : Real) < x := by linarith
         simpa only [id_eq] using hx_pos.ne')
     exact (continuousOn_id.div hlog (by
       intro x hx
-      exact (Real.log_pos (by linarith [hx])).ne')).mul
+      have hx' : (10 : Real) ≤ x := hx
+      exact (Real.log_pos (by linarith)).ne')).mul
       (continuousOn_const.add (continuousOn_const.div hlog (by
         intro x hx
-        exact (Real.log_pos (by linarith [hx])).ne')))
+        have hx' : (10 : Real) ≤ x := hx
+        exact (Real.log_pos (by linarith)).ne')))
   · have hlog : DifferentiableOn ℝ (fun y : Real => Real.log y)
         (interior (Set.Ici (10 : Real))) := by
       exact differentiableOn_id.log (by
@@ -120,13 +123,15 @@ theorem dusartPiUpper_monotoneOn :
         ((hasDerivAt_const x (6381 / 5000 : Real)).div
           (Real.hasDerivAt_log x_ne) hlog_pos.ne'))
     simp only [id_eq] at hderiv
-    change 0 ≤ deriv (fun y : Real =>
-      y / Real.log y * (1 + (6381 / 5000 : Real) / Real.log y)) x
+    change 0 ≤ deriv (id / Real.log *
+      ((fun _ : Real => 1) + (fun _ : Real => 6381 / 5000) / Real.log)) x
     rw [hderiv.deriv]
+    simp only [Pi.add_apply, Pi.div_apply, id_eq]
     field_simp [x_ne, hlog_pos.ne']
-    have hfirst : 0 < Real.log x * (Real.log x - 1) := by positivity
+    have hfirst : 0 < Real.log x * (Real.log x - 1) := by
+      exact mul_pos hlog_pos (by linarith [hlog_gt_two])
     have hsecond : 0 < (6381 / 5000 : Real) * (Real.log x - 2) := by
-      positivity
+      exact mul_pos (by norm_num) (by linarith [hlog_gt_two])
     nlinarith
 
 theorem dusartPiLower_monotoneOn :
@@ -136,14 +141,17 @@ theorem dusartPiLower_monotoneOn :
         (Set.Ici (599 : Real)) := by
       exact continuousOn_id.log (by
         intro x hx
-        have hx_pos : (0 : Real) < x := by linarith [hx]
+        have hx' : (599 : Real) ≤ x := hx
+        have hx_pos : (0 : Real) < x := by linarith
         simpa only [id_eq] using hx_pos.ne')
     exact (continuousOn_id.div hlog (by
       intro x hx
-      exact (Real.log_pos (by linarith [hx])).ne')).mul
+      have hx' : (599 : Real) ≤ x := hx
+      exact (Real.log_pos (by linarith)).ne')).mul
       (continuousOn_const.add (continuousOn_const.div hlog (by
         intro x hx
-        exact (Real.log_pos (by linarith [hx])).ne')))
+        have hx' : (599 : Real) ≤ x := hx
+        exact (Real.log_pos (by linarith)).ne')))
   · have hlog : DifferentiableOn ℝ (fun y : Real => Real.log y)
         (interior (Set.Ici (599 : Real))) := by
       exact differentiableOn_id.log (by
@@ -183,9 +191,10 @@ theorem dusartPiLower_monotoneOn :
         ((hasDerivAt_const x (1 : Real)).div
           (Real.hasDerivAt_log x_ne) hlog_pos.ne'))
     simp only [id_eq] at hderiv
-    change 0 ≤ deriv (fun y : Real =>
-      y / Real.log y * (1 + 1 / Real.log y)) x
+    change 0 ≤ deriv (id / Real.log *
+      ((fun _ : Real => 1) + (fun _ : Real => 1) / Real.log)) x
     rw [hderiv.deriv]
+    simp only [Pi.add_apply, Pi.div_apply, id_eq]
     field_simp [x_ne, hlog_pos.ne']
     nlinarith [sq_pos_of_pos hlog_pos, hlog_gt_two]
 
@@ -205,14 +214,14 @@ theorem real_primeCounting_upper_of_integer_certificate
   · let n : Nat := ⌊x⌋₊
     have hx0 : 0 ≤ x := by linarith
     have hn10 : 10 ≤ n := by
-      exact Nat.le_floor (by linarith)
+      exact Nat.le_floor (le_of_not_gt hsmall)
     have hnn : n < 599 := (Nat.floor_lt hx0).2 hx599
     have hcert := certificate n hn10 hnn
     have hnle : (n : Real) ≤ x := by
       exact Nat.floor_le hx0
     have hmono : dusartPiUpper (n : Real) ≤ dusartPiUpper x :=
-      dusartPiUpper_monotoneOn (by exact_mod_cast hn10)
-        (by exact le_of_not_gt hsmall)
+      dusartPiUpper_monotoneOn (show (10 : Real) ≤ n by exact_mod_cast hn10)
+        (show (10 : Real) ≤ x from le_of_not_gt hsmall)
         hnle
     simpa [n] using hcert.trans hmono
 
@@ -251,8 +260,8 @@ theorem dusartPrimeCounting_upper_below_ten :
             mul_le_mul_of_nonneg_left hlogsq ha.le
           _ ≤ x * L ^ 2 :=
             mul_le_mul_of_nonneg_right hax (sq_nonneg L)
-      exact mul_le_mul_of_nonneg_left hcross
-        (by norm_num : (0 : Real) ≤ 6381 / 5000)
+      convert (mul_le_mul_of_nonneg_left hcross
+        (by norm_num : (0 : Real) ≤ 6381 / 5000)) using 1 <;> ring
     calc
       4 ≤ a / L + (6381 / 5000 : Real) * a / L ^ 2 := hnumeric
       _ ≤ x / Real.log x + (6381 / 5000 : Real) * x /
@@ -262,65 +271,92 @@ theorem dusartPrimeCounting_upper_below_ten :
         ring
   have hupper : 4 ≤ dusartPiUpper x := by
     by_cases h25 : x < (5 / 2 : Real)
-    · apply interval_lower 2 (5 / 2) (916292 / 1000000)
-        (by norm_num) (by linarith) (by linarith) (by norm_num)
+    · refine interval_lower 2 (5 / 2) (916292 / 1000000)
+        (by norm_num) (by linarith) (by linarith) (by norm_num) ?_ ?_
       have hlogle : Real.log x ≤ (916292 / 1000000 : Real) := by
         calc
           Real.log x ≤ Real.log (5 / 2) :=
-            Real.log_le_log (by norm_num) (by linarith)
+            Real.log_le_log (by linarith [hx2]) (by linarith)
           _ = Real.log 5 - Real.log 2 := by
             rw [Real.log_div (by norm_num) (by norm_num)]
-          _ < 916292 / 1000000 := by
+          _ ≤ 916292 / 1000000 := by
             nlinarith [LogTables.log_5_lt, LogTables.log_2_gt]
-      exact hlogle
+      · exact hlogle
+      · norm_num
     · by_cases h3 : x < 3
       · apply interval_lower (5 / 2) 3 (1098613 / 1000000)
           (by norm_num) (by linarith) (by linarith) (by norm_num)
-        · exact (Real.log_le_log (by linarith) (by linarith)).trans
-            LogTables.log_3_lt
+        · have hlogx3 : Real.log x ≤ Real.log 3 :=
+            Real.log_le_log (by linarith) (by linarith)
+          exact (hlogx3.trans_lt LogTables.log_3_lt).trans_le (by norm_num)
         · norm_num
       · by_cases h4 : x < 4
         · apply interval_lower 3 4 (1386296 / 1000000)
             (by norm_num) (by linarith) (by linarith) (by norm_num)
-          · rw [show (4 : Real) = 2 ^ 2 by norm_num, Real.log_pow]
-            nlinarith [LogTables.log_2_lt]
+          · calc
+              Real.log x ≤ Real.log 4 := Real.log_le_log (by linarith) (by linarith)
+              _ = 2 * Real.log 2 := by
+                rw [show (4 : Real) = 2 ^ 2 by norm_num, Real.log_pow]
+                norm_num
+              _ ≤ 1386296 / 1000000 := by
+                nlinarith [LogTables.log_2_lt]
           · norm_num
         · by_cases h5 : x < 5
           · apply interval_lower 4 5 (1609438 / 1000000)
               (by norm_num) (by linarith) (by linarith) (by norm_num)
-            · exact (Real.log_le_log (by linarith) (by linarith)).trans
-                LogTables.log_5_lt
+            · have hlogx5 : Real.log x ≤ Real.log 5 :=
+                Real.log_le_log (by linarith) (by linarith)
+              exact (hlogx5.trans_lt LogTables.log_5_lt).trans_le (by norm_num)
             · norm_num
           · by_cases h6 : x < 6
             · apply interval_lower 5 6 (1791761 / 1000000)
                 (by norm_num) (by linarith) (by linarith) (by norm_num)
-              · rw [show (6 : Real) = 2 * 3 by norm_num,
-                  Real.log_mul (by norm_num) (by norm_num)]
-                nlinarith [LogTables.log_2_lt, LogTables.log_3_lt]
+              · calc
+                  Real.log x ≤ Real.log 6 := Real.log_le_log (by linarith) (by linarith)
+                  _ = Real.log 2 + Real.log 3 := by
+                    rw [show (6 : Real) = 2 * 3 by norm_num,
+                      Real.log_mul (by norm_num) (by norm_num)]
+                  _ ≤ 1791761 / 1000000 := by
+                    nlinarith [LogTables.log_2_lt, LogTables.log_3_lt]
               · norm_num
             · by_cases h7 : x < 7
               · apply interval_lower 6 7 (1946044 / 1000000)
                   (by norm_num) (by linarith) (by linarith) (by norm_num)
-                · exact (Real.log_le_log (by linarith) (by linarith)).trans
-                    LogTables.log_7_lt
+                · have hlogx7 : Real.log x ≤ Real.log 7 :=
+                    Real.log_le_log (by linarith) (by linarith)
+                  exact (hlogx7.trans_lt LogTables.log_7_lt).trans_le (by norm_num)
                 · norm_num
               · by_cases h8 : x < 8
                 · apply interval_lower 7 8 (2079444 / 1000000)
                     (by norm_num) (by linarith) (by linarith) (by norm_num)
-                  · rw [show (8 : Real) = 2 ^ 3 by norm_num, Real.log_pow]
-                    nlinarith [LogTables.log_2_lt]
+                  · calc
+                      Real.log x ≤ Real.log 8 := Real.log_le_log (by linarith) (by linarith)
+                      _ = 3 * Real.log 2 := by
+                        rw [show (8 : Real) = 2 ^ 3 by norm_num, Real.log_pow]
+                        norm_num
+                      _ ≤ 2079444 / 1000000 := by
+                        nlinarith [LogTables.log_2_lt]
                   · norm_num
                 · by_cases h9 : x < 9
                   · apply interval_lower 8 9 (2197226 / 1000000)
                       (by norm_num) (by linarith) (by linarith) (by norm_num)
-                    · rw [show (9 : Real) = 3 ^ 2 by norm_num, Real.log_pow]
-                      nlinarith [LogTables.log_3_lt]
+                    · calc
+                        Real.log x ≤ Real.log 9 := Real.log_le_log (by linarith) (by linarith)
+                        _ = 2 * Real.log 3 := by
+                          rw [show (9 : Real) = 3 ^ 2 by norm_num, Real.log_pow]
+                          norm_num
+                        _ ≤ 2197226 / 1000000 := by
+                          nlinarith [LogTables.log_3_lt]
                     · norm_num
                   · apply interval_lower 9 10 (2302586 / 1000000)
                       (by norm_num) (by linarith) (by linarith) (by norm_num)
-                    · rw [show (10 : Real) = 2 * 5 by norm_num,
-                        Real.log_mul (by norm_num) (by norm_num)]
-                      nlinarith [LogTables.log_2_lt, LogTables.log_5_lt]
+                    · calc
+                        Real.log x ≤ Real.log 10 := Real.log_le_log (by linarith) (by linarith)
+                        _ = Real.log 2 + Real.log 5 := by
+                          rw [show (10 : Real) = 2 * 5 by norm_num,
+                            Real.log_mul (by norm_num) (by norm_num)]
+                        _ ≤ 2302586 / 1000000 := by
+                          nlinarith [LogTables.log_2_lt, LogTables.log_5_lt]
                     · norm_num
   exact hcount.trans hupper
 
@@ -367,8 +403,8 @@ theorem dusartPrimeCounting_upper_of_integer_rows
     have hcross : (row.n : Real) * (Real.log row.n) ^ 2 ≤
         (row.n : Real) * row.logUpper ^ 2 :=
       mul_le_mul_of_nonneg_left hlogsq hnpos.le
-    exact mul_le_mul_of_nonneg_left hcross
-      (by norm_num : (0 : Real) ≤ 6381 / 5000)
+    convert (mul_le_mul_of_nonneg_left hcross
+      (by norm_num : (0 : Real) ≤ 6381 / 5000)) using 1 <;> ring
   have hbound := add_le_add hfirst hsecond
   calc
     (Nat.primeCounting row.n : Real) ≤
@@ -1145,26 +1181,6 @@ theorem integral_inv_log_six_tail_from_599_le_explicit {X : Real}
   exact (integral_inv_log_pow_succ_le_full_from_two
     (n := 5) (a := (599 : Real)) (b := X) (by norm_num) hX).trans
       (integral_inv_log_six_le_explicit hX)
-
-theorem primeCountingCore_abs_le_of_finite_theta_error_explicit
-    {A X : Real} (hX : (1000000 : Real) ≤ X) (hA : 0 ≤ A)
-    (error : HasThetaLogFourthErrorBelow A X) :
-    |primeCountingCore X| ≤
-      4000 +
-        720 * ((999998 : Real) / Real.log 2 ^ 7 +
-          (X / Real.log X ^ 7) /
-            (1 - 7 / Real.log (1000000 : Real))) +
-        A * ((999998 : Real) / Real.log 2 ^ 6 +
-          (X / Real.log X ^ 6) /
-            (1 - 6 / Real.log (1000000 : Real))) := by
-  have hcore := primeCountingCore_abs_le_of_finite_theta_error
-    (by linarith [hX]) hA error
-  have hseven := integral_inv_log_seven_le_explicit hX
-  have hsix := integral_inv_log_six_le_explicit hX
-  have hseven' : 0 ≤ 720 := by norm_num
-  exact hcore.trans (by
-    nlinarith [mul_le_mul_of_nonneg_left hseven hseven',
-      mul_le_mul_of_nonneg_left hsix hA])
 
 theorem explicit_integral_core_bound_of_log_margins
     {A X : Real} (hX : (4e18 : Real) ≤ X) (hA0 : 0 ≤ A)
@@ -2308,6 +2324,26 @@ theorem primeCountingCore_abs_le_of_finite_theta_error
   have hdecomp := primeCountingCore_abs_le_of_two_le hX
   nlinarith
 
+theorem primeCountingCore_abs_le_of_finite_theta_error_explicit
+    {A X : Real} (hX : (1000000 : Real) ≤ X) (hA : 0 ≤ A)
+    (error : HasThetaLogFourthErrorBelow A X) :
+    |primeCountingCore X| ≤
+      4000 +
+        720 * ((999998 : Real) / Real.log 2 ^ 7 +
+          (X / Real.log X ^ 7) /
+            (1 - 7 / Real.log (1000000 : Real))) +
+        A * ((999998 : Real) / Real.log 2 ^ 6 +
+          (X / Real.log X ^ 6) /
+            (1 - 6 / Real.log (1000000 : Real))) := by
+  have hcore := primeCountingCore_abs_le_of_finite_theta_error
+    (by linarith [hX]) hA error
+  have hseven := integral_inv_log_seven_le_explicit hX
+  have hsix := integral_inv_log_six_le_explicit hX
+  have hseven' : (0 : Real) ≤ 720 := by norm_num
+  exact hcore.trans (by
+    nlinarith [mul_le_mul_of_nonneg_left hseven hseven',
+      mul_le_mul_of_nonneg_left hsix hA])
+
 theorem primeCountingCore_scale_le
     {C X x : Real} (hX : 1 < X) (hXx : X ≤ x)
     (hlogX : (4 : Real) < Real.log X) (hC : 0 ≤ C)
@@ -3118,7 +3154,20 @@ theorem hasDusartRealPrimeCountingBoundsAbove_of_finite_theta_error
   have hXpos : 0 < X := by linarith
   have h2X : 2 ≤ X := by linarith
   have hlogX : (42 : Real) ≤ Real.log X :=
-    forty_two_lt_log_four_e18.le.trans
+    (by
+      have hbase : Real.exp 1 < (2.72 : Real) := by
+        linarith [Real.exp_one_lt_d9]
+      have hexp : Real.exp 42 < (4e18 : Real) := by
+        calc
+          Real.exp 42 = Real.exp 1 ^ 42 := by
+            rw [show (42 : Real) = (42 : ℕ) * 1 by norm_num,
+              Real.exp_nat_mul]
+          _ < (2.72 : Real) ^ 42 := by
+            exact pow_lt_pow_left₀ hbase (Real.exp_pos 1).le (by norm_num)
+          _ < (4e18 : Real) := by norm_num
+      have hlog : (42 : Real) < Real.log (4e18 : Real) := by
+        exact (Real.lt_log_iff_exp_lt (by norm_num)).2 hexp
+      hlog.le).trans
       (Real.log_le_log (by norm_num) hX)
   exact hasDusartRealPrimeCountingBoundsAbove_of_core_and_theta_error
     hXpos h2X le_rfl hA0 hA1 (by norm_num) (by norm_num) hlogX hcore

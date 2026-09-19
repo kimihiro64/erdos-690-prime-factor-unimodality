@@ -14804,10 +14804,79 @@ structure DusartPrimeCountingEndpointRow where
   lower_endpoint : dusartPiLower right ≤ (Nat.primeCounting left : Real)
   upper_endpoint : (Nat.primeCounting right : Real) ≤ dusartPiUpper left
 
+/-! A first nontrivial endpoint row, proved from the exact finite prime count
+and elementary logarithm envelopes.  The row is deliberately a singleton:
+it is a kernel-checked seed for the eventual interval-table generator. -/
+def dusartPrimeCountingEndpointRow_1000 :
+    DusartPrimeCountingEndpointRow := by
+  have hcount : Nat.primeCounting 1000 = 168 := by decide
+  have hlog_lower :
+      (3 : Real) * (693147 / 1000000) +
+        (3 : Real) * (1609437 / 1000000) ≤ Real.log 1000 := by
+    exact LogTables.log_nat_ge_smooth_lower (by norm_num) (by norm_num)
+  have hlog_upper : Real.log 1000 ≤
+      (3 : Real) * (693148 / 1000000) +
+        (3 : Real) * (1609438 / 1000000) := by
+    exact LogTables.log_nat_le_smooth_upper (by norm_num) (by norm_num)
+  have hlog_pos : 0 < Real.log (1000 : Real) :=
+    Real.log_pos (by norm_num)
+  refine { left := 1000, right := 1000
+    left_large := by norm_num
+    left_le_right := le_rfl
+    lower_endpoint := ?_
+    upper_endpoint := ?_ }
+  · rw [hcount]
+    dsimp [dusartPiLower]
+    have hbase :
+        1000 * (Real.log 1000 + 1) ≤ 168 * (Real.log 1000) ^ 2 := by
+      let l₀ : Real :=
+        (3 : Real) * (693147 / 1000000) +
+          (3 : Real) * (1609437 / 1000000)
+      have hmono : 0 ≤
+          (Real.log 1000 - l₀) *
+            (168 * (Real.log 1000 + l₀) - 1000) := by
+        apply mul_nonneg
+        · dsimp [l₀]
+          linarith
+        · dsimp [l₀]
+          nlinarith [hlog_lower]
+      dsimp [l₀] at hmono
+      nlinarith
+    field_simp [ne_of_gt hlog_pos]
+    nlinarith
+  · rw [hcount]
+    dsimp [dusartPiUpper]
+    have hbase :
+        168 * (Real.log 1000) ^ 2 ≤
+          1000 * Real.log 1000 + (6381 / 5000 : Real) * 1000 := by
+      let u₀ : Real :=
+        (3 : Real) * (693148 / 1000000) +
+          (3 : Real) * (1609438 / 1000000)
+      have hmono : 0 ≤
+          (u₀ - Real.log 1000) *
+            (168 * (u₀ + Real.log 1000) - 1000) := by
+        apply mul_nonneg
+        · dsimp [u₀]
+          linarith
+        · dsimp [u₀]
+          nlinarith [hlog_upper, hlog_pos]
+      dsimp [u₀] at hmono
+      nlinarith
+    field_simp [ne_of_gt hlog_pos]
+    nlinarith
+
 def DusartPrimeCountingEndpointRowsCoverFrom599
     (rows : List DusartPrimeCountingEndpointRow) (X : Real) : Prop :=
   ∀ x : Real, (599 : Real) ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem dusartPrimeCountingEndpointRow_1000_cover :
+    DusartPrimeCountingEndpointRowsCoverFrom599
+      [dusartPrimeCountingEndpointRow_1000] 1000 := by
+  intro x hx hX
+  have hx1000 : x = 1000 := by linarith
+  subst x
+  exact ⟨dusartPrimeCountingEndpointRow_1000, by simp, by norm_num, by norm_num⟩
 
 def DusartPrimeCountingEndpointIndexedCoverFrom599 {n : Nat}
     (rows : Fin n → DusartPrimeCountingEndpointRow) (X : Real) : Prop :=
