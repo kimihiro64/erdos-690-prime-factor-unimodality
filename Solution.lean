@@ -56,6 +56,21 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_inputs
     hX hA0 hA1 hC0 hC hcore selectedInputs
 
+theorem PrimeFactorUnimodality.mediumPNTSelectedFiniteInputs_of_lists
+    {A X Y : Real} (hXY : X ≤ Y) (h4Y : (4e18 : Real) ≤ Y)
+    {primeRows : List PrimeFactorUnimodality.DusartPrimeCountingEndpointRow}
+    (primeCover : PrimeFactorUnimodality.DusartPrimeCountingEndpointRowsCoverFrom599
+      primeRows Y)
+    {thetaRows : List PrimeFactorUnimodality.DusartThetaEndpointRow}
+    (thetaCover : PrimeFactorUnimodality.DusartThetaEndpointRowsCoverUpTo
+      thetaRows Y)
+    {logRows : List PrimeFactorUnimodality.LogCubedPrimeRow}
+    (logCover : PrimeFactorUnimodality.LogCubedPrimeRowsCoverUpTo logRows Y)
+    (thetaError : PrimeFactorUnimodality.HasThetaLogFourthError A Y) :
+    PrimeFactorUnimodality.MediumPNTSelectedFiniteInputs A X := by
+  exact PrimeFactorUnimodality.mediumPNTSelectedFiniteInputs_of_lists
+    hXY h4Y primeCover thetaCover logCover thetaError
+
 theorem PrimeFactorUnimodality.completeClassification_of_logFourth_cutoff_inputs_from_theta_error
     {A X : Real} (hX : (4e18 : Real) ≤ X)
     (finitePrimeCounting :

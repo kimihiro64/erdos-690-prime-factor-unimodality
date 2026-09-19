@@ -498,6 +498,29 @@ theorem mediumPNTSelectedFiniteInputs_of_cutoff
     theta := finiteTheta
     shortInterval := finiteShortInterval }
 
+theorem mediumPNTSelectedFiniteInputs_of_lists
+    {A X Y : Real}
+    (hXY : X ≤ Y) (h4Y : (4e18 : Real) ≤ Y)
+    {primeRows : List DusartPrimeCountingEndpointRow}
+    (primeCover : DusartPrimeCountingEndpointRowsCoverFrom599 primeRows Y)
+    {thetaRows : List DusartThetaEndpointRow}
+    (thetaCover : DusartThetaEndpointRowsCoverUpTo thetaRows Y)
+    {logRows : List LogCubedPrimeRow}
+    (logCover : LogCubedPrimeRowsCoverUpTo logRows Y)
+    (thetaError : HasThetaLogFourthError A Y) :
+    MediumPNTSelectedFiniteInputs A X := by
+  have finitePrimeCounting :
+      HasDusartRealPrimeCountingBoundsBelow Y :=
+    hasDusartRealPrimeCountingBoundsBelow_of_endpoint_rows
+      primeCover dusartSmallUpperIntervalRows_provide
+  have finiteTheta : HasDusartSymmetricThetaBoundsBelow Y :=
+    hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows thetaCover
+  have finiteShortInterval : HasLogCubedShortIntervalPrimeBelow Y :=
+    hasLogCubedShortIntervalPrimeBelow_of_indexed_rows
+      (logCubedPrimeIndexedCover_of_list logCover)
+  exact mediumPNTSelectedFiniteInputs_of_cutoff hXY h4Y thetaError
+    finitePrimeCounting finiteTheta finiteShortInterval
+
 theorem completeClassification_of_mediumPNT_and_selected_finite_inputs
     {A C X : Real} (hX : (4e18 : Real) ≤ X)
     (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
