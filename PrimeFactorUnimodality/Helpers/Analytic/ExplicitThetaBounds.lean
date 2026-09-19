@@ -141,6 +141,21 @@ theorem hasDusartSymmetricThetaBoundsAbove_of_logFourthError
         _ = (12323 / 10000 : Real) * x * (Real.log x) ^ 3 := by ring
     exact htheta'.trans_lt hratio
 
+theorem hasDusartSymmetricThetaBounds_of_below_and_above
+    {X : Real}
+    (finite : HasDusartSymmetricThetaBoundsBelow X)
+    (tail : HasDusartSymmetricThetaBoundsAbove X) :
+    HasDusartSymmetricThetaBounds := by
+  constructor
+  · intro x hx
+    by_cases hle : x ≤ X
+    · exact finite.1 x hx hle
+    · exact tail.1 x (le_of_lt (lt_of_not_ge hle))
+  · intro x hx
+    by_cases hle : x ≤ X
+    · exact finite.2 x hx hle
+    · exact tail.2 x hx (le_of_lt (lt_of_not_ge hle))
+
 /-! The interval below `2` is not part of the numerical certificate.  The
 theta sum is zero there, so its one-sided upper estimate is elementary. -/
 theorem hasDusartSymmetricThetaBoundsBelow_of_upper_lower
