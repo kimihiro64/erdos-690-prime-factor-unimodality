@@ -223,7 +223,7 @@ theorem hasLogCubedShortIntervalPrime_of_finite_and_bounded_mediumPNT
   obtain ⟨X, hX₀X, hXB', htail⟩ := tail
   apply hasLogCubedShortIntervalPrime_of_below_and_above (hX₀.trans hXB) finite
   intro x hx
-  exact htail x (hXB'.trans (hXB.trans hx))
+  exact htail x (hXB'.trans hx)
 
 /-! The existential form is the minimal selected-cutoff contract.  It is
 strictly weaker than asking a finite provider to answer at every possible
@@ -404,7 +404,7 @@ theorem exists_mediumPNT_all_dusart_tail_inputs
         ∃ q : Nat, q.Prime ∧ x < q ∧
           (q : Real) ≤ x + x / (Real.log x) ^ 3) := by
   obtain ⟨Y, hXY, hpublished, hinterval⟩ :=
-    exists_mediumPNT_real_dusart_tail_inputs hX hC0 hC hcore
+    exists_mediumPNT_dusart_tail_inputs hX hC0 hC hcore
   obtain ⟨Z, hYZ, h4Z, htheta⟩ :=
     exists_hasThetaLogFourthError_of_mediumPNT_above Y
   refine ⟨Z, hXY.trans hYZ, ?_, htheta, ?_⟩
@@ -415,7 +415,7 @@ theorem exists_mediumPNT_all_dusart_tail_inputs
       exact hpublished.2 x (hYZ.trans hx)
   · intro x hx
     obtain ⟨q, hq, hxq, hupper⟩ := hinterval x (hYZ.trans hx)
-    exact ⟨q, hq, hxq, hupper⟩
+    exact ⟨q, hq, hxq, by convert hupper using 1 <;> ring⟩
 
 /-! The tail package with the theta estimate already converted to the exact
 Dusart inequality.  This is still source-level work: the only finite input
@@ -501,7 +501,9 @@ theorem exists_mediumPNT_all_real_dusart_tail_inputs_of_finite_theta_error
   · intro x hx
     exact htheta x (le_trans (le_max_left Y Z) hx)
   · intro x hx
-    exact hintervalZ x (le_trans (le_max_right Y Z) hx)
+    obtain ⟨q, hq, hxq, hupper⟩ :=
+      hintervalZ x (le_trans (le_max_right Y Z) hx)
+    exact ⟨q, hq, hxq, by convert hupper using 1 <;> ring⟩
 
 /-! The complete real-variable tail package used by the all-`k` assembly.
 All unbounded estimates are transported to one common raised cutoff. -/
