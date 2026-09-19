@@ -415,6 +415,36 @@ theorem exists_mediumPNT_all_dusart_tail_inputs
     obtain ⟨q, hq, hxq, hupper⟩ := hinterval x (hYZ.trans hx)
     exact ⟨q, hq, hxq, hupper⟩
 
+/-! The tail package with the theta estimate already converted to the exact
+Dusart inequality.  This is still source-level work: the only finite input
+remaining for the final global theorem is the bounded prefix. -/
+theorem exists_mediumPNT_all_dusart_tail_inputs_with_theta_bounds
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4) :
+    ∃ Y : Real, X ≤ Y ∧
+      HasDusartPublishedPrimeCountingBoundsAbove Y ∧
+      HasDusartSymmetricThetaBoundsAbove Y ∧
+      HasThetaLogFourthErrorAbove (648 / 1000 : Real) Y ∧
+      (∀ x : Real, Y ≤ x →
+        ∃ q : Nat, q.Prime ∧ x < q ∧
+          (q : Real) ≤ x + x / (Real.log x) ^ 3) := by
+  obtain ⟨Y, hXY, hpublished, htheta, hinterval⟩ :=
+    exists_mediumPNT_all_dusart_tail_inputs hX hC0 hC hcore
+  have hYpos : 0 < Y := by linarith [hX]
+  have hlogY : (42 : Real) ≤ Real.log Y := by
+    have hlog_mono : Real.log (4e18 : Real) ≤ Real.log Y :=
+      Real.log_le_log (by norm_num) (hX.trans hXY)
+    linarith [forty_two_lt_log_four_e18]
+  have hthetaBounds := hasDusartSymmetricThetaBoundsAbove_of_logFourthError
+    hYpos (by linarith) (by norm_num)
+    (by
+      have hlogYpos : 0 < Real.log Y := by linarith
+      apply (div_le_iff₀ hlogYpos).2
+      nlinarith)
+    htheta
+  exact ⟨Y, hXY, hpublished, hthetaBounds, htheta, hinterval⟩
+
 /-! The Abel core is not an additional analytic assumption.  Once the finite
 theta remainder is supplied below the chosen cutoff, the explicit integral
 estimate proves the core budget, and the source-level PNT supplies every
