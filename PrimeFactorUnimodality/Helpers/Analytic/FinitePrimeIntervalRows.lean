@@ -13617,6 +13617,19 @@ def ThetaLogFourthErrorRowsCoverUpTo
   ∀ x : Real, 2 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+theorem thetaLogFourthErrorRowsCoverUpTo_append
+    {A m X : Real}
+    {left right : List (ThetaLogFourthErrorRow A)}
+    (hleft : ThetaLogFourthErrorRowsCoverUpTo left m)
+    (hright : ThetaLogFourthErrorRowsCoverUpTo right X) :
+    ThetaLogFourthErrorRowsCoverUpTo (left ++ right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+
 /-! Sharp theta rows need not begin at `2`: the Abel core treats the small
 interval separately, while the logarithmic error table starts at `x₀`. -/
 def ThetaLogFourthErrorRowsCoverFrom
