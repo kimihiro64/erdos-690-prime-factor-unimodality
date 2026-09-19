@@ -13712,6 +13712,37 @@ def ThetaLogFourthErrorRowsCoverFrom
   ∀ x : Real, x₀ ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+def ThetaLogFourthErrorIndexedCoverFrom {n : Nat} {A : Real}
+    (rows : Fin n → ThetaLogFourthErrorRow A)
+    (x₀ X : Real) : Prop :=
+  ∀ x : Real, x₀ ≤ x → x ≤ X →
+    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+
+theorem thetaLogFourthErrorIndexedCoverFrom_of_list
+    {A x₀ X : Real} {rows : List (ThetaLogFourthErrorRow A)}
+    (cover : ThetaLogFourthErrorRowsCoverFrom rows x₀ X) :
+    ThetaLogFourthErrorIndexedCoverFrom
+      (fun i : Fin rows.length => rows.get i) x₀ X := by
+  exact indexed_interval_cover_of_list_cover rows
+    (fun row => row.left) (fun row => row.right) cover
+
+theorem thetaLogFourthErrorIndexedCoverFrom_append
+    {A x₀ m X : Real} {n₁ n₂ : Nat}
+    {left : Fin n₁ → ThetaLogFourthErrorRow A}
+    {right : Fin n₂ → ThetaLogFourthErrorRow A}
+    (hleft : ThetaLogFourthErrorIndexedCoverFrom left x₀ m)
+    (hright : ThetaLogFourthErrorIndexedCoverFrom right m X) :
+    ThetaLogFourthErrorIndexedCoverFrom (Fin.append left right) x₀ X := by
+  intro x hx₀ hxX
+  by_cases hxm : x ≤ m
+  · obtain ⟨i, hleft_lower, hleft_upper⟩ := hleft x hx₀ hxm
+    refine ⟨Fin.castAdd n₂ i, ?_⟩
+    simpa [Fin.append_left] using And.intro hleft_lower hleft_upper
+  · obtain ⟨i, hright_lower, hright_upper⟩ :=
+      hright x (le_of_not_ge hxm) hxX
+    refine ⟨Fin.natAdd n₁ i, ?_⟩
+    simpa [Fin.append_right] using And.intro hright_lower hright_upper
+
 theorem thetaLogFourthErrorRowsCoverFrom_append
     {A x₀ m X : Real}
     {left right : List (ThetaLogFourthErrorRow A)}
