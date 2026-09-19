@@ -2,6 +2,7 @@ import PrimeFactorUnimodality.Assembly.FourthWitness
 import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
 import PrimeFactorUnimodality.Mathlib
 import PrimeFactorUnimodality.Proof.CompleteClassification
+import PrimeFactorUnimodality.Proof.Analytic.WangCrapisClosed
 
 /-!
 # Public library root
