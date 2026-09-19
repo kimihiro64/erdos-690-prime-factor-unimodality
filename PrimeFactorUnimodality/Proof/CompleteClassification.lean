@@ -362,25 +362,9 @@ theorem completeClassification_of_finite_theta_error_at_large_cutoff
     (thetaErrorBelow : HasThetaLogFourthErrorBelow A X)
     (thetaErrorAbove : HasThetaLogFourthErrorAbove A X) :
     CompleteClassification := by
-  have integralCoreBound :
-      4000 + 720 * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) +
-          A * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 6) ≤
-        (3 / 5 : Real) * X / Real.log X ^ 4 := by
-    have hexplicit := explicit_integral_core_bound_at_large_cutoff
-      hX hA0 hA1
-    have hmillionX : (1000000 : Real) ≤ X :=
-      (by norm_num : (1000000 : Real) ≤ (4e18 : Real)).trans hX
-    have hseven := integral_inv_log_seven_le_explicit hmillionX
-    have hsix := integral_inv_log_six_le_explicit hmillionX
-    have hA7 : 0 ≤ A := hA0
-    have hseven_mul := mul_le_mul_of_nonneg_left hseven (by norm_num :
-      (0 : Real) ≤ 720)
-    have hsix_mul := mul_le_mul_of_nonneg_left hsix hA7
-    nlinarith [hexplicit, hseven_mul, hsix_mul]
-  exact completeClassification_of_finite_theta_error_and_integral_core
+  exact completeClassification_of_logFourth_cutoff_inputs_from_theta_error
     hX finitePrimeCounting finiteTheta finiteShortInterval hA0 hA1
-    (by norm_num) (by norm_num) thetaErrorBelow thetaErrorAbove
-    integralCoreBound
+    thetaErrorBelow thetaErrorAbove
 
 /-! The source-level MediumPNT selects the cutoff; this wrapper makes the
 remaining finite obligation explicit as a provider valid at every possible
