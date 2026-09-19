@@ -13863,15 +13863,18 @@ theorem thetaLogFourthEndpointIndexedCoverFrom_append
     {left : Fin n₁ → ThetaLogFourthEndpointRow A}
     {right : Fin n₂ → ThetaLogFourthEndpointRow A}
     (hleft : ThetaLogFourthEndpointIndexedCoverFrom left x₀ m)
-    (hright : ThetaLogFourthEndpointIndexedCoverFrom right x₀ X) :
+    (hright : ThetaLogFourthEndpointIndexedCoverFrom right m X) :
     ThetaLogFourthEndpointIndexedCoverFrom
       (Fin.append left right) x₀ X := by
   intro x hx hX
-  exact indexed_interval_cover_append left right
-    (fun row => row.left) (fun row => row.right)
-    (fun y hy _ hym => hleft y hy hym)
-    (fun y hy _ hym hyX => hright y hy hyX)
-    x hx trivial hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨i, hleft_lower, hleft_upper⟩ := hleft x hx hxm
+    refine ⟨Fin.castAdd n₂ i, ?_⟩
+    simpa [Fin.append_left] using And.intro hleft_lower hleft_upper
+  · obtain ⟨i, hright_lower, hright_upper⟩ :=
+      hright x (le_of_not_ge hxm) hX
+    refine ⟨Fin.natAdd n₁ i, ?_⟩
+    simpa [Fin.append_right] using And.intro hright_lower hright_upper
 
 theorem hasThetaLogFourthErrorAbove_of_indexed_endpoint_rows_from_and_tail
     {n : Nat} {A x₀ X : Real}
