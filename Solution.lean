@@ -29,3 +29,11 @@ theorem PrimeFactorUnimodality.completeClassification_of_wangCrapis_paper_inputs
     PrimeFactorUnimodality.CompleteClassification := by
   exact PrimeFactorUnimodality.completeClassification_of_wangCrapis_paper_inputs
     inputs
+
+/-! The source-level all-`k` theorem can also be driven by the four finite
+row providers used by the explicit proof. -/
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_row_provider
+    (provider : PrimeFactorUnimodality.MediumPNTFiniteRowProvider) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_bundled_row_provider
+    provider
