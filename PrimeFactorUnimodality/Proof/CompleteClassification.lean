@@ -283,6 +283,29 @@ theorem completeClassification_of_logFourth_cutoff_inputs
     hX finitePrimeCounting tailPrimeCounting finiteTheta thetaErrorCubic
     finiteShortInterval tailShortInterval
 
+/-! The finite core no longer needs to be passed as an independent analytic
+hypothesis: the explicit Abel estimate derives it directly from the finite
+log-fourth theta rows. -/
+theorem completeClassification_of_logFourth_cutoff_inputs_from_theta_error
+    {A X : Real} (hX : (4e18 : Real) ≤ X)
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow X)
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow X)
+    (finiteShortInterval : HasLogCubedShortIntervalPrimeBelow X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
+    (thetaErrorBelow : HasThetaLogFourthErrorBelow A X)
+    (thetaErrorAbove : HasThetaLogFourthErrorAbove A X) :
+    CompleteClassification := by
+  have thetaError : HasThetaLogFourthError A X :=
+    hasThetaLogFourthError_of_below_and_above
+      thetaErrorBelow thetaErrorAbove
+  have hcore : |primeCountingCore X| ≤
+      (3 / 5 : Real) * X / Real.log X ^ 4 :=
+    primeCountingCore_abs_le_at_large_cutoff_of_theta_error
+      hX hA0 hA1 thetaErrorBelow
+  exact completeClassification_of_logFourth_cutoff_inputs
+    hX finitePrimeCounting finiteTheta finiteShortInterval
+    hA0 hA1 (by norm_num) (by norm_num) hcore thetaError
+
 /-! A fully expanded core boundary: the opaque core inequality can be
 replaced by the explicit logarithmic-integral inequality obtained from the
 finite theta error. -/
