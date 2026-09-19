@@ -110,6 +110,29 @@ structure FinitePrimeGapLogRow where
   right_lt_witness : right < witness
   witness_width : (witness : Real) - left ≤ logCubedWidth left
 
+def FinitePrimeGapLogRow.of_gap_row
+    {g : Nat} (row : FinitePrimeGapRow g)
+    (hleft : (89693 : Nat) ≤ row.left)
+    {L : Real} (hL : 0 ≤ L)
+    (hlog : Real.log row.left ≤ L)
+    (hproduct : (g : Real) * L ^ 3 ≤ row.left) :
+    FinitePrimeGapLogRow := by
+  have hwidth : (g : Real) ≤ logCubedWidth row.left :=
+    logCubedWidth_lower_of_log_upper (by exact_mod_cast hleft)
+      hL hlog hproduct
+  refine {
+    left := row.left
+    right := row.right
+    left_large := hleft
+    left_le_right := row.left_le_right
+    witness := row.witness
+    witness_prime := row.witness_prime
+    right_lt_witness := row.right_lt_witness
+    witness_width := ?_ }
+  have hgap : (row.witness : Real) - row.left ≤ (g : Real) := by
+    exact_mod_cast (by omega : row.witness - row.left ≤ g)
+  exact hgap.trans hwidth
+
 def FinitePrimeGapRowsCover
     {a b g : Nat} (rows : List (FinitePrimeGapRow g)) : Prop :=
   ∀ n : Nat, a ≤ n → n ≤ b →
