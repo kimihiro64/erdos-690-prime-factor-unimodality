@@ -1,4 +1,5 @@
 import Mathlib.Data.Nat.PrimeFin
+import Mathlib.NumberTheory.Chebyshev
 import PrimeFactorUnimodality.Helpers.PrimeSequence.Basic
 
 set_option autoImplicit false
@@ -60,5 +61,17 @@ theorem computablePrimesBelow_succ_length (n : Nat) :
   change (Nat.primesBelow (n + 1)).card = Nat.primeCounting n
   rw [Nat.primesBelow_card_eq_primeCounting']
   exact (Nat.primeCounting_eq_primeCounting'_succ n).symm
+
+theorem theta_nat_eq_computablePrimePrefix_log_sum (n : Nat) :
+    Chebyshev.theta n =
+      (computablePrimesBelow (n + 1)).map Real.log |>.sum := by
+  rw [Chebyshev.theta_eq_sum_primesLE_log]
+  rw [← primesBelow_eq_computablePrimesBelow (n + 1)]
+  change (∑ p ∈ Nat.primesLE n, Real.log p) =
+    (List.map Real.log (primesBelow (n + 1))).sum
+  change (∑ p ∈ Nat.primesLE n, Real.log p) =
+    (Multiset.map Real.log
+      (↑((Nat.primesLE n).sort (fun a b => a ≤ b)) : Multiset Nat)).sum
+  rw [Finset.sort_eq]
 
 end PrimeFactorUnimodality
