@@ -1218,6 +1218,37 @@ structure MediumPNTFiniteIntegerIntervalPrefixBundleCover
   thetaError : ThetaLogFourthEndpointIndexedCoverUpTo
     (fun i => (rows i).thetaError) X
 
+/-! The same bundled boundary can be supplied as one ordinary list.  This is
+the representation used by certificate generators: the four projections are
+covered by the same ordered blocks, so no independent 10k-row duplication is
+needed at the provider boundary. -/
+structure MediumPNTFiniteIntegerIntervalPrefixBundleListCover
+    (rows : List MediumPNTFiniteIntegerIntervalPrefixBundle) (X : Real) : Prop where
+  primeCounting : DusartPrimeCountingEndpointRowsCoverFrom599
+    (rows.map (fun row => row.primeCounting)) X
+  theta : DusartThetaEndpointRowsCoverUpTo
+    (rows.map (fun row => row.theta)) X
+  shortInterval : LogCubedPrimeRowsCoverUpTo
+    (rows.map (fun row => row.shortInterval)) X
+  thetaError : ThetaLogFourthEndpointRowsCoverFrom
+    (rows.map (fun row => row.thetaError)) (4e18 : Real) X
+
+theorem mediumPNTFiniteIntegerIntervalPrefixBundleCover_of_list
+    {rows : List MediumPNTFiniteIntegerIntervalPrefixBundle} {X : Real}
+    (cover : MediumPNTFiniteIntegerIntervalPrefixBundleListCover rows X) :
+    MediumPNTFiniteIntegerIntervalPrefixBundleCover
+      (fun i : Fin rows.length => rows.get i) X := by
+  constructor
+  · simpa using
+      (dusartPrimeCountingEndpointIndexedCover_of_list cover.primeCounting)
+  · simpa using
+      (dusartThetaEndpointIndexedCover_of_list cover.theta)
+  · simpa using
+      (logCubedPrimeIndexedCover_of_list cover.shortInterval)
+  · simpa [ThetaLogFourthEndpointIndexedCoverUpTo] using
+      (thetaLogFourthEndpointIndexedCover_of_list
+        (x₀ := (4e18 : Real)) cover.thetaError)
+
 theorem mediumPNTFiniteIntegerIntervalPrefixBundleCover_append
     {m X : Real} {n₁ n₂ : Nat}
     {left : Fin n₁ → MediumPNTFiniteIntegerIntervalPrefixBundle}
