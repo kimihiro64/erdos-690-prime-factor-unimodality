@@ -9450,7 +9450,6 @@ theorem dusartPrimeRows_15527_16318_chain :
   exact DusartPrimeRowsChain.empty (by norm_num)
 
 
-def dusartPrimeRows_3275_16318 : List DusartPrimeRow :=
 def dusartPrimeRows_16319_17158 : List DusartPrimeRow :=
 [
     dusartPrimeRow_of_explicit_17154 (p := 16319) (q := 16333) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
@@ -9957,24 +9956,11 @@ theorem dusartPrimeRows_16319_17158_chain :
   exact DusartPrimeRowsChain.empty (by norm_num)
 
 
-  dusartPrimeRows_3275_15526 ++ dusartPrimeRows_15527_16318
-
-theorem dusartPrimeRows_3275_16318_chain :
-    DusartPrimeRowsChain 3275 16318 dusartPrimeRows_3275_16318 := by
-  exact dusartPrimeRowsChain_append
-    dusartPrimeRows_3275_15526_chain dusartPrimeRows_15527_16318_chain
-
-def DusartPrimeRowsCoverBelow (rows : List DusartPrimeRow) : Prop :=
-def dusartPrimeRows_3275_23158 : List DusartPrimeRow :=
-  dusartPrimeRows_3275_22026 ++ dusartPrimeRows_22027_23158
-
-theorem dusartPrimeRows_3275_23158_chain :
-    DusartPrimeRowsChain 3275 23158 dusartPrimeRows_3275_23158 := by
-  exact dusartPrimeRowsChain_append
-    dusartPrimeRows_3275_22026_chain dusartPrimeRows_22027_23158_chain
 
 
-def dusartPrimeRows_3275_22026 : List DusartPrimeRow :=
+
+
+
 def dusartPrimeRows_22027_23158 : List DusartPrimeRow :=
 [
     dusartPrimeRow_of_explicit_23155 (p := 22027) (q := 22031) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
@@ -10569,15 +10555,9 @@ theorem dusartPrimeRows_22027_23158_chain :
   exact DusartPrimeRowsChain.empty (by norm_num)
 
 
-  dusartPrimeRows_3275_20958 ++ dusartPrimeRows_20959_22026
-
-theorem dusartPrimeRows_3275_22026_chain :
-    DusartPrimeRowsChain 3275 22026 dusartPrimeRows_3275_22026 := by
-  exact dusartPrimeRowsChain_append
-    dusartPrimeRows_3275_20958_chain dusartPrimeRows_20959_22026_chain
 
 
-def dusartPrimeRows_3275_20958 : List DusartPrimeRow :=
+
 def dusartPrimeRows_20959_22026 : List DusartPrimeRow :=
 [
     dusartPrimeRow_of_explicit_22026 (p := 20959) (q := 20963) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
@@ -11137,15 +11117,9 @@ theorem dusartPrimeRows_20959_22026_chain :
   exact DusartPrimeRowsChain.empty (by norm_num)
 
 
-  dusartPrimeRows_3275_19936 ++ dusartPrimeRows_19937_20958
-
-theorem dusartPrimeRows_3275_20958_chain :
-    DusartPrimeRowsChain 3275 20958 dusartPrimeRows_3275_20958 := by
-  exact dusartPrimeRowsChain_append
-    dusartPrimeRows_3275_19936_chain dusartPrimeRows_19937_20958_chain
 
 
-def dusartPrimeRows_3275_19936 : List DusartPrimeRow :=
+
 def dusartPrimeRows_19937_20958 : List DusartPrimeRow :=
 [
     dusartPrimeRow_of_explicit_20952 (p := 19937) (q := 19949) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
@@ -11670,15 +11644,9 @@ theorem dusartPrimeRows_19937_20958_chain :
   exact DusartPrimeRowsChain.empty (by norm_num)
 
 
-  dusartPrimeRows_3275_18958 ++ dusartPrimeRows_18959_19936
-
-theorem dusartPrimeRows_3275_19936_chain :
-    DusartPrimeRowsChain 3275 19936 dusartPrimeRows_3275_19936 := by
-  exact dusartPrimeRowsChain_append
-    dusartPrimeRows_3275_18958_chain dusartPrimeRows_18959_19936_chain
 
 
-def dusartPrimeRows_3275_18958 : List DusartPrimeRow :=
+
 def dusartPrimeRows_18959_19936 : List DusartPrimeRow :=
 [
     dusartPrimeRow_of_explicit_19930 (p := 18959) (q := 18973) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
@@ -12178,15 +12146,9 @@ theorem dusartPrimeRows_18959_19936_chain :
   exact DusartPrimeRowsChain.empty (by norm_num)
 
 
-  dusartPrimeRows_3275_18040 ++ dusartPrimeRows_18041_18958
-
-theorem dusartPrimeRows_3275_18958_chain :
-    DusartPrimeRowsChain 3275 18958 dusartPrimeRows_3275_18958 := by
-  exact dusartPrimeRowsChain_append
-    dusartPrimeRows_3275_18040_chain dusartPrimeRows_18041_18958_chain
 
 
-def dusartPrimeRows_3275_18040 : List DusartPrimeRow :=
+
 def dusartPrimeRows_18041_18958 : List DusartPrimeRow :=
 [
     dusartPrimeRow_of_explicit_18958 (p := 18041) (q := 18043) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
@@ -12646,15 +12608,9 @@ theorem dusartPrimeRows_18041_18958_chain :
   exact DusartPrimeRowsChain.empty (by norm_num)
 
 
-  dusartPrimeRows_3275_17158 ++ dusartPrimeRows_17159_18040
-
-theorem dusartPrimeRows_3275_18040_chain :
-    DusartPrimeRowsChain 3275 18040 dusartPrimeRows_3275_18040 := by
-  exact dusartPrimeRowsChain_append
-    dusartPrimeRows_3275_17158_chain dusartPrimeRows_17159_18040_chain
 
 
-def dusartPrimeRows_3275_17158 : List DusartPrimeRow :=
+
 def dusartPrimeRows_17159_18040 : List DusartPrimeRow :=
 [
     dusartPrimeRow_of_explicit_18033 (p := 17159) (q := 17167) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
@@ -13114,6 +13070,18 @@ theorem dusartPrimeRows_17159_18040_chain :
   exact DusartPrimeRowsChain.empty (by norm_num)
 
 
+
+
+
++def dusartPrimeRows_3275_16318 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_15526 ++ dusartPrimeRows_15527_16318
+
+theorem dusartPrimeRows_3275_16318_chain :
+    DusartPrimeRowsChain 3275 16318 dusartPrimeRows_3275_16318 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_15526_chain dusartPrimeRows_15527_16318_chain
+
+def dusartPrimeRows_3275_17158 : List DusartPrimeRow :=
   dusartPrimeRows_3275_16318 ++ dusartPrimeRows_16319_17158
 
 theorem dusartPrimeRows_3275_17158_chain :
@@ -13121,7 +13089,55 @@ theorem dusartPrimeRows_3275_17158_chain :
   exact dusartPrimeRowsChain_append
     dusartPrimeRows_3275_16318_chain dusartPrimeRows_16319_17158_chain
 
+def dusartPrimeRows_3275_18040 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_17158 ++ dusartPrimeRows_17159_18040
 
+theorem dusartPrimeRows_3275_18040_chain :
+    DusartPrimeRowsChain 3275 18040 dusartPrimeRows_3275_18040 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_17158_chain dusartPrimeRows_17159_18040_chain
+
+def dusartPrimeRows_3275_18958 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_18040 ++ dusartPrimeRows_18041_18958
+
+theorem dusartPrimeRows_3275_18958_chain :
+    DusartPrimeRowsChain 3275 18958 dusartPrimeRows_3275_18958 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_18040_chain dusartPrimeRows_18041_18958_chain
+
+def dusartPrimeRows_3275_19936 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_18958 ++ dusartPrimeRows_18959_19936
+
+theorem dusartPrimeRows_3275_19936_chain :
+    DusartPrimeRowsChain 3275 19936 dusartPrimeRows_3275_19936 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_18958_chain dusartPrimeRows_18959_19936_chain
+
+def dusartPrimeRows_3275_20958 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_19936 ++ dusartPrimeRows_19937_20958
+
+theorem dusartPrimeRows_3275_20958_chain :
+    DusartPrimeRowsChain 3275 20958 dusartPrimeRows_3275_20958 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_19936_chain dusartPrimeRows_19937_20958_chain
+
+def dusartPrimeRows_3275_22026 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_20958 ++ dusartPrimeRows_20959_22026
+
+theorem dusartPrimeRows_3275_22026_chain :
+    DusartPrimeRowsChain 3275 22026 dusartPrimeRows_3275_22026 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_20958_chain dusartPrimeRows_20959_22026_chain
+
+def dusartPrimeRows_3275_23158 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_22026 ++ dusartPrimeRows_22027_23158
+
+theorem dusartPrimeRows_3275_23158_chain :
+    DusartPrimeRowsChain 3275 23158 dusartPrimeRows_3275_23158 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_22026_chain dusartPrimeRows_22027_23158_chain
+
+def DusartPrimeRowsCoverBelow (rows : List DusartPrimeRow) : Prop :=
   ∀ x : Real, 3275 ≤ x → x ≤ 89693 →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
@@ -13273,7 +13289,6 @@ theorem dusartPrimeRows_3275_16318_cover :
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_16318_chain (by norm_num)
 
-theorem dusartPrimeRowsCoverBelow_of_chain
 theorem dusartPrimeRows_3275_23158_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_23158 (23158 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
@@ -13316,6 +13331,7 @@ theorem dusartPrimeRows_3275_17158_cover :
     dusartPrimeRows_3275_17158_chain (by norm_num)
 
 
+theorem dusartPrimeRowsCoverBelow_of_chain
     {rows : List DusartPrimeRow}
     (chain : DusartPrimeRowsChain 3275 89693 rows) :
     DusartPrimeRowsCoverBelow rows := by
