@@ -1236,6 +1236,24 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_gap_log_rows
       (by norm_num at ⊢; linarith) hab)
     (rows i).toLogCubedPrimeRow hleft hright
 
+theorem hasDusartShortIntervalPrimeBelow_of_indexed_gap_log_rows
+    {n : Nat} {X : Real}
+    {rows : Fin n → FinitePrimeGapLogRow}
+    (hX : (89693 : Real) ≤ X)
+    (finitePrefix : HasDusartShortIntervalPrimeBelow (89693 : Real))
+    (cover : FinitePrimeGapLogIndexedRowsCoverUpTo rows X) :
+    HasDusartShortIntervalPrimeBelow X := by
+  intro x hx hXx
+  by_cases hsmall : x ≤ (89693 : Real)
+  · exact finitePrefix x hx hsmall
+  · have hlarge : (89693 : Real) ≤ x :=
+      le_of_lt (lt_of_not_ge hsmall)
+    obtain ⟨q, hq, hxq, hupper⟩ :=
+      hasLogCubedShortIntervalPrimeBelow_of_indexed_gap_log_rows cover
+        x hlarge hXx
+    refine ⟨q, hq, hxq, ?_⟩
+    exact dusartShortIntervalUpper_of_logCubed hlarge hupper
+
 theorem hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
     {X : Real} {rows : List FinitePrimeGapLogRow}
     (cover : FinitePrimeGapLogRowsCoverUpTo rows X) :
