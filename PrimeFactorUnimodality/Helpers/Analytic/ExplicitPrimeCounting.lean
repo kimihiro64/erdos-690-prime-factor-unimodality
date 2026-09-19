@@ -1167,7 +1167,8 @@ theorem integral_inv_log_pow_succ_le_full_from_two
           exact this)).pow _
     · intro t ht
       exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by
-        have : (1 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
+        have : (1 : Real) < t :=
+          lt_of_lt_of_le (by norm_num) ht.1
         exact this)))
   have hright : IntervalIntegrable
       (fun t : Real => 1 / Real.log t ^ (n + 1))
@@ -1177,24 +1178,25 @@ theorem integral_inv_log_pow_succ_le_full_from_two
     apply ContinuousOn.div continuousOn_const
     · exact (Real.continuousOn_log.mono fun t ht =>
         ne_of_gt (by
-          have : (0 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
+          have : (0 : Real) < t :=
+            lt_of_lt_of_le (by norm_num) (ha.trans ht.1)
           exact this)).pow _
     · intro t ht
       exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by
-        have : (1 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
+        have : (1 : Real) < t :=
+          lt_of_lt_of_le (by norm_num) (ha.trans ht.1)
         exact this)))
   have hzero : IntervalIntegrable (fun _ : Real => (0 : Real))
       MeasureTheory.volume 2 a := intervalIntegrable_const
   have hnonneg : ∀ t ∈ Set.Icc (2 : Real) a,
       0 ≤ 1 / Real.log t ^ (n + 1) := by
     intro t ht
-    exact one_div_nonneg.mpr
-      (pow_nonneg (Real.log_pos (by
-        have : (1 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
-        exact this).le) _)
+    have hlog : 0 < Real.log t := Real.log_pos (by linarith [ht.1])
+    exact one_div_nonneg.mpr (pow_nonneg hlog.le _)
   have hprefix : 0 ≤ ∫ t in (2 : Real)..a,
       1 / Real.log t ^ (n + 1) := by
-    simpa using intervalIntegral.integral_mono_on ha hzero hleft hnonneg
+    simpa [intervalIntegral.integral_const] using
+      intervalIntegral.integral_mono_on ha hzero hleft hnonneg
   have hadd := intervalIntegral.integral_add_adjacent_intervals hleft hright
   rw [← hadd]
   linarith
@@ -1398,8 +1400,8 @@ theorem lower_bound_div_log_four_of_four_e18_le {X : Real}
     have hnum : (4e18 : Real) < (2.718 : Real) ^ (43 : Nat) := by
       norm_num
     have hbase : (2.718 : Real) < Real.exp 1 := by
-      norm_num
-      exact Real.exp_one_gt_d9
+      exact (by norm_num : (2.718 : Real) < (2.7182818283 : Real)).trans
+        Real.exp_one_gt_d9
     calc
       (4e18 : Real) < (2.718 : Real) ^ (43 : Nat) := hnum
       _ < (Real.exp 1) ^ (43 : Nat) := by
@@ -1502,7 +1504,7 @@ theorem explicit_reserved_integral_core_at_599
   have hsix := integral_inv_log_six_tail_from_599_le_explicit hXmillion
   have hmargin := explicit_integral_core_bound_at_large_cutoff_with_10000
     hX hA0 hA1
-  have hseven' : 0 ≤ 720 := by norm_num
+  have hseven' : (0 : Real) ≤ 720 := by norm_num
   have hsix' := mul_le_mul_of_nonneg_left hsix hA0
   nlinarith [mul_le_mul_of_nonneg_left hseven hseven']
 
