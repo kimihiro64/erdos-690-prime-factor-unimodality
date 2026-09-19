@@ -307,7 +307,7 @@ theorem completeClassification_of_logFourth_cutoff_inputs
 /-! The finite core no longer needs to be passed as an independent analytic
 hypothesis: the explicit Abel estimate derives it directly from the finite
 log-fourth theta rows. -/
-private theorem completeClassification_of_logFourth_cutoff_inputs_from_theta_error
+theorem completeClassification_of_logFourth_cutoff_inputs_from_theta_error
     {A X : Real} (hX : (4e18 : Real) ≤ X)
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow X)
     (finiteTheta : HasDusartSymmetricThetaBoundsBelow X)
