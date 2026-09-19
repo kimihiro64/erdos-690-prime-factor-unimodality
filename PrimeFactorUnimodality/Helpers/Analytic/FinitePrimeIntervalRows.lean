@@ -56,7 +56,7 @@ theorem finitePrimeGapBound_append
   · exact right n (by omega) hnb
 
 theorem finitePrimeGapIndexedCertificate_append
-    {a m b g : Nat}
+    {a m b g : Nat} (hmb : m ≤ b)
     (left : FinitePrimeGapIndexedCertificate a m g)
     (right : FinitePrimeGapIndexedCertificate (m + 1) b g) :
     FinitePrimeGapIndexedCertificate a b g := by
@@ -69,6 +69,60 @@ theorem finitePrimeGapIndexedCertificate_append
   · obtain ⟨q, hq, hnq, hq_bound⟩ := right n (by omega)
     refine ⟨⟨q.val, by omega⟩, hq, hnq, ?_⟩
     exact hq_bound
+
+/-! A gap table can use intervals instead of one entry per integer.  A row
+records one prime which lies immediately to the right of the whole row and
+whose distance from the row's left endpoint is at most `g`. -/
+structure FinitePrimeGapRow (g : Nat) where
+  left : Nat
+  right : Nat
+  left_le_right : left ≤ right
+  witness : Nat
+  witness_prime : witness.Prime
+  right_lt_witness : right < witness
+  witness_le_left_add_gap : witness ≤ left + g
+
+def FinitePrimeGapRowsCover
+    {a b g : Nat} (rows : List (FinitePrimeGapRow g)) : Prop :=
+  ∀ n : Nat, a ≤ n → n ≤ b →
+    ∃ row ∈ rows, row.left ≤ n ∧ n ≤ row.right
+
+def FinitePrimeGapIndexedRowsCover
+    {a b g n : Nat} (rows : Fin n → FinitePrimeGapRow g) : Prop :=
+  ∀ x : Nat, a ≤ x → x ≤ b →
+    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+
+theorem finitePrimeGapBound_of_rows_cover
+    {a b g : Nat} {rows : List (FinitePrimeGapRow g)}
+    (cover : FinitePrimeGapRowsCover rows) :
+    FinitePrimeGapBound a b g := by
+  intro n hna hnb
+  obtain ⟨row, hrow, hleft, hright⟩ := cover n hna hnb
+  refine ⟨row.witness, row.witness_prime, ?_, ?_⟩
+  · exact lt_of_le_of_lt hright row.right_lt_witness
+  · exact le_trans row.witness_le_left_add_gap (Nat.add_le_add_right hleft g)
+
+theorem finitePrimeGapBound_of_indexed_rows_cover
+    {a b g n : Nat} {rows : Fin n → FinitePrimeGapRow g}
+    (cover : FinitePrimeGapIndexedRowsCover rows) :
+    FinitePrimeGapBound a b g := by
+  intro x hxa hxb
+  obtain ⟨i, hleft, hright⟩ := cover x hxa hxb
+  refine ⟨(rows i).witness, (rows i).witness_prime, ?_, ?_⟩
+  · exact lt_of_le_of_lt hright (rows i).right_lt_witness
+  · exact le_trans (rows i).witness_le_left_add_gap
+      (Nat.add_le_add_right hleft g)
+
+theorem finitePrimeGapIndexedRowsCover_of_list
+    {a b g : Nat} {rows : List (FinitePrimeGapRow g)}
+    (cover : FinitePrimeGapRowsCover rows) :
+    FinitePrimeGapIndexedRowsCover
+      (fun i : Fin rows.length => rows.get i) := by
+  intro x hxa hxb
+  obtain ⟨row, hrow, hleft, hright⟩ := cover x hxa hxb
+  obtain ⟨i, hi, hget⟩ := List.getElem_of_mem hrow
+  refine ⟨⟨i, hi⟩, ?_⟩
+  simpa [List.get_eq_getElem, hget] using And.intro hleft hright
 
 theorem exists_prime_in_real_interval_of_finite_prime_gap_bound
     {a b g : Nat} {x : Real}
