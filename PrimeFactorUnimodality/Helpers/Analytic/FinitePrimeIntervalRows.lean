@@ -275,6 +275,16 @@ theorem hasThetaLogFourthErrorOn_of_rows_from
   obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hxX
   exact row.error x hleft hright
 
+theorem hasThetaLogFourthError_of_rows_from_and_tail
+    {A x₀ X : Real} {rows : List (ThetaLogFourthErrorRow A)}
+    (cover : ThetaLogFourthErrorRowsCoverFrom rows x₀ X)
+    (tail : HasThetaLogFourthErrorAbove A X) :
+    HasThetaLogFourthErrorAbove A x₀ := by
+  intro x hx
+  by_cases hsmall : x ≤ X
+  · exact (hasThetaLogFourthErrorOn_of_rows_from cover) x hx hsmall
+  · exact tail x (le_of_not_ge hsmall)
+
 theorem hasThetaLogFourthError_of_rows_and_tail
     {A X : Real} {rows : List (ThetaLogFourthErrorRow A)}
     (cover : ThetaLogFourthErrorRowsCoverUpTo rows X)
