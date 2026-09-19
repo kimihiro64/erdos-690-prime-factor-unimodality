@@ -695,6 +695,29 @@ def FinitePrimeGapLogIndexedRowsCoverUpTo
   ∀ x : Real, 89693 ≤ x → x ≤ X →
     ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
 
+def FinitePrimeGapLogIndexedRowsCoverFrom
+    {n : Nat} (rows : Fin n → FinitePrimeGapLogRow)
+    (a X : Real) : Prop :=
+  ∀ x : Real, a ≤ x → x ≤ X →
+    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+
+theorem finitePrimeGapLogIndexedRowsCoverUpTo_append_from
+    {m X : Real} {n₁ n₂ : Nat}
+    {left : Fin n₁ → FinitePrimeGapLogRow}
+    {right : Fin n₂ → FinitePrimeGapLogRow}
+    (hleft : FinitePrimeGapLogIndexedRowsCoverUpTo left m)
+    (hright : FinitePrimeGapLogIndexedRowsCoverFrom right m X) :
+    FinitePrimeGapLogIndexedRowsCoverUpTo (Fin.append left right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨i, hleft_lower, hleft_upper⟩ := hleft x hx hxm
+    refine ⟨Fin.castAdd n₂ i, ?_⟩
+    simpa [Fin.append_left] using And.intro hleft_lower hleft_upper
+  · obtain ⟨i, hright_lower, hright_upper⟩ :=
+      hright x (le_of_lt (lt_of_not_ge hxm)) hX
+    refine ⟨Fin.natAdd n₁ i, ?_⟩
+    simpa [Fin.append_right] using And.intro hright_lower hright_upper
+
 theorem finitePrimeGapLogRowsCoverUpTo_append
     {m X : Real} {left right : List FinitePrimeGapLogRow}
     (hleft : FinitePrimeGapLogRowsCoverUpTo left m)
