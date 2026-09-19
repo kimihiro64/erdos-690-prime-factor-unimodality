@@ -645,6 +645,22 @@ theorem log_le_43_over_5_of_5167_le
     · exact_mod_cast ha5431
   exact hmono.trans log_5431_le_43_over_5
 
+theorem log_5710_le_173_over_20 :
+    Real.log (5710 : Real) ≤ (173 : Real) / 20 := by
+  apply (Real.log_le_iff_le_exp (by norm_num)).2
+  interval_decide
+
+theorem log_le_173_over_20_of_5437_le
+    {a : Nat} (ha : 5437 ≤ a) (ha5710 : a ≤ 5710) :
+    Real.log a ≤ (173 : Real) / 20 := by
+  have hmono : Real.log (a : Real) ≤ Real.log (5710 : Real) := by
+    have ha_pos : (0 : Real) < a := by
+      exact_mod_cast (show 0 < a by omega)
+    apply Real.log_le_log
+    · exact ha_pos
+    · exact_mod_cast ha5710
+  exact hmono.trans log_5710_le_173_over_20
+
 theorem log_le_116_over_10_of_89693_le
     {a : Nat} (ha : (89693 : Nat) ≤ a) (ha100000 : a ≤ 100000) :
     Real.log a ≤ (116 : Real) / 10 := by
@@ -925,6 +941,19 @@ theorem dusartPrimeRow_of_explicit_5431
     DusartPrimeRow :=
   dusartPrimeRow_of_explicit hq hpq (by omega)
     (log_le_43_over_5_of_5167_le hleft_large hleft_5431)
+    (by norm_num) hproduct
+
+theorem dusartPrimeRow_of_explicit_5710
+    {p q : Nat}
+    (hq : q.Prime)
+    (hpq : p < q)
+    (hproduct : (q - p : Real) *
+        (2 * ((173 : Real) / 20) ^ 2) ≤ p)
+    (hleft_large : 5437 ≤ p)
+    (hleft_5710 : p ≤ 5710) :
+    DusartPrimeRow :=
+  dusartPrimeRow_of_explicit hq hpq (by omega)
+    (log_le_173_over_20_of_5437_le hleft_large hleft_5710)
     (by norm_num) hproduct
 
 theorem dusartPrimeRow_of_explicit_89693
@@ -2354,6 +2383,193 @@ theorem dusartPrimeRows_3275_5436_chain :
   exact dusartPrimeRowsChain_append
     dusartPrimeRows_3275_5166_chain dusartPrimeRows_5167_5436_chain
 
+def dusartPrimeRows_5437_5710 : List DusartPrimeRow :=
+  [
+    dusartPrimeRow_of_explicit_5710 (p := 5437) (q := 5441) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5441) (q := 5443) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5443) (q := 5449) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5449) (q := 5471) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5471) (q := 5477) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5477) (q := 5479) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5479) (q := 5483) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5483) (q := 5501) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5501) (q := 5503) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5503) (q := 5507) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5507) (q := 5519) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5519) (q := 5521) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5521) (q := 5527) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5527) (q := 5531) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5531) (q := 5557) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5557) (q := 5563) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5563) (q := 5569) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5569) (q := 5573) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5573) (q := 5581) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5581) (q := 5591) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5591) (q := 5623) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5623) (q := 5639) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5639) (q := 5641) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5641) (q := 5647) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5647) (q := 5651) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5651) (q := 5653) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5653) (q := 5657) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5657) (q := 5659) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5659) (q := 5669) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5669) (q := 5683) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5683) (q := 5689) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5689) (q := 5693) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5693) (q := 5701) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_5710 (p := 5701) (q := 5711) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+  ]
+
+theorem dusartPrimeRows_5437_5710_chain :
+    DusartPrimeRowsChain 5437 5710 dusartPrimeRows_5437_5710 := by
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5437) (q := 5441) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5441) (q := 5443) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5443) (q := 5449) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5449) (q := 5471) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5471) (q := 5477) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5477) (q := 5479) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5479) (q := 5483) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5483) (q := 5501) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5501) (q := 5503) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5503) (q := 5507) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5507) (q := 5519) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5519) (q := 5521) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5521) (q := 5527) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5527) (q := 5531) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5531) (q := 5557) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5557) (q := 5563) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5563) (q := 5569) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5569) (q := 5573) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5573) (q := 5581) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5581) (q := 5591) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5591) (q := 5623) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5623) (q := 5639) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5639) (q := 5641) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5641) (q := 5647) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5647) (q := 5651) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5651) (q := 5653) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5653) (q := 5657) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5657) (q := 5659) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5659) (q := 5669) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5669) (q := 5683) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5683) (q := 5689) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5689) (q := 5693) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5693) (q := 5701) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_5710 (p := 5701) (q := 5711) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  exact DusartPrimeRowsChain.empty (by norm_num)
+
+
+def dusartPrimeRows_3275_5710 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_5436 ++ dusartPrimeRows_5437_5710
+
+theorem dusartPrimeRows_3275_5710_chain :
+    DusartPrimeRowsChain 3275 5710 dusartPrimeRows_3275_5710 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_5436_chain dusartPrimeRows_5437_5710_chain
+
 def DusartPrimeRowsCoverBelow (rows : List DusartPrimeRow) : Prop :=
   ∀ x : Real, 3275 ≤ x → x ≤ 89693 →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
@@ -2395,6 +2611,11 @@ theorem dusartPrimeRows_3275_5436_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_5436 (5436 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_5436_chain (by norm_num)
+
+theorem dusartPrimeRows_3275_5710_cover :
+    DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_5710 (5710 : Real) := by
+  exact dusartPrimeRowsCoverUpTo_of_chain
+    dusartPrimeRows_3275_5710_chain (by norm_num)
 
 theorem dusartPrimeRowsCoverBelow_of_chain
     {rows : List DusartPrimeRow}
