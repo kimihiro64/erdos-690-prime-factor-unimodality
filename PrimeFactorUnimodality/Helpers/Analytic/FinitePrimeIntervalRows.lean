@@ -93,6 +93,28 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_prime_gap_certificate
   hasLogCubedShortIntervalPrimeBelow_of_finite_prime_gap_bound
     hX hXb (finitePrimeGapBound_of_indexed_certificate certificate) width
 
+theorem hasLogCubedShortIntervalPrimeBelow_of_two_indexed_prime_gap_certificates
+    {m b₁ b₂ g₁ g₂ : Nat} {X : Real}
+    (hm : (89693 : Real) ≤ m) (hXm : (m : Real) ≤ X)
+    (hmb₁ : (m : Real) ≤ b₁) (hXb₂ : X ≤ b₂)
+    (first : FinitePrimeGapIndexedCertificate 89689 b₁ g₁)
+    (second : FinitePrimeGapIndexedCertificate 89689 b₂ g₂)
+    (firstWidth : ∀ x : Real, 89693 ≤ x → x ≤ m →
+      (g₁ : Real) ≤ x / (Real.log x) ^ 3)
+    (secondWidth : ∀ x : Real, 89693 ≤ x → x ≤ X →
+      (g₂ : Real) ≤ x / (Real.log x) ^ 3) :
+    HasLogCubedShortIntervalPrimeBelow X := by
+  have firstBound : HasLogCubedShortIntervalPrimeBelow (m : Real) :=
+    hasLogCubedShortIntervalPrimeBelow_of_indexed_prime_gap_certificate
+      hm hmb₁ first firstWidth
+  have secondBound : HasLogCubedShortIntervalPrimeBelow X :=
+    hasLogCubedShortIntervalPrimeBelow_of_indexed_prime_gap_certificate
+      (by linarith [hm, hXm]) hXb₂ second secondWidth
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · exact firstBound x hx hxm
+  · exact secondBound x hx hX
+
 theorem indexed_interval_cover_of_list_cover
     {α : Type} (rows : List α) (left right : α → Nat)
     {P Q : Real → Prop}
