@@ -1,5 +1,6 @@
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
 import PrimeFactorUnimodality.Helpers.Analytic.DecayToLogFourth
+import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
 
 set_option autoImplicit false
 
@@ -73,6 +74,25 @@ theorem wangCrapis_thetaBounds_of_rpowDecay
     nlinarith
   exact wangCrapis_thetaBounds_of_logFourthTail
     hYpos hlogY (finite Y hXY) (by norm_num) hA thetaError
+
+/-! The same assembly specialized to the project's sorry-free medium-PNT
+adapter.  The only remaining input is the bounded endpoint verification;
+the unbounded analytic tail is supplied by the proved source-level PNT
+argument, not by a Dusart theorem imported as an assumption. -/
+theorem wangCrapis_thetaBounds_of_mediumPNT
+    (finite : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasDusartSymmetricThetaBoundsBelow Y) :
+    HasDusartThetaBounds := by
+  obtain ⟨Y, hY, h4Y, hlogY, thetaError⟩ :=
+    exists_hasThetaLogFourthError_of_mediumPNT_at_large_cutoff
+  have hYpos : 0 < Y := by linarith
+  have hA : (648 / 1000 : Real) / Real.log Y ≤
+      12167 / 500000 := by
+    have hlogYpos : 0 < Real.log Y := by linarith
+    apply (div_le_iff₀ hlogYpos).2
+    nlinarith
+  exact wangCrapis_thetaBounds_of_logFourthTail
+    hYpos (by linarith) (finite Y h4Y) (by norm_num) hA thetaError
 
 end
 

@@ -1,4 +1,5 @@
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
+import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
 
 set_option autoImplicit false
 
@@ -50,6 +51,18 @@ theorem wangCrapis_shortInterval_of_logCubedTail
     HasDusartShortIntervalPrime := by
   exact hasDusartShortIntervalPrime_of_below_and_logCubed
     wangCrapis_shortIntervalPrefix tail
+
+/-! Source-level all-range assembly.  The finite argument is intentionally
+quantified over the eventual cutoff selected by the medium-PNT proof; this
+keeps the analytic theorem honest while allowing the compact certificate
+provider to choose its own reusable row partition. -/
+theorem wangCrapis_shortInterval_of_mediumPNT
+    (finite : ∀ X : Real, (89693 : Real) ≤ X →
+      HasLogCubedShortIntervalPrimeBelow X) :
+    HasDusartShortIntervalPrime := by
+  apply wangCrapis_shortInterval_of_logCubedTail
+  exact hasLogCubedShortIntervalPrime_of_finite_and_mediumPNT
+    (X₀ := (89693 : Real)) (by norm_num) finite
 
 /-! Closed analytic tail adapter.  The remaining fixed-cutoff work is to
 construct its `HasThetaLogFourthError` input and the explicit endpoint
