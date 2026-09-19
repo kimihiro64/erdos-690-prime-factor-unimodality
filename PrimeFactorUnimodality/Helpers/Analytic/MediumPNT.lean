@@ -169,20 +169,24 @@ finite computation supplies the interval estimate through any cutoff above
 log-cubed statement used by the all-`k` reduction. -/
 theorem hasLogCubedShortIntervalPrime_of_finite_and_mediumPNT
     {X₀ : Real} (hX₀ : (89693 : Real) ≤ X₀)
-    (finite : HasLogCubedShortIntervalPrimeBelow X₀) :
+    (finite : ∀ X : Real, X₀ ≤ X →
+      HasLogCubedShortIntervalPrimeBelow X) :
     HasLogCubedShortIntervalPrime := by
   obtain ⟨X, hX₀X, _, tail⟩ :=
     exists_dusartPrimeInInterval_of_mediumPNT X₀
+  have finiteX : HasLogCubedShortIntervalPrimeBelow X :=
+    finite X hX₀X
   exact hasLogCubedShortIntervalPrime_of_below_and_above hX₀
-    finite (fun x hx => by
-      obtain ⟨q, hq, hxq, hupper⟩ := tail x (hX₀X.trans hx)
+    finiteX (fun x hx => by
+      obtain ⟨q, hq, hxq, hupper⟩ := tail x hx
       refine ⟨q, hq, hxq, ?_⟩
       simpa [mul_add, mul_one] using hupper)
 
 theorem hasDusartShortIntervalPrime_of_finite_and_mediumPNT
     {X₀ : Real} (hX₀ : (89693 : Real) ≤ X₀)
     (finiteDusart : HasDusartShortIntervalPrimeBelow (89693 : Real))
-    (finiteLogCubed : HasLogCubedShortIntervalPrimeBelow X₀) :
+    (finiteLogCubed : ∀ X : Real, X₀ ≤ X →
+      HasLogCubedShortIntervalPrimeBelow X) :
     HasDusartShortIntervalPrime := by
   exact hasDusartShortIntervalPrime_of_below_and_logCubed
     finiteDusart
