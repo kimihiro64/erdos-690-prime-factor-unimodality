@@ -1356,8 +1356,8 @@ theorem explicit_integral_core_bound_at_large_cutoff
         exact pow_lt_pow_left₀ (by
           linarith [Real.exp_one_lt_d9]) (Real.exp_pos 1).le (by norm_num)
       exact hexp.trans (by norm_num))
-  exact explicit_integral_core_bound_of_log_margins hX hA0 hA1 hlog2
-    hlogMillion hlogCut (lower_bound_div_log_four_of_four_e18_le hX) |>.trans
+  exact (explicit_integral_core_bound_of_log_margins hX hA0 hA1 hlog2
+    hlogMillion hlogCut (lower_bound_div_log_four_of_four_e18_le hX)).trans
       (by linarith)
 
 theorem explicit_integral_core_bound_at_large_cutoff_with_10000
