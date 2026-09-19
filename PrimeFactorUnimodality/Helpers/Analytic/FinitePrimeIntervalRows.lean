@@ -94,6 +94,19 @@ theorem finitePrimeGapRow_of_consecutive
     right_lt_witness := by omega
     witness_le_left_add_gap := hgap }
 
+/-! The sharp logarithmic bound has a varying admissible gap.  This row form
+stores that local width directly, so a finite table need not be padded to the
+largest gap in the table. -/
+structure FinitePrimeGapLogRow where
+  left : Nat
+  right : Nat
+  left_large : 89693 ≤ left
+  left_le_right : left ≤ right
+  witness : Nat
+  witness_prime : witness.Prime
+  right_lt_witness : right < witness
+  witness_width : (witness : Real) - left ≤ logCubedWidth left
+
 def FinitePrimeGapRowsCover
     {a b g : Nat} (rows : List (FinitePrimeGapRow g)) : Prop :=
   ∀ n : Nat, a ≤ n → n ≤ b →
@@ -551,6 +564,26 @@ structure LogCubedPrimeRow where
   prime_prime : prime.Prime
   prime_upper : (prime : Real) ≤ logCubedUpper left
 
+theorem FinitePrimeGapLogRow.toLogCubedPrimeRow
+    (row : FinitePrimeGapLogRow) : LogCubedPrimeRow := by
+  refine {
+    left := row.left
+    right := row.right
+    prime := row.witness
+    left_large := row.left_large
+    right_lt_prime := row.right_lt_witness
+    prime_prime := row.witness_prime
+    prime_upper := ?_ }
+  have hupper : (row.witness : Real) ≤
+      (row.left : Real) + logCubedWidth row.left := by
+    linarith [row.witness_width]
+  simpa [logCubedWidth, logCubedUpper] using hupper
+
+def FinitePrimeGapLogRowsCoverUpTo
+    (rows : List FinitePrimeGapLogRow) (X : Real) : Prop :=
+  ∀ x : Real, 89693 ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
 theorem FinitePrimeGapRow.toLogCubedPrimeRow
     {g : Nat} (row : FinitePrimeGapRow g)
     (hwidth : (g : Real) ≤ (row.left : Real) /
@@ -905,6 +938,18 @@ theorem logCubedPrimeRow_provides
     exact_mod_cast x_lt_prime
   · exact row.prime_upper.trans (upper_mono
       (by exact_mod_cast row.left_large) left_mem)
+
+theorem hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
+    {X : Real} {rows : List FinitePrimeGapLogRow}
+    (cover : FinitePrimeGapLogRowsCoverUpTo rows X) :
+    HasLogCubedShortIntervalPrimeBelow X := by
+  intro x hx hX
+  obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
+  exact logCubedPrimeRow_provides
+    (fun {a b} ha hab => logCubedUpper_monotoneOn
+      (by norm_num at ⊢; linarith)
+      (by norm_num at ⊢; linarith) hab)
+    row.toLogCubedPrimeRow hleft hright
 
 theorem hasLogCubedShortIntervalPrime_of_rows
     (upper_mono : ∀ {a b : Real}, 89693 ≤ a → a ≤ b →
