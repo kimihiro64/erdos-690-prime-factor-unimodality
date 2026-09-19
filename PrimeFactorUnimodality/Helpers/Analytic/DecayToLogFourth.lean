@@ -506,6 +506,27 @@ theorem exists_hasThetaLogFourthError_of_sqrtLogDecay
   convert hasThetaLogFourthError_of_psiLogFourthError h4Y hpsiY using 1
   norm_num
 
+/-! The general log-power version of the preceding bridge.  This keeps the
+source-level decay supplied by the medium PNT separate from the explicit
+prime-power correction: the former first yields a logarithmic fourth-power
+error for `psi`, and the latter is then added once at the published cutoff. -/
+theorem exists_hasThetaLogFourthError_of_psiLogRpowDecay
+    {C c α X : Real} (hC : 0 ≤ C) (hc : 0 < c) (hα : 0 < α)
+    (hdecay : HasPsiLogRpowDecay C c α X) :
+    ∃ Y : Real, X ≤ Y ∧ (4e18 : Real) ≤ Y ∧
+      HasThetaLogFourthError (C + 1) Y := by
+  obtain ⟨Y₀, hXY₀, hpsi⟩ :=
+    exists_hasPsiLogFourthError_of_logRpowDecay hC hc hα hdecay
+  let Y : Real := max (4e18 : Real) Y₀
+  have h4Y : (4e18 : Real) ≤ Y := le_max_left _ _
+  have hY₀ : Y₀ ≤ Y := le_max_right _ _
+  have hXY : X ≤ Y := hXY₀.trans hY₀
+  have hpsiY : HasPsiLogFourthError C Y := by
+    intro x hx
+    exact hpsi x (hY₀.trans hx)
+  refine ⟨Y, hXY, h4Y, ?_⟩
+  exact hasThetaLogFourthError_of_psiLogFourthError h4Y hpsiY
+
 end
 
 end PrimeFactorUnimodality
