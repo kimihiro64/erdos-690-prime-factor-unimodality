@@ -388,6 +388,79 @@ theorem completeClassification_of_mediumPNT_and_finite_provider
     (by norm_num) (by norm_num) (by norm_num) (by norm_num)
     (coreBound X h4X) thetaError
 
+/-! A selected-cutoff variant of the preceding provider theorem.  MediumPNT
+chooses the cutoff and proves the unbounded theta error; the finite provider
+only has to answer at that one cutoff.  The prime-counting and short-interval
+tails are derived here from the source-level Abel and theta arguments. -/
+theorem completeClassification_of_mediumPNT_and_selected_finite_inputs
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (finiteInputs : ∀ Y : Real, X ≤ Y →
+      HasDusartRealPrimeCountingBoundsBelow Y ∧
+      HasDusartSymmetricThetaBoundsBelow Y ∧
+      HasLogCubedShortIntervalPrimeBelow Y) :
+    CompleteClassification := by
+  obtain ⟨Y, hXY, h4Y, thetaError⟩ :=
+    exists_hasThetaLogFourthError_of_mediumPNT_above X
+  obtain ⟨finitePrimeCounting, finiteTheta, finiteShortInterval⟩ :=
+    finiteInputs Y hXY
+  have hXpos : 0 < X := by linarith
+  have hX1 : 1 < X := by
+    have hlogX : (42 : Real) ≤ Real.log X :=
+      forty_two_lt_log_four_e18.le.trans
+        (Real.log_le_log (by norm_num) hX)
+    exact (Real.log_pos_iff hXpos.le).mp (by linarith)
+  have hlogX : (42 : Real) ≤ Real.log X :=
+    forty_two_lt_log_four_e18.le.trans
+      (Real.log_le_log (by norm_num) hX)
+  have hcoreY : |primeCountingCore X| ≤ C * Y / Real.log Y ^ 4 :=
+    primeCountingCore_scale_le hX1 hXY (by linarith [hlogX]) hC0 hcore
+  have hYpos : 0 < Y := lt_of_lt_of_le hXpos hXY
+  have hlogY : (42 : Real) ≤ Real.log Y :=
+    hlogX.trans (Real.log_le_log hXpos hXY)
+  have tailPrimeCounting : HasDusartRealPrimeCountingBoundsAbove Y :=
+    hasDusartRealPrimeCountingBoundsAbove_of_core_and_theta_error
+      hYpos (by linarith [hlogY]) le_rfl
+      (by norm_num) (by norm_num) hC0 hC hlogY hcoreY thetaError
+  have hAlog : (648 / 1000 : Real) / Real.log Y ≤
+      (12167 / 500000 : Real) := by
+    have hlogYpos : 0 < Real.log Y := by linarith
+    apply (div_le_iff₀ hlogYpos).2
+    nlinarith [hlogY]
+  have thetaErrorCubic : HasThetaLogCubedError
+      (12167 / 500000 : Real) Y := by
+    have hconverted := hasThetaLogCubedError_of_logFourthError
+      (A := (648 / 1000 : Real)) (X := Y)
+      (by linarith [hlogY]) (by norm_num) thetaError
+    intro x hx
+    exact (hconverted x hx).trans (by
+      have hx_pos : 0 < x := by linarith
+      have hlogx_pos : 0 < Real.log x := Real.log_pos (by linarith)
+      have hfactor : 0 ≤ x / (Real.log x) ^ 3 := by positivity
+      calc
+        ((648 / 1000 : Real) / Real.log Y) * x /
+              (Real.log x) ^ 3 =
+            ((648 / 1000 : Real) / Real.log Y) *
+              (x / (Real.log x) ^ 3) := by ring
+        _ ≤ (12167 / 500000 : Real) *
+              (x / (Real.log x) ^ 3) :=
+          mul_le_mul_of_nonneg_right hAlog hfactor
+        _ = (12167 / 500000 : Real) * x /
+              (Real.log x) ^ 3 := by ring)
+  have tailShortInterval : ∀ x : Real, Y ≤ x →
+      ∃ q : Nat, q.Prime ∧ x < q ∧
+        (q : Real) ≤ x + x / (Real.log x) ^ 3 := by
+    intro x hx
+    obtain ⟨q, hq, hxq, hupper⟩ :=
+      dusartPrimeInInterval_of_logFourthError_from
+        hYpos (by linarith [hlogY]) (by linarith [hlogY])
+        (by norm_num) hAlog thetaError x hx
+    exact ⟨q, hq, hxq, by convert hupper using 1 <;> ring⟩
+  exact completeClassification_of_full_record_raised_cutoff_inputs
+    h4Y finitePrimeCounting tailPrimeCounting finiteTheta thetaErrorCubic
+    finiteShortInterval tailShortInterval
+
 theorem completeClassification_of_mediumPNT_and_finite_error_provider
     (finitePrimeCounting : ∀ X : Real, (4e18 : Real) ≤ X →
       HasDusartRealPrimeCountingBoundsBelow X)
