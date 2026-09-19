@@ -278,7 +278,8 @@ is imported at this boundary. -/
 theorem exists_hasDusartPublishedPrimeCountingBoundsAbove_of_mediumPNT_and_core
     {X C : Real} (hX : (4e18 : Real) ≤ X)
     (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
-    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4) :
+    (hcore : ∀ Y : Real, X ≤ Y →
+      |primeCountingCore Y| ≤ C * Y / Real.log Y ^ 4) :
     ∃ Y : Real, X ≤ Y ∧
       HasDusartPublishedPrimeCountingBoundsAbove Y := by
   obtain ⟨Y, hXY, h4Y, htheta⟩ :=
@@ -292,8 +293,8 @@ theorem exists_hasDusartPublishedPrimeCountingBoundsAbove_of_mediumPNT_and_core
     exact (Real.log_pos_iff hXpos.le).mp (by linarith)
   have hlogY : (42 : Real) ≤ Real.log Y := by
     exact hlogX.trans (Real.log_le_log hXpos hXY)
-  have hcoreY : |primeCountingCore X| ≤ C * Y / Real.log Y ^ 4 :=
-    primeCountingCore_scale_le hX1 hXY (by linarith [hlogX]) hC0 hcore
+  have hcoreY : |primeCountingCore Y| ≤ C * Y / Real.log Y ^ 4 :=
+    hcore Y hXY
   have hAsym : HasDusartPrimeCountingAsymptoticAbove Y :=
     hasDusartPrimeCountingAsymptoticAbove_of_core_and_theta_error
       hYpos (by linarith [hlogY]) (by norm_num) (by norm_num)
@@ -304,7 +305,8 @@ theorem exists_hasDusartPublishedPrimeCountingBoundsAbove_of_mediumPNT_and_core
 theorem exists_hasDusartRealPrimeCountingBoundsAbove_of_mediumPNT_and_core
     {X C : Real} (hX : (4e18 : Real) ≤ X)
     (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
-    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4) :
+    (hcore : ∀ Y : Real, X ≤ Y →
+      |primeCountingCore Y| ≤ C * Y / Real.log Y ^ 4) :
     ∃ Y : Real, X ≤ Y ∧
       HasDusartRealPrimeCountingBoundsAbove Y := by
   obtain ⟨Y, hXY, h4Y, htheta⟩ :=
@@ -318,8 +320,8 @@ theorem exists_hasDusartRealPrimeCountingBoundsAbove_of_mediumPNT_and_core
   have hlogX : (42 : Real) ≤ Real.log X :=
     forty_two_lt_log_four_e18.le.trans
       (Real.log_le_log (by norm_num) hX)
-  have hcoreY : |primeCountingCore X| ≤ C * Y / Real.log Y ^ 4 :=
-    primeCountingCore_scale_le hX1 hXY (by linarith [hlogX]) hC0 hcore
+  have hcoreY : |primeCountingCore Y| ≤ C * Y / Real.log Y ^ 4 :=
+    hcore Y hXY
   have hlogY : (42 : Real) ≤ Real.log Y :=
     hlogX.trans (Real.log_le_log hXpos hXY)
   have hYpos : 0 < Y := lt_of_lt_of_le hXpos hXY
@@ -334,7 +336,8 @@ used by the all-`k` tail: published prime counting and prime selection. -/
 theorem exists_mediumPNT_dusart_tail_inputs
     {X C : Real} (hX : (4e18 : Real) ≤ X)
     (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
-    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4) :
+    (hcore : ∀ Y : Real, X ≤ Y →
+      |primeCountingCore Y| ≤ C * Y / Real.log Y ^ 4) :
     ∃ Y : Real, X ≤ Y ∧
       HasDusartPublishedPrimeCountingBoundsAbove Y ∧
       (∀ x : Real, Y ≤ x →
@@ -372,7 +375,8 @@ chosen for prime selection. -/
 theorem exists_mediumPNT_real_dusart_tail_inputs
     {X C : Real} (hX : (4e18 : Real) ≤ X)
     (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
-    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4) :
+    (hcore : ∀ Y : Real, X ≤ Y →
+      |primeCountingCore Y| ≤ C * Y / Real.log Y ^ 4) :
     ∃ Y : Real, X ≤ Y ∧
       HasDusartRealPrimeCountingBoundsAbove Y ∧
       (∀ x : Real, Y ≤ x →
@@ -396,7 +400,8 @@ contains no finite computation and imports no Dusart proposition. -/
 theorem exists_mediumPNT_all_dusart_tail_inputs
     {X C : Real} (hX : (4e18 : Real) ≤ X)
     (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
-    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4) :
+    (hcore : ∀ Y : Real, X ≤ Y →
+      |primeCountingCore Y| ≤ C * Y / Real.log Y ^ 4) :
     ∃ Y : Real, X ≤ Y ∧
       HasDusartPublishedPrimeCountingBoundsAbove Y ∧
       HasThetaLogFourthErrorAbove (648 / 1000 : Real) Y ∧
@@ -423,7 +428,8 @@ remaining for the final global theorem is the bounded prefix. -/
 theorem exists_mediumPNT_all_dusart_tail_inputs_with_theta_bounds
     {X C : Real} (hX : (4e18 : Real) ≤ X)
     (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
-    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4) :
+    (hcore : ∀ Y : Real, X ≤ Y →
+      |primeCountingCore Y| ≤ C * Y / Real.log Y ^ 4) :
     ∃ Y : Real, X ≤ Y ∧
       HasDusartPublishedPrimeCountingBoundsAbove Y ∧
       HasDusartSymmetricThetaBoundsAbove Y ∧
@@ -455,17 +461,19 @@ eventual all-`k` assembly. -/
 theorem exists_mediumPNT_all_dusart_tail_inputs_of_finite_theta_error
     {A X : Real} (hX : (4e18 : Real) ≤ X)
     (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
-    (finiteThetaError : HasThetaLogFourthErrorBelow A X) :
+    (finiteThetaError : ∀ Y : Real, X ≤ Y →
+      HasThetaLogFourthErrorBelow A Y) :
     ∃ Y : Real, X ≤ Y ∧
       HasDusartPublishedPrimeCountingBoundsAbove Y ∧
       HasThetaLogFourthErrorAbove (648 / 1000 : Real) Y ∧
       (∀ x : Real, Y ≤ x →
         ∃ q : Nat, q.Prime ∧ x < q ∧
           (q : Real) ≤ x + x / (Real.log x) ^ 3) := by
-  have hcore : |primeCountingCore X| ≤
-      (3 / 5 : Real) * X / Real.log X ^ 4 :=
-    primeCountingCore_abs_le_at_large_cutoff_of_theta_error
-      hX hA0 hA1 finiteThetaError
+  have hcore : ∀ Y : Real, X ≤ Y →
+      |primeCountingCore Y| ≤ (3 / 5 : Real) * Y / Real.log Y ^ 4 := by
+    intro Y hXY
+    exact primeCountingCore_abs_le_at_large_cutoff_of_theta_error
+      (hX.trans hXY) hA0 hA1 (finiteThetaError Y hXY)
   exact exists_mediumPNT_all_dusart_tail_inputs hX (by norm_num) (by norm_num)
     hcore
 
@@ -476,17 +484,19 @@ source-level Abel estimate to the real-variable inequalities. -/
 theorem exists_mediumPNT_all_real_dusart_tail_inputs_of_finite_theta_error
     {A X : Real} (hX : (4e18 : Real) ≤ X)
     (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
-    (finiteThetaError : HasThetaLogFourthErrorBelow A X) :
+    (finiteThetaError : ∀ Y : Real, X ≤ Y →
+      HasThetaLogFourthErrorBelow A Y) :
     ∃ Y : Real, X ≤ Y ∧
       HasDusartRealPrimeCountingBoundsAbove Y ∧
       HasThetaLogFourthErrorAbove (648 / 1000 : Real) Y ∧
       (∀ x : Real, Y ≤ x →
         ∃ q : Nat, q.Prime ∧ x < q ∧
           (q : Real) ≤ x + x / (Real.log x) ^ 3) := by
-  have hcore : |primeCountingCore X| ≤
-      (3 / 5 : Real) * X / Real.log X ^ 4 :=
-    primeCountingCore_abs_le_at_large_cutoff_of_theta_error
-      hX hA0 hA1 finiteThetaError
+  have hcore : ∀ Y : Real, X ≤ Y →
+      |primeCountingCore Y| ≤ (3 / 5 : Real) * Y / Real.log Y ^ 4 := by
+    intro Y hXY
+    exact primeCountingCore_abs_le_at_large_cutoff_of_theta_error
+      (hX.trans hXY) hA0 hA1 (finiteThetaError Y hXY)
   obtain ⟨Y, hXY, _, htheta⟩ :=
     exists_hasThetaLogFourthError_of_mediumPNT_above X
   obtain ⟨Z, hYZ, hreal, hintervalZ⟩ :=
@@ -510,7 +520,8 @@ All unbounded estimates are transported to one common raised cutoff. -/
 theorem exists_mediumPNT_all_real_dusart_tail_inputs_with_theta_bounds
     {A X : Real} (hX : (4e18 : Real) ≤ X)
     (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
-    (finiteThetaError : HasThetaLogFourthErrorBelow A X) :
+    (finiteThetaError : ∀ Y : Real, X ≤ Y →
+      HasThetaLogFourthErrorBelow A Y) :
     ∃ Y : Real, X ≤ Y ∧
       HasDusartRealPrimeCountingBoundsAbove Y ∧
       HasDusartSymmetricThetaBoundsAbove Y ∧
