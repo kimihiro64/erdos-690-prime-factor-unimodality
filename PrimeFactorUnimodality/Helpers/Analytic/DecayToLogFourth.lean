@@ -58,7 +58,7 @@ theorem exists_hasPsiLogRpowDecay_of_isBigO
         mul_le_mul_of_nonneg_right hKC hg
       _ = C * x * Real.exp (-c * (Real.log x) ^ α) := by ring
 
-private theorem exists_logFourth_envelope_of_rpow_decay
+theorem exists_logFourth_envelope_of_rpow_decay
     {C c α : Real} (hC : 0 ≤ C) (hc : 0 < c) (hα : 0 < α) :
     ∃ T : Real, ∀ t : Real, T ≤ t →
       C * Real.exp (-c * t ^ α) ≤ 1 / t ^ (4 : ℕ) := by
@@ -152,6 +152,54 @@ theorem exists_hasPsiLogFourthError_of_logRpowDecay_unit
       (le_trans (le_max_left (Real.exp T) 2) hzmax))
   exact (hasPsiLogFourthError_of_logRpowDecay_of_envelope
     (C := C) (D := 1) hYpos hdecayY henvY) x hx
+
+/-! The same envelope conversion is needed when the analytic argument is
+stated directly for Chebyshev's theta function.  Keeping this bridge here
+means that a zero-free-region proof can expose a theta error estimate without
+passing through a pre-packaged Dusart theorem. -/
+def HasThetaLogRpowDecay (C c α X : Real) : Prop :=
+  ∀ x : Real, X ≤ x →
+    |Chebyshev.theta x - x| ≤
+      C * x * Real.exp (-c * (Real.log x) ^ α)
+
+theorem exists_hasThetaLogFourthError_of_logRpowDecay_unit
+    {C c α X : Real} (hC : 0 ≤ C) (hc : 0 < c) (hα : 0 < α)
+    (hdecay : HasThetaLogRpowDecay C c α X) :
+    ∃ Y : Real, X ≤ Y ∧ HasThetaLogFourthError 1 Y := by
+  obtain ⟨T, hT⟩ := exists_logFourth_envelope_of_rpow_decay hC hc hα
+  let Y : Real := max X (max (Real.exp T) 2)
+  refine ⟨Y, le_max_left _ _, ?_⟩
+  intro x hx
+  have hmax_le_x : max (Real.exp T) 2 ≤ x :=
+    le_trans (le_max_right X (max (Real.exp T) 2)) hx
+  have hx2 : (2 : Real) ≤ x :=
+    le_trans (le_max_right (Real.exp T) 2) hmax_le_x
+  have hx_pos : 0 < x := by linarith
+  have hYpos : 0 < Y := by
+    dsimp [Y]
+    positivity
+  have hdecayY : HasThetaLogRpowDecay C c α Y := by
+    intro z hz
+    exact hdecay z (le_trans (le_max_left X (max (Real.exp T) 2)) hz)
+  have henvY : ∀ z : Real, Y ≤ z →
+      C * Real.exp (-c * (Real.log z) ^ α) ≤
+        1 / (Real.log z) ^ (4 : ℕ) := by
+    intro z hz
+    have hz_pos : 0 < z := lt_of_lt_of_le hYpos hz
+    have hzmax : max (Real.exp T) 2 ≤ z :=
+      le_trans (le_max_right X (max (Real.exp T) 2)) hz
+    exact hT (Real.log z) ((Real.le_log_iff_exp_le hz_pos).2
+      (le_trans (le_max_left (Real.exp T) 2) hzmax))
+  have herror := hdecayY x hx
+  have henvelope := henvY x hx
+  have hx_pos' : 0 < x := lt_of_lt_of_le hYpos hx
+  calc
+    |Chebyshev.theta x - x| ≤
+        C * x * Real.exp (-c * (Real.log x) ^ α) := herror
+    _ = (C * Real.exp (-c * (Real.log x) ^ α)) * x := by ring
+    _ ≤ (1 / (Real.log x) ^ (4 : ℕ)) * x :=
+      mul_le_mul_of_nonneg_right henvelope hx_pos'.le
+    _ = 1 * x / (Real.log x) ^ 4 := by ring
 
 /-! Any strictly positive target coefficient can be reached by increasing the
 cutoff.  This is the quantitative form needed when an explicit PNT supplies
