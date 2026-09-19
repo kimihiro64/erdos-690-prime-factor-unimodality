@@ -231,6 +231,18 @@ def LogCubedPrimeRowsCoverUpTo (rows : List LogCubedPrimeRow) (X : Real) : Prop 
   ∀ x : Real, 89693 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+theorem logCubedPrimeRowsCoverUpTo_append
+    {m X : Real} {left right : List LogCubedPrimeRow}
+    (hleft : LogCubedPrimeRowsCoverUpTo left m)
+    (hright : LogCubedPrimeRowsCoverUpTo right X) :
+    LogCubedPrimeRowsCoverUpTo (left ++ right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+
 /-! A finite theta-error table has the same shape as the interval table, but
 the row carries the analytic inequality which its (small) rational
 certificate establishes.  Keeping this as a list-level interface is
@@ -332,6 +344,20 @@ def ThetaLogFourthEndpointRowsCoverFrom
     (x₀ X : Real) : Prop :=
   ∀ x : Real, x₀ ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem thetaLogFourthEndpointRowsCoverFrom_append
+    {A x₀ m X : Real}
+    {left right : List (ThetaLogFourthEndpointRow A)}
+    (hleft : ThetaLogFourthEndpointRowsCoverFrom left x₀ m)
+    (hright : ThetaLogFourthEndpointRowsCoverFrom right m X) :
+    ThetaLogFourthEndpointRowsCoverFrom (left ++ right) x₀ X := by
+  intro x hx₀ hxX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx₀ hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ :=
+      hright x (le_of_not_ge hxm) hxX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
 
 theorem thetaLogFourthEndpointRow_provides
     {A : Real} (hA0 : 0 ≤ A)
@@ -634,6 +660,18 @@ def DusartPrimeCountingEndpointRowsCoverFrom599
     (rows : List DusartPrimeCountingEndpointRow) (X : Real) : Prop :=
   ∀ x : Real, (599 : Real) ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem dusartPrimeCountingEndpointRowsCoverFrom599_append
+    {m X : Real} {left right : List DusartPrimeCountingEndpointRow}
+    (hleft : DusartPrimeCountingEndpointRowsCoverFrom599 left m)
+    (hright : DusartPrimeCountingEndpointRowsCoverFrom599 right X) :
+    DusartPrimeCountingEndpointRowsCoverFrom599 (left ++ right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
 
 theorem dusartPrimeCountingEndpointRow_provides
     (row : DusartPrimeCountingEndpointRow) {x : Real}
