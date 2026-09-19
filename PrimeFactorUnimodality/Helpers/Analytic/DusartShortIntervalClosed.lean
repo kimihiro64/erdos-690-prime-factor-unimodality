@@ -39,6 +39,25 @@ theorem wangCrapis_shortInterval_of_logCubedTail
   exact hasDusartShortIntervalPrime_of_below_and_logCubed
     wangCrapis_shortIntervalPrefix tail
 
+/-! Closed analytic tail adapter.  The remaining fixed-cutoff work is to
+construct its `HasThetaLogFourthError` input and the explicit endpoint
+coverage; this theorem records the exact conversion without importing
+Dusart's proposition. -/
+theorem wangCrapis_logCubedTail_of_thetaLogFourthError
+    {A X : Real} (hXpos : 0 < X) (h2X : 2 ≤ X)
+    (hlogX : (10 : Real) < Real.log X) (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    ∀ x : Real, X ≤ x →
+      ∃ q : Nat, q.Prime ∧ x < q ∧
+        (q : Real) ≤ x + x / (Real.log x) ^ 3 := by
+  intro x hx
+  obtain ⟨q, hq, hxq, hupper⟩ :=
+    dusartPrimeInInterval_of_logFourthError_from
+      hXpos h2X hlogX hA_nonneg hA thetaError x hx
+  refine ⟨q, hq, hxq, ?_⟩
+  convert hupper using 1 <;> ring
+
 end
 
 end PrimeFactorUnimodality
