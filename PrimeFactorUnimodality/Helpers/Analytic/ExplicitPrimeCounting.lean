@@ -1907,6 +1907,84 @@ theorem primeCountingCore_abs_le_of_integral_remainder {X R : Real}
       4000 + 720 * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) + R := by
   exact (primeCountingCore_abs_le_of_two_le hX).trans (by linarith)
 
+theorem small_integral_remainder_le_ten_mul
+    {x₀ : Real} (h2x₀ : (2 : Real) ≤ x₀) :
+    |∫ t in (2 : Real)..x₀,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)| ≤ 10 * x₀ := by
+  have htheta : IntervalIntegrable
+      (fun t : Real => Chebyshev.theta t /
+        (t * (Real.log t) ^ 2))
+      MeasureTheory.volume 2 x₀ := by
+    rw [intervalIntegrable_iff_integrableOn_Ioc_of_le h2x₀]
+    exact (Chebyshev.integrableOn_theta_div_id_mul_log_sq x₀).mono_set
+      (by intro t ht; exact ⟨by linarith [ht.1], ht.2⟩)
+  have hbase : IntervalIntegrable
+      (fun t : Real => 1 / (Real.log t) ^ 2)
+      MeasureTheory.volume 2 x₀ := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le h2x₀]
+    apply ContinuousOn.div continuousOn_const
+    · exact (Real.continuousOn_log.mono fun t ht =>
+        ne_of_gt (Real.log_pos (by linarith [ht.1]))).pow _
+    · intro t ht
+      exact pow_ne_zero _
+        (ne_of_gt (Real.log_pos (by linarith [ht.1])))
+  let r : Real → Real := fun t =>
+    Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+      1 / (Real.log t) ^ 2
+  have hr : IntervalIntegrable r MeasureTheory.volume 2 x₀ := by
+    simpa [r] using htheta.sub hbase
+  have hbound : ∀ t ∈ Set.Icc (2 : Real) x₀, |r t| ≤ 10 := by
+    intro t ht
+    have htpos : 0 < t := by linarith [ht.1]
+    have hlogpos : 0 < Real.log t := Real.log_pos (by linarith [ht.1])
+    have hlog2 : (69 : Real) / 100 ≤ Real.log 2 := by
+      exact (by norm_num : (69 : Real) / 100 < 0.6931471803).le.trans
+        Real.log_two_gt_d9.le
+    have hlogmono : Real.log 2 ≤ Real.log t :=
+      Real.log_le_log (by norm_num) ht.1
+    have hloglower : (69 : Real) / 100 ≤ Real.log t := hlog2.trans hlogmono
+    have hlog4 : Real.log 4 ≤ 2 := by
+      rw [show (4 : Real) = 2 ^ (2 : Nat) by norm_num, Real.log_pow]
+      nlinarith [Real.log_two_lt_d9]
+    have hlogsq : (0 : Real) < (Real.log t) ^ 2 := sq_pos_of_pos hlogpos
+    have hsquare : ((69 : Real) / 100) ^ 2 ≤ (Real.log t) ^ 2 :=
+      mul_self_le_mul_self (by norm_num) hloglower
+    have hinv : 1 / (Real.log t) ^ 2 ≤ 3 := by
+      apply (div_le_iff₀ hlogsq).2
+      nlinarith [hsquare]
+    have htheta_upper := Chebyshev.theta_le_log4_mul_x (by linarith : 0 ≤ t)
+    have hterm : 0 ≤ Chebyshev.theta t /
+        (t * (Real.log t) ^ 2) := by positivity
+    have hterm_upper : Chebyshev.theta t /
+        (t * (Real.log t) ^ 2) ≤ 6 := by
+      apply (div_le_iff₀ (mul_pos htpos hlogsq)).2
+      have hcoef : Real.log 4 ≤ 6 * (Real.log t) ^ 2 := by
+        nlinarith [hsquare, hlog4]
+      have hscaled := mul_le_mul_of_nonneg_right hcoef
+        (by linarith : (0 : Real) ≤ t)
+      nlinarith [htheta_upper, hscaled]
+    rw [show r t = Chebyshev.theta t /
+      (t * (Real.log t) ^ 2) - 1 / (Real.log t) ^ 2 by rfl]
+    have habs := abs_sub_le
+      (Chebyshev.theta t / (t * (Real.log t) ^ 2))
+      (1 / (Real.log t) ^ 2)
+    rw [abs_of_nonneg hterm, abs_of_nonneg (by positivity)] at habs
+    exact habs.trans (by linarith)
+  have hconst : IntervalIntegrable (fun _ : Real => (10 : Real))
+      MeasureTheory.volume 2 x₀ := intervalIntegrable_const
+  have hmono := intervalIntegral.integral_mono_on
+    h2x₀ hr.norm hconst hbound
+  have hnorm := intervalIntegral.norm_integral_le_integral_norm
+    (μ := MeasureTheory.volume) (f := r) h2x₀
+  calc
+    |∫ t in (2 : Real)..x₀, r t| ≤
+        ∫ t in (2 : Real)..x₀, |r t| := hnorm
+    _ ≤ ∫ t in (2 : Real)..x₀, (10 : Real) := hmono
+    _ = 10 * (x₀ - 2) := by rw [intervalIntegral.integral_const]; ring
+    _ ≤ 10 * x₀ := by nlinarith
+
 theorem integral_remainder_abs_le_of_split_theta_error
     {A X x₀ R : Real} (h2x₀ : (2 : Real) ≤ x₀) (hx₀X : x₀ ≤ X)
     (hsmall : |∫ t in (2 : Real)..x₀,
