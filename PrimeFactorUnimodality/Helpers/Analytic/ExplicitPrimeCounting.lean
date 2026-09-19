@@ -2008,6 +2008,22 @@ theorem integral_remainder_abs_le_of_split_theta_error
   rw [← hadd]
   exact (abs_add_le _ _).trans (add_le_add hsmall' htail)
 
+theorem primeCountingCore_abs_le_of_split_theta_error
+    {A X x₀ R : Real} (h2x₀ : (2 : Real) ≤ x₀) (hx₀X : x₀ ≤ X)
+    (hsmall : |∫ t in (2 : Real)..x₀,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)| ≤ R)
+    (hA : 0 ≤ A)
+    (error : HasThetaLogFourthErrorAbove A x₀) :
+    |primeCountingCore X| ≤
+      4000 + 720 * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) +
+        R + A * (∫ t in x₀..X, 1 / Real.log t ^ 6) := by
+  have hrem := integral_remainder_abs_le_of_split_theta_error
+    h2x₀ hx₀X hsmall hA error
+  have hcore := primeCountingCore_abs_le_of_integral_remainder
+    (h2x₀.trans hx₀X) hrem
+  linarith
+
 theorem primeCountingCore_abs_le_of_finite_theta_error
     {A X : Real} (hX : (2 : Real) ≤ X) (hA : 0 ≤ A)
     (error : HasThetaLogFourthErrorBelow A X) :
