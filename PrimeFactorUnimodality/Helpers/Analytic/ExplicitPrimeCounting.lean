@@ -358,7 +358,11 @@ structure DusartPrimeCountingUpperIntegerIntervalRow where
   left right : Nat
   left_large : 10 ≤ left
   left_le_right : left ≤ right
-  upper_endpoint : (Nat.primeCounting right : Real) ≤ dusartPiUpper left
+  logUpper : Real
+  logUpper_pos : 0 < logUpper
+  log_bound : Real.log left ≤ logUpper
+  numerical : (Nat.primeCounting right : Real) ≤
+    (left : Real) / logUpper + (6381 / 5000 : Real) * left / logUpper ^ 2
 
 def DusartPrimeCountingUpperIntegerIntervalRowsCover
     (rows : List DusartPrimeCountingUpperIntegerIntervalRow) : Prop :=
@@ -375,10 +379,43 @@ theorem dusartPrimeCounting_upper_of_integer_interval_rows
   have hpi : (Nat.primeCounting n : Real) ≤
       (Nat.primeCounting row.right : Real) := by
     exact_mod_cast Nat.monotone_primeCounting hright
+  have hleft_pos : (0 : Real) < row.left := by
+    exact_mod_cast (show 0 < row.left by omega)
+  have hlog_pos : 0 < Real.log row.left :=
+    Real.log_pos (by exact_mod_cast (show 1 < row.left by omega))
+  have hfirst : (row.left : Real) / row.logUpper ≤
+      (row.left : Real) / Real.log row.left := by
+    apply (div_le_div_iff₀ row.logUpper_pos hlog_pos).2
+    exact mul_le_mul_of_nonneg_left row.log_bound hleft_pos.le
+  have hlogsq : (Real.log row.left) ^ 2 ≤ row.logUpper ^ 2 := by
+    nlinarith [sq_nonneg (row.logUpper - Real.log row.left), row.log_bound]
+  have hsecond : (6381 / 5000 : Real) * (row.left : Real) /
+      row.logUpper ^ 2 ≤ (6381 / 5000 : Real) * (row.left : Real) /
+        (Real.log row.left) ^ 2 := by
+    apply (div_le_div_iff₀ (sq_pos_of_pos row.logUpper_pos)
+      (sq_pos_of_pos hlog_pos)).2
+    have hcross : (row.left : Real) * (Real.log row.left) ^ 2 ≤
+        (row.left : Real) * row.logUpper ^ 2 :=
+      mul_le_mul_of_nonneg_left hlogsq hleft_pos.le
+    exact mul_le_mul_of_nonneg_left hcross
+      (by norm_num : (0 : Real) ≤ 6381 / 5000)
+  have hbound : (Nat.primeCounting row.right : Real) ≤
+      dusartPiUpper row.left := by
+    calc
+      (Nat.primeCounting row.right : Real) ≤
+          (row.left : Real) / row.logUpper +
+            (6381 / 5000 : Real) * row.left / row.logUpper ^ 2 :=
+        row.numerical
+      _ ≤ (row.left : Real) / Real.log row.left +
+          (6381 / 5000 : Real) * row.left /
+            (Real.log row.left) ^ 2 := add_le_add hfirst hsecond
+      _ = dusartPiUpper row.left := by
+        dsimp [dusartPiUpper]
+        ring
   have hupper : dusartPiUpper row.left ≤ dusartPiUpper n :=
     dusartPiUpper_monotoneOn (by exact_mod_cast row.left_large)
       (by exact_mod_cast hn10) (by exact_mod_cast hleft)
-  exact hpi.trans (row.upper_endpoint.trans hupper)
+  exact hpi.trans (hbound.trans hupper)
 
 theorem real_primeCounting_upper_of_integer_interval_rows
     {rows : List DusartPrimeCountingUpperIntegerIntervalRow}
