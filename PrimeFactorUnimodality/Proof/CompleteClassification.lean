@@ -384,6 +384,32 @@ theorem completeClassification_of_split_theta_error_and_integral_core
     hX finitePrimeCounting finiteTheta finiteShortInterval hA0 hA1
     hC0 hC hcore thetaError
 
+/-! A reserve form of the split assembly.  This keeps the finite Abel prefix
+separate from the analytic tail: a proved numerical reserve can pay for the
+prefix remainder without introducing a new bundled core hypothesis. -/
+theorem completeClassification_of_split_theta_error_and_reserved_integral_core
+    {A C X x₀ R : Real} (hX : (4e18 : Real) ≤ X)
+    (h2x₀ : (2 : Real) ≤ x₀) (hx₀X : x₀ ≤ X)
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow X)
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow X)
+    (finiteShortInterval : HasLogCubedShortIntervalPrimeBelow X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hsmall : |∫ t in (2 : Real)..x₀,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)| ≤ R)
+    (hR : R ≤ 10000)
+    (thetaErrorAbove : HasThetaLogFourthErrorAbove A x₀)
+    (reservedIntegralCore :
+      4000 + 720 * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) +
+          10000 + A * (∫ t in x₀..X, 1 / Real.log t ^ 6) ≤
+        C * X / Real.log X ^ 4) :
+    CompleteClassification := by
+  apply completeClassification_of_split_theta_error_and_integral_core
+    hX h2x₀ hx₀X finitePrimeCounting finiteTheta finiteShortInterval
+    hA0 hA1 hC0 hC hsmall thetaErrorAbove
+  nlinarith
+
 private theorem completeClassification_of_theta_error_rows_and_integral_core
     {A C X : Real} (hX : (4e18 : Real) ≤ X)
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow X)
@@ -1067,7 +1093,7 @@ structure Dusart599SplitFiniteCertificate (A C : Real) : Prop where
   hC : C ≤ 3 / 5
   integralCoreBound :
     4000 + 720 * (∫ t in (2 : Real)..(4e18 : Real),
-        1 / Real.log t ^ 7) + 10 * (599 : Real) +
+        1 / Real.log t ^ 7) + 10000 +
         A * (∫ t in (599 : Real)..(4e18 : Real),
           1 / Real.log t ^ 6) ≤
       C * (4e18 : Real) / Real.log (4e18 : Real) ^ 4
@@ -1076,24 +1102,34 @@ theorem completeClassification_of_dusart_599_split_finite_certificate
     {A C : Real}
     (certificate : Dusart599SplitFiniteCertificate A C) :
     CompleteClassification := by
-  apply completeClassification_of_dusart_split_finite_certificate
+  have finitePrimeCounting :
+      HasDusartRealPrimeCountingBoundsBelow (4e18 : Real) :=
+    hasDusartRealPrimeCountingBoundsBelow_of_endpoint_rows
+      certificate.primeCountingCover dusartSmallUpperIntervalRows_provide
+  have finiteTheta :
+      HasDusartSymmetricThetaBoundsBelow (4e18 : Real) :=
+    hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
+      certificate.thetaCover
+  have finiteShortInterval :
+      HasLogCubedShortIntervalPrimeBelow (4e18 : Real) :=
+    hasLogCubedShortIntervalPrimeBelow_of_rows certificate.logCover
+  have thetaErrorAbove : HasThetaLogFourthErrorAbove A (599 : Real) :=
+    hasThetaLogFourthErrorAbove_of_endpoint_rows_from_and_tail
+      certificate.hA0 certificate.thetaErrorCover certificate.thetaTail
+  apply completeClassification_of_split_theta_error_and_reserved_integral_core
     (x₀ := (599 : Real)) (R := 10 * (599 : Real))
-  · exact certificate.primeCountingRows
-  · exact certificate.primeCountingCover
-  · exact certificate.thetaRows
-  · exact certificate.thetaCover
-  · exact certificate.logRows
-  · exact certificate.logCover
-  · exact certificate.thetaErrorRows
-  · exact certificate.thetaErrorCover
-  · exact certificate.thetaTail
   · norm_num
   · norm_num
-  · exact small_integral_remainder_le_5990
+  · exact finitePrimeCounting
+  · exact finiteTheta
+  · exact finiteShortInterval
   · exact certificate.hA0
   · exact certificate.hA1
   · exact certificate.hC0
   · exact certificate.hC
+  · exact small_integral_remainder_le_5990
+  · norm_num
+  · exact thetaErrorAbove
   · exact certificate.integralCoreBound
 
 theorem completeClassification_of_full_record_finite_published_asymptotic_inputs
