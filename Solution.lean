@@ -30,32 +30,6 @@ theorem PrimeFactorUnimodality.completeClassification_of_wangCrapis_paper_inputs
   exact PrimeFactorUnimodality.completeClassification_of_wangCrapis_paper_inputs
     inputs
 
-/-! The source-level all-`k` theorem can also be driven by the four finite
-row providers used by the explicit proof. -/
-theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_row_provider
-    (provider : PrimeFactorUnimodality.MediumPNTFiniteRowProvider) :
-    PrimeFactorUnimodality.CompleteClassification := by
-  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_bundled_row_provider
-    provider
-
-theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_split_row_provider
-    (provider : PrimeFactorUnimodality.MediumPNTFiniteSplitRowProvider) :
-    PrimeFactorUnimodality.CompleteClassification := by
-  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_split_row_provider
-    provider
-
-theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_integer_split_row_provider
-    (provider : PrimeFactorUnimodality.MediumPNTFiniteIntegerSplitRowProvider) :
-    PrimeFactorUnimodality.CompleteClassification := by
-  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_split_row_provider
-    provider
-
-theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_integer_interval_split_row_provider
-    (provider : PrimeFactorUnimodality.MediumPNTFiniteIntegerIntervalSplitRowProvider) :
-    PrimeFactorUnimodality.CompleteClassification := by
-  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_interval_split_row_provider
-    provider
-
 /-! Public boundary for a source-level MediumPNT proof: only finite analytic
 facts at the cutoff selected by that proof remain to be supplied. -/
 theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_inputs
