@@ -250,7 +250,7 @@ theorem exists_mediumPNT_dusart_tail_inputs
   obtain ⟨Y, hXY, hpublished⟩ :=
     exists_hasDusartPublishedPrimeCountingBoundsAbove_of_mediumPNT_and_core
       hX hC0 hC hcore
-  obtain ⟨Z, hYZ, h4Z, htheta⟩ :=
+  obtain ⟨Z, hYZ, _, htheta⟩ :=
     exists_hasThetaLogFourthError_of_mediumPNT_above Y
   have hZpos : 0 < Z := by linarith [hX]
   have hlogZ : (10 : Real) < Real.log Z := by
@@ -296,6 +296,33 @@ theorem exists_mediumPNT_real_dusart_tail_inputs
     exact hprime.1 x (hYZ.trans hx)
   · intro x hx
     exact hprime.2 x (hYZ.trans hx)
+
+/-! Complete source-level tail package.  This is the exact analytic shape
+needed to glue finite cutoff tables to the unbounded all-`k` argument; it
+contains no finite computation and imports no Dusart proposition. -/
+theorem exists_mediumPNT_all_dusart_tail_inputs
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4) :
+    ∃ Y : Real, X ≤ Y ∧
+      HasDusartPublishedPrimeCountingBoundsAbove Y ∧
+      HasThetaLogFourthErrorAbove (648 / 1000 : Real) Y ∧
+      (∀ x : Real, Y ≤ x →
+        ∃ q : Nat, q.Prime ∧ x < q ∧
+          (q : Real) ≤ x + x / (Real.log x) ^ 3) := by
+  obtain ⟨Y, hXY, hpublished, hinterval⟩ :=
+    exists_mediumPNT_real_dusart_tail_inputs hX hC0 hC hcore
+  obtain ⟨Z, hYZ, h4Z, htheta⟩ :=
+    exists_hasThetaLogFourthError_of_mediumPNT_above Y
+  refine ⟨Z, hXY.trans hYZ, ?_, htheta, ?_⟩
+  · constructor
+    · intro x hx
+      exact hpublished.1 x (hYZ.trans hx)
+    · intro x hx
+      exact hpublished.2 x (hYZ.trans hx)
+  · intro x hx
+    obtain ⟨q, hq, hxq, hupper⟩ := hinterval x (hYZ.trans hx)
+    exact ⟨q, hq, hxq, hupper⟩
 
 end
 end PrimeFactorUnimodality
