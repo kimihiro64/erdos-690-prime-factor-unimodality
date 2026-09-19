@@ -260,4 +260,64 @@ theorem dusartSmallUpperIntervalRow199_210 :
   · rw [hcount]
     norm_num
 
+theorem dusartSmallUpperIntervalRow211_226 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  have hcount : Nat.primeCounting 226 = 48 := by decide
+  apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
+    (left := 211) (right := 226) (a := 0) (b := 2) (c := 2)
+  · norm_num
+  · norm_num
+  · norm_num
+  · norm_num
+  · rw [hcount]
+    norm_num
+
+theorem dusartSmallUpperIntervalRow227_238 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  have hcount : Nat.primeCounting 238 = 51 := by decide
+  apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
+    (left := 227) (right := 238) (a := 4) (b := 1) (c := 1)
+  · norm_num
+  · norm_num
+  · norm_num
+  · norm_num
+  · rw [hcount]
+    norm_num
+
+theorem dusartSmallUpperIntervalRow239_250 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  have hcount : Nat.primeCounting 250 = 53 := by decide
+  apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
+    (left := 239) (right := 250) (a := 1) (b := 0) (c := 3)
+  · norm_num
+  · norm_num
+  · norm_num
+  · norm_num
+  · rw [hcount]
+    norm_num
+
+theorem dusartSmallUpperIntervalRow251_262 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  have hcount : Nat.primeCounting 262 = 55 := by decide
+  apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
+    (left := 251) (right := 262) (a := 1) (b := 3) (c := 1)
+  · norm_num
+  · norm_num
+  · norm_num
+  · norm_num
+  · rw [hcount]
+    norm_num
+
+theorem dusartSmallUpperIntervalRow263_271 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  have hcount : Nat.primeCounting 271 = 57 := by decide
+  apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
+    (left := 263) (right := 271) (a := 1) (b := 3) (c := 1)
+  · norm_num
+  · norm_num
+  · norm_num
+  · norm_num
+  · rw [hcount]
+    norm_num
+
 end PrimeFactorUnimodality
