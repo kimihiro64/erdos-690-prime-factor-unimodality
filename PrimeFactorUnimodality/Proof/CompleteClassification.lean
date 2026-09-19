@@ -1177,6 +1177,57 @@ theorem completeClassification_of_dusart_599_finite_certificate
     (explicit_reserved_integral_core_at_599 (by norm_num)
       certificate.hA0 certificate.hA1)
 
+/-! The same fixed-cutoff certificate with indexed finite families.  This is
+the compact representation intended for large computational tables: the
+kernel checks one finite index type and one coverage theorem per estimate. -/
+structure Dusart599IndexedFiniteCertificate : Prop where
+  primeCountingRows :
+    ∃ n : Nat, ∃ rows : Fin n → DusartPrimeCountingEndpointRow,
+      DusartPrimeCountingEndpointIndexedCoverFrom599 rows (4e18 : Real)
+  thetaRows :
+    ∃ n : Nat, ∃ rows : Fin n → DusartThetaEndpointRow,
+      DusartThetaEndpointIndexedCoverUpTo rows (4e18 : Real)
+  logRows :
+    ∃ n : Nat, ∃ rows : Fin n → LogCubedPrimeRow,
+      LogCubedPrimeIndexedCoverUpTo rows (4e18 : Real)
+  thetaErrorRows :
+    ∃ n : Nat, ∃ rows : Fin n → ThetaLogFourthEndpointRow (648 / 1000 : Real),
+      ThetaLogFourthEndpointIndexedCoverFrom rows 599 (4e18 : Real)
+  thetaTail : HasThetaLogFourthErrorAbove (648 / 1000 : Real) (4e18 : Real)
+
+theorem completeClassification_of_dusart_599_indexed_finite_certificate
+    (certificate : Dusart599IndexedFiniteCertificate) :
+    CompleteClassification := by
+  obtain ⟨nPrime, primeRows, primeCover⟩ := certificate.primeCountingRows
+  obtain ⟨nTheta, thetaRows, thetaCover⟩ := certificate.thetaRows
+  obtain ⟨nLog, logRows, logCover⟩ := certificate.logRows
+  obtain ⟨nError, errorRows, errorCover⟩ := certificate.thetaErrorRows
+  have finitePrimeCounting :
+    HasDusartRealPrimeCountingBoundsBelow (4e18 : Real) :=
+    hasDusartRealPrimeCountingBoundsBelow_of_indexed_endpoint_rows
+      primeCover
+      dusartSmallUpperIntervalRows_provide
+  have finiteTheta :
+    HasDusartSymmetricThetaBoundsBelow (4e18 : Real) :=
+    hasDusartSymmetricThetaBoundsBelow_of_indexed_endpoint_rows
+      thetaCover
+  have finiteShortInterval :
+    HasLogCubedShortIntervalPrimeBelow (4e18 : Real) :=
+    hasLogCubedShortIntervalPrimeBelow_of_indexed_rows
+      logCover
+  have thetaErrorAbove :
+    HasThetaLogFourthErrorAbove (648 / 1000 : Real) (599 : Real) :=
+    hasThetaLogFourthErrorAbove_of_indexed_endpoint_rows_from_and_tail
+      (by norm_num) errorCover
+      certificate.thetaTail
+  exact completeClassification_of_split_theta_error_and_reserved_integral_core
+    (by norm_num) (by norm_num) (by norm_num) finitePrimeCounting
+    finiteTheta finiteShortInterval (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) small_integral_remainder_le_5990
+    (by norm_num) thetaErrorAbove
+    (explicit_reserved_integral_core_at_599 (by norm_num)
+      (by norm_num) (by norm_num))
+
 theorem completeClassification_of_full_record_finite_published_asymptotic_inputs
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
     (finitePublished : HasDusartPublishedPrimeCountingBoundsBelow (4e9 : Real))

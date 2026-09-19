@@ -69,6 +69,12 @@ theorem PrimeFactorUnimodality.completeClassification_of_dusart_599_finite_certi
   exact PrimeFactorUnimodality.completeClassification_of_dusart_599_finite_certificate
     certificate
 
+theorem PrimeFactorUnimodality.completeClassification_of_dusart_599_indexed_finite_certificate
+    (certificate : PrimeFactorUnimodality.Dusart599IndexedFiniteCertificate) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_dusart_599_indexed_finite_certificate
+    certificate
+
 theorem PrimeFactorUnimodality.completeClassification_of_split_theta_error_and_reserved_integral_core
     {A C X x₀ R : Real} (hX : (4e18 : Real) ≤ X)
     (h2x₀ : (2 : Real) ≤ x₀) (hx₀X : x₀ ≤ X)
