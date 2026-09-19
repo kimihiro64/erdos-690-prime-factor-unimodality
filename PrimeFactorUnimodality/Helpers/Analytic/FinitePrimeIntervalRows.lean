@@ -455,6 +455,21 @@ theorem thetaLogFourthEndpointIndexedCover_of_list
   exact indexed_interval_cover_of_list_cover rows
     (fun row => row.left) (fun row => row.right) cover
 
+theorem thetaLogFourthEndpointIndexedCoverFrom_append
+    {A m x₀ X : Real} {n₁ n₂ : Nat}
+    {left : Fin n₁ → ThetaLogFourthEndpointRow A}
+    {right : Fin n₂ → ThetaLogFourthEndpointRow A}
+    (hleft : ThetaLogFourthEndpointIndexedCoverFrom left x₀ m)
+    (hright : ThetaLogFourthEndpointIndexedCoverFrom right x₀ X) :
+    ThetaLogFourthEndpointIndexedCoverFrom
+      (Fin.append left right) x₀ X := by
+  intro x hx hX
+  exact indexed_interval_cover_append left right
+    (fun row => row.left) (fun row => row.right)
+    (fun y hy _ hym => hleft y hy hym)
+    (fun y hy _ hym hyX => hright y hy hyX)
+    x hx trivial hX
+
 theorem hasThetaLogFourthErrorAbove_of_indexed_endpoint_rows_from_and_tail
     {n : Nat} {A x₀ X : Real}
     (hA0 : 0 ≤ A)
@@ -655,6 +670,20 @@ theorem dusartThetaEndpointIndexedCover_of_list
   exact indexed_interval_cover_of_list_cover rows
     (fun row => row.left) (fun row => row.right) cover
 
+theorem dusartThetaEndpointIndexedCoverUpTo_append
+    {m X : Real} {n₁ n₂ : Nat}
+    {left : Fin n₁ → DusartThetaEndpointRow}
+    {right : Fin n₂ → DusartThetaEndpointRow}
+    (hleft : DusartThetaEndpointIndexedCoverUpTo left m)
+    (hright : DusartThetaEndpointIndexedCoverUpTo right X) :
+    DusartThetaEndpointIndexedCoverUpTo (Fin.append left right) X := by
+  intro x hx hX
+  exact indexed_interval_cover_append left right
+    (fun row => row.left) (fun row => row.right)
+    (fun y hy _ hym => hleft y hy hym)
+    (fun y hy _ hym hyX => hright y hy hyX)
+    x hx trivial hX
+
 theorem hasDusartSymmetricThetaBoundsBelow_of_indexed_endpoint_rows
     {n : Nat} {X : Real}
     {rows : Fin n → DusartThetaEndpointRow}
@@ -840,6 +869,21 @@ theorem dusartPrimeCountingEndpointIndexedCover_of_list
       (fun i : Fin rows.length => rows.get i) X := by
   exact indexed_interval_cover_of_list_cover rows
     (fun row => row.left) (fun row => row.right) cover
+
+theorem dusartPrimeCountingEndpointIndexedCoverFrom599_append
+    {m X : Real} {n₁ n₂ : Nat}
+    {left : Fin n₁ → DusartPrimeCountingEndpointRow}
+    {right : Fin n₂ → DusartPrimeCountingEndpointRow}
+    (hleft : DusartPrimeCountingEndpointIndexedCoverFrom599 left m)
+    (hright : DusartPrimeCountingEndpointIndexedCoverFrom599 right X) :
+    DusartPrimeCountingEndpointIndexedCoverFrom599
+      (Fin.append left right) X := by
+  intro x hx hX
+  exact indexed_interval_cover_append left right
+    (fun row => row.left) (fun row => row.right)
+    (fun y hy _ hym => hleft y hy hym)
+    (fun y hy _ hym hyX => hright y hy hyX)
+    x hx trivial hX
 
 theorem hasDusartRealPrimeCountingBoundsBelow_of_indexed_endpoint_rows
     {n : Nat} {X : Real}
