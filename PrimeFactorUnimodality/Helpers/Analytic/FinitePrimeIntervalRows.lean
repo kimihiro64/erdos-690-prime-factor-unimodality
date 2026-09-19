@@ -17,6 +17,20 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 
+theorem indexed_interval_cover_of_list_cover
+    {α : Type} (rows : List α) (left right : α → Nat)
+    {P Q : Real → Prop}
+    (cover : ∀ x : Real, P x → Q x →
+      ∃ row ∈ rows, (left row : Real) ≤ x ∧ x ≤ right row) :
+    ∀ x : Real, P x → Q x →
+      ∃ i : Fin rows.length,
+        (left (rows.get i) : Real) ≤ x ∧ x ≤ right (rows.get i) := by
+  intro x hP hQ
+  obtain ⟨row, hrow, hleft, hright⟩ := cover x hP hQ
+  obtain ⟨i, hi, hget⟩ := List.getElem_of_mem hrow
+  refine ⟨⟨i, hi⟩, ?_⟩
+  simpa [List.get_eq_getElem, hget] using And.intro hleft hright
+
 def logCubedUpper (x : Real) : Real :=
   x + x / (Real.log x) ^ 3
 
@@ -236,6 +250,14 @@ def LogCubedPrimeIndexedCoverUpTo {n : Nat}
   ∀ x : Real, 89693 ≤ x → x ≤ X →
     ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
 
+theorem logCubedPrimeIndexedCover_of_list
+    {X : Real} {rows : List LogCubedPrimeRow}
+    (cover : LogCubedPrimeRowsCoverUpTo rows X) :
+    LogCubedPrimeIndexedCoverUpTo
+      (fun i : Fin rows.length => rows.get i) X := by
+  exact indexed_interval_cover_of_list_cover rows
+    (fun row => row.left) (fun row => row.right) cover
+
 theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_rows
     {n : Nat} {X : Real} {rows : Fin n → LogCubedPrimeRow}
     (cover : LogCubedPrimeIndexedCoverUpTo rows X) :
@@ -380,6 +402,14 @@ def ThetaLogFourthEndpointIndexedCoverFrom {n : Nat} {A : Real}
     (x₀ X : Real) : Prop :=
   ∀ x : Real, x₀ ≤ x → x ≤ X →
     ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+
+theorem thetaLogFourthEndpointIndexedCover_of_list
+    {A x₀ X : Real} {rows : List (ThetaLogFourthEndpointRow A)}
+    (cover : ThetaLogFourthEndpointRowsCoverFrom rows x₀ X) :
+    ThetaLogFourthEndpointIndexedCoverFrom
+      (fun i : Fin rows.length => rows.get i) x₀ X := by
+  exact indexed_interval_cover_of_list_cover rows
+    (fun row => row.left) (fun row => row.right) cover
 
 theorem hasThetaLogFourthErrorAbove_of_indexed_endpoint_rows_from_and_tail
     {n : Nat} {A x₀ X : Real}
@@ -573,6 +603,14 @@ def DusartThetaEndpointIndexedCoverUpTo {n : Nat}
   ∀ x : Real, 2 ≤ x → x ≤ X →
     ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
 
+theorem dusartThetaEndpointIndexedCover_of_list
+    {X : Real} {rows : List DusartThetaEndpointRow}
+    (cover : DusartThetaEndpointRowsCoverUpTo rows X) :
+    DusartThetaEndpointIndexedCoverUpTo
+      (fun i : Fin rows.length => rows.get i) X := by
+  exact indexed_interval_cover_of_list_cover rows
+    (fun row => row.left) (fun row => row.right) cover
+
 theorem hasDusartSymmetricThetaBoundsBelow_of_indexed_endpoint_rows
     {n : Nat} {X : Real}
     {rows : Fin n → DusartThetaEndpointRow}
@@ -750,6 +788,14 @@ def DusartPrimeCountingEndpointIndexedCoverFrom599 {n : Nat}
     (rows : Fin n → DusartPrimeCountingEndpointRow) (X : Real) : Prop :=
   ∀ x : Real, (599 : Real) ≤ x → x ≤ X →
     ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+
+theorem dusartPrimeCountingEndpointIndexedCover_of_list
+    {X : Real} {rows : List DusartPrimeCountingEndpointRow}
+    (cover : DusartPrimeCountingEndpointRowsCoverFrom599 rows X) :
+    DusartPrimeCountingEndpointIndexedCoverFrom599
+      (fun i : Fin rows.length => rows.get i) X := by
+  exact indexed_interval_cover_of_list_cover rows
+    (fun row => row.left) (fun row => row.right) cover
 
 theorem hasDusartRealPrimeCountingBoundsBelow_of_indexed_endpoint_rows
     {n : Nat} {X : Real}
