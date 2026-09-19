@@ -1,6 +1,7 @@
 import PrimeNumberTheoremAnd.MediumPNT
 import PrimeFactorUnimodality.Helpers.Analytic.DecayToLogFourth
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitPrimeCounting
+import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
 
 set_option autoImplicit false
 
@@ -30,7 +31,7 @@ theorem hasPsiLogRpowBigO_of_mediumPNT :
   have hx2 : (2 : Real) ≤ x := le_trans (le_max_right T 2) hx
   have hx0 : 0 ≤ x := by linarith
   have hsource := hT x hxT
-  simpa [Real.norm_eq_abs, Function.id_def, norm_sub, norm_mul,
+  simpa [Real.norm_eq_abs, Function.id_def, norm_mul,
     Real.norm_of_nonneg hx0, abs_of_nonneg (Real.exp_pos _).le] using hsource
 
 /-! Keep the source theorem available in the quantitative decay interface as
@@ -47,9 +48,9 @@ theorem exists_hasPsiLogRpowDecay_of_mediumPNT :
 
 theorem exists_hasPsiLogFourthError_of_mediumPNT :
     ∃ Y : Real, HasPsiLogFourthError (1 / 2) Y := by
-  obtain ⟨c, _, hbigO⟩ := hasPsiLogRpowBigO_of_mediumPNT
+  obtain ⟨c, hc, hbigO⟩ := hasPsiLogRpowBigO_of_mediumPNT
   exact exists_hasPsiLogFourthError_of_logRpowBigO_of_pos_coefficient
-    (D := (1 : Real) / 2) (by norm_num) hbigO
+    (D := (1 : Real) / 2) (by norm_num) hc (by norm_num) hbigO
 
 /-! The cutoff can be raised past any externally chosen analytic threshold.
 Keeping this general avoids baking the paper's numerical cutoff into the
@@ -72,8 +73,9 @@ theorem exists_hasThetaLogFourthError_of_mediumPNT_above (X₀ : Real) :
     exists_hasPsiLogFourthError_of_mediumPNT_above (max X₀ (4e18 : Real))
   have hX₀Y : X₀ ≤ Y := (le_max_left _ _).trans hY
   have h4Y : (4e18 : Real) ≤ Y := (le_max_right _ _).trans hY
-  exact ⟨Y, hX₀Y, h4Y,
-    hasThetaLogFourthError_of_psiLogFourthError_sharp h4Y hpsi⟩
+  refine ⟨Y, hX₀Y, h4Y, ?_⟩
+  convert hasThetaLogFourthError_of_psiLogFourthError_sharp h4Y hpsi using 1
+  norm_num
 
 /-! The same result in the explicit tail-interface type consumed by the
 all-`k` cutoff assembly.  The two predicates have the same pointwise
@@ -199,11 +201,11 @@ theorem hasLogCubedShortIntervalPrime_of_finite_and_mediumPNT
     exists_dusartPrimeInInterval_of_mediumPNT X₀
   have finiteX : HasLogCubedShortIntervalPrimeBelow X :=
     finite X hX₀X
-  exact hasLogCubedShortIntervalPrime_of_below_and_above hX₀
+  exact hasLogCubedShortIntervalPrime_of_below_and_above (hX₀.trans hX₀X)
     finiteX (fun x hx => by
       obtain ⟨q, hq, hxq, hupper⟩ := tail x hx
       refine ⟨q, hq, hxq, ?_⟩
-      simpa [mul_add, mul_one] using hupper)
+      convert hupper using 1 <;> ring)
 
 /-! If the source theorem supplies an explicit upper bound for its eventual
 cutoff, one finite table at that upper bound is enough.  This is the form
@@ -219,10 +221,9 @@ theorem hasLogCubedShortIntervalPrime_of_finite_and_bounded_mediumPNT
           (q : Real) ≤ x + x / (Real.log x) ^ 3)) :
     HasLogCubedShortIntervalPrime := by
   obtain ⟨X, hX₀X, hXB', htail⟩ := tail
-  apply hasLogCubedShortIntervalPrime_of_below_and_above hX₀
-    finite
+  apply hasLogCubedShortIntervalPrime_of_below_and_above (hX₀.trans hXB) finite
   intro x hx
-  exact htail x (hXB'.trans hx)
+  exact htail x (hXB'.trans (hXB.trans hx))
 
 /-! The existential form is the minimal selected-cutoff contract.  It is
 strictly weaker than asking a finite provider to answer at every possible
@@ -237,7 +238,8 @@ theorem hasLogCubedShortIntervalPrime_of_selected_finite_and_mediumPNT
           (q : Real) ≤ x + x / (Real.log x) ^ 3)) :
     HasLogCubedShortIntervalPrime := by
   obtain ⟨X, hX₀X, finite, tail⟩ := selected
-  exact hasLogCubedShortIntervalPrime_of_below_and_above hX₀ finite tail
+  exact hasLogCubedShortIntervalPrime_of_below_and_above
+    (hX₀.trans hX₀X) finite tail
 
 theorem hasDusartShortIntervalPrime_of_finite_and_mediumPNT
     {X₀ : Real} (hX₀ : (89693 : Real) ≤ X₀)
