@@ -1248,6 +1248,26 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
       (by norm_num at ⊢; linarith) hab)
     row.toLogCubedPrimeRow hleft hright
 
+/-! A log-cubed finite table only covers the range beginning at `89693`.
+The lower Dusart interval provider is therefore kept as an explicit prefix
+input, while this adapter supplies its remainder without duplicating rows. -/
+theorem hasDusartShortIntervalPrimeBelow_of_finite_gap_log_rows
+    {X : Real} {rows : List FinitePrimeGapLogRow}
+    (hX : (89693 : Real) ≤ X)
+    (finitePrefix : HasDusartShortIntervalPrimeBelow (89693 : Real))
+    (cover : FinitePrimeGapLogRowsCoverUpTo rows X) :
+    HasDusartShortIntervalPrimeBelow X := by
+  intro x hx hXx
+  by_cases hsmall : x ≤ (89693 : Real)
+  · exact finitePrefix x hx hsmall
+  · have hlarge : (89693 : Real) ≤ x :=
+      le_of_lt (lt_of_not_ge hsmall)
+    obtain ⟨q, hq, hxq, hupper⟩ :=
+      hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows cover
+        x hlarge hXx
+    refine ⟨q, hq, hxq, ?_⟩
+    exact dusartShortIntervalUpper_of_logCubed hlarge hupper
+
 def finitePrimeGapLogRows_89693_89752 :
     List FinitePrimeGapLogRow :=
   [finitePrimeGapLogRow_89693_89752]
