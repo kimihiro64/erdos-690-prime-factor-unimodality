@@ -162,6 +162,25 @@ def HasThetaLogRpowDecay (C c α X : Real) : Prop :=
     |Chebyshev.theta x - x| ≤
       C * x * Real.exp (-c * (Real.log x) ^ α)
 
+theorem hasThetaLogFourthError_of_logRpowDecay_of_envelope
+    {C D c α X : Real} (hX : 0 < X)
+    (hdecay : HasThetaLogRpowDecay C c α X)
+    (henvelope : ∀ x : Real, X ≤ x →
+      C * Real.exp (-c * (Real.log x) ^ α) ≤
+        D / (Real.log x) ^ (4 : ℕ)) :
+    HasThetaLogFourthError D X := by
+  intro x hx
+  have hx_pos : 0 < x := lt_of_lt_of_le hX hx
+  have herror := hdecay x hx
+  have henvelope_x := henvelope x hx
+  calc
+    |Chebyshev.theta x - x| ≤
+        C * x * Real.exp (-c * (Real.log x) ^ α) := herror
+    _ = (C * Real.exp (-c * (Real.log x) ^ α)) * x := by ring
+    _ ≤ (D / (Real.log x) ^ (4 : ℕ)) * x :=
+      mul_le_mul_of_nonneg_right henvelope_x hx_pos.le
+    _ = D * x / (Real.log x) ^ 4 := by ring_nf
+
 theorem exists_hasThetaLogFourthError_of_logRpowDecay_unit
     {C c α X : Real} (hC : 0 ≤ C) (hc : 0 < c) (hα : 0 < α)
     (hdecay : HasThetaLogRpowDecay C c α X) :
@@ -190,16 +209,8 @@ theorem exists_hasThetaLogFourthError_of_logRpowDecay_unit
       le_trans (le_max_right X (max (Real.exp T) 2)) hz
     exact hT (Real.log z) ((Real.le_log_iff_exp_le hz_pos).2
       (le_trans (le_max_left (Real.exp T) 2) hzmax))
-  have herror := hdecayY x hx
-  have henvelope := henvY x hx
-  have hx_pos' : 0 < x := lt_of_lt_of_le hYpos hx
-  calc
-    |Chebyshev.theta x - x| ≤
-        C * x * Real.exp (-c * (Real.log x) ^ α) := herror
-    _ = (C * Real.exp (-c * (Real.log x) ^ α)) * x := by ring
-    _ ≤ (1 / (Real.log x) ^ (4 : ℕ)) * x :=
-      mul_le_mul_of_nonneg_right henvelope hx_pos'.le
-    _ = 1 * x / (Real.log x) ^ 4 := by ring
+  exact (hasThetaLogFourthError_of_logRpowDecay_of_envelope
+    (C := C) (D := 1) hYpos hdecayY henvY) x hx
 
 /-! Any strictly positive target coefficient can be reached by increasing the
 cutoff.  This is the quantitative form needed when an explicit PNT supplies
