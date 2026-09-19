@@ -654,6 +654,11 @@ def FinitePrimeGapLogRowsCoverUpTo
   ∀ x : Real, 89693 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+def FinitePrimeGapLogIndexedRowsCoverUpTo
+    {n : Nat} (rows : Fin n → FinitePrimeGapLogRow) (X : Real) : Prop :=
+  ∀ x : Real, 89693 ≤ x → x ≤ X →
+    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+
 theorem finitePrimeGapLogRowsCoverUpTo_append
     {m X : Real} {left right : List FinitePrimeGapLogRow}
     (hleft : FinitePrimeGapLogRowsCoverUpTo left m)
@@ -1020,6 +1025,19 @@ theorem logCubedPrimeRow_provides
     exact_mod_cast x_lt_prime
   · exact row.prime_upper.trans (upper_mono
       (by exact_mod_cast row.left_large) left_mem)
+
+theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_gap_log_rows
+    {n : Nat} {X : Real}
+    {rows : Fin n → FinitePrimeGapLogRow}
+    (cover : FinitePrimeGapLogIndexedRowsCoverUpTo rows X) :
+    HasLogCubedShortIntervalPrimeBelow X := by
+  intro x hx hX
+  obtain ⟨i, hleft, hright⟩ := cover x hx hX
+  exact logCubedPrimeRow_provides
+    (fun {a b} ha hab => logCubedUpper_monotoneOn
+      (by norm_num at ⊢; linarith)
+      (by norm_num at ⊢; linarith) hab)
+    (rows i).toLogCubedPrimeRow hleft hright
 
 theorem hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
     {X : Real} {rows : List FinitePrimeGapLogRow}
