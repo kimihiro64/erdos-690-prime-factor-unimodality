@@ -371,7 +371,7 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_two_indexed_prime_gap_certificates
     hasLogCubedShortIntervalPrimeBelow_of_indexed_prime_gap_certificate
       (by linarith [hm, hXm]) hXb₂ second secondWidth
   intro x hx hX
-  by_cases hxm : x ≤ m
+  by_cases hxm : x < m + 1
   · exact firstBound x hx hxm
   · exact secondBound x hx hX
 
@@ -13644,7 +13644,7 @@ theorem finitePrimeGapLogRow_provides_half_open
 
 def FinitePrimeGapLogRowsCoverUpTo
     (rows : List FinitePrimeGapLogRow) (X : Real) : Prop :=
-  ∀ x : Real, 89693 ≤ x → x ≤ X →
+  ∀ x : Real, 89693 ≤ x → x < X + 1 →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x < (row.right : Real) + 1
 
 theorem finitePrimeGapLogRowsCoverUpTo_of_chain
@@ -13663,18 +13663,18 @@ theorem finitePrimeGapLogRowsCoverUpTo_of_chain
 
 def FinitePrimeGapLogRowsCoverFrom
     (rows : List FinitePrimeGapLogRow) (a X : Real) : Prop :=
-  ∀ x : Real, a ≤ x → x ≤ X →
+  ∀ x : Real, a ≤ x → x < X + 1 →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x < (row.right : Real) + 1
 
 def FinitePrimeGapLogIndexedRowsCoverUpTo
     {n : Nat} (rows : Fin n → FinitePrimeGapLogRow) (X : Real) : Prop :=
-  ∀ x : Real, 89693 ≤ x → x ≤ X →
+  ∀ x : Real, 89693 ≤ x → x < X + 1 →
     ∃ i : Fin n, (rows i).left ≤ x ∧ x < (rows i).right + 1
 
 def FinitePrimeGapLogIndexedRowsCoverFrom
     {n : Nat} (rows : Fin n → FinitePrimeGapLogRow)
     (a X : Real) : Prop :=
-  ∀ x : Real, a ≤ x → x ≤ X →
+  ∀ x : Real, a ≤ x → x < X + 1 →
     ∃ i : Fin n, (rows i).left ≤ x ∧ x < (rows i).right + 1
 
 theorem finitePrimeGapLogIndexedRowsCoverUpTo_append_from
@@ -13690,7 +13690,7 @@ theorem finitePrimeGapLogIndexedRowsCoverUpTo_append_from
     refine ⟨Fin.castAdd n₂ i, ?_⟩
     simpa [Fin.append_left] using And.intro hleft_lower hleft_upper
   · obtain ⟨i, hright_lower, hright_upper⟩ :=
-      hright x (le_of_lt (lt_of_not_ge hxm)) hX
+      hright x (by linarith) hX
     refine ⟨Fin.natAdd n₁ i, ?_⟩
     simpa [Fin.append_right] using And.intro hright_lower hright_upper
 
@@ -13700,7 +13700,7 @@ theorem finitePrimeGapLogRowsCoverUpTo_append
     (hright : FinitePrimeGapLogRowsCoverUpTo right X) :
     FinitePrimeGapLogRowsCoverUpTo (left ++ right) X := by
   intro x hx hX
-  by_cases hxm : x ≤ m
+  by_cases hxm : x < m + 1
   · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
     exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
   · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
@@ -13712,11 +13712,11 @@ theorem finitePrimeGapLogRowsCoverUpTo_append_from
     (hright : FinitePrimeGapLogRowsCoverFrom right m X) :
     FinitePrimeGapLogRowsCoverUpTo (left ++ right) X := by
   intro x hx hX
-  by_cases hxm : x ≤ m
+  by_cases hxm : x < m + 1
   · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
     exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
   · obtain ⟨row, hrow, hleft_row, hright_row⟩ :=
-      hright x (le_of_lt (lt_of_not_ge hxm)) hX
+      hright x (by linarith) hX
     exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
 
 theorem FinitePrimeGapRow.toLogCubedPrimeRow
@@ -13826,7 +13826,7 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_rows
     (cover : LogCubedPrimeIndexedCoverUpTo rows X) :
     HasLogCubedShortIntervalPrimeBelow X := by
   intro x hx hX
-  obtain ⟨i, hleft, hright⟩ := cover x hx hX
+  obtain ⟨i, hleft, hright⟩ := cover x hx (by linarith)
   exact logCubedPrimeRow_provides
     (fun {a b} ha hab => logCubedUpper_monotoneOn
       (by norm_num at ⊢; linarith)
@@ -14390,7 +14390,7 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
     (cover : FinitePrimeGapLogRowsCoverUpTo rows X) :
     HasLogCubedShortIntervalPrimeBelow X := by
   intro x hx hX
-  obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
+  obtain ⟨row, hrow, hleft, hright⟩ := cover x hx (by linarith)
   exact finitePrimeGapLogRow_provides_half_open row hleft hright
 
 theorem hasDusartShortIntervalPrime_of_finite_gap_log_rows_and_mediumPNT
@@ -14470,8 +14470,7 @@ theorem finitePrimeGapLogRows_89693_89752_cover :
   intro x hx hX
   refine ⟨finitePrimeGapLogRow_89693_89752, by simp, ?_, ?_⟩
   · norm_num
-  · have : x ≤ (89752 : Real) := hX
-    norm_num at ⊢
+  · norm_num at ⊢
     linarith
 
 def finitePrimeGapLogRows_89693_89758 :
