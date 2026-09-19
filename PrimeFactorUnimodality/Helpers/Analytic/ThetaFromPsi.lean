@@ -167,7 +167,7 @@ private theorem logPowFiveDivSqrt_cutoff_le
         exact pow_le_pow_left₀ hlog_nonneg hlog.le 5
       gcongr
 
-private theorem primePowerCorrection_le_logFourth
+theorem primePowerCorrection_le_logFourth
     {x : Real} (hx : (4e18 : Real) ≤ x) :
     2 * Real.sqrt x * Real.log x ≤ x / (Real.log x) ^ 4 := by
   have hx_pos : 0 < x := by linarith
@@ -194,6 +194,13 @@ private theorem primePowerCorrection_le_logFourth
     _ ≤ Real.sqrt x * Real.sqrt x :=
       mul_le_mul_of_nonneg_right hmain' hsqrt_pos.le
     _ = x := by simpa [pow_two] using Real.sq_sqrt hx_pos.le
+
+theorem theta_sub_psi_abs_le_logFourth {x : Real}
+    (hx : (4e18 : Real) ≤ x) :
+    |Chebyshev.theta x - Chebyshev.psi x| ≤
+      x / (Real.log x) ^ 4 := by
+  exact (theta_sub_psi_abs_le_sqrt_log (by linarith)).trans
+    (primePowerCorrection_le_logFourth hx)
 
 theorem hasThetaLogCubedError_of_psiLogCubedError
     {C X : Real} (hX : (4e18 : Real) ≤ X)
