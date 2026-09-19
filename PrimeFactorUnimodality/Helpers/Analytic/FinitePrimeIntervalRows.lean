@@ -325,6 +325,14 @@ def ThetaLogFourthEndpointRowsCoverUpTo
   ∀ x : Real, 2 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+/-! The endpoint form also supports a split table whose first row starts at a
+valid analytic cutoff rather than at `2`. -/
+def ThetaLogFourthEndpointRowsCoverFrom
+    {A : Real} (rows : List (ThetaLogFourthEndpointRow A))
+    (x₀ X : Real) : Prop :=
+  ∀ x : Real, x₀ ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
 theorem thetaLogFourthEndpointRow_provides
     {A : Real} (hA0 : 0 ≤ A)
     (row : ThetaLogFourthEndpointRow A) {x : Real}
@@ -386,6 +394,26 @@ theorem hasThetaLogFourthErrorBelow_of_endpoint_rows
   intro x hx2 hxX
   obtain ⟨row, hrow, hleft, hright⟩ := cover x hx2 hxX
   exact thetaLogFourthEndpointRow_provides hA0 row hleft hright
+
+theorem hasThetaLogFourthErrorOn_of_endpoint_rows_from
+    {A x₀ X : Real} (hA0 : 0 ≤ A)
+    {rows : List (ThetaLogFourthEndpointRow A)}
+    (cover : ThetaLogFourthEndpointRowsCoverFrom rows x₀ X) :
+    HasThetaLogFourthErrorOn A x₀ X := by
+  intro x hx hxX
+  obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hxX
+  exact thetaLogFourthEndpointRow_provides hA0 row hleft hright
+
+theorem hasThetaLogFourthErrorAbove_of_endpoint_rows_from_and_tail
+    {A x₀ X : Real} (hA0 : 0 ≤ A)
+    {rows : List (ThetaLogFourthEndpointRow A)}
+    (cover : ThetaLogFourthEndpointRowsCoverFrom rows x₀ X)
+    (tail : HasThetaLogFourthErrorAbove A X) :
+    HasThetaLogFourthErrorAbove A x₀ := by
+  intro x hx
+  by_cases hsmall : x ≤ X
+  · exact hasThetaLogFourthErrorOn_of_endpoint_rows_from hA0 cover x hx hsmall
+  · exact tail x (le_of_not_ge hsmall)
 
 theorem logCubedPrimeRow_provides
     (upper_mono : ∀ {a b : Real}, 89693 ≤ a → a ≤ b →
