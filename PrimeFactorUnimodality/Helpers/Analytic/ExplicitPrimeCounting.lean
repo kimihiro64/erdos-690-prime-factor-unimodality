@@ -90,6 +90,66 @@ theorem dusartPiUpper_monotoneOn :
       positivity
     nlinarith
 
+theorem dusartPiLower_monotoneOn :
+    MonotoneOn dusartPiLower (Set.Ici (599 : Real)) := by
+  apply monotoneOn_of_deriv_nonneg (convex_Ici (599 : Real))
+  · have hlog : ContinuousOn (fun y : Real => Real.log y)
+        (Set.Ici (599 : Real)) := by
+      exact continuousOn_id.log (by
+        intro x hx
+        have hx_pos : (0 : Real) < x := by linarith [hx]
+        simpa only [id_eq] using hx_pos.ne')
+    exact (continuousOn_id.div hlog (by
+      intro x hx
+      exact (Real.log_pos (by linarith [hx])).ne')).mul
+      (continuousOn_const.add (continuousOn_const.div hlog (by
+        intro x hx
+        exact (Real.log_pos (by linarith [hx])).ne')))
+  · have hlog : DifferentiableOn ℝ (fun y : Real => Real.log y)
+        (interior (Set.Ici (599 : Real))) := by
+      exact differentiableOn_id.log (by
+        intro x hx
+        have hx' : (599 : Real) < x := by
+          simpa only [interior_Ici, Set.mem_Ioi] using hx
+        simpa only [id_eq] using (show x ≠ 0 by linarith))
+    exact (differentiableOn_id.div hlog (by
+      intro x hx
+      exact (Real.log_pos (by
+        have hx' : (599 : Real) < x := by
+          simpa only [interior_Ici, Set.mem_Ioi] using hx
+        linarith)).ne')).mul
+      ((differentiableOn_const (1 : Real)).add
+        ((differentiableOn_const (1 : Real)).div hlog (by
+          intro x hx
+          exact (Real.log_pos (by
+            have hx' : (599 : Real) < x := by
+              simpa only [interior_Ici, Set.mem_Ioi] using hx
+            linarith)).ne')))
+  · intro x hx
+    simp only [interior_Ici, Set.mem_Ioi] at hx
+    have x_ne : x ≠ 0 := by linarith
+    have hlog_pos : 0 < Real.log x := Real.log_pos (by linarith)
+    have hlog_gt_two : (2 : Real) < Real.log x := by
+      have hlog599 : (2 : Real) < Real.log (599 : Real) := by
+        apply (Real.lt_log_iff_exp_lt (by norm_num)).2
+        have hexp : Real.exp 2 < (9 : Real) := by
+          rw [show (2 : Real) = 1 + 1 by norm_num, Real.exp_add]
+          have hone : Real.exp 1 < 3 := Real.exp_one_lt_d9.trans (by norm_num)
+          nlinarith [mul_self_lt_mul_self (Real.exp_pos 1).le hone]
+        exact hexp.trans (by norm_num)
+      exact hlog599.trans_le (Real.log_le_log (by norm_num) (le_of_lt hx))
+    have hderiv := ((hasDerivAt_id x).div
+      (Real.hasDerivAt_log x_ne) hlog_pos.ne').mul
+      ((hasDerivAt_const x (1 : Real)).add
+        ((hasDerivAt_const x (1 : Real)).div
+          (Real.hasDerivAt_log x_ne) hlog_pos.ne'))
+    simp only [id_eq] at hderiv
+    change 0 ≤ deriv (fun y : Real =>
+      y / Real.log y * (1 + 1 / Real.log y)) x
+    rw [hderiv.deriv]
+    field_simp [x_ne, hlog_pos.ne']
+    nlinarith [sq_pos_of_pos hlog_pos, hlog_gt_two]
+
 /-! For the remaining bounded range, monotonicity reduces a real-variable
 upper estimate to integer-floor checks, with only the tiny interval `[2,10)`
 left as a direct elementary obligation. -/

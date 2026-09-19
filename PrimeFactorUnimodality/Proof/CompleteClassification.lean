@@ -490,8 +490,8 @@ theorem completeClassification_of_mediumPNT_and_split_row_provider
 prime-counting range. -/
 structure MediumPNTFiniteIntegerSplitRowProvider : Prop where
   primeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
-    ∃ rows : List DusartPrimeCountingRow,
-      DusartPrimeCountingRowsCoverFrom599 rows X
+    ∃ rows : List DusartPrimeCountingEndpointRow,
+      DusartPrimeCountingEndpointRowsCoverFrom599 rows X
   primeCountingSmallIntegerRows : List DusartPrimeCountingUpperIntegerRow
   primeCountingSmallIntegerCover :
     DusartPrimeCountingUpperIntegerRowsCover
@@ -512,7 +512,7 @@ theorem completeClassification_of_mediumPNT_and_integer_split_row_provider
   refine completeClassification_of_mediumPNT_and_finite_error_provider
     (fun X hX => ?_) (fun X hX => ?_) (fun X hX => ?_) (fun X hX => ?_)
   · obtain ⟨rows, hcover⟩ := provider.primeCountingRows X hX
-    exact hasDusartRealPrimeCountingBoundsBelow_of_rows_from599 hcover
+    exact hasDusartRealPrimeCountingBoundsBelow_of_endpoint_rows hcover
       (real_primeCounting_upper_of_integer_rows
         provider.primeCountingSmallIntegerCover)
   · obtain ⟨rows, hcover⟩ := provider.thetaEndpointRows X hX

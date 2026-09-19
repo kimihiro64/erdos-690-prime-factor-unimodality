@@ -568,6 +568,62 @@ structure DusartPrimeCountingRow where
   upper : ∀ x : Real, (left : Real) ≤ x → x ≤ right →
     (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x
 
+structure DusartPrimeCountingEndpointRow where
+  left : Nat
+  right : Nat
+  left_large : 599 ≤ left
+  left_le_right : left ≤ right
+  lower_endpoint : dusartPiLower right ≤ (Nat.primeCounting left : Real)
+  upper_endpoint : (Nat.primeCounting right : Real) ≤ dusartPiUpper left
+
+def DusartPrimeCountingEndpointRowsCoverFrom599
+    (rows : List DusartPrimeCountingEndpointRow) (X : Real) : Prop :=
+  ∀ x : Real, (599 : Real) ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem dusartPrimeCountingEndpointRow_provides
+    (row : DusartPrimeCountingEndpointRow) {x : Real}
+    (hleft : (row.left : Real) ≤ x) (hright : x ≤ row.right) :
+    dusartPiLower x ≤ (Nat.primeCounting ⌊x⌋₊ : Real) ∧
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x := by
+  have hleft599 : (599 : Real) ≤ row.left := by exact_mod_cast row.left_large
+  have hright599 : (599 : Real) ≤ (row.right : Real) :=
+    hleft599.trans (by exact_mod_cast row.left_le_right)
+  have hfloor_left : row.left ≤ ⌊x⌋₊ := Nat.le_floor hleft
+  have hfloor_right : ⌊x⌋₊ ≤ row.right := Nat.floor_le_of_le hright
+  have hpi_left : (Nat.primeCounting row.left : Real) ≤
+      (Nat.primeCounting ⌊x⌋₊ : Real) := by
+    exact_mod_cast Nat.monotone_primeCounting hfloor_left
+  have hpi_right : (Nat.primeCounting ⌊x⌋₊ : Real) ≤
+      (Nat.primeCounting row.right : Real) := by
+    exact_mod_cast Nat.monotone_primeCounting hfloor_right
+  have hlower : dusartPiLower x ≤ dusartPiLower (row.right : Real) :=
+    dusartPiLower_monotoneOn (by exact hleft599)
+      (by exact hright599) hright
+  have hupper : dusartPiUpper (row.left : Real) ≤ dusartPiUpper x :=
+    dusartPiUpper_monotoneOn (by norm_num at hleft599 ⊢; linarith)
+      (by norm_num at hleft599 hright599 ⊢; linarith) hleft
+  constructor
+  · exact hlower.trans (row.lower_endpoint.trans hpi_left)
+  · exact hpi_right.trans (row.upper_endpoint.trans hupper)
+
+theorem hasDusartRealPrimeCountingBoundsBelow_of_endpoint_rows
+    {X : Real} {rows : List DusartPrimeCountingEndpointRow}
+    (cover : DusartPrimeCountingEndpointRowsCoverFrom599 rows X)
+    (smallUpper : ∀ x : Real, 2 ≤ x → x < 599 →
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x) :
+    HasDusartRealPrimeCountingBoundsBelow X := by
+  constructor
+  · intro x hx hX
+    obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
+    exact (dusartPrimeCountingEndpointRow_provides row hleft hright).1
+  · intro x hx hX
+    by_cases hsmall : x < 599
+    · exact smallUpper x hx hsmall
+    · obtain ⟨row, hrow, hleft, hright⟩ := cover x
+        (le_of_not_gt hsmall) hX
+      exact (dusartPrimeCountingEndpointRow_provides row hleft hright).2
+
 def DusartPrimeCountingRowsCoverUpTo
     (rows : List DusartPrimeCountingRow) (X : Real) : Prop :=
   ∀ x : Real, 2 ≤ x → x ≤ X →
