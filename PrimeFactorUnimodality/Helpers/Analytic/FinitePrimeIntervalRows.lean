@@ -13603,6 +13603,23 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_rows
       (by norm_num at ⊢; linarith) hab)
     (rows i) hleft hright
 
+theorem hasLogCubedShortIntervalPrimeBelow_of_rows_from
+    {x₀ X : Real} {rows : List LogCubedPrimeRow}
+    (hx₀ : (89693 : Real) ≤ x₀)
+    (prefix : HasLogCubedShortIntervalPrimeBelow x₀)
+    (cover : LogCubedPrimeRowsCoverFrom rows x₀ X) :
+    HasLogCubedShortIntervalPrimeBelow X := by
+  intro x hx hX
+  by_cases hsmall : x ≤ x₀
+  · exact prefix x hx hsmall
+  · have hlarge : x₀ ≤ x := le_of_lt (lt_of_not_ge hsmall)
+    obtain ⟨row, hrow, hleft, hright⟩ := cover x hlarge hX
+    exact logCubedPrimeRow_provides
+      (fun {a b} ha hab => logCubedUpper_monotoneOn
+        (by norm_num at ⊢; linarith)
+        (by norm_num at ⊢; linarith) hab)
+      row hleft hright
+
 theorem logCubedPrimeRowsCoverUpTo_append
     {m X : Real} {left right : List LogCubedPrimeRow}
     (hleft : LogCubedPrimeRowsCoverUpTo left m)
