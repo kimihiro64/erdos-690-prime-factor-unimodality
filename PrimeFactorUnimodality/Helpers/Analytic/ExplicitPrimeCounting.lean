@@ -1131,7 +1131,7 @@ theorem explicit_integral_core_bound_of_log_margins
             (1 - 7 / Real.log (1000000 : Real))) +
         A * ((999998 : Real) / Real.log 2 ^ 6 +
           (X / Real.log X ^ 6) /
-            (1 - 6 / Real.log (1000000 : Real))) ≤
+            (1 - 6 / Real.log (1000000 : Real))) + 10000 ≤
       (3 / 5 : Real) * X / Real.log X ^ 4 := by
   have hlogX : (0 : Real) < Real.log X := by
     exact Real.log_pos (by linarith [hX])
@@ -1334,6 +1334,42 @@ theorem explicit_integral_core_bound_at_large_cutoff
         A * ((999998 : Real) / Real.log 2 ^ 6 +
           (X / Real.log X ^ 6) /
             (1 - 6 / Real.log (1000000 : Real))) ≤
+      (3 / 5 : Real) * X / Real.log X ^ 4 := by
+  have hlog2 : (69 : Real) / 100 ≤ Real.log 2 := by
+    exact (by norm_num : (69 : Real) / 100 < 0.6931471803).le.trans
+      Real.log_two_gt_d9.le
+  have hlogMillion : (13 : Real) ≤ Real.log (1000000 : Real) := by
+    apply (Real.le_log_iff_exp_le (by positivity)).2
+    have hexp : Real.exp 13 < (3 : Real) ^ 13 := by
+      rw [show (13 : Real) = (13 : ℕ) * 1 by norm_num,
+        Real.exp_nat_mul]
+      exact pow_lt_pow_left₀ Real.exp_one_lt_three
+        (Real.exp_pos 1).le (by norm_num)
+    exact hexp.le.trans (by norm_num)
+  have hlogCut : (42 : Real) ≤ Real.log (4e18 : Real) := by
+    exact (by
+      apply (le_of_lt ?_)
+      apply (Real.lt_log_iff_exp_lt (by norm_num)).2
+      have hexp : Real.exp 42 < (2.72 : Real) ^ 42 := by
+        rw [show (42 : Real) = (42 : ℕ) * 1 by norm_num,
+          Real.exp_nat_mul]
+        exact pow_lt_pow_left₀ (by
+          linarith [Real.exp_one_lt_d9]) (Real.exp_pos 1).le (by norm_num)
+      exact hexp.trans (by norm_num))
+  exact explicit_integral_core_bound_of_log_margins hX hA0 hA1 hlog2
+    hlogMillion hlogCut (lower_bound_div_log_four_of_four_e18_le hX) |>.trans
+      (by linarith)
+
+theorem explicit_integral_core_bound_at_large_cutoff_with_10000
+    {A X : Real} (hX : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1) :
+    4000 +
+        720 * ((999998 : Real) / Real.log 2 ^ 7 +
+          (X / Real.log X ^ 7) /
+            (1 - 7 / Real.log (1000000 : Real))) +
+        A * ((999998 : Real) / Real.log 2 ^ 6 +
+          (X / Real.log X ^ 6) /
+            (1 - 6 / Real.log (1000000 : Real))) + 10000 ≤
       (3 / 5 : Real) * X / Real.log X ^ 4 := by
   have hlog2 : (69 : Real) / 100 ≤ Real.log 2 := by
     exact (by norm_num : (69 : Real) / 100 < 0.6931471803).le.trans
