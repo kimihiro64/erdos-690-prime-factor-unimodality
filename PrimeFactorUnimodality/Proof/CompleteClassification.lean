@@ -1218,6 +1218,27 @@ structure MediumPNTFiniteIntegerIntervalPrefixBundleCover
   thetaError : ThetaLogFourthEndpointIndexedCoverUpTo
     (fun i => (rows i).thetaError) X
 
+theorem mediumPNTFiniteIntegerIntervalPrefixBundleCover_append
+    {m X : Real} {n₁ n₂ : Nat}
+    {left : Fin n₁ → MediumPNTFiniteIntegerIntervalPrefixBundle}
+    {right : Fin n₂ → MediumPNTFiniteIntegerIntervalPrefixBundle}
+    (hleft : MediumPNTFiniteIntegerIntervalPrefixBundleCover left m)
+    (hright : MediumPNTFiniteIntegerIntervalPrefixBundleCover right X) :
+    MediumPNTFiniteIntegerIntervalPrefixBundleCover (Fin.append left right) X := by
+  constructor
+  · simpa [Fin.append_left, Fin.append_right] using
+      (dusartPrimeCountingEndpointIndexedCoverFrom599_append
+        hleft.primeCounting hright.primeCounting)
+  · simpa [Fin.append_left, Fin.append_right] using
+      (dusartThetaEndpointIndexedCoverUpTo_append
+        hleft.theta hright.theta)
+  · simpa [Fin.append_left, Fin.append_right] using
+      (logCubedPrimeIndexedCoverUpTo_append
+        hleft.shortInterval hright.shortInterval)
+  · simpa [Fin.append_left, Fin.append_right] using
+      (thetaLogFourthEndpointIndexedCoverFrom_append
+        hleft.thetaError hright.thetaError)
+
 structure MediumPNTFiniteIntegerIntervalBundledPrefixProvider : Prop where
   rows : Nat → MediumPNTFiniteIntegerIntervalPrefixBundle
   prefix : ∀ X : Real, (4e18 : Real) ≤ X →
