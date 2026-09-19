@@ -337,6 +337,19 @@ def ThetaLogFourthEndpointRowsCoverUpTo
   ∀ x : Real, 2 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+theorem thetaLogFourthEndpointRowsCoverUpTo_append
+    {A m X : Real}
+    {left right : List (ThetaLogFourthEndpointRow A)}
+    (hleft : ThetaLogFourthEndpointRowsCoverUpTo left m)
+    (hright : ThetaLogFourthEndpointRowsCoverUpTo right X) :
+    ThetaLogFourthEndpointRowsCoverUpTo (left ++ right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+
 /-! The endpoint form also supports a split table whose first row starts at a
 valid analytic cutoff rather than at `2`. -/
 def ThetaLogFourthEndpointRowsCoverFrom
@@ -518,6 +531,18 @@ def DusartThetaEndpointRowsCoverUpTo
     (rows : List DusartThetaEndpointRow) (X : Real) : Prop :=
   ∀ x : Real, 2 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem dusartThetaEndpointRowsCoverUpTo_append
+    {m X : Real} {left right : List DusartThetaEndpointRow}
+    (hleft : DusartThetaEndpointRowsCoverUpTo left m)
+    (hright : DusartThetaEndpointRowsCoverUpTo right X) :
+    DusartThetaEndpointRowsCoverUpTo (left ++ right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
 
 theorem dusartThetaEndpointRow_provides
     (row : DusartThetaEndpointRow) {x : Real}
