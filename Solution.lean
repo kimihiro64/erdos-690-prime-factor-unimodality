@@ -44,6 +44,14 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_theta_error
     hX hA0 hA1 finiteThetaError finiteInputs
 
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_split_remainder_row_provider
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (provider : PrimeFactorUnimodality.MediumPNTFiniteSplitRemainderRowProvider X C) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_split_remainder_row_provider
+    hX hC0 hC provider
+
 theorem PrimeFactorUnimodality.completeClassification_of_explicit_mertens_inputs
     (primeCountingBounds : PrimeFactorUnimodality.HasDusartPrimeCountingBounds)
     (thetaBounds : PrimeFactorUnimodality.HasDusartThetaBounds)
