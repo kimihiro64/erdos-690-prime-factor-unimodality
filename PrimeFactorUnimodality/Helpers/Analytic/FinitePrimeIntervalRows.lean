@@ -13850,6 +13850,13 @@ def ThetaLogFourthEndpointIndexedCoverFrom {n : Nat} {A : Real}
   ∀ x : Real, x₀ ≤ x → x ≤ X →
     ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
 
+/-! The finite endpoint tables used by the all-`k` cutoff begin at the
+published analytic boundary `4e18`.  Keep this abbreviation explicit rather
+than duplicating a second interval-cover definition. -/
+def ThetaLogFourthEndpointIndexedCoverUpTo {n : Nat} {A : Real}
+    (rows : Fin n → ThetaLogFourthEndpointRow A) (X : Real) : Prop :=
+  ThetaLogFourthEndpointIndexedCoverFrom rows (4e18 : Real) X
+
 theorem thetaLogFourthEndpointIndexedCover_of_list
     {A x₀ X : Real} {rows : List (ThetaLogFourthEndpointRow A)}
     (cover : ThetaLogFourthEndpointRowsCoverFrom rows x₀ X) :
@@ -13875,6 +13882,15 @@ theorem thetaLogFourthEndpointIndexedCoverFrom_append
       hright x (le_of_not_ge hxm) hX
     refine ⟨Fin.natAdd n₁ i, ?_⟩
     simpa [Fin.append_right] using And.intro hright_lower hright_upper
+
+theorem thetaLogFourthEndpointIndexedCoverUpTo_append
+    {m X : Real} {n₁ n₂ : Nat}
+    {left : Fin n₁ → ThetaLogFourthEndpointRow (648 / 1000 : Real)}
+    {right : Fin n₂ → ThetaLogFourthEndpointRow (648 / 1000 : Real)}
+    (hleft : ThetaLogFourthEndpointIndexedCoverUpTo left m)
+    (hright : ThetaLogFourthEndpointIndexedCoverUpTo right X) :
+    ThetaLogFourthEndpointIndexedCoverUpTo (Fin.append left right) X := by
+  exact thetaLogFourthEndpointIndexedCoverFrom_append hleft hright
 
 theorem hasThetaLogFourthErrorAbove_of_indexed_endpoint_rows_from_and_tail
     {n : Nat} {A x₀ X : Real}
