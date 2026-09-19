@@ -1985,6 +1985,13 @@ theorem small_integral_remainder_le_ten_mul
     _ = 10 * (x₀ - 2) := by rw [intervalIntegral.integral_const]; ring
     _ ≤ 10 * x₀ := by nlinarith
 
+theorem small_integral_remainder_le_5990 :
+    |∫ t in (2 : Real)..(599 : Real),
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)| ≤ (5990 : Real) := by
+  simpa using (small_integral_remainder_le_ten_mul (x₀ := (599 : Real))
+    (by norm_num))
+
 theorem integral_remainder_abs_le_of_split_theta_error
     {A X x₀ R : Real} (h2x₀ : (2 : Real) ≤ x₀) (hx₀X : x₀ ≤ X)
     (hsmall : |∫ t in (2 : Real)..x₀,

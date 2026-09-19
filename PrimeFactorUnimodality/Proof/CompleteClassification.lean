@@ -1089,7 +1089,7 @@ theorem completeClassification_of_dusart_599_split_finite_certificate
   · exact certificate.thetaTail
   · norm_num
   · norm_num
-  · exact small_integral_remainder_le_ten_mul (by norm_num)
+  · exact small_integral_remainder_le_5990
   · exact certificate.hA0
   · exact certificate.hA1
   · exact certificate.hC0
