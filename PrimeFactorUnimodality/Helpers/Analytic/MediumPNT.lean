@@ -86,6 +86,29 @@ theorem exists_hasThetaLogFourthErrorAbove_of_mediumPNT_above (X₀ : Real) :
     exists_hasThetaLogFourthError_of_mediumPNT_above X₀
   exact ⟨X, hX₀, h4X, htheta⟩
 
+/-! The same source proof supplies the published Dusart theta inequalities on
+the unbounded tail.  This conversion is entirely elementary once the
+log-fourth error is available; finite theta endpoint rows are not used here. -/
+theorem exists_hasDusartSymmetricThetaBoundsAbove_of_mediumPNT_above
+    (X₀ : Real) :
+    ∃ X : Real, X₀ ≤ X ∧ (4e18 : Real) ≤ X ∧
+      HasDusartSymmetricThetaBoundsAbove X := by
+  obtain ⟨X, hX₀, h4X, htheta⟩ :=
+    exists_hasThetaLogFourthErrorAbove_of_mediumPNT_above X₀
+  have hXpos : 0 < X := by linarith
+  have hlogX : (42 : Real) ≤ Real.log X := by
+    have hlog_mono : Real.log (4e18 : Real) ≤ Real.log X :=
+      Real.log_le_log (by norm_num) h4X
+    linarith [forty_two_lt_log_four_e18]
+  have hA : (648 / 1000 : Real) / Real.log X ≤
+      (12167 / 500000 : Real) := by
+    have hlogXpos : 0 < Real.log X := by linarith
+    apply (div_le_iff₀ hlogXpos).2
+    nlinarith
+  exact ⟨X, hX₀, h4X,
+    hasDusartSymmetricThetaBoundsAbove_of_logFourthError
+      hXpos (by linarith) (by norm_num) hA htheta⟩
+
 /-! The eventual cutoff can be raised to the paper's analytic cutoff without
 changing the proved error estimate.  This is the form consumed by the
 Dusart tail interfaces. -/

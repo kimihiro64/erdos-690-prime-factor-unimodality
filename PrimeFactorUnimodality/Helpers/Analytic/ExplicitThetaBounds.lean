@@ -43,6 +43,16 @@ def HasDusartSymmetricThetaBoundsBelow (X : Real) : Prop :=
     |Chebyshev.theta x - x| <
       (12323 / 10000 : Real) * x / Real.log x)
 
+/-! The unbounded half of the published theta estimate.  Keeping this as a
+tail-only predicate lets the source-level PNT proof discharge the analytic
+tail independently of the finite endpoint table. -/
+def HasDusartSymmetricThetaBoundsAbove (X : Real) : Prop :=
+  (∀ x : Real, X ≤ x →
+    Chebyshev.theta x - x < x / 36260) ∧
+  (∀ x : Real, 2 < x → X ≤ x →
+    |Chebyshev.theta x - x| <
+      (12323 / 10000 : Real) * x / Real.log x)
+
 theorem hasDusartSymmetricThetaBoundsBelow_mono
     {X Y : Real} (hXY : X ≤ Y)
     (finite : HasDusartSymmetricThetaBoundsBelow Y) :
@@ -52,6 +62,84 @@ theorem hasDusartSymmetricThetaBoundsBelow_mono
     exact finite.1 x hx (hX.trans hXY)
   · intro x hx hX
     exact finite.2 x hx (hX.trans hXY)
+
+theorem hasDusartSymmetricThetaBoundsAbove_of_logFourthError
+    {A X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (hA0 : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthErrorAbove A X) :
+    HasDusartSymmetricThetaBoundsAbove X := by
+  have hXone : (1 : Real) < X := by
+    exact (Real.log_pos_iff hXpos.le).mp (by linarith)
+  have hfull : HasThetaLogFourthError A X := by
+    intro x hx
+    exact thetaError x hx
+  have hcube := hasThetaLogCubedError_of_logFourthError
+    hXone hA0 hfull
+  constructor
+  · intro x hx
+    have hx_pos : 0 < x := lt_of_lt_of_le hXpos hx
+    have hlogx_pos : 0 < Real.log x := Real.log_pos (by linarith)
+    have hlogx : (10 : Real) < Real.log x := by
+      exact hlogX.trans_le (Real.log_le_log hXpos hx)
+    have htheta := hcube x hx
+    have hfactor : 0 ≤ x / (Real.log x) ^ 3 := by
+      exact div_nonneg hx_pos.le (pow_pos hlogx_pos 3).le
+    have htheta' :
+        |Chebyshev.theta x - x| ≤
+          (12167 / 500000 : Real) * x / (Real.log x) ^ 3 := by
+      calc
+        |Chebyshev.theta x - x| ≤
+            (A / Real.log X) * x / (Real.log x) ^ 3 := htheta
+        _ = (A / Real.log X) * (x / (Real.log x) ^ 3) := by ring
+        _ ≤ (12167 / 500000 : Real) *
+            (x / (Real.log x) ^ 3) :=
+          mul_le_mul_of_nonneg_right hA hfactor
+        _ = (12167 / 500000 : Real) * x / (Real.log x) ^ 3 := by ring
+    have hratio :
+        (12167 / 500000 : Real) * x / (Real.log x) ^ 3 <
+          x / 36260 := by
+      rw [div_lt_div_iff₀ (by positivity) (by positivity)]
+      nlinarith [mul_self_lt_mul_self (by norm_num : (0 : Real) ≤ 10) hlogx,
+        mul_pos hlogx_pos (show 0 < (Real.log x) ^ 2 by positivity)]
+    exact (le_abs_self (Chebyshev.theta x - x)).trans_lt
+      (htheta'.trans_lt hratio)
+  · intro x _hx2 hx
+    have hx_pos : 0 < x := lt_of_lt_of_le hXpos hx
+    have hlogx_pos : 0 < Real.log x := Real.log_pos (by linarith)
+    have hlogx : (10 : Real) < Real.log x := by
+      exact hlogX.trans_le (Real.log_le_log hXpos hx)
+    have htheta := hcube x hx
+    have hfactor : 0 ≤ x / (Real.log x) ^ 3 := by
+      exact div_nonneg hx_pos.le (pow_pos hlogx_pos 3).le
+    have htheta' :
+        |Chebyshev.theta x - x| ≤
+          (12167 / 500000 : Real) * x / (Real.log x) ^ 3 := by
+      calc
+        |Chebyshev.theta x - x| ≤
+            (A / Real.log X) * x / (Real.log x) ^ 3 := htheta
+        _ = (A / Real.log X) * (x / (Real.log x) ^ 3) := by ring
+        _ ≤ (12167 / 500000 : Real) *
+            (x / (Real.log x) ^ 3) :=
+          mul_le_mul_of_nonneg_right hA hfactor
+        _ = (12167 / 500000 : Real) * x / (Real.log x) ^ 3 := by ring
+    have hratio :
+        (12167 / 500000 : Real) * x / (Real.log x) ^ 3 <
+          (12323 / 10000 : Real) * x / Real.log x := by
+      rw [div_lt_div_iff₀ (by positivity) hlogx_pos]
+      have hlog_sq : (100 : Real) < (Real.log x) ^ 2 := by
+        nlinarith [mul_self_lt_mul_self (by norm_num : (0 : Real) ≤ 10) hlogx]
+      have hcoef : (12167 / 500000 : Real) <
+          (12323 / 10000 : Real) * (Real.log x) ^ 2 := by
+        nlinarith
+      have hpos : 0 < x * Real.log x := mul_pos hx_pos hlogx_pos
+      calc
+        (12167 / 500000 : Real) * x * Real.log x =
+            (12167 / 500000 : Real) * (x * Real.log x) := by ring
+        _ < ((12323 / 10000 : Real) * (Real.log x) ^ 2) *
+            (x * Real.log x) := mul_lt_mul_of_pos_right hcoef hpos
+        _ = (12323 / 10000 : Real) * x * (Real.log x) ^ 3 := by ring
+    exact htheta'.trans_lt hratio
 
 /-! The interval below `2` is not part of the numerical certificate.  The
 theta sum is zero there, so its one-sided upper estimate is elementary. -/
