@@ -24,6 +24,23 @@ def FinitePrimeGapBound (a b g : Nat) : Prop :=
   ∀ n : Nat, a ≤ n → n ≤ b →
     ∃ q : Nat, q.Prime ∧ n < q ∧ q ≤ n + g
 
+/-! The bounded-witness form is computationally finite in both coordinates.
+The witness type is deliberately bounded by `b + g + 1`; this is enough for
+every row and makes the proposition suitable for one indexed kernel check. -/
+def FinitePrimeGapIndexedCertificate (a b g : Nat) : Prop :=
+  ∀ n : Fin (b + 1), a ≤ n.val →
+    ∃ q : Fin (b + g + 1), q.val.Prime ∧ n.val < q.val ∧
+      q.val ≤ n.val + g
+
+theorem finitePrimeGapBound_of_indexed_certificate
+    {a b g : Nat}
+    (certificate : FinitePrimeGapIndexedCertificate a b g) :
+    FinitePrimeGapBound a b g := by
+  intro n hna hnb
+  let i : Fin (b + 1) := ⟨n, by omega⟩
+  obtain ⟨q, hq, hnq, hq_bound⟩ := certificate i (by simpa [i] using hna)
+  exact ⟨q.val, hq, hnq, hq_bound⟩
+
 theorem exists_prime_in_real_interval_of_finite_prime_gap_bound
     {a b g : Nat} {x : Real}
     (gap : FinitePrimeGapBound a b g)
