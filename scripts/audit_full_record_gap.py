@@ -118,9 +118,7 @@ def main() -> None:
     center = 587
     for prime in tail_primes:
         center *= prime
-    center_residues = {
-        prime: center_mod(prime, tail_primes) for prime in (2, 3, 5, 7, 11)
-    }
+    center_residues = {prime: center_mod(prime, tail_primes) for prime in (2, 3, 5, 7, 11)}
     spf = smallest_prime_factors(max(abs(LOW_ENDPOINT), abs(HIGH_ENDPOINT)))
 
     small_owner_count = 0
@@ -130,10 +128,7 @@ def main() -> None:
     used_residue_offsets: set[int] = set()
 
     for offset in range(LOW_ENDPOINT + 1, HIGH_ENDPOINT):
-        owned = any(
-            (center_residues[prime] + offset) % prime == 0
-            for prime in center_residues
-        )
+        owned = any((center_residues[prime] + offset) % prime == 0 for prime in center_residues)
         absolute = abs(offset)
         if not owned and absolute == 0:
             owned = True

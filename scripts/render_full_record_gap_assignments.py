@@ -13,7 +13,6 @@ import argparse
 import hashlib
 import json
 import sys
-import zipfile
 from pathlib import Path
 from typing import Any
 
@@ -54,15 +53,10 @@ def render(factors_zip: Path, residues_zip: Path) -> dict[str, Any]:
     center = record_center(primes)
     small_primes = [2, 3, 5, 7, 11]
     small_residues = {
-        prime: center_mod(prime, [p for p in primes if p >= 13])
-        for prime in small_primes
+        prime: center_mod(prime, [p for p in primes if p >= 13]) for prime in small_primes
     }
     spf = smallest_prime_factors(max(abs(LOW_ENDPOINT), abs(HIGH_ENDPOINT)))
-    fermat_offsets = {
-        offset
-        for offset in residues
-        if offset not in factors
-    }
+    fermat_offsets = {offset for offset in residues if offset not in factors}
     assignments: list[dict[str, int | str]] = []
     for offset in range(LOW_ENDPOINT + 1, HIGH_ENDPOINT):
         if offset == 0:
@@ -72,12 +66,14 @@ def render(factors_zip: Path, residues_zip: Path) -> dict[str, Any]:
             None,
         )
         if small_owner is not None:
-            assignments.append({
-                "offset": offset,
-                "kind": "residue",
-                "q": small_owner,
-                "r": small_residues[small_owner],
-            })
+            assignments.append(
+                {
+                    "offset": offset,
+                    "kind": "residue",
+                    "q": small_owner,
+                    "r": small_residues[small_owner],
+                }
+            )
             continue
         rough = abs(offset)
         for q in small_primes:
@@ -89,12 +85,14 @@ def render(factors_zip: Path, residues_zip: Path) -> dict[str, Any]:
             continue
         factor = factors.get(offset)
         if factor is not None:
-            assignments.append({
-                "offset": offset,
-                "kind": "residue",
-                "q": factor,
-                "r": center % factor,
-            })
+            assignments.append(
+                {
+                    "offset": offset,
+                    "kind": "residue",
+                    "q": factor,
+                    "r": center % factor,
+                }
+            )
             continue
         if offset not in fermat_offsets:
             raise ValueError(f"unclassified offset {offset}")

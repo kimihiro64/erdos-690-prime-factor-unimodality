@@ -8,7 +8,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-
 CHUNK = 512
 
 
@@ -40,7 +39,7 @@ def leaf_proof(
         return [
             f"      apply fullRecordGap_sub_not_prime (q := {q}) (by norm_num)",
             "      right",
-                f"      exact ⟨{r}, by norm_num, by norm_num, by norm_num, by norm_num⟩",
+            f"      exact ⟨{r}, by norm_num, by norm_num, by norm_num, by norm_num⟩",
         ]
     return [
         f"      apply fullRecordGap_add_not_prime (q := {q})",
@@ -77,7 +76,6 @@ def render_part(
     fermat_indices: dict[int, int],
     index: int,
 ) -> str:
-    bound = "455703" if operation == "sub" else "657401"
     term = "recordGapCenter - d" if operation == "sub" else "recordGapCenter + d"
     theorem = f"fullRecordGap{operation.capitalize()}Block_part{index:04d}"
     body = dispatch(assignments, lo, hi, operation, fermat_indices)
@@ -131,9 +129,7 @@ def main() -> None:
     parser.add_argument("output_dir", type=Path)
     args = parser.parse_args()
     payload = json.loads(args.assignments.read_text())
-    assignments = {
-        int(item["offset"]): item for item in payload["assignments"]
-    }
+    assignments = {int(item["offset"]): item for item in payload["assignments"]}
     manifest = json.loads(args.manifest.read_text())
     fermat_indices = {
         offset: index for index, offset in enumerate(manifest["fermat_offsets"], start=1)
@@ -147,9 +143,12 @@ def main() -> None:
             name = f"FullRecordGap{operation.capitalize()}BlockPart{part_index:04d}.lean"
             (args.output_dir / name).write_text(
                 render_part(
-                    {d: assignments[-d if operation == "sub" else d]
-                     for d in range(lo, hi + 1)},
-                    lo, hi, operation, fermat_indices, part_index
+                    {d: assignments[-d if operation == "sub" else d] for d in range(lo, hi + 1)},
+                    lo,
+                    hi,
+                    operation,
+                    fermat_indices,
+                    part_index,
                 )
             )
             imports.append(
@@ -159,7 +158,9 @@ def main() -> None:
             part_index += 1
     sub_dispatch = render_chunk_dispatch("sub", 455703)
     add_dispatch = render_chunk_dispatch("add", 657401)
-    assembly = "\n".join(imports) + """
+    assembly = (
+        "\n".join(imports)
+        + """
 
 set_option autoImplicit false
 
@@ -167,14 +168,19 @@ namespace PrimeFactorUnimodality
 
 theorem fullRecordGapSubBlock (d : Nat) (lower : 1 ≤ d)
     (upper : d ≤ 455703) : ¬(recordGapCenter - d).Prime := by
-""" + "\n".join(sub_dispatch) + """
+"""
+        + "\n".join(sub_dispatch)
+        + """
 
 theorem fullRecordGapAddBlock (d : Nat) (lower : 1 ≤ d)
     (upper : d ≤ 657401) : ¬(recordGapCenter + d).Prime := by
-""" + "\n".join(add_dispatch) + """
+"""
+        + "\n".join(add_dispatch)
+        + """
 
 end PrimeFactorUnimodality
 """
+    )
     (args.output_dir.parent / "FullRecordGapOwners.lean").write_text(assembly)
 
 

@@ -30,7 +30,11 @@ PRIVATE_PATHS: Final[tuple[str, ...]] = (
     "AI_HANDOFF.md",
     "ACTIVE_PROOF_STATE.md",
 )
-MAX_PUBLIC_BYTES: Final[int] = 500 * 1024 * 1024
+# The checked-in kernel-replay certificates are intentionally source files.
+# Their current uncompressed size is about 605 MiB, although Git packs the
+# repository substantially smaller.  Keep enough headroom for completing the
+# certificates while still catching accidental multi-gigabyte exports.
+MAX_PUBLIC_BYTES: Final[int] = 1024 * 1024 * 1024
 PALOMAR_SUBMISSION_URL: Final[str] = "https://submit.palomar-registry.org/"
 RETIRED_PALOMAR_FORM: Final[str] = "PalomarSubmission/issues/new"
 

@@ -115,7 +115,8 @@ end PrimeFactorUnimodality
 
 def render_assembly(count: int) -> str:
     imports = "\n".join(
-        f"import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapFermat.Part{label(index)}"
+        "import PrimeFactorUnimodality.Proof.LargeRange.Generated."
+        f"FullRecordGapFermat.Part{label(index)}"
         for index in range(1, count + 1)
     )
     return f"""{imports}

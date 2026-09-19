@@ -107,13 +107,13 @@ def test_record_gap_fast_fermat_renderer_is_kernel_reflection() -> None:
 
 
 def test_full_record_gap_fermat_renderer_is_resumable_kernel_reflection() -> None:
-    rendered = render_witness(7, -19, 15, 4)
+    rendered = render_witness(7, -19, 15)
     assert "fullRecordGapValue00007" in rendered
     assert "recordGapCenter - 19" in rendered
-    assert "(3 : ZMod 15) ^ 14" in rendered
-    assert "reduce_mod_char" in rendered
+    assert "fastPowMod 3 fullRecordGapValue00007" in rendered
+    assert "by\n  decide" in rendered
     assert "native_decide" not in rendered
-    assert "not_prime_of_pow_ne_one" in rendered
+    assert "not_prime_of_fastPowMod_ne_one" in rendered
 
 
 def test_full_record_gap_fermat_rows_share_one_list_replay() -> None:
@@ -185,9 +185,7 @@ end Nat
 
 def test_generated_module_detection_is_component_aware() -> None:
     namespace = "ExampleTheorem"
-    assert is_generated_module(
-        "ExampleTheorem.Proof.LargeRange.Generated.Certificate", namespace
-    )
+    assert is_generated_module("ExampleTheorem.Proof.LargeRange.Generated.Certificate", namespace)
     assert not is_generated_module(
         "ExampleTheorem.Proof.LargeRange.GeneratedCertificate", namespace
     )
@@ -231,14 +229,17 @@ public import ExampleTheorem.Mathlib.NumberTheory.Base
 namespace Nat
 end Nat
 """
-    assert mathlib_candidate_failures(
-        candidate,
-        source,
-        strip_lean_comments(source),
-        ["ExampleTheorem.Mathlib.NumberTheory.Base"],
-        {candidate, "ExampleTheorem.Mathlib.NumberTheory.Base"},
-        namespace,
-    ) == []
+    assert (
+        mathlib_candidate_failures(
+            candidate,
+            source,
+            strip_lean_comments(source),
+            ["ExampleTheorem.Mathlib.NumberTheory.Base"],
+            {candidate, "ExampleTheorem.Mathlib.NumberTheory.Base"},
+            namespace,
+        )
+        == []
+    )
 
 
 def test_mathlib_candidate_manifest_requires_destination_and_readiness() -> None:
