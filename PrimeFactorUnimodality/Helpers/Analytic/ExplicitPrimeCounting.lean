@@ -2869,7 +2869,7 @@ theorem hasDusartPrimeCountingAsymptoticAbove_of_core_and_theta_error
 /-! Direct paper-facing form of Dusart Theorem 5.1.  The proof is the
 kernel-checked Abel remainder estimate above followed by the elementary
 normalization into the displayed error term; no declaration from the
-sorry-backed IEANTN/Dusart file is used. -/
+unfinished IEANTN/Dusart file is used. -/
 theorem dusartTheorem5_1_of_core_and_theta_error
     {A C X : Real}
     (hXpos : 0 < X) (h2X : 2 ≤ X)
