@@ -1382,7 +1382,32 @@ theorem explicit_integral_core_bound_of_log_margins
   have htail7_bound : 0 ≤
       (13 / 6 : Real) *
         ((X / Real.log X ^ 4) / (42 : Real) ^ 3) := by positivity
-  nlinarith [hR, hA_sum6, hlow6, hlow7, htail7, htail7_bound]
+  calc
+    4000 + 720 * (999998 / Real.log 2 ^ 7 +
+        (X / Real.log X ^ 7) /
+          (1 - 7 / Real.log (1000000 : Real))) +
+        A * (999998 / Real.log 2 ^ 6 +
+          (X / Real.log X ^ 6) /
+            (1 - 6 / Real.log (1000000 : Real))) + 10000
+        ≤ 4000 + 720 * (14000000 +
+            (13 / 6 : Real) * ((X / Real.log X ^ 4) / 42 ^ 3)) +
+          10000000 + (13 / 7 : Real) *
+            ((X / Real.log X ^ 4) / 42 ^ 2) := by
+          have hlow7s := mul_le_mul_of_nonneg_left hlow7
+            (by norm_num : (0 : Real) ≤ 720)
+          have htail7s := mul_le_mul_of_nonneg_left htail7
+            (by norm_num : (0 : Real) ≤ 720)
+          nlinarith [hA_sum6, hlow7s, htail7s]
+    _ ≤ (3 / 5 : Real) * X / Real.log X ^ 4 := by
+          have hnum :
+              (4000 : Real) + 720 * (14000000 +
+                  (13 / 6 : Real) * (((4e18 : Real) / 43 ^ 4) / 42 ^ 3)) +
+                10000000 + (13 / 7 : Real) *
+                  (((4e18 : Real) / 43 ^ 4) / 42 ^ 2) ≤
+                (3 / 5 : Real) * ((4e18 : Real) / 43 ^ 4) := by
+            norm_num
+          ring_nf at hR ⊢
+          nlinarith [hR, hnum]
 
 theorem lower_bound_div_log_four_of_four_e18_le {X : Real}
     (hX : (4e18 : Real) ≤ X) :
