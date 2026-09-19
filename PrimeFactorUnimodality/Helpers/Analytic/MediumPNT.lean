@@ -168,6 +168,16 @@ theorem hasLogCubedShortIntervalPrime_of_finite_and_mediumPNT
       refine ⟨q, hq, hxq, ?_⟩
       simpa [mul_add, mul_one] using hupper)
 
+theorem hasDusartShortIntervalPrime_of_finite_and_mediumPNT
+    {X₀ : Real} (hX₀ : (89693 : Real) ≤ X₀)
+    (finiteDusart : HasDusartShortIntervalPrimeBelow (89693 : Real))
+    (finiteLogCubed : HasLogCubedShortIntervalPrimeBelow X₀) :
+    HasDusartShortIntervalPrime := by
+  exact hasDusartShortIntervalPrime_of_below_and_logCubed
+    finiteDusart
+    (hasLogCubedShortIntervalPrime_of_finite_and_mediumPNT hX₀
+      finiteLogCubed)
+
 /-! The source-level PNT also supplies the published prime-counting tail once
 the finite Abel-summation core is bounded.  The core is transported to the
 raised cutoff by the proved monotonicity estimate; no prime-counting theorem
