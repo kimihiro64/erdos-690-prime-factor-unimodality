@@ -1208,6 +1208,19 @@ def finitePrimeGapLogRows_89693_89758 :
   [finitePrimeGapLogRow_89693_89752,
     finitePrimeGapLogRow_89753_89758]
 
+theorem finitePrimeGapLogRows_89693_89758_chain :
+    FinitePrimeGapLogRowsChain 89693 89758
+      finitePrimeGapLogRows_89693_89758 := by
+  apply FinitePrimeGapLogRowsChain.cons
+    finitePrimeGapLogRow_89693_89752
+  · norm_num
+  · norm_num
+  apply FinitePrimeGapLogRowsChain.cons
+    finitePrimeGapLogRow_89753_89758
+  · norm_num
+  · norm_num
+  exact FinitePrimeGapLogRowsChain.empty (by norm_num)
+
 theorem finitePrimeGapLogRows_89693_89758_cover :
     FinitePrimeGapLogRowsCoverUpTo
       finitePrimeGapLogRows_89693_89758 (89758 : Real) := by
