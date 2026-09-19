@@ -1098,6 +1098,54 @@ theorem integral_inv_log_seven_le_explicit {X : Real}
   convert integral_inv_log_pow_succ_le_explicit_at_million
     (n := 6) hX seven_lt_log_million using 1 <;> norm_num
 
+theorem integral_inv_log_pow_succ_le_full_from_two
+    {n : Nat} {a b : Real} (ha : (2 : Real) ≤ a) (hab : a ≤ b) :
+    (∫ t in a..b, 1 / Real.log t ^ (n + 1)) ≤
+      ∫ t in (2 : Real)..b, 1 / Real.log t ^ (n + 1) := by
+  have hleft : IntervalIntegrable
+      (fun t : Real => 1 / Real.log t ^ (n + 1))
+      MeasureTheory.volume 2 a := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le ha]
+    apply ContinuousOn.div continuousOn_const
+    · exact (Real.continuousOn_log.mono fun t ht =>
+        ne_of_gt (Real.log_pos (by linarith [ht.1]))).pow _
+    · intro t ht
+      exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by linarith [ht.1])))
+  have hright : IntervalIntegrable
+      (fun t : Real => 1 / Real.log t ^ (n + 1))
+      MeasureTheory.volume a b := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le hab]
+    apply ContinuousOn.div continuousOn_const
+    · exact (Real.continuousOn_log.mono fun t ht =>
+        ne_of_gt (Real.log_pos (by linarith [ht.1]))).pow _
+    · intro t ht
+      exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by linarith [ht.1])))
+  have hzero : IntervalIntegrable (fun _ : Real => (0 : Real))
+      MeasureTheory.volume 2 a := intervalIntegrable_const
+  have hnonneg : ∀ t ∈ Set.Icc (2 : Real) a,
+      0 ≤ 1 / Real.log t ^ (n + 1) := by
+    intro t ht
+    exact one_div_nonneg.mpr
+      (pow_nonneg (Real.log_pos (by linarith [ht.1]).le) _)
+  have hprefix : 0 ≤ ∫ t in (2 : Real)..a,
+      1 / Real.log t ^ (n + 1) := by
+    exact intervalIntegral.integral_mono_on ha hzero hleft hnonneg
+  have hadd := intervalIntegral.integral_add_adjacent_intervals hleft hright
+  rw [← hadd]
+  linarith
+
+theorem integral_inv_log_six_tail_from_599_le_explicit {X : Real}
+    (hX : (1000000 : Real) ≤ X) :
+    (∫ t in (599 : Real)..X, 1 / Real.log t ^ 6) ≤
+      (999998 : Real) / Real.log 2 ^ 6 +
+        (X / Real.log X ^ 6) /
+          (1 - 6 / Real.log (1000000 : Real)) := by
+  exact (integral_inv_log_pow_succ_le_full_from_two
+    (n := 5) (a := (599 : Real)) (b := X) (by norm_num) hX).trans
+      (integral_inv_log_six_le_explicit hX)
+
 theorem primeCountingCore_abs_le_of_finite_theta_error_explicit
     {A X : Real} (hX : (1000000 : Real) ≤ X) (hA : 0 ≤ A)
     (error : HasThetaLogFourthErrorBelow A X) :
