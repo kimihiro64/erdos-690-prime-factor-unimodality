@@ -30,6 +30,20 @@ theorem PrimeFactorUnimodality.completeClassification_of_wangCrapis_paper_inputs
   exact PrimeFactorUnimodality.completeClassification_of_wangCrapis_paper_inputs
     inputs
 
+/-! The source-level MediumPNT route exposes the exact finite obligations that
+remain after the unbounded all-`k` tail is proved. -/
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_theta_error
+    {A X : Real} (hX : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
+    (finiteThetaError : PrimeFactorUnimodality.HasThetaLogFourthErrorBelow A X)
+    (finiteInputs : ∀ Y : Real, X ≤ Y →
+      PrimeFactorUnimodality.HasDusartRealPrimeCountingBoundsBelow Y ∧
+      PrimeFactorUnimodality.HasDusartSymmetricThetaBoundsBelow Y ∧
+      PrimeFactorUnimodality.HasLogCubedShortIntervalPrimeBelow Y) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_theta_error
+    hX hA0 hA1 finiteThetaError finiteInputs
+
 theorem PrimeFactorUnimodality.completeClassification_of_explicit_mertens_inputs
     (primeCountingBounds : PrimeFactorUnimodality.HasDusartPrimeCountingBounds)
     (thetaBounds : PrimeFactorUnimodality.HasDusartThetaBounds)
