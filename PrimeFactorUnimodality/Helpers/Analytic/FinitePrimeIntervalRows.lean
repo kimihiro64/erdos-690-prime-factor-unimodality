@@ -489,6 +489,21 @@ theorem logCubedWidth_89693_ge_60 :
     (by norm_num) (by norm_num) log_89693_le_1141_over_100
   norm_num
 
+def finitePrimeGapLogRow_89693_89752 : FinitePrimeGapLogRow := by
+  apply FinitePrimeGapLogRow.of_gap_row (g := 60)
+    (row := {
+      left := 89693
+      right := 89752
+      left_le_right := by norm_num
+      witness := 89753
+      witness_prime := by norm_num
+      right_lt_witness := by norm_num
+      witness_le_left_add_gap := by norm_num })
+    (by norm_num) (L := (1141 : Real) / 100)
+  · norm_num
+  · exact log_89693_le_1141_over_100
+  · norm_num
+
 def dusartUpper (x : Real) : Real :=
   x * (1 + (1 / 2 : Real) / (Real.log x) ^ 2)
 
