@@ -434,6 +434,27 @@ theorem logCubedWidth_lower_of_endpoint
   exact hendpoint.trans
     (logCubedWidth_monotoneOn (by norm_num) (by exact hx))
 
+theorem logCubedWidth_lower_of_log_upper
+    {a g : Nat} {L : Real}
+    (ha : (89693 : Real) ≤ a)
+    (hL : 0 ≤ L)
+    (hlog : Real.log a ≤ L)
+    (hproduct : (g : Real) * L ^ 3 ≤ a) :
+    (g : Real) ≤ logCubedWidth a := by
+  have ha_pos : 0 < (a : Real) := by linarith
+  have hlog_pos : 0 < Real.log a := by
+    exact Real.log_pos (by linarith)
+  have hlog_nonneg : 0 ≤ Real.log a := hlog_pos.le
+  have hpow : (Real.log a) ^ 3 ≤ L ^ 3 :=
+    pow_le_pow_left₀ hlog_nonneg hlog 3
+  have hmul : (g : Real) * (Real.log a) ^ 3 ≤
+      (g : Real) * L ^ 3 :=
+    mul_le_mul_of_nonneg_left hpow (by positivity)
+  have hbound : (g : Real) * (Real.log a) ^ 3 ≤ a :=
+    hmul.trans hproduct
+  exact (le_div_iff₀ (pow_pos hlog_pos 3)).2 (by
+    simpa [logCubedWidth] using hbound)
+
 def dusartUpper (x : Real) : Real :=
   x * (1 + (1 / 2 : Real) / (Real.log x) ^ 2)
 
