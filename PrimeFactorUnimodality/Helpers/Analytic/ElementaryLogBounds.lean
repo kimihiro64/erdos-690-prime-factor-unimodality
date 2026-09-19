@@ -127,4 +127,26 @@ theorem log_le_smooth_with_seven {x : Real} {a b c d : Nat} (hx : 0 < x)
     Real.log_pow, Real.log_pow, Real.log_pow, Real.log_pow] at h
   simpa [mul_comm, mul_left_comm, mul_assoc] using h
 
+theorem smooth_log_le {x : Real} {a b c : Nat} (hx : 0 < x)
+    (hbound : (2 : Real) ^ a * (3 : Real) ^ b * (5 : Real) ^ c ≤ x) :
+    (a : Real) * log 2 + (b : Real) * log 3 +
+      (c : Real) * log 5 ≤ log x := by
+  have h := Real.log_le_log (by positivity) hbound
+  rw [Real.log_mul (by positivity) (by positivity),
+    Real.log_mul (by positivity) (by positivity),
+    Real.log_pow, Real.log_pow, Real.log_pow] at h
+  simpa [mul_comm, mul_left_comm, mul_assoc] using h
+
+theorem log_nat_ge_smooth_lower {n a b c : Nat} (hn : 0 < n)
+    (hbound : (2 : Nat) ^ a * 3 ^ b * 5 ^ c ≤ n) :
+    (a : Real) * (693147 / 1000000 : Real) +
+      (b : Real) * (1098612 / 1000000 : Real) +
+      (c : Real) * (1609437 / 1000000 : Real) ≤ Real.log n := by
+  have h := smooth_log_le (x := (n : Real)) (by exact_mod_cast hn) (by
+    exact_mod_cast hbound)
+  have h2 := mul_le_mul_of_nonneg_left log_2_gt.le (by positivity : (0 : Real) ≤ (a : Real))
+  have h3 := mul_le_mul_of_nonneg_left log_3_gt.le (by positivity : (0 : Real) ≤ (b : Real))
+  have h5 := mul_le_mul_of_nonneg_left log_5_gt.le (by positivity : (0 : Real) ≤ (c : Real))
+  nlinarith
+
 end LogTables
