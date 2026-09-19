@@ -2,6 +2,7 @@ import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 import PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitPrimeCounting
+import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
 
 set_option autoImplicit false
 
@@ -1265,6 +1266,15 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
       (by norm_num at ⊢; linarith)
       (by norm_num at ⊢; linarith) hab)
     row.toLogCubedPrimeRow hleft hright
+
+theorem hasDusartShortIntervalPrime_of_finite_gap_log_rows_and_mediumPNT
+    {X : Real} {rows : List FinitePrimeGapLogRow}
+    (hX : (89693 : Real) ≤ X)
+    (finitePrefix : HasDusartShortIntervalPrimeBelow (89693 : Real))
+    (cover : FinitePrimeGapLogRowsCoverUpTo rows X) :
+    HasDusartShortIntervalPrime := by
+  exact hasDusartShortIntervalPrime_of_finite_and_mediumPNT hX finitePrefix
+    (hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows cover)
 
 /-! A log-cubed finite table only covers the range beginning at `89693`.
 The lower Dusart interval provider is therefore kept as an explicit prefix
