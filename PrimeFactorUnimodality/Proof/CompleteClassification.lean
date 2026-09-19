@@ -558,8 +558,45 @@ theorem completeClassification_of_mediumPNT_and_split_remainder_row_provider
   exact ⟨hasDusartRealPrimeCountingBoundsBelow_of_rows_from599 primeCover
       (provider.primeCountingSmallUpper Y hXY),
     hasDusartSymmetricThetaBoundsBelow_of_rows thetaCover,
-    hasLogCubedShortIntervalPrimeBelow_of_rows shortCover,
+      hasLogCubedShortIntervalPrimeBelow_of_rows shortCover,
     R, hR, hcore⟩
+
+/-! The elementary small-prefix estimate can be built into the provider
+interface.  This removes even the finite Abel integral from the certificate:
+only the explicit large-cutoff inequality remains to be checked. -/
+structure MediumPNTFiniteSplitCoreRowProvider (X C : Real) : Prop where
+  primeCountingRows : ∀ Y : Real, X ≤ Y →
+    ∃ rows : List DusartPrimeCountingRow,
+      DusartPrimeCountingRowsCoverFrom599 rows Y
+  primeCountingSmallUpper : ∀ Y : Real, X ≤ Y →
+    ∀ x : Real, 2 ≤ x → x < 599 →
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x
+  thetaRows : ∀ Y : Real, X ≤ Y →
+    ∃ rows : List DusartThetaBoundsRow,
+      DusartThetaBoundsRowsCoverUpTo rows Y
+  shortIntervalRows : ∀ Y : Real, X ≤ Y →
+    ∃ rows : List LogCubedPrimeRow,
+      LogCubedPrimeRowsCoverUpTo rows Y
+  core : ∀ Y : Real, X ≤ Y →
+    4000 + 720 * (∫ t in (2 : Real)..Y, 1 / Real.log t ^ 7) + 10 * Y ≤
+      C * Y / Real.log Y ^ 4
+
+theorem completeClassification_of_mediumPNT_and_split_core_row_provider
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (provider : MediumPNTFiniteSplitCoreRowProvider X C) :
+    CompleteClassification := by
+  apply completeClassification_of_mediumPNT_and_split_remainder_row_provider
+    hX hC0 hC
+  refine { primeCountingRows := provider.primeCountingRows
+    primeCountingSmallUpper := provider.primeCountingSmallUpper
+    thetaRows := provider.thetaRows
+    shortIntervalRows := provider.shortIntervalRows
+    remainder := ?_ }
+  intro Y hXY
+  refine ⟨10 * Y, ?_, ?_⟩
+  · exact small_integral_remainder_le_ten_mul (by linarith [hX])
+  · exact provider.core Y hXY
 
 theorem completeClassification_of_mediumPNT_and_finite_error_provider
     (finitePrimeCounting : ∀ X : Real, (4e18 : Real) ≤ X →

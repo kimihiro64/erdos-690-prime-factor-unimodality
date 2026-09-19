@@ -98,3 +98,11 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_split_rem
     PrimeFactorUnimodality.CompleteClassification := by
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_split_remainder_row_provider
     hX hC0 hC provider
+
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_split_core_row_provider
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (provider : PrimeFactorUnimodality.MediumPNTFiniteSplitCoreRowProvider X C) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_split_core_row_provider
+    hX hC0 hC provider
