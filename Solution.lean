@@ -42,6 +42,20 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_theta_error
     hX hA0 hA1 finiteThetaError selectedInputs
 
+/-! Direct public boundary for a complete finite package at the single
+cutoff selected by the analytic tail proof. -/
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_inputs
+    {A C X : Real} (hX : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hcore : |PrimeFactorUnimodality.primeCountingCore X| ≤
+      C * X / Real.log X ^ 4)
+    (selectedInputs :
+      PrimeFactorUnimodality.MediumPNTSelectedFiniteInputs A X) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_inputs
+    hX hA0 hA1 hC0 hC hcore selectedInputs
+
 theorem PrimeFactorUnimodality.completeClassification_of_logFourth_cutoff_inputs_from_theta_error
     {A X : Real} (hX : (4e18 : Real) ≤ X)
     (finitePrimeCounting :
