@@ -1255,6 +1255,16 @@ theorem hasDusartShortIntervalPrimeBelow_of_indexed_gap_log_rows
     refine ⟨q, hq, hxq, ?_⟩
     exact dusartShortIntervalUpper_of_logCubed hlarge hupper
 
+theorem hasDusartShortIntervalPrime_of_indexed_gap_log_rows_and_mediumPNT
+    {n : Nat} {X : Real}
+    {rows : Fin n → FinitePrimeGapLogRow}
+    (hX : (89693 : Real) ≤ X)
+    (finitePrefix : HasDusartShortIntervalPrimeBelow (89693 : Real))
+    (cover : FinitePrimeGapLogIndexedRowsCoverUpTo rows X) :
+    HasDusartShortIntervalPrime := by
+  exact hasDusartShortIntervalPrime_of_finite_and_mediumPNT hX finitePrefix
+    (hasLogCubedShortIntervalPrimeBelow_of_indexed_gap_log_rows cover)
+
 theorem hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
     {X : Real} {rows : List FinitePrimeGapLogRow}
     (cover : FinitePrimeGapLogRowsCoverUpTo rows X) :
