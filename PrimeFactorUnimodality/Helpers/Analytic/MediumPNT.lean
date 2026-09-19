@@ -152,6 +152,22 @@ theorem exists_dusartPrimeInInterval_of_mediumPNT
       apply (div_le_iff₀ hlogpos).2
       nlinarith [hlog4]) htheta
 
+/-! The source-level PNT only has to handle the unbounded tail.  Once a
+finite computation supplies the interval estimate through any cutoff above
+`89693`, this glues it to the PNT tail and produces the exact global
+log-cubed statement used by the all-`k` reduction. -/
+theorem hasLogCubedShortIntervalPrime_of_finite_and_mediumPNT
+    {X₀ : Real} (hX₀ : (89693 : Real) ≤ X₀)
+    (finite : HasLogCubedShortIntervalPrimeBelow X₀) :
+    HasLogCubedShortIntervalPrime := by
+  obtain ⟨X, hX₀X, _, tail⟩ :=
+    exists_dusartPrimeInInterval_of_mediumPNT X₀
+  exact hasLogCubedShortIntervalPrime_of_below_and_above hX₀
+    finite (fun x hx => by
+      obtain ⟨q, hq, hxq, hupper⟩ := tail x (hX₀X.trans hx)
+      refine ⟨q, hq, hxq, ?_⟩
+      simpa [mul_add, mul_one] using hupper)
+
 /-! The source-level PNT also supplies the published prime-counting tail once
 the finite Abel-summation core is bounded.  The core is transported to the
 raised cutoff by the proved monotonicity estimate; no prime-counting theorem
