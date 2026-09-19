@@ -24,6 +24,98 @@ def dusartPiLower (x : Real) : Real :=
 def dusartPiUpper (x : Real) : Real :=
   x / Real.log x * (1 + (6381 / 5000 : Real) / Real.log x)
 
+/-! The upper comparison function is increasing once the logarithm is past
+`2`.  This elementary fact lets the small prime-counting range be checked at
+integer floors instead of by a separate real interval certificate. -/
+theorem dusartPiUpper_monotoneOn :
+    MonotoneOn dusartPiUpper (Set.Ici (10 : Real)) := by
+  apply monotoneOn_of_deriv_nonneg (convex_Ici (10 : Real))
+  · have hlog : ContinuousOn (fun y : Real => Real.log y)
+        (Set.Ici (10 : Real)) := by
+      exact continuousOn_id.log (by
+        intro x hx
+        have hx_pos : (0 : Real) < x := by linarith [hx]
+        simpa only [id_eq] using hx_pos.ne')
+    exact (continuousOn_id.div hlog (by
+      intro x hx
+      exact (Real.log_pos (by linarith [hx])).ne')).mul
+      (continuousOn_const.add (continuousOn_const.div hlog (by
+        intro x hx
+        exact (Real.log_pos (by linarith [hx])).ne')))
+  · have hlog : DifferentiableOn ℝ (fun y : Real => Real.log y)
+        (interior (Set.Ici (10 : Real))) := by
+      exact differentiableOn_id.log (by
+        intro x hx
+        have hx' : (10 : Real) < x := by
+          simpa only [interior_Ici, Set.mem_Ioi] using hx
+        simpa only [id_eq] using (show x ≠ 0 by linarith))
+    exact (differentiableOn_id.div hlog (by
+      intro x hx
+      exact (Real.log_pos (by
+        have hx' : (10 : Real) < x := by
+          simpa only [interior_Ici, Set.mem_Ioi] using hx
+        linarith)).ne')).mul
+      ((differentiableOn_const (1 : Real)).add
+        ((differentiableOn_const (6381 / 5000 : Real)).div hlog (by
+          intro x hx
+          exact (Real.log_pos (by
+            have hx' : (10 : Real) < x := by
+              simpa only [interior_Ici, Set.mem_Ioi] using hx
+            linarith)).ne')))
+  · intro x hx
+    simp only [interior_Ici, Set.mem_Ioi] at hx
+    have x_ne : x ≠ 0 := by linarith
+    have hlog_pos : 0 < Real.log x := Real.log_pos (by linarith)
+    have hlog_gt_two : (2 : Real) < Real.log x := by
+      apply (Real.lt_log_iff_exp_lt (by linarith)).2
+      have hexp : Real.exp 2 < (9 : Real) := by
+        rw [show (2 : Real) = 1 + 1 by norm_num, Real.exp_add]
+        have hone : Real.exp 1 < 3 := Real.exp_one_lt_d9.trans (by norm_num)
+        nlinarith [mul_self_lt_mul_self (Real.exp_pos 1).le hone]
+      have : (9 : Real) < x := by linarith
+      exact hexp.trans this
+    have hderiv := ((hasDerivAt_id x).div
+      (Real.hasDerivAt_log x_ne) hlog_pos.ne').mul
+      ((hasDerivAt_const x (1 : Real)).add
+        ((hasDerivAt_const x (6381 / 5000 : Real)).div
+          (Real.hasDerivAt_log x_ne) hlog_pos.ne'))
+    simp only [id_eq] at hderiv
+    change 0 ≤ deriv (fun y : Real =>
+      y / Real.log y * (1 + (6381 / 5000 : Real) / Real.log y)) x
+    rw [hderiv.deriv]
+    field_simp [x_ne, hlog_pos.ne']
+    have hfirst : 0 < Real.log x * (Real.log x - 1) := by positivity
+    have hsecond : 0 < (6381 / 5000 : Real) * (Real.log x - 2) := by
+      positivity
+    nlinarith
+
+/-! For the remaining bounded range, monotonicity reduces a real-variable
+upper estimate to integer-floor checks, with only the tiny interval `[2,10)`
+left as a direct elementary obligation. -/
+theorem real_primeCounting_upper_of_integer_certificate
+    (small : ∀ x : Real, 2 ≤ x → x < 10 →
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x)
+    (certificate : ∀ n : Nat, 10 ≤ n → n < 599 →
+      (Nat.primeCounting n : Real) ≤ dusartPiUpper n) :
+    ∀ x : Real, 2 ≤ x → x < 599 →
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x := by
+  intro x hx2 hx599
+  by_cases hsmall : x < 10
+  · exact small x hx2 hsmall
+  · let n : Nat := ⌊x⌋₊
+    have hx0 : 0 ≤ x := by linarith
+    have hn10 : 10 ≤ n := by
+      exact Nat.le_floor (by linarith)
+    have hnn : n < 599 := (Nat.floor_lt hx0).2 hx599
+    have hcert := certificate n hn10 hnn
+    have hnle : (n : Real) ≤ x := by
+      exact Nat.floor_le hx0
+    have hmono : dusartPiUpper (n : Real) ≤ dusartPiUpper x :=
+      dusartPiUpper_monotoneOn (by exact_mod_cast hn10)
+        (by exact le_of_not_gt hsmall)
+        hnle
+    simpa [n] using hcert.trans hmono
+
 /-! The exact Abel-summation identity underlying the prime-counting
 asymptotic.  Keeping the identity in this namespace makes the later
 remainder estimates explicit instead of treating `π` as an opaque provider. -/
