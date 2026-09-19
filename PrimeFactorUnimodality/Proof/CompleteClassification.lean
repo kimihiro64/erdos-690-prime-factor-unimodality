@@ -60,6 +60,14 @@ theorem completeClassification_of_explicit_mertens_inputs
   exact completeClassification_of_explicit_inputs primeCountingBounds
     hasMertensReciprocalPrimeEstimate thetaBounds tailPair
 
+theorem completeClassification_of_explicit_dusart_inputs
+    (primeCountingBounds : HasDusartPrimeCountingBounds)
+    (thetaBounds : HasDusartThetaBounds)
+    (shortInterval : HasDusartShortIntervalPrime) :
+    CompleteClassification := by
+  exact completeClassification_of_explicit_mertens_inputs primeCountingBounds
+    thetaBounds (hasUniformTailPrimePair_of_shortInterval shortInterval)
+
 /-! The exact all-`k` reduction after the full published record-gap range is
 available.  This is the final finite/tail assembly; only the analytic tail
 providers remain parameters here. -/

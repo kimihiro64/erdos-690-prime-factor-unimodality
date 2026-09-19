@@ -38,6 +38,14 @@ theorem PrimeFactorUnimodality.completeClassification_of_explicit_mertens_inputs
   exact PrimeFactorUnimodality.completeClassification_of_explicit_mertens_inputs
     primeCountingBounds thetaBounds tailPair
 
+theorem PrimeFactorUnimodality.completeClassification_of_explicit_dusart_inputs
+    (primeCountingBounds : PrimeFactorUnimodality.HasDusartPrimeCountingBounds)
+    (thetaBounds : PrimeFactorUnimodality.HasDusartThetaBounds)
+    (shortInterval : PrimeFactorUnimodality.HasDusartShortIntervalPrime) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_explicit_dusart_inputs
+    primeCountingBounds thetaBounds shortInterval
+
 /-! Public boundary for a source-level MediumPNT proof: only finite analytic
 facts at the cutoff selected by that proof remain to be supplied. -/
 theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_inputs
