@@ -467,5 +467,39 @@ theorem exists_mediumPNT_all_dusart_tail_inputs_of_finite_theta_error
   exact exists_mediumPNT_all_dusart_tail_inputs hX (by norm_num) (by norm_num)
     hcore
 
+/-! The same finite-theta reduction in the real prime-counting interface used
+by the cutoff assembly.  This is kept separate from the preceding published
+form so callers do not have to re-prove the monotone conversion from the
+source-level Abel estimate to the real-variable inequalities. -/
+theorem exists_mediumPNT_all_real_dusart_tail_inputs_of_finite_theta_error
+    {A X : Real} (hX : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
+    (finiteThetaError : HasThetaLogFourthErrorBelow A X) :
+    ∃ Y : Real, X ≤ Y ∧
+      HasDusartRealPrimeCountingBoundsAbove Y ∧
+      HasThetaLogFourthErrorAbove (648 / 1000 : Real) Y ∧
+      (∀ x : Real, Y ≤ x →
+        ∃ q : Nat, q.Prime ∧ x < q ∧
+          (q : Real) ≤ x + x / (Real.log x) ^ 3) := by
+  have hcore : |primeCountingCore X| ≤
+      (3 / 5 : Real) * X / Real.log X ^ 4 :=
+    primeCountingCore_abs_le_at_large_cutoff_of_theta_error
+      hX hA0 hA1 finiteThetaError
+  obtain ⟨Y, hXY, _, htheta⟩ :=
+    exists_hasThetaLogFourthError_of_mediumPNT_above X
+  obtain ⟨Z, hYZ, hreal, hintervalZ⟩ :=
+    exists_mediumPNT_real_dusart_tail_inputs hX (by norm_num) (by norm_num)
+      hcore
+  refine ⟨max Y Z, hXY.trans (le_max_left _ _), ?_, ?_, ?_⟩
+  · constructor
+    · intro x hx
+      exact hreal.1 x (le_trans (le_max_right Y Z) hx)
+    · intro x hx
+      exact hreal.2 x (le_trans (le_max_right Y Z) hx)
+  · intro x hx
+    exact htheta x (le_trans (le_max_left Y Z) hx)
+  · intro x hx
+    exact hintervalZ x (le_trans (le_max_right Y Z) hx)
+
 end
 end PrimeFactorUnimodality
