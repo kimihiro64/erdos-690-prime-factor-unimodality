@@ -998,6 +998,23 @@ theorem log_le_97_over_10_of_15527_le
   exact hmono.trans log_16317_le_97_over_10
 
 theorem log_le_116_over_10_of_89693_le
+theorem log_22026_le_10_over_1 :
+    Real.log (22026 : Real) ≤ (10 : Real) / 1 := by
+  apply (Real.log_le_iff_le_exp (by norm_num)).2
+  interval_decide
+
+theorem log_le_10_over_1_of_20959_le
+    {a : Nat} (ha : 20959 ≤ a) (ha22026 : a ≤ 22026) :
+    Real.log a ≤ (10 : Real) / 1 := by
+  have hmono : Real.log (a : Real) ≤ Real.log (22026 : Real) := by
+    have ha_pos : (0 : Real) < a := by
+      exact_mod_cast (show 0 < a by omega)
+    apply Real.log_le_log
+    · exact ha_pos
+    · exact_mod_cast ha22026
+  exact hmono.trans log_22026_le_10_over_1
+
+
 theorem log_20952_le_199_over_20 :
     Real.log (20952 : Real) ≤ (199 : Real) / 20 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
@@ -1651,6 +1668,20 @@ theorem dusartPrimeRow_of_explicit_16317
     (by norm_num) hproduct
 
 theorem dusartPrimeRow_of_explicit_89693
+theorem dusartPrimeRow_of_explicit_22026
+    {p q : Nat}
+    (hq : q.Prime)
+    (hpq : p < q)
+    (hproduct : (q - p : Real) *
+        (2 * ((10 : Real) / 1) ^ 2) ≤ p)
+    (hleft_large : 20959 ≤ p)
+    (hleft_22026 : p ≤ 22026) :
+    DusartPrimeRow :=
+  dusartPrimeRow_of_explicit hq hpq (by omega)
+    (log_le_10_over_1_of_20959_le hleft_large hleft_22026)
+    (by norm_num) hproduct
+
+
 theorem dusartPrimeRow_of_explicit_20952
     {p q : Nat}
     (hq : q.Prime)
@@ -9903,7 +9934,575 @@ theorem dusartPrimeRows_3275_16318_chain :
     dusartPrimeRows_3275_15526_chain dusartPrimeRows_15527_16318_chain
 
 def DusartPrimeRowsCoverBelow (rows : List DusartPrimeRow) : Prop :=
+def dusartPrimeRows_3275_22026 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_20958 ++ dusartPrimeRows_20959_22026
+
+theorem dusartPrimeRows_3275_22026_chain :
+    DusartPrimeRowsChain 3275 22026 dusartPrimeRows_3275_22026 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_20958_chain dusartPrimeRows_20959_22026_chain
+
+
 def dusartPrimeRows_3275_20958 : List DusartPrimeRow :=
+def dusartPrimeRows_20959_22026 : List DusartPrimeRow :=
+[
+    dusartPrimeRow_of_explicit_22026 (p := 20959) (q := 20963) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 20963) (q := 20981) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 20981) (q := 20983) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 20983) (q := 21001) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21001) (q := 21011) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21011) (q := 21013) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21013) (q := 21017) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21017) (q := 21019) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21019) (q := 21023) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21023) (q := 21031) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21031) (q := 21059) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21059) (q := 21061) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21061) (q := 21067) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21067) (q := 21089) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21089) (q := 21101) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21101) (q := 21107) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21107) (q := 21121) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21121) (q := 21139) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21139) (q := 21143) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21143) (q := 21149) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21149) (q := 21157) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21157) (q := 21163) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21163) (q := 21169) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21169) (q := 21179) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21179) (q := 21187) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21187) (q := 21191) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21191) (q := 21193) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21193) (q := 21211) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21211) (q := 21221) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21221) (q := 21227) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21227) (q := 21247) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21247) (q := 21269) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21269) (q := 21277) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21277) (q := 21283) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21283) (q := 21313) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21313) (q := 21317) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21317) (q := 21319) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21319) (q := 21323) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21323) (q := 21341) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21341) (q := 21347) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21347) (q := 21377) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21377) (q := 21379) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21379) (q := 21383) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21383) (q := 21391) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21391) (q := 21397) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21397) (q := 21401) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21401) (q := 21407) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21407) (q := 21419) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21419) (q := 21433) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21433) (q := 21467) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21467) (q := 21481) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21481) (q := 21487) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21487) (q := 21491) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21491) (q := 21493) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21493) (q := 21499) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21499) (q := 21503) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21503) (q := 21517) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21517) (q := 21521) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21521) (q := 21523) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21523) (q := 21529) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21529) (q := 21557) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21557) (q := 21559) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21559) (q := 21563) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21563) (q := 21569) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21569) (q := 21577) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21577) (q := 21587) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21587) (q := 21589) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21589) (q := 21599) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21599) (q := 21601) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21601) (q := 21611) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21611) (q := 21613) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21613) (q := 21617) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21617) (q := 21647) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21647) (q := 21649) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21649) (q := 21661) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21661) (q := 21673) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21673) (q := 21683) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21683) (q := 21701) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21701) (q := 21713) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21713) (q := 21727) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21727) (q := 21737) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21737) (q := 21739) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21739) (q := 21751) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21751) (q := 21757) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21757) (q := 21767) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21767) (q := 21773) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21773) (q := 21787) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21787) (q := 21799) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21799) (q := 21803) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21803) (q := 21817) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21817) (q := 21821) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21821) (q := 21839) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21839) (q := 21841) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21841) (q := 21851) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21851) (q := 21859) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21859) (q := 21863) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21863) (q := 21871) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21871) (q := 21881) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21881) (q := 21893) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21893) (q := 21911) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21911) (q := 21929) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21929) (q := 21937) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21937) (q := 21943) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21943) (q := 21961) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21961) (q := 21977) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21977) (q := 21991) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21991) (q := 21997) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 21997) (q := 22003) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 22003) (q := 22013) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_22026 (p := 22013) (q := 22027) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+]
+
+theorem dusartPrimeRows_20959_22026_chain :
+    DusartPrimeRowsChain 20959 22026 dusartPrimeRows_20959_22026 := by
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 20959) (q := 20963) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 20963) (q := 20981) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 20981) (q := 20983) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 20983) (q := 21001) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21001) (q := 21011) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21011) (q := 21013) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21013) (q := 21017) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21017) (q := 21019) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21019) (q := 21023) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21023) (q := 21031) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21031) (q := 21059) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21059) (q := 21061) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21061) (q := 21067) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21067) (q := 21089) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21089) (q := 21101) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21101) (q := 21107) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21107) (q := 21121) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21121) (q := 21139) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21139) (q := 21143) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21143) (q := 21149) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21149) (q := 21157) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21157) (q := 21163) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21163) (q := 21169) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21169) (q := 21179) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21179) (q := 21187) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21187) (q := 21191) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21191) (q := 21193) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21193) (q := 21211) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21211) (q := 21221) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21221) (q := 21227) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21227) (q := 21247) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21247) (q := 21269) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21269) (q := 21277) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21277) (q := 21283) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21283) (q := 21313) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21313) (q := 21317) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21317) (q := 21319) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21319) (q := 21323) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21323) (q := 21341) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21341) (q := 21347) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21347) (q := 21377) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21377) (q := 21379) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21379) (q := 21383) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21383) (q := 21391) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21391) (q := 21397) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21397) (q := 21401) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21401) (q := 21407) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21407) (q := 21419) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21419) (q := 21433) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21433) (q := 21467) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21467) (q := 21481) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21481) (q := 21487) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21487) (q := 21491) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21491) (q := 21493) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21493) (q := 21499) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21499) (q := 21503) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21503) (q := 21517) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21517) (q := 21521) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21521) (q := 21523) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21523) (q := 21529) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21529) (q := 21557) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21557) (q := 21559) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21559) (q := 21563) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21563) (q := 21569) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21569) (q := 21577) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21577) (q := 21587) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21587) (q := 21589) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21589) (q := 21599) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21599) (q := 21601) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21601) (q := 21611) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21611) (q := 21613) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21613) (q := 21617) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21617) (q := 21647) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21647) (q := 21649) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21649) (q := 21661) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21661) (q := 21673) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21673) (q := 21683) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21683) (q := 21701) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21701) (q := 21713) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21713) (q := 21727) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21727) (q := 21737) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21737) (q := 21739) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21739) (q := 21751) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21751) (q := 21757) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21757) (q := 21767) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21767) (q := 21773) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21773) (q := 21787) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21787) (q := 21799) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21799) (q := 21803) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21803) (q := 21817) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21817) (q := 21821) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21821) (q := 21839) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21839) (q := 21841) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21841) (q := 21851) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21851) (q := 21859) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21859) (q := 21863) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21863) (q := 21871) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21871) (q := 21881) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21881) (q := 21893) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21893) (q := 21911) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21911) (q := 21929) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21929) (q := 21937) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21937) (q := 21943) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21943) (q := 21961) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21961) (q := 21977) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21977) (q := 21991) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21991) (q := 21997) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 21997) (q := 22003) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 22003) (q := 22013) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_22026 (p := 22013) (q := 22027) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  exact DusartPrimeRowsChain.empty (by norm_num)
+
+
   dusartPrimeRows_3275_19936 ++ dusartPrimeRows_19937_20958
 
 theorem dusartPrimeRows_3275_20958_chain :
@@ -12041,6 +12640,12 @@ theorem dusartPrimeRows_3275_16318_cover :
     dusartPrimeRows_3275_16318_chain (by norm_num)
 
 theorem dusartPrimeRowsCoverBelow_of_chain
+theorem dusartPrimeRows_3275_22026_cover :
+    DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_22026 (22026 : Real) := by
+  exact dusartPrimeRowsCoverUpTo_of_chain
+    dusartPrimeRows_3275_22026_chain (by norm_num)
+
+
 theorem dusartPrimeRows_3275_20958_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_20958 (20958 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
