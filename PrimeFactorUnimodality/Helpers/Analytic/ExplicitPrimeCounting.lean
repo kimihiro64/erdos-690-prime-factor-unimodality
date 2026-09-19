@@ -2866,6 +2866,26 @@ theorem hasDusartPrimeCountingAsymptoticAbove_of_core_and_theta_error
   exact primeCounting_remainder_abs_le_732
     hX h2X hx hA0 hA hC0 hC hlog hcore error
 
+/-! Direct paper-facing form of Dusart Theorem 5.1.  The proof is the
+kernel-checked Abel remainder estimate above followed by the elementary
+normalization into the displayed error term; no declaration from the
+sorry-backed IEANTN/Dusart file is used. -/
+theorem dusartTheorem5_1_of_core_and_theta_error
+    {A C X : Real}
+    (hXpos : 0 < X) (h2X : 2 ≤ X)
+    (hA0 : 0 ≤ A) (hA : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hlog : (42 : Real) ≤ Real.log X)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (error : HasThetaLogFourthError A X) :
+    ∀ x : Real, X ≤ x → ∃ E : Real,
+      ((Nat.primeCounting ⌊x⌋₊ : Real) =
+        x / Real.log x *
+          (1 + 1 / Real.log x + 2 / (Real.log x) ^ 2 + E)) ∧
+      |E| ≤ (732 : Real) / 100 / (Real.log x) ^ 3 := by
+  exact hasDusartPrimeCountingAsymptoticAbove_of_core_and_theta_error
+    hXpos h2X hA0 hA hC0 hC hlog hcore error
+
 def HasDusartPublishedPrimeCountingBoundsAbove (X : Real) : Prop :=
   (∀ x : Real, X ≤ x →
     x / (Real.log x - 1) ≤ (Nat.primeCounting ⌊x⌋₊ : Real)) ∧
