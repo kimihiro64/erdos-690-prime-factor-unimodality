@@ -13546,6 +13546,24 @@ def LogCubedPrimeRowsCoverUpTo (rows : List LogCubedPrimeRow) (X : Real) : Prop 
   ∀ x : Real, 89693 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+def LogCubedPrimeRowsCoverFrom
+    (rows : List LogCubedPrimeRow) (x₀ X : Real) : Prop :=
+  ∀ x : Real, x₀ ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem logCubedPrimeRowsCoverUpTo_append_from
+    {m X : Real} {left right : List LogCubedPrimeRow}
+    (hleft : LogCubedPrimeRowsCoverUpTo left m)
+    (hright : LogCubedPrimeRowsCoverFrom right m X) :
+    LogCubedPrimeRowsCoverUpTo (left ++ right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ :=
+      hright x (le_of_not_ge hxm) hX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+
 def LogCubedPrimeIndexedCoverUpTo {n : Nat}
     (rows : Fin n → LogCubedPrimeRow) (X : Real) : Prop :=
   ∀ x : Real, 89693 ≤ x → x ≤ X →
