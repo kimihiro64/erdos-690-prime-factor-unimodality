@@ -564,6 +564,26 @@ theorem completeClassification_of_mediumPNT_and_selected_split_inputs
     finiteShortInterval (by norm_num) (by norm_num)
     (by norm_num) (by norm_num) hsmall thetaError (by simpa using hcoreBound)
 
+/-! The finite theta remainder also discharges the Abel-core hypothesis.  This
+keeps the all-`k` boundary aligned with the actual finite inputs: the only
+remaining provider data are the bounded prime-counting, theta, and interval
+facts at the selected cutoff. -/
+theorem completeClassification_of_mediumPNT_and_selected_finite_theta_error
+    {A X : Real} (hX : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
+    (finiteThetaError : HasThetaLogFourthErrorBelow A X)
+    (finiteInputs : ∀ Y : Real, X ≤ Y →
+      HasDusartRealPrimeCountingBoundsBelow Y ∧
+      HasDusartSymmetricThetaBoundsBelow Y ∧
+      HasLogCubedShortIntervalPrimeBelow Y) :
+    CompleteClassification := by
+  have hcore : |primeCountingCore X| ≤
+      (3 / 5 : Real) * X / Real.log X ^ 4 :=
+    primeCountingCore_abs_le_at_large_cutoff_of_theta_error
+      hX hA0 hA1 finiteThetaError
+  exact completeClassification_of_mediumPNT_and_selected_finite_inputs
+    hX (by norm_num) (by norm_num) hcore finiteInputs
+
 /-! This is the certificate boundary for the corrected all-cutoff argument.
 Unlike the legacy provider below, it does not ask for the false statement
 `|theta x - x| ≤ .648*x/log⁴ x` starting at `2`.  The theta rows begin at the
