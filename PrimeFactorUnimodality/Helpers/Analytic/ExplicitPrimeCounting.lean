@@ -1443,6 +1443,23 @@ theorem explicit_integral_core_bound_at_large_cutoff_with_10000
   exact explicit_integral_core_bound_of_log_margins hX hA0 hA1 hlog2
     hlogMillion hlogCut (lower_bound_div_log_four_of_four_e18_le hX)
 
+theorem explicit_reserved_integral_core_at_599
+    {A X : Real} (hX : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1) :
+    4000 + 720 * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) +
+        10000 + A * (∫ t in (599 : Real)..X, 1 / Real.log t ^ 6) ≤
+      (3 / 5 : Real) * X / Real.log X ^ 4 := by
+  have hXmillion : (1000000 : Real) ≤ X := by
+    norm_num at hX ⊢
+    linarith
+  have hseven := integral_inv_log_seven_le_explicit hXmillion
+  have hsix := integral_inv_log_six_tail_from_599_le_explicit hXmillion
+  have hmargin := explicit_integral_core_bound_at_large_cutoff_with_10000
+    hX hA0 hA1
+  have hseven' : 0 ≤ 720 := by norm_num
+  have hsix' := mul_le_mul_of_nonneg_left hsix hA0
+  nlinarith [mul_le_mul_of_nonneg_left hseven hseven']
+
 /-! The finite theta estimate and the numerical integral margin now compose
 into the exact core hypothesis consumed by the all-`k` Dusart assembly.  This
 is intentionally stated at an arbitrary raised cutoff: the analytic tail may
