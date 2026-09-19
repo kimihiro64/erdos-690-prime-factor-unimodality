@@ -16711,6 +16711,19 @@ theorem dusartThetaEndpointRowsCoverUpTo_append
   · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
     exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
 
+theorem dusartThetaEndpointRowsCoverFrom_append
+    {x₀ m X : Real} {left right : List DusartThetaEndpointRow}
+    (hleft : DusartThetaEndpointRowsCoverFrom left x₀ m)
+    (hright : DusartThetaEndpointRowsCoverFrom right m X) :
+    DusartThetaEndpointRowsCoverFrom (left ++ right) x₀ X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ :=
+      hright x (le_of_not_ge hxm) hX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+
 theorem dusartThetaEndpointRow_provides
     (row : DusartThetaEndpointRow) {x : Real}
     (hleft : (row.left : Real) ≤ x) (hright : x ≤ row.right) :
