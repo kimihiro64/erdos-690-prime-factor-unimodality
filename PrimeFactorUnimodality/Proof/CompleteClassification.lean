@@ -307,7 +307,7 @@ theorem completeClassification_of_logFourth_cutoff_inputs
 /-! The finite core no longer needs to be passed as an independent analytic
 hypothesis: the explicit Abel estimate derives it directly from the finite
 log-fourth theta rows. -/
-theorem completeClassification_of_logFourth_cutoff_inputs_from_theta_error
+private theorem completeClassification_of_logFourth_cutoff_inputs_from_theta_error
     {A X : Real} (hX : (4e18 : Real) ≤ X)
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow X)
     (finiteTheta : HasDusartSymmetricThetaBoundsBelow X)
@@ -330,7 +330,7 @@ theorem completeClassification_of_logFourth_cutoff_inputs_from_theta_error
 /-! A fully expanded core boundary: the opaque core inequality can be
 replaced by the explicit logarithmic-integral inequality obtained from the
 finite theta error. -/
-theorem completeClassification_of_finite_theta_error_and_integral_core
+private theorem completeClassification_of_finite_theta_error_and_integral_core
     {A C X : Real} (hX : (4e18 : Real) ≤ X)
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow X)
     (finiteTheta : HasDusartSymmetricThetaBoundsBelow X)
@@ -384,7 +384,7 @@ theorem completeClassification_of_split_theta_error_and_integral_core
     hX finitePrimeCounting finiteTheta finiteShortInterval hA0 hA1
     hC0 hC hcore thetaError
 
-theorem completeClassification_of_theta_error_rows_and_integral_core
+private theorem completeClassification_of_theta_error_rows_and_integral_core
     {A C X : Real} (hX : (4e18 : Real) ≤ X)
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow X)
     (finiteTheta : HasDusartSymmetricThetaBoundsBelow X)
@@ -404,7 +404,7 @@ theorem completeClassification_of_theta_error_rows_and_integral_core
     (hasThetaLogFourthErrorBelow_of_rows cover) thetaErrorAbove
     integralCoreBound
 
-theorem completeClassification_of_finite_theta_error_at_large_cutoff
+private theorem completeClassification_of_finite_theta_error_at_large_cutoff
     {A X : Real} (hX : (4e18 : Real) ≤ X)
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow X)
     (finiteTheta : HasDusartSymmetricThetaBoundsBelow X)
@@ -421,7 +421,7 @@ theorem completeClassification_of_finite_theta_error_at_large_cutoff
 remaining finite obligation explicit as a provider valid at every possible
 selected cutoff.  Thus the resulting conclusion is the universal
 classification, with no hidden fixed cutoff and no finite bound on `k`. -/
-theorem completeClassification_of_mediumPNT_and_finite_provider
+private theorem completeClassification_of_mediumPNT_and_finite_provider
     (finitePrimeCounting : ∀ X : Real, (4e18 : Real) ≤ X →
       HasDusartRealPrimeCountingBoundsBelow X)
     (finiteTheta : ∀ X : Real, (4e18 : Real) ≤ X →
