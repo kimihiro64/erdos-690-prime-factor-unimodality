@@ -8,7 +8,7 @@ namespace PrimeFactorUnimodality
 /-! First compact small-range Dusart row.  The file is intentionally organized
 as a list-row certificate surface: later rows can be appended without
 duplicating the interval propagation proof. -/
-theorem dusartSmallUpperIntervalRow10_16 :
+def dusartSmallUpperIntervalRow10_16 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 16 = 6 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -20,7 +20,7 @@ theorem dusartSmallUpperIntervalRow10_16 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow17_22 :
+def dusartSmallUpperIntervalRow17_22 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 22 = 8 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -32,7 +32,7 @@ theorem dusartSmallUpperIntervalRow17_22 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow23_30 :
+def dusartSmallUpperIntervalRow23_30 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 30 = 10 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -44,7 +44,7 @@ theorem dusartSmallUpperIntervalRow23_30 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow31_40 :
+def dusartSmallUpperIntervalRow31_40 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 40 = 12 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -56,7 +56,7 @@ theorem dusartSmallUpperIntervalRow31_40 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow41_46 :
+def dusartSmallUpperIntervalRow41_46 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 46 = 14 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -68,7 +68,7 @@ theorem dusartSmallUpperIntervalRow41_46 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow47_58 :
+def dusartSmallUpperIntervalRow47_58 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 58 = 16 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -80,7 +80,7 @@ theorem dusartSmallUpperIntervalRow47_58 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow59_66 :
+def dusartSmallUpperIntervalRow59_66 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 66 = 18 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -92,7 +92,7 @@ theorem dusartSmallUpperIntervalRow59_66 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow67_72 :
+def dusartSmallUpperIntervalRow67_72 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 72 = 20 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -104,7 +104,7 @@ theorem dusartSmallUpperIntervalRow67_72 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow73_82 :
+def dusartSmallUpperIntervalRow73_82 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 82 = 22 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -116,7 +116,7 @@ theorem dusartSmallUpperIntervalRow73_82 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow83_96 :
+def dusartSmallUpperIntervalRow83_96 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 96 = 24 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -128,7 +128,7 @@ theorem dusartSmallUpperIntervalRow83_96 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow97_106 :
+def dusartSmallUpperIntervalRow97_106 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 106 = 27 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -140,7 +140,7 @@ theorem dusartSmallUpperIntervalRow97_106 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow107_112 :
+def dusartSmallUpperIntervalRow107_112 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 112 = 29 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -152,7 +152,7 @@ theorem dusartSmallUpperIntervalRow107_112 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow113_126 :
+def dusartSmallUpperIntervalRow113_126 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 126 = 30 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -164,7 +164,7 @@ theorem dusartSmallUpperIntervalRow113_126 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow127_138 :
+def dusartSmallUpperIntervalRow127_138 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 138 = 33 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -176,7 +176,7 @@ theorem dusartSmallUpperIntervalRow127_138 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow139_150 :
+def dusartSmallUpperIntervalRow139_150 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 150 = 35 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -188,7 +188,7 @@ theorem dusartSmallUpperIntervalRow139_150 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow151_162 :
+def dusartSmallUpperIntervalRow151_162 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 162 = 37 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -200,7 +200,7 @@ theorem dusartSmallUpperIntervalRow151_162 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow163_170 :
+def dusartSmallUpperIntervalRow163_170 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 170 = 39 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -212,7 +212,7 @@ theorem dusartSmallUpperIntervalRow163_170 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow171_178 :
+def dusartSmallUpperIntervalRow171_178 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 178 = 40 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -224,7 +224,7 @@ theorem dusartSmallUpperIntervalRow171_178 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow179_190 :
+def dusartSmallUpperIntervalRow179_190 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 190 = 42 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -236,7 +236,7 @@ theorem dusartSmallUpperIntervalRow179_190 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow191_198 :
+def dusartSmallUpperIntervalRow191_198 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 198 = 45 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -248,7 +248,7 @@ theorem dusartSmallUpperIntervalRow191_198 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow199_210 :
+def dusartSmallUpperIntervalRow199_210 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 210 = 46 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -260,7 +260,7 @@ theorem dusartSmallUpperIntervalRow199_210 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow211_226 :
+def dusartSmallUpperIntervalRow211_226 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 226 = 48 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -272,7 +272,7 @@ theorem dusartSmallUpperIntervalRow211_226 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow227_238 :
+def dusartSmallUpperIntervalRow227_238 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 238 = 51 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -284,7 +284,7 @@ theorem dusartSmallUpperIntervalRow227_238 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow239_250 :
+def dusartSmallUpperIntervalRow239_250 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 250 = 53 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -296,7 +296,7 @@ theorem dusartSmallUpperIntervalRow239_250 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow251_262 :
+def dusartSmallUpperIntervalRow251_262 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 262 = 55 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -308,7 +308,7 @@ theorem dusartSmallUpperIntervalRow251_262 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow263_271 :
+def dusartSmallUpperIntervalRow263_271 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 271 = 57 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -320,7 +320,7 @@ theorem dusartSmallUpperIntervalRow263_271 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow277_282 :
+def dusartSmallUpperIntervalRow277_282 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   let U : Real :=
     (3 : Real) * (693148 / 1000000 : Real) +
@@ -341,7 +341,7 @@ theorem dusartSmallUpperIntervalRow277_282 :
   · rw [hcount]
     norm_num [U]
 
-theorem dusartSmallUpperIntervalRow272_276 :
+def dusartSmallUpperIntervalRow272_276 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 276 = 58 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -353,7 +353,7 @@ theorem dusartSmallUpperIntervalRow272_276 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow283_292 :
+def dusartSmallUpperIntervalRow283_292 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 292 = 61 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
@@ -365,7 +365,7 @@ theorem dusartSmallUpperIntervalRow283_292 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow293_310 :
+def dusartSmallUpperIntervalRow293_310 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 310 = 63 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -377,7 +377,7 @@ theorem dusartSmallUpperIntervalRow293_310 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow311_330 :
+def dusartSmallUpperIntervalRow311_330 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 330 = 66 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -389,7 +389,7 @@ theorem dusartSmallUpperIntervalRow311_330 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow331_348 :
+def dusartSmallUpperIntervalRow331_348 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 348 = 69 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -401,7 +401,7 @@ theorem dusartSmallUpperIntervalRow331_348 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow349_366 :
+def dusartSmallUpperIntervalRow349_366 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 366 = 72 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -413,7 +413,7 @@ theorem dusartSmallUpperIntervalRow349_366 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow367_382 :
+def dusartSmallUpperIntervalRow367_382 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 382 = 75 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -425,7 +425,7 @@ theorem dusartSmallUpperIntervalRow367_382 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow383_400 :
+def dusartSmallUpperIntervalRow383_400 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 400 = 78 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -437,7 +437,7 @@ theorem dusartSmallUpperIntervalRow383_400 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow401_418 :
+def dusartSmallUpperIntervalRow401_418 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 418 = 80 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -449,7 +449,7 @@ theorem dusartSmallUpperIntervalRow401_418 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow419_438 :
+def dusartSmallUpperIntervalRow419_438 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 438 = 84 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -461,7 +461,7 @@ theorem dusartSmallUpperIntervalRow419_438 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow439_456 :
+def dusartSmallUpperIntervalRow439_456 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 456 = 87 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -473,7 +473,7 @@ theorem dusartSmallUpperIntervalRow439_456 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow457_462 :
+def dusartSmallUpperIntervalRow457_462 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 462 = 89 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -485,7 +485,7 @@ theorem dusartSmallUpperIntervalRow457_462 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow463_466 :
+def dusartSmallUpperIntervalRow463_466 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 466 = 90 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -497,7 +497,7 @@ theorem dusartSmallUpperIntervalRow463_466 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow467_478 :
+def dusartSmallUpperIntervalRow467_478 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 478 = 91 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -509,7 +509,7 @@ theorem dusartSmallUpperIntervalRow467_478 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow479_490 :
+def dusartSmallUpperIntervalRow479_490 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 490 = 93 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -521,7 +521,7 @@ theorem dusartSmallUpperIntervalRow479_490 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow491_502 :
+def dusartSmallUpperIntervalRow491_502 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 502 = 95 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -533,7 +533,7 @@ theorem dusartSmallUpperIntervalRow491_502 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow503_520 :
+def dusartSmallUpperIntervalRow503_520 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 520 = 97 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -545,7 +545,7 @@ theorem dusartSmallUpperIntervalRow503_520 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow521_546 :
+def dusartSmallUpperIntervalRow521_546 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 546 = 100 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -557,7 +557,7 @@ theorem dusartSmallUpperIntervalRow521_546 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow547_568 :
+def dusartSmallUpperIntervalRow547_568 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 568 = 103 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -569,7 +569,7 @@ theorem dusartSmallUpperIntervalRow547_568 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow569_592 :
+def dusartSmallUpperIntervalRow569_592 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 592 = 107 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
@@ -581,7 +581,7 @@ theorem dusartSmallUpperIntervalRow569_592 :
   · rw [hcount]
     norm_num
 
-theorem dusartSmallUpperIntervalRow593_598 :
+def dusartSmallUpperIntervalRow593_598 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 598 = 108 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
