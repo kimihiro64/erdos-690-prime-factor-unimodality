@@ -43,6 +43,16 @@ def HasDusartSymmetricThetaBoundsBelow (X : Real) : Prop :=
     |Chebyshev.theta x - x| <
       (12323 / 10000 : Real) * x / Real.log x)
 
+theorem hasDusartSymmetricThetaBoundsBelow_mono
+    {X Y : Real} (hXY : X ≤ Y)
+    (finite : HasDusartSymmetricThetaBoundsBelow Y) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  constructor
+  · intro x hx hX
+    exact finite.1 x hx (hX.trans hXY)
+  · intro x hx hX
+    exact finite.2 x hx (hX.trans hXY)
+
 /-! The interval below `2` is not part of the numerical certificate.  The
 theta sum is zero there, so its one-sided upper estimate is elementary. -/
 theorem hasDusartSymmetricThetaBoundsBelow_of_upper_lower

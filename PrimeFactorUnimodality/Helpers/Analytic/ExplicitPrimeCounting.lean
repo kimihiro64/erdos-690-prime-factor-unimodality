@@ -2718,6 +2718,16 @@ def HasDusartRealPrimeCountingBoundsBelow (X : Real) : Prop :=
   (∀ x : Real, 2 ≤ x → x ≤ X →
     (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x)
 
+theorem hasDusartRealPrimeCountingBoundsBelow_mono
+    {X Y : Real} (hXY : X ≤ Y)
+    (finite : HasDusartRealPrimeCountingBoundsBelow Y) :
+    HasDusartRealPrimeCountingBoundsBelow X := by
+  constructor
+  · intro x hx hX
+    exact finite.1 x hx (hX.trans hXY)
+  · intro x hx hX
+    exact finite.2 x hx (hX.trans hXY)
+
 def HasDusartRealPrimeCountingBoundsAbove (X : Real) : Prop :=
   (∀ x : Real, X ≤ x →
     dusartPiLower x ≤ (Nat.primeCounting ⌊x⌋₊ : Real)) ∧

@@ -155,6 +155,13 @@ def HasThetaLogFourthErrorBelow (A X : Real) : Prop :=
   ∀ x : Real, 2 ≤ x → x ≤ X →
     |Chebyshev.theta x - x| ≤ A * x / (Real.log x) ^ 4
 
+theorem hasThetaLogFourthErrorBelow_mono
+    {A X Y : Real} (hXY : X ≤ Y)
+    (finite : HasThetaLogFourthErrorBelow A Y) :
+    HasThetaLogFourthErrorBelow A X := by
+  intro x hx hX
+  exact finite x hx (hX.trans hXY)
+
 def HasThetaLogFourthErrorAbove (A X : Real) : Prop :=
   ∀ x : Real, X ≤ x →
     |Chebyshev.theta x - x| ≤ A * x / (Real.log x) ^ 4
