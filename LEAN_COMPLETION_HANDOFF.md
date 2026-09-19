@@ -92,6 +92,35 @@ owner kinds.  Compare source size and elaboration memory against one existing
 reduces source size but makes kernel reduction quadratic, use a balanced array
 or formula-based owner function; do not return to generated proof branches.
 
+### Record-twin replay compression
+
+The four `RecordTwin*SeedChunks` and `RecordTwin*SeedTail` directories contain
+about 1,900 files and another 287 MiB.  Their large state literals are repeated
+as one chunk's output and the next chunk's input, and the tail representation
+duplicates much of the chunk machinery.  Treat this as the same architectural
+problem rather than accepting one file per step.
+
+After the analytic modules are complete, prototype a row containing 8--32
+power steps:
+
+1. Store the initial state once and the ordered chunk widths/values once.
+2. Compute intermediate states through a reusable recursive `PowerTrace` row
+   assembler instead of emitting independent `Before` and `State` literals for
+   every step.
+3. Keep enough checkpoint states to bound elaboration and permit CI sharding;
+   checkpoints are an engineering parameter, not theorem declarations.
+4. Export the exact final lower/upper trace theorem names consumed by
+   `RecordTwinClosed.lean`.
+5. Compare source bytes, peak memory, and replay time for one prototype row.
+   Prefer a modest source increase if it materially lowers kernel memory.
+6. Replace and remove the old chunk/tail trees only after both complete trace
+   endpoints replay in CI.  Preserve the semantic hashes in generated module
+   comments and generator tests.
+
+Do not combine the lower and upper primality computations into one giant Lean
+declaration.  They should remain separately cacheable CI targets even after
+their internal steps are row-compressed.
+
 ## CI staging
 
 The workflow is intentionally disabled at the GitHub level until source work
