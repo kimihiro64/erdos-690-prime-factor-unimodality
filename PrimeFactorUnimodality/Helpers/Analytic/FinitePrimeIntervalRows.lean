@@ -554,6 +554,17 @@ theorem log_100000_le_116_over_10 :
   apply (Real.log_le_iff_le_exp (by norm_num)).2
   interval_decide
 
+theorem log_le_1141_over_100_of_3275_le
+    {a : Nat} (ha : 3275 ≤ a) (ha89693 : a ≤ 89693) :
+    Real.log a ≤ (1141 : Real) / 100 := by
+  have hmono : Real.log (a : Real) ≤ Real.log (89693 : Real) := by
+    have ha_pos : (0 : Real) < a := by
+      exact_mod_cast (show 0 < a by omega)
+    apply Real.log_le_log
+    · exact ha_pos
+    · exact_mod_cast ha89693
+  exact hmono.trans log_89693_le_1141_over_100
+
 theorem log_le_116_over_10_of_89693_le
     {a : Nat} (ha : (89693 : Nat) ≤ a) (ha100000 : a ≤ 100000) :
     Real.log a ≤ (116 : Real) / 10 := by
@@ -734,6 +745,55 @@ structure DusartPrimeRow where
   right_lt_prime : right < prime
   prime_prime : prime.Prime
   prime_upper : (prime : Real) ≤ dusartUpper left
+
+theorem dusartPrimeRow_of_explicit
+    {p q : Nat} {L : Real}
+    (hq : q.Prime)
+    (hpq : p < q)
+    (hleft_large : 3275 ≤ p)
+    (hlog : Real.log p ≤ L)
+    (hL : 0 < L)
+    (hproduct : (q - p : Real) * (2 * L ^ 2) ≤ p) :
+    DusartPrimeRow := by
+  have hp_pos : (0 : Real) < p := by
+    exact_mod_cast (show 0 < p by omega)
+  have hlog_pos : 0 < Real.log p :=
+    Real.log_pos (by norm_num at hleft_large ⊢; linarith)
+  have hlog_sq : 2 * (Real.log p) ^ 2 ≤ 2 * L ^ 2 := by
+    nlinarith [sq_nonneg (Real.log p), sq_nonneg L]
+  have hdenL : 0 < 2 * L ^ 2 := by positivity
+  have hdenLog : 0 < 2 * (Real.log p) ^ 2 := by positivity
+  have hgapL : (q - p : Real) ≤ p / (2 * L ^ 2) := by
+    apply (le_div_iff₀ hdenL).2
+    exact hproduct
+  have hgap : (q - p : Real) ≤ p / (2 * (Real.log p) ^ 2) :=
+    hgapL.trans (div_le_div_of_nonneg_left hp_pos.le hdenLog hlog_sq)
+  refine {
+    left := p
+    right := q - 1
+    prime := q
+    left_large := hleft_large
+    right_lt_prime := by omega
+    prime_prime := hq
+    prime_upper := ?_ }
+  have hqreal : (q : Real) - p ≤
+      p / (2 * (Real.log p) ^ 2) := by
+    exact hgap
+  dsimp [dusartUpper]
+  linarith
+
+theorem dusartPrimeRow_of_explicit_89693
+    {p q : Nat}
+    (hq : q.Prime)
+    (hpq : p < q)
+    (hproduct : (q - p : Real) *
+        (2 * ((1141 : Real) / 100) ^ 2) ≤ p)
+    (hleft_large : 3275 ≤ p)
+    (hleft_89693 : p ≤ 89693) :
+    DusartPrimeRow :=
+  dusartPrimeRow_of_explicit hq hpq hleft_large
+    (log_le_1141_over_100_of_3275_le hleft_large hleft_89693)
+    (by norm_num) hproduct
 
 def DusartPrimeRowsCoverBelow (rows : List DusartPrimeRow) : Prop :=
   ∀ x : Real, 3275 ≤ x → x ≤ 89693 →
