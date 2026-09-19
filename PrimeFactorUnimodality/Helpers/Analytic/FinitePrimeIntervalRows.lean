@@ -14059,6 +14059,23 @@ theorem hasDusartShortIntervalPrime_of_indexed_gap_log_rows_and_bounded_mediumPN
   · exact hasLogCubedShortIntervalPrimeBelow_of_indexed_gap_log_rows cover
   · exact tail
 
+theorem hasDusartShortIntervalPrime_of_indexed_gap_log_rows_and_selected_mediumPNT
+    {n : Nat} {X₀ : Real}
+    {rows : Fin n → FinitePrimeGapLogRow}
+    (hX₀ : (89693 : Real) ≤ X₀)
+    (finitePrefix : HasDusartShortIntervalPrimeBelow (89693 : Real))
+    (selected : ∃ X : Real, X₀ ≤ X ∧
+      FinitePrimeGapLogIndexedRowsCoverUpTo rows X ∧
+      (∀ x : Real, X ≤ x →
+        ∃ q : Nat, q.Prime ∧ x < q ∧
+          (q : Real) ≤ x + x / (Real.log x) ^ 3)) :
+    HasDusartShortIntervalPrime := by
+  apply hasDusartShortIntervalPrime_of_below_and_logCubed finitePrefix
+  apply hasLogCubedShortIntervalPrime_of_selected_finite_and_mediumPNT hX₀
+  obtain ⟨X, hX₀X, hcover, htail⟩ := selected
+  exact ⟨X, hX₀X,
+    hasLogCubedShortIntervalPrimeBelow_of_indexed_gap_log_rows hcover, htail⟩
+
 theorem hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
     {X : Real} {rows : List FinitePrimeGapLogRow}
     (cover : FinitePrimeGapLogRowsCoverUpTo rows X) :
@@ -14100,6 +14117,23 @@ theorem hasDusartShortIntervalPrime_of_finite_gap_log_rows_and_bounded_mediumPNT
   apply hasLogCubedShortIntervalPrime_of_finite_and_bounded_mediumPNT hX hXB
   · exact hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows cover
   · exact tail
+
+theorem hasDusartShortIntervalPrime_of_finite_gap_log_rows_and_selected_mediumPNT
+    {X₀ : Real}
+    (hX₀ : (89693 : Real) ≤ X₀)
+    (finitePrefix : HasDusartShortIntervalPrimeBelow (89693 : Real))
+    {rows : List FinitePrimeGapLogRow}
+    (selected : ∃ X : Real, X₀ ≤ X ∧
+      FinitePrimeGapLogRowsCoverUpTo rows X ∧
+      (∀ x : Real, X ≤ x →
+        ∃ q : Nat, q.Prime ∧ x < q ∧
+          (q : Real) ≤ x + x / (Real.log x) ^ 3)) :
+    HasDusartShortIntervalPrime := by
+  apply hasDusartShortIntervalPrime_of_below_and_logCubed finitePrefix
+  apply hasLogCubedShortIntervalPrime_of_selected_finite_and_mediumPNT hX₀
+  obtain ⟨X, hX₀X, hcover, htail⟩ := selected
+  exact ⟨X, hX₀X,
+    hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows hcover, htail⟩
 
 /-! A log-cubed finite table only covers the range beginning at `89693`.
 The lower Dusart interval provider is therefore kept as an explicit prefix

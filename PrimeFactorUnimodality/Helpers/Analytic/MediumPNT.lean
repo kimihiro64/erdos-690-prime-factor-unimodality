@@ -201,6 +201,21 @@ theorem hasLogCubedShortIntervalPrime_of_finite_and_bounded_mediumPNT
   intro x hx
   exact htail x (hXB'.trans hx)
 
+/-! The existential form is the minimal selected-cutoff contract.  It is
+strictly weaker than asking a finite provider to answer at every possible
+cutoff: the source theorem chooses one cutoff, and one finite verification is
+then consumed at exactly that cutoff. -/
+theorem hasLogCubedShortIntervalPrime_of_selected_finite_and_mediumPNT
+    {X₀ : Real} (hX₀ : (89693 : Real) ≤ X₀)
+    (selected : ∃ X : Real, X₀ ≤ X ∧
+      HasLogCubedShortIntervalPrimeBelow X ∧
+      (∀ x : Real, X ≤ x →
+        ∃ q : Nat, q.Prime ∧ x < q ∧
+          (q : Real) ≤ x + x / (Real.log x) ^ 3)) :
+    HasLogCubedShortIntervalPrime := by
+  obtain ⟨X, hX₀X, finite, tail⟩ := selected
+  exact hasLogCubedShortIntervalPrime_of_below_and_above hX₀ finite tail
+
 theorem hasDusartShortIntervalPrime_of_finite_and_mediumPNT
     {X₀ : Real} (hX₀ : (89693 : Real) ≤ X₀)
     (finiteDusart : HasDusartShortIntervalPrimeBelow (89693 : Real))
