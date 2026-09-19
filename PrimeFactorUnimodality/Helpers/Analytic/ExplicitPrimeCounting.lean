@@ -1,6 +1,7 @@
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.NumberTheory.PrimeCounting
 import PrimeFactorUnimodality.Helpers.PrimeSequence.AverageGap
+import PrimeFactorUnimodality.Helpers.Analytic.ElementaryLogBounds
 import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 import PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
 import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
@@ -115,6 +116,114 @@ theorem real_primeCounting_upper_of_integer_certificate
         (by exact le_of_not_gt hsmall)
         hnle
     simpa [n] using hcert.trans hmono
+
+/-! The only real-variable prime-counting range below `10` is elementary.
+The proof uses exact `π 9 = 4` and certified decimal logarithm bounds; no
+analytic prime-counting estimate is hidden here. -/
+theorem dusartPrimeCounting_upper_below_ten :
+    ∀ x : Real, 2 ≤ x → x < 10 →
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x := by
+  intro x hx2 hx10
+  have hx0 : 0 ≤ x := by linarith
+  have hfloor : ⌊x⌋₊ < 10 := (Nat.floor_lt hx0).2 hx10
+  have hcount : (Nat.primeCounting ⌊x⌋₊ : Real) ≤ 4 := by
+    have hmono := Nat.monotone_primeCounting (show ⌊x⌋₊ ≤ 9 by omega)
+    have hpi9 : Nat.primeCounting 9 = 4 := by decide
+    exact_mod_cast (show Nat.primeCounting ⌊x⌋₊ ≤ 4 by simpa [hpi9] using hmono)
+  have hlog_pos : 0 < Real.log x := Real.log_pos (by linarith)
+  have interval_lower : ∀ (a b L : Real),
+      0 < a → a ≤ x → x ≤ b → 0 < L → Real.log x ≤ L →
+      4 ≤ a / L + (6381 / 5000 : Real) * a / L ^ 2 →
+      4 ≤ dusartPiUpper x := by
+    intro a b L ha hax hxb hL hlogL hnumeric
+    have hfirst : a / L ≤ x / Real.log x := by
+      apply (div_le_div_iff₀ hL hlog_pos).2
+      calc
+        a * Real.log x ≤ a * L := mul_le_mul_of_nonneg_left hlogL ha.le
+        _ ≤ x * L := mul_le_mul_of_nonneg_right hax hL.le
+    have hlogsq : (Real.log x) ^ 2 ≤ L ^ 2 := by
+      nlinarith [sq_nonneg (L - Real.log x), hlogL]
+    have hsecond : (6381 / 5000 : Real) * a / L ^ 2 ≤
+        (6381 / 5000 : Real) * x / (Real.log x) ^ 2 := by
+      apply (div_le_div_iff₀ (sq_pos_of_pos hL) (sq_pos_of_pos hlog_pos)).2
+      have hcross : a * (Real.log x) ^ 2 ≤ x * L ^ 2 := by
+        calc
+          a * (Real.log x) ^ 2 ≤ a * L ^ 2 :=
+            mul_le_mul_of_nonneg_left hlogsq ha.le
+          _ ≤ x * L ^ 2 :=
+            mul_le_mul_of_nonneg_right hax (sq_nonneg L)
+      exact mul_le_mul_of_nonneg_left hcross
+        (by norm_num : (0 : Real) ≤ 6381 / 5000)
+    calc
+      4 ≤ a / L + (6381 / 5000 : Real) * a / L ^ 2 := hnumeric
+      _ ≤ x / Real.log x + (6381 / 5000 : Real) * x /
+          (Real.log x) ^ 2 := add_le_add hfirst hsecond
+      _ = dusartPiUpper x := by
+        dsimp [dusartPiUpper]
+        ring
+  have hupper : 4 ≤ dusartPiUpper x := by
+    by_cases h25 : x < (5 / 2 : Real)
+    · apply interval_lower 2 (5 / 2) (916292 / 1000000)
+        (by norm_num) (by linarith) (by linarith) (by norm_num)
+      have hlogle : Real.log x ≤ (916292 / 1000000 : Real) := by
+        calc
+          Real.log x ≤ Real.log (5 / 2) :=
+            Real.log_le_log (by norm_num) (by linarith)
+          _ = Real.log 5 - Real.log 2 := by
+            rw [Real.log_div (by norm_num) (by norm_num)]
+          _ < 916292 / 1000000 := by
+            nlinarith [LogTables.log_5_lt, LogTables.log_2_gt]
+      exact hlogle
+    · by_cases h3 : x < 3
+      · apply interval_lower (5 / 2) 3 (1098613 / 1000000)
+          (by norm_num) (by linarith) (by linarith) (by norm_num)
+        · exact (Real.log_le_log (by linarith) (by linarith)).trans
+            LogTables.log_3_lt
+        · norm_num
+      · by_cases h4 : x < 4
+        · apply interval_lower 3 4 (1386296 / 1000000)
+            (by norm_num) (by linarith) (by linarith) (by norm_num)
+          · rw [show (4 : Real) = 2 ^ 2 by norm_num, Real.log_pow]
+            nlinarith [LogTables.log_2_lt]
+          · norm_num
+        · by_cases h5 : x < 5
+          · apply interval_lower 4 5 (1609438 / 1000000)
+              (by norm_num) (by linarith) (by linarith) (by norm_num)
+            · exact (Real.log_le_log (by linarith) (by linarith)).trans
+                LogTables.log_5_lt
+            · norm_num
+          · by_cases h6 : x < 6
+            · apply interval_lower 5 6 (1791761 / 1000000)
+                (by norm_num) (by linarith) (by linarith) (by norm_num)
+              · rw [show (6 : Real) = 2 * 3 by norm_num,
+                  Real.log_mul (by norm_num) (by norm_num)]
+                nlinarith [LogTables.log_2_lt, LogTables.log_3_lt]
+              · norm_num
+            · by_cases h7 : x < 7
+              · apply interval_lower 6 7 (1946044 / 1000000)
+                  (by norm_num) (by linarith) (by linarith) (by norm_num)
+                · exact (Real.log_le_log (by linarith) (by linarith)).trans
+                    LogTables.log_7_lt
+                · norm_num
+              · by_cases h8 : x < 8
+                · apply interval_lower 7 8 (2079444 / 1000000)
+                    (by norm_num) (by linarith) (by linarith) (by norm_num)
+                  · rw [show (8 : Real) = 2 ^ 3 by norm_num, Real.log_pow]
+                    nlinarith [LogTables.log_2_lt]
+                  · norm_num
+                · by_cases h9 : x < 9
+                  · apply interval_lower 8 9 (2197226 / 1000000)
+                      (by norm_num) (by linarith) (by linarith) (by norm_num)
+                    · rw [show (9 : Real) = 3 ^ 2 by norm_num, Real.log_pow]
+                      nlinarith [LogTables.log_3_lt]
+                    · norm_num
+                  · apply interval_lower 9 10 (2302586 / 1000000)
+                      (by norm_num) (by linarith) (by linarith) (by norm_num)
+                    · rw [show (10 : Real) = 2 * 5 by norm_num,
+                        Real.log_mul (by norm_num) (by norm_num)]
+                      nlinarith [LogTables.log_2_lt, LogTables.log_5_lt]
+                    · norm_num
+  exact hcount.trans hupper
 
 /-! The exact Abel-summation identity underlying the prime-counting
 asymptotic.  Keeping the identity in this namespace makes the later
