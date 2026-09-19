@@ -335,3 +335,26 @@ tools report about 808 MiB allocated for the worktree excluding `.git` and
 but most of the roughly 634 MB figure really is tracked generated certificate
 source.  The public-boundary limit is now 1 GiB; that change does not remove or
 rewrite any data.
+
+## September 19 analytic progress
+
+The following sorry-free assembly boundaries are now pushed:
+
+- `wangCrapis_thetaBounds_of_rpowDecay` converts an underlying theta
+  `HasThetaLogRpowDecay` estimate to the exact global theta provider once the
+  finite endpoint verification is supplied.
+- `wangCrapis_thetaBounds_of_mediumPNT` performs the same assembly from the
+  source-level medium-PNT adapter and an explicit finite endpoint provider.
+- `wangCrapis_shortInterval_of_mediumPNT` assembles the exact global
+  short-interval provider from the source-level medium-PNT tail and a finite
+  log-cubed row provider.
+
+These are in commits `10dca102` and `9080f4ca`.
+
+The BKLNW shortcut was audited and rejected: `BKLNW.thm_1a` depends on
+`BKLNW_app.theorem_2`, whose source declaration is `by sorry`. Therefore no
+provider may import `thm_1a`, `thm_1a_crit`, or `thm_1a_table` as the final
+Dusart proof until that underlying theorem and its transitive dependencies are
+proved. The admissible next analytic target is the first missing source-level
+decay/explicit-estimate theorem, not another wrapper around the BKLNW
+placeholder.
