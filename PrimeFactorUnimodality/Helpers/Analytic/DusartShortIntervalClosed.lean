@@ -56,7 +56,9 @@ theorem wangCrapis_logCubedTail_of_thetaLogFourthError
     dusartPrimeInInterval_of_logFourthError_from
       hXpos h2X hlogX hA_nonneg hA thetaError x hx
   refine ⟨q, hq, hxq, ?_⟩
-  convert hupper using 1 <;> ring
+  calc
+    (q : Real) ≤ x * (1 + 1 / (Real.log x) ^ 3) := hupper
+    _ = x + x / (Real.log x) ^ 3 := by ring
 
 end
 
