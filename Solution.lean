@@ -30,6 +30,14 @@ theorem PrimeFactorUnimodality.completeClassification_of_wangCrapis_paper_inputs
   exact PrimeFactorUnimodality.completeClassification_of_wangCrapis_paper_inputs
     inputs
 
+theorem PrimeFactorUnimodality.completeClassification_of_explicit_mertens_inputs
+    (primeCountingBounds : PrimeFactorUnimodality.HasDusartPrimeCountingBounds)
+    (thetaBounds : PrimeFactorUnimodality.HasDusartThetaBounds)
+    (tailPair : PrimeFactorUnimodality.HasUniformTailPrimePair) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_explicit_mertens_inputs
+    primeCountingBounds thetaBounds tailPair
+
 /-! Public boundary for a source-level MediumPNT proof: only finite analytic
 facts at the cutoff selected by that proof remain to be supplied. -/
 theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_inputs

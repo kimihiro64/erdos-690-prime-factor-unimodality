@@ -48,6 +48,18 @@ theorem completeClassification_of_explicit_inputs
     exact completeClassification_with_explicit_inputs primeCountingBounds reciprocalEstimate
     thetaBounds tailPair k hk
 
+/-! The reciprocal-prime estimate is a proved Mertens consequence in this
+project, so the public all-`k` boundary need not expose it as an analytic
+input.  Only the Dusart prime-counting/theta providers and the short-interval
+provider remain at this layer. -/
+theorem completeClassification_of_explicit_mertens_inputs
+    (primeCountingBounds : HasDusartPrimeCountingBounds)
+    (thetaBounds : HasDusartThetaBounds)
+    (tailPair : HasUniformTailPrimePair) :
+    CompleteClassification := by
+  exact completeClassification_of_explicit_inputs primeCountingBounds
+    hasMertensReciprocalPrimeEstimate thetaBounds tailPair
+
 /-! The exact all-`k` reduction after the full published record-gap range is
 available.  This is the final finite/tail assembly; only the analytic tail
 providers remain parameters here. -/
