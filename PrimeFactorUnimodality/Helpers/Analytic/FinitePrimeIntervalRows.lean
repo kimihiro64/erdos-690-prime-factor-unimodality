@@ -41,6 +41,35 @@ theorem finitePrimeGapBound_of_indexed_certificate
   obtain ⟨q, hq, hnq, hq_bound⟩ := certificate i (by simpa [i] using hna)
   exact ⟨q.val, hq, hnq, hq_bound⟩
 
+/-! Adjacent gap tables can be composed before they are turned into a real
+interval statement.  This is the basic block operation for the finite
+Dusart computation: the arithmetic kernel may check independently generated
+blocks, while the analytic consumer sees one bounded gap theorem. -/
+theorem finitePrimeGapBound_append
+    {a m b g : Nat}
+    (left : FinitePrimeGapBound a m g)
+    (right : FinitePrimeGapBound (m + 1) b g) :
+    FinitePrimeGapBound a b g := by
+  intro n hna hnb
+  by_cases hnm : n ≤ m
+  · exact left n hna hnm
+  · exact right n (by omega) hnb
+
+theorem finitePrimeGapIndexedCertificate_append
+    {a m b g : Nat}
+    (left : FinitePrimeGapIndexedCertificate a m g)
+    (right : FinitePrimeGapIndexedCertificate (m + 1) b g) :
+    FinitePrimeGapIndexedCertificate a b g := by
+  intro n hna
+  by_cases hnm : n.val ≤ m
+  · obtain ⟨q, hq, hnq, hq_bound⟩ := left
+      ⟨n.val, by omega⟩ (by omega)
+    refine ⟨⟨q.val, by omega⟩, hq, hnq, ?_⟩
+    exact hq_bound
+  · obtain ⟨q, hq, hnq, hq_bound⟩ := right n (by omega)
+    refine ⟨⟨q.val, by omega⟩, hq, hnq, ?_⟩
+    exact hq_bound
+
 theorem exists_prime_in_real_interval_of_finite_prime_gap_bound
     {a b g : Nat} {x : Real}
     (gap : FinitePrimeGapBound a b g)
