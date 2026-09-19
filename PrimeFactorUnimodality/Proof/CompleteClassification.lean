@@ -428,6 +428,30 @@ theorem completeClassification_of_mediumPNT_and_row_provider
   · obtain ⟨rows, cover⟩ := finiteThetaErrorRows X hX
     exact hasThetaLogFourthErrorBelow_of_rows cover
 
+/-! A bundled version of the same boundary is convenient for the final
+certificate-producing layer.  It is a proposition, so packaging it does not
+introduce data or an additional computational assumption. -/
+structure MediumPNTFiniteRowProvider : Prop where
+  primeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List DusartPrimeCountingRow,
+      DusartPrimeCountingRowsCoverUpTo rows X
+  thetaRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List DusartThetaBoundsRow,
+      DusartThetaBoundsRowsCoverUpTo rows X
+  shortIntervalRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List LogCubedPrimeRow,
+      LogCubedPrimeRowsCoverUpTo rows X
+  thetaErrorRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List (ThetaLogFourthErrorRow (648 / 1000 : Real)),
+      ThetaLogFourthErrorRowsCoverUpTo rows X
+
+theorem completeClassification_of_mediumPNT_and_bundled_row_provider
+    (provider : MediumPNTFiniteRowProvider) :
+    CompleteClassification := by
+  exact completeClassification_of_mediumPNT_and_row_provider
+    provider.primeCountingRows provider.thetaRows
+    provider.shortIntervalRows provider.thetaErrorRows
+
 /-! The tail prime-counting obligation can equivalently be supplied in the
 published asymptotic form.  The adapter is proved in the analytic helper, so
 this theorem exposes the exact provider boundary without hiding a new axiom
