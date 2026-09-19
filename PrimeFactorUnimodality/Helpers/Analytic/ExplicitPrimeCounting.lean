@@ -1907,6 +1907,107 @@ theorem primeCountingCore_abs_le_of_integral_remainder {X R : Real}
       4000 + 720 * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) + R := by
   exact (primeCountingCore_abs_le_of_two_le hX).trans (by linarith)
 
+theorem integral_remainder_abs_le_of_split_theta_error
+    {A X x₀ R : Real} (h2x₀ : (2 : Real) ≤ x₀) (hx₀X : x₀ ≤ X)
+    (hsmall : |∫ t in (2 : Real)..x₀,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)| ≤ R)
+    (hA : 0 ≤ A)
+    (error : HasThetaLogFourthErrorAbove A x₀) :
+    |∫ t in (2 : Real)..X,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)| ≤
+      R + A * (∫ t in x₀..X, 1 / Real.log t ^ 6) := by
+  have h2X : (2 : Real) ≤ X := h2x₀.trans hx₀X
+  have htheta : IntervalIntegrable
+      (fun t : Real => Chebyshev.theta t /
+        (t * (Real.log t) ^ 2))
+      MeasureTheory.volume 2 X := by
+    rw [intervalIntegrable_iff_integrableOn_Ioc_of_le h2X]
+    exact (Chebyshev.integrableOn_theta_div_id_mul_log_sq X).mono_set
+      (by intro t ht; exact ⟨by linarith [ht.1], ht.2⟩)
+  have hbase : IntervalIntegrable
+      (fun t : Real => 1 / (Real.log t) ^ 2)
+      MeasureTheory.volume 2 X := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le h2X]
+    apply ContinuousOn.div continuousOn_const
+    · exact (Real.continuousOn_log.mono fun t ht =>
+        ne_of_gt (Real.log_pos (by linarith [ht.1]))).pow _
+    · intro t ht
+      exact pow_ne_zero _
+        (ne_of_gt (Real.log_pos (by linarith [ht.1])))
+  let r : Real → Real := fun t =>
+    Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+      1 / (Real.log t) ^ 2
+  have hr : IntervalIntegrable r MeasureTheory.volume 2 X := by
+    simpa [r] using htheta.sub hbase
+  have hsubset : Set.uIcc x₀ X ⊆ Set.uIcc (2 : Real) X := by
+    rw [Set.uIcc_of_le hx₀X, Set.uIcc_of_le h2X,
+      Set.uIcc_of_le h2x₀]
+    intro t ht
+    exact ⟨h2x₀.trans ht.1, ht.2⟩
+  have hrTail : IntervalIntegrable r MeasureTheory.volume x₀ X :=
+    hr.mono_set hsubset
+  have hmajor : IntervalIntegrable
+      (fun t : Real => A / (Real.log t) ^ 6)
+      MeasureTheory.volume x₀ X := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le hx₀X]
+    apply ContinuousOn.div continuousOn_const
+    · exact (Real.continuousOn_log.mono fun t ht =>
+        ne_of_gt (Real.log_pos (by linarith [h2x₀.trans ht.1]))).pow _
+    · intro t ht
+      exact pow_ne_zero _
+        (ne_of_gt (Real.log_pos (by linarith [h2x₀.trans ht.1])))
+  have hmajor_bound : ∀ t ∈ Set.Icc x₀ X,
+      |r t| ≤ A / (Real.log t) ^ 6 := by
+    intro t ht
+    have htpos : 0 < t := by linarith [h2x₀]
+    have hlogpos : 0 < Real.log t := Real.log_pos (by linarith [h2x₀])
+    have herr := error t ht.1
+    have hrewrite :
+        Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+            1 / (Real.log t) ^ 2 =
+          (Chebyshev.theta t - t) /
+            (t * (Real.log t) ^ 2) := by
+      field_simp [ne_of_gt htpos, ne_of_gt hlogpos]
+    rw [show r t = (Chebyshev.theta t - t) /
+      (t * (Real.log t) ^ 2) by exact hrewrite, abs_div]
+    have hden : 0 ≤ t * (Real.log t) ^ 2 := by positivity
+    rw [abs_of_nonneg hden]
+    calc
+      |Chebyshev.theta t - t| / (t * (Real.log t) ^ 2) ≤
+          (A * t / (Real.log t) ^ 4) /
+            (t * (Real.log t) ^ 2) :=
+        div_le_div_of_nonneg_right herr hden
+      _ = A / (Real.log t) ^ 6 := by
+        field_simp [ne_of_gt htpos, ne_of_gt hlogpos]
+  have hnorm := intervalIntegral.norm_integral_le_integral_norm
+    (μ := MeasureTheory.volume) (f := r) hx₀X
+  have hmono := intervalIntegral.integral_mono_on
+    hx₀X hrTail.norm hmajor hmajor_bound
+  have htail : |∫ t in x₀..X, r t| ≤
+      A * (∫ t in x₀..X, 1 / Real.log t ^ 6) := by
+    calc
+      |∫ t in x₀..X, r t| ≤ ∫ t in x₀..X, |r t| := hnorm
+      _ ≤ ∫ t in x₀..X, A / (Real.log t) ^ 6 := hmono
+      _ = A * (∫ t in x₀..X, 1 / Real.log t ^ 6) := by
+        rw [show (fun t : Real => A / (Real.log t) ^ 6) =
+          (fun t : Real => A * (1 / (Real.log t) ^ 6)) by
+            funext t; ring]
+        rw [intervalIntegral.integral_const_mul]
+  have hadd := intervalIntegral.integral_add_adjacent_intervals
+    (f := r) hr.mono_set (by
+      rw [Set.uIcc_of_le h2x₀, Set.uIcc_of_le h2X]
+      intro t ht
+      exact ⟨ht.1, h2x₀.trans ht.2⟩) hrTail
+  have hsmall' : |∫ t in (2 : Real)..x₀, r t| ≤ R := by
+    simpa [r] using hsmall
+  change |∫ t in (2 : Real)..X, r t| ≤ _
+  rw [← hadd]
+  exact (abs_add_le _ _).trans (add_le_add hsmall' htail)
+
 theorem primeCountingCore_abs_le_of_finite_theta_error
     {A X : Real} (hX : (2 : Real) ≤ X) (hA : 0 ≤ A)
     (error : HasThetaLogFourthErrorBelow A X) :
