@@ -520,6 +520,21 @@ def finitePrimeGapLogRow_89693_89752 : FinitePrimeGapLogRow := by
   · exact log_89693_le_1141_over_100
   · norm_num
 
+def finitePrimeGapLogRow_89753_89758 : FinitePrimeGapLogRow := by
+  apply FinitePrimeGapLogRow.of_gap_row (g := 6)
+    (row := {
+      left := 89753
+      right := 89758
+      left_le_right := by norm_num
+      witness := 89759
+      witness_prime := by norm_num
+      right_lt_witness := by norm_num
+      witness_le_left_add_gap := by norm_num })
+    (by norm_num) (L := (116 : Real) / 10)
+  · norm_num
+  · exact log_le_116_over_10_of_89693_le (by norm_num) (by norm_num)
+  · norm_num
+
 def dusartUpper (x : Real) : Real :=
   x * (1 + (1 / 2 : Real) / (Real.log x) ^ 2)
 
@@ -1079,10 +1094,34 @@ theorem finitePrimeGapLogRows_89693_89752_cover :
   · norm_num
   · exact hX
 
+def finitePrimeGapLogRows_89693_89758 :
+    List FinitePrimeGapLogRow :=
+  [finitePrimeGapLogRow_89693_89752,
+    finitePrimeGapLogRow_89753_89758]
+
+theorem finitePrimeGapLogRows_89693_89758_cover :
+    FinitePrimeGapLogRowsCoverUpTo
+      finitePrimeGapLogRows_89693_89758 (89758 : Real) := by
+  intro x hx hX
+  by_cases hsmall : x ≤ (89752 : Real)
+  · obtain ⟨row, hrow, hleft, hright⟩ :=
+      finitePrimeGapLogRows_89693_89752_cover x hx hsmall
+    exact ⟨row, by simp [finitePrimeGapLogRows_89693_89758, hrow],
+      hleft, hright⟩
+  · refine ⟨finitePrimeGapLogRow_89753_89758, ?_, ?_, hX⟩
+    · simp [finitePrimeGapLogRows_89693_89758]
+    · norm_num
+      linarith
+
 theorem hasLogCubedShortIntervalPrimeBelow_89693_89752 :
     HasLogCubedShortIntervalPrimeBelow (89752 : Real) :=
   hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
     finitePrimeGapLogRows_89693_89752_cover
+
+theorem hasLogCubedShortIntervalPrimeBelow_89693_89758 :
+    HasLogCubedShortIntervalPrimeBelow (89758 : Real) :=
+  hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
+    finitePrimeGapLogRows_89693_89758_cover
 
 theorem hasLogCubedShortIntervalPrime_of_rows
     (upper_mono : ∀ {a b : Real}, 89693 ≤ a → a ≤ b →
