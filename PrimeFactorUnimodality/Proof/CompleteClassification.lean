@@ -399,6 +399,35 @@ theorem completeClassification_of_mediumPNT_and_finite_error_provider
     (finiteThetaError X h4X)
     (fun x hx => thetaError x hx)
 
+/-! The finite obligations can be supplied directly as bounded row covers.
+The row lists may be generated independently for each selected cutoff; this
+keeps the theorem independent of certificate representation while making all
+four finite obligations explicit. -/
+theorem completeClassification_of_mediumPNT_and_row_provider
+    (finitePrimeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
+      ∃ rows : List DusartPrimeCountingRow,
+        DusartPrimeCountingRowsCoverUpTo rows X)
+    (finiteThetaRows : ∀ X : Real, (4e18 : Real) ≤ X →
+      ∃ rows : List DusartThetaBoundsRow,
+        DusartThetaBoundsRowsCoverUpTo rows X)
+    (finiteShortIntervalRows : ∀ X : Real, (4e18 : Real) ≤ X →
+      ∃ rows : List LogCubedPrimeRow,
+        LogCubedPrimeRowsCoverUpTo rows X)
+    (finiteThetaErrorRows : ∀ X : Real, (4e18 : Real) ≤ X →
+      ∃ rows : List (ThetaLogFourthErrorRow (648 / 1000 : Real)),
+        ThetaLogFourthErrorRowsCoverUpTo rows X) :
+    CompleteClassification := by
+  refine completeClassification_of_mediumPNT_and_finite_error_provider
+    (fun X hX => ?_) (fun X hX => ?_) (fun X hX => ?_) (fun X hX => ?_)
+  · obtain ⟨rows, cover⟩ := finitePrimeCountingRows X hX
+    exact hasDusartRealPrimeCountingBoundsBelow_of_rows cover
+  · obtain ⟨rows, cover⟩ := finiteThetaRows X hX
+    exact hasDusartSymmetricThetaBoundsBelow_of_rows cover
+  · obtain ⟨rows, cover⟩ := finiteShortIntervalRows X hX
+    exact hasLogCubedShortIntervalPrimeBelow_of_rows cover
+  · obtain ⟨rows, cover⟩ := finiteThetaErrorRows X hX
+    exact hasThetaLogFourthErrorBelow_of_rows cover
+
 /-! The tail prime-counting obligation can equivalently be supplied in the
 published asymptotic form.  The adapter is proved in the analytic helper, so
 this theorem exposes the exact provider boundary without hiding a new axiom
