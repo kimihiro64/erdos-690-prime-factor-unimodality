@@ -456,6 +456,29 @@ structure LogCubedPrimeRow where
   prime_prime : prime.Prime
   prime_upper : (prime : Real) ≤ logCubedUpper left
 
+theorem FinitePrimeGapRow.toLogCubedPrimeRow
+    {g : Nat} (row : FinitePrimeGapRow g)
+    (hwidth : (g : Real) ≤ (row.left : Real) /
+      (Real.log row.left) ^ 3) :
+    LogCubedPrimeRow := by
+  refine {
+    left := row.left
+    right := row.right
+    prime := row.witness
+    left_large := ?_
+    right_lt_prime := row.right_lt_witness
+    prime_prime := row.witness_prime
+    prime_upper := ?_ }
+  · exact le_trans (by norm_num) row.left_le_right
+  · have hbound : (row.witness : Real) ≤
+        (row.left : Real) + (g : Real) := by
+      exact_mod_cast row.witness_le_left_add_gap
+    calc
+      (row.witness : Real) ≤ (row.left : Real) + (g : Real) := hbound
+      _ ≤ (row.left : Real) + (row.left : Real) /
+          (Real.log row.left) ^ 3 := add_le_add_left hwidth _
+      _ = logCubedUpper row.left := by rfl
+
 def LogCubedPrimeRowsCover (rows : List LogCubedPrimeRow) : Prop :=
   ∀ x : Real, 89693 ≤ x →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
