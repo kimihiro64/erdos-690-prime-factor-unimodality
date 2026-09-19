@@ -685,6 +685,11 @@ def FinitePrimeGapLogRowsCoverUpTo
   ∀ x : Real, 89693 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+def FinitePrimeGapLogRowsCoverFrom
+    (rows : List FinitePrimeGapLogRow) (a X : Real) : Prop :=
+  ∀ x : Real, a ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
 def FinitePrimeGapLogIndexedRowsCoverUpTo
     {n : Nat} (rows : Fin n → FinitePrimeGapLogRow) (X : Real) : Prop :=
   ∀ x : Real, 89693 ≤ x → x ≤ X →
@@ -700,6 +705,19 @@ theorem finitePrimeGapLogRowsCoverUpTo_append
   · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
     exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
   · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+
+theorem finitePrimeGapLogRowsCoverUpTo_append_from
+    {m X : Real} {left right : List FinitePrimeGapLogRow}
+    (hleft : FinitePrimeGapLogRowsCoverUpTo left m)
+    (hright : FinitePrimeGapLogRowsCoverFrom right m X) :
+    FinitePrimeGapLogRowsCoverUpTo (left ++ right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ :=
+      hright x (le_of_lt (lt_of_not_ge hxm)) hX
     exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
 
 theorem FinitePrimeGapRow.toLogCubedPrimeRow
