@@ -46,6 +46,26 @@ theorem completeClassification_closed_of_providers
   exact completeClassification_of_wangCrapis_paper_inputs
     (wangCrapisPaperInputs_of_providers primeCounting thetaBounds shortInterval)
 
+/-! The paper-facing package can now be assembled directly from the three
+finite endpoint providers.  The medium-PNT tail is proved in the analytic
+helpers; only the bounded rows remain to be supplied by the certificate
+layer. -/
+theorem wangCrapisPaperInputs_of_mediumPNT_finite_providers
+    (finiteThetaBounds : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasDusartSymmetricThetaBoundsBelow Y)
+    (finiteThetaError : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasThetaLogFourthErrorBelow (648 / 1000 : Real) Y)
+    (finitePrimeCounting : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasDusartRealPrimeCountingBoundsBelow Y)
+    (finiteLogCubed : ∀ Y : Real, (89693 : Real) ≤ Y →
+      HasLogCubedShortIntervalPrimeBelow Y) :
+    WangCrapisPaperInputs := by
+  exact wangCrapisPaperInputs_of_providers
+    (wangCrapis_primeCounting_of_mediumPNT
+      finiteThetaError finitePrimeCounting)
+    (wangCrapis_thetaBounds_of_mediumPNT finiteThetaBounds)
+    (wangCrapis_shortInterval_of_mediumPNT finiteLogCubed)
+
 end
 
 end PrimeFactorUnimodality

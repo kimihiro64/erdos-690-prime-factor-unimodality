@@ -59,6 +59,24 @@ theorem wangCrapis_primeCounting_of_finite_and_thetaTail
     finite hXpos h2X hXY hA0 hA (by norm_num) (by norm_num) hlog hcore
     thetaError
 
+/-! Complete source-level assembly.  The medium-PNT theorem chooses one
+eventual cutoff after the finite theta-error provider has established the
+Abel core; the finite prime-counting provider is then consumed at exactly
+that cutoff. -/
+theorem wangCrapis_primeCounting_of_mediumPNT
+    (finiteTheta : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasThetaLogFourthErrorBelow (648 / 1000 : Real) Y)
+    (finitePrimeCounting : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasDusartRealPrimeCountingBoundsBelow Y) :
+    HasDusartPrimeCountingBounds := by
+  obtain ⟨Y, hXY, htail, _, _⟩ :=
+    exists_mediumPNT_all_real_dusart_tail_inputs_of_finite_theta_error
+      (A := (648 / 1000 : Real)) (X := (4e18 : Real))
+      le_rfl (by norm_num) (by norm_num) finiteTheta
+  exact hasDusartPrimeCountingBounds_of_real
+    (hasDusartRealPrimeCountingBounds_of_below_and_above
+      (finitePrimeCounting Y hXY) htail)
+
 end
 
 end PrimeFactorUnimodality
