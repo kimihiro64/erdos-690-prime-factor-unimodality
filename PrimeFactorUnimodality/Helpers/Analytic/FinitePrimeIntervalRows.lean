@@ -94,6 +94,9 @@ theorem finitePrimeGapRow_of_consecutive
     right_lt_witness := by omega
     witness_le_left_add_gap := hgap }
 
+def logCubedWidth (x : Real) : Real :=
+  x / (Real.log x) ^ 3
+
 /-! The sharp logarithmic bound has a varying admissible gap.  This row form
 stores that local width directly, so a finite table need not be padded to the
 largest gap in the table. -/
@@ -364,9 +367,6 @@ theorem logCubedUpper_monotoneOn :
     have log_sq_pos : 0 < (Real.log x) ^ 2 := by positivity
     have log_four_pos : 0 < (Real.log x) ^ 4 := by positivity
     nlinarith [mul_pos log_sq_pos (by nlinarith [log_gt_three])]
-
-def logCubedWidth (x : Real) : Real :=
-  x / (Real.log x) ^ 3
 
 theorem logCubedWidth_monotoneOn :
     MonotoneOn logCubedWidth (Set.Ici (3275 : Real)) := by
