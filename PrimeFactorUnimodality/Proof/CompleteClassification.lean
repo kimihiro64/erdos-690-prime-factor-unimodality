@@ -334,6 +334,36 @@ theorem completeClassification_of_finite_theta_error_and_integral_core
     hX finitePrimeCounting finiteTheta finiteShortInterval hA0 hA
     hC0 hC hcore thetaError
 
+/-! Corrected split-range form of the core assembly.  The small interval is
+represented by its Abel remainder directly; the sharp theta estimate begins
+only at `x₀`, where it is actually true. -/
+theorem completeClassification_of_split_theta_error_and_integral_core
+    {A C X x₀ R : Real} (hX : (4e18 : Real) ≤ X)
+    (h2x₀ : (2 : Real) ≤ x₀) (hx₀X : x₀ ≤ X)
+    (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow X)
+    (finiteTheta : HasDusartSymmetricThetaBoundsBelow X)
+    (finiteShortInterval : HasLogCubedShortIntervalPrimeBelow X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hsmall : |∫ t in (2 : Real)..x₀,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)| ≤ R)
+    (thetaErrorAbove : HasThetaLogFourthErrorAbove A x₀)
+    (integralCoreBound :
+      4000 + 720 * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) +
+          R + A * (∫ t in x₀..X, 1 / Real.log t ^ 6) ≤
+        C * X / Real.log X ^ 4) :
+    CompleteClassification := by
+  have thetaError : HasThetaLogFourthError A X := by
+    intro x hx
+    exact thetaErrorAbove x (hx₀X.trans hx)
+  have hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4 := by
+    exact (primeCountingCore_abs_le_of_split_theta_error
+      h2x₀ hx₀X hsmall hA0 thetaErrorAbove).trans integralCoreBound
+  exact completeClassification_of_logFourth_cutoff_inputs
+    hX finitePrimeCounting finiteTheta finiteShortInterval hA0 hA1
+    hC0 hC hcore thetaError
+
 theorem completeClassification_of_theta_error_rows_and_integral_core
     {A C X : Real} (hX : (4e18 : Real) ≤ X)
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow X)
