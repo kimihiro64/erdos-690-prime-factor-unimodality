@@ -1,6 +1,7 @@
 import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 import PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
+import PrimeFactorUnimodality.Helpers.Analytic.ExplicitPrimeCounting
 
 set_option autoImplicit false
 
@@ -355,6 +356,34 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_rows
     obtain ⟨row, hrow, hleft, hright⟩ := cover x
       (by linarith) hX
     exact row.lower x hx hleft hright
+
+structure DusartPrimeCountingRow where
+  left : Nat
+  right : Nat
+  left_large : 2 ≤ left
+  left_le_right : left ≤ right
+  lower : ∀ x : Real, (599 : Real) ≤ x → (left : Real) ≤ x →
+    x ≤ right →
+    dusartPiLower x ≤ (Nat.primeCounting ⌊x⌋₊ : Real)
+  upper : ∀ x : Real, (left : Real) ≤ x → x ≤ right →
+    (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x
+
+def DusartPrimeCountingRowsCoverUpTo
+    (rows : List DusartPrimeCountingRow) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem hasDusartRealPrimeCountingBoundsBelow_of_rows
+    {X : Real} {rows : List DusartPrimeCountingRow}
+    (cover : DusartPrimeCountingRowsCoverUpTo rows X) :
+    HasDusartRealPrimeCountingBoundsBelow X := by
+  constructor
+  · intro x hx hX
+    obtain ⟨row, hrow, hleft, hright⟩ := cover x (by linarith) hX
+    exact row.lower x hx hleft hright
+  · intro x hx hX
+    obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
+    exact row.upper x hleft hright
 
 theorem hasLogCubedShortIntervalPrime_of_bounded_rows_and_large_x
     {rows : List LogCubedPrimeRow}
