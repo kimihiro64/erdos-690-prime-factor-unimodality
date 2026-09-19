@@ -2548,6 +2548,31 @@ theorem hasDusartRealPrimeCountingBoundsAbove_of_core_and_theta_error
   exact hasDusartRealPrimeCountingBoundsAbove_of_asymptotic_from
     hXpos (by linarith [hlog]) hXY asymptotic
 
+/-! The finite theta-error interface is sufficient by itself for the real
+prime-counting tail: the finite Abel core is derived at the same cutoff and
+then fed into the explicit asymptotic conversion above. -/
+theorem hasDusartRealPrimeCountingBoundsAbove_of_finite_theta_error
+    {A X : Real} (hX : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
+    (thetaErrorBelow : HasThetaLogFourthErrorBelow A X)
+    (thetaErrorAbove : HasThetaLogFourthErrorAbove A X) :
+    HasDusartRealPrimeCountingBoundsAbove X := by
+  have thetaError : HasThetaLogFourthError A X :=
+    hasThetaLogFourthError_of_below_and_above
+      thetaErrorBelow thetaErrorAbove
+  have hcore : |primeCountingCore X| ≤
+      (3 / 5 : Real) * X / Real.log X ^ 4 :=
+    primeCountingCore_abs_le_at_large_cutoff_of_theta_error
+      hX hA0 hA1 thetaErrorBelow
+  have hXpos : 0 < X := by linarith
+  have h2X : 2 ≤ X := by linarith
+  have hlogX : (42 : Real) ≤ Real.log X :=
+    forty_two_lt_log_four_e18.le.trans
+      (Real.log_le_log (by norm_num) hX)
+  exact hasDusartRealPrimeCountingBoundsAbove_of_core_and_theta_error
+    hXpos h2X le_rfl hA0 hA1 (by norm_num) (by norm_num) hlogX hcore
+    thetaError
+
 theorem hasDusartRealPrimeCountingBounds_of_below_and_above
     {X : Real} (finite : HasDusartRealPrimeCountingBoundsBelow X)
     (tail : HasDusartRealPrimeCountingBoundsAbove X) :
