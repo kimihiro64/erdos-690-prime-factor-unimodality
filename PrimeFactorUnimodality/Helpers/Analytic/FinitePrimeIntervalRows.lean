@@ -6,6 +6,8 @@ import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
 
 set_option autoImplicit false
 
+set_option maxRecDepth 100000
+
 /-! # Shared finite row coverage for short prime intervals
 
 The medium numerical part of the explicit interval theorem is naturally a
@@ -1297,7 +1299,7 @@ def finitePrimeGapLogRow_89693_89752 : FinitePrimeGapLogRow := by
       right := 89752
       left_le_right := by norm_num
       witness := 89753
-      witness_prime := by norm_num
+      witness_prime := by decide
       right_lt_witness := by norm_num
       witness_le_left_add_gap := by norm_num })
     (by norm_num) (L := (1141 : Real) / 100)
@@ -1312,7 +1314,7 @@ def finitePrimeGapLogRow_89753_89758 : FinitePrimeGapLogRow := by
       right := 89758
       left_le_right := by norm_num
       witness := 89759
-      witness_prime := by norm_num
+      witness_prime := by decide
       right_lt_witness := by norm_num
       witness_le_left_add_gap := by norm_num })
     (by norm_num) (L := (116 : Real) / 10)
@@ -1321,51 +1323,63 @@ def finitePrimeGapLogRow_89753_89758 : FinitePrimeGapLogRow := by
   · norm_num
 
 def finitePrimeGapLogRow_89759_89766 : FinitePrimeGapLogRow :=
-  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+  finitePrimeGapLogRow_of_explicit_100000 (p := 89759) (q := 89767)
+    (by decide) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num)
 
 def finitePrimeGapLogRow_89767_89778 : FinitePrimeGapLogRow :=
-  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+  finitePrimeGapLogRow_of_explicit_100000 (p := 89767) (q := 89779)
+    (by decide) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num)
 
 def finitePrimeGapLogRow_89779_89782 : FinitePrimeGapLogRow :=
-  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+  finitePrimeGapLogRow_of_explicit_100000 (p := 89779) (q := 89783)
+    (by decide) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num)
 
 def finitePrimeGapLogRow_89783_89796 : FinitePrimeGapLogRow :=
-  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+  finitePrimeGapLogRow_of_explicit_100000 (p := 89783) (q := 89797)
+    (by decide) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num)
 
 def finitePrimeGapLogRow_89797_89808 : FinitePrimeGapLogRow :=
-  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+  finitePrimeGapLogRow_of_explicit_100000 (p := 89797) (q := 89809)
+    (by decide) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num)
 
 def finitePrimeGapLogRow_89809_89818 : FinitePrimeGapLogRow :=
-  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+  finitePrimeGapLogRow_of_explicit_100000 (p := 89809) (q := 89819)
+    (by decide) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num)
 
 def finitePrimeGapLogRow_89819_89820 : FinitePrimeGapLogRow :=
-  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+  finitePrimeGapLogRow_of_explicit_100000 (p := 89819) (q := 89821)
+    (by decide) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num)
 
 def finitePrimeGapLogRow_89821_89832 : FinitePrimeGapLogRow :=
-  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+  finitePrimeGapLogRow_of_explicit_100000 (p := 89821) (q := 89833)
+    (by decide) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num)
 
 def finitePrimeGapLogRow_89833_89838 : FinitePrimeGapLogRow :=
-  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+  finitePrimeGapLogRow_of_explicit_100000 (p := 89833) (q := 89839)
+    (by decide) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num)
 
 def finitePrimeGapLogRow_89839_89848 : FinitePrimeGapLogRow :=
-  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+  finitePrimeGapLogRow_of_explicit_100000 (p := 89839) (q := 89849)
+    (by decide) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num)
 
 def finitePrimeGapLogRow_89849_89866 : FinitePrimeGapLogRow :=
-  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+  finitePrimeGapLogRow_of_explicit_100000 (p := 89849) (q := 89867)
+    (by decide) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num)
 
 def finitePrimeGapLogRow_89867_89890 : FinitePrimeGapLogRow :=
-  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+  finitePrimeGapLogRow_of_explicit_100000 (p := 89867) (q := 89891)
+    (by decide) (by norm_num)
     (by norm_num) (by norm_num) (by norm_num)
 
 def dusartUpper (x : Real) : Real :=
@@ -1451,7 +1465,7 @@ structure DusartPrimeRow where
   prime_prime : prime.Prime
   prime_upper : (prime : Real) ≤ dusartUpper left
 
-theorem dusartPrimeRow_of_explicit
+def dusartPrimeRow_of_explicit
     {p q : Nat} {L : Real}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1485,9 +1499,12 @@ theorem dusartPrimeRow_of_explicit
       p / (2 * (Real.log p) ^ 2) := by
     exact hgap
   dsimp [dusartUpper]
-  linarith
+  calc
+    (q : Real) = p + ((q : Real) - p) := by ring
+    _ ≤ p + p / (2 * (Real.log p) ^ 2) := by linarith
+    _ = p * (1 + (1 / 2 : Real) / (Real.log p) ^ 2) := by ring
 
-theorem dusartPrimeRow_of_explicit_3802
+def dusartPrimeRow_of_explicit_3802
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1500,7 +1517,7 @@ theorem dusartPrimeRow_of_explicit_3802
     (log_le_33_over_4_of_3275_le hleft_large hleft_3802)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_4670
+def dusartPrimeRow_of_explicit_4670
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1513,7 +1530,7 @@ theorem dusartPrimeRow_of_explicit_4670
     (log_le_169_over_20_of_3803_le hleft_large hleft_4670)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_4914
+def dusartPrimeRow_of_explicit_4914
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1526,7 +1543,7 @@ theorem dusartPrimeRow_of_explicit_4914
     (log_le_17_over_2_of_4673_le hleft_large hleft_4914)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_5166
+def dusartPrimeRow_of_explicit_5166
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1539,7 +1556,7 @@ theorem dusartPrimeRow_of_explicit_5166
     (log_le_171_over_20_of_4919_le hleft_large hleft_5166)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_5431
+def dusartPrimeRow_of_explicit_5431
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1552,7 +1569,7 @@ theorem dusartPrimeRow_of_explicit_5431
     (log_le_43_over_5_of_5167_le hleft_large hleft_5431)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_5710
+def dusartPrimeRow_of_explicit_5710
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1565,7 +1582,7 @@ theorem dusartPrimeRow_of_explicit_5710
     (log_le_173_over_20_of_5437_le hleft_large hleft_5710)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_6002
+def dusartPrimeRow_of_explicit_6002
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1578,7 +1595,7 @@ theorem dusartPrimeRow_of_explicit_6002
     (log_le_87_over_10_of_5711_le hleft_large hleft_6002)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_6310
+def dusartPrimeRow_of_explicit_6310
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1591,7 +1608,7 @@ theorem dusartPrimeRow_of_explicit_6310
     (log_le_35_over_4_of_6007_le hleft_large hleft_6310)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_6634
+def dusartPrimeRow_of_explicit_6634
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1604,7 +1621,7 @@ theorem dusartPrimeRow_of_explicit_6634
     (log_le_44_over_5_of_6311_le hleft_large hleft_6634)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_6974
+def dusartPrimeRow_of_explicit_6974
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1617,7 +1634,7 @@ theorem dusartPrimeRow_of_explicit_6974
     (log_le_177_over_20_of_6637_le hleft_large hleft_6974)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_7331
+def dusartPrimeRow_of_explicit_7331
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1630,7 +1647,7 @@ theorem dusartPrimeRow_of_explicit_7331
     (log_le_89_over_10_of_6977_le hleft_large hleft_7331)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_7707
+def dusartPrimeRow_of_explicit_7707
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1643,7 +1660,7 @@ theorem dusartPrimeRow_of_explicit_7707
     (log_le_179_over_20_of_7333_le hleft_large hleft_7707)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_8103
+def dusartPrimeRow_of_explicit_8103
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1656,7 +1673,7 @@ theorem dusartPrimeRow_of_explicit_8103
     (log_le_9_of_7717_le hleft_large hleft_8103)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_8518
+def dusartPrimeRow_of_explicit_8518
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1669,7 +1686,7 @@ theorem dusartPrimeRow_of_explicit_8518
     (log_le_181_over_20_of_8111_le hleft_large hleft_8518)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_8955
+def dusartPrimeRow_of_explicit_8955
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1682,7 +1699,7 @@ theorem dusartPrimeRow_of_explicit_8955
     (log_le_91_over_10_of_8521_le hleft_large hleft_8955)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_9414
+def dusartPrimeRow_of_explicit_9414
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1695,7 +1712,7 @@ theorem dusartPrimeRow_of_explicit_9414
     (log_le_183_over_20_of_8963_le hleft_large hleft_9414)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_9897
+def dusartPrimeRow_of_explicit_9897
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1708,7 +1725,7 @@ theorem dusartPrimeRow_of_explicit_9897
     (log_le_46_over_5_of_9419_le hleft_large hleft_9897)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_10404
+def dusartPrimeRow_of_explicit_10404
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1721,7 +1738,7 @@ theorem dusartPrimeRow_of_explicit_10404
     (log_le_37_over_4_of_9901_le hleft_large hleft_10404)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_10938
+def dusartPrimeRow_of_explicit_10938
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1734,7 +1751,7 @@ theorem dusartPrimeRow_of_explicit_10938
     (log_le_93_over_10_of_10427_le hleft_large hleft_10938)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_11498
+def dusartPrimeRow_of_explicit_11498
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1747,7 +1764,7 @@ theorem dusartPrimeRow_of_explicit_11498
     (log_le_187_over_20_of_10939_le hleft_large hleft_11498)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_12088
+def dusartPrimeRow_of_explicit_12088
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1760,7 +1777,7 @@ theorem dusartPrimeRow_of_explicit_12088
     (log_le_47_over_5_of_11503_le hleft_large hleft_12088)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_12708
+def dusartPrimeRow_of_explicit_12708
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1773,7 +1790,7 @@ theorem dusartPrimeRow_of_explicit_12708
     (log_le_189_over_20_of_12097_le hleft_large hleft_12708)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_13359
+def dusartPrimeRow_of_explicit_13359
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1786,7 +1803,7 @@ theorem dusartPrimeRow_of_explicit_13359
     (log_le_19_over_2_of_12713_le hleft_large hleft_13359)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_14044
+def dusartPrimeRow_of_explicit_14044
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1799,7 +1816,7 @@ theorem dusartPrimeRow_of_explicit_14044
     (log_le_191_over_20_of_13367_le hleft_large hleft_14044)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_14764
+def dusartPrimeRow_of_explicit_14764
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1812,7 +1829,7 @@ theorem dusartPrimeRow_of_explicit_14764
     (log_le_48_over_5_of_14051_le hleft_large hleft_14764)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_15521
+def dusartPrimeRow_of_explicit_15521
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1825,7 +1842,7 @@ theorem dusartPrimeRow_of_explicit_15521
     (log_le_193_over_20_of_14767_le hleft_large hleft_15521)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_16317
+def dusartPrimeRow_of_explicit_16317
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1838,7 +1855,7 @@ theorem dusartPrimeRow_of_explicit_16317
     (log_le_97_over_10_of_15527_le hleft_large hleft_16317)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_23155
+def dusartPrimeRow_of_explicit_23155
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1852,7 +1869,7 @@ theorem dusartPrimeRow_of_explicit_23155
     (by norm_num) hproduct
 
 
-theorem dusartPrimeRow_of_explicit_22026
+def dusartPrimeRow_of_explicit_22026
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1866,7 +1883,7 @@ theorem dusartPrimeRow_of_explicit_22026
     (by norm_num) hproduct
 
 
-theorem dusartPrimeRow_of_explicit_20952
+def dusartPrimeRow_of_explicit_20952
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1880,7 +1897,7 @@ theorem dusartPrimeRow_of_explicit_20952
     (by norm_num) hproduct
 
 
-theorem dusartPrimeRow_of_explicit_19930
+def dusartPrimeRow_of_explicit_19930
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1894,7 +1911,7 @@ theorem dusartPrimeRow_of_explicit_19930
     (by norm_num) hproduct
 
 
-theorem dusartPrimeRow_of_explicit_18958
+def dusartPrimeRow_of_explicit_18958
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1908,7 +1925,7 @@ theorem dusartPrimeRow_of_explicit_18958
     (by norm_num) hproduct
 
 
-theorem dusartPrimeRow_of_explicit_18033
+def dusartPrimeRow_of_explicit_18033
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1922,7 +1939,7 @@ theorem dusartPrimeRow_of_explicit_18033
     (by norm_num) hproduct
 
 
-theorem dusartPrimeRow_of_explicit_17154
+def dusartPrimeRow_of_explicit_17154
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -1936,7 +1953,7 @@ theorem dusartPrimeRow_of_explicit_17154
     (by norm_num) hproduct
 
 
-theorem dusartPrimeRow_of_explicit_89693
+def dusartPrimeRow_of_explicit_89693
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
