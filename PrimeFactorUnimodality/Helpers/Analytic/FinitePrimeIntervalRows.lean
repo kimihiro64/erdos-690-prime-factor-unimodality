@@ -82,6 +82,18 @@ structure FinitePrimeGapRow (g : Nat) where
   right_lt_witness : right < witness
   witness_le_left_add_gap : witness ≤ left + g
 
+theorem finitePrimeGapRow_of_consecutive
+    {g p q : Nat} (h : ConsecutivePrimes p q)
+    (hgap : q ≤ p + g) : FinitePrimeGapRow g := by
+  refine {
+    left := p
+    right := q - 1
+    left_le_right := by omega
+    witness := q
+    witness_prime := h.right_prime
+    right_lt_witness := by omega
+    witness_le_left_add_gap := hgap }
+
 def FinitePrimeGapRowsCover
     {a b g : Nat} (rows : List (FinitePrimeGapRow g)) : Prop :=
   ∀ n : Nat, a ≤ n → n ≤ b →
