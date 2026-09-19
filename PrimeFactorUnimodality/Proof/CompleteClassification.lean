@@ -84,12 +84,9 @@ theorem completeClassification_of_full_record_inputs
       · exact completeClassification_through38000_closed k hk hkSmall
       · constructor
         · intro unimodal
-          by_cases hkFullRecord : k ≤ 7430000
-          · exact ((fullRecordRange_not_isUnimodal_closed k (by omega) hkFullRecord)
-              unimodal).elim
-          · exact ((uniformTail_not_isUnimodal_closed_mertens
-              primeCountingBounds thetaBounds tailPair (k := k) (by omega))
-              unimodal).elim
+          exact ((fullRecordRange_not_isUnimodal_closed_through8600001
+            primeCountingBounds thetaBounds tailPair k (by omega) hkRecord)
+            unimodal).elim
         · intro hkThree
           omega)
     (fun k hkTail => uniformTail_not_isUnimodal_closed_mertens

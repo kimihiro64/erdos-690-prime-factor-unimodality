@@ -3,6 +3,7 @@ import PrimeFactorUnimodality.Proof.LargeRange.FullRecordGapConsequence
 import PrimeFactorUnimodality.Proof.LargeRange.FullRecordNumericBounds
 import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapOwners
 import PrimeFactorUnimodality.Proof.LargeRange.RecordTwinClosed
+import PrimeFactorUnimodality.Proof.LargeRange.UniformTailClosedMertens
 
 set_option autoImplicit false
 
@@ -45,6 +46,21 @@ theorem fullRecordRange_not_isUnimodal_closed
       exact recordGap_add_not_prime_of_tail_owner (q := 13) (by norm_num)
         (by norm_num) (by norm_num) (by decide) (by norm_num)
     · exact fullRecordGapAddBlock d (by omega) hd
+
+/-! The published finite cutoff extends beyond the range covered by the
+full-record descent inequality.  The closed Mertens tail is already valid
+from `7,300,001`, so it supplies the overlap needed for the remaining
+published finite slice without introducing a new certificate boundary. -/
+theorem fullRecordRange_not_isUnimodal_closed_through8600001
+    (primeCountingBounds : HasDusartPrimeCountingBounds)
+    (thetaBounds : HasDusartThetaBounds)
+    (tailPair : HasUniformTailPrimePair)
+    (k : Nat) (hkLower : 38001 ≤ k) (hkUpper : k ≤ 8600001) :
+    ¬ IsUnimodal (primeFactorDensity k) := by
+  by_cases hkFullRecord : k ≤ 7430000
+  · exact fullRecordRange_not_isUnimodal_closed k hkLower hkFullRecord
+  · exact uniformTail_not_isUnimodal_closed_mertens
+      primeCountingBounds thetaBounds tailPair (k := k) (by omega)
 
 end
 
