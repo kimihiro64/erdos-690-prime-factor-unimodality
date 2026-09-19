@@ -593,4 +593,55 @@ theorem dusartSmallUpperIntervalRow593_598 :
   · rw [hcount]
     norm_num
 
+def dusartSmallUpperIntervalRows :
+    List DusartPrimeCountingUpperIntegerIntervalRow :=
+  [ dusartSmallUpperIntervalRow10_16
+  , dusartSmallUpperIntervalRow17_22
+  , dusartSmallUpperIntervalRow23_30
+  , dusartSmallUpperIntervalRow31_40
+  , dusartSmallUpperIntervalRow41_46
+  , dusartSmallUpperIntervalRow47_58
+  , dusartSmallUpperIntervalRow59_66
+  , dusartSmallUpperIntervalRow67_72
+  , dusartSmallUpperIntervalRow73_82
+  , dusartSmallUpperIntervalRow83_96
+  , dusartSmallUpperIntervalRow97_106
+  , dusartSmallUpperIntervalRow107_112
+  , dusartSmallUpperIntervalRow113_126
+  , dusartSmallUpperIntervalRow127_138
+  , dusartSmallUpperIntervalRow139_150
+  , dusartSmallUpperIntervalRow151_162
+  , dusartSmallUpperIntervalRow163_170
+  , dusartSmallUpperIntervalRow171_178
+  , dusartSmallUpperIntervalRow179_190
+  , dusartSmallUpperIntervalRow191_198
+  , dusartSmallUpperIntervalRow199_210
+  , dusartSmallUpperIntervalRow211_226
+  , dusartSmallUpperIntervalRow227_238
+  , dusartSmallUpperIntervalRow239_250
+  , dusartSmallUpperIntervalRow251_262
+  , dusartSmallUpperIntervalRow263_271
+  , dusartSmallUpperIntervalRow272_276
+  , dusartSmallUpperIntervalRow277_282
+  , dusartSmallUpperIntervalRow283_292
+  , dusartSmallUpperIntervalRow293_310
+  , dusartSmallUpperIntervalRow311_330
+  , dusartSmallUpperIntervalRow331_348
+  , dusartSmallUpperIntervalRow349_366
+  , dusartSmallUpperIntervalRow367_382
+  , dusartSmallUpperIntervalRow383_400
+  , dusartSmallUpperIntervalRow401_418
+  , dusartSmallUpperIntervalRow419_438
+  , dusartSmallUpperIntervalRow439_456
+  , dusartSmallUpperIntervalRow457_462
+  , dusartSmallUpperIntervalRow463_466
+  , dusartSmallUpperIntervalRow467_478
+  , dusartSmallUpperIntervalRow479_490
+  , dusartSmallUpperIntervalRow491_502
+  , dusartSmallUpperIntervalRow503_520
+  , dusartSmallUpperIntervalRow521_546
+  , dusartSmallUpperIntervalRow547_568
+  , dusartSmallUpperIntervalRow569_592
+  , dusartSmallUpperIntervalRow593_598 ]
+
 end PrimeFactorUnimodality
