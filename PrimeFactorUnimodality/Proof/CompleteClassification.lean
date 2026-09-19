@@ -9,11 +9,11 @@ import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
 import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
 import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 import PrimeFactorUnimodality.Helpers.FiniteCertificates.SmallPrimeCountingIntervals
- :
+
 set_option autoImplicit false
- :
+
 /-! # Complete classification from the explicit analytic inputs -/
- :
+
 namespace PrimeFactorUnimodality
 
 noncomputable section
