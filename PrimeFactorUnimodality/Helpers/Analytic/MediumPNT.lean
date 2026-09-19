@@ -246,5 +246,30 @@ theorem exists_mediumPNT_dusart_tail_inputs
       apply (div_le_iff₀ hlogpos).2
       nlinarith [hlog4]) htheta
 
+/-! A single raised cutoff can carry both analytic tail facts in the exact
+forms consumed by the all-`k` assembly.  The prime-counting estimate is first
+obtained at the core-dependent cutoff, then transported to the later cutoff
+chosen for prime selection. -/
+theorem exists_mediumPNT_real_dusart_tail_inputs
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4) :
+    ∃ Y : Real, X ≤ Y ∧
+      HasDusartRealPrimeCountingBoundsAbove Y ∧
+      (∀ x : Real, Y ≤ x →
+        ∃ q : Nat, q.Prime ∧ x < q ∧
+          (q : Real) ≤ x * (1 + 1 / (Real.log x) ^ 3)) := by
+  obtain ⟨Y, hXY, hprime⟩ :=
+    exists_hasDusartRealPrimeCountingBoundsAbove_of_mediumPNT_and_core
+      hX hC0 hC hcore
+  obtain ⟨Z, hYZ, h4Z, hinterval⟩ :=
+    exists_dusartPrimeInInterval_of_mediumPNT Y
+  refine ⟨Z, hXY.trans hYZ, ?_, hinterval⟩
+  constructor
+  · intro x hx
+    exact hprime.1 x (hYZ.trans hx)
+  · intro x hx
+    exact hprime.2 x (hYZ.trans hx)
+
 end
 end PrimeFactorUnimodality
