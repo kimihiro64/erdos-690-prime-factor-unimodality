@@ -1277,6 +1277,25 @@ structure MediumPNTFiniteIntegerIntervalBundledPrefixProvider : Prop where
       MediumPNTFiniteIntegerIntervalPrefixBundleCover
         (fun i : Fin n => rows i) X
 
+/-! A generator may instead emit the finite prefix as one list, while still
+using one fixed global row family.  `List.ofFn` makes that representation
+definitionally compatible with the indexed provider after the cover lemma. -/
+structure MediumPNTFiniteIntegerIntervalBundledListPrefixProvider : Prop where
+  rows : Nat → MediumPNTFiniteIntegerIntervalPrefixBundle
+  prefix : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ n : Nat,
+      MediumPNTFiniteIntegerIntervalPrefixBundleListCover
+        (List.ofFn (fun i : Fin n => rows i)) X
+
+theorem MediumPNTFiniteIntegerIntervalBundledListPrefixProvider.toIndexed
+    (provider : MediumPNTFiniteIntegerIntervalBundledListPrefixProvider) :
+    MediumPNTFiniteIntegerIntervalBundledPrefixProvider := by
+  refine { rows := provider.rows, prefix := ?_ }
+  intro X hX
+  obtain ⟨n, hcover⟩ := provider.prefix X hX
+  refine ⟨n, (fun i : Fin n => provider.rows i), ?_⟩
+  simpa using (mediumPNTFiniteIntegerIntervalPrefixBundleCover_of_list hcover)
+
 theorem completeClassification_of_mediumPNT_and_integer_interval_bundled_prefix_provider
     (provider : MediumPNTFiniteIntegerIntervalBundledPrefixProvider) :
     CompleteClassification := by
@@ -1298,6 +1317,12 @@ theorem completeClassification_of_mediumPNT_and_integer_interval_bundled_prefix_
     thetaErrorEndpointPrefix := fun X hX => by
       obtain ⟨n, hcover⟩ := provider.prefix X hX
       exact ⟨n, hcover.thetaError⟩ }
+
+theorem completeClassification_of_mediumPNT_and_integer_interval_bundled_list_prefix_provider
+    (provider : MediumPNTFiniteIntegerIntervalBundledListPrefixProvider) :
+    CompleteClassification := by
+  exact completeClassification_of_mediumPNT_and_integer_interval_bundled_prefix_provider
+    provider.toIndexed
 
 /-! The tail prime-counting obligation can equivalently be supplied in the
 published asymptotic form.  The adapter is proved in the analytic helper, so
