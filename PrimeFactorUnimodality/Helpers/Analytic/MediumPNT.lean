@@ -46,6 +46,20 @@ theorem exists_hasPsiLogRpowDecay_of_mediumPNT :
     exists_hasPsiLogRpowDecay_of_isBigO hbigO
   exact ⟨C, c, (1 : Real) / 10, X, hC, hc, by norm_num, hdecay⟩
 
+/-! The decay interface now has a direct theta-error consumer.  This theorem
+keeps the coefficient supplied by the source-level PNT existential, while
+making the explicit prime-power correction and the published cutoff visible
+in one kernel-checked result. -/
+theorem exists_hasThetaLogFourthError_of_mediumPNT_via_decay :
+    ∃ C Y : Real, 0 ≤ C ∧ (4e18 : Real) ≤ Y ∧
+      HasThetaLogFourthError (C + 1) Y := by
+  obtain ⟨C, c, α, X, hC, hc, hα, hdecay⟩ :=
+    exists_hasPsiLogRpowDecay_of_mediumPNT
+  obtain ⟨Y, hXY, h4Y, htheta⟩ :=
+    exists_hasThetaLogFourthError_of_psiLogRpowDecay
+      hC hc hα hdecay
+  exact ⟨C, Y, hC, h4Y, htheta⟩
+
 theorem exists_hasPsiLogFourthError_of_mediumPNT :
     ∃ Y : Real, HasPsiLogFourthError (1 / 2) Y := by
   obtain ⟨c, hc, hbigO⟩ := hasPsiLogRpowBigO_of_mediumPNT
