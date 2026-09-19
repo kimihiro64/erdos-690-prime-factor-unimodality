@@ -288,8 +288,8 @@ theorem dusartPrimeCounting_upper_below_ten :
           (by norm_num) (by linarith) (by linarith) (by norm_num)
         · have hlogx3 : Real.log x ≤ Real.log 3 :=
             Real.log_le_log (by linarith) (by linarith)
-          exact hlogx3.trans_lt
-            (LogTables.log_3_lt.trans_le (by norm_num))
+          have hrat : (1.098613 : Real) ≤ 1098613 / 1000000 := by norm_num
+          exact (hlogx3.trans_lt (LogTables.log_3_lt.trans_le hrat)).le
         · norm_num
       · by_cases h4 : x < 4
         · apply interval_lower 3 4 (1386296 / 1000000)
@@ -307,8 +307,8 @@ theorem dusartPrimeCounting_upper_below_ten :
               (by norm_num) (by linarith) (by linarith) (by norm_num)
             · have hlogx5 : Real.log x ≤ Real.log 5 :=
                 Real.log_le_log (by linarith) (by linarith)
-              exact hlogx5.trans_lt
-                (LogTables.log_5_lt.trans_le (by norm_num))
+              have hrat : (1.609438 : Real) ≤ 1609438 / 1000000 := by norm_num
+              exact (hlogx5.trans_lt (LogTables.log_5_lt.trans_le hrat)).le
             · norm_num
           · by_cases h6 : x < 6
             · apply interval_lower 5 6 (1791761 / 1000000)
@@ -326,8 +326,8 @@ theorem dusartPrimeCounting_upper_below_ten :
                   (by norm_num) (by linarith) (by linarith) (by norm_num)
                 · have hlogx7 : Real.log x ≤ Real.log 7 :=
                     Real.log_le_log (by linarith) (by linarith)
-                  exact hlogx7.trans_lt
-                    (LogTables.log_7_lt.trans_le (by norm_num))
+                have hrat : (1.946044 : Real) ≤ 1946044 / 1000000 := by norm_num
+                exact (hlogx7.trans_lt (LogTables.log_7_lt.trans_le hrat)).le
                 · norm_num
               · by_cases h8 : x < 8
                 · apply interval_lower 7 8 (2079444 / 1000000)
@@ -434,7 +434,8 @@ the finite certificate layer; its coverage list need not contain one row for
 every integer in `[10, 599)`. -/
 set_option autoImplicit true in
 structure DusartPrimeCountingUpperIntegerIntervalRow where
-  left right : Nat
+  left : Nat
+  right : Nat
   left_large : 10 ≤ left
   left_le_right : left ≤ right
   logUpper : Real
@@ -443,7 +444,7 @@ structure DusartPrimeCountingUpperIntegerIntervalRow where
   numerical : (Nat.primeCounting right : Real) ≤
     (left : Real) / logUpper + (6381 / 5000 : Real) * left / logUpper ^ 2
 
-theorem dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
+def dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
     {left right a b c : Nat} (hleft : 10 ≤ left)
     (hle : left ≤ right) (hUpos :
       0 < (a : Real) * (693148 / 1000000 : Real) +
@@ -478,7 +479,7 @@ theorem dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
     exact log_nat_le_smooth_upper (by omega) hsmooth
   · simpa [U] using hnumerical
 
-theorem dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
+def dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
     {left right a b c d : Nat} (hleft : 10 ≤ left)
     (hle : left ≤ right) (hUpos :
       0 < (a : Real) * (693148 / 1000000 : Real) +
@@ -533,9 +534,9 @@ theorem dusartPrimeCounting_upper_of_integer_interval_rows
       (Nat.primeCounting row.right : Real) := by
     exact_mod_cast Nat.monotone_primeCounting hright
   have hleft_pos : (0 : Real) < row.left := by
-    exact_mod_cast (show 0 < row.left by omega)
+    exact_mod_cast (show (0 : Nat) < row.left by omega)
   have hlog_pos : 0 < Real.log row.left :=
-    Real.log_pos (by exact_mod_cast (show 1 < row.left by omega))
+    Real.log_pos (by exact_mod_cast (show (1 : Nat) < row.left by omega))
   have hfirst : (row.left : Real) / row.logUpper ≤
       (row.left : Real) / Real.log row.left := by
     apply (div_le_div_iff₀ row.logUpper_pos hlog_pos).2
@@ -550,8 +551,8 @@ theorem dusartPrimeCounting_upper_of_integer_interval_rows
     have hcross : (row.left : Real) * (Real.log row.left) ^ 2 ≤
         (row.left : Real) * row.logUpper ^ 2 :=
       mul_le_mul_of_nonneg_left hlogsq hleft_pos.le
-    exact mul_le_mul_of_nonneg_left hcross
-      (by norm_num : (0 : Real) ≤ 6381 / 5000)
+    convert mul_le_mul_of_nonneg_left hcross
+      (by norm_num : (0 : Real) ≤ 6381 / 5000) using 1 <;> ring
   have hbound : (Nat.primeCounting row.right : Real) ≤
       dusartPiUpper row.left := by
     calc
@@ -1041,7 +1042,7 @@ theorem integral_inv_log_pow_succ_le_split_at_million
     (n := n) (a := (1000000 : Real)) (b := X)
     (by norm_num) hX hcoef
   rw [← hsplit]
-  exact add_le_add_left htail _
+  exact add_le_add_right htail _
 
 theorem integral_inv_log_pow_succ_low_le_at_million
     (n : Nat) :
@@ -1081,6 +1082,7 @@ theorem integral_inv_log_pow_succ_low_le_at_million
     _ = (999998 : Real) / Real.log 2 ^ (n + 1) := by
       rw [intervalIntegral.integral_const]
       norm_num
+      ring
 
 theorem integral_inv_log_pow_succ_le_explicit_at_million
     {n : Nat} {X : Real} (hX : (1000000 : Real) ≤ X)
@@ -1100,7 +1102,9 @@ theorem integral_inv_log_pow_succ_le_explicit_at_million
     _ ≤ (999998 : Real) / Real.log 2 ^ (n + 1) +
           (X / Real.log X ^ (n + 1)) /
             (1 - (n + 1 : Real) / Real.log (1000000 : Real)) := by
-      exact add_le_add_right hlow _
+      exact add_le_add_right hlow
+        ((X / Real.log X ^ (n + 1)) /
+          (1 - (n + 1 : Real) / Real.log (1000000 : Real)))
 
 theorem six_lt_log_million :
     (6 : Real) < Real.log (1000000 : Real) := by
@@ -1127,7 +1131,7 @@ theorem integral_inv_log_six_le_explicit {X : Real}
       (X / Real.log X ^ 6) /
         (1 - 6 / Real.log (1000000 : Real)) := by
   convert integral_inv_log_pow_succ_le_explicit_at_million
-    (n := 5) hX six_lt_log_million using 1 <;> norm_num
+    (n := 5) hX (by norm_num; exact six_lt_log_million) using 1 <;> norm_num
 
 theorem integral_inv_log_seven_le_explicit {X : Real}
     (hX : (1000000 : Real) ≤ X) :
@@ -1136,7 +1140,7 @@ theorem integral_inv_log_seven_le_explicit {X : Real}
       (X / Real.log X ^ 7) /
         (1 - 7 / Real.log (1000000 : Real)) := by
   convert integral_inv_log_pow_succ_le_explicit_at_million
-    (n := 6) hX seven_lt_log_million using 1 <;> norm_num
+    (n := 6) hX (by norm_num; exact seven_lt_log_million) using 1 <;> norm_num
 
 theorem integral_inv_log_pow_succ_le_full_from_two
     {n : Nat} {a b : Real} (ha : (2 : Real) ≤ a) (hab : a ≤ b) :
@@ -1149,9 +1153,13 @@ theorem integral_inv_log_pow_succ_le_full_from_two
     rw [Set.uIcc_of_le ha]
     apply ContinuousOn.div continuousOn_const
     · exact (Real.continuousOn_log.mono fun t ht =>
-        ne_of_gt (Real.log_pos (by linarith [ht.1]))).pow _
+        ne_of_gt (Real.log_pos (by
+          have : (0 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
+          exact this))).pow _
     · intro t ht
-      exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by linarith [ht.1])))
+      exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by
+        have : (0 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
+        exact this)))
   have hright : IntervalIntegrable
       (fun t : Real => 1 / Real.log t ^ (n + 1))
       MeasureTheory.volume a b := by
@@ -1159,19 +1167,25 @@ theorem integral_inv_log_pow_succ_le_full_from_two
     rw [Set.uIcc_of_le hab]
     apply ContinuousOn.div continuousOn_const
     · exact (Real.continuousOn_log.mono fun t ht =>
-        ne_of_gt (Real.log_pos (by linarith [ht.1]))).pow _
+        ne_of_gt (Real.log_pos (by
+          have : (0 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
+          exact this))).pow _
     · intro t ht
-      exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by linarith [ht.1])))
+      exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by
+        have : (0 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
+        exact this)))
   have hzero : IntervalIntegrable (fun _ : Real => (0 : Real))
       MeasureTheory.volume 2 a := intervalIntegrable_const
   have hnonneg : ∀ t ∈ Set.Icc (2 : Real) a,
       0 ≤ 1 / Real.log t ^ (n + 1) := by
     intro t ht
     exact one_div_nonneg.mpr
-      (pow_nonneg (Real.log_pos (by linarith [ht.1]).le) _)
+      (pow_nonneg (Real.log_pos (by
+        have : (0 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
+        exact this).le) _)
   have hprefix : 0 ≤ ∫ t in (2 : Real)..a,
       1 / Real.log t ^ (n + 1) := by
-    exact intervalIntegral.integral_mono_on ha hzero hleft hnonneg
+    simpa using intervalIntegral.integral_mono_on ha hzero hleft hnonneg
   have hadd := intervalIntegral.integral_add_adjacent_intervals hleft hright
   rw [← hadd]
   linarith
@@ -1183,7 +1197,8 @@ theorem integral_inv_log_six_tail_from_599_le_explicit {X : Real}
         (X / Real.log X ^ 6) /
           (1 - 6 / Real.log (1000000 : Real)) := by
   exact (integral_inv_log_pow_succ_le_full_from_two
-    (n := 5) (a := (599 : Real)) (b := X) (by norm_num) hX).trans
+    (n := 5) (a := (599 : Real)) (b := X) (by norm_num)
+      (by linarith [hX])).trans
       (integral_inv_log_six_le_explicit hX)
 
 theorem explicit_integral_core_bound_of_log_margins
@@ -1479,37 +1494,6 @@ theorem explicit_reserved_integral_core_at_599
   have hseven' : 0 ≤ 720 := by norm_num
   have hsix' := mul_le_mul_of_nonneg_left hsix hA0
   nlinarith [mul_le_mul_of_nonneg_left hseven hseven']
-
-/-! The finite theta estimate and the numerical integral margin now compose
-into the exact core hypothesis consumed by the all-`k` Dusart assembly.  This
-is intentionally stated at an arbitrary raised cutoff: the analytic tail may
-start later than `4e18` without changing the finite certificate boundary. -/
-theorem primeCountingCore_abs_le_at_large_cutoff_of_theta_error
-    {A X : Real} (hX : (4e18 : Real) ≤ X)
-    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
-    (error : HasThetaLogFourthErrorBelow A X) :
-    |primeCountingCore X| ≤ (3 / 5 : Real) * X / Real.log X ^ 4 := by
-  have hXmillion : (1000000 : Real) ≤ X := by
-    norm_num at hX ⊢
-    linarith
-  exact (primeCountingCore_abs_le_of_finite_theta_error_explicit
-      hXmillion
-      hA0 error).trans (explicit_integral_core_bound_at_large_cutoff hX hA0 hA1)
-
-theorem primeCountingCore_abs_plus_10000_le_at_large_cutoff_of_theta_error
-    {A X : Real} (hX : (4e18 : Real) ≤ X)
-    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
-    (error : HasThetaLogFourthErrorBelow A X) :
-    |primeCountingCore X| + 10000 ≤
-      (3 / 5 : Real) * X / Real.log X ^ 4 := by
-  have hXmillion : (1000000 : Real) ≤ X := by
-    norm_num at hX ⊢
-    linarith
-  have hcore := primeCountingCore_abs_le_of_finite_theta_error_explicit
-    hXmillion hA0 error
-  have hmargin := explicit_integral_core_bound_at_large_cutoff_with_10000
-    hX hA0 hA1
-  nlinarith
 
 theorem abs_integral_inv_log_pow_succ_le
     {n : Nat} {a b : Real} (ha : 1 < a) (hab : a ≤ b)
@@ -2348,6 +2332,35 @@ theorem primeCountingCore_abs_le_of_finite_theta_error_explicit
     nlinarith [mul_le_mul_of_nonneg_left hseven hseven',
       mul_le_mul_of_nonneg_left hsix hA])
 
+/-! The finite theta estimate and the numerical integral margin now compose
+into the exact core hypothesis consumed by the all-`k` Dusart assembly. -/
+theorem primeCountingCore_abs_le_at_large_cutoff_of_theta_error
+    {A X : Real} (hX : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
+    (error : HasThetaLogFourthErrorBelow A X) :
+    |primeCountingCore X| ≤ (3 / 5 : Real) * X / Real.log X ^ 4 := by
+  have hXmillion : (1000000 : Real) ≤ X := by
+    norm_num at hX ⊢
+    linarith
+  exact (primeCountingCore_abs_le_of_finite_theta_error_explicit
+      hXmillion hA0 error).trans
+    (explicit_integral_core_bound_at_large_cutoff hX hA0 hA1)
+
+theorem primeCountingCore_abs_plus_10000_le_at_large_cutoff_of_theta_error
+    {A X : Real} (hX : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
+    (error : HasThetaLogFourthErrorBelow A X) :
+    |primeCountingCore X| + 10000 ≤
+      (3 / 5 : Real) * X / Real.log X ^ 4 := by
+  have hXmillion : (1000000 : Real) ≤ X := by
+    norm_num at hX ⊢
+    linarith
+  have hcore := primeCountingCore_abs_le_of_finite_theta_error_explicit
+    hXmillion hA0 error
+  have hmargin := explicit_integral_core_bound_at_large_cutoff_with_10000
+    hX hA0 hA1
+  nlinarith
+
 theorem primeCountingCore_scale_le
     {C X x : Real} (hX : 1 < X) (hXx : X ≤ x)
     (hlogX : (4 : Real) < Real.log X) (hC : 0 ≤ C)
@@ -3148,31 +3161,29 @@ theorem hasDusartRealPrimeCountingBoundsAbove_of_finite_theta_error
     (thetaErrorBelow : HasThetaLogFourthErrorBelow A X)
     (thetaErrorAbove : HasThetaLogFourthErrorAbove A X) :
     HasDusartRealPrimeCountingBoundsAbove X := by
-  have thetaError : HasThetaLogFourthError A X :=
-    hasThetaLogFourthError_of_below_and_above
-      thetaErrorBelow thetaErrorAbove
+  have thetaError : HasThetaLogFourthError A X := by
+    intro x hx
+    exact thetaErrorAbove x hx
   have hcore : |primeCountingCore X| ≤
       (3 / 5 : Real) * X / Real.log X ^ 4 :=
     primeCountingCore_abs_le_at_large_cutoff_of_theta_error
       hX hA0 hA1 thetaErrorBelow
   have hXpos : 0 < X := by linarith
   have h2X : 2 ≤ X := by linarith
+  have hlogCut : (42 : Real) < Real.log (4e18 : Real) := by
+    have hbase : Real.exp 1 < (2.72 : Real) := by
+      linarith [Real.exp_one_lt_d9]
+    have hexp : Real.exp 42 < (4e18 : Real) := by
+      calc
+        Real.exp 42 = Real.exp 1 ^ 42 := by
+          rw [show (42 : Real) = (42 : ℕ) * 1 by norm_num,
+            Real.exp_nat_mul]
+        _ < (2.72 : Real) ^ 42 := by
+          exact pow_lt_pow_left₀ hbase (Real.exp_pos 1).le (by norm_num)
+        _ < (4e18 : Real) := by norm_num
+    exact (Real.lt_log_iff_exp_lt (by norm_num)).2 hexp
   have hlogX : (42 : Real) ≤ Real.log X :=
-    (by
-      have hbase : Real.exp 1 < (2.72 : Real) := by
-        linarith [Real.exp_one_lt_d9]
-      have hexp : Real.exp 42 < (4e18 : Real) := by
-        calc
-          Real.exp 42 = Real.exp 1 ^ 42 := by
-            rw [show (42 : Real) = (42 : ℕ) * 1 by norm_num,
-              Real.exp_nat_mul]
-          _ < (2.72 : Real) ^ 42 := by
-            exact pow_lt_pow_left₀ hbase (Real.exp_pos 1).le (by norm_num)
-          _ < (4e18 : Real) := by norm_num
-      have hlog : (42 : Real) < Real.log (4e18 : Real) := by
-        exact (Real.lt_log_iff_exp_lt (by norm_num)).2 hexp
-      hlog.le).trans
-      (Real.log_le_log (by norm_num) hX)
+    hlogCut.le.trans (Real.log_le_log (by norm_num) hX)
   exact hasDusartRealPrimeCountingBoundsAbove_of_core_and_theta_error
     hXpos h2X le_rfl hA0 hA1 (by norm_num) (by norm_num) hlogX hcore
     thetaError
