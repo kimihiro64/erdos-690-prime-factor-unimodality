@@ -1,3 +1,11 @@
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
+
+set_option autoImplicit false
+
+namespace PrimeFactorUnimodality
+
+noncomputable section
+
 /-!
 # Closed explicit theta estimates
 
@@ -10,6 +18,16 @@ and compact finite low-endpoint machinery.  It must not import a prepackaged
 Dusart theorem or add an assumption-backed provider.
 
 The exact proof obligations and dependency order are recorded in
-`LEAN_COMPLETION_HANDOFF.md`.  This file intentionally contains no provisional
-declaration: a `sorry`, axiom, or bodyless constant would hide the live gap.
+`LEAN_COMPLETION_HANDOFF.md`.  The finite singleton seed below is closed; it
+does not claim to be the global provider.
 -/
+
+/-! Closed singleton seed for the finite theta assembler. -/
+theorem wangCrapis_thetaPrefix :
+    HasDusartSymmetricThetaBoundsBelow (2 : Real) := by
+  exact hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
+    dusartThetaEndpointRow_two_cover
+
+end
+
+end PrimeFactorUnimodality
