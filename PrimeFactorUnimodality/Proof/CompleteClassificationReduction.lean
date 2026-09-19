@@ -33,7 +33,7 @@ theorem completeClassification_of_finite_range_and_tail
       omega
 
 theorem completeClassification_of_finite_record_range
-    (finiteRange : ∀ k : Nat, 1 ≤ k → k ≤ 7430000 →
+    (finiteRange : ∀ k : Nat, 1 ≤ k → k ≤ 8600001 →
       (IsUnimodal (primeFactorDensity k) ↔ k ≤ 3))
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     (thetaBounds : HasDusartThetaBounds)
@@ -41,7 +41,7 @@ theorem completeClassification_of_finite_record_range
     (k : Nat) (hk : 1 ≤ k) :
     IsUnimodal (primeFactorDensity k) ↔ k ≤ 3 := by
   have classification := completeClassification_of_finite_range_and_tail
-    7430000 (by omega) finiteRange (fun k hkTail =>
+    8600001 (by omega) finiteRange (fun k hkTail =>
       uniformTail_not_isUnimodal_closed_mertens primeCountingBounds thetaBounds
         tailPair (k := k) (by omega))
   exact classification k hk
