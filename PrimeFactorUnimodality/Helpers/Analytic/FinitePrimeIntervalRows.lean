@@ -13372,6 +13372,19 @@ theorem hasDusartShortIntervalPrimeBelow_of_rows
   obtain ⟨row, row_mem, left_mem, right_mem⟩ := cover x hx hX
   exact dusartPrimeRow_provides row left_mem right_mem
 
+theorem hasDusartShortIntervalPrimeBelow_of_rows_up_to
+    {X : Real} {rows : List DusartPrimeRow}
+    (cover : DusartPrimeRowsCoverUpTo rows X) :
+    HasDusartShortIntervalPrimeBelow X := by
+  intro x hx hX
+  obtain ⟨row, row_mem, left_mem, right_mem⟩ := cover x hx hX
+  exact dusartPrimeRow_provides row left_mem right_mem
+
+theorem hasDusartShortIntervalPrimeBelow_3275_23158 :
+    HasDusartShortIntervalPrimeBelow (23158 : Real) :=
+  hasDusartShortIntervalPrimeBelow_of_rows_up_to
+    dusartPrimeRows_3275_23158_cover
+
 structure LogCubedPrimeRow where
   left : Nat
   right : Nat
