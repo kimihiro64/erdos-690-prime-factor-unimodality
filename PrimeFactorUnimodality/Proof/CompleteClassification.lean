@@ -8,6 +8,7 @@ import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
 import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
 import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
+import PrimeFactorUnimodality.Helpers.FiniteCertificates.SmallPrimeCountingIntervals
 
 set_option autoImplicit false
 
@@ -640,6 +641,33 @@ theorem completeClassification_of_mediumPNT_and_integer_interval_split_row_provi
     exact hasLogCubedShortIntervalPrimeBelow_of_rows hcover
   · obtain ⟨rows, hcover⟩ := provider.thetaErrorEndpointRows X hX
     exact hasThetaLogFourthErrorBelow_of_endpoint_rows (by norm_num) hcover
+
+/-! The compact small-prime table is fixed data, so callers supplying the
+large endpoint tables should not have to repeat its list or its cover. -/
+structure MediumPNTFiniteIntegerIntervalTailProvider : Prop where
+  primeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List DusartPrimeCountingEndpointRow,
+      DusartPrimeCountingEndpointRowsCoverFrom599 rows X
+  thetaEndpointRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List DusartThetaEndpointRow,
+      DusartThetaEndpointRowsCoverUpTo rows X
+  shortIntervalRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List LogCubedPrimeRow,
+      LogCubedPrimeRowsCoverUpTo rows X
+  thetaErrorEndpointRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List (ThetaLogFourthEndpointRow (648 / 1000 : Real)),
+      ThetaLogFourthEndpointRowsCoverUpTo rows X
+
+theorem completeClassification_of_mediumPNT_and_integer_interval_tail_provider
+    (provider : MediumPNTFiniteIntegerIntervalTailProvider) :
+    CompleteClassification := by
+  exact completeClassification_of_mediumPNT_and_integer_interval_split_row_provider
+    { primeCountingRows := provider.primeCountingRows
+      primeCountingSmallIntegerIntervalRows := dusartSmallUpperIntervalRows
+      primeCountingSmallIntegerIntervalCover := dusartSmallUpperIntervalRows_cover
+      thetaEndpointRows := provider.thetaEndpointRows
+      shortIntervalRows := provider.shortIntervalRows
+      thetaErrorEndpointRows := provider.thetaErrorEndpointRows }
 
 /-! The tail prime-counting obligation can equivalently be supplied in the
 published asymptotic form.  The adapter is proved in the analytic helper, so
