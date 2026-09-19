@@ -997,7 +997,6 @@ theorem log_le_97_over_10_of_15527_le
     · exact_mod_cast ha16317
   exact hmono.trans log_16317_le_97_over_10
 
-theorem log_le_116_over_10_of_89693_le
 theorem log_23155_le_201_over_20 :
     Real.log (23155 : Real) ≤ (201 : Real) / 20 := by
   apply (Real.log_le_iff_le_exp (by norm_num)).2
@@ -1117,6 +1116,7 @@ theorem log_le_39_over_4_of_16319_le
   exact hmono.trans log_17154_le_39_over_4
 
 
+theorem log_le_116_over_10_of_89693_le
     {a : Nat} (ha : (89693 : Nat) ≤ a) (ha100000 : a ≤ 100000) :
     Real.log a ≤ (116 : Real) / 10 := by
   have hmono : Real.log (a : Real) ≤ Real.log (100000 : Real) := by
@@ -1684,7 +1684,6 @@ theorem dusartPrimeRow_of_explicit_16317
     (log_le_97_over_10_of_15527_le hleft_large hleft_16317)
     (by norm_num) hproduct
 
-theorem dusartPrimeRow_of_explicit_89693
 theorem dusartPrimeRow_of_explicit_23155
     {p q : Nat}
     (hq : q.Prime)
@@ -1783,6 +1782,7 @@ theorem dusartPrimeRow_of_explicit_17154
     (by norm_num) hproduct
 
 
+theorem dusartPrimeRow_of_explicit_89693
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
