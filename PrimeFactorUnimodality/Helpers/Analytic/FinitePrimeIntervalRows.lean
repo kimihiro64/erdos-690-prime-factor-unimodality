@@ -1979,8 +1979,8 @@ inductive DusartPrimeRowsChain : Nat → Nat → List DusartPrimeRow → Prop
 theorem dusartPrimeRowsCover_of_chain
     {a b : Nat} {rows : List DusartPrimeRow}
     (chain : DusartPrimeRowsChain a b rows) :
-    ∀ x : Real, (a : Real) ≤ x → x ≤ b →
-      ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right := by
+    ∀ x : Real, (a : Real) ≤ x → x < (b : Real) + 1 →
+      ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x < (row.right : Real) + 1 := by
   induction chain with
   | empty h =>
       intro x hleft hright
@@ -1989,14 +1989,15 @@ theorem dusartPrimeRowsCover_of_chain
       linarith
   | @cons a b row hleft hordered tail htail ih =>
       intro x hxa hxb
-      by_cases hrow : x ≤ row.right
+      by_cases hrow : x < (row.right : Real) + 1
       · refine ⟨row, by simp, ?_, hrow⟩
         have hleft_real : (row.left : Real) ≤ a := by
           exact_mod_cast hleft
         exact hleft_real.trans hxa
-      · have hnext : (row.right + 1 : Real) ≤ x := by
-          have : (row.right : Real) < x := lt_of_not_ge hrow
-          linarith
+      · have hnext : ((row.right + 1 : Nat) : Real) ≤ x := by
+          have : (row.right : Real) + 1 ≤ x := le_of_not_gt hrow
+          norm_num at this ⊢
+          exact this
         obtain ⟨next, hmem, hnext_left, hnext_right⟩ :=
           ih x hnext hxb
         exact ⟨next, by simp [hmem], hnext_left, hnext_right⟩
@@ -13309,13 +13310,13 @@ theorem dusartPrimeRows_3275_23158_chain :
     dusartPrimeRows_3275_22026_chain dusartPrimeRows_22027_23158_chain
 
 def DusartPrimeRowsCoverBelow (rows : List DusartPrimeRow) : Prop :=
-  ∀ x : Real, 3275 ≤ x → x ≤ 89693 →
-    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+  ∀ x : Real, 3275 ≤ x → x < 89693 + 1 →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x < (row.right : Real) + 1
 
 def DusartPrimeRowsCoverUpTo
     (rows : List DusartPrimeRow) (X : Real) : Prop :=
-  ∀ x : Real, 3275 ≤ x → x ≤ X →
-    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+  ∀ x : Real, 3275 ≤ x → x < X + 1 →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x < (row.right : Real) + 1
 
 theorem dusartPrimeRowsCoverUpTo_of_chain
     {b : Nat} {X : Real} {rows : List DusartPrimeRow}
@@ -13323,7 +13324,7 @@ theorem dusartPrimeRowsCoverUpTo_of_chain
     (hXbound : X ≤ (b : Real)) :
     DusartPrimeRowsCoverUpTo rows X := by
   intro x hx hX
-  exact dusartPrimeRowsCover_of_chain chain x hx (hX.trans hXbound)
+  exact dusartPrimeRowsCover_of_chain chain x hx (by linarith)
 
 theorem dusartPrimeRowsCoverUpTo_append
     {m X : Real} {left right : List DusartPrimeRow}
@@ -13331,7 +13332,7 @@ theorem dusartPrimeRowsCoverUpTo_append
     (hright : DusartPrimeRowsCoverUpTo right X) :
     DusartPrimeRowsCoverUpTo (left ++ right) X := by
   intro x hx hX
-  by_cases hxm : x ≤ m
+  by_cases hxm : x < m + 1
   · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
     exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
   · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
@@ -13339,8 +13340,8 @@ theorem dusartPrimeRowsCoverUpTo_append
 
 def DusartPrimeRowsCoverFrom
     (rows : List DusartPrimeRow) (A X : Real) : Prop :=
-  ∀ x : Real, A ≤ x → x ≤ X →
-    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+  ∀ x : Real, A ≤ x → x < X + 1 →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x < (row.right : Real) + 1
 
 theorem dusartPrimeRowsCoverUpTo_append_from
     {m X : Real} {left right : List DusartPrimeRow}
@@ -13348,11 +13349,11 @@ theorem dusartPrimeRowsCoverUpTo_append_from
     (hright : DusartPrimeRowsCoverFrom right m X) :
     DusartPrimeRowsCoverUpTo (left ++ right) X := by
   intro x hx hX
-  by_cases hxm : x ≤ m
+  by_cases hxm : x < m + 1
   · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
     exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
   · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x
-      (le_of_not_ge hxm) hX
+      (by linarith) hX
     exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
 
 theorem dusartPrimeRows_3275_3802_cover :
@@ -13537,18 +13538,20 @@ theorem dusartPrimeRowsCoverBelow_of_chain
     (chain : DusartPrimeRowsChain 3275 89693 rows) :
     DusartPrimeRowsCoverBelow rows := by
   intro x hleft hright
-  exact dusartPrimeRowsCover_of_chain chain x hleft hright
+  exact dusartPrimeRowsCover_of_chain chain x hleft (by linarith)
 
 theorem dusartPrimeRow_provides
     (row : DusartPrimeRow) {x : Real}
     (left_mem : (row.left : Real) ≤ x)
-    (right_mem : x ≤ row.right) :
+    (right_mem : x < (row.right : Real) + 1) :
     ∃ q : Nat, q.Prime ∧ x < q ∧
       (q : Real) ≤ x * (1 + 1 / (2 * (Real.log x) ^ 2)) := by
   refine ⟨row.prime, row.prime_prime, ?_, ?_⟩
   · have right_lt_prime : (row.right : Real) < row.prime := by
       exact_mod_cast row.right_lt_prime
-    exact_mod_cast right_mem.trans_lt right_lt_prime
+    have hstep : ((row.right + 1 : Nat) : Real) ≤ row.prime := by
+      exact_mod_cast Nat.succ_le_of_lt row.right_lt_prime
+    exact right_mem.trans_le hstep
   · have hbound : (row.prime : Real) ≤ dusartUpper x :=
       row.prime_upper.trans (dusartUpper_monotoneOn
         (show (row.left : Real) ∈ Set.Ici (3275 : Real) by
