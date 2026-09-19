@@ -13625,6 +13625,20 @@ def ThetaLogFourthErrorRowsCoverFrom
   ∀ x : Real, x₀ ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+theorem thetaLogFourthErrorRowsCoverFrom_append
+    {A x₀ m X : Real}
+    {left right : List (ThetaLogFourthErrorRow A)}
+    (hleft : ThetaLogFourthErrorRowsCoverFrom left x₀ m)
+    (hright : ThetaLogFourthErrorRowsCoverFrom right m X) :
+    ThetaLogFourthErrorRowsCoverFrom (left ++ right) x₀ X := by
+  intro x hx₀ hxX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx₀ hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ :=
+      hright x (le_of_not_ge hxm) hxX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+
 theorem hasThetaLogFourthErrorBelow_of_rows
     {A X : Real} {rows : List (ThetaLogFourthErrorRow A)}
     (cover : ThetaLogFourthErrorRowsCoverUpTo rows X) :
