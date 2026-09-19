@@ -176,6 +176,18 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_prime_gap_certificate
   hasLogCubedShortIntervalPrimeBelow_of_finite_prime_gap_bound
     hX hXb (finitePrimeGapBound_of_indexed_certificate certificate) width
 
+theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_gap_rows
+    {X : Real} {b g n : Nat}
+    (hX : (89693 : Real) ≤ X)
+    (hXb : X ≤ b)
+    {rows : Fin n → FinitePrimeGapRow g}
+    (cover : FinitePrimeGapIndexedRowsCover rows)
+    (width : ∀ x : Real, 89693 ≤ x → x ≤ X →
+      (g : Real) ≤ x / (Real.log x) ^ 3) :
+    HasLogCubedShortIntervalPrimeBelow X :=
+  hasLogCubedShortIntervalPrimeBelow_of_finite_prime_gap_bound
+    hX hXb (finitePrimeGapBound_of_indexed_rows_cover cover) width
+
 theorem hasLogCubedShortIntervalPrimeBelow_of_two_indexed_prime_gap_certificates
     {m b₁ b₂ g₁ g₂ : Nat} {X : Real}
     (hm : (89693 : Real) ≤ m) (hXm : (m : Real) ≤ X)
