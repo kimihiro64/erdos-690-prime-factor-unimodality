@@ -1249,6 +1249,31 @@ theorem mediumPNTFiniteIntegerIntervalPrefixBundleCover_of_list
       (thetaLogFourthEndpointIndexedCover_of_list
         (x₀ := (4e18 : Real)) cover.thetaError)
 
+theorem mediumPNTFiniteIntegerIntervalPrefixBundleListCover_append
+    {m X : Real}
+    {left right : List MediumPNTFiniteIntegerIntervalPrefixBundle}
+    (hm : (4e18 : Real) ≤ m)
+    (hleft : MediumPNTFiniteIntegerIntervalPrefixBundleListCover left m)
+    (hright : MediumPNTFiniteIntegerIntervalPrefixBundleListCover right X) :
+    MediumPNTFiniteIntegerIntervalPrefixBundleListCover (left ++ right) X := by
+  constructor
+  · simpa [List.map_append] using
+      (dusartPrimeCountingEndpointRowsCoverFrom599_append
+        hleft.primeCounting hright.primeCounting)
+  · simpa [List.map_append] using
+      (dusartThetaEndpointRowsCoverUpTo_append
+        hleft.theta hright.theta)
+  · simpa [List.map_append] using
+      (logCubedPrimeRowsCoverUpTo_append
+        hleft.shortInterval hright.shortInterval)
+  · have hrightFrom : ThetaLogFourthEndpointRowsCoverFrom
+        (right.map (fun row => row.thetaError)) (4e18 : Real) m := by
+      intro x hx hX
+      exact hright.thetaError x (hm.trans hx) hX
+    simpa [List.map_append] using
+      (thetaLogFourthEndpointRowsCoverFrom_append
+        hleft.thetaError hrightFrom)
+
 theorem mediumPNTFiniteIntegerIntervalPrefixBundleCover_append
     {m X : Real} {n₁ n₂ : Nat}
     {left : Fin n₁ → MediumPNTFiniteIntegerIntervalPrefixBundle}
