@@ -13569,6 +13569,11 @@ def LogCubedPrimeIndexedCoverUpTo {n : Nat}
   ∀ x : Real, 89693 ≤ x → x ≤ X →
     ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
 
+def LogCubedPrimeIndexedCoverFrom {n : Nat}
+    (rows : Fin n → LogCubedPrimeRow) (x₀ X : Real) : Prop :=
+  ∀ x : Real, x₀ ≤ x → x ≤ X →
+    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+
 theorem logCubedPrimeIndexedCover_of_list
     {X : Real} {rows : List LogCubedPrimeRow}
     (cover : LogCubedPrimeRowsCoverUpTo rows X) :
@@ -13591,6 +13596,23 @@ theorem logCubedPrimeIndexedCoverUpTo_append
     (fun y hy _ hym hyX => hright y hy hyX)
     x hx trivial hX
 
+theorem logCubedPrimeIndexedCoverUpTo_append_from
+    {m X : Real} {n₁ n₂ : Nat}
+    {left : Fin n₁ → LogCubedPrimeRow}
+    {right : Fin n₂ → LogCubedPrimeRow}
+    (hleft : LogCubedPrimeIndexedCoverUpTo left m)
+    (hright : LogCubedPrimeIndexedCoverFrom right m X) :
+    LogCubedPrimeIndexedCoverUpTo (Fin.append left right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨i, hleft_lower, hleft_upper⟩ := hleft x hx hxm
+    refine ⟨Fin.castAdd n₂ i, ?_⟩
+    simpa [Fin.append_left] using And.intro hleft_lower hleft_upper
+  · obtain ⟨i, hright_lower, hright_upper⟩ :=
+      hright x (le_of_not_ge hxm) hX
+    refine ⟨Fin.natAdd n₁ i, ?_⟩
+    simpa [Fin.append_right] using And.intro hright_lower hright_upper
+
 theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_rows
     {n : Nat} {X : Real} {rows : Fin n → LogCubedPrimeRow}
     (cover : LogCubedPrimeIndexedCoverUpTo rows X) :
@@ -13602,6 +13624,23 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_rows
       (by norm_num at ⊢; linarith)
       (by norm_num at ⊢; linarith) hab)
     (rows i) hleft hright
+
+theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_rows_from
+    {n : Nat} {x₀ X : Real} {rows : Fin n → LogCubedPrimeRow}
+    (hx₀ : (89693 : Real) ≤ x₀)
+    (prefix : HasLogCubedShortIntervalPrimeBelow x₀)
+    (cover : LogCubedPrimeIndexedCoverFrom rows x₀ X) :
+    HasLogCubedShortIntervalPrimeBelow X := by
+  intro x hx hX
+  by_cases hsmall : x ≤ x₀
+  · exact prefix x hx hsmall
+  · have hlarge : x₀ ≤ x := le_of_lt (lt_of_not_ge hsmall)
+    obtain ⟨i, hleft, hright⟩ := cover x hlarge hX
+    exact logCubedPrimeRow_provides
+      (fun {a b} ha hab => logCubedUpper_monotoneOn
+        (by norm_num at ⊢; linarith)
+        (by norm_num at ⊢; linarith) hab)
+      (rows i) hleft hright
 
 theorem hasLogCubedShortIntervalPrimeBelow_of_rows_from
     {x₀ X : Real} {rows : List LogCubedPrimeRow}
