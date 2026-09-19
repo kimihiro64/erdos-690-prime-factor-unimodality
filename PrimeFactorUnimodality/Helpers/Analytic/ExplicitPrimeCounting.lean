@@ -1397,8 +1397,46 @@ theorem explicit_integral_core_bound_of_log_margins
             (by norm_num : (0 : Real) ≤ 720)
           have htail7s := mul_le_mul_of_nonneg_left htail7
             (by norm_num : (0 : Real) ≤ 720)
-          have hA6' := hA_sum6
-          linarith [hA6', hlow6, hlow7s, htail7s]
+          have hsum :
+              720 * (999998 / Real.log 2 ^ 7 +
+                (X / Real.log X ^ 7) /
+                  (1 - 7 / Real.log (1000000 : Real))) +
+                A * (999998 / Real.log 2 ^ 6 +
+                  (X / Real.log X ^ 6) /
+                    (1 - 6 / Real.log (1000000 : Real))) ≤
+              720 * (14000000 +
+                (13 / 6 : Real) * ((X / Real.log X ^ 4) / 42 ^ 3)) +
+                10000000 + (13 / 7 : Real) *
+                  ((X / Real.log X ^ 4) / 42 ^ 2) := by
+            calc
+              _ = 720 * (999998 / Real.log 2 ^ 7) +
+                    720 * ((X / Real.log X ^ 7) /
+                      (1 - 7 / Real.log (1000000 : Real))) +
+                    (A * (999998 / Real.log 2 ^ 6) +
+                      A * ((X / Real.log X ^ 6) /
+                        (1 - 6 / Real.log (1000000 : Real)))) := by ring
+              _ ≤ 720 * 14000000 + 720 *
+                    ((13 / 6 : Real) *
+                      ((X / Real.log X ^ 4) / 42 ^ 3)) +
+                    ((999998 : Real) / Real.log 2 ^ 6 +
+                      (13 / 7 : Real) *
+                        ((X / Real.log X ^ 4) / 42 ^ 2)) := by
+                exact add_le_add (add_le_add hlow7s htail7s)
+                  (add_le_add hA_low6 hA_tail6)
+              _ ≤ 720 * (14000000 +
+                    (13 / 6 : Real) *
+                      ((X / Real.log X ^ 4) / 42 ^ 3)) +
+                    10000000 + (13 / 7 : Real) *
+                      ((X / Real.log X ^ 4) / 42 ^ 2) := by
+                nlinarith [hlow6]
+          have hlow6tight : (999998 : Real) / Real.log 2 ^ 6 ≤ 9990000 := by
+            calc
+              (999998 : Real) / Real.log 2 ^ 6 =
+                  999998 * (1 / Real.log 2 ^ 6) := by ring
+              _ ≤ 999998 * (1 / ((69 : Real) / 100) ^ 6) :=
+                mul_le_mul_of_nonneg_left hi6 (by norm_num)
+              _ ≤ 9990000 := by norm_num
+          linarith [hsum, hlow6tight]
     _ ≤ (3 / 5 : Real) * X / Real.log X ^ 4 := by
           have hnum :
               (4000 : Real) + 720 * (14000000 +
@@ -1987,6 +2025,7 @@ theorem primeCountingCore_abs_le (X : Real) :
       exact add_le_add_left (abs_add_le (-2 * k) (720 * i)) |j|
     _ = 2 * |k| + 720 * |i| + |j| := by
       rw [abs_mul, abs_mul]
+      norm_num
 
 theorem primeCountingCore_fixed_term_le :
     1 / Real.log 2 ^ 2 + 2 / Real.log 2 ^ 3 +
@@ -2024,7 +2063,7 @@ theorem primeCountingCore_fixed_term_le :
           6 / ((69 : Real) / 100) ^ 4 +
           24 / ((69 : Real) / 100) ^ 5 +
           120 / ((69 : Real) / 100) ^ 6 := by
-      linarith [hi2, hi3, hi4, hi5, hi6]
+      gcongr
     _ ≤ (2000 : Real) := by norm_num [div_eq_mul_inv]
 
 theorem integral_inv_log_seven_nonneg {X : Real} (hX : (2 : Real) ≤ X) :
@@ -2084,7 +2123,7 @@ theorem small_integral_remainder_le_ten_mul
     rw [Set.uIcc_of_le h2x₀]
     apply ContinuousOn.div continuousOn_const
     · exact (Real.continuousOn_log.mono fun t ht =>
-        ne_of_gt (Real.log_pos (by linarith [ht.1]))).pow _
+        ne_of_gt (by linarith [ht.1])).pow _
     · intro t ht
       exact pow_ne_zero _
         (ne_of_gt (Real.log_pos (by linarith [ht.1])))
@@ -2105,10 +2144,11 @@ theorem small_integral_remainder_le_ten_mul
     have hloglower : (69 : Real) / 100 ≤ Real.log t := hlog2.trans hlogmono
     have hlog4 : Real.log 4 ≤ 2 := by
       rw [show (4 : Real) = 2 ^ (2 : Nat) by norm_num, Real.log_pow]
+      norm_num
       nlinarith [Real.log_two_lt_d9]
     have hlogsq : (0 : Real) < (Real.log t) ^ 2 := sq_pos_of_pos hlogpos
-    have hsquare : ((69 : Real) / 100) ^ 2 ≤ (Real.log t) ^ 2 :=
-      mul_self_le_mul_self (by norm_num) hloglower
+    have hsquare : ((69 : Real) / 100) ^ 2 ≤ (Real.log t) ^ 2 := by
+      simpa [pow_two] using mul_self_le_mul_self (by norm_num) hloglower
     have hinv : 1 / (Real.log t) ^ 2 ≤ 3 := by
       apply (div_le_iff₀ hlogsq).2
       nlinarith [hsquare]
@@ -2126,10 +2166,28 @@ theorem small_integral_remainder_le_ten_mul
     rw [show r t = Chebyshev.theta t /
       (t * (Real.log t) ^ 2) - 1 / (Real.log t) ^ 2 by rfl]
     have habs := abs_sub_le
-      (Chebyshev.theta t / (t * (Real.log t) ^ 2))
+      (Chebyshev.theta t / (t * (Real.log t) ^ 2)) 0
       (1 / (Real.log t) ^ 2)
-    rw [abs_of_nonneg hterm, abs_of_nonneg (by positivity)] at habs
-    exact habs.trans (by linarith)
+    have habs' : |Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+        1 / (Real.log t) ^ 2| ≤
+        Chebyshev.theta t / (t * (Real.log t) ^ 2) +
+          1 / (Real.log t) ^ 2 := by
+      calc
+        |Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+            1 / (Real.log t) ^ 2| ≤
+            |Chebyshev.theta t / (t * (Real.log t) ^ 2) - 0| +
+              |0 - 1 / (Real.log t) ^ 2| := habs
+        _ = Chebyshev.theta t / (t * (Real.log t) ^ 2) +
+              1 / (Real.log t) ^ 2 := by
+          rw [sub_zero, abs_of_nonneg hterm, zero_sub, abs_neg,
+            abs_of_nonneg (by positivity)]
+    calc
+      |Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2| ≤
+          Chebyshev.theta t / (t * (Real.log t) ^ 2) +
+            1 / (Real.log t) ^ 2 := habs'
+      _ ≤ (6 : Real) + 3 := add_le_add hterm_upper hinv
+      _ ≤ 10 := by norm_num
   have hconst : IntervalIntegrable (fun _ : Real => (10 : Real))
       MeasureTheory.volume 2 x₀ := intervalIntegrable_const
   have hmono := intervalIntegral.integral_mono_on
@@ -2147,8 +2205,8 @@ theorem small_integral_remainder_le_5990 :
     |∫ t in (2 : Real)..(599 : Real),
         (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
           1 / (Real.log t) ^ 2)| ≤ (5990 : Real) := by
-  simpa using (small_integral_remainder_le_ten_mul (x₀ := (599 : Real))
-    (by norm_num))
+  convert small_integral_remainder_le_ten_mul (x₀ := (599 : Real))
+    (by norm_num) using 1 <;> norm_num
 
 theorem integral_remainder_abs_le_of_split_theta_error
     {A X x₀ R : Real} (h2x₀ : (2 : Real) ≤ x₀) (hx₀X : x₀ ≤ X)
@@ -2176,7 +2234,7 @@ theorem integral_remainder_abs_le_of_split_theta_error
     rw [Set.uIcc_of_le h2X]
     apply ContinuousOn.div continuousOn_const
     · exact (Real.continuousOn_log.mono fun t ht =>
-        ne_of_gt (Real.log_pos (by linarith [ht.1]))).pow _
+        ne_of_gt (by linarith [ht.1])).pow _
     · intro t ht
       exact pow_ne_zero _
         (ne_of_gt (Real.log_pos (by linarith [ht.1])))
@@ -2186,8 +2244,7 @@ theorem integral_remainder_abs_le_of_split_theta_error
   have hr : IntervalIntegrable r MeasureTheory.volume 2 X := by
     simpa [r] using htheta.sub hbase
   have hsubset : Set.uIcc x₀ X ⊆ Set.uIcc (2 : Real) X := by
-    rw [Set.uIcc_of_le hx₀X, Set.uIcc_of_le h2X,
-      Set.uIcc_of_le h2x₀]
+    rw [Set.uIcc_of_le hx₀X, Set.uIcc_of_le h2X]
     intro t ht
     exact ⟨h2x₀.trans ht.1, ht.2⟩
   have hrTail : IntervalIntegrable r MeasureTheory.volume x₀ X :=
@@ -2199,15 +2256,15 @@ theorem integral_remainder_abs_le_of_split_theta_error
     rw [Set.uIcc_of_le hx₀X]
     apply ContinuousOn.div continuousOn_const
     · exact (Real.continuousOn_log.mono fun t ht =>
-        ne_of_gt (Real.log_pos (by linarith [h2x₀.trans ht.1]))).pow _
+        ne_of_gt (by linarith [h2x₀.trans ht.1])).pow _
     · intro t ht
       exact pow_ne_zero _
         (ne_of_gt (Real.log_pos (by linarith [h2x₀.trans ht.1])))
   have hmajor_bound : ∀ t ∈ Set.Icc x₀ X,
       |r t| ≤ A / (Real.log t) ^ 6 := by
     intro t ht
-    have htpos : 0 < t := by linarith [h2x₀]
-    have hlogpos : 0 < Real.log t := Real.log_pos (by linarith [h2x₀])
+    have htpos : 0 < t := by linarith [h2x₀, ht.1]
+    have hlogpos : 0 < Real.log t := Real.log_pos (by linarith [h2x₀, ht.1])
     have herr := error t ht.1
     have hrewrite :
         Chebyshev.theta t / (t * (Real.log t) ^ 2) -
@@ -2240,11 +2297,13 @@ theorem integral_remainder_abs_le_of_split_theta_error
           (fun t : Real => A * (1 / (Real.log t) ^ 6)) by
             funext t; ring]
         rw [intervalIntegral.integral_const_mul]
-  have hadd := intervalIntegral.integral_add_adjacent_intervals
-    (f := r) hr.mono_set (by
+  have hrPrefix : IntervalIntegrable r MeasureTheory.volume 2 x₀ :=
+    hr.mono_set (by
       rw [Set.uIcc_of_le h2x₀, Set.uIcc_of_le h2X]
       intro t ht
-      exact ⟨ht.1, h2x₀.trans ht.2⟩) hrTail
+      exact ⟨ht.1, ht.2.trans hx₀X⟩)
+  have hadd := intervalIntegral.integral_add_adjacent_intervals
+    hrPrefix hrTail
   have hsmall' : |∫ t in (2 : Real)..x₀, r t| ≤ R := by
     simpa [r] using hsmall
   change |∫ t in (2 : Real)..X, r t| ≤ _
@@ -2287,7 +2346,7 @@ theorem primeCountingCore_abs_le_of_finite_theta_error
     rw [Set.uIcc_of_le hX]
     apply ContinuousOn.div continuousOn_const
     · exact (Real.continuousOn_log.mono fun t ht =>
-        ne_of_gt (Real.log_pos (by linarith [ht.1]))).pow _
+        ne_of_gt (by linarith [ht.1])).pow _
     · intro t ht
       exact pow_ne_zero _
         (ne_of_gt (Real.log_pos (by linarith [ht.1])))
@@ -2303,7 +2362,7 @@ theorem primeCountingCore_abs_le_of_finite_theta_error
     rw [Set.uIcc_of_le hX]
     apply ContinuousOn.div continuousOn_const
     · exact (Real.continuousOn_log.mono fun t ht =>
-        ne_of_gt (Real.log_pos (by linarith [ht.1]))).pow _
+        ne_of_gt (by linarith [ht.1])).pow _
     · intro t ht
       exact pow_ne_zero _
         (ne_of_gt (Real.log_pos (by linarith [ht.1])))
