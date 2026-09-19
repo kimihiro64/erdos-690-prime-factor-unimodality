@@ -62,21 +62,6 @@ theorem PrimeFactorUnimodality.completeClassification_of_dusart_599_split_finite
   exact PrimeFactorUnimodality.completeClassification_of_dusart_599_split_finite_certificate
     certificate
 
-/-! Public boundary for a source-level MediumPNT proof: only finite analytic
-facts at the cutoff selected by that proof remain to be supplied. -/
-theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_inputs
-    {X C : Real} (hX : (4e18 : Real) ≤ X)
-    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
-    (hcore : |PrimeFactorUnimodality.primeCountingCore X| ≤
-      C * X / Real.log X ^ 4)
-    (finiteInputs : ∀ Y : Real, X ≤ Y →
-      PrimeFactorUnimodality.HasDusartRealPrimeCountingBoundsBelow Y ∧
-      PrimeFactorUnimodality.HasDusartSymmetricThetaBoundsBelow Y ∧
-      PrimeFactorUnimodality.HasLogCubedShortIntervalPrimeBelow Y) :
-    PrimeFactorUnimodality.CompleteClassification := by
-  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_inputs
-    hX hC0 hC hcore finiteInputs
-
 theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_split_inputs
     {X C : Real} (hX : (4e18 : Real) ≤ X)
     (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)

@@ -443,7 +443,7 @@ theorem completeClassification_of_mediumPNT_and_finite_provider
 chooses the cutoff and proves the unbounded theta error; the finite provider
 only has to answer at that one cutoff.  The prime-counting and short-interval
 tails are derived here from the source-level Abel and theta arguments. -/
-theorem completeClassification_of_mediumPNT_and_selected_finite_inputs
+private theorem completeClassification_of_mediumPNT_and_selected_finite_inputs
     {X C : Real} (hX : (4e18 : Real) ≤ X)
     (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
     (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
