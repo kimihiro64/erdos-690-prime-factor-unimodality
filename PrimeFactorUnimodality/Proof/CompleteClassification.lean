@@ -990,6 +990,63 @@ theorem completeClassification_of_dusart_finite_certificate
     certificate.hcore certificate.thetaError certificate.hA_log
     certificate.dusartShortCover certificate.logCover
 
+/-! Split certificate boundary with no opaque finite core theorem.  The sharp
+theta table starts at `x₀`; its prefix contributes only `smallRemainder`, and
+`thetaTail` is the valid analytic estimate beginning at the fixed cutoff. -/
+structure DusartSplitFiniteCertificate (A C x₀ : Real) : Prop where
+  primeCountingRows : List DusartPrimeCountingEndpointRow
+  primeCountingCover :
+    DusartPrimeCountingEndpointRowsCoverFrom599
+      primeCountingRows (4e18 : Real)
+  thetaRows : List DusartThetaEndpointRow
+  thetaCover :
+    DusartThetaEndpointRowsCoverUpTo thetaRows (4e18 : Real)
+  logRows : List LogCubedPrimeRow
+  logCover : LogCubedPrimeRowsCoverUpTo logRows (4e18 : Real)
+  thetaErrorRows : List (ThetaLogFourthEndpointRow A)
+  thetaErrorCover :
+    ThetaLogFourthEndpointRowsCoverFrom thetaErrorRows x₀ (4e18 : Real)
+  thetaTail : HasThetaLogFourthErrorAbove A (4e18 : Real)
+  h2x₀ : (2 : Real) ≤ x₀
+  hx₀ : x₀ ≤ (4e18 : Real)
+  smallRemainder :
+    |∫ t in (2 : Real)..x₀,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)| ≤ C * x₀
+  hA0 : 0 ≤ A
+  hA1 : A ≤ 1
+  hC0 : 0 ≤ C
+  hC : C ≤ 3 / 5
+  integralCoreBound :
+    4000 + 720 * (∫ t in (2 : Real)..(4e18 : Real),
+        1 / Real.log t ^ 7) + C * x₀ +
+        A * (∫ t in x₀..(4e18 : Real), 1 / Real.log t ^ 6) ≤
+      C * (4e18 : Real) / Real.log (4e18 : Real) ^ 4
+
+theorem completeClassification_of_dusart_split_finite_certificate
+    {A C x₀ : Real}
+    (certificate : DusartSplitFiniteCertificate A C x₀) :
+    CompleteClassification := by
+  have finitePrimeCounting :
+      HasDusartRealPrimeCountingBoundsBelow (4e18 : Real) :=
+    hasDusartRealPrimeCountingBoundsBelow_of_endpoint_rows
+      certificate.primeCountingCover dusartSmallUpperIntervalRows_provide
+  have finiteTheta :
+      HasDusartSymmetricThetaBoundsBelow (4e18 : Real) :=
+    hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
+      certificate.thetaCover
+  have finiteShortInterval :
+      HasLogCubedShortIntervalPrimeBelow (4e18 : Real) :=
+    hasLogCubedShortIntervalPrimeBelow_of_rows certificate.logCover
+  have thetaErrorAbove : HasThetaLogFourthErrorAbove A x₀ :=
+    hasThetaLogFourthErrorAbove_of_endpoint_rows_from_and_tail
+      certificate.hA0 certificate.thetaErrorCover certificate.thetaTail
+  exact completeClassification_of_split_theta_error_and_integral_core
+    (by norm_num) certificate.h2x₀ certificate.hx₀ finitePrimeCounting
+    finiteTheta finiteShortInterval certificate.hA0 certificate.hA1
+    certificate.hC0 certificate.hC certificate.smallRemainder thetaErrorAbove
+    certificate.integralCoreBound
+
 theorem completeClassification_of_full_record_finite_published_asymptotic_inputs
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
     (finitePublished : HasDusartPublishedPrimeCountingBoundsBelow (4e9 : Real))
