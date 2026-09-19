@@ -513,10 +513,8 @@ theorem completeClassification_of_mediumPNT_and_integer_split_row_provider
     (fun X hX => ?_) (fun X hX => ?_) (fun X hX => ?_) (fun X hX => ?_)
   · obtain ⟨rows, hcover⟩ := provider.primeCountingRows X hX
     exact hasDusartRealPrimeCountingBoundsBelow_of_rows_from599 hcover
-      (real_primeCounting_upper_of_integer_certificate
-        dusartPrimeCounting_upper_below_ten
-        (dusartPrimeCounting_upper_of_integer_rows
-          provider.primeCountingSmallIntegerCover))
+      (real_primeCounting_upper_of_integer_rows
+        provider.primeCountingSmallIntegerCover)
   · obtain ⟨rows, hcover⟩ := provider.thetaRows X hX
     exact hasDusartSymmetricThetaBoundsBelow_of_rows hcover
   · obtain ⟨rows, hcover⟩ := provider.shortIntervalRows X hX

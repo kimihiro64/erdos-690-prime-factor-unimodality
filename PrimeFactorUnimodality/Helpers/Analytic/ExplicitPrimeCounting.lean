@@ -281,6 +281,15 @@ theorem dusartPrimeCounting_upper_of_integer_rows
       dsimp [dusartPiUpper]
       ring
 
+theorem real_primeCounting_upper_of_integer_rows
+    {rows : List DusartPrimeCountingUpperIntegerRow}
+    (cover : DusartPrimeCountingUpperIntegerRowsCover rows) :
+    ∀ x : Real, 2 ≤ x → x < 599 →
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x :=
+  real_primeCounting_upper_of_integer_certificate
+    dusartPrimeCounting_upper_below_ten
+    (dusartPrimeCounting_upper_of_integer_rows cover)
+
 /-! The exact Abel-summation identity underlying the prime-counting
 asymptotic.  Keeping the identity in this namespace makes the later
 remainder estimates explicit instead of treating `π` as an opaque provider. -/
