@@ -1195,6 +1195,25 @@ structure Dusart599IndexedFiniteCertificate : Prop where
       ThetaLogFourthEndpointIndexedCoverFrom rows 599 (4e18 : Real)
   thetaTail : HasThetaLogFourthErrorAbove (648 / 1000 : Real) (4e18 : Real)
 
+theorem Dusart599FiniteCertificate.toIndexed
+    (certificate : Dusart599FiniteCertificate (648 / 1000 : Real)) :
+    Dusart599IndexedFiniteCertificate := by
+  refine {
+    primeCountingRows := ⟨certificate.primeCountingRows.length,
+      (fun i => certificate.primeCountingRows.get i),
+      dusartPrimeCountingEndpointIndexedCover_of_list
+        certificate.primeCountingCover⟩
+    thetaRows := ⟨certificate.thetaRows.length,
+      (fun i => certificate.thetaRows.get i),
+      dusartThetaEndpointIndexedCover_of_list certificate.thetaCover⟩
+    logRows := ⟨certificate.logRows.length,
+      (fun i => certificate.logRows.get i),
+      logCubedPrimeIndexedCover_of_list certificate.logCover⟩
+    thetaErrorRows := ⟨certificate.thetaErrorRows.length,
+      (fun i => certificate.thetaErrorRows.get i),
+      thetaLogFourthEndpointIndexedCover_of_list certificate.thetaErrorCover⟩
+    thetaTail := certificate.thetaTail }
+
 theorem completeClassification_of_dusart_599_indexed_finite_certificate
     (certificate : Dusart599IndexedFiniteCertificate) :
     CompleteClassification := by
