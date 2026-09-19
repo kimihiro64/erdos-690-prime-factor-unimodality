@@ -62,6 +62,31 @@ theorem PrimeFactorUnimodality.completeClassification_of_dusart_599_split_finite
   exact PrimeFactorUnimodality.completeClassification_of_dusart_599_split_finite_certificate
     certificate
 
+theorem PrimeFactorUnimodality.completeClassification_of_split_theta_error_and_reserved_integral_core
+    {A C X x₀ R : Real} (hX : (4e18 : Real) ≤ X)
+    (h2x₀ : (2 : Real) ≤ x₀) (hx₀X : x₀ ≤ X)
+    (finitePrimeCounting :
+      PrimeFactorUnimodality.HasDusartRealPrimeCountingBoundsBelow X)
+    (finiteTheta : PrimeFactorUnimodality.HasDusartSymmetricThetaBoundsBelow X)
+    (finiteShortInterval :
+      PrimeFactorUnimodality.HasLogCubedShortIntervalPrimeBelow X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hsmall : |∫ t in (2 : Real)..x₀,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)| ≤ R)
+    (hR : R ≤ 10000)
+    (thetaErrorAbove :
+      PrimeFactorUnimodality.HasThetaLogFourthErrorAbove A x₀)
+    (reservedIntegralCore :
+      4000 + 720 * (∫ t in (2 : Real)..X, 1 / Real.log t ^ 7) +
+          10000 + A * (∫ t in x₀..X, 1 / Real.log t ^ 6) ≤
+        C * X / Real.log X ^ 4) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_split_theta_error_and_reserved_integral_core
+    hX h2x₀ hx₀X finitePrimeCounting finiteTheta finiteShortInterval
+    hA0 hA1 hC0 hC hsmall hR thetaErrorAbove reservedIntegralCore
+
 theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_split_inputs
     {X C : Real} (hX : (4e18 : Real) ≤ X)
     (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
