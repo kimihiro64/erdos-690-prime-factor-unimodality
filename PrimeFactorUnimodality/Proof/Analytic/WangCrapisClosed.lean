@@ -66,6 +66,20 @@ theorem wangCrapisPaperInputs_of_mediumPNT_finite_providers
     (wangCrapis_thetaBounds_of_mediumPNT finiteThetaBounds)
     (wangCrapis_shortInterval_of_mediumPNT finiteLogCubed)
 
+theorem completeClassification_closed_of_mediumPNT_finite_providers
+    (finiteThetaBounds : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasDusartSymmetricThetaBoundsBelow Y)
+    (finiteThetaError : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasThetaLogFourthErrorBelow (648 / 1000 : Real) Y)
+    (finitePrimeCounting : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasDusartRealPrimeCountingBoundsBelow Y)
+    (finiteLogCubed : ∀ Y : Real, (89693 : Real) ≤ Y →
+      HasLogCubedShortIntervalPrimeBelow Y) :
+    CompleteClassification := by
+  exact completeClassification_of_wangCrapis_paper_inputs
+    (wangCrapisPaperInputs_of_mediumPNT_finite_providers
+      finiteThetaBounds finiteThetaError finitePrimeCounting finiteLogCubed)
+
 end
 
 end PrimeFactorUnimodality
