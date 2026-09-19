@@ -869,13 +869,57 @@ theorem completeClassification_of_mediumPNT_and_finite_error_provider
     (finiteThetaError : ∀ X : Real, (4e18 : Real) ≤ X →
       HasThetaLogFourthErrorBelow (648 / 1000 : Real) X) :
     CompleteClassification := by
-  obtain ⟨X, hX, h4X, thetaError⟩ :=
+  obtain ⟨X, _, h4X, _⟩ :=
     exists_hasThetaLogFourthError_of_mediumPNT_above (4e18 : Real)
-  exact completeClassification_of_finite_theta_error_at_large_cutoff
-    h4X (finitePrimeCounting X h4X) (finiteTheta X h4X)
-    (finiteShortInterval X h4X) (by norm_num) (by norm_num)
-    (finiteThetaError X h4X)
-    (fun x hx => thetaError x hx)
+  obtain ⟨Y, hXY, tailPrimeCounting, tailThetaError, tailInterval⟩ :=
+    exists_mediumPNT_all_real_dusart_tail_inputs_of_finite_theta_error
+      h4X (by norm_num) (by norm_num) (finiteThetaError X h4X)
+  have h4Y : (4e18 : Real) ≤ Y := h4X.trans hXY
+  have hYpos : 0 < Y := by linarith
+  have hlogY : (42 : Real) ≤ Real.log Y := by
+    have hlog_mono : Real.log (4e18 : Real) ≤ Real.log Y :=
+      Real.log_le_log (by norm_num) h4Y
+    linarith [forty_two_lt_log_four_e18]
+  have hthetaErrorY :
+      HasThetaLogFourthError (648 / 1000 : Real) Y := by
+    intro x hx
+    exact tailThetaError x hx
+  have hthetaCubic0 :
+      HasThetaLogCubedError
+        ((648 / 1000 : Real) / Real.log Y) Y :=
+    hasThetaLogCubedError_of_logFourthError
+      (by linarith [hlogY]) (by norm_num) hthetaErrorY
+  have hAlog : (648 / 1000 : Real) / Real.log Y ≤
+      (12167 / 500000 : Real) := by
+    have hlogYpos : 0 < Real.log Y := by linarith
+    apply (div_le_iff₀ hlogYpos).2
+    nlinarith [hlogY]
+  have thetaErrorCubic :
+      HasThetaLogCubedError (12167 / 500000 : Real) Y := by
+    intro x hx
+    have hbound := hthetaCubic0 x hx
+    have hxpos : 0 < x := lt_of_lt_of_le hYpos hx
+    have hlogxpos : 0 < Real.log x := by
+      have hlogx : (42 : Real) ≤ Real.log x :=
+        hlogY.trans (Real.log_le_log hYpos hx)
+      linarith
+    have hfactor : 0 ≤ x / (Real.log x) ^ 3 := by
+      positivity
+    calc
+      |Chebyshev.theta x - x| ≤
+          ((648 / 1000 : Real) / Real.log Y) *
+            x / (Real.log x) ^ 3 := hbound
+      _ = ((648 / 1000 : Real) / Real.log Y) *
+            (x / (Real.log x) ^ 3) := by ring
+      _ ≤ (12167 / 500000 : Real) *
+            (x / (Real.log x) ^ 3) :=
+        mul_le_mul_of_nonneg_right hAlog hfactor
+      _ = (12167 / 500000 : Real) * x /
+            (Real.log x) ^ 3 := by ring
+  exact completeClassification_of_full_record_raised_cutoff_inputs
+    h4Y (finitePrimeCounting Y h4Y) tailPrimeCounting
+    (finiteTheta Y h4Y) thetaErrorCubic
+    (finiteShortInterval Y h4Y) tailInterval
 
 /-! The finite obligations can be supplied directly as bounded row covers.
 The row lists may be generated independently for each selected cutoff; this
