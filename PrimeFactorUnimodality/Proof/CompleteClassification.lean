@@ -598,7 +598,7 @@ theorem completeClassification_of_mediumPNT_and_split_core_row_provider
   · exact small_integral_remainder_le_ten_mul (by linarith [hX])
   · exact provider.core Y hXY
 
-theorem completeClassification_of_mediumPNT_and_finite_error_provider
+private theorem completeClassification_of_mediumPNT_and_finite_error_provider
     (finitePrimeCounting : ∀ X : Real, (4e18 : Real) ≤ X →
       HasDusartRealPrimeCountingBoundsBelow X)
     (finiteTheta : ∀ X : Real, (4e18 : Real) ≤ X →
@@ -620,7 +620,7 @@ theorem completeClassification_of_mediumPNT_and_finite_error_provider
 The row lists may be generated independently for each selected cutoff; this
 keeps the theorem independent of certificate representation while making all
 four finite obligations explicit. -/
-theorem completeClassification_of_mediumPNT_and_row_provider
+private theorem completeClassification_of_mediumPNT_and_row_provider
     (finitePrimeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
       ∃ rows : List DusartPrimeCountingRow,
         DusartPrimeCountingRowsCoverUpTo rows X)
@@ -648,7 +648,7 @@ theorem completeClassification_of_mediumPNT_and_row_provider
 /-! A bundled version of the same boundary is convenient for the final
 certificate-producing layer.  It is a proposition, so packaging it does not
 introduce data or an additional computational assumption. -/
-structure MediumPNTFiniteRowProvider : Prop where
+private structure MediumPNTFiniteRowProvider : Prop where
   primeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
     ∃ rows : List DusartPrimeCountingRow,
       DusartPrimeCountingRowsCoverUpTo rows X
@@ -662,7 +662,7 @@ structure MediumPNTFiniteRowProvider : Prop where
     ∃ rows : List (ThetaLogFourthErrorRow (648 / 1000 : Real)),
       ThetaLogFourthErrorRowsCoverUpTo rows X
 
-theorem completeClassification_of_mediumPNT_and_bundled_row_provider
+private theorem completeClassification_of_mediumPNT_and_bundled_row_provider
     (provider : MediumPNTFiniteRowProvider) :
     CompleteClassification := by
   exact completeClassification_of_mediumPNT_and_row_provider
@@ -671,7 +671,7 @@ theorem completeClassification_of_mediumPNT_and_bundled_row_provider
 
 /-! A split prime-counting provider avoids certifying the lower Dusart
 inequality below `599`, where it is not required. -/
-structure MediumPNTFiniteSplitRowProvider : Prop where
+private structure MediumPNTFiniteSplitRowProvider : Prop where
   primeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
     ∃ rows : List DusartPrimeCountingRow,
       DusartPrimeCountingRowsCoverFrom599 rows X
@@ -688,7 +688,7 @@ structure MediumPNTFiniteSplitRowProvider : Prop where
     ∃ rows : List (ThetaLogFourthErrorRow (648 / 1000 : Real)),
       ThetaLogFourthErrorRowsCoverUpTo rows X
 
-theorem completeClassification_of_mediumPNT_and_split_row_provider
+private theorem completeClassification_of_mediumPNT_and_split_row_provider
     (provider : MediumPNTFiniteSplitRowProvider) :
     CompleteClassification := by
   refine completeClassification_of_mediumPNT_and_finite_error_provider
@@ -705,7 +705,7 @@ theorem completeClassification_of_mediumPNT_and_split_row_provider
 
 /-! The integer-floor form is the compact certificate boundary for the small
 prime-counting range. -/
-structure MediumPNTFiniteIntegerSplitRowProvider : Prop where
+private structure MediumPNTFiniteIntegerSplitRowProvider : Prop where
   primeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
     ∃ rows : List DusartPrimeCountingEndpointRow,
       DusartPrimeCountingEndpointRowsCoverFrom599 rows X
@@ -723,7 +723,7 @@ structure MediumPNTFiniteIntegerSplitRowProvider : Prop where
     ∃ rows : List (ThetaLogFourthEndpointRow (648 / 1000 : Real)),
       ThetaLogFourthEndpointRowsCoverUpTo rows X
 
-theorem completeClassification_of_mediumPNT_and_integer_split_row_provider
+private theorem completeClassification_of_mediumPNT_and_integer_split_row_provider
     (provider : MediumPNTFiniteIntegerSplitRowProvider) :
     CompleteClassification := by
   refine completeClassification_of_mediumPNT_and_finite_error_provider
@@ -743,7 +743,7 @@ theorem completeClassification_of_mediumPNT_and_integer_split_row_provider
 form is deliberately separate from the point-row provider so existing data
 remains reusable while new certificates can group consecutive integer checks.
 -/
-structure MediumPNTFiniteIntegerIntervalSplitRowProvider : Prop where
+private structure MediumPNTFiniteIntegerIntervalSplitRowProvider : Prop where
   primeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
     ∃ rows : List DusartPrimeCountingEndpointRow,
       DusartPrimeCountingEndpointRowsCoverFrom599 rows X
@@ -762,7 +762,7 @@ structure MediumPNTFiniteIntegerIntervalSplitRowProvider : Prop where
     ∃ rows : List (ThetaLogFourthEndpointRow (648 / 1000 : Real)),
       ThetaLogFourthEndpointRowsCoverUpTo rows X
 
-theorem completeClassification_of_mediumPNT_and_integer_interval_split_row_provider
+private theorem completeClassification_of_mediumPNT_and_integer_interval_split_row_provider
     (provider : MediumPNTFiniteIntegerIntervalSplitRowProvider) :
     CompleteClassification := by
   refine completeClassification_of_mediumPNT_and_finite_error_provider
@@ -780,7 +780,7 @@ theorem completeClassification_of_mediumPNT_and_integer_interval_split_row_provi
 
 /-! The compact small-prime table is fixed data, so callers supplying the
 large endpoint tables should not have to repeat its list or its cover. -/
-structure MediumPNTFiniteIntegerIntervalTailProvider : Prop where
+private structure MediumPNTFiniteIntegerIntervalTailProvider : Prop where
   primeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
     ∃ rows : List DusartPrimeCountingEndpointRow,
       DusartPrimeCountingEndpointRowsCoverFrom599 rows X
@@ -794,7 +794,7 @@ structure MediumPNTFiniteIntegerIntervalTailProvider : Prop where
     ∃ rows : List (ThetaLogFourthEndpointRow (648 / 1000 : Real)),
       ThetaLogFourthEndpointRowsCoverUpTo rows X
 
-theorem completeClassification_of_mediumPNT_and_integer_interval_tail_provider
+private theorem completeClassification_of_mediumPNT_and_integer_interval_tail_provider
     (provider : MediumPNTFiniteIntegerIntervalTailProvider) :
     CompleteClassification := by
   exact completeClassification_of_mediumPNT_and_integer_interval_split_row_provider
