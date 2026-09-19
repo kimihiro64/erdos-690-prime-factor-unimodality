@@ -650,6 +650,40 @@ structure MediumPNTSelectedIndexedSplitCertificate (X C : Real) : Prop where
       4000 + 720 * (∫ t in (2 : Real)..cutoff, 1 / Real.log t ^ 7) + R ≤
         C * cutoff / Real.log cutoff ^ 4
 
+theorem mediumPNTSelectedIndexedSplitCertificate_of_lists
+    {X C Y R : Real}
+    (hXY : X ≤ Y) (h4Y : (4e18 : Real) ≤ Y)
+    {primeRows : List DusartPrimeCountingEndpointRow}
+    (primeCover : DusartPrimeCountingEndpointRowsCoverFrom599 primeRows Y)
+    {thetaRows : List DusartThetaEndpointRow}
+    (thetaCover : DusartThetaEndpointRowsCoverUpTo thetaRows Y)
+    {logRows : List LogCubedPrimeRow}
+    (logCover : LogCubedPrimeRowsCoverUpTo logRows Y)
+    (thetaError : HasThetaLogFourthErrorAbove (648 / 1000 : Real) Y)
+    (hsmall :
+      |∫ t in (2 : Real)..Y,
+          (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+            1 / (Real.log t) ^ 2)| ≤ R)
+    (hcore :
+      4000 + 720 * (∫ t in (2 : Real)..Y, 1 / Real.log t ^ 7) + R ≤
+        C * Y / Real.log Y ^ 4) :
+    MediumPNTSelectedIndexedSplitCertificate X C := by
+  exact {
+    cutoff := Y
+    lower := hXY
+    large := h4Y
+    primeCountingRows := ⟨primeRows.length,
+      (fun i => primeRows.get i),
+      dusartPrimeCountingEndpointIndexedCover_of_list primeCover⟩
+    thetaRows := ⟨thetaRows.length,
+      (fun i => thetaRows.get i),
+      dusartThetaEndpointIndexedCover_of_list thetaCover⟩
+    logRows := ⟨logRows.length,
+      (fun i => logRows.get i),
+      logCubedPrimeIndexedCover_of_list logCover⟩
+    thetaError := thetaError
+    remainder := ⟨R, hsmall, hcore⟩ }
+
 theorem completeClassification_of_mediumPNT_and_selected_indexed_split_certificate
     {X C : Real} (hX : (4e18 : Real) ≤ X)
     (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)

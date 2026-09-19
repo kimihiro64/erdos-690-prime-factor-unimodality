@@ -176,6 +176,29 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_indexed_split_certificate
     hX hC0 hC certificate
 
+theorem PrimeFactorUnimodality.mediumPNTSelectedIndexedSplitCertificate_of_lists
+    {X C Y R : Real} (hXY : X ≤ Y) (h4Y : (4e18 : Real) ≤ Y)
+    {primeRows : List PrimeFactorUnimodality.DusartPrimeCountingEndpointRow}
+    (primeCover : PrimeFactorUnimodality.DusartPrimeCountingEndpointRowsCoverFrom599
+      primeRows Y)
+    {thetaRows : List PrimeFactorUnimodality.DusartThetaEndpointRow}
+    (thetaCover : PrimeFactorUnimodality.DusartThetaEndpointRowsCoverUpTo
+      thetaRows Y)
+    {logRows : List PrimeFactorUnimodality.LogCubedPrimeRow}
+    (logCover : PrimeFactorUnimodality.LogCubedPrimeRowsCoverUpTo logRows Y)
+    (thetaError : PrimeFactorUnimodality.HasThetaLogFourthErrorAbove
+      (648 / 1000 : Real) Y)
+    (hsmall :
+      |∫ t in (2 : Real)..Y,
+          (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+            1 / (Real.log t) ^ 2)| ≤ R)
+    (hcore :
+      4000 + 720 * (∫ t in (2 : Real)..Y, 1 / Real.log t ^ 7) + R ≤
+        C * Y / Real.log Y ^ 4) :
+    PrimeFactorUnimodality.MediumPNTSelectedIndexedSplitCertificate X C := by
+  exact PrimeFactorUnimodality.mediumPNTSelectedIndexedSplitCertificate_of_lists
+    hXY h4Y primeCover thetaCover logCover thetaError hsmall hcore
+
 /-! Public boundary for the corrected row-based proof.  The finite theta
 error is not requested from `2`; its prefix is discharged by the explicit
 Abel-remainder field in the provider. -/
