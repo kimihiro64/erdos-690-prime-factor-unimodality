@@ -288,3 +288,9 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_row_provi
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_row_provider
     finitePrimeCountingRows finiteThetaRows finiteShortIntervalRows
     finiteThetaErrorRows
+
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_bundled_row_provider
+    (provider : PrimeFactorUnimodality.MediumPNTFiniteRowProvider) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_bundled_row_provider
+    provider
