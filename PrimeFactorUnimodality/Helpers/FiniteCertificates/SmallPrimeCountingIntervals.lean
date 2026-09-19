@@ -320,4 +320,25 @@ theorem dusartSmallUpperIntervalRow263_271 :
   · rw [hcount]
     norm_num
 
+theorem dusartSmallUpperIntervalRow277_282 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  let U : Real :=
+    (3 : Real) * (693148 / 1000000 : Real) +
+      (1609438 / 1000000 : Real) +
+      (1946044 / 1000000 : Real)
+  have hcount : Nat.primeCounting 282 = 60 := by decide
+  refine {
+    left := 277
+    right := 282
+    left_large := by norm_num
+    left_le_right := by norm_num
+    logUpper := U
+    logUpper_pos := by dsimp [U]; norm_num
+    log_bound := ?_
+    numerical := ?_ }
+  · dsimp [U]
+    exact log_nat_le_smooth_upper_with_seven (by norm_num) (by norm_num)
+  · rw [hcount]
+    norm_num [U]
+
 end PrimeFactorUnimodality

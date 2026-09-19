@@ -43,6 +43,27 @@ theorem log_nat_le_smooth_upper {n a b c : Nat} (hn : 0 < n)
   norm_num at h2 h3 h5
   linarith
 
+theorem log_nat_le_smooth_upper_with_seven {n a b c d : Nat} (hn : 0 < n)
+    (hbound : n ≤ 2 ^ a * 3 ^ b * 5 ^ c * 7 ^ d) :
+    Real.log n ≤ (a : Real) * (693148 / 1000000 : Real) +
+      (b : Real) * (1098613 / 1000000 : Real) +
+      (c : Real) * (1609438 / 1000000 : Real) +
+      (d : Real) * (1946044 / 1000000 : Real) := by
+  have hsmooth := LogTables.log_le_smooth_with_seven
+    (x := (n : Real)) (a := a) (b := b) (c := c) (d := d)
+    (by exact_mod_cast hn)
+    (by exact_mod_cast hbound)
+  have h2 := mul_le_mul_of_nonneg_left LogTables.log_2_lt.le
+    (by positivity : (0 : Real) ≤ a)
+  have h3 := mul_le_mul_of_nonneg_left LogTables.log_3_lt.le
+    (by positivity : (0 : Real) ≤ b)
+  have h5 := mul_le_mul_of_nonneg_left LogTables.log_5_lt.le
+    (by positivity : (0 : Real) ≤ c)
+  have h7 := mul_le_mul_of_nonneg_left LogTables.log_7_lt.le
+    (by positivity : (0 : Real) ≤ d)
+  norm_num at h2 h3 h5 h7
+  linarith
+
 /-! The upper comparison function is increasing once the logarithm is past
 `2`.  This elementary fact lets the small prime-counting range be checked at
 integer floors instead of by a separate real interval certificate. -/

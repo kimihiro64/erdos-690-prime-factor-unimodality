@@ -115,4 +115,16 @@ theorem log_le_smooth {x : Real} {a b c : Nat} (hx : 0 < x)
     Real.log_pow, Real.log_pow, Real.log_pow] at h
   simpa [mul_comm, mul_left_comm, mul_assoc] using h
 
+theorem log_le_smooth_with_seven {x : Real} {a b c d : Nat} (hx : 0 < x)
+    (hbound : x ≤ (2 : Real) ^ a * (3 : Real) ^ b *
+      (5 : Real) ^ c * (7 : Real) ^ d) :
+    log x ≤ (a : Real) * log 2 + (b : Real) * log 3 +
+      (c : Real) * log 5 + (d : Real) * log 7 := by
+  have h := Real.log_le_log hx hbound
+  rw [Real.log_mul (by positivity) (by positivity),
+    Real.log_mul (by positivity) (by positivity),
+    Real.log_mul (by positivity) (by positivity),
+    Real.log_pow, Real.log_pow, Real.log_pow, Real.log_pow] at h
+  simpa [mul_comm, mul_left_comm, mul_assoc] using h
+
 end LogTables
