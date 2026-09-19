@@ -277,6 +277,90 @@ theorem hasThetaLogFourthError_of_rows_and_psiLogFourthError
   exact hasThetaLogFourthError_of_psiLogFourthError_sharp
     hXcutoff psiError
 
+/-! Endpoint theta certificates are enough for an entire row.  The theta
+function is monotone, while the logarithmic error envelope is handled by an
+explicit numerator/denominator comparison. -/
+structure ThetaLogFourthEndpointRow (A : Real) where
+  left : Nat
+  right : Nat
+  left_large : 2 ≤ left
+  left_le_right : left ≤ right
+  theta_lower : Real
+  theta_upper : Real
+  theta_lower_le : theta_lower ≤ Chebyshev.theta left
+  theta_right_le : Chebyshev.theta right ≤ theta_upper
+  upper_error : theta_upper - left ≤
+    A * (left : Real) / (Real.log right) ^ 4
+  lower_error : right - theta_lower ≤
+    A * (left : Real) / (Real.log right) ^ 4
+
+def ThetaLogFourthEndpointRowsCoverUpTo
+    {A : Real} (rows : List (ThetaLogFourthEndpointRow A)) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem thetaLogFourthEndpointRow_provides
+    {A : Real} (hA0 : 0 ≤ A)
+    (row : ThetaLogFourthEndpointRow A) {x : Real}
+    (hleft : (row.left : Real) ≤ x) (hright : x ≤ row.right) :
+    |Chebyshev.theta x - x| ≤ A * x / (Real.log x) ^ 4 := by
+  have hleft2 : (2 : Real) ≤ row.left := by exact_mod_cast row.left_large
+  have hright2 : (2 : Real) ≤ (row.right : Real) := by
+    exact le_trans hleft2 (by exact_mod_cast row.left_le_right)
+  have hx2 : (2 : Real) ≤ x := hleft2.trans hleft
+  have hlogx_pos : 0 < Real.log x := Real.log_pos (by linarith)
+  have hlogr_pos : 0 < Real.log (row.right : Real) :=
+    Real.log_pos (by linarith)
+  have htheta_lower : row.theta_lower ≤ Chebyshev.theta x :=
+    row.theta_lower_le.trans (Chebyshev.theta_mono hleft)
+  have htheta_upper : Chebyshev.theta x ≤ row.theta_upper :=
+    (Chebyshev.theta_mono hright).trans row.theta_right_le
+  have hlog_mono : Real.log x ≤ Real.log (row.right : Real) :=
+    Real.log_le_log (by linarith) hright
+  have hlogsq : (Real.log x) ^ 4 ≤
+      (Real.log (row.right : Real)) ^ 4 := by
+    exact pow_le_pow_left' hlog_mono 4
+  have hratio : (row.left : Real) /
+      (Real.log (row.right : Real)) ^ 4 ≤
+      x / (Real.log x) ^ 4 := by
+    apply (div_le_div_iff₀ (pow_pos hlogr_pos 4)
+      (pow_pos hlogx_pos 4)).2
+    calc
+      (row.left : Real) * (Real.log x) ^ 4 ≤
+          (row.left : Real) * (Real.log (row.right : Real)) ^ 4 :=
+        mul_le_mul_of_nonneg_left hlogsq (by positivity)
+      _ ≤ x * (Real.log (row.right : Real)) ^ 4 :=
+        mul_le_mul_of_nonneg_right hleft (by positivity)
+  have henvelope : A * (row.left : Real) /
+      (Real.log (row.right : Real)) ^ 4 ≤ A * x /
+        (Real.log x) ^ 4 :=
+    mul_le_mul_of_nonneg_left hratio hA0
+  have hupper : Chebyshev.theta x - x ≤
+      A * x / (Real.log x) ^ 4 := by
+    calc
+      Chebyshev.theta x - x ≤ row.theta_upper - row.left := by linarith
+      _ ≤ A * (row.left : Real) /
+          (Real.log (row.right : Real)) ^ 4 := row.upper_error
+      _ ≤ A * x / (Real.log x) ^ 4 := henvelope
+  have hlower : -(A * x / (Real.log x) ^ 4) ≤
+      Chebyshev.theta x - x := by
+    calc
+      -(A * x / (Real.log x) ^ 4) ≤
+          -(A * (row.left : Real) /
+            (Real.log (row.right : Real)) ^ 4) := by linarith
+      _ ≤ -(row.right - row.theta_lower) := by linarith [row.lower_error]
+      _ ≤ Chebyshev.theta x - x := by linarith
+  exact (abs_le).2 ⟨hlower, hupper⟩
+
+theorem hasThetaLogFourthErrorBelow_of_endpoint_rows
+    {A X : Real} (hA0 : 0 ≤ A)
+    {rows : List (ThetaLogFourthEndpointRow A)}
+    (cover : ThetaLogFourthEndpointRowsCoverUpTo rows X) :
+    HasThetaLogFourthErrorBelow A X := by
+  intro x hx2 hxX
+  obtain ⟨row, hrow, hleft, hright⟩ := cover x hx2 hxX
+  exact thetaLogFourthEndpointRow_provides hA0 row hleft hright
+
 theorem logCubedPrimeRow_provides
     (upper_mono : ∀ {a b : Real}, 89693 ≤ a → a ≤ b →
       logCubedUpper a ≤ logCubedUpper b)
