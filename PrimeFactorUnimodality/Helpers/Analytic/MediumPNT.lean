@@ -501,5 +501,34 @@ theorem exists_mediumPNT_all_real_dusart_tail_inputs_of_finite_theta_error
   · intro x hx
     exact hintervalZ x (le_trans (le_max_right Y Z) hx)
 
+/-! The complete real-variable tail package used by the all-`k` assembly.
+All unbounded estimates are transported to one common raised cutoff. -/
+theorem exists_mediumPNT_all_real_dusart_tail_inputs_with_theta_bounds
+    {A X : Real} (hX : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
+    (finiteThetaError : HasThetaLogFourthErrorBelow A X) :
+    ∃ Y : Real, X ≤ Y ∧
+      HasDusartRealPrimeCountingBoundsAbove Y ∧
+      HasDusartSymmetricThetaBoundsAbove Y ∧
+      HasThetaLogFourthErrorAbove (648 / 1000 : Real) Y ∧
+      (∀ x : Real, Y ≤ x →
+        ∃ q : Nat, q.Prime ∧ x < q ∧
+          (q : Real) ≤ x + x / (Real.log x) ^ 3) := by
+  obtain ⟨Y, hXY, hreal, htheta, hinterval⟩ :=
+    exists_mediumPNT_all_real_dusart_tail_inputs_of_finite_theta_error
+      hX hA0 hA1 finiteThetaError
+  have hYpos : 0 < Y := by linarith [hX]
+  have hlogY : (42 : Real) ≤ Real.log Y := by
+    have hlog_mono : Real.log (4e18 : Real) ≤ Real.log Y :=
+      Real.log_le_log (by norm_num) (hX.trans hXY)
+    linarith [forty_two_lt_log_four_e18]
+  have hthetaBounds := hasDusartSymmetricThetaBoundsAbove_of_logFourthError
+    hYpos (by linarith) (by norm_num)
+    (by
+      have hlogYpos : 0 < Real.log Y := by linarith
+      apply (div_le_iff₀ hlogYpos).2
+      nlinarith [hlogY]) htheta
+  exact ⟨Y, hXY, hreal, hthetaBounds, htheta, hinterval⟩
+
 end
 end PrimeFactorUnimodality

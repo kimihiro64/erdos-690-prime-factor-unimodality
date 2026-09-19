@@ -871,8 +871,8 @@ theorem completeClassification_of_mediumPNT_and_finite_error_provider
     CompleteClassification := by
   obtain ⟨X, _, h4X, _⟩ :=
     exists_hasThetaLogFourthError_of_mediumPNT_above (4e18 : Real)
-  obtain ⟨Y, hXY, tailPrimeCounting, tailThetaError, tailInterval⟩ :=
-    exists_mediumPNT_all_real_dusart_tail_inputs_of_finite_theta_error
+  obtain ⟨Y, hXY, tailPrimeCounting, _tailThetaBounds, tailThetaError, tailInterval⟩ :=
+    exists_mediumPNT_all_real_dusart_tail_inputs_with_theta_bounds
       h4X (by norm_num) (by norm_num) (finiteThetaError X h4X)
   have h4Y : (4e18 : Real) ≤ Y := h4X.trans hXY
   have hYpos : 0 < Y := by linarith
