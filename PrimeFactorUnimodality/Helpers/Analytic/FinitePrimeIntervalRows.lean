@@ -231,6 +231,23 @@ def LogCubedPrimeRowsCoverUpTo (rows : List LogCubedPrimeRow) (X : Real) : Prop 
   ∀ x : Real, 89693 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+def LogCubedPrimeIndexedCoverUpTo {n : Nat}
+    (rows : Fin n → LogCubedPrimeRow) (X : Real) : Prop :=
+  ∀ x : Real, 89693 ≤ x → x ≤ X →
+    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+
+theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_rows
+    {n : Nat} {X : Real} {rows : Fin n → LogCubedPrimeRow}
+    (cover : LogCubedPrimeIndexedCoverUpTo rows X) :
+    HasLogCubedShortIntervalPrimeBelow X := by
+  intro x hx hX
+  obtain ⟨i, hleft, hright⟩ := cover x hx hX
+  exact logCubedPrimeRow_provides
+    (fun {a b} ha hab => logCubedUpper_monotoneOn
+      (by norm_num at ⊢; linarith)
+      (by norm_num at ⊢; linarith) hab)
+    (rows i) hleft hright
+
 theorem logCubedPrimeRowsCoverUpTo_append
     {m X : Real} {left right : List LogCubedPrimeRow}
     (hleft : LogCubedPrimeRowsCoverUpTo left m)
@@ -357,6 +374,25 @@ def ThetaLogFourthEndpointRowsCoverFrom
     (x₀ X : Real) : Prop :=
   ∀ x : Real, x₀ ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+def ThetaLogFourthEndpointIndexedCoverFrom {n : Nat} {A : Real}
+    (rows : Fin n → ThetaLogFourthEndpointRow A)
+    (x₀ X : Real) : Prop :=
+  ∀ x : Real, x₀ ≤ x → x ≤ X →
+    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+
+theorem hasThetaLogFourthErrorAbove_of_indexed_endpoint_rows_from_and_tail
+    {n : Nat} {A x₀ X : Real}
+    (hA0 : 0 ≤ A)
+    {rows : Fin n → ThetaLogFourthEndpointRow A}
+    (cover : ThetaLogFourthEndpointIndexedCoverFrom rows x₀ X)
+    (tail : HasThetaLogFourthErrorAbove A X) :
+    HasThetaLogFourthErrorAbove A x₀ := by
+  intro x hx
+  by_cases hsmall : x ≤ X
+  · obtain ⟨i, hleft, hright⟩ := cover x hx hsmall
+    exact thetaLogFourthEndpointRow_provides hA0 (rows i) hleft hright
+  · exact tail x (le_of_not_ge hsmall)
 
 theorem thetaLogFourthEndpointRowsCoverFrom_append
     {A x₀ m X : Real}
@@ -532,6 +568,30 @@ def DusartThetaEndpointRowsCoverUpTo
   ∀ x : Real, 2 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+def DusartThetaEndpointIndexedCoverUpTo {n : Nat}
+    (rows : Fin n → DusartThetaEndpointRow) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_indexed_endpoint_rows
+    {n : Nat} {X : Real}
+    {rows : Fin n → DusartThetaEndpointRow}
+    (cover : DusartThetaEndpointIndexedCoverUpTo rows X) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
+  · intro x hx hX
+    by_cases hsmall : x < 2
+    · rw [Chebyshev.theta_eq_zero_of_lt_two hsmall]
+      nlinarith
+    · obtain ⟨i, hleft, hright⟩ := cover x
+        (le_of_not_gt hsmall) hX
+      exact (dusartThetaEndpointRow_provides (rows i) hleft hright).upper
+        x hleft hright
+  · intro x hx hX
+    obtain ⟨i, hleft, hright⟩ := cover x (by linarith) hX
+    exact (dusartThetaEndpointRow_provides (rows i) hleft hright).lower
+      x hx hleft hright
+
 theorem dusartThetaEndpointRowsCoverUpTo_append
     {m X : Real} {left right : List DusartThetaEndpointRow}
     (hleft : DusartThetaEndpointRowsCoverUpTo left m)
@@ -685,6 +745,29 @@ def DusartPrimeCountingEndpointRowsCoverFrom599
     (rows : List DusartPrimeCountingEndpointRow) (X : Real) : Prop :=
   ∀ x : Real, (599 : Real) ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+def DusartPrimeCountingEndpointIndexedCoverFrom599 {n : Nat}
+    (rows : Fin n → DusartPrimeCountingEndpointRow) (X : Real) : Prop :=
+  ∀ x : Real, (599 : Real) ≤ x → x ≤ X →
+    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+
+theorem hasDusartRealPrimeCountingBoundsBelow_of_indexed_endpoint_rows
+    {n : Nat} {X : Real}
+    {rows : Fin n → DusartPrimeCountingEndpointRow}
+    (cover : DusartPrimeCountingEndpointIndexedCoverFrom599 rows X)
+    (smallUpper : ∀ x : Real, 2 ≤ x → x < 599 →
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x) :
+    HasDusartRealPrimeCountingBoundsBelow X := by
+  constructor
+  · intro x hx hX
+    obtain ⟨i, hleft, hright⟩ := cover x hx hX
+    exact (dusartPrimeCountingEndpointRow_provides (rows i) hleft hright).1
+  · intro x hx hX
+    by_cases hsmall : x < 599
+    · exact smallUpper x hx hsmall
+    · obtain ⟨i, hleft, hright⟩ := cover x
+        (le_of_not_gt hsmall) hX
+      exact (dusartPrimeCountingEndpointRow_provides (rows i) hleft hright).2
 
 theorem dusartPrimeCountingEndpointRowsCoverFrom599_append
     {m X : Real} {left right : List DusartPrimeCountingEndpointRow}
