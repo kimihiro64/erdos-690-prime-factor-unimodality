@@ -103,4 +103,16 @@ theorem log_30_gt : (3.401197 : Real) < log 30 := by
   nlinarith [Real.log_two_gt_d9, Real.log_three_gt_d9,
     Real.log_five_gt_d9]
 
+/-! Smooth-number envelopes let finite certificates prove logarithm bounds
+without introducing a separate opaque logarithm evaluator for every row. -/
+theorem log_le_smooth {x : Real} {a b c : Nat} (hx : 0 < x)
+    (hbound : x ≤ (2 : Real) ^ a * (3 : Real) ^ b * (5 : Real) ^ c) :
+    log x ≤ (a : Real) * log 2 + (b : Real) * log 3 +
+      (c : Real) * log 5 := by
+  have h := Real.log_le_log hx hbound
+  rw [Real.log_mul (by positivity) (by positivity),
+    Real.log_mul (by positivity) (by positivity),
+    Real.log_pow, Real.log_pow, Real.log_pow] at h
+  simpa [mul_comm, mul_left_comm, mul_assoc] using h
+
 end LogTables
