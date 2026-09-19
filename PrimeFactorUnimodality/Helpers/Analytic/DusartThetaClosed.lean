@@ -28,6 +28,19 @@ theorem wangCrapis_thetaPrefix :
   exact hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
     dusartThetaEndpointRow_two_cover
 
+/-! Exact assembly boundary for the theta provider.  The finite endpoint
+proof and the explicit log-fourth tail remain separate inputs until both are
+proved from their underlying arguments. -/
+theorem wangCrapis_thetaBounds_of_logFourthTail
+    {A X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (finite : HasDusartSymmetricThetaBoundsBelow X)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds := by
+  exact hasDusartThetaBounds_of_finite_and_logFourth_from
+    hXpos hlogX finite hA_nonneg hA thetaError
+
 end
 
 end PrimeFactorUnimodality
