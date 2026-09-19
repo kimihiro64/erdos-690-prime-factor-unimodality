@@ -326,8 +326,8 @@ theorem dusartPrimeCounting_upper_below_ten :
                   (by norm_num) (by linarith) (by linarith) (by norm_num)
                 · have hlogx7 : Real.log x ≤ Real.log 7 :=
                     Real.log_le_log (by linarith) (by linarith)
-                have hrat : (1.946044 : Real) ≤ 1946044 / 1000000 := by norm_num
-                exact (hlogx7.trans_lt (LogTables.log_7_lt.trans_le hrat)).le
+                  have hrat : (1.946044 : Real) ≤ 1946044 / 1000000 := by norm_num
+                  exact (hlogx7.trans_lt (LogTables.log_7_lt.trans_le hrat)).le
                 · norm_num
               · by_cases h8 : x < 8
                 · apply interval_lower 7 8 (2079444 / 1000000)
@@ -534,9 +534,12 @@ theorem dusartPrimeCounting_upper_of_integer_interval_rows
       (Nat.primeCounting row.right : Real) := by
     exact_mod_cast Nat.monotone_primeCounting hright
   have hleft_pos : (0 : Real) < row.left := by
+    have hleft10 := row.left_large
     exact_mod_cast (show (0 : Nat) < row.left by omega)
   have hlog_pos : 0 < Real.log row.left :=
-    Real.log_pos (by exact_mod_cast (show (1 : Nat) < row.left by omega))
+    Real.log_pos (by
+      have hleft10 := row.left_large
+      exact_mod_cast (show (1 : Nat) < row.left by omega))
   have hfirst : (row.left : Real) / row.logUpper ≤
       (row.left : Real) / Real.log row.left := by
     apply (div_le_div_iff₀ row.logUpper_pos hlog_pos).2
@@ -567,8 +570,14 @@ theorem dusartPrimeCounting_upper_of_integer_interval_rows
         dsimp [dusartPiUpper]
         ring
   have hupper : dusartPiUpper row.left ≤ dusartPiUpper n :=
-    dusartPiUpper_monotoneOn (by exact_mod_cast row.left_large)
-      (by exact_mod_cast hn10) (by exact_mod_cast hleft)
+    dusartPiUpper_monotoneOn
+      (show (row.left : Real) ∈ Set.Ici 10 by
+        change (10 : Real) ≤ row.left
+        exact_mod_cast row.left_large)
+      (show (n : Real) ∈ Set.Ici 10 by
+        change (10 : Real) ≤ n
+        exact_mod_cast hn10)
+      (show (row.left : Real) ≤ n by exact_mod_cast hleft)
   exact hpi.trans (hbound.trans hupper)
 
 theorem real_primeCounting_upper_of_integer_interval_rows
@@ -1102,9 +1111,9 @@ theorem integral_inv_log_pow_succ_le_explicit_at_million
     _ ≤ (999998 : Real) / Real.log 2 ^ (n + 1) +
           (X / Real.log X ^ (n + 1)) /
             (1 - (n + 1 : Real) / Real.log (1000000 : Real)) := by
-      exact add_le_add_right hlow
+      convert add_le_add_left hlow
         ((X / Real.log X ^ (n + 1)) /
-          (1 - (n + 1 : Real) / Real.log (1000000 : Real)))
+          (1 - (n + 1 : Real) / Real.log (1000000 : Real))) using 1 <;> ring
 
 theorem six_lt_log_million :
     (6 : Real) < Real.log (1000000 : Real) := by
@@ -1153,12 +1162,12 @@ theorem integral_inv_log_pow_succ_le_full_from_two
     rw [Set.uIcc_of_le ha]
     apply ContinuousOn.div continuousOn_const
     · exact (Real.continuousOn_log.mono fun t ht =>
-        ne_of_gt (Real.log_pos (by
+        ne_of_gt (by
           have : (0 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
-          exact this))).pow _
+          exact this)).pow _
     · intro t ht
       exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by
-        have : (0 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
+        have : (1 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
         exact this)))
   have hright : IntervalIntegrable
       (fun t : Real => 1 / Real.log t ^ (n + 1))
@@ -1167,12 +1176,12 @@ theorem integral_inv_log_pow_succ_le_full_from_two
     rw [Set.uIcc_of_le hab]
     apply ContinuousOn.div continuousOn_const
     · exact (Real.continuousOn_log.mono fun t ht =>
-        ne_of_gt (Real.log_pos (by
+        ne_of_gt (by
           have : (0 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
-          exact this))).pow _
+          exact this)).pow _
     · intro t ht
       exact pow_ne_zero _ (ne_of_gt (Real.log_pos (by
-        have : (0 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
+        have : (1 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
         exact this)))
   have hzero : IntervalIntegrable (fun _ : Real => (0 : Real))
       MeasureTheory.volume 2 a := intervalIntegrable_const
@@ -1181,7 +1190,7 @@ theorem integral_inv_log_pow_succ_le_full_from_two
     intro t ht
     exact one_div_nonneg.mpr
       (pow_nonneg (Real.log_pos (by
-        have : (0 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
+        have : (1 : Real) < t := lt_of_lt_of_le (by norm_num) ht.1
         exact this).le) _)
   have hprefix : 0 ≤ ∫ t in (2 : Real)..a,
       1 / Real.log t ^ (n + 1) := by
@@ -1236,10 +1245,10 @@ theorem explicit_integral_core_bound_of_log_margins
     lt_of_lt_of_le (by norm_num) hden6
   have hinv7 : 1 / (1 - 7 / Real.log (1000000 : Real)) ≤
       (13 : Real) / 6 :=
-    one_div_le_one_div_of_le (by norm_num) hden7
+    (one_div_le_one_div_of_le (by norm_num) hden7).trans_eq (by norm_num)
   have hinv6 : 1 / (1 - 6 / Real.log (1000000 : Real)) ≤
       (13 : Real) / 7 :=
-    one_div_le_one_div_of_le (by norm_num) hden6
+    (one_div_le_one_div_of_le (by norm_num) hden6).trans_eq (by norm_num)
   have hpow6 : ((69 : Real) / 100) ^ 6 ≤ (Real.log 2) ^ 6 :=
     pow_le_pow_left₀ (by norm_num) hlog2 6
   have hpow7 : ((69 : Real) / 100) ^ 7 ≤ (Real.log 2) ^ 7 :=
@@ -1272,7 +1281,7 @@ theorem explicit_integral_core_bound_of_log_margins
       X / Real.log X ^ 6 ≤
           (X / Real.log X ^ 4) /
             Real.log (4e18) ^ 2 :=
-        id_div_log_pow_add_le (n := 2) (by norm_num) hX hlogCut'
+        id_div_log_pow_add_le (m := 2) (by norm_num) hX
       _ ≤ (X / Real.log X ^ 4) / (42 : Real) ^ 2 := by
         exact div_le_div_of_nonneg_left hR0 (by positivity)
           (pow_le_pow_left₀ (by norm_num) hlogCut 2)
@@ -1282,7 +1291,7 @@ theorem explicit_integral_core_bound_of_log_margins
       X / Real.log X ^ 7 ≤
           (X / Real.log X ^ 4) /
             Real.log (4e18) ^ 3 :=
-        id_div_log_pow_add_le (n := 3) (by norm_num) hX hlogCut'
+        id_div_log_pow_add_le (m := 3) (by norm_num) hX
       _ ≤ (X / Real.log X ^ 4) / (42 : Real) ^ 3 := by
         exact div_le_div_of_nonneg_left hR0 (by positivity)
           (pow_le_pow_left₀ (by norm_num) hlogCut 3)
@@ -1297,8 +1306,9 @@ theorem explicit_integral_core_bound_of_log_margins
           (X / Real.log X ^ 7) *
             (1 / (1 - 7 / Real.log (1000000 : Real))) := by ring
       _ ≤ ((13 : Real) / 6) *
-          (X / Real.log X ^ 7) :=
-        mul_le_mul_of_nonneg_left hinv7 (by positivity)
+          (X / Real.log X ^ 7) := by
+        convert mul_le_mul_of_nonneg_right hinv7
+          (by positivity : (0 : Real) ≤ X / Real.log X ^ 7) using 1 <;> ring
       _ ≤ ((13 : Real) / 6) *
           ((X / Real.log X ^ 4) / (42 : Real) ^ 3) := by
         gcongr
@@ -1313,8 +1323,9 @@ theorem explicit_integral_core_bound_of_log_margins
           (X / Real.log X ^ 6) *
             (1 / (1 - 6 / Real.log (1000000 : Real))) := by ring
       _ ≤ ((13 : Real) / 7) *
-          (X / Real.log X ^ 6) :=
-        mul_le_mul_of_nonneg_left hinv6 (by positivity)
+          (X / Real.log X ^ 6) := by
+        convert mul_le_mul_of_nonneg_right hinv6
+          (by positivity : (0 : Real) ≤ X / Real.log X ^ 6) using 1 <;> ring
       _ ≤ ((13 : Real) / 7) *
           ((X / Real.log X ^ 4) / (42 : Real) ^ 2) := by
         gcongr
