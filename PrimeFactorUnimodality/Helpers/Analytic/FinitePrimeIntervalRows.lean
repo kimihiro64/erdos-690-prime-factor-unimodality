@@ -489,6 +489,22 @@ theorem logCubedWidth_89693_ge_60 :
     (by norm_num) (by norm_num) log_89693_le_1141_over_100
   norm_num
 
+theorem log_100000_le_116_over_10 :
+    Real.log (100000 : Real) ≤ (116 : Real) / 10 := by
+  apply (Real.log_le_iff_le_exp (by norm_num)).2
+  interval_decide
+
+theorem log_le_116_over_10_of_89693_le
+    {a : Nat} (ha : (89693 : Nat) ≤ a) (ha100000 : a ≤ 100000) :
+    Real.log a ≤ (116 : Real) / 10 := by
+  have hmono : Real.log (a : Real) ≤ Real.log (100000 : Real) := by
+    have ha_pos : (0 : Real) < a := by
+      exact_mod_cast (show 0 < a by omega)
+    apply Real.log_le_log
+    · exact ha_pos
+    · exact_mod_cast ha100000
+  exact hmono.trans log_100000_le_116_over_10
+
 def finitePrimeGapLogRow_89693_89752 : FinitePrimeGapLogRow := by
   apply FinitePrimeGapLogRow.of_gap_row (g := 60)
     (row := {
