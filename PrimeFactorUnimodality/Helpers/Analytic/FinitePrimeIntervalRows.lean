@@ -1021,6 +1021,23 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
       (by norm_num at ⊢; linarith) hab)
     row.toLogCubedPrimeRow hleft hright
 
+def finitePrimeGapLogRows_89693_89752 :
+    List FinitePrimeGapLogRow :=
+  [finitePrimeGapLogRow_89693_89752]
+
+theorem finitePrimeGapLogRows_89693_89752_cover :
+    FinitePrimeGapLogRowsCoverUpTo
+      finitePrimeGapLogRows_89693_89752 (89752 : Real) := by
+  intro x hx hX
+  refine ⟨finitePrimeGapLogRow_89693_89752, by simp, ?_, ?_⟩
+  · norm_num
+  · exact hX
+
+theorem hasLogCubedShortIntervalPrimeBelow_89693_89752 :
+    HasLogCubedShortIntervalPrimeBelow (89752 : Real) :=
+  hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
+    finitePrimeGapLogRows_89693_89752_cover
+
 theorem hasLogCubedShortIntervalPrime_of_rows
     (upper_mono : ∀ {a b : Real}, 89693 ≤ a → a ≤ b →
       logCubedUpper a ≤ logCubedUpper b)
