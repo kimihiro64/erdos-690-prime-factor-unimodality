@@ -31,6 +31,36 @@ theorem indexed_interval_cover_of_list_cover
   refine ⟨⟨i, hi⟩, ?_⟩
   simpa [List.get_eq_getElem, hget] using And.intro hleft hright
 
+/-! Indexed tables compose in the same way as list tables.  This is the
+compact-block interface used by the finite certificates: a block may be
+checked independently, and the kernel only has to check the two coverage
+proofs and the numerical junction. -/
+theorem indexed_interval_cover_append
+    {α : Type} {m X : Real} {n₁ n₂ : Nat}
+    (left right : Fin n₁ → α) (leftEndpoint rightEndpoint : α → Nat)
+    {P Q : Real → Prop}
+    (hleft : ∀ x : Real, P x → Q x → x ≤ m →
+      ∃ i : Fin n₁,
+        (leftEndpoint (left i) : Real) ≤ x ∧
+          x ≤ rightEndpoint (left i))
+    (hright : ∀ x : Real, P x → Q x → m < x → x ≤ X →
+      ∃ i : Fin n₂,
+        (leftEndpoint (right i) : Real) ≤ x ∧
+          x ≤ rightEndpoint (right i)) :
+    ∀ x : Real, P x → Q x → x ≤ X →
+      ∃ i : Fin (n₁ + n₂),
+        (leftEndpoint (Fin.append left right i) : Real) ≤ x ∧
+          x ≤ rightEndpoint (Fin.append left right i) := by
+  intro x hP hQ hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨i, hleft_lower, hleft_upper⟩ := hleft x hP hQ hxm
+    refine ⟨Fin.castAdd n₂ i, ?_⟩
+    simpa [Fin.append_left] using And.intro hleft_lower hleft_upper
+  · obtain ⟨i, hright_lower, hright_upper⟩ :=
+      hright x hP hQ (lt_of_not_ge hxm) hX
+    refine ⟨Fin.natAdd n₁ i, ?_⟩
+    simpa [Fin.append_right] using And.intro hright_lower hright_upper
+
 def logCubedUpper (x : Real) : Real :=
   x + x / (Real.log x) ^ 3
 
@@ -257,6 +287,20 @@ theorem logCubedPrimeIndexedCover_of_list
       (fun i : Fin rows.length => rows.get i) X := by
   exact indexed_interval_cover_of_list_cover rows
     (fun row => row.left) (fun row => row.right) cover
+
+theorem logCubedPrimeIndexedCoverUpTo_append
+    {m X : Real} {n₁ n₂ : Nat}
+    {left : Fin n₁ → LogCubedPrimeRow}
+    {right : Fin n₂ → LogCubedPrimeRow}
+    (hleft : LogCubedPrimeIndexedCoverUpTo left m)
+    (hright : LogCubedPrimeIndexedCoverUpTo right X) :
+    LogCubedPrimeIndexedCoverUpTo (Fin.append left right) X := by
+  intro x hx hX
+  exact indexed_interval_cover_append left right
+    (fun row => row.left) (fun row => row.right)
+    (fun y hy _ hym => hleft y hy hym)
+    (fun y hy _ hym hyX => hright y hy hyX)
+    x hx trivial hX
 
 theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_rows
     {n : Nat} {X : Real} {rows : Fin n → LogCubedPrimeRow}
