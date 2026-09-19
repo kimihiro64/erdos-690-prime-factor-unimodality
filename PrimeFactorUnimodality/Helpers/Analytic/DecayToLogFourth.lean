@@ -484,6 +484,28 @@ theorem exists_hasPsiLogFourthError_of_sqrtLogDecay
         mul_le_mul_of_nonneg_right hbound hx_pos.le
       _ = 1 * x / (Real.log x) ^ 4 := by ring
 
+/-! The same square-root-log conversion can be closed across the explicit
+prime-power cutoff.  This is the source-level bridge needed when an analytic
+PNT supplies a square-root-log estimate for `psi`: the only extra unit in the
+theta coefficient is the independently proved `theta - psi` envelope. -/
+theorem exists_hasThetaLogFourthError_of_sqrtLogDecay
+    {C c X : Real} (hC : 0 ≤ C) (hc : 0 < c) (hX : 0 < X)
+    (hdecay : HasPsiSqrtLogDecay C c X) :
+    ∃ Y : Real, X ≤ Y ∧ (4e18 : Real) ≤ Y ∧
+      HasThetaLogFourthError 2 Y := by
+  obtain ⟨Y₀, hXY₀, hpsi⟩ :=
+    exists_hasPsiLogFourthError_of_sqrtLogDecay hC hc hX hdecay
+  let Y : Real := max (4e18 : Real) Y₀
+  have h4Y : (4e18 : Real) ≤ Y := le_max_left _ _
+  have hY₀ : Y₀ ≤ Y := le_max_right _ _
+  have hXY : X ≤ Y := hXY₀.trans hY₀
+  have hpsiY : HasPsiLogFourthError 1 Y := by
+    intro x hx
+    exact hpsi x (hY₀.trans hx)
+  refine ⟨Y, hXY, h4Y, ?_⟩
+  convert hasThetaLogFourthError_of_psiLogFourthError h4Y hpsiY using 1
+  norm_num
+
 end
 
 end PrimeFactorUnimodality
