@@ -1068,6 +1068,55 @@ theorem completeClassification_of_mediumPNT_and_integer_interval_tail_provider
       shortIntervalRows := provider.shortIntervalRows
       thetaErrorEndpointRows := provider.thetaErrorEndpointRows }
 
+/-! Indexed certificates are an equivalent presentation of the compact
+endpoint boundary.  Keeping this adapter here means a certificate generator
+can expose one finite function family per cutoff without materializing a
+separate declaration for every row. -/
+structure MediumPNTFiniteIntegerIntervalIndexedTailProvider : Prop where
+  primeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ n : Nat, ∃ rows : Fin n → DusartPrimeCountingEndpointRow,
+      DusartPrimeCountingEndpointIndexedCoverFrom599 rows X
+  thetaEndpointRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ n : Nat, ∃ rows : Fin n → DusartThetaEndpointRow,
+      DusartThetaEndpointIndexedCoverUpTo rows X
+  shortIntervalRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ n : Nat, ∃ rows : Fin n → LogCubedPrimeRow,
+      LogCubedPrimeIndexedCoverUpTo rows X
+  thetaErrorEndpointRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ n : Nat, ∃ rows : Fin n →
+      ThetaLogFourthEndpointRow (648 / 1000 : Real),
+      ThetaLogFourthEndpointIndexedCoverUpTo rows X
+
+theorem completeClassification_of_mediumPNT_and_integer_interval_indexed_tail_provider
+    (provider : MediumPNTFiniteIntegerIntervalIndexedTailProvider) :
+    CompleteClassification := by
+  apply completeClassification_of_mediumPNT_and_integer_interval_tail_provider
+  refine {
+    primeCountingRows := fun X hX => ?_
+    thetaEndpointRows := fun X hX => ?_
+    shortIntervalRows := fun X hX => ?_
+    thetaErrorEndpointRows := fun X hX => ?_ }
+  · obtain ⟨n, rows, hcover⟩ := provider.primeCountingRows X hX
+    refine ⟨List.ofFn rows, ?_⟩
+    intro x hx hX'
+    obtain ⟨i, hleft, hright⟩ := hcover x hx hX'
+    exact ⟨rows i, List.mem_ofFn.mpr ⟨i, rfl⟩, hleft, hright⟩
+  · obtain ⟨n, rows, hcover⟩ := provider.thetaEndpointRows X hX
+    refine ⟨List.ofFn rows, ?_⟩
+    intro x hx hX'
+    obtain ⟨i, hleft, hright⟩ := hcover x hx hX'
+    exact ⟨rows i, List.mem_ofFn.mpr ⟨i, rfl⟩, hleft, hright⟩
+  · obtain ⟨n, rows, hcover⟩ := provider.shortIntervalRows X hX
+    refine ⟨List.ofFn rows, ?_⟩
+    intro x hx hX'
+    obtain ⟨i, hleft, hright⟩ := hcover x hx hX'
+    exact ⟨rows i, List.mem_ofFn.mpr ⟨i, rfl⟩, hleft, hright⟩
+  · obtain ⟨n, rows, hcover⟩ := provider.thetaErrorEndpointRows X hX
+    refine ⟨List.ofFn rows, ?_⟩
+    intro x hx hX'
+    obtain ⟨i, hleft, hright⟩ := hcover x hx hX'
+    exact ⟨rows i, List.mem_ofFn.mpr ⟨i, rfl⟩, hleft, hright⟩
+
 /-! The tail prime-counting obligation can equivalently be supplied in the
 published asymptotic form.  The adapter is proved in the analytic helper, so
 this theorem exposes the exact provider boundary without hiding a new axiom

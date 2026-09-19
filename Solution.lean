@@ -302,3 +302,12 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_i
     PrimeFactorUnimodality.CompleteClassification := by
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_interval_tail_provider
     provider
+
+/-! The indexed form reuses the same compact all-`k` boundary while allowing
+each finite certificate to be supplied as a single `Fin n` family. -/
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_interval_indexed_tail_provider
+    (provider :
+      PrimeFactorUnimodality.MediumPNTFiniteIntegerIntervalIndexedTailProvider) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_interval_indexed_tail_provider
+    provider
