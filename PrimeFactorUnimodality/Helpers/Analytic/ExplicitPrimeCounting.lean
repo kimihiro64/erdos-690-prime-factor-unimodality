@@ -225,6 +225,62 @@ theorem dusartPrimeCounting_upper_below_ten :
                     · norm_num
   exact hcount.trans hupper
 
+/-! A single list can carry the remaining integer checks.  Each row contains
+only a rational-style logarithm envelope and the resulting arithmetic bound;
+the adapter below turns the list into the function required by the public
+provider. -/
+structure DusartPrimeCountingUpperIntegerRow where
+  n : Nat
+  logUpper : Real
+  n_large : 10 ≤ n
+  logUpper_pos : 0 < logUpper
+  log_bound : Real.log n ≤ logUpper
+  numerical : (Nat.primeCounting n : Real) ≤
+    (n : Real) / logUpper + (6381 / 5000 : Real) * n / logUpper ^ 2
+
+def DusartPrimeCountingUpperIntegerRowsCover
+    (rows : List DusartPrimeCountingUpperIntegerRow) : Prop :=
+  ∀ n : Nat, 10 ≤ n → n < 599 →
+    ∃ row ∈ rows, row.n = n
+
+theorem dusartPrimeCounting_upper_of_integer_rows
+    {rows : List DusartPrimeCountingUpperIntegerRow}
+    (cover : DusartPrimeCountingUpperIntegerRowsCover rows) :
+    ∀ n : Nat, 10 ≤ n → n < 599 →
+      (Nat.primeCounting n : Real) ≤ dusartPiUpper n := by
+  intro n hn10 hn599
+  obtain ⟨row, hrow, rfl⟩ := cover n hn10 hn599
+  have hnpos : (0 : Real) < row.n := by
+    exact_mod_cast (show 0 < row.n by omega)
+  have hlogpos : 0 < Real.log row.n :=
+    Real.log_pos (by exact_mod_cast (show 1 < row.n by omega))
+  have hfirst : (row.n : Real) / row.logUpper ≤
+      (row.n : Real) / Real.log row.n := by
+    apply (div_le_div_iff₀ row.logUpper_pos hlogpos).2
+    exact mul_le_mul_of_nonneg_left row.log_bound hnpos.le
+  have hlogsq : (Real.log row.n) ^ 2 ≤ row.logUpper ^ 2 := by
+    nlinarith [sq_nonneg (row.logUpper - Real.log row.n), row.log_bound]
+  have hsecond : (6381 / 5000 : Real) * (row.n : Real) /
+      row.logUpper ^ 2 ≤ (6381 / 5000 : Real) * (row.n : Real) /
+        (Real.log row.n) ^ 2 := by
+    apply (div_le_div_iff₀ (sq_pos_of_pos row.logUpper_pos)
+      (sq_pos_of_pos hlogpos)).2
+    have hcross : (row.n : Real) * (Real.log row.n) ^ 2 ≤
+        (row.n : Real) * row.logUpper ^ 2 :=
+      mul_le_mul_of_nonneg_left hlogsq hnpos.le
+    exact mul_le_mul_of_nonneg_left hcross
+      (by norm_num : (0 : Real) ≤ 6381 / 5000)
+  have hbound := add_le_add hfirst hsecond
+  calc
+    (Nat.primeCounting row.n : Real) ≤
+        (row.n : Real) / row.logUpper +
+          (6381 / 5000 : Real) * row.n / row.logUpper ^ 2 := row.numerical
+    _ ≤ (row.n : Real) / Real.log row.n +
+        (6381 / 5000 : Real) * row.n / (Real.log row.n) ^ 2 := hbound
+    _ = dusartPiUpper row.n := by
+      dsimp [dusartPiUpper]
+      ring
+
 /-! The exact Abel-summation identity underlying the prime-counting
 asymptotic.  Keeping the identity in this namespace makes the later
 remainder estimates explicit instead of treating `π` as an opaque provider. -/
