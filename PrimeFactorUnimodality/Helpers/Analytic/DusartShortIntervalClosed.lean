@@ -29,6 +29,18 @@ theorem wangCrapis_shortIntervalPrefix :
     HasDusartShortIntervalPrimeBelow (89693 : Real) := by
   exact hasDusartShortIntervalPrimeBelow_3275_89693
 
+/-! The first log-cubed rows extend the finite prefix through `89890`. -/
+theorem wangCrapis_logCubedPrefix :
+    HasLogCubedShortIntervalPrimeBelow (89890 : Real) := by
+  exact hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
+    finitePrimeGapLogRows_89693_89890_cover
+
+theorem wangCrapis_shortIntervalPrefix_89890 :
+    HasDusartShortIntervalPrimeBelow (89890 : Real) := by
+  exact hasDusartShortIntervalPrimeBelow_of_finite_gap_log_rows
+    (by norm_num) wangCrapis_shortIntervalPrefix
+    finitePrimeGapLogRows_89693_89890_cover
+
 /-! Once the log-cubed tail is proved directly, this is the exact final
 short-interval assembly.  Keeping the tail as an explicit argument makes the
 remaining analytic obligation visible rather than smuggling it in through a
