@@ -75,6 +75,17 @@ theorem exists_hasThetaLogFourthError_of_mediumPNT_above (X₀ : Real) :
   exact ⟨Y, hX₀Y, h4Y,
     hasThetaLogFourthError_of_psiLogFourthError_sharp h4Y hpsi⟩
 
+/-! The same result in the explicit tail-interface type consumed by the
+all-`k` cutoff assembly.  The two predicates have the same pointwise
+content, but keeping this coercion named prevents later proofs from silently
+confusing a finite-below-cutoff estimate with an unbounded tail estimate. -/
+theorem exists_hasThetaLogFourthErrorAbove_of_mediumPNT_above (X₀ : Real) :
+    ∃ X : Real, X₀ ≤ X ∧ (4e18 : Real) ≤ X ∧
+      HasThetaLogFourthErrorAbove (648 / 1000 : Real) X := by
+  obtain ⟨X, hX₀, h4X, htheta⟩ :=
+    exists_hasThetaLogFourthError_of_mediumPNT_above X₀
+  exact ⟨X, hX₀, h4X, htheta⟩
+
 /-! The eventual cutoff can be raised to the paper's analytic cutoff without
 changing the proved error estimate.  This is the form consumed by the
 Dusart tail interfaces. -/
