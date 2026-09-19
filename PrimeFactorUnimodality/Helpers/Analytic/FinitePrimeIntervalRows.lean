@@ -133,6 +133,30 @@ def FinitePrimeGapLogRow.of_gap_row
     exact_mod_cast (by omega : row.witness - row.left ≤ g)
   exact hgap.trans hwidth
 
+theorem finitePrimeGapLogRow_of_explicit
+    {p q : Nat} {L : Real}
+    (hq : q.Prime)
+    (hpq : p < q)
+    (hleft_large : 89693 ≤ p)
+    (hlog : Real.log p ≤ L) (hL : 0 ≤ L)
+    (hproduct : (q - p : Real) * L ^ 3 ≤ p) :
+    FinitePrimeGapLogRow := by
+  have hwidth : (q - p : Real) ≤ logCubedWidth p :=
+    logCubedWidth_lower_of_log_upper (by exact_mod_cast hleft_large)
+      hL hlog hproduct
+  refine {
+    left := p
+    right := q - 1
+    left_large := hleft_large
+    left_le_right := by omega
+    witness := q
+    witness_prime := hq
+    right_lt_witness := by omega
+    witness_width := ?_ }
+  have hgap_real : (q : Real) - p ≤ (q - p : Real) := by
+    norm_num [Nat.cast_sub (Nat.le_of_lt hpq)]
+  linarith
+
 def FinitePrimeGapRowsCover
     {a b g : Nat} (rows : List (FinitePrimeGapRow g)) : Prop :=
   ∀ n : Nat, a ≤ n → n ≤ b →
