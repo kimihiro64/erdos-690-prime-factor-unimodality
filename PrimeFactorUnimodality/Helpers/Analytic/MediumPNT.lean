@@ -250,7 +250,7 @@ theorem exists_mediumPNT_dusart_tail_inputs
   obtain ⟨Y, hXY, hpublished⟩ :=
     exists_hasDusartPublishedPrimeCountingBoundsAbove_of_mediumPNT_and_core
       hX hC0 hC hcore
-  obtain ⟨Z, hYZ, _, htheta⟩ :=
+  obtain ⟨Z, hYZ, h4Z, htheta⟩ :=
     exists_hasThetaLogFourthError_of_mediumPNT_above Y
   have hZpos : 0 < Z := by linarith [hX]
   have hlogZ : (10 : Real) < Real.log Z := by
