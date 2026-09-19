@@ -53,4 +53,12 @@ theorem computablePrimesBelow_gt_one (p : Nat) :
     exact hpair.2
   exact hprime.one_lt
 
+theorem computablePrimesBelow_succ_length (n : Nat) :
+    (computablePrimesBelow (n + 1)).length = Nat.primeCounting n := by
+  rw [← primesBelow_eq_computablePrimesBelow]
+  rw [primesBelow, Finset.length_sort]
+  change (Nat.primesBelow (n + 1)).card = Nat.primeCounting n
+  rw [Nat.primesBelow_card_eq_primeCounting']
+  exact (Nat.primeCounting_eq_primeCounting'_succ n).symm
+
 end PrimeFactorUnimodality
