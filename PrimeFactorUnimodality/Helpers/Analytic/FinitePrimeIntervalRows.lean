@@ -564,6 +564,15 @@ theorem log_le_116_over_10_of_89693_le
     · exact_mod_cast ha100000
   exact hmono.trans log_100000_le_116_over_10
 
+theorem finitePrimeGapLogRow_of_explicit_100000
+    {p q : Nat} (hq : q.Prime) (hpq : p < q)
+    (hproduct : (q - p : Real) * ((116 : Real) / 10) ^ 3 ≤ p)
+    (hleft_large : 89693 ≤ p) (hp100000 : p ≤ 100000) :
+    FinitePrimeGapLogRow :=
+  finitePrimeGapLogRow_of_explicit hq hpq hleft_large
+    (log_le_116_over_10_of_89693_le hleft_large hp100000)
+    (by norm_num) hproduct
+
 def finitePrimeGapLogRow_89693_89752 : FinitePrimeGapLogRow := by
   apply FinitePrimeGapLogRow.of_gap_row (g := 60)
     (row := {
@@ -593,6 +602,54 @@ def finitePrimeGapLogRow_89753_89758 : FinitePrimeGapLogRow := by
   · norm_num
   · exact log_le_116_over_10_of_89693_le (by norm_num) (by norm_num)
   · norm_num
+
+def finitePrimeGapLogRow_89759_89766 : FinitePrimeGapLogRow :=
+  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num)
+
+def finitePrimeGapLogRow_89767_89778 : FinitePrimeGapLogRow :=
+  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num)
+
+def finitePrimeGapLogRow_89779_89782 : FinitePrimeGapLogRow :=
+  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num)
+
+def finitePrimeGapLogRow_89783_89796 : FinitePrimeGapLogRow :=
+  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num)
+
+def finitePrimeGapLogRow_89797_89808 : FinitePrimeGapLogRow :=
+  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num)
+
+def finitePrimeGapLogRow_89809_89818 : FinitePrimeGapLogRow :=
+  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num)
+
+def finitePrimeGapLogRow_89819_89820 : FinitePrimeGapLogRow :=
+  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num)
+
+def finitePrimeGapLogRow_89821_89832 : FinitePrimeGapLogRow :=
+  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num)
+
+def finitePrimeGapLogRow_89833_89838 : FinitePrimeGapLogRow :=
+  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num)
+
+def finitePrimeGapLogRow_89839_89848 : FinitePrimeGapLogRow :=
+  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num)
+
+def finitePrimeGapLogRow_89849_89866 : FinitePrimeGapLogRow :=
+  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num)
+
+def finitePrimeGapLogRow_89867_89890 : FinitePrimeGapLogRow :=
+  finitePrimeGapLogRow_of_explicit_100000 (by norm_num) (by norm_num)
+    (by norm_num) (by norm_num) (by norm_num)
 
 def dusartUpper (x : Real) : Real :=
   x * (1 + (1 / 2 : Real) / (Real.log x) ^ 2)
@@ -1227,6 +1284,90 @@ theorem finitePrimeGapLogRows_89693_89758_cover :
   exact finitePrimeGapLogRowsCoverUpTo_of_chain
     finitePrimeGapLogRows_89693_89758_chain (by norm_num)
 
+def finitePrimeGapLogRows_89693_89890 :
+    List FinitePrimeGapLogRow :=
+  [finitePrimeGapLogRow_89693_89752,
+    finitePrimeGapLogRow_89753_89758,
+    finitePrimeGapLogRow_89759_89766,
+    finitePrimeGapLogRow_89767_89778,
+    finitePrimeGapLogRow_89779_89782,
+    finitePrimeGapLogRow_89783_89796,
+    finitePrimeGapLogRow_89797_89808,
+    finitePrimeGapLogRow_89809_89818,
+    finitePrimeGapLogRow_89819_89820,
+    finitePrimeGapLogRow_89821_89832,
+    finitePrimeGapLogRow_89833_89838,
+    finitePrimeGapLogRow_89839_89848,
+    finitePrimeGapLogRow_89849_89866,
+    finitePrimeGapLogRow_89867_89890]
+
+theorem finitePrimeGapLogRows_89693_89890_chain :
+    FinitePrimeGapLogRowsChain 89693 89890
+      finitePrimeGapLogRows_89693_89890 := by
+  apply FinitePrimeGapLogRowsChain.cons
+    finitePrimeGapLogRow_89693_89752
+  · norm_num
+  · norm_num
+  apply FinitePrimeGapLogRowsChain.cons
+    finitePrimeGapLogRow_89753_89758
+  · norm_num
+  · norm_num
+  apply FinitePrimeGapLogRowsChain.cons
+    finitePrimeGapLogRow_89759_89766
+  · norm_num
+  · norm_num
+  apply FinitePrimeGapLogRowsChain.cons
+    finitePrimeGapLogRow_89767_89778
+  · norm_num
+  · norm_num
+  apply FinitePrimeGapLogRowsChain.cons
+    finitePrimeGapLogRow_89779_89782
+  · norm_num
+  · norm_num
+  apply FinitePrimeGapLogRowsChain.cons
+    finitePrimeGapLogRow_89783_89796
+  · norm_num
+  · norm_num
+  apply FinitePrimeGapLogRowsChain.cons
+    finitePrimeGapLogRow_89797_89808
+  · norm_num
+  · norm_num
+  apply FinitePrimeGapLogRowsChain.cons
+    finitePrimeGapLogRow_89809_89818
+  · norm_num
+  · norm_num
+  apply FinitePrimeGapLogRowsChain.cons
+    finitePrimeGapLogRow_89819_89820
+  · norm_num
+  · norm_num
+  apply FinitePrimeGapLogRowsChain.cons
+    finitePrimeGapLogRow_89821_89832
+  · norm_num
+  · norm_num
+  apply FinitePrimeGapLogRowsChain.cons
+    finitePrimeGapLogRow_89833_89838
+  · norm_num
+  · norm_num
+  apply FinitePrimeGapLogRowsChain.cons
+    finitePrimeGapLogRow_89839_89848
+  · norm_num
+  · norm_num
+  apply FinitePrimeGapLogRowsChain.cons
+    finitePrimeGapLogRow_89849_89866
+  · norm_num
+  · norm_num
+  apply FinitePrimeGapLogRowsChain.cons
+    finitePrimeGapLogRow_89867_89890
+  · norm_num
+  · norm_num
+  exact FinitePrimeGapLogRowsChain.empty (by norm_num)
+
+theorem finitePrimeGapLogRows_89693_89890_cover :
+    FinitePrimeGapLogRowsCoverUpTo
+      finitePrimeGapLogRows_89693_89890 (89890 : Real) := by
+  exact finitePrimeGapLogRowsCoverUpTo_of_chain
+    finitePrimeGapLogRows_89693_89890_chain (by norm_num)
+
 theorem hasLogCubedShortIntervalPrimeBelow_89693_89752 :
     HasLogCubedShortIntervalPrimeBelow (89752 : Real) :=
   hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
@@ -1236,6 +1377,11 @@ theorem hasLogCubedShortIntervalPrimeBelow_89693_89758 :
     HasLogCubedShortIntervalPrimeBelow (89758 : Real) :=
   hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
     finitePrimeGapLogRows_89693_89758_cover
+
+theorem hasLogCubedShortIntervalPrimeBelow_89693_89890 :
+    HasLogCubedShortIntervalPrimeBelow (89890 : Real) :=
+  hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
+    finitePrimeGapLogRows_89693_89890_cover
 
 theorem hasLogCubedShortIntervalPrime_of_rows
     (upper_mono : ∀ {a b : Real}, 89693 ≤ a → a ≤ b →
