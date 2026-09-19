@@ -318,3 +318,12 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_i
     PrimeFactorUnimodality.CompleteClassification := by
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_interval_prefix_provider
     provider
+
+/-! The compact list-prefix boundary shares one ordered block family across
+all four finite endpoint obligations. -/
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_interval_bundled_list_prefix_provider
+    (provider :
+      PrimeFactorUnimodality.MediumPNTFiniteIntegerIntervalBundledListPrefixProvider) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_interval_bundled_list_prefix_provider
+    provider
