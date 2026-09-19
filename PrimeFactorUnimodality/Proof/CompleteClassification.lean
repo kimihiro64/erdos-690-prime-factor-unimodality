@@ -1047,6 +1047,55 @@ theorem completeClassification_of_dusart_split_finite_certificate
     certificate.hC0 certificate.hC certificate.smallRemainder thetaErrorAbove
     certificate.integralCoreBound
 
+structure Dusart599SplitFiniteCertificate (A C : Real) : Prop where
+  primeCountingRows : List DusartPrimeCountingEndpointRow
+  primeCountingCover :
+    DusartPrimeCountingEndpointRowsCoverFrom599
+      primeCountingRows (4e18 : Real)
+  thetaRows : List DusartThetaEndpointRow
+  thetaCover :
+    DusartThetaEndpointRowsCoverUpTo thetaRows (4e18 : Real)
+  logRows : List LogCubedPrimeRow
+  logCover : LogCubedPrimeRowsCoverUpTo logRows (4e18 : Real)
+  thetaErrorRows : List (ThetaLogFourthEndpointRow A)
+  thetaErrorCover :
+    ThetaLogFourthEndpointRowsCoverFrom thetaErrorRows 599 (4e18 : Real)
+  thetaTail : HasThetaLogFourthErrorAbove A (4e18 : Real)
+  hA0 : 0 ≤ A
+  hA1 : A ≤ 1
+  hC0 : 0 ≤ C
+  hC : C ≤ 3 / 5
+  integralCoreBound :
+    4000 + 720 * (∫ t in (2 : Real)..(4e18 : Real),
+        1 / Real.log t ^ 7) + 10 * (599 : Real) +
+        A * (∫ t in (599 : Real)..(4e18 : Real),
+          1 / Real.log t ^ 6) ≤
+      C * (4e18 : Real) / Real.log (4e18 : Real) ^ 4
+
+theorem completeClassification_of_dusart_599_split_finite_certificate
+    {A C : Real}
+    (certificate : Dusart599SplitFiniteCertificate A C) :
+    CompleteClassification := by
+  apply completeClassification_of_dusart_split_finite_certificate
+    (x₀ := (599 : Real)) (R := 10 * (599 : Real))
+  · exact certificate.primeCountingRows
+  · exact certificate.primeCountingCover
+  · exact certificate.thetaRows
+  · exact certificate.thetaCover
+  · exact certificate.logRows
+  · exact certificate.logCover
+  · exact certificate.thetaErrorRows
+  · exact certificate.thetaErrorCover
+  · exact certificate.thetaTail
+  · norm_num
+  · norm_num
+  · exact small_integral_remainder_le_ten_mul (by norm_num)
+  · exact certificate.hA0
+  · exact certificate.hA1
+  · exact certificate.hC0
+  · exact certificate.hC
+  · exact certificate.integralCoreBound
+
 theorem completeClassification_of_full_record_finite_published_asymptotic_inputs
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
     (finitePublished : HasDusartPublishedPrimeCountingBoundsBelow (4e9 : Real))

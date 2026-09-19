@@ -61,6 +61,14 @@ theorem PrimeFactorUnimodality.completeClassification_of_dusart_split_finite_cer
   exact PrimeFactorUnimodality.completeClassification_of_dusart_split_finite_certificate
     certificate
 
+theorem PrimeFactorUnimodality.completeClassification_of_dusart_599_split_finite_certificate
+    {A C : Real}
+    (certificate :
+      PrimeFactorUnimodality.Dusart599SplitFiniteCertificate A C) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_dusart_599_split_finite_certificate
+    certificate
+
 /-! Public boundary for a source-level MediumPNT proof: only finite analytic
 facts at the cutoff selected by that proof remain to be supplied. -/
 theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_inputs
