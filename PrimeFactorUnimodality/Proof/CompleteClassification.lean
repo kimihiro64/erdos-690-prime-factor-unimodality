@@ -629,6 +629,50 @@ theorem completeClassification_of_mediumPNT_and_selected_split_inputs
     finiteShortInterval (by norm_num) (by norm_num)
     (by norm_num) (by norm_num) hsmall thetaError (by simpa using hcoreBound)
 
+/-! Compact indexed certificates at the selected cutoff.  The certificate
+layer supplies one finite family for each bounded estimate; the MediumPNT
+tail is supplied separately and the all-`k` conclusion is assembled here. -/
+structure MediumPNTSelectedIndexedSplitCertificate (X C : Real) : Prop where
+  cutoff : Real
+  lower : X ≤ cutoff
+  large : (4e18 : Real) ≤ cutoff
+  primeCountingRows : ∃ n : Nat, ∃ rows : Fin n → DusartPrimeCountingEndpointRow,
+    DusartPrimeCountingEndpointIndexedCoverFrom599 rows cutoff
+  thetaRows : ∃ n : Nat, ∃ rows : Fin n → DusartThetaEndpointRow,
+    DusartThetaEndpointIndexedCoverUpTo rows cutoff
+  logRows : ∃ n : Nat, ∃ rows : Fin n → LogCubedPrimeRow,
+    LogCubedPrimeIndexedCoverUpTo rows cutoff
+  thetaError : HasThetaLogFourthErrorAbove (648 / 1000 : Real) cutoff
+  remainder : ∃ R : Real,
+    |∫ t in (2 : Real)..cutoff,
+        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+          1 / (Real.log t) ^ 2)| ≤ R ∧
+      4000 + 720 * (∫ t in (2 : Real)..cutoff, 1 / Real.log t ^ 7) + R ≤
+        C * cutoff / Real.log cutoff ^ 4
+
+theorem completeClassification_of_mediumPNT_and_selected_indexed_split_certificate
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (certificate : MediumPNTSelectedIndexedSplitCertificate X C) :
+    CompleteClassification := by
+  obtain ⟨nPrime, primeRows, primeCover⟩ := certificate.primeCountingRows
+  obtain ⟨nTheta, thetaRows, thetaCover⟩ := certificate.thetaRows
+  obtain ⟨nLog, logRows, logCover⟩ := certificate.logRows
+  have finitePrimeCounting :
+      HasDusartRealPrimeCountingBoundsBelow certificate.cutoff :=
+    hasDusartRealPrimeCountingBoundsBelow_of_indexed_endpoint_rows
+      primeCover dusartSmallUpperIntervalRows_provide
+  have finiteTheta :
+      HasDusartSymmetricThetaBoundsBelow certificate.cutoff :=
+    hasDusartSymmetricThetaBoundsBelow_of_indexed_endpoint_rows thetaCover
+  have finiteShortInterval :
+      HasLogCubedShortIntervalPrimeBelow certificate.cutoff :=
+    hasLogCubedShortIntervalPrimeBelow_of_indexed_rows logCover
+  exact completeClassification_of_mediumPNT_and_selected_split_inputs hX hC0 hC
+    (mediumPNTSelectedSplitInputs_of_cutoff
+      certificate.lower certificate.large certificate.thetaError
+      finitePrimeCounting finiteTheta finiteShortInterval certificate.remainder)
+
 /-! The finite theta remainder also discharges the Abel-core hypothesis.  This
 keeps the all-`k` boundary aligned with the actual finite inputs: the only
 remaining provider data are the bounded prime-counting, theta, and interval

@@ -167,6 +167,15 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_split_inputs
     hX hC0 hC selectedInputs
 
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_indexed_split_certificate
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (certificate :
+      PrimeFactorUnimodality.MediumPNTSelectedIndexedSplitCertificate X C) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_indexed_split_certificate
+    hX hC0 hC certificate
+
 /-! Public boundary for the corrected row-based proof.  The finite theta
 error is not requested from `2`; its prefix is discharged by the explicit
 Abel-remainder field in the provider. -/
