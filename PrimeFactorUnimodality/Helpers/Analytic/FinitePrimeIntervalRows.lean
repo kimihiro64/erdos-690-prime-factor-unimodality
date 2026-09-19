@@ -13073,7 +13073,7 @@ theorem dusartPrimeRows_17159_18040_chain :
 
 
 
-+def dusartPrimeRows_3275_16318 : List DusartPrimeRow :=
+def dusartPrimeRows_3275_16318 : List DusartPrimeRow :=
   dusartPrimeRows_3275_15526 ++ dusartPrimeRows_15527_16318
 
 theorem dusartPrimeRows_3275_16318_chain :
