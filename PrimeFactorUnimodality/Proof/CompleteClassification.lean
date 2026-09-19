@@ -502,9 +502,9 @@ structure MediumPNTFiniteIntegerSplitRowProvider : Prop where
   shortIntervalRows : ∀ X : Real, (4e18 : Real) ≤ X →
     ∃ rows : List LogCubedPrimeRow,
       LogCubedPrimeRowsCoverUpTo rows X
-  thetaErrorRows : ∀ X : Real, (4e18 : Real) ≤ X →
-    ∃ rows : List (ThetaLogFourthErrorRow (648 / 1000 : Real)),
-      ThetaLogFourthErrorRowsCoverUpTo rows X
+  thetaErrorEndpointRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List (ThetaLogFourthEndpointRow (648 / 1000 : Real)),
+      ThetaLogFourthEndpointRowsCoverUpTo rows X
 
 theorem completeClassification_of_mediumPNT_and_integer_split_row_provider
     (provider : MediumPNTFiniteIntegerSplitRowProvider) :
@@ -519,8 +519,8 @@ theorem completeClassification_of_mediumPNT_and_integer_split_row_provider
     exact hasDusartSymmetricThetaBoundsBelow_of_rows hcover
   · obtain ⟨rows, hcover⟩ := provider.shortIntervalRows X hX
     exact hasLogCubedShortIntervalPrimeBelow_of_rows hcover
-  · obtain ⟨rows, hcover⟩ := provider.thetaErrorRows X hX
-    exact hasThetaLogFourthErrorBelow_of_rows hcover
+  · obtain ⟨rows, hcover⟩ := provider.thetaErrorEndpointRows X hX
+    exact hasThetaLogFourthErrorBelow_of_endpoint_rows (by norm_num) hcover
 
 /-! The tail prime-counting obligation can equivalently be supplied in the
 published asymptotic form.  The adapter is proved in the analytic helper, so
