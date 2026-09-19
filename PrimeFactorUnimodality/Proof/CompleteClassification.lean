@@ -1132,6 +1132,51 @@ theorem completeClassification_of_dusart_599_split_finite_certificate
   · exact thetaErrorAbove
   · exact certificate.integralCoreBound
 
+/-! Fixed-cutoff certificate boundary with the analytic core discharged by
+the explicit Abel estimate.  The remaining fields are exactly the finite
+Dusart rows and the eventual theta-error tail. -/
+structure Dusart599FiniteCertificate (A : Real) : Prop where
+  primeCountingRows : List DusartPrimeCountingEndpointRow
+  primeCountingCover :
+    DusartPrimeCountingEndpointRowsCoverFrom599
+      primeCountingRows (4e18 : Real)
+  thetaRows : List DusartThetaEndpointRow
+  thetaCover :
+    DusartThetaEndpointRowsCoverUpTo thetaRows (4e18 : Real)
+  logRows : List LogCubedPrimeRow
+  logCover : LogCubedPrimeRowsCoverUpTo logRows (4e18 : Real)
+  thetaErrorRows : List (ThetaLogFourthEndpointRow A)
+  thetaErrorCover :
+    ThetaLogFourthEndpointRowsCoverFrom thetaErrorRows 599 (4e18 : Real)
+  thetaTail : HasThetaLogFourthErrorAbove A (4e18 : Real)
+  hA0 : 0 ≤ A
+  hA1 : A ≤ 1
+
+theorem completeClassification_of_dusart_599_finite_certificate
+    {A : Real} (certificate : Dusart599FiniteCertificate A) :
+    CompleteClassification := by
+  have finitePrimeCounting :
+      HasDusartRealPrimeCountingBoundsBelow (4e18 : Real) :=
+    hasDusartRealPrimeCountingBoundsBelow_of_endpoint_rows
+      certificate.primeCountingCover dusartSmallUpperIntervalRows_provide
+  have finiteTheta :
+      HasDusartSymmetricThetaBoundsBelow (4e18 : Real) :=
+    hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
+      certificate.thetaCover
+  have finiteShortInterval :
+      HasLogCubedShortIntervalPrimeBelow (4e18 : Real) :=
+    hasLogCubedShortIntervalPrimeBelow_of_rows certificate.logCover
+  have thetaErrorAbove : HasThetaLogFourthErrorAbove A (599 : Real) :=
+    hasThetaLogFourthErrorAbove_of_endpoint_rows_from_and_tail
+      certificate.hA0 certificate.thetaErrorCover certificate.thetaTail
+  exact completeClassification_of_split_theta_error_and_reserved_integral_core
+    (by norm_num) (by norm_num) (by norm_num)
+    finitePrimeCounting finiteTheta finiteShortInterval certificate.hA0
+    certificate.hA1 (by norm_num) (by norm_num)
+    small_integral_remainder_le_5990 (by norm_num) thetaErrorAbove
+    (explicit_reserved_integral_core_at_599 (by norm_num)
+      certificate.hA0 certificate.hA1)
+
 theorem completeClassification_of_full_record_finite_published_asymptotic_inputs
     (finitePrimeCounting : HasDusartRealPrimeCountingBoundsBelow (4e18 : Real))
     (finitePublished : HasDusartPublishedPrimeCountingBoundsBelow (4e9 : Real))
