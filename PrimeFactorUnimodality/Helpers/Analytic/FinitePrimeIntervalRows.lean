@@ -13837,6 +13837,29 @@ def thetaLogFourthEndpointRow_two (A : Real) (hA0 : 0 ≤ A) :
       norm_num
       positivity }
 
+def thetaLogFourthEndpointRow_singleton (A : Real) (hA0 : 0 ≤ A)
+    (n : Nat) (hn : 2 ≤ n) : ThetaLogFourthEndpointRow A :=
+  { left := n
+    right := n
+    left_large := hn
+    left_le_right := le_rfl
+    theta_lower := Chebyshev.theta n
+    theta_upper := Chebyshev.theta n
+    theta_lower_le := le_rfl
+    theta_right_le := le_rfl
+    upper_error := by
+      have hnreal : (1 : Real) < n := by
+        exact_mod_cast lt_of_lt_of_le (by norm_num) hn
+      have hlog : 0 < Real.log (n : Real) := Real.log_pos hnreal
+      norm_num
+      positivity
+    lower_error := by
+      have hnreal : (1 : Real) < n := by
+        exact_mod_cast lt_of_lt_of_le (by norm_num) hn
+      have hlog : 0 < Real.log (n : Real) := Real.log_pos hnreal
+      norm_num
+      positivity }
+
 def ThetaLogFourthEndpointRowsCoverUpTo
     {A : Real} (rows : List (ThetaLogFourthEndpointRow A)) (X : Real) : Prop :=
   ∀ x : Real, 2 ≤ x → x ≤ X →
@@ -13870,6 +13893,16 @@ theorem thetaLogFourthEndpointRow_two_cover (A : Real) (hA0 : 0 ≤ A) :
   have hx2 : x = 2 := by linarith
   subst x
   exact ⟨thetaLogFourthEndpointRow_two A hA0, by simp, by norm_num, by norm_num⟩
+
+theorem thetaLogFourthEndpointRow_singleton_cover (A : Real) (hA0 : 0 ≤ A)
+    (n : Nat) (hn : 2 ≤ n) :
+    ThetaLogFourthEndpointRowsCoverFrom
+      [thetaLogFourthEndpointRow_singleton A hA0 n hn] n n := by
+  intro x hx hX
+  have hxN : x = n := by exact_mod_cast le_antisymm hX hx
+  subst x
+  exact ⟨thetaLogFourthEndpointRow_singleton A hA0 n hn, by simp, by norm_num,
+    by norm_num⟩
 
 def ThetaLogFourthEndpointIndexedCoverFrom {n : Nat} {A : Real}
     (rows : Fin n → ThetaLogFourthEndpointRow A)
@@ -14445,6 +14478,35 @@ def dusartThetaEndpointRow_two : DusartThetaEndpointRow :=
       norm_num
       positivity }
 
+def dusartThetaEndpointRow_singleton (n : Nat) (hn : 2 ≤ n) :
+    DusartThetaEndpointRow :=
+  { left := n
+    right := n
+    left_large := hn
+    left_le_right := le_rfl
+    theta_lower := Chebyshev.theta n
+    theta_upper := Chebyshev.theta n
+    theta_lower_le := le_rfl
+    theta_right_le := le_rfl
+    upper_error := by
+      have hnreal : (1 : Real) < n := by
+        exact_mod_cast lt_of_lt_of_le (by norm_num) hn
+      have hlog : 0 < Real.log (n : Real) := Real.log_pos hnreal
+      norm_num
+      positivity
+    lower_upper_error := by
+      have hnreal : (1 : Real) < n := by
+        exact_mod_cast lt_of_lt_of_le (by norm_num) hn
+      have hlog : 0 < Real.log (n : Real) := Real.log_pos hnreal
+      norm_num
+      positivity
+    lower_lower_error := by
+      have hnreal : (1 : Real) < n := by
+        exact_mod_cast lt_of_lt_of_le (by norm_num) hn
+      have hlog : 0 < Real.log (n : Real) := Real.log_pos hnreal
+      norm_num
+      positivity }
+
 def DusartThetaEndpointRowsCoverUpTo
     (rows : List DusartThetaEndpointRow) (X : Real) : Prop :=
   ∀ x : Real, 2 ≤ x → x ≤ X →
@@ -14464,6 +14526,14 @@ theorem dusartThetaEndpointRow_two_cover :
   have hx2 : x = 2 := by linarith
   subst x
   exact ⟨dusartThetaEndpointRow_two, by simp, by norm_num, by norm_num⟩
+
+theorem dusartThetaEndpointRow_singleton_cover (n : Nat) (hn : 2 ≤ n) :
+    DusartThetaEndpointRowsCoverFrom
+      [dusartThetaEndpointRow_singleton n hn] n n := by
+  intro x hx hX
+  have hxN : x = n := by exact_mod_cast le_antisymm hX hx
+  subst x
+  exact ⟨dusartThetaEndpointRow_singleton n hn, by simp, by norm_num, by norm_num⟩
 
 def DusartThetaEndpointIndexedCoverUpTo {n : Nat}
     (rows : Fin n → DusartThetaEndpointRow) (X : Real) : Prop :=
