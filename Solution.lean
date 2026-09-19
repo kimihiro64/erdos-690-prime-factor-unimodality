@@ -55,3 +55,18 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_integer_inter
     PrimeFactorUnimodality.CompleteClassification := by
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_integer_interval_split_row_provider
     provider
+
+/-! Public boundary for a source-level MediumPNT proof: only finite analytic
+facts at the cutoff selected by that proof remain to be supplied. -/
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_inputs
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hcore : |PrimeFactorUnimodality.primeCountingCore X| ≤
+      C * X / Real.log X ^ 4)
+    (finiteInputs : ∀ Y : Real, X ≤ Y →
+      PrimeFactorUnimodularity.HasDusartRealPrimeCountingBoundsBelow Y ∧
+      PrimeFactorUnimodularity.HasDusartSymmetricThetaBoundsBelow Y ∧
+      PrimeFactorUnimodularity.HasLogCubedShortIntervalPrimeBelow Y) :
+    PrimeFactorUnimodularity.CompleteClassification := by
+  exact PrimeFactorUnimodularity.completeClassification_of_mediumPNT_and_selected_finite_inputs
+    hX hC0 hC hcore finiteInputs
