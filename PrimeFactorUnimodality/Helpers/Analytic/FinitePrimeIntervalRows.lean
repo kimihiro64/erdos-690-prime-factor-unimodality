@@ -83,9 +83,10 @@ structure FinitePrimeGapRow (g : Nat) where
   right_lt_witness : right < witness
   witness_le_left_add_gap : witness ≤ left + g
 
-theorem finitePrimeGapRow_of_consecutive
+def finitePrimeGapRow_of_consecutive
     {g p q : Nat} (h : ConsecutivePrimes p q)
     (hgap : q ≤ p + g) : FinitePrimeGapRow g := by
+  have hpq := h.left_lt_right
   refine {
     left := p
     right := q - 1
@@ -128,7 +129,7 @@ theorem finitePrimeGapLogRowsCover_of_chain
     ∀ x : Real, (a : Real) ≤ x → x ≤ b →
       ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right := by
   induction chain with
-  | empty h =>
+  | @empty a b h =>
       intro x hax hxb
       have hab : (b : Real) < a := by exact_mod_cast h
       linarith
@@ -139,9 +140,10 @@ theorem finitePrimeGapLogRowsCover_of_chain
         have hleft' : (row.left : Real) ≤ a := by
           exact_mod_cast hleft
         exact hleft'.trans hax
-      · have hright : (row.right + 1 : Real) ≤ x := by
+      · have hright : ((row.right + 1 : Nat) : Real) ≤ x := by
           have hlt : (row.right : Real) < x := lt_of_not_ge hrow
-          linarith
+          have hstep : (row.right : Real) + 1 ≤ x := by linarith
+          simpa using hstep
         obtain ⟨next, hnext, hnext_left, hnext_right⟩ :=
           ih x hright hxb
         exact ⟨next, by simp [hnext], hnext_left, hnext_right⟩
@@ -153,9 +155,15 @@ def FinitePrimeGapLogRow.of_gap_row
     (hlog : Real.log row.left ≤ L)
     (hproduct : (g : Real) * L ^ 3 ≤ row.left) :
     FinitePrimeGapLogRow := by
-  have hwidth : (g : Real) ≤ logCubedWidth row.left :=
-    logCubedWidth_lower_of_log_upper (by exact_mod_cast hleft)
-      hL hlog hproduct
+  have hwidth : (g : Real) ≤ logCubedWidth row.left := by
+    have ha_pos : 0 < (row.left : Real) := by linarith
+    have hlog_pos : 0 < Real.log row.left := Real.log_pos (by linarith)
+    have hpow : (Real.log row.left) ^ 3 ≤ L ^ 3 :=
+      pow_le_pow_left₀ hlog_pos.le hlog 3
+    have hbound : (g : Real) * (Real.log row.left) ^ 3 ≤ row.left := by
+      exact (mul_le_mul_of_nonneg_left hpow (by positivity)).trans hproduct
+    apply (le_div_iff₀ (pow_pos hlog_pos 3)).2
+    simpa [logCubedWidth] using hbound
   refine {
     left := row.left
     right := row.right
@@ -166,10 +174,13 @@ def FinitePrimeGapLogRow.of_gap_row
     right_lt_witness := row.right_lt_witness
     witness_width := ?_ }
   have hgap : (row.witness : Real) - row.left ≤ (g : Real) := by
+    have hleft_witness : row.left ≤ row.witness :=
+      row.left_le_right.trans (Nat.le_of_lt row.right_lt_witness)
+    rw [Nat.cast_sub hleft_witness]
     exact_mod_cast (by omega : row.witness - row.left ≤ g)
   exact hgap.trans hwidth
 
-theorem finitePrimeGapLogRow_of_explicit
+def finitePrimeGapLogRow_of_explicit
     {p q : Nat} {L : Real}
     (hq : q.Prime)
     (hpq : p < q)
@@ -177,9 +188,15 @@ theorem finitePrimeGapLogRow_of_explicit
     (hlog : Real.log p ≤ L) (hL : 0 ≤ L)
     (hproduct : (q - p : Real) * L ^ 3 ≤ p) :
     FinitePrimeGapLogRow := by
-  have hwidth : (q - p : Real) ≤ logCubedWidth p :=
-    logCubedWidth_lower_of_log_upper (by exact_mod_cast hleft_large)
-      hL hlog hproduct
+  have hwidth : (q - p : Real) ≤ logCubedWidth p := by
+    have hp_pos : 0 < (p : Real) := by linarith
+    have hlog_pos : 0 < Real.log p := Real.log_pos (by linarith)
+    have hpow : (Real.log p) ^ 3 ≤ L ^ 3 :=
+      pow_le_pow_left₀ hlog_pos.le hlog 3
+    have hbound : (q - p : Real) * (Real.log p) ^ 3 ≤ p := by
+      exact (mul_le_mul_of_nonneg_left hpow (by positivity)).trans hproduct
+    apply (le_div_iff₀ (pow_pos hlog_pos 3)).2
+    simpa [logCubedWidth] using hbound
   refine {
     left := p
     right := q - 1
@@ -222,7 +239,8 @@ theorem finitePrimeGapBound_of_rows_cover
     (cover : FinitePrimeGapRowsCover rows) :
     FinitePrimeGapBound a b g := by
   intro n hna hnb
-  obtain ⟨row, hrow, hleft, hright⟩ := cover n hna hnb
+  obtain ⟨row, hrow, hleft, hright⟩ :=
+    cover (a := a) (b := b) (g := g) n hna hnb
   refine ⟨row.witness, row.witness_prime, ?_, ?_⟩
   · exact lt_of_le_of_lt hright row.right_lt_witness
   · exact le_trans row.witness_le_left_add_gap (Nat.add_le_add_right hleft g)
@@ -232,7 +250,8 @@ theorem finitePrimeGapBound_of_indexed_rows_cover
     (cover : FinitePrimeGapIndexedRowsCover rows) :
     FinitePrimeGapBound a b g := by
   intro x hxa hxb
-  obtain ⟨i, hleft, hright⟩ := cover x hxa hxb
+  obtain ⟨i, hleft, hright⟩ :=
+    cover (a := a) (b := b) (g := g) x hxa hxb
   refine ⟨(rows i).witness, (rows i).witness_prime, ?_, ?_⟩
   · exact lt_of_le_of_lt hright (rows i).right_lt_witness
   · exact le_trans (rows i).witness_le_left_add_gap
@@ -244,7 +263,8 @@ theorem finitePrimeGapIndexedRowsCover_of_list
     FinitePrimeGapIndexedRowsCover
       (fun i : Fin rows.length => rows.get i) := by
   intro x hxa hxb
-  obtain ⟨row, hrow, hleft, hright⟩ := cover x hxa hxb
+  obtain ⟨row, hrow, hleft, hright⟩ :=
+    cover (a := a) (b := b) (g := g) x hxa hxb
   obtain ⟨i, hi, hget⟩ := List.getElem_of_mem hrow
   refine ⟨⟨i, hi⟩, ?_⟩
   simpa [List.get_eq_getElem, hget] using And.intro hleft hright
