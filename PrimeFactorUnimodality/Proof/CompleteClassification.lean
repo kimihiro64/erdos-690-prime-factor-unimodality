@@ -1267,7 +1267,7 @@ theorem mediumPNTFiniteIntegerIntervalPrefixBundleListCover_append
       (logCubedPrimeRowsCoverUpTo_append
         hleft.shortInterval hright.shortInterval)
   · have hrightFrom : ThetaLogFourthEndpointRowsCoverFrom
-        (right.map (fun row => row.thetaError)) (4e18 : Real) m := by
+        (right.map (fun row => row.thetaError)) m X := by
       intro x hx hX
       exact hright.thetaError x (hm.trans hx) hX
     simpa [List.map_append] using
