@@ -478,6 +478,17 @@ theorem logCubedWidth_lower_of_log_upper
   exact (le_div_iff₀ (pow_pos hlog_pos 3)).2 (by
     simpa [logCubedWidth] using hbound)
 
+theorem log_89693_le_1141_over_100 :
+    Real.log (89693 : Real) ≤ (1141 : Real) / 100 := by
+  apply (Real.log_le_iff_le_exp (by norm_num)).2
+  interval_decide
+
+theorem logCubedWidth_89693_ge_60 :
+    (60 : Real) ≤ logCubedWidth 89693 := by
+  apply logCubedWidth_lower_of_log_upper (a := 89693) (g := 60)
+    (by norm_num) (by norm_num) log_89693_le_1141_over_100
+  norm_num
+
 def dusartUpper (x : Real) : Real :=
   x * (1 + (1 / 2 : Real) / (Real.log x) ^ 2)
 
