@@ -70,7 +70,7 @@ private theorem log_21_lt_61_div_20 :
   nlinarith [Real.log_two_lt_d9]
 
 theorem fullRecord_prefix_log_log_lt {k : Nat}
-    (hkLower : 38001 ≤ k) (hkUpper : k ≤ 7430000) :
+    (hkLower : 38001 ≤ k) (hkUpper : k ≤ 8600001) :
     Real.log (Real.log ((primeAt (k - 2) - 1 : Nat) : Real)) <
       (61 : Real) / 20 := by
   have prefixLarge : 2 ≤ primeAt (k - 2) - 1 := by
