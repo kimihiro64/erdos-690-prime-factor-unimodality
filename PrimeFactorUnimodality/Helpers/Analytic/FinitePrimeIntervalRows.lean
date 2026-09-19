@@ -13610,10 +13610,39 @@ theorem FinitePrimeGapLogRow.toLogCubedPrimeRow
     linarith [row.witness_width]
   simpa [logCubedWidth, logCubedUpper] using hupper
 
+/-! The gap-row representation advances at integer endpoints, so its natural
+real coverage is half-open.  This direct consumer avoids converting such a
+row to the closed-interval `LogCubedPrimeRow` representation. -/
+theorem finitePrimeGapLogRow_provides_half_open
+    (row : FinitePrimeGapLogRow) {x : Real}
+    (hleft : (row.left : Real) ≤ x)
+    (hright : x < (row.right : Real) + 1) :
+    ∃ q : Nat, q.Prime ∧ x < q ∧
+      (q : Real) ≤ x + logCubedWidth x := by
+  have hleft_large : (3275 : Real) ≤ (row.left : Real) := by
+    exact_mod_cast (show (3275 : Nat) ≤ row.left by omega)
+  have hx_large : (3275 : Real) ≤ x := hleft_large.trans hleft
+  have hwidth : logCubedWidth row.left ≤ logCubedWidth x :=
+    logCubedWidth_monotoneOn
+      (a := (row.left : Real)) (b := x)
+      (Set.mem_Ici.mpr hleft_large) (Set.mem_Ici.mpr hx_large) hleft
+  have hupper : (row.witness : Real) ≤
+      (row.left : Real) + logCubedWidth x := by
+    calc
+      (row.witness : Real) ≤ (row.left : Real) + logCubedWidth row.left := by
+        linarith [row.witness_width]
+      _ ≤ (row.left : Real) + logCubedWidth x := add_le_add_left hwidth _
+  refine ⟨row.witness, row.witness_prime, ?_, ?_⟩
+  · have hstep : ((row.right + 1 : Nat) : Real) ≤ row.witness := by
+      exact_mod_cast (Nat.succ_le_iff.mpr row.right_lt_witness)
+    simpa using (lt_of_lt_of_le hright hstep)
+  · have := hupper
+    linarith
+
 def FinitePrimeGapLogRowsCoverUpTo
     (rows : List FinitePrimeGapLogRow) (X : Real) : Prop :=
   ∀ x : Real, 89693 ≤ x → x ≤ X →
-    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x < (row.right : Real) + 1
 
 theorem finitePrimeGapLogRowsCoverUpTo_of_chain
     {b : Nat} {X : Real} {rows : List FinitePrimeGapLogRow}
@@ -13621,24 +13650,29 @@ theorem finitePrimeGapLogRowsCoverUpTo_of_chain
     (hX : X ≤ b) :
     FinitePrimeGapLogRowsCoverUpTo rows X := by
   intro x hx hupper
+  have hupper' : x < (b : Real) + 1 := by
+    have hxb : x ≤ (b : Real) := hupper.trans hX
+    have hsucc : (b : Real) < (b : Real) + 1 := by
+      exact_mod_cast (Nat.lt_succ_self b)
+    exact lt_of_le_of_lt hxb hsucc
   exact finitePrimeGapLogRowsCover_of_chain chain x hx
-    (hupper.trans hX)
+    hupper'
 
 def FinitePrimeGapLogRowsCoverFrom
     (rows : List FinitePrimeGapLogRow) (a X : Real) : Prop :=
   ∀ x : Real, a ≤ x → x ≤ X →
-    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x < (row.right : Real) + 1
 
 def FinitePrimeGapLogIndexedRowsCoverUpTo
     {n : Nat} (rows : Fin n → FinitePrimeGapLogRow) (X : Real) : Prop :=
   ∀ x : Real, 89693 ≤ x → x ≤ X →
-    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+    ∃ i : Fin n, (rows i).left ≤ x ∧ x < (rows i).right + 1
 
 def FinitePrimeGapLogIndexedRowsCoverFrom
     {n : Nat} (rows : Fin n → FinitePrimeGapLogRow)
     (a X : Real) : Prop :=
   ∀ x : Real, a ≤ x → x ≤ X →
-    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+    ∃ i : Fin n, (rows i).left ≤ x ∧ x < (rows i).right + 1
 
 theorem finitePrimeGapLogIndexedRowsCoverUpTo_append_from
     {m X : Real} {n₁ n₂ : Nat}
@@ -14281,11 +14315,7 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_indexed_gap_log_rows
     HasLogCubedShortIntervalPrimeBelow X := by
   intro x hx hX
   obtain ⟨i, hleft, hright⟩ := cover x hx hX
-  exact logCubedPrimeRow_provides
-    (fun {a b} ha hab => logCubedUpper_monotoneOn
-      (by norm_num at ⊢; linarith)
-      (by norm_num at ⊢; linarith) hab)
-    (rows i).toLogCubedPrimeRow hleft hright
+  exact finitePrimeGapLogRow_provides_half_open (rows i) hleft hright
 
 theorem hasDusartShortIntervalPrimeBelow_of_indexed_gap_log_rows
     {n : Nat} {X : Real}
@@ -14358,11 +14388,7 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
     HasLogCubedShortIntervalPrimeBelow X := by
   intro x hx hX
   obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
-  exact logCubedPrimeRow_provides
-    (fun {a b} ha hab => logCubedUpper_monotoneOn
-      (by norm_num at ⊢; linarith)
-      (by norm_num at ⊢; linarith) hab)
-    row.toLogCubedPrimeRow hleft hright
+  exact finitePrimeGapLogRow_provides_half_open row hleft hright
 
 theorem hasDusartShortIntervalPrime_of_finite_gap_log_rows_and_mediumPNT
     {X : Real}
@@ -14441,7 +14467,9 @@ theorem finitePrimeGapLogRows_89693_89752_cover :
   intro x hx hX
   refine ⟨finitePrimeGapLogRow_89693_89752, by simp, ?_, ?_⟩
   · norm_num
-  · exact hX
+  · have : x ≤ (89752 : Real) := hX
+    norm_num at ⊢
+    linarith
 
 def finitePrimeGapLogRows_89693_89758 :
     List FinitePrimeGapLogRow :=
