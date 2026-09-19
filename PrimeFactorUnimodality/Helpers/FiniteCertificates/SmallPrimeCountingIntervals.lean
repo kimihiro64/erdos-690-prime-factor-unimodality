@@ -401,4 +401,52 @@ theorem dusartSmallUpperIntervalRow349_366 :
   · rw [hcount]
     norm_num
 
+theorem dusartSmallUpperIntervalRow367_382 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  have hcount : Nat.primeCounting 382 = 75 := by decide
+  apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
+    (left := 367) (right := 382) (a := 0) (b := 1) (c := 3) (d := 0)
+  · norm_num
+  · norm_num
+  · norm_num
+  · norm_num
+  · rw [hcount]
+    norm_num
+
+theorem dusartSmallUpperIntervalRow383_400 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  have hcount : Nat.primeCounting 400 = 78 := by decide
+  apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
+    (left := 383) (right := 400) (a := 7) (b := 1) (c := 0) (d := 0)
+  · norm_num
+  · norm_num
+  · norm_num
+  · norm_num
+  · rw [hcount]
+    norm_num
+
+theorem dusartSmallUpperIntervalRow401_418 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  have hcount : Nat.primeCounting 418 = 80 := by decide
+  apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
+    (left := 401) (right := 418) (a := 0) (b := 4) (c := 1) (d := 0)
+  · norm_num
+  · norm_num
+  · norm_num
+  · norm_num
+  · rw [hcount]
+    norm_num
+
+theorem dusartSmallUpperIntervalRow419_438 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  have hcount : Nat.primeCounting 438 = 84 := by decide
+  apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
+    (left := 419) (right := 438) (a := 2) (b := 1) (c := 1) (d := 1)
+  · norm_num
+  · norm_num
+  · norm_num
+  · norm_num
+  · rw [hcount]
+    norm_num
+
 end PrimeFactorUnimodality
