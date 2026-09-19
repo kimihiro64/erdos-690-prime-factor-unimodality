@@ -64,9 +64,26 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_
     (hcore : |PrimeFactorUnimodality.primeCountingCore X| ≤
       C * X / Real.log X ^ 4)
     (finiteInputs : ∀ Y : Real, X ≤ Y →
-      PrimeFactorUnimodularity.HasDusartRealPrimeCountingBoundsBelow Y ∧
-      PrimeFactorUnimodularity.HasDusartSymmetricThetaBoundsBelow Y ∧
-      PrimeFactorUnimodularity.HasLogCubedShortIntervalPrimeBelow Y) :
-    PrimeFactorUnimodularity.CompleteClassification := by
-  exact PrimeFactorUnimodularity.completeClassification_of_mediumPNT_and_selected_finite_inputs
+      PrimeFactorUnimodality.HasDusartRealPrimeCountingBoundsBelow Y ∧
+      PrimeFactorUnimodality.HasDusartSymmetricThetaBoundsBelow Y ∧
+      PrimeFactorUnimodality.HasLogCubedShortIntervalPrimeBelow Y) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_inputs
     hX hC0 hC hcore finiteInputs
+
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_split_inputs
+    {X C : Real} (hX : (4e18 : Real) ≤ X)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (finiteInputs : ∀ Y : Real, X ≤ Y →
+      PrimeFactorUnimodality.HasDusartRealPrimeCountingBoundsBelow Y ∧
+      PrimeFactorUnimodality.HasDusartSymmetricThetaBoundsBelow Y ∧
+      PrimeFactorUnimodality.HasLogCubedShortIntervalPrimeBelow Y ∧
+      ∃ R : Real,
+        |∫ t in (2 : Real)..Y,
+            (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
+              1 / (Real.log t) ^ 2)| ≤ R ∧
+        4000 + 720 * (∫ t in (2 : Real)..Y, 1 / Real.log t ^ 7) + R ≤
+          C * Y / Real.log Y ^ 4) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_split_inputs
+    hX hC0 hC finiteInputs
