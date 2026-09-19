@@ -452,6 +452,40 @@ theorem completeClassification_of_mediumPNT_and_bundled_row_provider
     provider.primeCountingRows provider.thetaRows
     provider.shortIntervalRows provider.thetaErrorRows
 
+/-! A split prime-counting provider avoids certifying the lower Dusart
+inequality below `599`, where it is not required. -/
+structure MediumPNTFiniteSplitRowProvider : Prop where
+  primeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List DusartPrimeCountingRow,
+      DusartPrimeCountingRowsCoverFrom599 rows X
+  primeCountingSmallUpper : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∀ x : Real, 2 ≤ x → x < 599 →
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x
+  thetaRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List DusartThetaBoundsRow,
+      DusartThetaBoundsRowsCoverUpTo rows X
+  shortIntervalRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List LogCubedPrimeRow,
+      LogCubedPrimeRowsCoverUpTo rows X
+  thetaErrorRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List (ThetaLogFourthErrorRow (648 / 1000 : Real)),
+      ThetaLogFourthErrorRowsCoverUpTo rows X
+
+theorem completeClassification_of_mediumPNT_and_split_row_provider
+    (provider : MediumPNTFiniteSplitRowProvider) :
+    CompleteClassification := by
+  refine completeClassification_of_mediumPNT_and_finite_error_provider
+    (fun X hX => ?_) (fun X hX => ?_) (fun X hX => ?_) (fun X hX => ?_)
+  · obtain ⟨rows, hcover⟩ := provider.primeCountingRows X hX
+    exact hasDusartRealPrimeCountingBoundsBelow_of_rows_from599 hcover
+      (provider.primeCountingSmallUpper X hX)
+  · obtain ⟨rows, hcover⟩ := provider.thetaRows X hX
+    exact hasDusartSymmetricThetaBoundsBelow_of_rows hcover
+  · obtain ⟨rows, hcover⟩ := provider.shortIntervalRows X hX
+    exact hasLogCubedShortIntervalPrimeBelow_of_rows hcover
+  · obtain ⟨rows, hcover⟩ := provider.thetaErrorRows X hX
+    exact hasThetaLogFourthErrorBelow_of_rows hcover
+
 /-! The tail prime-counting obligation can equivalently be supplied in the
 published asymptotic form.  The adapter is proved in the analytic helper, so
 this theorem exposes the exact provider boundary without hiding a new axiom

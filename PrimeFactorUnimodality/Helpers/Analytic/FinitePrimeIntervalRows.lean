@@ -373,6 +373,32 @@ def DusartPrimeCountingRowsCoverUpTo
   ∀ x : Real, 2 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+/-! The lower Dusart estimate starts only at `599`.  This variant keeps that
+fact visible, so the finite table need not carry rows whose only purpose is
+to establish the lower bound below `599`; the short upper range is supplied
+by a separate elementary or computational lemma. -/
+def DusartPrimeCountingRowsCoverFrom599
+    (rows : List DusartPrimeCountingRow) (X : Real) : Prop :=
+  ∀ x : Real, (599 : Real) ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem hasDusartRealPrimeCountingBoundsBelow_of_rows_from599
+    {X : Real} {rows : List DusartPrimeCountingRow}
+    (cover : DusartPrimeCountingRowsCoverFrom599 rows X)
+    (smallUpper : ∀ x : Real, 2 ≤ x → x < 599 →
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x) :
+    HasDusartRealPrimeCountingBoundsBelow X := by
+  constructor
+  · intro x hx hX
+    obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
+    exact row.lower x hx hleft hright
+  · intro x hx hX
+    by_cases hsmall : x < 599
+    · exact smallUpper x hx hsmall
+    · obtain ⟨row, hrow, hleft, hright⟩ := cover x
+        (le_of_not_gt hsmall) hX
+      exact row.upper x hleft hright
+
 theorem hasDusartRealPrimeCountingBoundsBelow_of_rows
     {X : Real} {rows : List DusartPrimeCountingRow}
     (cover : DusartPrimeCountingRowsCoverUpTo rows X) :

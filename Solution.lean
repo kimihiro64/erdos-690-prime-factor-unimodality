@@ -37,3 +37,9 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_row_provider
     PrimeFactorUnimodality.CompleteClassification := by
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_bundled_row_provider
     provider
+
+theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_split_row_provider
+    (provider : PrimeFactorUnimodality.MediumPNTFiniteSplitRowProvider) :
+    PrimeFactorUnimodality.CompleteClassification := by
+  exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_split_row_provider
+    provider
