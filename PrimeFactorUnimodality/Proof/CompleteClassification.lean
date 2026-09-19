@@ -78,14 +78,18 @@ theorem completeClassification_of_full_record_inputs
     (tailPair : HasUniformTailPrimePair) :
     CompleteClassification := by
   exact completeClassification_of_finite_range_and_tail
-    7430000 (by omega)
+    8600001 (by omega)
     (fun k hk hkRecord => by
       by_cases hkSmall : k ≤ 38000
       · exact completeClassification_through38000_closed k hk hkSmall
       · constructor
         · intro unimodal
-          exact ((fullRecordRange_not_isUnimodal_closed k (by omega) hkRecord)
-            unimodal).elim
+          by_cases hkFullRecord : k ≤ 7430000
+          · exact ((fullRecordRange_not_isUnimodal_closed k (by omega) hkFullRecord)
+              unimodal).elim
+          · exact ((uniformTail_not_isUnimodal_closed_mertens
+              primeCountingBounds thetaBounds tailPair (k := k) (by omega))
+              unimodal).elim
         · intro hkThree
           omega)
     (fun k hkTail => uniformTail_not_isUnimodal_closed_mertens
