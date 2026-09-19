@@ -654,6 +654,18 @@ def FinitePrimeGapLogRowsCoverUpTo
   ∀ x : Real, 89693 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+theorem finitePrimeGapLogRowsCoverUpTo_append
+    {m X : Real} {left right : List FinitePrimeGapLogRow}
+    (hleft : FinitePrimeGapLogRowsCoverUpTo left m)
+    (hright : FinitePrimeGapLogRowsCoverUpTo right X) :
+    FinitePrimeGapLogRowsCoverUpTo (left ++ right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+
 theorem FinitePrimeGapRow.toLogCubedPrimeRow
     {g : Nat} (row : FinitePrimeGapRow g)
     (hwidth : (g : Real) ≤ (row.left : Real) /
