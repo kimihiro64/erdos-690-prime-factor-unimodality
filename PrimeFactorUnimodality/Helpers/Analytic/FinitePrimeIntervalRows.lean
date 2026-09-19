@@ -1984,6 +1984,11 @@ theorem dusartPrimeRows_3275_4672_cover :
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_4672_chain (by norm_num)
 
+theorem dusartPrimeRows_3275_4918_cover :
+    DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_4918 (4918 : Real) := by
+  exact dusartPrimeRowsCoverUpTo_of_chain
+    dusartPrimeRows_3275_4918_chain (by norm_num)
+
 theorem dusartPrimeRowsCoverBelow_of_chain
     {rows : List DusartPrimeRow}
     (chain : DusartPrimeRowsChain 3275 89693 rows) :
