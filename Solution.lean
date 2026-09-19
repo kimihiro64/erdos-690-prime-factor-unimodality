@@ -36,13 +36,11 @@ theorem PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_
     {A X : Real} (hX : (4e18 : Real) ≤ X)
     (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
     (finiteThetaError : PrimeFactorUnimodality.HasThetaLogFourthErrorBelow A X)
-    (finiteInputs : ∀ Y : Real, X ≤ Y →
-      PrimeFactorUnimodality.HasDusartRealPrimeCountingBoundsBelow Y ∧
-      PrimeFactorUnimodality.HasDusartSymmetricThetaBoundsBelow Y ∧
-      PrimeFactorUnimodality.HasLogCubedShortIntervalPrimeBelow Y) :
+    (selectedInputs :
+      PrimeFactorUnimodality.MediumPNTSelectedFiniteInputs A X) :
     PrimeFactorUnimodality.CompleteClassification := by
   exact PrimeFactorUnimodality.completeClassification_of_mediumPNT_and_selected_finite_theta_error
-    hX hA0 hA1 finiteThetaError finiteInputs
+    hX hA0 hA1 finiteThetaError selectedInputs
 
 theorem PrimeFactorUnimodality.completeClassification_of_logFourth_cutoff_inputs_from_theta_error
     {A X : Real} (hX : (4e18 : Real) ≤ X)

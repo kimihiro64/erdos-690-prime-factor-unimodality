@@ -469,19 +469,32 @@ private theorem completeClassification_of_mediumPNT_and_finite_provider
 chooses the cutoff and proves the unbounded theta error; the finite provider
 only has to answer at that one cutoff.  The prime-counting and short-interval
 tails are derived here from the source-level Abel and theta arguments. -/
-private theorem completeClassification_of_mediumPNT_and_selected_finite_inputs
-    {X C : Real} (hX : (4e18 : Real) ≤ X)
+/-! All finite inputs are attached to the same cutoff selected by the
+source-level analytic theorem.  This is the exact all-`k` boundary: there is
+no finite provider quantified over unrelated possible cutoffs. -/
+structure MediumPNTSelectedFiniteInputs (A X : Real) : Prop where
+  cutoff : Real
+  lower : X ≤ cutoff
+  large : (4e18 : Real) ≤ cutoff
+  thetaError : HasThetaLogFourthError A cutoff
+  primeCounting : HasDusartRealPrimeCountingBoundsBelow cutoff
+  theta : HasDusartSymmetricThetaBoundsBelow cutoff
+  shortInterval : HasLogCubedShortIntervalPrimeBelow cutoff
+
+theorem completeClassification_of_mediumPNT_and_selected_finite_inputs
+    {A C X : Real} (hX : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
     (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
     (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
-    (finiteInputs : ∀ Y : Real, X ≤ Y →
-      HasDusartRealPrimeCountingBoundsBelow Y ∧
-      HasDusartSymmetricThetaBoundsBelow Y ∧
-      HasLogCubedShortIntervalPrimeBelow Y) :
+    (selectedInputs : MediumPNTSelectedFiniteInputs A X) :
     CompleteClassification := by
-  obtain ⟨Y, hXY, h4Y, thetaError⟩ :=
-    exists_hasThetaLogFourthError_of_mediumPNT_above X
-  obtain ⟨finitePrimeCounting, finiteTheta, finiteShortInterval⟩ :=
-    finiteInputs Y hXY
+  let Y := selectedInputs.cutoff
+  have hXY : X ≤ Y := selectedInputs.lower
+  have h4Y : (4e18 : Real) ≤ Y := selectedInputs.large
+  have thetaError := selectedInputs.thetaError
+  have finitePrimeCounting := selectedInputs.primeCounting
+  have finiteTheta := selectedInputs.theta
+  have finiteShortInterval := selectedInputs.shortInterval
   have hXpos : 0 < X := by linarith
   have hX1 : 1 < X := by
     have hlogX : (42 : Real) ≤ Real.log X :=
@@ -499,8 +512,8 @@ private theorem completeClassification_of_mediumPNT_and_selected_finite_inputs
   have tailPrimeCounting : HasDusartRealPrimeCountingBoundsAbove Y :=
     hasDusartRealPrimeCountingBoundsAbove_of_core_and_theta_error
       hYpos (by linarith [hlogY]) le_rfl
-      (by norm_num) (by norm_num) hC0 hC hlogY hcoreY thetaError
-  have hAlog : (648 / 1000 : Real) / Real.log Y ≤
+      hA0 hA1 hC0 hC hlogY hcoreY thetaError
+  have hAlog : A / Real.log Y ≤
       (12167 / 500000 : Real) := by
     have hlogYpos : 0 < Real.log Y := by linarith
     apply (div_le_iff₀ hlogYpos).2
@@ -508,17 +521,17 @@ private theorem completeClassification_of_mediumPNT_and_selected_finite_inputs
   have thetaErrorCubic : HasThetaLogCubedError
       (12167 / 500000 : Real) Y := by
     have hconverted := hasThetaLogCubedError_of_logFourthError
-      (A := (648 / 1000 : Real)) (X := Y)
-      (by linarith [hlogY]) (by norm_num) thetaError
+      (A := A) (X := Y)
+      (by linarith [hlogY]) hA0 thetaError
     intro x hx
     exact (hconverted x hx).trans (by
       have hx_pos : 0 < x := by linarith
       have hlogx_pos : 0 < Real.log x := Real.log_pos (by linarith)
       have hfactor : 0 ≤ x / (Real.log x) ^ 3 := by positivity
       calc
-        ((648 / 1000 : Real) / Real.log Y) * x /
+        (A / Real.log Y) * x /
               (Real.log x) ^ 3 =
-            ((648 / 1000 : Real) / Real.log Y) *
+            (A / Real.log Y) *
               (x / (Real.log x) ^ 3) := by ring
         _ ≤ (12167 / 500000 : Real) *
               (x / (Real.log x) ^ 3) :=
@@ -532,7 +545,7 @@ private theorem completeClassification_of_mediumPNT_and_selected_finite_inputs
     obtain ⟨q, hq, hxq, hupper⟩ :=
       dusartPrimeInInterval_of_logFourthError_from
         hYpos (by linarith [hlogY]) (by linarith [hlogY])
-        (by norm_num) hAlog thetaError x hx
+        hA0 hAlog thetaError x hx
     exact ⟨q, hq, hxq, by convert hupper using 1 <;> ring⟩
   exact completeClassification_of_full_record_raised_cutoff_inputs
     h4Y finitePrimeCounting tailPrimeCounting finiteTheta thetaErrorCubic
@@ -572,17 +585,14 @@ theorem completeClassification_of_mediumPNT_and_selected_finite_theta_error
     {A X : Real} (hX : (4e18 : Real) ≤ X)
     (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
     (finiteThetaError : HasThetaLogFourthErrorBelow A X)
-    (finiteInputs : ∀ Y : Real, X ≤ Y →
-      HasDusartRealPrimeCountingBoundsBelow Y ∧
-      HasDusartSymmetricThetaBoundsBelow Y ∧
-      HasLogCubedShortIntervalPrimeBelow Y) :
+    (selectedInputs : MediumPNTSelectedFiniteInputs A X) :
     CompleteClassification := by
   have hcore : |primeCountingCore X| ≤
       (3 / 5 : Real) * X / Real.log X ^ 4 :=
     primeCountingCore_abs_le_at_large_cutoff_of_theta_error
       hX hA0 hA1 finiteThetaError
   exact completeClassification_of_mediumPNT_and_selected_finite_inputs
-    hX (by norm_num) (by norm_num) hcore finiteInputs
+    hX hA0 hA1 (by norm_num) (by norm_num) hcore selectedInputs
 
 /-! This is the certificate boundary for the corrected all-cutoff argument.
 Unlike the legacy provider below, it does not ask for the false statement
