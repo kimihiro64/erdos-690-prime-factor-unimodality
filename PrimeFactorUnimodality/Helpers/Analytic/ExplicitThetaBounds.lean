@@ -623,6 +623,14 @@ theorem hasDusartThetaBounds_of_symmetric
     ring_nf at hleft ⊢
     linarith
 
+theorem hasDusartThetaBounds_of_below_and_above
+    {X : Real}
+    (finite : HasDusartSymmetricThetaBoundsBelow X)
+    (tail : HasDusartSymmetricThetaBoundsAbove X) :
+    HasDusartThetaBounds :=
+  hasDusartThetaBounds_of_symmetric
+    (hasDusartSymmetricThetaBounds_of_below_and_above finite tail)
+
 theorem hasDusartThetaBounds_of_finite_and_logCubed_from
     {X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
     (finite : HasDusartSymmetricThetaBoundsBelow X)
