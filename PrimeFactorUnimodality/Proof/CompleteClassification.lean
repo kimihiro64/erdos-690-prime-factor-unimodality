@@ -529,6 +529,45 @@ theorem completeClassification_of_mediumPNT_and_integer_split_row_provider
   · obtain ⟨rows, hcover⟩ := provider.thetaErrorEndpointRows X hX
     exact hasThetaLogFourthErrorBelow_of_endpoint_rows (by norm_num) hcover
 
+/-! The small prime-counting part can also be supplied by interval rows.  This
+form is deliberately separate from the point-row provider so existing data
+remains reusable while new certificates can group consecutive integer checks.
+-/
+structure MediumPNTFiniteIntegerIntervalSplitRowProvider : Prop where
+  primeCountingRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List DusartPrimeCountingEndpointRow,
+      DusartPrimeCountingEndpointRowsCoverFrom599 rows X
+  primeCountingSmallIntegerIntervalRows :
+    List DusartPrimeCountingUpperIntegerIntervalRow
+  primeCountingSmallIntegerIntervalCover :
+    DusartPrimeCountingUpperIntegerIntervalRowsCover
+      primeCountingSmallIntegerIntervalRows
+  thetaEndpointRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List DusartThetaEndpointRow,
+      DusartThetaEndpointRowsCoverUpTo rows X
+  shortIntervalRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List LogCubedPrimeRow,
+      LogCubedPrimeRowsCoverUpTo rows X
+  thetaErrorEndpointRows : ∀ X : Real, (4e18 : Real) ≤ X →
+    ∃ rows : List (ThetaLogFourthEndpointRow (648 / 1000 : Real)),
+      ThetaLogFourthEndpointRowsCoverUpTo rows X
+
+theorem completeClassification_of_mediumPNT_and_integer_interval_split_row_provider
+    (provider : MediumPNTFiniteIntegerIntervalSplitRowProvider) :
+    CompleteClassification := by
+  refine completeClassification_of_mediumPNT_and_finite_error_provider
+    (fun X hX => ?_) (fun X hX => ?_) (fun X hX => ?_) (fun X hX => ?_)
+  · obtain ⟨rows, hcover⟩ := provider.primeCountingRows X hX
+    exact hasDusartRealPrimeCountingBoundsBelow_of_endpoint_rows hcover
+      (real_primeCounting_upper_of_integer_interval_rows
+        provider.primeCountingSmallIntegerIntervalCover)
+  · obtain ⟨rows, hcover⟩ := provider.thetaEndpointRows X hX
+    exact hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows hcover
+  · obtain ⟨rows, hcover⟩ := provider.shortIntervalRows X hX
+    exact hasLogCubedShortIntervalPrimeBelow_of_rows hcover
+  · obtain ⟨rows, hcover⟩ := provider.thetaErrorEndpointRows X hX
+    exact hasThetaLogFourthErrorBelow_of_endpoint_rows (by norm_num) hcover
+
 /-! The tail prime-counting obligation can equivalently be supplied in the
 published asymptotic form.  The adapter is proved in the analytic helper, so
 this theorem exposes the exact provider boundary without hiding a new axiom

@@ -350,6 +350,45 @@ theorem real_primeCounting_upper_of_integer_rows
     dusartPrimeCounting_upper_below_ten
     (dusartPrimeCounting_upper_of_integer_rows cover)
 
+/-! An interval row records one endpoint count bound and propagates it across
+the whole integer interval by monotonicity.  This is the compact form used by
+the finite certificate layer; its coverage list need not contain one row for
+every integer in `[10, 599)`. -/
+structure DusartPrimeCountingUpperIntegerIntervalRow where
+  left right : Nat
+  left_large : 10 ≤ left
+  left_le_right : left ≤ right
+  upper_endpoint : (Nat.primeCounting right : Real) ≤ dusartPiUpper left
+
+def DusartPrimeCountingUpperIntegerIntervalRowsCover
+    (rows : List DusartPrimeCountingUpperIntegerIntervalRow) : Prop :=
+  ∀ n : Nat, 10 ≤ n → n < 599 →
+    ∃ row ∈ rows, row.left ≤ n ∧ n ≤ row.right
+
+theorem dusartPrimeCounting_upper_of_integer_interval_rows
+    {rows : List DusartPrimeCountingUpperIntegerIntervalRow}
+    (cover : DusartPrimeCountingUpperIntegerIntervalRowsCover rows) :
+    ∀ n : Nat, 10 ≤ n → n < 599 →
+      (Nat.primeCounting n : Real) ≤ dusartPiUpper n := by
+  intro n hn10 hn599
+  obtain ⟨row, hrow, hleft, hright⟩ := cover n hn10 hn599
+  have hpi : (Nat.primeCounting n : Real) ≤
+      (Nat.primeCounting row.right : Real) := by
+    exact_mod_cast Nat.monotone_primeCounting hright
+  have hupper : dusartPiUpper row.left ≤ dusartPiUpper n :=
+    dusartPiUpper_monotoneOn (by exact_mod_cast row.left_large)
+      (by exact_mod_cast hn10) (by exact_mod_cast hleft)
+  exact hpi.trans (row.upper_endpoint.trans hupper)
+
+theorem real_primeCounting_upper_of_integer_interval_rows
+    {rows : List DusartPrimeCountingUpperIntegerIntervalRow}
+    (cover : DusartPrimeCountingUpperIntegerIntervalRowsCover rows) :
+    ∀ x : Real, 2 ≤ x → x < 599 →
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x :=
+  real_primeCounting_upper_of_integer_certificate
+    dusartPrimeCounting_upper_below_ten
+    (dusartPrimeCounting_upper_of_integer_interval_rows cover)
+
 /-! The exact Abel-summation identity underlying the prime-counting
 asymptotic.  Keeping the identity in this namespace makes the later
 remainder estimates explicit instead of treating `π` as an opaque provider. -/
