@@ -141,6 +141,24 @@ theorem hasDusartSymmetricThetaBoundsAbove_of_logFourthError
         _ = (12323 / 10000 : Real) * x * (Real.log x) ^ 3 := by ring
     exact htheta'.trans_lt hratio
 
+/-! Normalized paper form of the theta error estimate.  This is the exact
+`Eθ` statement used in Dusart's Theorem 4.2; the division by `x` is proved
+here rather than left to a definitional conversion at a certificate boundary. -/
+theorem dusartThetaTheorem4_2_normalized_of_logFourthError
+    {A X : Real} (hXpos : 0 < X)
+    (thetaError : HasThetaLogFourthErrorAbove A X) :
+    ∀ x : Real, X ≤ x →
+      |Chebyshev.theta x - x| / x ≤ A / (Real.log x) ^ (4 : ℕ) := by
+  intro x hx
+  have hx_pos : 0 < x := lt_of_lt_of_le hXpos hx
+  have herror := thetaError x hx
+  calc
+    |Chebyshev.theta x - x| / x ≤
+        (A * x / (Real.log x) ^ (4 : ℕ)) / x :=
+      div_le_div_of_nonneg_right herror hx_pos.le
+    _ = A / (Real.log x) ^ (4 : ℕ) := by
+      field_simp [hx_pos.ne']
+
 theorem hasDusartSymmetricThetaBounds_of_below_and_above
     {X : Real}
     (finite : HasDusartSymmetricThetaBoundsBelow X)
