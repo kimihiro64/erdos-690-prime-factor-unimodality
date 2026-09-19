@@ -29,6 +29,16 @@ theorem wangCrapis_shortIntervalPrefix :
     HasDusartShortIntervalPrimeBelow (89693 : Real) := by
   exact hasDusartShortIntervalPrimeBelow_3275_89693
 
+/-! Once the log-cubed tail is proved directly, this is the exact final
+short-interval assembly.  Keeping the tail as an explicit argument makes the
+remaining analytic obligation visible rather than smuggling it in through a
+Dusart theorem with hidden axioms. -/
+theorem wangCrapis_shortInterval_of_logCubedTail
+    (tail : HasLogCubedShortIntervalPrime) :
+    HasDusartShortIntervalPrime := by
+  exact hasDusartShortIntervalPrime_of_below_and_logCubed
+    wangCrapis_shortIntervalPrefix tail
+
 end
 
 end PrimeFactorUnimodality
