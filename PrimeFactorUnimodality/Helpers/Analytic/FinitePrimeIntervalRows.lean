@@ -998,6 +998,23 @@ theorem log_le_97_over_10_of_15527_le
   exact hmono.trans log_16317_le_97_over_10
 
 theorem log_le_116_over_10_of_89693_le
+theorem log_17154_le_39_over_4 :
+    Real.log (17154 : Real) ≤ (39 : Real) / 4 := by
+  apply (Real.log_le_iff_le_exp (by norm_num)).2
+  interval_decide
+
+theorem log_le_39_over_4_of_16319_le
+    {a : Nat} (ha : 16319 ≤ a) (ha17154 : a ≤ 17154) :
+    Real.log a ≤ (39 : Real) / 4 := by
+  have hmono : Real.log (a : Real) ≤ Real.log (17154 : Real) := by
+    have ha_pos : (0 : Real) < a := by
+      exact_mod_cast (show 0 < a by omega)
+    apply Real.log_le_log
+    · exact ha_pos
+    · exact_mod_cast ha17154
+  exact hmono.trans log_17154_le_39_over_4
+
+
     {a : Nat} (ha : (89693 : Nat) ≤ a) (ha100000 : a ≤ 100000) :
     Real.log a ≤ (116 : Real) / 10 := by
   have hmono : Real.log (a : Real) ≤ Real.log (100000 : Real) := by
@@ -1566,6 +1583,20 @@ theorem dusartPrimeRow_of_explicit_16317
     (by norm_num) hproduct
 
 theorem dusartPrimeRow_of_explicit_89693
+theorem dusartPrimeRow_of_explicit_17154
+    {p q : Nat}
+    (hq : q.Prime)
+    (hpq : p < q)
+    (hproduct : (q - p : Real) *
+        (2 * ((39 : Real) / 4) ^ 2) ≤ p)
+    (hleft_large : 16319 ≤ p)
+    (hleft_17154 : p ≤ 17154) :
+    DusartPrimeRow :=
+  dusartPrimeRow_of_explicit hq hpq (by omega)
+    (log_le_39_over_4_of_16319_le hleft_large hleft_17154)
+    (by norm_num) hproduct
+
+
     {p q : Nat}
     (hq : q.Prime)
     (hpq : p < q)
@@ -9234,6 +9265,512 @@ theorem dusartPrimeRows_15527_16318_chain :
 
 
 def dusartPrimeRows_3275_16318 : List DusartPrimeRow :=
+def dusartPrimeRows_16319_17158 : List DusartPrimeRow :=
+[
+    dusartPrimeRow_of_explicit_17154 (p := 16319) (q := 16333) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16333) (q := 16339) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16339) (q := 16349) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16349) (q := 16361) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16361) (q := 16363) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16363) (q := 16369) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16369) (q := 16381) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16381) (q := 16411) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16411) (q := 16417) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16417) (q := 16421) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16421) (q := 16427) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16427) (q := 16433) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16433) (q := 16447) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16447) (q := 16451) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16451) (q := 16453) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16453) (q := 16477) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16477) (q := 16481) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16481) (q := 16487) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16487) (q := 16493) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16493) (q := 16519) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16519) (q := 16529) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16529) (q := 16547) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16547) (q := 16553) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16553) (q := 16561) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16561) (q := 16567) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16567) (q := 16573) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16573) (q := 16603) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16603) (q := 16607) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16607) (q := 16619) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16619) (q := 16631) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16631) (q := 16633) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16633) (q := 16649) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16649) (q := 16651) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16651) (q := 16657) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16657) (q := 16661) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16661) (q := 16673) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16673) (q := 16691) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16691) (q := 16693) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16693) (q := 16699) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16699) (q := 16703) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16703) (q := 16729) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16729) (q := 16741) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16741) (q := 16747) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16747) (q := 16759) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16759) (q := 16763) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16763) (q := 16787) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16787) (q := 16811) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16811) (q := 16823) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16823) (q := 16829) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16829) (q := 16831) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16831) (q := 16843) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16843) (q := 16871) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16871) (q := 16879) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16879) (q := 16883) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16883) (q := 16889) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16889) (q := 16901) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16901) (q := 16903) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16903) (q := 16921) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16921) (q := 16927) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16927) (q := 16931) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16931) (q := 16937) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16937) (q := 16943) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16943) (q := 16963) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16963) (q := 16979) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16979) (q := 16981) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16981) (q := 16987) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16987) (q := 16993) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 16993) (q := 17011) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 17011) (q := 17021) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 17021) (q := 17027) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 17027) (q := 17029) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 17029) (q := 17033) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 17033) (q := 17041) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 17041) (q := 17047) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 17047) (q := 17053) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 17053) (q := 17077) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 17077) (q := 17093) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 17093) (q := 17099) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 17099) (q := 17107) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 17107) (q := 17117) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 17117) (q := 17123) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 17123) (q := 17137) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+
+    dusartPrimeRow_of_explicit_17154 (p := 17137) (q := 17159) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+]
+
+theorem dusartPrimeRows_16319_17158_chain :
+    DusartPrimeRowsChain 16319 17158 dusartPrimeRows_16319_17158 := by
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16319) (q := 16333) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16333) (q := 16339) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16339) (q := 16349) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16349) (q := 16361) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16361) (q := 16363) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16363) (q := 16369) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16369) (q := 16381) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16381) (q := 16411) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16411) (q := 16417) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16417) (q := 16421) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16421) (q := 16427) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16427) (q := 16433) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16433) (q := 16447) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16447) (q := 16451) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16451) (q := 16453) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16453) (q := 16477) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16477) (q := 16481) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16481) (q := 16487) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16487) (q := 16493) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16493) (q := 16519) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16519) (q := 16529) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16529) (q := 16547) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16547) (q := 16553) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16553) (q := 16561) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16561) (q := 16567) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16567) (q := 16573) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16573) (q := 16603) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16603) (q := 16607) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16607) (q := 16619) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16619) (q := 16631) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16631) (q := 16633) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16633) (q := 16649) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16649) (q := 16651) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16651) (q := 16657) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16657) (q := 16661) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16661) (q := 16673) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16673) (q := 16691) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16691) (q := 16693) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16693) (q := 16699) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16699) (q := 16703) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16703) (q := 16729) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16729) (q := 16741) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16741) (q := 16747) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16747) (q := 16759) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16759) (q := 16763) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16763) (q := 16787) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16787) (q := 16811) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16811) (q := 16823) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16823) (q := 16829) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16829) (q := 16831) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16831) (q := 16843) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16843) (q := 16871) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16871) (q := 16879) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16879) (q := 16883) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16883) (q := 16889) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16889) (q := 16901) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16901) (q := 16903) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16903) (q := 16921) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16921) (q := 16927) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16927) (q := 16931) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16931) (q := 16937) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16937) (q := 16943) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16943) (q := 16963) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16963) (q := 16979) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16979) (q := 16981) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16981) (q := 16987) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16987) (q := 16993) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 16993) (q := 17011) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 17011) (q := 17021) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 17021) (q := 17027) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 17027) (q := 17029) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 17029) (q := 17033) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 17033) (q := 17041) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 17041) (q := 17047) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 17047) (q := 17053) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 17053) (q := 17077) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 17077) (q := 17093) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 17093) (q := 17099) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 17099) (q := 17107) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 17107) (q := 17117) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 17117) (q := 17123) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 17123) (q := 17137) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_17154 (p := 17137) (q := 17159) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  exact DusartPrimeRowsChain.empty (by norm_num)
+
+
   dusartPrimeRows_3275_15526 ++ dusartPrimeRows_15527_16318
 
 theorem dusartPrimeRows_3275_16318_chain :
@@ -9242,6 +9779,15 @@ theorem dusartPrimeRows_3275_16318_chain :
     dusartPrimeRows_3275_15526_chain dusartPrimeRows_15527_16318_chain
 
 def DusartPrimeRowsCoverBelow (rows : List DusartPrimeRow) : Prop :=
+def dusartPrimeRows_3275_17158 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_16318 ++ dusartPrimeRows_16319_17158
+
+theorem dusartPrimeRows_3275_17158_chain :
+    DusartPrimeRowsChain 3275 17158 dusartPrimeRows_3275_17158 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_16318_chain dusartPrimeRows_16319_17158_chain
+
+
   ∀ x : Real, 3275 ≤ x → x ≤ 89693 →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
@@ -9394,6 +9940,12 @@ theorem dusartPrimeRows_3275_16318_cover :
     dusartPrimeRows_3275_16318_chain (by norm_num)
 
 theorem dusartPrimeRowsCoverBelow_of_chain
+theorem dusartPrimeRows_3275_17158_cover :
+    DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_17158 (17158 : Real) := by
+  exact dusartPrimeRowsCoverUpTo_of_chain
+    dusartPrimeRows_3275_17158_chain (by norm_num)
+
+
     {rows : List DusartPrimeRow}
     (chain : DusartPrimeRowsChain 3275 89693 rows) :
     DusartPrimeRowsCoverBelow rows := by
