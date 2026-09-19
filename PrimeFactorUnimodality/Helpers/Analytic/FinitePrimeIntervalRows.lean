@@ -1224,16 +1224,8 @@ theorem finitePrimeGapLogRows_89693_89758_chain :
 theorem finitePrimeGapLogRows_89693_89758_cover :
     FinitePrimeGapLogRowsCoverUpTo
       finitePrimeGapLogRows_89693_89758 (89758 : Real) := by
-  intro x hx hX
-  by_cases hsmall : x ≤ (89752 : Real)
-  · obtain ⟨row, hrow, hleft, hright⟩ :=
-      finitePrimeGapLogRows_89693_89752_cover x hx hsmall
-    exact ⟨row, by simp [finitePrimeGapLogRows_89693_89758, hrow],
-      hleft, hright⟩
-  · refine ⟨finitePrimeGapLogRow_89753_89758, ?_, ?_, hX⟩
-    · simp [finitePrimeGapLogRows_89693_89758]
-    · norm_num
-      linarith
+  exact finitePrimeGapLogRowsCoverUpTo_of_chain
+    finitePrimeGapLogRows_89693_89758_chain (by norm_num)
 
 theorem hasLogCubedShortIntervalPrimeBelow_89693_89752 :
     HasLogCubedShortIntervalPrimeBelow (89752 : Real) :=
