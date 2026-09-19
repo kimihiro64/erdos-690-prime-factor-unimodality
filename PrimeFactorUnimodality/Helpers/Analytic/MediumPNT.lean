@@ -335,5 +335,27 @@ theorem exists_mediumPNT_all_dusart_tail_inputs
     obtain ⟨q, hq, hxq, hupper⟩ := hinterval x (hYZ.trans hx)
     exact ⟨q, hq, hxq, hupper⟩
 
+/-! The Abel core is not an additional analytic assumption.  Once the finite
+theta remainder is supplied below the chosen cutoff, the explicit integral
+estimate proves the core budget, and the source-level PNT supplies every
+unbounded Dusart input.  This is the non-certificate bridge used by the
+eventual all-`k` assembly. -/
+theorem exists_mediumPNT_all_dusart_tail_inputs_of_finite_theta_error
+    {A X : Real} (hX : (4e18 : Real) ≤ X)
+    (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
+    (finiteThetaError : HasThetaLogFourthErrorBelow A X) :
+    ∃ Y : Real, X ≤ Y ∧
+      HasDusartPublishedPrimeCountingBoundsAbove Y ∧
+      HasThetaLogFourthErrorAbove (648 / 1000 : Real) Y ∧
+      (∀ x : Real, Y ≤ x →
+        ∃ q : Nat, q.Prime ∧ x < q ∧
+          (q : Real) ≤ x + x / (Real.log x) ^ 3) := by
+  have hcore : |primeCountingCore X| ≤
+      (3 / 5 : Real) * X / Real.log X ^ 4 :=
+    primeCountingCore_abs_le_at_large_cutoff_of_theta_error
+      hX hA0 hA1 finiteThetaError
+  exact exists_mediumPNT_all_dusart_tail_inputs hX (by norm_num) (by norm_num)
+    hcore
+
 end
 end PrimeFactorUnimodality
