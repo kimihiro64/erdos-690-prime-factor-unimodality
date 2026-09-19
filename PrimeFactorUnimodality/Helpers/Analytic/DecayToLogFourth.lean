@@ -162,6 +162,31 @@ def HasThetaLogRpowDecay (C c α X : Real) : Prop :=
     |Chebyshev.theta x - x| ≤
       C * x * Real.exp (-c * (Real.log x) ^ α)
 
+/-! The source-level decay bridge is kept separate from the numerical
+prime-power correction.  Once an independently proved correction has the
+same r-power envelope, the psi estimate transfers by the triangle inequality
+without passing through a pre-packaged Dusart theorem. -/
+theorem hasThetaLogRpowDecay_of_psiLogRpowDecay_of_correction
+    {C D c α X : Real}
+    (psiDecay : HasPsiLogRpowDecay C c α X)
+    (correction : ∀ x : Real, X ≤ x →
+      |Chebyshev.theta x - Chebyshev.psi x| ≤
+        D * x * Real.exp (-c * (Real.log x) ^ α)) :
+    HasThetaLogRpowDecay (C + D) c α X := by
+  intro x hx
+  calc
+    |Chebyshev.theta x - x| ≤
+        |Chebyshev.theta x - Chebyshev.psi x| +
+          |Chebyshev.psi x - x| := by
+      rw [show Chebyshev.theta x - x =
+        (Chebyshev.theta x - Chebyshev.psi x) +
+          (Chebyshev.psi x - x) by ring]
+      exact abs_add_le _ _
+    _ ≤ D * x * Real.exp (-c * (Real.log x) ^ α) +
+          C * x * Real.exp (-c * (Real.log x) ^ α) :=
+      add_le_add (correction x hx) (psiDecay x hx)
+    _ = (C + D) * x * Real.exp (-c * (Real.log x) ^ α) := by ring
+
 /-! A direct classical-bound interface for theta.  The envelope hypothesis is
 kept explicit: proving it is part of the numerical zero-free-region argument,
 not an imported Dusart estimate. -/
