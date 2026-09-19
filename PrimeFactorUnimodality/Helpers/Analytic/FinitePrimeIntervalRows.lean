@@ -13154,6 +13154,18 @@ theorem dusartPrimeRowsCoverUpTo_of_chain
   intro x hx hX
   exact dusartPrimeRowsCover_of_chain chain x hx (hX.trans hXbound)
 
+theorem dusartPrimeRowsCoverUpTo_append
+    {m X : Real} {left right : List DusartPrimeRow}
+    (hleft : DusartPrimeRowsCoverUpTo left m)
+    (hright : DusartPrimeRowsCoverUpTo right X) :
+    DusartPrimeRowsCoverUpTo (left ++ right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+
 theorem dusartPrimeRows_3275_3802_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_3802 (3802 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
