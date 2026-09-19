@@ -326,6 +326,67 @@ theorem logCubedUpper_monotoneOn :
     have log_four_pos : 0 < (Real.log x) ^ 4 := by positivity
     nlinarith [mul_pos log_sq_pos (by nlinarith [log_gt_three])]
 
+def logCubedWidth (x : Real) : Real :=
+  x / (Real.log x) ^ 3
+
+theorem logCubedWidth_monotoneOn :
+    MonotoneOn logCubedWidth (Set.Ici (3275 : Real)) := by
+  apply monotoneOn_of_deriv_nonneg (convex_Ici (3275 : Real))
+  · have hlog : ContinuousOn (fun y : Real => Real.log y)
+        (Set.Ici (3275 : Real)) := by
+      exact continuousOn_id.log (by
+        intro x hx
+        have hx_pos : (0 : Real) < x := by
+          norm_num at hx ⊢
+          linarith
+        simpa only [id_eq] using hx_pos.ne')
+    exact continuousOn_id.div (hlog.pow 3) (by
+      intro x hx
+      exact pow_ne_zero 3
+        (Real.log_pos (by norm_num at hx ⊢; linarith)).ne')
+  · have hlog : DifferentiableOn ℝ (fun y : Real => Real.log y)
+        (interior (Set.Ici (3275 : Real))) := by
+      exact differentiableOn_id.log (by
+        intro x hx
+        have hx' : (3275 : Real) < x := by
+          simpa only [interior_Ici, Set.mem_Ioi] using hx
+        simpa only [id_eq] using (show x ≠ 0 by linarith))
+    exact differentiableOn_id.div (hlog.pow 3) (by
+      intro x hx
+      exact pow_ne_zero 3
+        (Real.log_pos (by norm_num at hx ⊢; linarith)).ne')
+  · intro x hx
+    simp only [interior_Ici, Set.mem_Ioi] at hx
+    have x_pos : 0 < x := by linarith
+    have x_ne : x ≠ 0 := ne_of_gt x_pos
+    have log_pos : 0 < Real.log x := Real.log_pos (by linarith)
+    have log_gt_three : (3 : Real) < Real.log x := by
+      apply (Real.lt_log_iff_exp_lt x_pos).2
+      have exp_three : Real.exp 3 < (3 : Real) ^ 3 := by
+        calc
+          Real.exp 3 = Real.exp 1 ^ 3 := by
+            rw [show (3 : Real) = (3 : ℕ) * 1 by norm_num,
+              Real.exp_nat_mul]
+          _ < (3 : Real) ^ 3 := by
+            exact pow_lt_pow_left₀ Real.exp_one_lt_three
+              (Real.exp_pos 1).le (by norm_num)
+      have hx' : (3 : Real) ^ 3 < x := by
+        have h3275 : (3275 : Real) < x := by
+          simpa only [interior_Ici, Set.mem_Ioi] using hx
+        norm_num at ⊢
+        linarith
+      exact exp_three.trans hx'
+    have log_cube_pos : 0 < (Real.log x) ^ 3 := by positivity
+    have hden_ne : (Real.log x) ^ 3 ≠ 0 := ne_of_gt log_cube_pos
+    have hlog := Real.hasDerivAt_log x_ne
+    have hderiv := (hasDerivAt_id x).div (hlog.pow 3) hden_ne
+    simp only [id_eq] at hderiv
+    change 0 ≤ deriv (id / Real.log ^ 3) x
+    rw [hderiv.deriv]
+    field_simp [x_ne, log_pos.ne']
+    have log_sq_pos : 0 < (Real.log x) ^ 2 := by positivity
+    nlinarith [mul_pos log_sq_pos (by nlinarith [log_gt_three])]
+
 def dusartUpper (x : Real) : Real :=
   x * (1 + (1 / 2 : Real) / (Real.log x) ^ 2)
 
