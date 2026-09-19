@@ -652,4 +652,10 @@ theorem dusartSmallUpperIntervalRows_cover :
       dusartSmallUpperIntervalRows] <;>
     omega
 
+theorem dusartSmallUpperIntervalRows_provide :
+    ∀ x : Real, 2 ≤ x → x < 599 →
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x := by
+  exact real_primeCounting_upper_of_integer_interval_rows
+    dusartSmallUpperIntervalRows_cover
+
 end PrimeFactorUnimodality
