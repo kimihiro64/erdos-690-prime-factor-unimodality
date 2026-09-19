@@ -521,6 +521,34 @@ theorem mediumPNTSelectedFiniteInputs_of_lists
   exact mediumPNTSelectedFiniteInputs_of_cutoff hXY h4Y thetaError
     finitePrimeCounting finiteTheta finiteShortInterval
 
+/-! Correct split-range adapter for the finite Dusart endpoint table.  The
+published endpoint inequalities begin at the selected cutoff, while the
+finite prefix supplies the theta estimate below that cutoff. -/
+theorem mediumPNTSelectedFiniteInputs_of_split_lists
+    {A X Y : Real}
+    (hXY : X ≤ Y) (h4Y : (4e18 : Real) ≤ Y)
+    {primeRows : List DusartPrimeCountingEndpointRow}
+    (primeCover : DusartPrimeCountingEndpointRowsCoverFrom599 primeRows Y)
+    {thetaRows : List DusartThetaEndpointRow}
+    (thetaPrefix : HasDusartSymmetricThetaBoundsBelow (4e18 : Real))
+    (thetaCover : DusartThetaEndpointRowsCoverFrom thetaRows (4e18 : Real) Y)
+    {logRows : List LogCubedPrimeRow}
+    (logCover : LogCubedPrimeRowsCoverUpTo logRows Y)
+    (thetaError : HasThetaLogFourthError A Y) :
+    MediumPNTSelectedFiniteInputs A X := by
+  have finitePrimeCounting :
+      HasDusartRealPrimeCountingBoundsBelow Y :=
+    hasDusartRealPrimeCountingBoundsBelow_of_endpoint_rows
+      primeCover dusartSmallUpperIntervalRows_provide
+  have finiteTheta : HasDusartSymmetricThetaBoundsBelow Y :=
+    hasDusartSymmetricThetaBoundsBelow_of_prefix_and_endpoint_rows
+      (by norm_num) thetaPrefix thetaCover
+  have finiteShortInterval : HasLogCubedShortIntervalPrimeBelow Y :=
+    hasLogCubedShortIntervalPrimeBelow_of_indexed_rows
+      (logCubedPrimeIndexedCover_of_list logCover)
+  exact mediumPNTSelectedFiniteInputs_of_cutoff hXY h4Y thetaError
+    finitePrimeCounting finiteTheta finiteShortInterval
+
 theorem completeClassification_of_mediumPNT_and_selected_finite_inputs
     {A C X : Real} (hX : (4e18 : Real) ≤ X)
     (hA0 : 0 ≤ A) (hA1 : A ≤ 1)
