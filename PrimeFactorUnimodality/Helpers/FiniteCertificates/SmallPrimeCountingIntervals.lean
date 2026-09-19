@@ -1,4 +1,4 @@
-import Mathlib.Tactic.NormNum
+import Mathlib.Tactic
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitPrimeCounting
 
 set_option autoImplicit false
@@ -643,5 +643,13 @@ def dusartSmallUpperIntervalRows :
   , dusartSmallUpperIntervalRow547_568
   , dusartSmallUpperIntervalRow569_592
   , dusartSmallUpperIntervalRow593_598 ]
+
+theorem dusartSmallUpperIntervalRows_cover :
+    DusartPrimeCountingUpperIntegerIntervalRowsCover dusartSmallUpperIntervalRows := by
+  intro n hn10 hn599
+  interval_cases n <;>
+    simp [DusartPrimeCountingUpperIntegerIntervalRowsCover,
+      dusartSmallUpperIntervalRows] <;>
+    omega
 
 end PrimeFactorUnimodality
