@@ -341,4 +341,64 @@ theorem dusartSmallUpperIntervalRow277_282 :
   · rw [hcount]
     norm_num [U]
 
+theorem dusartSmallUpperIntervalRow283_292 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  have hcount : Nat.primeCounting 292 = 61 := by decide
+  apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
+    (left := 283) (right := 292) (a := 5) (b := 2) (c := 0)
+  · norm_num
+  · norm_num
+  · norm_num
+  · norm_num
+  · rw [hcount]
+    norm_num
+
+theorem dusartSmallUpperIntervalRow293_310 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  have hcount : Nat.primeCounting 310 = 63 := by decide
+  apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
+    (left := 293) (right := 310) (a := 1) (b := 1) (c := 0) (d := 2)
+  · norm_num
+  · norm_num
+  · norm_num
+  · norm_num
+  · rw [hcount]
+    norm_num
+
+theorem dusartSmallUpperIntervalRow311_330 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  have hcount : Nat.primeCounting 330 = 66 := by decide
+  apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
+    (left := 311) (right := 330) (a := 0) (b := 2) (c := 1) (d := 1)
+  · norm_num
+  · norm_num
+  · norm_num
+  · norm_num
+  · rw [hcount]
+    norm_num
+
+theorem dusartSmallUpperIntervalRow331_348 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  have hcount : Nat.primeCounting 348 = 69 := by decide
+  apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
+    (left := 331) (right := 348) (a := 4) (b := 1) (c := 0) (d := 1)
+  · norm_num
+  · norm_num
+  · norm_num
+  · norm_num
+  · rw [hcount]
+    norm_num
+
+theorem dusartSmallUpperIntervalRow349_366 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  have hcount : Nat.primeCounting 366 = 72 := by decide
+  apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
+    (left := 349) (right := 366) (a := 1) (b := 0) (c := 2) (d := 1)
+  · norm_num
+  · norm_num
+  · norm_num
+  · norm_num
+  · rw [hcount]
+    norm_num
+
 end PrimeFactorUnimodality
