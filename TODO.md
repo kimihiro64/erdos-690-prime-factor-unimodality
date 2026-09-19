@@ -11,6 +11,10 @@
   Fermat-residue archives.
 - [ ] Finish and build the generated finite prime-prefix, reciprocal-sum, and
   record-twin certificates without `native_decide`.
+- [ ] Complete the non-certificate and certificate redesign work in
+  `LEAN_COMPLETION_HANDOFF.md`.  In particular, split the finite interval
+  monolith before replay and replace the 2,175-file record-gap owner forest
+  with compact owner rows using `RecordGapOwnerRows.lean`.
 - [ ] Extend the record-gap certificate to the full published block and raise
   the finite record range to the source proof's cutoff `k = 8,600,001`.
   The closed finite descent range is currently `k ≤ 7,430,000`; it overlaps

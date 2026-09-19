@@ -148,9 +148,40 @@ jobs:
       - name: Test the Landrun wrapper
         run: ./test/landrun_wrapper_test.sh
 
+  lean-foundations:
+    name: Elaborate non-certificate Lean foundations
+    needs: [metadata-and-boundary, python]
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          build: false
+          lint: false
+      - name: Elaborate analytic foundations one target at a time
+        run: |
+          set -euo pipefail
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ExplicitPrimeCounting
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Proof.LargeRange.UniformTail
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Proof.CompleteClassificationReduction
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Proof.LargeRange.RecordGapOwnerRows
+
   build:
-    name: Build with Lean
-    needs: [release_version, metadata-and-boundary, python]
+    name: Replay certificates and build with Lean
+    needs: [release_version, metadata-and-boundary, python, lean-foundations]
     runs-on: ubuntu-latest
     timeout-minutes: 180
     steps:
