@@ -957,7 +957,7 @@ theorem completeClassification_of_full_record_unit_logFourth_inputs
 /-! Exact fixed-cutoff certificate boundary for the paper's all-`k` proof.
 The theta rows certify only the finite Dusart bounds; `thetaError` is the
 separate log-fourth tail estimate used above the cutoff. -/
-structure DusartFiniteCertificate (A C : Real) : Prop where
+private structure DusartFiniteCertificate (A C : Real) : Prop where
   primeCountingRows : List DusartPrimeCountingEndpointRow
   primeCountingCover :
     DusartPrimeCountingEndpointRowsCoverFrom599
@@ -978,7 +978,7 @@ structure DusartFiniteCertificate (A C : Real) : Prop where
     C * (4e18 : Real) / Real.log (4e18 : Real) ^ 4
   thetaError : HasThetaLogFourthError A (4e18 : Real)
 
-theorem completeClassification_of_dusart_finite_certificate
+private theorem completeClassification_of_dusart_finite_certificate
     {A C : Real} (certificate : DusartFiniteCertificate A C) :
     CompleteClassification := by
   exact completeClassification_of_full_record_unit_logFourth_inputs

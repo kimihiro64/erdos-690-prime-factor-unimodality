@@ -46,13 +46,6 @@ theorem PrimeFactorUnimodality.completeClassification_of_explicit_dusart_inputs
   exact PrimeFactorUnimodality.completeClassification_of_explicit_dusart_inputs
     primeCountingBounds thetaBounds shortInterval
 
-theorem PrimeFactorUnimodality.completeClassification_of_dusart_finite_certificate
-    {A C : Real}
-    (certificate : PrimeFactorUnimodality.DusartFiniteCertificate A C) :
-    PrimeFactorUnimodality.CompleteClassification := by
-  exact PrimeFactorUnimodality.completeClassification_of_dusart_finite_certificate
-    certificate
-
 theorem PrimeFactorUnimodality.completeClassification_of_dusart_split_finite_certificate
     {A C x₀ R : Real}
     (certificate :
