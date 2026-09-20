@@ -226,11 +226,11 @@ theorem psi_sub_theta_le_of_three_root_bounds
   nlinarith [hdecomp, h2, h3, h5]
 
 theorem fifth_rpow_le_three_fifths_cube_rpow
-    {x : Real} (hx : (121 : Real) ≤ x) :
+    {x : Real} (hx : (64 : Real) ≤ x) :
     x ^ (1 / 5 : Real) ≤ (3 : Real) / 5 * x ^ (1 / 3 : Real) := by
   have hx_pos : 0 < x := by linarith
   have hpow : ((13 : Real) / 10) ^ (15 : Nat) ≤ x := by
-    have hnum : ((13 : Real) / 10) ^ (15 : Nat) ≤ 121 := by norm_num
+    have hnum : ((13 : Real) / 10) ^ (15 : Nat) ≤ 64 := by norm_num
     exact hnum.trans hx
   have hlog := Real.log_le_log
     (by positivity : (0 : Real) < ((13 : Real) / 10) ^ (15 : Nat)) hpow
@@ -262,7 +262,7 @@ theorem fifth_rpow_le_three_fifths_cube_rpow
 supplied.  The root estimate is kept explicit so this theorem records the
 actual prime-power argument rather than importing Proposition 3.2. -/
 theorem dusart_proposition_3_2_of_uniform_strict_root_bound
-    {x : Real} (hx : (121 : Real) ≤ x)
+    {x : Real} (hx : (64 : Real) ≤ x)
     (hroot : ∀ y : Real, 0 ≤ y →
       Chebyshev.psi y < (100007 : Real) / 100000 * y) :
     Chebyshev.psi x - Chebyshev.theta x <
@@ -294,7 +294,7 @@ check below `121` and the prime-power argument above that endpoint; keeping
 those two inputs separate makes the exact scope of the remaining finite check
 visible to the final provider. -/
 theorem dusart_proposition_3_2_of_uniform_strict_root_bound_all
-    (small : ∀ x : Real, 0 ≤ x → x < 121 →
+    (small : ∀ x : Real, 0 ≤ x → x < 64 →
       Chebyshev.psi x - Chebyshev.theta x <
         (100007 : Real) / 100000 * Real.sqrt x +
           (178 : Real) / 100 * x ^ (1 / 3 : Real))
@@ -305,7 +305,7 @@ theorem dusart_proposition_3_2_of_uniform_strict_root_bound_all
         (100007 : Real) / 100000 * Real.sqrt x +
           (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
   intro x hx
-  by_cases hsmall : x < 121
+  by_cases hsmall : x < 64
   · exact small x hx hsmall
   · exact dusart_proposition_3_2_of_uniform_strict_root_bound
       (le_of_not_gt hsmall) hroot
@@ -680,7 +680,7 @@ theorem dusart_proposition_3_2_of_finite_lemma_and_theta_upper
   · exact theta_error
 
 theorem dusart_gap_upper_from_uniform_root_bound
-    {x : Real} (hx : (121 : Real) ≤ x)
+    {x : Real} (hx : (64 : Real) ≤ x)
     (hroot : ∀ y : Real, 0 ≤ y →
       Chebyshev.psi y ≤ (100007 : Real) / 100000 * y) :
     Chebyshev.psi x - Chebyshev.theta x ≤
@@ -761,7 +761,7 @@ theorem psi_upper_of_strict_theta_upper_at_large
   exact hsum.trans_le hbound
 
 theorem dusart_gap_upper_from_three_large_theta_bounds
-    {x : Real} (hx : (121 : Real) ≤ x)
+    {x : Real} (hx : (64 : Real) ≤ x)
     (h2cut : (4e18 : Real) ≤ x ^ (2 : Real)⁻¹)
     (h3cut : (4e18 : Real) ≤ x ^ (3 : Real)⁻¹)
     (h5cut : (4e18 : Real) ≤ x ^ (5 : Real)⁻¹)
@@ -812,7 +812,7 @@ theorem dusart_gap_upper_from_three_large_theta_bounds
   nlinarith [hdecomp', hscaled', hcoeff]
 
 theorem dusart_gap_upper_from_three_strict_large_theta_bounds
-    {x : Real} (hx : (121 : Real) ≤ x)
+    {x : Real} (hx : (64 : Real) ≤ x)
     (h2cut : (4e18 : Real) ≤ x ^ (2 : Real)⁻¹)
     (h3cut : (4e18 : Real) ≤ x ^ (3 : Real)⁻¹)
     (h5cut : (4e18 : Real) ≤ x ^ (5 : Real)⁻¹)
