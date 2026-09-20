@@ -865,6 +865,30 @@ def dusartThetaTable6_6Coefficients :
 theorem dusartThetaTable6_6Coefficients_length :
     dusartThetaTable6_6Coefficients.length = 35 := by decide
 
+def DusartThetaTableCoefficientRow.toRelativeRow
+    (row : DusartThetaTableCoefficientRow)
+    (hleft : 2 ≤ row.left) (hle : row.left ≤ row.right)
+    (hlower : ∀ x : Real, (row.left : Real) ≤ x → x ≤ row.right →
+      row.lower_coeff * x ≤ Chebyshev.theta x)
+    (hupper : ∀ x : Real, (row.left : Real) ≤ x → x ≤ row.right →
+      Chebyshev.theta x ≤ row.upper_coeff * x)
+    (hupper_error : row.upper_coeff - 1 < (1 : Real) / 36260)
+    (hlower_error : ∀ x : Real, 2 < x → (row.left : Real) ≤ x →
+      x ≤ row.right →
+      (1 - row.lower_coeff) * x <
+        (12323 / 10000 : Real) * x / Real.log x) :
+    DusartThetaRelativeRow :=
+  { left := row.left
+    right := row.right
+    left_large := hleft
+    left_le_right := hle
+    lower_coeff := row.lower_coeff
+    upper_coeff := row.upper_coeff
+    lower_bound := hlower
+    upper_bound := hupper
+    upper_coeff_error := hupper_error
+    lower_coeff_error := hlower_error }
+
 def dusartThetaRelativeRow_to_bounds
     (row : DusartThetaRelativeRow) : DusartThetaBoundsRow := by
   refine {
