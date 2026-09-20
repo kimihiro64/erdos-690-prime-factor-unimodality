@@ -541,6 +541,103 @@ theorem dusart_floor_log_div_two_le_rpow
     nlinarith
   exact hfloor.trans hcount
 
+/-! Large-range form of Dusart's Lemma 3.3.  The remaining finite range is
+handled separately by the paper's direct computation; this theorem contains
+the complete analytic tail argument. -/
+theorem dusart_lemma_3_3_large
+    {x : Real} (hx : (10 ^ 11 : Real) ^ 3 ≤ x)
+    (theta_upper : ∀ y : Real, 0 < y →
+      Chebyshev.theta y < (1000081 : Real) / 1000000 * y) :
+    Chebyshev.psi x - Chebyshev.theta x -
+        Chebyshev.theta (Real.sqrt x) <
+      (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  have hx9 : (9 : Real) ≤ x := by
+    have : (9 : Real) ≤ (10 ^ 11 : Real) ^ 3 := by norm_num
+    exact this.trans hx
+  have hdecomp := dusart_lemma_3_3_prime_power_decomposition hx9
+  let N : Nat := ⌊Real.log x / Real.log 2⌋₊
+  have hN3 : 3 ≤ N := by
+    dsimp [N]
+    apply Nat.le_floor
+    have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
+    apply (le_div_iff₀ hlog2).2
+    have hlog : Real.log 8 ≤ Real.log x := by
+      apply Real.log_le_log (by norm_num)
+      exact (show (8 : Real) ≤ (10 ^ 11 : Real) ^ 3 by norm_num).trans hx
+    rw [show (8 : Real) = 2 ^ (3 : Nat) by norm_num,
+      Real.log_pow] at hlog
+    norm_num at hlog ⊢
+    linarith
+  have hsum_rpow := dusart_prime_power_rpow_sum_le
+    (x := x) (by linarith [hx]) hN3
+  have hcount := dusart_floor_log_div_two_le_rpow hx
+  have hxpos : 0 < x := by positivity
+  have htail : ((N : Real) - 3) * x ^ (1 / (4 : Real)) ≤
+      (7 : Real) / 10 * x ^ (1 / (3 : Real)) := by
+    have hNnonneg : 0 ≤ (N : Real) - 3 := by exact_mod_cast Nat.zero_le (N - 3)
+    have hpow4 : 0 ≤ x ^ (1 / (4 : Real)) := by positivity
+    calc
+      ((N : Real) - 3) * x ^ (1 / (4 : Real)) ≤
+          (N : Real) * x ^ (1 / (4 : Real)) := by
+        gcongr
+        norm_num
+      _ ≤ ((7 : Real) / 10 * x ^ (1 / (12 : Real))) *
+          x ^ (1 / (4 : Real)) :=
+        mul_le_mul_of_nonneg_right hcount hpow4
+      _ = (7 : Real) / 10 *
+          (x ^ (1 / (12 : Real)) * x ^ (1 / (4 : Real))) := by ring
+      _ = (7 : Real) / 10 * x ^ (1 / (3 : Real)) := by
+        rw [← Real.rpow_add hxpos]
+        congr 1
+        norm_num
+  have hsum17 :
+      ∑ k ∈ Finset.Icc 3 N, x ^ (1 / (k : Real)) ≤
+        (17 : Real) / 10 * x ^ (1 / (3 : Real)) := by
+    calc
+      ∑ k ∈ Finset.Icc 3 N, x ^ (1 / (k : Real)) ≤
+          x ^ (1 / (3 : Real)) +
+            ((N : Real) - 3) * x ^ (1 / (4 : Real)) := hsum_rpow
+      _ ≤ x ^ (1 / (3 : Real)) +
+          (7 : Real) / 10 * x ^ (1 / (3 : Real)) :=
+        add_le_add le_rfl htail
+      _ = (17 : Real) / 10 * x ^ (1 / (3 : Real)) := by ring
+  have htheta_sum :
+      (∑ k ∈ Finset.Icc 3 N,
+        Chebyshev.theta (x ^ (1 / (k : Real)))) <
+      (1000081 : Real) / 1000000 *
+        (∑ k ∈ Finset.Icc 3 N, x ^ (1 / (k : Real))) := by
+    calc
+      (∑ k ∈ Finset.Icc 3 N,
+          Chebyshev.theta (x ^ (1 / (k : Real)))) <
+          ∑ k ∈ Finset.Icc 3 N,
+            (1000081 : Real) / 1000000 * x ^ (1 / (k : Real)) := by
+        apply Finset.sum_lt_sum_of_nonempty
+        · simp [hN3]
+        · intro k hk
+          apply theta_upper
+          positivity
+      _ = (1000081 : Real) / 1000000 *
+          (∑ k ∈ Finset.Icc 3 N, x ^ (1 / (k : Real))) := by
+        rw [Finset.mul_sum]
+  have hcoef :
+      (1000081 : Real) / 1000000 * (17 / 10 : Real) <
+        (1777745 : Real) / 1000000 := by norm_num
+  dsimp [N] at hdecomp htheta_sum hsum17
+  calc
+    Chebyshev.psi x - Chebyshev.theta x -
+        Chebyshev.theta (Real.sqrt x) =
+      ∑ k ∈ Finset.Icc 3 N,
+        Chebyshev.theta (x ^ (1 / (k : Real))) := hdecomp
+    _ < (1000081 : Real) / 1000000 *
+        (∑ k ∈ Finset.Icc 3 N, x ^ (1 / (k : Real))) := htheta_sum
+    _ ≤ (1000081 : Real) / 1000000 *
+        ((17 : Real) / 10 * x ^ (1 / (3 : Real))) :=
+      mul_le_mul_of_nonneg_left hsum17 (by norm_num)
+    _ = ((1000081 : Real) / 1000000 * (17 / 10 : Real)) *
+        x ^ (1 / (3 : Real)) := by ring
+    _ < (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) :=
+      mul_lt_mul_of_pos_right hcoef (by positivity)
+
 theorem dusart_gap_upper_from_uniform_root_bound
     {x : Real} (hx : (121 : Real) ≤ x)
     (hroot : ∀ y : Real, 0 ≤ y →
