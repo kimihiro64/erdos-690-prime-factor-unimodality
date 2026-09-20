@@ -15,7 +15,7 @@ Implementation owner: Luna.
 
 This module must prove and export
 `PrimeFactorUnimodality.wangCrapis_thetaBounds : HasDusartThetaBounds`
-from the repository's sorry-free zero-free-region, Chebyshev, logarithm-envelope,
+from the repository's proved zero-free-region, Chebyshev, logarithm-envelope,
 and compact finite low-endpoint machinery.  It must not import a prepackaged
 Dusart theorem or add an assumption-backed provider.
 
@@ -75,7 +75,7 @@ theorem wangCrapis_thetaBounds_of_rpowDecay
   exact wangCrapis_thetaBounds_of_logFourthTail
     hYpos hlogY (finite Y hXY) (by norm_num) hA thetaError
 
-/-! The same assembly specialized to the project's sorry-free medium-PNT
+/-! The same assembly specialized to the project's medium-PNT
 adapter.  The only remaining input is the bounded endpoint verification;
 the unbounded analytic tail is supplied by the proved source-level PNT
 argument, not by a Dusart theorem imported as an assumption. -/
