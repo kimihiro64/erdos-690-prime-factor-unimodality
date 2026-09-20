@@ -454,3 +454,12 @@ Proposition 3.1, and the lower-theta prefix), plus the explicit zero-free
 region/error proof that supplies the `648 / 1000` tail. These are not
 discharged by the adapters above and must remain open until their underlying
 arguments or compact reusable row assemblers are formalized.
+
+The first unresolved numerical analytic chain is upstream of `ZetaZeroFree`:
+`ZetaLowerBnd` constructs its region parameter from the existential constants
+in `ZetaLowerBound3` and `Zeta_diff_Bnd`; those in turn use
+`ZetaUpperBnd`, `ZetaNear1BndExact`, and `ZetaDerivUpperBnd`. The source
+proofs establish positivity but do not expose rational lower bounds for the
+region parameter. A direct fixed-Dusart tail proof must therefore strengthen
+that chain at its first numerical bound, rather than choosing a fixed value
+after `ZetaZeroFree` has already hidden the parameter existentially.
