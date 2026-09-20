@@ -52,6 +52,27 @@ theorem wangCrapis_theta_upper_e28_from_strict_paper_inputs
     Chebyshev.theta x - x < x / 36260 := by
   exact dusart_theta_upper_e28_step_strict hx hx_exp hpsi hgap
 
+/-! Global Proposition 5.1 in the three ranges used by Dusart: the finite
+Table 6.4 range, the explicit middle range ending at `exp 28`, and the
+large-range theta-error tail. -/
+theorem dusart_proposition_5_1_of_three_ranges
+    (finite : ∀ x : Real, 0 < x →
+      x ≤ (8e11 : Real) →
+      Chebyshev.theta x - x < x / 36260)
+    (middle : ∀ x : Real, (8e11 : Real) ≤ x →
+      x ≤ Real.exp 28 →
+      Chebyshev.theta x - x < x / 36260)
+    (tail : ∀ x : Real, Real.exp 28 ≤ x →
+      Chebyshev.theta x - x < x / 36260) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.theta x - x < x / 36260 := by
+  intro x hx
+  by_cases hfinite : x ≤ (8e11 : Real)
+  · exact finite x hx hfinite
+  · by_cases hmiddle : x ≤ Real.exp 28
+    · exact middle x (le_of_not_ge hfinite) hmiddle
+    · exact tail x (le_of_not_ge hmiddle)
+
 theorem wangCrapis_large_root_gap_from_strict_theta_error
     {x : Real} (hx : (4e18 : Real) ^ 2 ≤ x)
     (herror : ∀ y : Real, (4e18 : Real) ≤ y →
