@@ -504,10 +504,12 @@ pole-distance estimate.
 proof body and replaces the package's existential logarithmic-derivative input
 with `zetaLogDeriv_explicit_bounded_and_holo`.  The project `MediumPNT.lean`
 adapter now consumes `explicitMediumPNT`.  This closes the zeta-bound input
-boundary, but it does not yet discharge Dusart's fixed numerical theta error:
-the explicit-formula constants and cutoff still need to be connected to
-`HasThetaLogFourthErrorAbove (648 / 1000)`, before any finite endpoint rows
-can be treated as the final providers.
+boundary.  The downstream adapter derives
+`HasThetaLogFourthErrorAbove (648 / 1000)` at an existentially selected
+cutoff; the finite provider must be instantiated at that same cutoff.  This
+does not turn the existential tail theorem into a finished Dusart provider:
+the finite endpoint rows and their cutoff-dependent assembly are still
+required.
 
 The source boundary after this adapter is now explicit: the remaining work is
 the paper's finite Table 6.4, Proposition 3.1, and Lemma 3.3 computations,
