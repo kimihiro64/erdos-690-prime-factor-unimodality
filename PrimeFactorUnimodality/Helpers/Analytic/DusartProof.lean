@@ -67,6 +67,7 @@ def dusartLemma33FiniteRow_of_endpoint_left_power
         Chebyshev.theta_mono (hroot x hx hleft_x hright_x)
       have hpow_x := hpow x hx hleft_x
       nlinarith
+  }
 
 def dusartLemma33FiniteRow_of_endpoint_bounds
     (left right root : Nat) (B L P : Real)
