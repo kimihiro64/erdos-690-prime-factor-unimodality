@@ -130,6 +130,25 @@ theorem wangCrapis_thetaBounds_of_strict_theta_prefix_and_logFourthTail
       upperPrefix lower)
     hA_nonneg hA thetaError
 
+/-! Certificate-facing form of the paper split.  The strict Schoenfeld prefix
+is supplied as an indexed compact row cover; the lower estimate remains a
+separate analytic or finite obligation. -/
+theorem wangCrapis_thetaBounds_of_indexed_strict_rows_and_logFourthTail
+    {A X : Real} {n : Nat}
+    (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (rows : Fin n → StrictThetaUpperRow)
+    (cover : StrictThetaUpperIndexedCoverUpTo rows X)
+    (lower : ∀ x : Real, 2 < x → x ≤ X →
+      |Chebyshev.theta x - x| <
+        (12323 / 10000 : Real) * x / Real.log x)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds := by
+  exact wangCrapis_thetaBounds_of_strict_theta_prefix_and_logFourthTail
+    hXpos hlogX (hasStrictThetaUpperBelow_of_indexed_rows cover) lower
+    hA_nonneg hA thetaError
+
 /-! Selected-cutoff form used by the split all-`k` assembly. -/
 theorem wangCrapis_thetaBounds_of_selected_cutoff
     {A X : Real} (finite : HasDusartSymmetricThetaBoundsBelow X)
