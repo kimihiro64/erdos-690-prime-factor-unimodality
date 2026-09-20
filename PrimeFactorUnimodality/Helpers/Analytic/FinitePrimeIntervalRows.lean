@@ -1161,6 +1161,24 @@ def DusartThetaTable66IndexedCoverUpTo {n : Nat}
   ∀ x : Real, 2 ≤ x → x ≤ X →
     ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
 
+theorem dusartThetaTable66IndexedCoverUpTo_append
+    {m X : Real} {n₁ n₂ : Nat}
+    {left : Fin n₁ → DusartThetaTable66Row}
+    {right : Fin n₂ → DusartThetaTable66Row}
+    (hleft : DusartThetaTable66IndexedCoverUpTo left m)
+    (hright : DusartThetaTable66IndexedCoverUpTo right X) :
+    DusartThetaTable66IndexedCoverUpTo (Fin.append left right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨i, hleft_lower, hleft_upper⟩ := hleft x hx hxm
+    refine ⟨Fin.castAdd n₂ i, ?_, ?_⟩
+    · simpa [Fin.append_left] using hleft_lower
+    · simpa [Fin.append_left] using hleft_upper
+  · obtain ⟨i, hright_lower, hright_upper⟩ := hright x hx hX
+    refine ⟨Fin.natAdd n₁ i, ?_, ?_⟩
+    · simpa [Fin.append_right] using hright_lower
+    · simpa [Fin.append_right] using hright_upper
+
 structure DusartThetaTable66Chunk where
   n : Nat
   cutoff : Real
