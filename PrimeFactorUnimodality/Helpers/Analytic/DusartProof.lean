@@ -1319,6 +1319,94 @@ theorem log_31_lt_three_point_four_seven : Real.log 31 < (347 : Real) / 100 := b
   rw [show (32 : Real) = 2 ^ (5 : Nat) by norm_num, Real.log_pow] at h
   nlinarith [LogTables.log_2_lt]
 
+theorem log_37_lt_three_point_seven : Real.log 37 < (37 : Real) / 10 := by
+  have h := Real.log_lt_log (by norm_num : (0 : Real) < 37)
+    (by norm_num : (37 : Real) < 40)
+  rw [show (40 : Real) = 2 ^ (3 : Nat) * 5 by norm_num,
+    Real.log_mul, Real.log_pow] at h
+  · nlinarith [LogTables.log_2_lt, LogTables.log_5_lt]
+  all_goals positivity
+
+theorem psi_sub_theta_nat_1680_lt_fortyeight :
+    Chebyshev.psi (1680 : Real) - Chebyshev.theta 1680 < 48 := by
+  have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 1680
+  have htheta := Chebyshev.theta_eq_sum_primesLE_log 1680
+  norm_num at hpsi htheta
+  rw [hpsi, htheta]
+  change (∑ p ∈ Nat.primesBelow 1681,
+      ↑(Nat.log p 1680) * Real.log ↑p) -
+    ∑ p ∈ Nat.primesBelow 1681, Real.log ↑p < 48
+  have hp : Nat.primesBelow 1681 =
+      {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
+        59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113,
+        127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181,
+        191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251,
+        257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317,
+        331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397,
+        401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463,
+        467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557,
+        563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619,
+        631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701,
+        709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787,
+        797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863,
+        877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953,
+        967, 971, 977, 983, 991, 997, 1009, 1013, 1019, 1021, 1031,
+        1033, 1039, 1049, 1051, 1061, 1063, 1069, 1087, 1091, 1093,
+        1097, 1103, 1109, 1117, 1123, 1129, 1151, 1153, 1163, 1171,
+        1181, 1187, 1193, 1201, 1213, 1217, 1223, 1229, 1231, 1237,
+        1249, 1259, 1277, 1279, 1283, 1289, 1291, 1297, 1301, 1303,
+        1307, 1319, 1321, 1327, 1361, 1367, 1373, 1381, 1399, 1409,
+        1423, 1427, 1429, 1433, 1439, 1447, 1451, 1453, 1459, 1471,
+        1481, 1483, 1487, 1489, 1493, 1499, 1511, 1523, 1531, 1543,
+        1549, 1553, 1559, 1567, 1571, 1579, 1583, 1597, 1601, 1607,
+        1609, 1613, 1619, 1621, 1627, 1637, 1657, 1663, 1667, 1669} := by
+    decide
+  rw [hp]
+  norm_num [Nat.log, Nat.log.go]
+  nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
+    Real.log_five_lt_d9, LogTables.log_7_lt,
+    ElementaryLogBounds.log_11_lt, ElementaryLogBounds.log_13_lt,
+    ElementaryLogBounds.log_17_lt, ElementaryLogBounds.log_19_lt,
+    ElementaryLogBounds.log_23_lt, ElementaryLogBounds.log_29_lt,
+    log_31_lt_three_point_four_seven, log_37_lt_three_point_seven]
+
+def dusartLemma33FiniteRow_thirteenhundredsixtynine_sixteeneighty :
+    DusartLemma33FiniteRow := by
+  have htheta_thirtyseven := Chebyshev.theta_eq_sum_primesLE_log 37
+  have hp37 : Nat.primesLE 37 =
+      {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37} := by decide
+  rw [hp37] at htheta_thirtyseven
+  norm_num [Nat.log, Nat.log.go] at htheta_thirtyseven
+  apply dusartLemma33FiniteRow_of_endpoint_bounds 1369 1680 37
+    (48 : Real) 29 (111 / 10)
+  · norm_num
+  · intro x hx hleft hright
+    nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+  · exact psi_sub_theta_nat_1680_lt_fortyeight
+  · have hlog29_le31 : Real.log 29 ≤ Real.log 31 :=
+      Real.log_le_log (by norm_num) (by norm_num)
+    have hlog29_le37 : Real.log 29 ≤ Real.log 37 :=
+      Real.log_le_log (by norm_num) (by norm_num)
+    nlinarith [htheta_thirtyseven, Real.log_two_gt_d9,
+      Real.log_three_gt_d9, Real.log_five_gt_d9, LogTables.log_7_gt,
+      LogTables.log_11_gt, LogTables.log_13_gt, LogTables.log_17_gt,
+      LogTables.log_19_gt, LogTables.log_23_gt, LogTables.log_29_gt,
+      hlog29_le31, hlog29_le37]
+  · intro x hx hleft
+    have hbase : ((111 / 10 : Real) ^ (3 : Nat)) ≤ x := by
+      norm_num
+      linarith
+    have hpow := Real.rpow_le_rpow (by positivity :
+        (0 : Real) ≤ (111 / 10 : Real) ^ (3 : Nat)) hbase
+      (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
+    calc
+      (111 / 10 : Real) = ((111 / 10 : Real) ^ (3 : Nat)) ^
+          (1 / 3 : Real) := by
+        rw [← Real.rpow_natCast, ← Real.rpow_mul (by positivity)]
+        norm_num
+      _ ≤ x ^ (1 / 3 : Real) := hpow
+  · norm_num
+
 theorem psi_sub_theta_nat_1368_lt_fortythree_point_seven :
     Chebyshev.psi (1368 : Real) - Chebyshev.theta 1368 < (437 : Real) / 10 := by
   have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 1368
@@ -1858,6 +1946,41 @@ theorem dusartLemma33FiniteRowsCover_thirteenhundredsixtyeight :
   · norm_num
     linarith
 
+theorem dusartLemma33FiniteRowsCover_sixteeneighty :
+    DusartLemma33FiniteRowsCover
+      ([dusartLemma33FiniteRow_zero_one, dusartLemma33FiniteRow_two,
+        dusartLemma33FiniteRow_three, dusartLemma33FiniteRow_four,
+        dusartLemma33FiniteRow_five, dusartLemma33FiniteRow_six,
+        dusartLemma33FiniteRow_seven, dusartLemma33FiniteRow_eight,
+        dusartLemma33FiniteRow_nine, dusartLemma33FiniteRow_ten_twentyfour,
+        dusartLemma33FiniteRow_twentyfive_thirtyfive,
+        dusartLemma33FiniteRow_thirtysix_sixtythree,
+        dusartLemma33FiniteRow_sixtyfour_onetwenty,
+        dusartLemma33FiniteRow_onetwentyone_onehundredsixtyseven,
+        dusartLemma33FiniteRow_onehundredsixtyeight,
+        dusartLemma33FiniteRow_onenine_sixtythree,
+        dusartLemma33FiniteRow_twohundredfiftysix_twohundredeightyeight,
+        dusartLemma33FiniteRow_twohundredeightynine_threehundredfortytwo,
+        dusartLemma33FiniteRow_threehundredfortythree_threehundredsixty,
+        dusartLemma33FiniteRow_threehundredsixtyone_fivehundredeleven,
+        dusartLemma33FiniteRow_fivehundredtwelve_fivehundredeight,
+        dusartLemma33FiniteRow_fivehundredtwentynine_fivehundredseventyfive,
+        dusartLemma33FiniteRow_fivehundredseventysix_sixhundredtwentyfour,
+        dusartLemma33FiniteRow_sixhundredtwentyfive_sixhundredseventyfive,
+        dusartLemma33FiniteRow_sixhundredseventysix_sevenhundredtwentyeight,
+        dusartLemma33FiniteRow_sevenhundredtwentynine_eighthundredforty,
+        dusartLemma33FiniteRow_eighthundredfortyone_ninehundredsixty,
+        dusartLemma33FiniteRow_ninehundredsixtyone_tenthousandtwentythree,
+        dusartLemma33FiniteRow_tenthousandtwentyfour_thirteenhundredsixtyeight] ++
+        [dusartLemma33FiniteRow_thirteenhundredsixtynine_sixteeneighty]) 1680 := by
+  apply dusartLemma33FiniteRowsCover_append_row
+    dusartLemma33FiniteRowsCover_thirteenhundredsixtyeight
+  intro x hgt hx hX
+  constructor
+  · linarith
+  · norm_num
+    linarith
+
 theorem dusart_lemma_3_3_finite_120 :
     ∀ x : Real, 0 < x → x ≤ 120 →
       Chebyshev.psi x - Chebyshev.theta x -
@@ -1953,6 +2076,14 @@ theorem dusart_lemma_3_3_finite_1368 :
         (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
   exact dusart_lemma_3_3_finite_of_rows
     dusartLemma33FiniteRowsCover_thirteenhundredsixtyeight
+
+theorem dusart_lemma_3_3_finite_1680 :
+    ∀ x : Real, 0 < x → x ≤ 1680 →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  exact dusart_lemma_3_3_finite_of_rows
+    dusartLemma33FiniteRowsCover_sixteeneighty
 
 theorem dusart_proposition_3_2_small_64
     {x : Real} (hx : 0 < x) (hx64 : x < 64) :
