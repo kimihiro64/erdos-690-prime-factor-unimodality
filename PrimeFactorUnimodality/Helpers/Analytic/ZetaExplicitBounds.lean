@@ -32,12 +32,13 @@ theorem riemannZeta_norm_real_le_three_div_sub_one
     rw [show (σ : Complex) - 1 = (σ - 1 : Real) by norm_num,
       Complex.norm_real, Real.norm_eq_abs, abs_of_pos hsubpos]
   have hre : (σ : Complex).re = σ := by rfl
-  rw [hnormsub, hnorm, hre] at hbound
+  rw [norm_div, norm_one, hnormsub, hnorm, hre] at hbound
   have hσne0 : σ ≠ 0 := ne_of_gt hσpos
   have hratio : σ / σ = (1 : Real) := by field_simp
   rw [hratio] at hbound
   apply le_trans hbound
-  apply (div_le_div_iff₀ hsubpos).2
+  apply (le_div_iff₀ hsubpos).2
+  field_simp
   nlinarith [hσ₂]
 
 theorem riemannZeta_near_one_explicit :
@@ -91,7 +92,7 @@ theorem zetaDerivUpperBnd_explicit
   have hsum : aa + (bb + cc) + dd + (ee + ff) =
       aa + bb + cc + dd + ee + ff := by ring
   rw [hsum]
-  apply le_trans (by apply norm_add₆)
+  apply le_trans (by apply norm_add₆_le)
   convert! ZetaDerivUpperBnd' ⟨by norm_num, le_rfl⟩ ht hσ using 1
 
 theorem zetaDiffBnd_explicit
@@ -162,10 +163,14 @@ theorem zetaLowerBound3_explicit_fixed :
     have hC₀ : 0 < C₀ := by
       dsimp [C₀]
       positivity
-    rw [Real.div_rpow (by linarith) (by linarith),
-      Real.mul_rpow (by linarith) hC₀.le]
+    have hlog₂t : 0 ≤ Real.log |2 * t| := by
+      exact (Real.log_pos (by linarith)).le
+    rw [Real.div_rpow (by norm_num) (by linarith),
+      Real.mul_rpow hC₀.le hlog₂t]
     ring_nf
-    exact ZetaLowerBound3_aux3 C₀ 3 t σ_gt
+    simpa [Real.rpow_neg (by linarith : 0 ≤ σ - 1),
+      mul_assoc, mul_left_comm, mul_comm] using
+      (ZetaLowerBound3_aux3 C₀ 3 t σ_gt).symm
   have pos_left : 0 <
       3 ^ ((3 : Real) / 4) * (σ - 1) ^ (-(3 : Real) / 4) *
         C₀ ^ ((1 : Real) / 4) * (Real.log |2 * t|) ^ ((1 : Real) / 4) := by
@@ -188,16 +193,24 @@ theorem zetaLowerBound3_explicit_fixed :
     Real.rpow_pos_of_pos hlog₂ _
   field_simp
   rw [Real.mul_rpow (by norm_num) (by positivity)]
-  rw [mul_le_mul_iff_left₀]
-  swap
-  · positivity
-  rw [← Real.mul_rpow (by norm_num) hlog.le]
-  apply Real.rpow_le_rpow hlog₂.le _ (by norm_num)
-  rw [← Real.log_rpow (by linarith : 0 < |t|)]
-  apply Real.log_le_log (by linarith) (by nlinarith)
-  rw [Real.rpow_two, sq]
-  gcongr
-  linarith
+  have hlogsum : Real.log (2 * |t|) ≤ 2 * Real.log |t| := by
+    rw [Real.log_mul (by norm_num : (2 : Real) ≠ 0)
+      (by linarith : |t| ≠ 0)]
+    have hlog₂' : Real.log (2 : Real) ≤ Real.log |t| := by
+      apply Real.log_le_log (by norm_num) (by linarith)
+    linarith
+  have hpow : Real.log (2 * |t|) ^ ((1 : Real) / 4) ≤
+      (2 * Real.log |t|) ^ ((1 : Real) / 4) := by
+    exact Real.rpow_le_rpow hlog₂.le hlogsum (by norm_num)
+  calc
+    Real.log (2 * |t|) ^ ((1 : Real) / 4) /
+        (2 ^ ((1 : Real) / 4) * C₀ ^ ((1 : Real) / 4)) ≤
+        (2 * Real.log |t|) ^ ((1 : Real) / 4) /
+          (2 ^ ((1 : Real) / 4) * C₀ ^ ((1 : Real) / 4)) :=
+      div_le_div_of_nonneg_right hpow (by positivity)
+    _ = Real.log |t| ^ ((1 : Real) / 4) / C₀ ^ ((1 : Real) / 4) := by
+      rw [Real.mul_rpow (by norm_num) hlog.le]
+      field_simp
 
 theorem zetaLowerBound3_explicit :
     ∃ c > 0, ∀ {σ : Real} (_ : σ ∈ Ioc 1 2) (t : Real) (_ : 3 < |t|),
@@ -237,12 +250,28 @@ theorem zetaZeroFree_explicit :
     erw [Real.pow_rpow_inv_natCast
       (div_pos hC₁ (mul_pos four_pos hC₂)).le four_ne_zero,
       le_div_iff₀ (mul_pos four_pos hC₂)] at hpow
-    norm_num [mul_assoc, c, mul_left_comm, hC₂, hA.1,
-      (mul_le_mul_of_nonneg_right hpow
-        (A.rpow_nonneg hA.1.le _)).trans_lt', ← A.rpow_add]
+    norm_num at hpow
+    have hmul := mul_le_mul_of_nonneg_right hpow
+      (A.rpow_nonneg hA.1.le ((3 : Real) / 4))
+    have hprod : A ^ ((1 : Real) / 4) * A ^ ((3 : Real) / 4) = A := by
+      rw [← Real.rpow_add hA.1]
+      norm_num
+    have hmul' : 4 * C₂ * A ≤ C₁ * A ^ ((3 : Real) / 4) := by
+      calc
+        4 * C₂ * A =
+            (A ^ ((1 : Real) / 4) * (4 * C₂)) *
+              A ^ ((3 : Real) / 4) := by
+          calc
+            4 * C₂ * A = (4 * C₂) *
+                (A ^ ((1 : Real) / 4) * A ^ ((3 : Real) / 4)) := by
+              rw [hprod]
+            _ = _ := by ring
+        _ ≤ C₁ * A ^ ((3 : Real) / 4) := hmul
+    dsimp [c]
+    nlinarith [hmul', mul_pos hC₂ hA.1]
   refine ⟨A, hA, c, hc, ?_⟩
   intro σ t ht hσ
-  let σ' : Real := 1 + A / Real.log |t| ^ (9 : Real)
+  let σ' : Real := 1 + A / Real.log |t| ^ (9 : Nat)
   have hlog : 1 ≤ Real.log |t| := (logt_gt_one ht.le).le
   have hlogpow : (1 / 2 : Real) ≤ Real.log |t| ^ 9 :=
     one_half_lt_one.le.trans (one_le_pow₀ hlog)
@@ -250,43 +279,75 @@ theorem zetaZeroFree_explicit :
     dsimp [σ']
     have hpos : 0 < A / Real.log |t| ^ (9 : Nat) := by
       exact div_pos hA.1 (by positivity)
-    linarith
+    exact lt_add_of_pos_right _ hpos
   have hσ'le : σ' ≤ 2 := by
     dsimp [σ']
     have hfrac : A / Real.log |t| ^ (9 : Nat) < 1 := by
       apply (div_lt_one (by positivity)).2
-      exact hA.2.trans_lt (lt_of_lt_of_le (by norm_num)
-        (one_le_pow₀ (logt_gt_one ht.le).le))
-    linarith
+      have hden : (1 : Real) ≤ Real.log |t| ^ 9 :=
+        one_le_pow₀ (logt_gt_one ht.le).le
+      exact lt_of_le_of_lt hA.2
+        (lt_of_lt_of_le (by norm_num : (1 / 2 : Real) < 1) hden)
+    exact le_of_lt (by linarith : 1 + A / Real.log |t| ^ (9 : Nat) < 2)
   have hσ'upper : σ' ∈ Ioc (1 : Real) 2 := ⟨hσ'gt, hσ'le⟩
   have hlower := zetaLowerBound3_explicit_fixed hσ'upper t ht
   have hlower' :
-      C₁ * A ^ ((3 : Real) / 4) / Real.log |t| ^ (7 : Real) ≤
+      C₁ * A ^ ((3 : Real) / 4) / Real.log |t| ^ (7 : Nat) ≤
         ‖riemannZeta (σ' + t * Complex.I)‖ := by
     have hbase : C₁ * (σ' - 1) ^ ((3 : Real) / 4) /
         Real.log |t| ^ ((1 : Real) / 4) ≤
         ‖riemannZeta (σ' + t * Complex.I)‖ := by
       simpa [C₁] using hlower
     apply hbase.trans'
-    norm_num only [σ', add_sub_cancel_left, A.div_rpow hA.1.le, mul_div,
-      pow_pos, ← Real.rpow_natCast, ← Real.rpow_mul, le_of_lt,
-      Real.log_pos, refl, div_div, ← Real.rpow_sub]
+    apply le_of_eq
+    rw [show σ' - 1 = A / Real.log |t| ^ (9 : Nat) by
+      dsimp [σ']; ring]
+    rw [Real.div_rpow hA.1.le (by positivity)]
+    have hLpos : 0 < Real.log |t| := Real.log_pos (by linarith)
+    have hpow9 : (Real.log |t| ^ (9 : Nat)) ^ ((3 : Real) / 4) =
+        Real.log |t| ^ ((27 : Real) / 4) := by
+      rw [← Real.rpow_natCast, ← Real.rpow_mul hLpos.le]
+      norm_num
+    rw [hpow9]
+    have hdenom : Real.log |t| ^ (7 : Real) =
+        Real.log |t| ^ ((27 : Real) / 4) *
+          Real.log |t| ^ ((1 : Real) / 4) := by
+      rw [← Real.rpow_add hLpos]
+      norm_num
+    have hdenomNat : Real.log |t| ^ (7 : Nat) =
+        Real.log |t| ^ ((27 : Real) / 4) *
+          Real.log |t| ^ ((1 : Real) / 4) := by
+      rw [← Real.rpow_natCast]
+      exact hdenom
+    field_simp [hdenom, ne_of_gt hLpos]
+    calc
+      A ^ ((3 : Real) / 4) * Real.log |t| ^ ((27 : Real) / 4) *
+          Real.log |t| ^ ((1 : Real) / 4) =
+          A ^ ((3 : Real) / 4) *
+            (Real.log |t| ^ ((27 : Real) / 4) *
+              Real.log |t| ^ ((1 : Real) / 4)) := by ring
+      _ = A ^ ((3 : Real) / 4) * Real.log |t| ^ (7 : Nat) := by
+        exact congrArg (fun x : Real => A ^ ((3 : Real) / 4) * x)
+          hdenomNat.symm
   have hdiff := zetaDiffBnd_explicit σ σ' t ht
+  have hstripdiv : A / Real.log |t| ^ (9 : Nat) ≤
+      (1 / 2 : Real) / Real.log |t| := by
+    calc
+      A / Real.log |t| ^ (9 : Nat) ≤
+          (1 / 2 : Real) / Real.log |t| ^ (9 : Nat) := by
+        exact div_le_div_of_nonneg_right hA.2 (by positivity)
+      _ ≤ (1 / 2 : Real) / Real.log |t| := by
+        have hpow' : Real.log |t| ≤ Real.log |t| ^ (9 : Nat) :=
+          ZetaInvBnd_aux (logt_gt_one ht.le)
+        gcongr
+  have hσlower : 1 - (1 / 2 : Real) / Real.log |t| ≤ σ := by
+    exact (sub_le_sub_left hstripdiv 1).trans hσ.1
   have hdiff' :
       ‖riemannZeta (σ + t * Complex.I) -
           riemannZeta (σ' + t * Complex.I)‖ ≤
-        C₂ * Real.log |t| ^ 2 * (σ' - σ) := by
-    have hdiff1 := hdiff σ σ' t ht
-      (by
-        dsimp [A]
-        apply le_trans hσ.1
-        gcongr
-        exact ZetaInvBnd_aux (logt_gt_one ht.le))
-      hσ'le
-      (by
-        dsimp [σ']
-        have h : 0 < A / Real.log |t| ^ 9 := by positivity
-        linarith [hσ.2])
+      C₂ * Real.log |t| ^ 2 * (σ' - σ) := by
+    have hlt : σ < σ' := by simpa [σ'] using hσ.2
+    have hdiff1 := hdiff hσlower hσ'le hlt
     convert hdiff1 using 1
     rw [show riemannZeta (σ + t * Complex.I) -
         riemannZeta (σ' + t * Complex.I) =
@@ -294,18 +355,26 @@ theorem zetaZeroFree_explicit :
           riemannZeta (σ + t * Complex.I)) by ring, norm_neg]
   have hσ'diff : σ' - σ ≤ 2 * A / Real.log |t| ^ 9 := by
     dsimp [σ']
-    linarith [hσ.1]
+    have haux : 1 - σ ≤ A / Real.log |t| ^ (9 : Nat) := by linarith [hσ.1]
+    calc
+      1 + A / Real.log |t| ^ 9 - σ =
+          A / Real.log |t| ^ 9 + (1 - σ) := by ring
+      _ ≤ A / Real.log |t| ^ 9 + A / Real.log |t| ^ 9 := by
+        simpa [add_comm] using add_le_add_right haux
+      _ = 2 * A / Real.log |t| ^ 9 := by ring
   have hdiff'' :
       ‖riemannZeta (σ + t * Complex.I) -
           riemannZeta (σ' + t * Complex.I)‖ ≤
         2 * C₂ * A / Real.log |t| ^ 7 := by
     calc
+      _ ≤ C₂ * Real.log |t| ^ 2 * (σ' - σ) := hdiff'
       _ ≤ C₂ * Real.log |t| ^ 2 * (2 * A / Real.log |t| ^ 9) :=
         mul_le_mul_of_nonneg_left hσ'diff (by positivity)
       _ = 2 * C₂ * A / Real.log |t| ^ 7 := by
         rw [← Real.rpow_natCast]
         field_simp
-        ring_nf
+        simpa [Real.rpow_natCast] using
+          (mul_comm (Real.log |t| ^ (2 : Nat)) A)
   have hnorm :
       c / Real.log |t| ^ 7 ≤ ‖riemannZeta (σ + t * Complex.I)‖ := by
     have htriangle := norm_sub_norm_le
@@ -387,7 +456,12 @@ theorem zetaLogDeriv_explicit_below :
             exact div_le_div_of_nonneg_right hA.2 (by positivity)
           _ ≤ (1 / 2 : Real) / Real.log |t| := by
             gcongr
-    · linarith [hσ.2]
+      exact (sub_le_sub_left hdiv 1).trans hσ.1
+    · have hfrac : A / Real.log |t| ^ (9 : Nat) < 1 := by
+        apply (div_lt_one (by positivity)).2
+        exact hA.2.trans_lt (lt_of_lt_of_le (by norm_num)
+          (one_le_pow₀ (logt_gt_one ht.le).le))
+      linarith [hσ.2, hfrac]
   have hderiv := zetaDerivUpperBnd_explicit σ t ht hσderiv
   have hlower := (hbound σ t ht hσ).1
   have hlower_pos : 0 <
@@ -395,11 +469,18 @@ theorem zetaLogDeriv_explicit_below :
     have h : 0 < c / Real.log |t| ^ 7 := by positivity
     exact h.trans_le hlower
   rw [norm_div]
-  apply le_trans (div_le_div_of_nonneg_left hderiv
-    (le_of_lt hlower_pos) (norm_nonneg _))
+  apply le_trans (div_le_div_of_nonneg_right hderiv
+    (le_of_lt hlower_pos))
   dsimp [D]
-  field_simp [ne_of_gt hlogpos, ne_of_gt hc]
-  ring
+  have hL7 : 0 < Real.log |t| ^ (7 : Nat) := by positivity
+  have hnormmul := (div_le_iff₀ hL7).mp hlower
+  rw [div_le_iff₀ hlower_pos]
+  have hscale := mul_le_mul_of_nonneg_right hnormmul
+    (by positivity : 0 ≤ (Real.exp (1 / 2 : Real) * 59) *
+      Real.log |t| ^ 2 / c)
+  convert hscale using 1 <;>
+    field_simp [ne_of_gt hc, ne_of_gt hlogpos] <;>
+    ring
 
 /-! Uniformize the local strip estimate.  Above the explicit strip we use the
     Dirichlet-series monotonicity of the logarithmic derivative; in the small
@@ -435,27 +516,30 @@ theorem zetaLogDeriv_explicit_uniform :
         (mul_le_mul_of_nonneg_right hC₀C (by positivity))
     · have hσgt : 1 < σ := by
         have : 1 + A / Real.log |t| ^ (9 : Nat) ≤ σ := le_of_not_gt hlocal_upper
-        have : 1 < 1 + A / Real.log |t| ^ (9 : Nat) := by positivity
+        have : 1 < 1 + A / Real.log |t| ^ (9 : Nat) :=
+          lt_add_of_pos_right _ (div_pos hA.1 (by positivity))
         linarith
       have htriv' := htriv σ t hσgt
       rw [neg_div, norm_neg] at htriv'
       have hinv : (σ - 1)⁻¹ ≤
           (1 / A) * Real.log |t| ^ (9 : Nat) := by
-        apply (inv_le_iff₀ (by linarith)).2
         have hdist : A / Real.log |t| ^ (9 : Nat) ≤ σ - 1 := by
           linarith [le_of_not_gt hlocal_upper]
-        have := (div_le_iff₀ hpow_pos).1 hdist
-        nlinarith
+        rw [inv_eq_one_div]
+        apply (div_le_iff₀ (by linarith)).2
+        have hdist' := (div_le_iff₀ hpow_pos).1 hdist
+        field_simp [ne_of_gt hApos]
+        nlinarith [hdist']
       calc
         ‖deriv riemannZeta (σ + t * Complex.I) /
             riemannZeta (σ + t * Complex.I)‖ =
             ‖-(deriv riemannZeta (σ + t * Complex.I) /
               riemannZeta (σ + t * Complex.I))‖ := by rw [norm_neg]
-        _ ≤ (σ - 1)⁻¹ + K := htriv'
+        _ ≤ (σ - 1)⁻¹ + K := by simpa [norm_neg] using htriv'
         _ ≤ (1 / A) * Real.log |t| ^ (9 : Nat) +
               K * Real.log |t| ^ (9 : Nat) := by
           exact add_le_add hinv
-            (mul_le_mul_of_nonneg_left hpow hK)
+            (by simpa [one_mul] using mul_le_mul_of_nonneg_left hpow hK)
         _ = ((1 / A) + K) * Real.log |t| ^ (9 : Nat) := by ring
         _ ≤ C * Real.log |t| ^ (9 : Nat) := by
           apply mul_le_mul_of_nonneg_right _ (by positivity)
@@ -470,9 +554,9 @@ theorem zetaLogDeriv_explicit_uniform :
           riemannZeta (σ + t * Complex.I)‖ =
           ‖-(deriv riemannZeta (σ + t * Complex.I) /
             riemannZeta (σ + t * Complex.I))‖ := by rw [norm_neg]
-      _ ≤ B := hgen.trans_eq rfl
+      _ ≤ B := by simpa [norm_neg, B] using hgen
       _ ≤ B * Real.log |t| ^ (9 : Nat) := by
-        exact mul_le_mul_of_nonneg_left hpow hB
+        simpa [one_mul] using mul_le_mul_of_nonneg_left hpow hB
       _ ≤ C * Real.log |t| ^ (9 : Nat) := by
         apply mul_le_mul_of_nonneg_right _ (by positivity)
         dsimp [C]
@@ -494,9 +578,14 @@ theorem zetaLogDeriv_explicit_bounded_and_holo :
       le_trans (min_le_left _ _) hA₁.2⟩
   · intro σ t ht hσ
     apply hbound σ t ht
+    change 1 - A₁ / Real.log |t| ^ 9 ≤ σ
     apply le_trans ?_ hσ
-    gcongr
-    exact min_le_left _ _
+    have hm : min A₁ A₂ ≤ A₁ := min_le_left A₁ A₂
+    have hlogabs : 0 ≤ Real.log |t| := Real.log_nonneg (by linarith)
+    have hL : 0 ≤ Real.log |t| ^ (9 : Nat) := pow_nonneg hlogabs _
+    have hfrac : min A₁ A₂ / Real.log |t| ^ 9 ≤
+        A₁ / Real.log |t| ^ 9 := div_le_div_of_nonneg_right hm hL
+    exact sub_le_sub_left hfrac 1
   · intro T hT
     apply (hholo T hT).mono
     intro s hs
@@ -505,8 +594,12 @@ theorem zetaLogDeriv_explicit_bounded_and_holo :
     refine ⟨?_, hs.1.2⟩
     refine ⟨?_, hs.1.1.2⟩
     apply le_trans _ hs.1.1.1
-    gcongr
-    exact min_le_right _ _
+    have hm : min A₁ A₂ ≤ A₂ := min_le_right A₁ A₂
+    have hTlog : 0 ≤ Real.log T := Real.log_nonneg (by linarith)
+    have hfrac : min A₁ A₂ / Real.log T ^ 9 ≤
+        A₂ / Real.log T ^ 9 := div_le_div_of_nonneg_right hm
+          (pow_nonneg hTlog _)
+    exact sub_le_sub_left hfrac 1
 
 
 end
