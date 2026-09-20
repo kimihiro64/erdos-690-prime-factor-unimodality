@@ -1034,6 +1034,48 @@ structure DusartThetaTableVerifiedRow where
   upper_bound : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
     Chebyshev.theta x ≤ data.upper_coeff * x
 
+/-! Endpoint bounds are enough to certify a coefficient row.  The lower
+    endpoint controls the whole lower side after multiplying by the
+    nonnegative coefficient, and the upper endpoint controls the upper side
+    in the same way. -/
+def DusartThetaTableVerifiedRow.of_endpoint_bounds
+    (data : DusartThetaTableCoefficientRow)
+    (left_large : 2 ≤ data.left)
+    (left_le_right : data.left ≤ data.right)
+    (right_le_cutoff : (data.right : Real) ≤ (8e11 : Real))
+    (lower_coeff_min : (99985 : Real) / 100000 ≤ data.lower_coeff)
+    (upper_coeff_le_one : data.upper_coeff ≤ 1)
+    (lower_coeff_nonneg : 0 ≤ data.lower_coeff)
+    (upper_coeff_nonneg : 0 ≤ data.upper_coeff)
+    (lower_endpoint : data.lower_coeff * (data.right : Real) ≤
+      Chebyshev.theta data.left)
+    (upper_endpoint : Chebyshev.theta data.right ≤
+      data.upper_coeff * (data.left : Real)) :
+    DusartThetaTableVerifiedRow := by
+  refine {
+    data := data
+    left_large := left_large
+    left_le_right := left_le_right
+    right_le_cutoff := right_le_cutoff
+    lower_coeff_min := lower_coeff_min
+    upper_coeff_le_one := upper_coeff_le_one
+    lower_bound := ?_
+    upper_bound := ?_ }
+  · intro x hleft hright
+    calc
+      data.lower_coeff * x ≤ data.lower_coeff * (data.right : Real) := by
+        exact mul_le_mul_of_nonneg_left hright lower_coeff_nonneg
+      _ ≤ Chebyshev.theta data.left := lower_endpoint
+      _ ≤ Chebyshev.theta x := by
+        exact Chebyshev.theta_mono hleft
+  · intro x hleft hright
+    calc
+      Chebyshev.theta x ≤ Chebyshev.theta data.right := by
+        exact Chebyshev.theta_mono hright
+      _ ≤ data.upper_coeff * (data.left : Real) := upper_endpoint
+      _ ≤ data.upper_coeff * x := by
+        exact mul_le_mul_of_nonneg_left hleft upper_coeff_nonneg
+
 def DusartThetaTableVerifiedRow.toRelativeRow
     (row : DusartThetaTableVerifiedRow) : DusartThetaRelativeRow :=
   row.data.toRelativeRow_of_table_bounds row.left_large row.left_le_right
