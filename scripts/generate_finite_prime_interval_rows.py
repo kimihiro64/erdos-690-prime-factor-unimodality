@@ -107,7 +107,7 @@ def split_large_row_families(body: str) -> str:
     family = re.compile(
         r"(?ms)^set_option maxHeartbeats 20000000 in\n"
         r"def (dusartPrimeRows_\d+_\d+) : List DusartPrimeRow :=\n"
-        r"  \[(.*?)\]\n\n"
+        r"\s*\[(.*?)\]\n\n"
         r"set_option maxHeartbeats 20000000 in\n"
         r"theorem \1_chain :\n"
         r"    DusartPrimeRowsChain (\d+) (\d+) \1 := by\n"
@@ -117,14 +117,7 @@ def split_large_row_families(body: str) -> str:
     def replace(match: re.Match[str]) -> str:
         name, rows_text, start, finish, proof = match.groups()
         rows = re.findall(r"^    dusartPrimeRow[^\n]+(?:\n)?", rows_text, re.M)
-        blocks = re.findall(
-            r"(?ms)^  apply DusartPrimeRowsChain\.cons\n"
-            r"    \(dusartPrimeRow[^\n]+\)\n"
-            r"  · norm_num\n"
-            r"  · norm_num\n",
-            proof,
-        )
-        if len(rows) != len(blocks) or len(rows) <= ROW_PART_SIZE:
+        if len(rows) <= ROW_PART_SIZE:
             return match.group(0)
 
         parts = [

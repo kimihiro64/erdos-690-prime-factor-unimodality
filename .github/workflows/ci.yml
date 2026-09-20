@@ -172,8 +172,8 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowBase
-          for source in PrimeFactorUnimodality/Helpers/Analytic/FinitePrimeIntervalRows/LowPart*.lean; do
-            module=$(basename "$source" .lean)
+          for part in $(seq -w 1 8); do
+            module="LowPart$part"
             /usr/bin/time -v lake build \
               "+PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.$module"
           done
