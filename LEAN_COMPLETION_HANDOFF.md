@@ -489,3 +489,19 @@ This audit is a dependency exclusion, not a closure of the outstanding
 mathematics. The next source implementation must prove the finite numerical
 facts or their reusable row assemblers directly, and must expose the fixed
 analytic tail constants without passing through those upstream placeholders.
+
+## September 20 explicit zeta progress
+
+`Helpers/Analytic/ZetaExplicitBounds.lean` now records the paper's elementary
+zeta-side constants directly: the real-axis near-one estimate, the explicit
+upper and derivative bounds, the integrated zeta-difference estimate, an
+explicit lower bound above `1`, and the resulting explicit zero-free region
+below `1`.  These theorems are source-level inputs only; they do not discharge
+Dusart's explicit formula or its fixed `648 / 1000` theta tail.
+
+The next analytic consumer is the quantitative logarithmic-derivative bound
+used by `MediumPNT`.  It must consume a quantitative lower bound, not merely
+the proposition that zeta is nonzero.  After that, the explicit-formula
+constants and cutoff still need to be connected to
+`HasThetaLogFourthErrorAbove (648 / 1000)`, before any finite endpoint rows
+can be treated as the final providers.
