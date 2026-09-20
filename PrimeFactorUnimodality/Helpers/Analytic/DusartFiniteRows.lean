@@ -306,6 +306,91 @@ theorem dusartLemma33FiniteRowsCover_five :
           · norm_num [dusartLemma33FiniteRow_five]
             linarith
 
+def dusartLemma33FiniteRow_six : DusartLemma33FiniteRow := by
+  have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 6
+  have htheta := Chebyshev.theta_eq_sum_primesLE_log 6
+  have htheta_two := Chebyshev.theta_eq_sum_primesLE_log 2
+  have hp6 : Nat.primesLE 6 = {2, 3, 5} := by decide
+  have hp2 : Nat.primesLE 2 = {2} := by decide
+  rw [hp6] at hpsi htheta
+  rw [hp2] at htheta_two
+  norm_num [Nat.log, Nat.log.go] at hpsi htheta htheta_two
+  apply dusartLemma33FiniteRow_of_zero 6 2
+  · intro x hx hleft hright
+    have hx6 : (6 : Real) ≤ x := hleft
+    have hx7 : x < 7 := by simpa using hright
+    apply (Nat.floor_eq_iff (by positivity : (0 : Real) ≤ Real.sqrt x)).2
+    constructor <;> norm_num <;>
+      nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+  · nlinarith [hpsi, htheta, htheta_two]
+
+def dusartLemma33FiniteRow_seven : DusartLemma33FiniteRow := by
+  have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 7
+  have htheta := Chebyshev.theta_eq_sum_primesLE_log 7
+  have htheta_two := Chebyshev.theta_eq_sum_primesLE_log 2
+  have hp7 : Nat.primesLE 7 = {2, 3, 5, 7} := by decide
+  have hp2 : Nat.primesLE 2 = {2} := by decide
+  rw [hp7] at hpsi htheta
+  rw [hp2] at htheta_two
+  norm_num [Nat.log, Nat.log.go] at hpsi htheta htheta_two
+  apply dusartLemma33FiniteRow_of_zero 7 2
+  · intro x hx hleft hright
+    have hx7 : (7 : Real) ≤ x := hleft
+    have hx8 : x < 8 := by simpa using hright
+    apply (Nat.floor_eq_iff (by positivity : (0 : Real) ≤ Real.sqrt x)).2
+    constructor <;> norm_num <;>
+      nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+  · nlinarith [hpsi, htheta, htheta_two]
+
+theorem dusartLemma33FiniteRowsCover_seven :
+    DusartLemma33FiniteRowsCover
+      [dusartLemma33FiniteRow_zero_one, dusartLemma33FiniteRow_two,
+        dusartLemma33FiniteRow_three, dusartLemma33FiniteRow_four,
+        dusartLemma33FiniteRow_five, dusartLemma33FiniteRow_six,
+        dusartLemma33FiniteRow_seven] 7 := by
+  intro x hx hX
+  by_cases hsmall : x < 2
+  · refine ⟨dusartLemma33FiniteRow_zero_one, by simp, ?_, ?_⟩
+    · norm_num [dusartLemma33FiniteRow_zero_one]
+      exact hx.le
+    · norm_num [dusartLemma33FiniteRow_zero_one]
+      linarith
+  · by_cases htwo : x < 3
+    · refine ⟨dusartLemma33FiniteRow_two, by simp, ?_, ?_⟩
+      · norm_num [dusartLemma33FiniteRow_two]
+        exact le_of_not_gt hsmall
+      · norm_num [dusartLemma33FiniteRow_two]
+        linarith
+    · by_cases hthree : x < 4
+      · refine ⟨dusartLemma33FiniteRow_three, by simp, ?_, ?_⟩
+        · norm_num [dusartLemma33FiniteRow_three]
+          exact le_of_not_gt htwo
+        · norm_num [dusartLemma33FiniteRow_three]
+          linarith
+      · by_cases hfour : x < 5
+        · refine ⟨dusartLemma33FiniteRow_four, by simp, ?_, ?_⟩
+          · norm_num [dusartLemma33FiniteRow_four]
+            exact le_of_not_gt hthree
+          · norm_num [dusartLemma33FiniteRow_four]
+            linarith
+        · by_cases hfive : x < 6
+          · refine ⟨dusartLemma33FiniteRow_five, by simp, ?_, ?_⟩
+            · norm_num [dusartLemma33FiniteRow_five]
+              exact le_of_not_gt hfour
+            · norm_num [dusartLemma33FiniteRow_five]
+              linarith
+          · by_cases hsix : x < 7
+            · refine ⟨dusartLemma33FiniteRow_six, by simp, ?_, ?_⟩
+              · norm_num [dusartLemma33FiniteRow_six]
+                exact le_of_not_gt hfive
+              · norm_num [dusartLemma33FiniteRow_six]
+                linarith
+            · refine ⟨dusartLemma33FiniteRow_seven, by simp, ?_, ?_⟩
+              · norm_num [dusartLemma33FiniteRow_seven]
+                exact le_of_not_gt hsix
+              · norm_num [dusartLemma33FiniteRow_seven]
+                linarith
+
 theorem dusart_lemma_3_3_finite_of_rows
     {rows : List DusartLemma33FiniteRow} {X : Real}
     (cover : DusartLemma33FiniteRowsCover rows X) :
