@@ -96,6 +96,57 @@ theorem dusartLemma33FiniteRowsCover_two :
     · norm_num [dusartLemma33FiniteRow_two]
       linarith
 
+def dusartLemma33FiniteRow_three : DusartLemma33FiniteRow :=
+  { left := 3
+    right := 3
+    left_le_right := by norm_num
+    valid := by
+      intro x hx hleft hright
+      have hx3 : (3 : Real) ≤ x := by exact_mod_cast hleft
+      have hx4 : x < 4 := by norm_num at hright ⊢; exact hright
+      have hfloor : ⌊x⌋₊ = 3 := by
+        apply (Nat.floor_eq_iff (by linarith : (0 : Real) ≤ x)).2
+        constructor <;> norm_num <;> linarith
+      have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 3
+      have htheta := Chebyshev.theta_eq_sum_primesLE_log 3
+      have hp : Nat.primesLE 3 = {2, 3} := by decide
+      rw [hp] at hpsi htheta
+      norm_num [Nat.log, Nat.log.go] at hpsi htheta
+      have hzero : Chebyshev.psi (3 : Real) - Chebyshev.theta 3 = 0 := by
+        nlinarith [hpsi, htheta]
+      have hsqrt : Real.sqrt x < 2 := by
+        nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+      rw [Chebyshev.psi_eq_psi_coe_floor,
+        Chebyshev.theta_eq_theta_coe_floor, hfloor]
+      have hzero' : Chebyshev.psi (↑(3 : Nat) : Real) -
+          Chebyshev.theta (↑(3 : Nat) : Real) = 0 := by
+        simpa using hzero
+      rw [hzero', Chebyshev.theta_eq_zero_of_lt_two hsqrt]
+      norm_num
+      positivity }
+
+theorem dusartLemma33FiniteRowsCover_three :
+    DusartLemma33FiniteRowsCover
+      [dusartLemma33FiniteRow_zero_one, dusartLemma33FiniteRow_two,
+        dusartLemma33FiniteRow_three] 3 := by
+  intro x hx hX
+  by_cases hsmall : x < 2
+  · refine ⟨dusartLemma33FiniteRow_zero_one, by simp, ?_, ?_⟩
+    · norm_num [dusartLemma33FiniteRow_zero_one]
+      exact hx.le
+    · norm_num [dusartLemma33FiniteRow_zero_one]
+      linarith
+  · by_cases htwo : x < 3
+    · refine ⟨dusartLemma33FiniteRow_two, by simp, ?_, ?_⟩
+      · norm_num [dusartLemma33FiniteRow_two]
+        exact le_of_not_gt hsmall
+      · norm_num [dusartLemma33FiniteRow_two]
+        linarith
+    · refine ⟨dusartLemma33FiniteRow_three, by simp, ?_, ?_⟩
+      · norm_num [dusartLemma33FiniteRow_three]
+        exact le_of_not_gt htwo
+      · norm_num [dusartLemma33FiniteRow_three]
+        linarith
 theorem dusart_lemma_3_3_finite_of_rows
     {rows : List DusartLemma33FiniteRow} {X : Real}
     (cover : DusartLemma33FiniteRowsCover rows X) :
