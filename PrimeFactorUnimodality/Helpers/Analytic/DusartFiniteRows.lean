@@ -896,6 +896,30 @@ def DusartLemma33FiniteChunk.append
     cover := dusartLemma33FiniteRowsIndexedCover_append
       left.cover right.cover }
 
+/-! A generated block may also expose its already assembled interval proof
+    directly.  This keeps the data representation independent of the number
+    of internal rows while retaining a composable cutoff boundary. -/
+structure DusartLemma33FiniteProofChunk where
+  cutoff : Real
+  valid : ∀ x : Real, 0 < x → x ≤ cutoff →
+    Chebyshev.psi x - Chebyshev.theta x -
+        Chebyshev.theta (Real.sqrt x) <
+      (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real))
+
+def DusartLemma33FiniteChunk.toProofChunk
+    (chunk : DusartLemma33FiniteChunk) : DusartLemma33FiniteProofChunk :=
+  { cutoff := chunk.cutoff
+    valid := chunk.provides }
+
+def DusartLemma33FiniteProofChunk.append
+    (left right : DusartLemma33FiniteProofChunk) :
+    DusartLemma33FiniteProofChunk := by
+  refine { cutoff := right.cutoff, valid := ?_ }
+  intro x hx hX
+  by_cases hxm : x ≤ left.cutoff
+  · exact left.valid x hx hxm
+  · exact right.valid x hx hX
+
 theorem dusart_lemma_3_3_finite_rows_cover_append
     {left right : List DusartLemma33FiniteRow} {m X : Real}
     (hleft : DusartLemma33FiniteRowsCover left m)
