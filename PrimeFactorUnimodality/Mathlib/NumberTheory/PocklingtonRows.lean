@@ -25,6 +25,9 @@ def PocklingtonData.coverValid (d : PocklingtonData) : Bool :=
   d.factors.all (fun q =>
     d.residues.any (fun r => decide (r.1 = q)))
 
+def PocklingtonData.mainValid (d : PocklingtonData) : Bool :=
+  decide (ZMod.val ((d.a : ZMod d.n) ^ (d.n - 1)) = ZMod.val (1 : ZMod d.n))
+
 def PocklingtonData.Valid (d : PocklingtonData) : Prop :=
   1 < d.n ∧
     d.n - 1 = d.F * d.R ∧
@@ -32,10 +35,14 @@ def PocklingtonData.Valid (d : PocklingtonData) : Prop :=
     d.factors.all (fun p => decide p.Prime) = true ∧
     0 < d.F ∧
     d.n < d.F ^ 2 ∧
-    (d.a : ZMod d.n) ^ (d.n - 1) = 1 ∧
+    d.mainValid = true ∧
     d.residues.all d.residueValid = true ∧
     d.coverValid = true ∧
     ¬ d.F - 1 ∣ d.n
+
+instance (d : PocklingtonData) : Decidable d.Valid := by
+  unfold PocklingtonData.Valid
+  infer_instance
 
 theorem PocklingtonData.prime
     (d : PocklingtonData) (h : d.Valid) : d.n.Prime := by
@@ -43,6 +50,11 @@ theorem PocklingtonData.prime
   rcases h with
     ⟨hn, hfactor, hF, hfactorPrimesBool, hFpos, hlarge, hmain,
       hresiduesBool, hcoverBool, hexclude⟩
+  letI : NeZero d.n := ⟨by omega⟩
+  dsimp [PocklingtonData.mainValid] at hmain
+  have hmain' : (d.a : ZMod d.n) ^ (d.n - 1) = 1 := by
+    apply ZMod.val_injective d.n
+    exact of_decide_eq_true hmain
   have hfactorPrimes : ∀ p ∈ d.factors, p.Prime := by
     simp only [List.all_eq_true] at hfactorPrimesBool
     intro p hp
@@ -75,7 +87,7 @@ theorem PocklingtonData.prime
   · exact hfactorPrimes
   · exact hFpos
   · exact hlarge
-  · exact hmain
+  · exact hmain'
   · exact hproper
   · exact hexclude
 
