@@ -1024,6 +1024,28 @@ theorem dusartThetaTable6_6CoefficientData_side_conditions :
       0 ≤ row.a1 ∧ row.a1 < (12323 : Real) / 10000 ∧ row.b0 ≤ 1 := by
   norm_num [dusartThetaTable6_6CoefficientData]
 
+def dusartThetaTable6_6CoefficientDataNatRanges : List (Nat × Nat) :=
+  dusartThetaTable6_6CoefficientData.map fun row => (row.left, row.right)
+
+theorem dusartThetaTable6_6CoefficientDataNatRanges_length :
+    dusartThetaTable6_6CoefficientDataNatRanges.length = 34 := by
+  simp [dusartThetaTable6_6CoefficientDataNatRanges,
+    dusartThetaTable6_6CoefficientData_length]
+
+theorem dusartThetaTable6_6CoefficientDataNatRanges_adjacent :
+    dusartThetaTable6_6CoefficientDataNatRanges.Chain'
+      (fun first second => first.2 = second.1) := by
+  decide
+
+theorem dusartThetaTable6_6CoefficientDataNatRanges_cover :
+    ∀ n : Nat, 100000000 ≤ n → n ≤ 800000000000 →
+      ∃ range ∈ dusartThetaTable6_6CoefficientDataNatRanges,
+        range.1 ≤ n ∧ n ≤ range.2 := by
+  intro n hn hN
+  simp [dusartThetaTable6_6CoefficientDataNatRanges,
+    dusartThetaTable6_6CoefficientData]
+  omega
+
 def DusartThetaTable66CoefficientData.toRow
     (data : DusartThetaTable66CoefficientData)
     (lower_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
@@ -1199,7 +1221,7 @@ theorem dusartThetaTable6_6Coefficients_length :
 representation before checking the table's shape.  This keeps the provenance
 checks independent of the real-valued coefficient fields. -/
 def dusartThetaTable6_6NatRanges : List (Nat × Nat) :=
-  dusartThetaTable6_6Coefficients.map fun row => (row.left, row.right)
+  dusartThetaTable6_6CoefficientDataNatRanges
 
 theorem dusartThetaTable6_6NatRanges_length :
     dusartThetaTable6_6NatRanges.length = 34 := by
