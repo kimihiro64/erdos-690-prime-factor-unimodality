@@ -3616,6 +3616,23 @@ theorem dusart_lemma_3_3_of_rows_and_theta_upper
   exact dusart_lemma_3_3_of_finite_and_theta_upper hX
     (dusart_lemma_3_3_finite_of_rows cover) theta_upper
 
+/-! The paper's theta hypothesis is exported in the project's bundled
+Proposition 5.1 interface.  This adapter keeps the Lemma 3.3 proof connected
+to that interface without weakening the finite-range obligation. -/
+theorem dusart_lemma_3_3_of_rows_and_theta_bounds
+    {rows : List DusartLemma33FiniteRow} {X : Real}
+    (hX : (10 ^ 11 : Real) ^ 3 ≤ X)
+    (cover : DusartLemma33FiniteRowsCover rows X)
+    (thetaBounds : HasDusartThetaBounds) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  apply dusart_lemma_3_3_of_rows_and_theta_upper hX cover
+  intro y hy
+  have hupper := thetaBounds.1 y hy
+  nlinarith
+
 theorem dusart_proposition_3_2_of_finite_lemma_and_theta_upper
     {X : Real} (hX : (10 ^ 11 : Real) ^ 3 ≤ X)
     (finite : ∀ x : Real, 0 < x → x ≤ X →
