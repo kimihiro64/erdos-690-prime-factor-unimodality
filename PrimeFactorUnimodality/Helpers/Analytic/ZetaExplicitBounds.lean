@@ -476,6 +476,35 @@ theorem zetaLogDeriv_explicit_uniform :
         have h : 0 ≤ C₀ + K + 1 / A + 1 := by positivity
         linarith
 
+theorem zetaLogDeriv_explicit_bounded_and_holo :
+    ∃ A C : Real, 0 < C ∧ A ∈ Ioc 0 (1 / 2) ∧
+      LogDerivZetaHasBound A C ∧
+      ∀ (T : Real) (_ : 3 ≤ T),
+        HolomorphicOn (fun (s : Complex) ↦
+          deriv riemannZeta s / riemannZeta s)
+        (((Icc ((1 : Real) - A / Real.log T ^ 9) 2) ×ℂ
+          (Icc (-T) T)) \ {1}) := by
+  obtain ⟨A₁, C₁, hC₁, hA₁, hbound⟩ := zetaLogDeriv_explicit_uniform
+  obtain ⟨A₂, hA₂, hholo⟩ := LogDerivZetaHolcLargeT
+  refine ⟨min A₁ A₂, C₁, hC₁, ?_, ?_, ?_⟩
+  · exact ⟨lt_min hA₁.1 hA₂.1,
+      le_trans (min_le_left _ _) hA₁.2⟩
+  · intro σ t ht hσ
+    apply hbound σ t ht
+    exact le_trans hσ (by
+      gcongr
+      exact min_le_left _ _)
+  · intro T hT
+    apply (hholo T hT).mono
+    intro s hs
+    simp only [Set.mem_sdiff, mem_singleton_iff, mem_reProdIm] at hs ⊢
+    refine ⟨?_, hs.2⟩
+    refine ⟨?_, hs.1.2⟩
+    refine ⟨?_, hs.1.1.2⟩
+    apply le_trans _ hs.1.1.1
+    gcongr
+    exact min_le_right _ _
+
 
 end
 end PrimeFactorUnimodality
