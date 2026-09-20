@@ -3694,6 +3694,23 @@ theorem dusart_proposition_3_2_of_paper_finite_lemma_and_theta_bounds
   exact dusart_proposition_3_2_of_paper_lemma_and_theta_bounds
     (dusart_lemma_3_3_of_paper_finite_check finite thetaBounds) thetaBounds
 
+/-! Compact-row form of the paper's Proposition 3.2 boundary. The indexed
+Lemma 3.3 rows discharge only the bounded computation; the theta provider is
+still an explicit theorem input and the analytic tail is supplied by
+`dusart_lemma_3_3_large`. -/
+theorem dusart_proposition_3_2_of_indexed_rows_and_theta_bounds
+    {n : Nat} {rows : Fin n → DusartLemma33FiniteRow} {X : Real}
+    (hX : (10 ^ 11 : Real) ^ 3 ≤ X)
+    (cover : DusartLemma33FiniteRowsIndexedCover rows X)
+    (thetaBounds : HasDusartThetaBounds) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x <
+        (100007 : Real) / 100000 * Real.sqrt x +
+          (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
+  exact dusart_proposition_3_2_of_paper_finite_lemma_and_theta_bounds
+    (fun x hx hX' => dusart_lemma_3_3_finite_of_indexed_rows cover x hx hX')
+    thetaBounds
+
 theorem dusart_proposition_3_2_of_paper_integer_endpoint_check
     (endpoint : ∀ n : Nat, 1 ≤ n →
       (n : Real) ≤ (10 ^ 11 : Real) ^ 3 →
