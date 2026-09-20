@@ -689,6 +689,38 @@ theorem dusart_lemma_3_3_finite_of_indexed_rows
   obtain ⟨i, hleft, hright⟩ := cover x hx hX
   exact (rows i).valid x hx hleft hright
 
+/-! List-to-indexed conversion for generated bounded tables.  This preserves
+the strict right-endpoint convention used by the real-valued cover. -/
+theorem dusartLemma33FiniteRowsIndexedCover_of_list
+    {rows : List DusartLemma33FiniteRow} {X : Real}
+    (cover : DusartLemma33FiniteRowsCover rows X) :
+    DusartLemma33FiniteRowsIndexedCover
+      (fun i : Fin rows.length => rows.get i) X := by
+  intro x hx hX
+  obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
+  obtain ⟨i, hi, hget⟩ := List.getElem_of_mem hrow
+  refine ⟨⟨i, hi⟩, ?_, ?_⟩
+  · simpa [List.get_eq_getElem, hget] using hleft
+  · simpa [List.get_eq_getElem, hget] using hright
+
+theorem dusartLemma33FiniteRowsIndexedCover_append
+    {m X : Real} {n₁ n₂ : Nat}
+    {left : Fin n₁ → DusartLemma33FiniteRow}
+    {right : Fin n₂ → DusartLemma33FiniteRow}
+    (hleft : DusartLemma33FiniteRowsIndexedCover left m)
+    (hright : DusartLemma33FiniteRowsIndexedCover right X) :
+    DusartLemma33FiniteRowsIndexedCover (Fin.append left right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨i, hleft_lower, hleft_upper⟩ := hleft x hx hxm
+    refine ⟨Fin.castAdd n₂ i, ?_, ?_⟩
+    · simpa [Fin.append_left] using hleft_lower
+    · simpa [Fin.append_left] using hleft_upper
+  · obtain ⟨i, hright_lower, hright_upper⟩ := hright x hx hX
+    refine ⟨Fin.natAdd n₁ i, ?_, ?_⟩
+    · simpa [Fin.append_right] using hright_lower
+    · simpa [Fin.append_right] using hright_upper
+
 theorem dusart_lemma_3_3_finite_rows_cover_append
     {left right : List DusartLemma33FiniteRow} {m X : Real}
     (hleft : DusartLemma33FiniteRowsCover left m)
