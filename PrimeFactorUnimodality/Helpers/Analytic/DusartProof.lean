@@ -270,6 +270,34 @@ theorem psi_upper_of_theta_upper_at_large
     exact div_le_div_of_nonneg_left hy_pos.le (by positivity) hpow
   nlinarith [hcor, hscaled, htheta]
 
+theorem psi_upper_of_strict_theta_upper_at_large
+    {y : Real} (hy : (4e18 : Real) ≤ y)
+    (htheta : Chebyshev.theta y < y + y / 36260) :
+    Chebyshev.psi y < (100007 : Real) / 100000 * y := by
+  have hy_pos : 0 < y := by linarith
+  have hlog : (42 : Real) ≤ Real.log y := by
+    exact forty_two_lt_log_four_e18.le.trans
+      (Real.log_le_log (by norm_num) hy)
+  have hlog_pos : 0 < Real.log y := by linarith
+  have hpow : (42 : Real) ^ (4 : Nat) ≤ (Real.log y) ^ (4 : Nat) := by
+    exact pow_le_pow_left₀ (by norm_num) hlog 4
+  have hcor : Chebyshev.psi y - Chebyshev.theta y ≤
+      y / (Real.log y) ^ 4 := by
+    have habs := theta_sub_psi_abs_le_logFourth hy
+    have hnonneg : 0 ≤ Chebyshev.psi y - Chebyshev.theta y := by
+      linarith [Chebyshev.theta_le_psi y]
+    rw [abs_sub_comm, abs_of_nonneg hnonneg] at habs
+    exact habs
+  have hscaled : y / (Real.log y) ^ 4 ≤ y / (42 : Real) ^ 4 := by
+    exact div_le_div_of_nonneg_left hy_pos.le (by positivity) hpow
+  have hsum : Chebyshev.psi y <
+      y + y / 36260 + y / (42 : Real) ^ 4 := by
+    nlinarith [hcor, hscaled]
+  have hbound : y + y / 36260 + y / (42 : Real) ^ 4 ≤
+      (100007 : Real) / 100000 * y := by
+    nlinarith [hy_pos]
+  exact hsum.trans_le hbound
+
 theorem dusart_gap_upper_from_three_large_theta_bounds
     {x : Real} (hx : (121 : Real) ≤ x)
     (h2cut : (4e18 : Real) ≤ x ^ (2 : Real)⁻¹)
@@ -310,6 +338,59 @@ theorem dusart_gap_upper_from_three_large_theta_bounds
         (100007 : Real) / 100000 * x ^ (1 / 3 : Real) +
         (100007 : Real) / 100000 * x ^ (1 / 5 : Real) := by
     nlinarith [hdecomp]
+  have hscaled' : (100007 : Real) / 100000 * x ^ (1 / 5 : Real) ≤
+      (100007 : Real) / 100000 * (3 / 5 : Real) *
+        x ^ (1 / 3 : Real) := by
+    nlinarith [hscaled]
+  have hcuberoot : 0 ≤ x ^ (1 / 3 : Real) := by positivity
+  have hcoeff : (100007 : Real) / 100000 * x ^ (1 / 3 : Real) +
+      (100007 : Real) / 100000 * (3 / 5 : Real) *
+        x ^ (1 / 3 : Real) ≤ (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
+    nlinarith
+  nlinarith [hdecomp', hscaled', hcoeff]
+
+theorem dusart_gap_upper_from_three_strict_large_theta_bounds
+    {x : Real} (hx : (121 : Real) ≤ x)
+    (h2cut : (4e18 : Real) ≤ x ^ (2 : Real)⁻¹)
+    (h3cut : (4e18 : Real) ≤ x ^ (3 : Real)⁻¹)
+    (h5cut : (4e18 : Real) ≤ x ^ (5 : Real)⁻¹)
+    (h2theta : Chebyshev.theta (x ^ (2 : Real)⁻¹) <
+      x ^ (2 : Real)⁻¹ + x ^ (2 : Real)⁻¹ / 36260)
+    (h3theta : Chebyshev.theta (x ^ (3 : Real)⁻¹) <
+      x ^ (3 : Real)⁻¹ + x ^ (3 : Real)⁻¹ / 36260)
+    (h5theta : Chebyshev.theta (x ^ (5 : Real)⁻¹) <
+      x ^ (5 : Real)⁻¹ + x ^ (5 : Real)⁻¹ / 36260) :
+    Chebyshev.psi x - Chebyshev.theta x <
+      (100007 : Real) / 100000 * Real.sqrt x +
+        (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
+  have h2psi := psi_upper_of_strict_theta_upper_at_large h2cut h2theta
+  have h3psi := psi_upper_of_strict_theta_upper_at_large h3cut h3theta
+  have h5psi := psi_upper_of_strict_theta_upper_at_large h5cut h5theta
+  have h2psi' : Chebyshev.psi (x ^ (2 : Real)⁻¹) <
+      (100007 : Real) / 100000 * x ^ (1 / 2 : Real) := by
+    simpa only [show (2 : Real)⁻¹ = 1 / 2 by norm_num] using h2psi
+  have h3psi' : Chebyshev.psi (x ^ (3 : Real)⁻¹) <
+      (100007 : Real) / 100000 * x ^ (1 / 3 : Real) := by
+    simpa only [show (3 : Real)⁻¹ = 1 / 3 by norm_num] using h3psi
+  have h5psi' : Chebyshev.psi (x ^ (5 : Real)⁻¹) <
+      (100007 : Real) / 100000 * x ^ (1 / 5 : Real) := by
+    simpa only [show (5 : Real)⁻¹ = 1 / 5 by norm_num] using h5psi
+  have hdecomp := Chebyshev.psi_sub_theta_le_psi_add_psi_add_psi x
+  have hfive := fifth_rpow_le_three_fifths_cube_rpow hx
+  have hscaled := mul_le_mul_of_nonneg_left hfive
+    (by norm_num : (0 : Real) ≤ (100007 : Real) / 100000)
+  have hsqrt : x ^ (1 / 2 : Real) = Real.sqrt x := by
+    rw [Real.sqrt_eq_rpow]
+  have hdecomp'' : Chebyshev.psi x - Chebyshev.theta x <
+      (100007 : Real) / 100000 * x ^ (1 / 2 : Real) +
+        (100007 : Real) / 100000 * x ^ (1 / 3 : Real) +
+        (100007 : Real) / 100000 * x ^ (1 / 5 : Real) := by
+    nlinarith [hdecomp, h2psi', h3psi', h5psi']
+  have hdecomp' : Chebyshev.psi x - Chebyshev.theta x <
+      (100007 : Real) / 100000 * Real.sqrt x +
+        (100007 : Real) / 100000 * x ^ (1 / 3 : Real) +
+        (100007 : Real) / 100000 * x ^ (1 / 5 : Real) := by
+    simpa only [hsqrt] using hdecomp''
   have hscaled' : (100007 : Real) / 100000 * x ^ (1 / 5 : Real) ≤
       (100007 : Real) / 100000 * (3 / 5 : Real) *
         x ^ (1 / 3 : Real) := by
