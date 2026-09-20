@@ -43,6 +43,19 @@ theorem wangCrapis_thetaBounds_of_logFourthTail
   exact hasDusartThetaBounds_of_finite_and_logFourth_from
     hXpos hlogX finite hA_nonneg hA thetaError
 
+/-! Selected-cutoff form used by the split all-`k` assembly. -/
+theorem wangCrapis_thetaBounds_of_selected_cutoff
+    {A X : Real} (finite : HasDusartSymmetricThetaBoundsBelow X)
+    (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthErrorAbove A X) :
+    HasDusartThetaBounds := by
+  apply wangCrapis_thetaBounds_of_logFourthTail
+    hXpos hlogX finite hA_nonneg hA
+  intro x hx
+  exact thetaError x hx
+
 /-! A source-level decay adapter.  This is deliberately stated in terms of
 the underlying r-power decay estimate rather than a prepackaged Dusart
 theorem.  The decay-to-log-fourth conversion chooses an eventual cutoff;
