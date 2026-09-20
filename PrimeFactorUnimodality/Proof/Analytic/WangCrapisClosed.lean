@@ -15,19 +15,8 @@ layer has one stable interface to the analytic assembly. -/
 source-level MediumPNT argument.  Quantifying the finite fields over every
 possible cutoff would impose a stronger obligation than the analytic proof
 uses and would obscure the actual all-`k` boundary. -/
-structure WangCrapisFiniteProviders where
-  cutoff : Real
-  lower : (4e18 : Real) ≤ cutoff
-  thetaError : HasThetaLogFourthErrorAbove (648 / 1000 : Real) cutoff
-  primeCounting : HasDusartRealPrimeCountingBoundsBelow cutoff
-  theta : HasDusartSymmetricThetaBoundsBelow cutoff
-  shortInterval : HasLogCubedShortIntervalPrimeBelow cutoff
-  remainder : ∃ R : Real,
-    |∫ t in (2 : Real)..cutoff,
-        (Chebyshev.theta t / (t * (Real.log t) ^ 2) -
-          1 / (Real.log t) ^ 2)| ≤ R ∧
-      4000 + 720 * (∫ t in (2 : Real)..cutoff, 1 / Real.log t ^ 7) + R ≤
-        (3 / 5 : Real) * cutoff / Real.log cutoff ^ 4
+abbrev WangCrapisFiniteProviders : Type :=
+  MediumPNTSelectedSplitInputs (4e18 : Real) (3 / 5 : Real)
 
 /-!
 # Closed Wang--Crapis analytic package
@@ -71,15 +60,7 @@ theorem completeClassification_closed_of_finite_providers
     CompleteClassification := by
   exact completeClassification_of_mediumPNT_and_selected_split_inputs
     (X := (4e18 : Real)) (C := (3 / 5 : Real)) le_rfl
-    (by norm_num)
-    { cutoff := providers.cutoff
-      lower := providers.lower
-      large := providers.lower
-      thetaError := providers.thetaError
-      primeCounting := providers.primeCounting
-      theta := providers.theta
-      shortInterval := providers.shortInterval
-      remainder := providers.remainder }
+    (by norm_num) providers
 
 /-! Stable consumer for the compact indexed certificate boundary. -/
 theorem completeClassification_closed_of_indexed_split_certificate
