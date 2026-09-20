@@ -59,6 +59,23 @@ theorem wangCrapis_primeCounting_of_finite_and_thetaTail
     finite hXpos h2X hXY hA0 hA (by norm_num) (by norm_num) hlog hcore
     thetaError
 
+/-! Selected-cutoff form used by the split all-`k` assembly. -/
+theorem wangCrapis_primeCounting_of_selected_cutoff
+    {A C X : Real}
+    (finite : HasDusartRealPrimeCountingBoundsBelow X)
+    (hX : (4e18 : Real) ≤ X)
+    (hXpos : 0 < X) (h2X : 2 ≤ X)
+    (hA0 : 0 ≤ A) (hA : A ≤ 1)
+    (hC0 : 0 ≤ C) (hC : C ≤ 3 / 5)
+    (hlog : (42 : Real) ≤ Real.log X)
+    (hcore : |primeCountingCore X| ≤ C * X / Real.log X ^ 4)
+    (thetaError : HasThetaLogFourthErrorAbove A X) :
+    HasDusartPrimeCountingBounds := by
+  apply hasDusartPrimeCountingBounds_of_finite_and_core_and_theta_error
+    finite hXpos h2X le_rfl hA0 hA hC0 hC hlog hcore
+  intro x hx
+  exact thetaError x hx
+
 /-! Complete source-level assembly.  The medium-PNT theorem chooses one
 eventual cutoff after the finite theta-error provider has established the
 Abel core; the finite prime-counting provider is then consumed at exactly
