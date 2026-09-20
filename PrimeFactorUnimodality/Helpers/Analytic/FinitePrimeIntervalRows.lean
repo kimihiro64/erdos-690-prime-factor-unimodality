@@ -889,6 +889,35 @@ theorem dusartThetaTable6_6NatRanges_adjacent :
       (fun first second => first.2 = second.1) := by
   decide
 
+theorem dusartThetaTable_upper_coeff_error_of_le_one
+    {upper_coeff : Real} (hupper : upper_coeff ≤ 1) :
+    upper_coeff - 1 < (1 : Real) / 36260 := by
+  nlinarith
+
+theorem dusartThetaTable_lower_coeff_error_of_minimum
+    {lower_coeff x : Real}
+    (hlower : (99985 : Real) / 100000 ≤ lower_coeff)
+    (hx : 2 < x) (hxupper : x ≤ (8e11 : Real)) :
+    (1 - lower_coeff) * x <
+      (12323 / 10000 : Real) * x / Real.log x := by
+  have hxpos : 0 < x := by linarith
+  have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
+  have hlog : Real.log x < 30 := by
+    exact (Real.log_le_log hxpos hxupper).trans_lt
+      LogTables.log_eight_hundred_billion_lt_thirty
+  have hratio : (15 : Real) / 100000 <
+      (12323 / 10000 : Real) / Real.log x := by
+    apply (lt_div_iff₀ hlogpos).2
+    nlinarith
+  have hscaled := mul_lt_mul_of_pos_right hratio hxpos
+  have hcoeff : 1 - lower_coeff ≤ (15 : Real) / 100000 := by
+    nlinarith
+  have hscaled' := mul_le_mul_of_nonneg_right hcoeff hxpos.le
+  calc
+    (1 - lower_coeff) * x ≤ (15 : Real) / 100000 * x := hscaled'
+    _ < ((12323 / 10000 : Real) / Real.log x) * x := hscaled
+    _ = (12323 / 10000 : Real) * x / Real.log x := by ring
+
 def DusartThetaTableCoefficientRow.toRelativeRow
     (row : DusartThetaTableCoefficientRow)
     (hleft : 2 ≤ row.left) (hle : row.left ≤ row.right)
