@@ -128,6 +128,15 @@ These are source obligations before certificate replay.  A certificate may
  used to hide a missing analytic theorem or to weaken an all-`x` statement to
  an eventual one.
 
+The dependency audit also found a proved (non-placeholder) `ZetaZeroFree`
+lemma in `PrimeNumberTheoremAnd/ZetaBounds.lean`.  It supplies an existential
+`A` and a region of the form `1 - A / log(|t|)^9`; it does not supply the
+explicit fixed numerical parameter or the sharper classical region needed by
+Dusart's constants.  The `MediumPNT` consequence therefore remains an
+eventual existential decay result.  Do not mistake that theorem for the
+completed explicit Dusart analytic tail: the missing work is the numerical
+specialization and its Chebyshev-error conversion.
+
 Preserve the existing generic declarations in `DecayToLogFourth.lean`,
 `ExplicitPrimeCounting.lean`, `ExplicitThetaBounds.lean`,
 `ShortIntervalPrime.lean`, and `MediumPNT.lean`; repair their elaboration
