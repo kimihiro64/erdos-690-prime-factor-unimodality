@@ -920,6 +920,16 @@ def DusartLemma33FiniteProofChunk.append
   · exact left.valid x hx hxm
   · exact right.valid x hx hX
 
+def DusartLemma33FiniteProofChunk.appendMany
+    (first : DusartLemma33FiniteProofChunk)
+    (rest : List DusartLemma33FiniteProofChunk) :
+    DusartLemma33FiniteProofChunk :=
+  match rest with
+  | [] => first
+  | next :: tail =>
+      DusartLemma33FiniteProofChunk.appendMany
+        (DusartLemma33FiniteProofChunk.append first next) tail
+
 theorem dusart_lemma_3_3_finite_rows_cover_append
     {left right : List DusartLemma33FiniteRow} {m X : Real}
     (hleft : DusartLemma33FiniteRowsCover left m)
