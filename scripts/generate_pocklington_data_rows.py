@@ -87,7 +87,7 @@ def render(name: str, certificates: list[tuple[int, int, int, int, list[int], li
             *defs,
             f"def {data_name} : List PocklingtonData := [{', '.join(data_names)}]",
             "",
-            f"set_option maxRecDepth 100000 in\ntheorem {data_name}_valid :",
+            f"set_option maxRecDepth 1000000 in\ntheorem {data_name}_valid :",
             f"    PocklingtonRow.Valid {data_name} := by",
             "  intro d hd",
             f"  simp [{data_name}] at hd",
