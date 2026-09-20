@@ -1636,6 +1636,26 @@ def dusartLemma33FiniteRow_twothousandtwohundrednine_twothousandfourhundred :
 def dusartLemma33FiniteRow_exact_twofourzeroone : DusartLemma33FiniteRow :=
   dusartLemma33FiniteRow_of_integer_endpoint 2401 dusart_lemma_3_3_at_2401
 
+theorem dusart_lemma_3_3_at_2402 :
+    Chebyshev.psi (2402 : Real) - Chebyshev.theta 2402 -
+        Chebyshev.theta (Real.sqrt (2402 : Real)) <
+      (1777745 : Real) / 1000000 * (2402 : Real) ^ (1 / (3 : Real)) := by
+  have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 2402
+  have htheta := Chebyshev.theta_eq_sum_primesLE_log 2402
+  have hsqrt_floor : ⌊Real.sqrt (2402 : Real)⌋₊ = 49 := by
+    apply (Nat.floor_eq_iff (by positivity : (0 : Real) ≤ Real.sqrt 2402)).2
+    constructor
+    · norm_num
+    · nlinarith [Real.sq_sqrt (by norm_num : (0 : Real) ≤ (2402 : Real)),
+        Real.sqrt_nonneg (2402 : Real)]
+  norm_num at hpsi htheta
+  rw [hpsi, htheta, Chebyshev.theta_eq_theta_coe_floor, hsqrt_floor]
+  norm_num [Nat.log, Nat.log.go]
+  interval_decide
+
+def dusartLemma33FiniteRow_exact_twofourzeroone_two : DusartLemma33FiniteRow :=
+  dusartLemma33FiniteRow_of_integer_endpoint 2402 dusart_lemma_3_3_at_2402
+
 theorem psi_sub_theta_nat_2047_lt_fiftysix :
     Chebyshev.psi (2047 : Real) - Chebyshev.theta 2047 < 56 := by
   have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 2047
@@ -2847,6 +2867,17 @@ theorem dusart_lemma_3_3_finite_2401 :
         (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
   exact dusart_lemma_3_3_finite_of_rows
     dusartLemma33FiniteRowsCover_twofourzeroone
+
+theorem dusart_lemma_3_3_finite_2402 :
+    ∀ x : Real, 0 < x → x ≤ 2402 →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  intro x hx hX
+  by_cases hprefix : x ≤ 2401
+  · exact dusart_lemma_3_3_finite_2401 x hx hprefix
+  · exact dusartLemma33FiniteRow_exact_twofourzeroone_two.valid x hx
+      (by norm_num; linarith) (by norm_num; linarith)
 
 /-! The existing closed prefix is also exported through the chunk boundary;
     later generated chunks can be appended without changing this consumer. -/
