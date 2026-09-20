@@ -21,7 +21,7 @@ LOW_START = "def dusartUpper"
 LOW_END = "theorem dusartPrimeRows_3275_23158_chain"
 HIGH_START = "def dusartPrimeRows_23159_89693"
 HIGH_END = "structure LogCubedPrimeRow"
-ROW_PART_SIZE = 24
+ROW_PART_SIZE = 8
 LOW_MODULE_TARGET_BYTES = 60_000
 
 
