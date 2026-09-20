@@ -607,6 +607,20 @@ theorem dusart_lemma_3_3_finite_rows_cover_append
       hright x hx hX
     exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
 
+theorem dusartLemma33FiniteRowsCover_append_row
+    {rows : List DusartLemma33FiniteRow} {row : DusartLemma33FiniteRow}
+    {m X : Real}
+    (cover : DusartLemma33FiniteRowsCover rows m)
+    (hrow : ∀ x : Real, m < x → 0 < x → x ≤ X →
+      (row.left : Real) ≤ x ∧ x < (row.right : Real) + 1) :
+    DusartLemma33FiniteRowsCover (rows ++ [row]) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨old, hold, hleft, hright⟩ := cover x hx hxm
+    exact ⟨old, by simp [hold], hleft, hright⟩
+  · obtain ⟨hleft, hright⟩ := hrow x hxm hx hX
+    exact ⟨row, by simp, hleft, hright⟩
+
 end
 
 end PrimeFactorUnimodality
