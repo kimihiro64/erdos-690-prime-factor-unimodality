@@ -473,6 +473,97 @@ theorem dusartLemma33FiniteRowsCover_onetwenty_compact :
   · norm_num
     linarith
 
+theorem psi_sub_theta_nat_167_lt_sixteen :
+    Chebyshev.psi (167 : Real) - Chebyshev.theta 167 < 16 := by
+  have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 167
+  have htheta := Chebyshev.theta_eq_sum_primesLE_log 167
+  norm_num at hpsi htheta
+  rw [hpsi, htheta]
+  change (∑ p ∈ Nat.primesBelow 168,
+      ↑(Nat.log p 167) * Real.log ↑p) -
+    ∑ p ∈ Nat.primesBelow 168, Real.log ↑p < 16
+  have hp : Nat.primesBelow 168 =
+      {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
+        59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113,
+        127, 131, 137, 139, 149, 151, 157, 163, 167} := by
+    decide
+  rw [hp]
+  norm_num [Nat.log, Nat.log.go]
+  nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
+    Real.log_five_lt_d9, LogTables.log_7_lt, ElementaryLogBounds.log_11_lt]
+
+def dusartLemma33FiniteRow_onetwentyone_onehundredsixtyseven :
+    DusartLemma33FiniteRow :=
+  { left := 121
+    right := 167
+    left_le_right := by norm_num
+    valid := by
+      intro x hx hleft hright
+      have hx121 : (121 : Real) ≤ x := by exact_mod_cast hleft
+      have hx168 : x < 168 := by norm_num at hright ⊢; exact hright
+      have htransport : Chebyshev.psi x - Chebyshev.theta x =
+          Chebyshev.psi (⌊x⌋₊ : Real) - Chebyshev.theta (⌊x⌋₊ : Real) := by
+        rw [Chebyshev.psi_eq_psi_coe_floor,
+          Chebyshev.theta_eq_theta_coe_floor]
+      have hfloor : (⌊x⌋₊ : Real) ≤ 167 := by
+        exact_mod_cast Nat.le_of_lt_succ
+          ((Nat.floor_lt hx.le).2 (by norm_num; exact hx168))
+      have hleft : Chebyshev.psi x - Chebyshev.theta x < 16 := by
+        rw [htransport]
+        exact (psi_sub_theta_mono hfloor).trans_lt psi_sub_theta_nat_167_lt_sixteen
+      have hsqrt : (11 : Real) ≤ Real.sqrt x := by
+        nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+      have htheta_mono : Chebyshev.theta 11 ≤
+          Chebyshev.theta (Real.sqrt x) :=
+        Chebyshev.theta_mono hsqrt
+      have htheta_eleven := Chebyshev.theta_eq_sum_primesLE_log 11
+      have hp11 : Nat.primesLE 11 = {2, 3, 5, 7, 11} := by decide
+      rw [hp11] at htheta_eleven
+      norm_num [Nat.log, Nat.log.go] at htheta_eleven
+      have hlog10 : Real.log 10 = Real.log 2 + Real.log 5 := by
+        rw [show (10 : Real) = 2 * 5 by norm_num, Real.log_mul]
+        · norm_num
+        all_goals positivity
+      have hlog10_le : Real.log 10 ≤ Real.log 11 := by
+        exact Real.log_le_log (by norm_num) (by norm_num)
+      have htheta_lower : (15 / 2 : Real) < Chebyshev.theta 11 := by
+        nlinarith [htheta_eleven, hlog10, hlog10_le,
+          Real.log_two_gt_d9, Real.log_three_gt_d9,
+          Real.log_five_gt_d9, LogTables.log_7_gt]
+      have hbase : ((49 / 10 : Real) ^ (3 : Nat)) ≤ x := by
+        norm_num
+        linarith
+      have hpow := Real.rpow_le_rpow (by positivity :
+          (0 : Real) ≤ (49 / 10 : Real) ^ (3 : Nat)) hbase
+        (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
+      have hpow_const : (49 / 10 : Real) ≤ x ^ (1 / 3 : Real) := by
+        calc
+          (49 / 10 : Real) = ((49 / 10 : Real) ^ (3 : Nat)) ^
+              (1 / 3 : Real) := by
+                rw [← Real.rpow_natCast, ← Real.rpow_mul (by positivity)]
+                norm_num
+          _ ≤ x ^ (1 / 3 : Real) := hpow
+      nlinarith [hleft, htheta_mono, htheta_lower, hpow_const] }
+
+theorem dusartLemma33FiniteRowsCover_onehundredsixtyseven :
+    DusartLemma33FiniteRowsCover
+      ([dusartLemma33FiniteRow_zero_one, dusartLemma33FiniteRow_two,
+        dusartLemma33FiniteRow_three, dusartLemma33FiniteRow_four,
+        dusartLemma33FiniteRow_five, dusartLemma33FiniteRow_six,
+        dusartLemma33FiniteRow_seven, dusartLemma33FiniteRow_eight,
+        dusartLemma33FiniteRow_nine, dusartLemma33FiniteRow_ten_twentyfour,
+        dusartLemma33FiniteRow_twentyfive_thirtyfive,
+        dusartLemma33FiniteRow_thirtysix_sixtythree,
+        dusartLemma33FiniteRow_sixtyfour_onetwenty] ++
+        [dusartLemma33FiniteRow_onetwentyone_onehundredsixtyseven]) 167 := by
+  apply dusartLemma33FiniteRowsCover_append_row
+    dusartLemma33FiniteRowsCover_onetwenty_compact
+  intro x hgt hx hX
+  constructor
+  · linarith
+  · norm_num
+    linarith
+
 theorem dusart_lemma_3_3_finite_120 :
     ∀ x : Real, 0 < x → x ≤ 120 →
       Chebyshev.psi x - Chebyshev.theta x -
