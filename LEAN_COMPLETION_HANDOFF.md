@@ -129,6 +129,15 @@ explicit endpoint inequality `theta_upper < left`; they do not derive that
 inequality from the relaxed Dusart error fields.  Use them for the Schoenfeld
 strict Table 6.4 prefix once its bounded endpoint computation is available.
 
+Table 6.6 needs a separate warning.  Its displayed `a0,b0` bounds are part of
+three interval inequalities, with the accompanying `a1,b1` and `a2,b2`
+corrections in `1 / log x` and `1 / log^2 x`.  Monotonicity of `theta` plus a
+single endpoint value cannot certify a constant-coefficient row on a
+nontrivial interval: the lower and upper margins move with `x`.  The verified
+table-row boundary must therefore retain a direct interval proof (or formalize
+the full three-coefficient formula); do not replace it with endpoint-only
+inequalities.
+
 The Proposition 3.1 finite-row interface uses half-open unit intervals
 `[n,n+1)`, not closed singleton intervals.  Its integer reduction therefore
 checks the shifted margin at `sqrt (n+1)` before transporting the constant
