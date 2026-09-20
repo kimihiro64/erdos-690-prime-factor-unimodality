@@ -344,6 +344,24 @@ theorem dusart_proposition_3_2_of_lemma_3_3_and_dusart_theta_upper
   exact dusart_proposition_3_2_of_lemma_3_3_and_theta_upper
     hx hlemma htheta''
 
+/-! The paper's global Proposition 3.2 assembly.  The input `lemma` is the
+uniform Lemma 3.3 estimate, including its bounded direct-computation range;
+the second input is the global Proposition 5.1 theta upper bound. -/
+theorem dusart_proposition_3_2_of_paper_lemma_and_theta_upper
+    (hlemma : ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / 3 : Real))
+    (theta_upper : ∀ y : Real, 0 < y →
+      Chebyshev.theta y - y < y / 36260) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x <
+        (100007 : Real) / 100000 * Real.sqrt x +
+          (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
+  intro x hx
+  exact dusart_proposition_3_2_of_lemma_3_3_and_dusart_theta_upper
+    hx (hlemma x hx) theta_upper
+
 theorem dusart_gap_upper_from_uniform_root_bound
     {x : Real} (hx : (121 : Real) ≤ x)
     (hroot : ∀ y : Real, 0 ≤ y →
