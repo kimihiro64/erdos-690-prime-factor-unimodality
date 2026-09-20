@@ -65,7 +65,7 @@ def endpoint_theorem(n: int) -> str:
     unique_roots = list(dict.fromkeys(r for _, r in roots))
     out.extend([
         "  rw [" + ", ".join(f"dusart_theta_nat_{r}" for r in unique_roots) + "]",
-        "  norm_num [Nat.log, Nat.log.go]",
+        "  norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]",
         "  interval_decide",
         "",
     ])
