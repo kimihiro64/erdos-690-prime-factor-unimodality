@@ -1019,6 +1019,36 @@ def dusartThetaTable6_6CoefficientData :
 theorem dusartThetaTable6_6CoefficientData_length :
     dusartThetaTable6_6CoefficientData.length = 34 := by decide
 
+def DusartThetaTable66CoefficientData.toRow
+    (data : DusartThetaTable66CoefficientData)
+    (lower_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      data.a0 * x ≤ Chebyshev.theta x)
+    (upper_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      Chebyshev.theta x ≤ data.b0 * x)
+    (lower_one : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      x - data.a1 * x / Real.log x ≤ Chebyshev.theta x)
+    (upper_one : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      Chebyshev.theta x ≤ x + data.b1 * x / Real.log x)
+    (lower_two : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      x - data.a2 * x / Real.log x ^ 2 ≤ Chebyshev.theta x)
+    (upper_two : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      Chebyshev.theta x ≤ x + data.b2 * x / Real.log x ^ 2) :
+    DusartThetaTable66Row :=
+  { left := data.left
+    right := data.right
+    a0 := data.a0
+    b0 := data.b0
+    a1 := data.a1
+    b1 := data.b1
+    a2 := data.a2
+    b2 := data.b2
+    lower_zero := lower_zero
+    upper_zero := upper_zero
+    lower_one := lower_one
+    upper_one := upper_one
+    lower_two := lower_two
+    upper_two := upper_two }
+
 def DusartThetaTable66Row.toRelativeRow
     (row : DusartThetaTable66Row)
     (hleft : 2 ≤ row.left) (hle : row.left ≤ row.right)
