@@ -1,6 +1,7 @@
 import PrimeFactorUnimodality.Helpers.Analytic.DecayToLogFourth
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitPrimeCounting
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
+import PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT
 import PrimeNumberTheoremAnd.MediumPNT
 
 set_option autoImplicit false
@@ -18,7 +19,7 @@ out here: the imported theorem is the analytic proof, while this theorem matches
 its signed error term to the absolute-value interface used by the project. -/
 theorem hasPsiLogRpowBigO_of_mediumPNT :
     ∃ c : Real, 0 < c ∧ HasPsiLogRpowBigO c ((1 : Real) / 10) := by
-  obtain ⟨c, hc, hmedium⟩ := MediumPNT
+  obtain ⟨c, hc, hmedium⟩ := explicitMediumPNT
   refine ⟨c, hc, ?_⟩
   change (fun x : Real => |Chebyshev.psi x - x|) =O[atTop]
     (fun x : Real => x * Real.exp (-c * (Real.log x) ^ ((1 : Real) / 10)))
