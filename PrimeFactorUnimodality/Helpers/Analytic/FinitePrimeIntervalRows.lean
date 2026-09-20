@@ -817,6 +817,56 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_relative_rows
   obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
   exact ⟨dusartThetaRelativeRow_to_bounds row, by simp [hrow], hleft, hright⟩
 
+/-! Closed regression seed for the coefficient-row adapter.  The published
+table starts much later; this singleton only checks that the coefficient
+representation composes with the existing low-endpoint seed. -/
+def dusartThetaRelativeRow_two : DusartThetaRelativeRow := by
+  let c : Real := Chebyshev.theta 2 / 2
+  refine {
+    left := 2
+    right := 2
+    left_large := by norm_num
+    left_le_right := by norm_num
+    lower_coeff := c
+    upper_coeff := c
+    lower_bound := ?_
+    upper_bound := ?_
+    upper_coeff_error := ?_
+    lower_coeff_error := ?_ }
+  · intro x hleft hright
+    have hx : x = 2 := by linarith
+    subst x
+    dsimp [c]
+    ring_nf
+  · intro x hleft hright
+    have hx : x = 2 := by linarith
+    subst x
+    dsimp [c]
+    ring_nf
+  · dsimp [c]
+    rw [theta_two_eq_log_two]
+    nlinarith [Real.log_two_lt_d9]
+  · intro x hx hleft hright
+    have hx2 : x = 2 := by linarith
+    subst x
+    dsimp [c]
+    rw [theta_two_eq_log_two]
+    have hlog_pos : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
+    have hlog_lt : Real.log (2 : Real) < 1 := by
+      nlinarith [Real.log_two_lt_d9]
+    have hleft_bound : (1 - Real.log (2 : Real) / 2) * 2 < 2 := by
+      nlinarith
+    have hright_bound : (2 : Real) <
+        (12323 / 10000 : Real) * 2 / Real.log 2 := by
+      apply (lt_div_iff₀ hlog_pos).2
+      nlinarith [hlog_lt]
+    exact hleft_bound.trans hright_bound
+
+theorem dusartThetaRelativeRow_two_cover :
+    DusartThetaRelativeRowsCoverUpTo [dusartThetaRelativeRow_two] 2 := by
+  intro x hx hX
+  refine ⟨dusartThetaRelativeRow_two, by simp, ?_, ?_⟩ <;> linarith
+
 structure DusartPrimeCountingRow where
   left : Nat
   right : Nat
