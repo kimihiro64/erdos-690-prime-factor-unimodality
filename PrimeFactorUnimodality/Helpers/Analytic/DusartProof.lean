@@ -269,6 +269,27 @@ theorem dusart_proposition_3_2_of_uniform_strict_root_bound
     nlinarith
   nlinarith [hdecomp, hscaled', hcoeff]
 
+/-! The published proposition is global.  Its proof has a finite endpoint
+check below `121` and the prime-power argument above that endpoint; keeping
+those two inputs separate makes the exact scope of the remaining finite check
+visible to the final provider. -/
+theorem dusart_proposition_3_2_of_uniform_strict_root_bound_all
+    (small : ∀ x : Real, 0 ≤ x → x < 121 →
+      Chebyshev.psi x - Chebyshev.theta x <
+        (100007 : Real) / 100000 * Real.sqrt x +
+          (178 : Real) / 100 * x ^ (1 / 3 : Real))
+    (hroot : ∀ y : Real, 0 ≤ y →
+      Chebyshev.psi y < (100007 : Real) / 100000 * y) :
+    ∀ x : Real, 0 ≤ x →
+      Chebyshev.psi x - Chebyshev.theta x <
+        (100007 : Real) / 100000 * Real.sqrt x +
+          (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
+  intro x hx
+  by_cases hsmall : x < 121
+  · exact small x hx hsmall
+  · exact dusart_proposition_3_2_of_uniform_strict_root_bound
+      (le_of_not_gt hsmall) hroot
+
 theorem dusart_gap_upper_from_uniform_root_bound
     {x : Real} (hx : (121 : Real) ≤ x)
     (hroot : ∀ y : Real, 0 ≤ y →
