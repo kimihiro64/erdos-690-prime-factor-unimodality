@@ -3389,6 +3389,44 @@ theorem dusart_prime_power_rpow_sum_le
     simp only [Finset.mem_Icc] at hk₂
     omega
 
+/-! The numerical coefficient in Lemma 3.3 depends only on the number of
+exponents, not on the way that count was obtained.  Keeping this conversion
+separate lets a later explicit endpoint argument replace the coarse logarithmic
+count without repeating the prime-power estimate. -/
+theorem dusart_prime_power_rpow_sum_le_of_count
+    {x : Real} (hx : (1 : Real) ≤ x) {N : Nat} (hN : 3 ≤ N)
+    (hcount : (N : Real) ≤ (7 : Real) / 10 * x ^ (1 / (12 : Real))) :
+    ∑ k ∈ Finset.Icc 3 N, x ^ (1 / (k : Real)) ≤
+      (17 : Real) / 10 * x ^ (1 / (3 : Real)) := by
+  have hsum := dusart_prime_power_rpow_sum_le hx hN
+  have hNnonneg : 0 ≤ (N : Real) - 3 := by
+    exact_mod_cast Nat.zero_le (N - 3)
+  have hpow4 : 0 ≤ x ^ (1 / (4 : Real)) := by positivity
+  have htail : ((N : Real) - 3) * x ^ (1 / (4 : Real)) ≤
+      (7 : Real) / 10 * x ^ (1 / (3 : Real)) := by
+    calc
+      ((N : Real) - 3) * x ^ (1 / (4 : Real)) ≤
+          (N : Real) * x ^ (1 / (4 : Real)) := by
+        gcongr
+        norm_num
+      _ ≤ ((7 : Real) / 10 * x ^ (1 / (12 : Real))) *
+          x ^ (1 / (4 : Real)) :=
+        mul_le_mul_of_nonneg_right hcount hpow4
+      _ = (7 : Real) / 10 *
+          (x ^ (1 / (12 : Real)) * x ^ (1 / (4 : Real))) := by ring
+      _ = (7 : Real) / 10 * x ^ (1 / (3 : Real)) := by
+        rw [← Real.rpow_add (by positivity : 0 < x)]
+        congr 1
+        norm_num
+  calc
+    ∑ k ∈ Finset.Icc 3 N, x ^ (1 / (k : Real)) ≤
+        x ^ (1 / (3 : Real)) +
+          ((N : Real) - 3) * x ^ (1 / (4 : Real)) := hsum
+    _ ≤ x ^ (1 / (3 : Real)) +
+        (7 : Real) / 10 * x ^ (1 / (3 : Real)) :=
+      add_le_add le_rfl htail
+    _ = (17 : Real) / 10 * x ^ (1 / (3 : Real)) := by ring
+
 /-! The logarithmic count of exponents is negligible at Dusart's large
 cutoff.  This is the elementary monotonicity estimate used to turn the
 finite sum above into a fixed multiple of `x^(1/3)`. -/
@@ -3502,39 +3540,9 @@ theorem dusart_lemma_3_3_large
       Real.log_pow] at hlog
     norm_num at hlog ⊢
     linarith
-  have hsum_rpow := dusart_prime_power_rpow_sum_le
-    (x := x) (by linarith [hx]) hN3
   have hcount := dusart_floor_log_div_two_le_rpow hx
-  have hxpos : 0 < x := by positivity
-  have htail : ((N : Real) - 3) * x ^ (1 / (4 : Real)) ≤
-      (7 : Real) / 10 * x ^ (1 / (3 : Real)) := by
-    have hNnonneg : 0 ≤ (N : Real) - 3 := by exact_mod_cast Nat.zero_le (N - 3)
-    have hpow4 : 0 ≤ x ^ (1 / (4 : Real)) := by positivity
-    calc
-      ((N : Real) - 3) * x ^ (1 / (4 : Real)) ≤
-          (N : Real) * x ^ (1 / (4 : Real)) := by
-        gcongr
-        norm_num
-      _ ≤ ((7 : Real) / 10 * x ^ (1 / (12 : Real))) *
-          x ^ (1 / (4 : Real)) :=
-        mul_le_mul_of_nonneg_right hcount hpow4
-      _ = (7 : Real) / 10 *
-          (x ^ (1 / (12 : Real)) * x ^ (1 / (4 : Real))) := by ring
-      _ = (7 : Real) / 10 * x ^ (1 / (3 : Real)) := by
-        rw [← Real.rpow_add hxpos]
-        congr 1
-        norm_num
-  have hsum17 :
-      ∑ k ∈ Finset.Icc 3 N, x ^ (1 / (k : Real)) ≤
-        (17 : Real) / 10 * x ^ (1 / (3 : Real)) := by
-    calc
-      ∑ k ∈ Finset.Icc 3 N, x ^ (1 / (k : Real)) ≤
-          x ^ (1 / (3 : Real)) +
-            ((N : Real) - 3) * x ^ (1 / (4 : Real)) := hsum_rpow
-      _ ≤ x ^ (1 / (3 : Real)) +
-          (7 : Real) / 10 * x ^ (1 / (3 : Real)) :=
-        add_le_add le_rfl htail
-      _ = (17 : Real) / 10 * x ^ (1 / (3 : Real)) := by ring
+  have hsum17 := dusart_prime_power_rpow_sum_le_of_count
+    (x := x) (by linarith [hx]) hN3 hcount
   have htheta_sum :
       (∑ k ∈ Finset.Icc 3 N,
         Chebyshev.theta (x ^ (1 / (k : Real)))) <
