@@ -29,8 +29,9 @@ does not claim to be the global provider.
 /-! Closed singleton seed for the finite theta assembler. -/
 theorem wangCrapis_thetaPrefix :
     HasDusartSymmetricThetaBoundsBelow (2 : Real) := by
-  exact hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
-    dusartThetaEndpointRow_two_cover
+  exact hasDusartSymmetricThetaBoundsBelow_mono (by norm_num)
+    (hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
+      dusartThetaEndpointRow_three_cover)
 
 theorem wangCrapis_thetaPrefix_three :
     HasDusartSymmetricThetaBoundsBelow (3 : Real) := by
