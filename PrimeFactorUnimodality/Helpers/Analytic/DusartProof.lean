@@ -64,6 +64,70 @@ theorem psi_sub_theta_le_of_root_bound
     convert h5 using 1 <;> norm_num
   nlinarith [hdecomp, h2', h3', h5']
 
+theorem fifth_rpow_le_three_fifths_cube_rpow
+    {x : Real} (hx : (121 : Real) ≤ x) :
+    x ^ (1 / 5 : Real) ≤ (3 : Real) / 5 * x ^ (1 / 3 : Real) := by
+  have hx_pos : 0 < x := by linarith
+  have hpow : ((13 : Real) / 10) ^ (15 : Nat) ≤ x := by
+    have hnum : ((13 : Real) / 10) ^ (15 : Nat) ≤ 121 := by norm_num
+    exact hnum.trans hx
+  have hlog := Real.log_le_log
+    (by positivity : (0 : Real) < ((13 : Real) / 10) ^ (15 : Nat)) hpow
+  rw [Real.log_pow] at hlog
+  have ha : (13 : Real) / 10 ≤ x ^ (1 / 15 : Real) := by
+    apply Real.le_rpow_of_log_le hx_pos
+    nlinarith
+  have ha_pos : 0 < x ^ (1 / 15 : Real) := by positivity
+  have h5 : x ^ (1 / 5 : Real) =
+      (x ^ (1 / 15 : Real)) ^ (3 : Nat) := by
+    rw [← Real.rpow_natCast, ← Real.rpow_mul (le_of_lt hx_pos)]
+    norm_num
+  have h3 : x ^ (1 / 3 : Real) =
+      (x ^ (1 / 15 : Real)) ^ (5 : Nat) := by
+    rw [← Real.rpow_natCast, ← Real.rpow_mul (le_of_lt hx_pos)]
+    norm_num
+  rw [h5, h3]
+  let a : Real := x ^ (1 / 15 : Real)
+  have ha2 : (5 : Real) / 3 ≤ a ^ 2 := by
+    dsimp [a]
+    nlinarith [sq_nonneg (x ^ (1 / 15 : Real) - 13 / 10)]
+  have hunit : (1 : Real) ≤ (3 / 5 : Real) * a ^ 2 := by
+    nlinarith
+  have hmul := mul_le_mul_of_nonneg_left hunit (by positivity : 0 ≤ a ^ 3)
+  dsimp [a] at hmul ⊢
+  nlinarith
+
+theorem dusart_gap_upper_from_uniform_root_bound
+    {x : Real} (hx : (121 : Real) ≤ x)
+    (hroot : ∀ y : Real, 0 ≤ y →
+      Chebyshev.psi y ≤ (100007 : Real) / 100000 * y) :
+    Chebyshev.psi x - Chebyshev.theta x ≤
+      (100007 : Real) / 100000 * Real.sqrt x +
+        (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
+  have hdecomp := psi_sub_theta_le_of_root_bound
+    (x := x) (c := (100007 : Real) / 100000) (by linarith) (by norm_num) hroot
+  have hfive := fifth_rpow_le_three_fifths_cube_rpow hx
+  have hscaled := mul_le_mul_of_nonneg_left hfive
+    (by norm_num : (0 : Real) ≤ (100007 : Real) / 100000)
+  have hsqrt : x ^ (1 / 2 : Real) = Real.sqrt x := by
+    rw [Real.sqrt_eq_rpow]
+  rw [hsqrt] at hdecomp
+  have hdecomp' : Chebyshev.psi x - Chebyshev.theta x ≤
+      (100007 : Real) / 100000 * Real.sqrt x +
+        (100007 : Real) / 100000 * x ^ (1 / 3 : Real) +
+        (100007 : Real) / 100000 * x ^ (1 / 5 : Real) := by
+    nlinarith [hdecomp]
+  have hscaled' : (100007 : Real) / 100000 * x ^ (1 / 5 : Real) ≤
+      (100007 : Real) / 100000 * (3 / 5 : Real) *
+        x ^ (1 / 3 : Real) := by
+    nlinarith [hscaled]
+  have hcuberoot : 0 ≤ x ^ (1 / 3 : Real) := by positivity
+  have hcoeff : (100007 : Real) / 100000 * x ^ (1 / 3 : Real) +
+      (100007 : Real) / 100000 * (3 / 5 : Real) *
+        x ^ (1 / 3 : Real) ≤ (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
+    nlinarith
+  nlinarith [hdecomp', hscaled', hcoeff]
+
 theorem psi_sub_theta_ge_elementary_sqrt_gap
     {x : Real} (hx : (62500000000 : Real) ≤ x) :
     (86 : Real) / 100 * Real.sqrt x ≤
