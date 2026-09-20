@@ -83,6 +83,14 @@ theorem wangCrapis_thetaBounds_upper_0_3
     have hright : 0 < x / 36260 := by positivity
     linarith
 
+theorem wangCrapis_thetaBoundsBelow_3 :
+    HasDusartSymmetricThetaBoundsBelow (3 : Real) := by
+  constructor
+  · intro x hx hx3
+    exact wangCrapis_thetaBounds_upper_0_3 hx hx3
+  · intro x hx hx3
+    exact wangCrapis_thetaBounds_lower_2_3 hx hx3
+
 /-! The fixed explicit-formula input is exported at the theta boundary so the
     eventual psi/theta tail proof consumes the constructed estimate rather than
     the package's existential placeholder. -/
