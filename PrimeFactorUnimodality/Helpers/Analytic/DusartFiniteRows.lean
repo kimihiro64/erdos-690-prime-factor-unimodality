@@ -594,6 +594,26 @@ theorem dusart_lemma_3_3_finite_of_rows
   obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
   exact row.valid x hx hleft hright
 
+/-! Indexed assembly is the compact counterpart of the list assembler.  It
+allows a generated bounded computation to expose one row function and one
+cover proof without expanding the computation into a declaration per band. -/
+def DusartLemma33FiniteRowsIndexedCover
+  {n : Nat} (rows : Fin n → DusartLemma33FiniteRow) (X : Real) : Prop :=
+  ∀ x : Real, 0 < x → x ≤ X →
+    ∃ i : Fin n, ((rows i).left : Real) ≤ x ∧
+      x < (rows i).right + 1
+
+theorem dusart_lemma_3_3_finite_of_indexed_rows
+    {n : Nat} {rows : Fin n → DusartLemma33FiniteRow} {X : Real}
+    (cover : DusartLemma33FiniteRowsIndexedCover rows X) :
+    ∀ x : Real, 0 < x → x ≤ X →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  intro x hx hX
+  obtain ⟨i, hleft, hright⟩ := cover x hx hX
+  exact (rows i).valid x hx hleft hright
+
 theorem dusart_lemma_3_3_finite_rows_cover_append
     {left right : List DusartLemma33FiniteRow} {m X : Real}
     (hleft : DusartLemma33FiniteRowsCover left m)
