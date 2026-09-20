@@ -52,6 +52,34 @@ theorem wangCrapis_theta_upper_e28_from_strict_paper_inputs
     Chebyshev.theta x - x < x / 36260 := by
   exact dusart_theta_upper_e28_step_strict hx hx_exp hpsi hgap
 
+/-! Paper-facing Proposition 5.1 assembler.  The three hypotheses correspond
+to Dusart's finite table, middle explicit psi estimate, and large-range theta
+estimate; none of the range-specific obligations is hidden in this glue. -/
+theorem dusart_proposition_5_1_of_paper_ranges
+    (finite : ∀ x : Real, 0 < x → x ≤ (8e11 : Real) →
+      Chebyshev.theta x - x < x / 36260)
+    (middle : ∀ x : Real, (8e11 : Real) ≤ x →
+      x ≤ Real.exp 28 →
+      |Chebyshev.psi x - x| < (2841 : Real) / 100000000 * x ∧
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x)
+    (tail : ∀ x : Real, Real.exp 28 ≤ x →
+      Chebyshev.theta x - x < x / 36260) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.theta x - x < x / 36260 := by
+  intro x hx
+  by_cases hfinite : x ≤ (8e11 : Real)
+  · exact finite x hx hfinite
+  by_cases hmiddle : x ≤ Real.exp 28
+  · obtain ⟨herror, hgap⟩ := middle x (le_of_not_ge hfinite) hmiddle
+    have hpsi : Chebyshev.psi x <
+        (100002841 : Real) / 100000000 * x := by
+      have hupper := (abs_lt.mp herror).2
+      nlinarith
+    exact dusart_theta_upper_e28_step_strict
+      (le_of_not_ge hfinite) hmiddle hpsi hgap
+  · exact tail x (le_of_not_ge hmiddle)
+
 /-! Global Proposition 5.1 in the three ranges used by Dusart: the finite
 Table 6.4 range, the explicit middle range ending at `exp 28`, and the
 large-range theta-error tail. -/
