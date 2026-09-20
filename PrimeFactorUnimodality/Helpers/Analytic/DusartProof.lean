@@ -3502,6 +3502,48 @@ theorem dusart_lemma_3_3_prime_power_decomposition
   rw [hsplit, hsqrt] at hdecomp
   linarith
 
+/- Integer-power certificates can bound each real power in the intermediate
+   exponent range without asking the kernel to approximate an irrational root. -/
+theorem dusart_rpow_ratio_bound
+    {x b q : Real} {k : Nat}
+    (hb : 1 ≤ b) (hbx : b ≤ x) (hk : 3 ≤ k)
+    (hq : 1 ≤ q ^ (3 * k) * b ^ (k - 3)) :
+    x ^ (1 / (k : Real)) ≤ q * x ^ (1 / (3 : Real)) := by
+  have hx : 0 < x := lt_of_lt_of_le (by linarith) hbx
+  have hq0 : 0 ≤ q := by
+    by_contra h
+    have hqneg : q < 0 := lt_of_not_ge h
+    have hqpow : 0 ≤ q ^ (3 * k) := by positivity
+    nlinarith
+  have hpow_base : b ^ (k - 3) ≤ x ^ (k - 3) := by
+    exact pow_le_pow_left' (by linarith) hbx
+  have hprod : 1 ≤ q ^ (3 * k) * x ^ (k - 3) := by
+    calc
+      (1 : Real) ≤ q ^ (3 * k) * b ^ (k - 3) := hq
+      _ ≤ q ^ (3 * k) * x ^ (k - 3) := by
+        gcongr
+  have hpow_nat : x ^ 3 ≤ q ^ (3 * k) * x ^ k := by
+    have hx3 : 0 ≤ x ^ 3 := by positivity
+    have hmul := mul_le_mul_of_nonneg_left hprod hx3
+    rw [← pow_add] at hmul
+    have hkadd : 3 + (k - 3) = k := by omega
+    rw [hkadd] at hmul
+    nlinarith
+  have hpow :
+      (x ^ (1 / (k : Real))) ^ (3 * k) ≤
+        (q * x ^ (1 / (3 : Real))) ^ (3 * k) := by
+    rw [← Real.rpow_natCast, ← Real.rpow_natCast]
+    rw [← Real.rpow_mul (by positivity), ← Real.rpow_mul (by positivity)]
+    norm_num at *
+    rw [show (1 / (k : Real)) * (3 * k : Real) = 3 by
+      field_simp; ring]
+    rw [show (1 / (3 : Real)) * (3 * k : Real) = k by
+      norm_num; ring]
+    rw [Real.mul_rpow (by positivity) (by positivity)]
+    simpa [pow_mul] using hpow_nat
+  exact (Real.rpow_le_rpow_iff (by positivity) (by positivity)
+    (by positivity : (0 : Real) < (3 * k : Real))).mp hpow
+
 /-! A reusable elementary estimate for the real-power sum occurring after the
 decomposition.  The only input is monotonicity of `x^a` in the exponent when
 `x ≥ 1`; the finite cardinality calculation is kept explicit. -/
