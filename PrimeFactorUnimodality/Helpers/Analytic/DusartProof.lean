@@ -381,6 +381,80 @@ theorem dusartLemma33FiniteRowsCover_sixtythree :
                         · norm_num [dusartLemma33FiniteRow_thirtysix_sixtythree]
                           linarith
 
+theorem psi_sub_theta_nat_120_lt_ten :
+    Chebyshev.psi (120 : Real) - Chebyshev.theta 120 < 10 := by
+  have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 120
+  have htheta := Chebyshev.theta_eq_sum_primesLE_log 120
+  norm_num at hpsi htheta
+  rw [hpsi, htheta]
+  change (∑ p ∈ Nat.primesBelow 121,
+      ↑(Nat.log p 120) * Real.log ↑p) -
+    ∑ p ∈ Nat.primesBelow 121, Real.log ↑p < 10
+  have hp : Nat.primesBelow 121 =
+      {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
+        59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113} := by
+    decide
+  rw [hp]
+  norm_num [Nat.log, Nat.log.go]
+  nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
+    Real.log_five_lt_d9, LogTables.log_7_lt]
+
+def dusartLemma33FiniteRow_sixtyfour_onetwenty : DusartLemma33FiniteRow :=
+  { left := 64
+    right := 120
+    left_le_right := by norm_num
+    valid := by
+      intro x hx hleft hright
+      have hx64 : (64 : Real) ≤ x := by exact_mod_cast hleft
+      have hx121 : x < 121 := by norm_num at hright ⊢; exact hright
+      have htransport : Chebyshev.psi x - Chebyshev.theta x =
+          Chebyshev.psi (⌊x⌋₊ : Real) - Chebyshev.theta (⌊x⌋₊ : Real) := by
+        rw [Chebyshev.psi_eq_psi_coe_floor,
+          Chebyshev.theta_eq_theta_coe_floor]
+      have hfloor : (⌊x⌋₊ : Real) ≤ 120 := by
+        exact_mod_cast Nat.le_of_lt_succ
+          ((Nat.floor_lt hx.le).2 (by norm_num; exact hx121))
+      have hleft : Chebyshev.psi x - Chebyshev.theta x < 10 := by
+        rw [htransport]
+        exact (psi_sub_theta_mono hfloor).trans_lt psi_sub_theta_nat_120_lt_ten
+      have hsqrt : (8 : Real) ≤ Real.sqrt x := by
+        nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+      have htheta_mono : Chebyshev.theta 8 ≤
+          Chebyshev.theta (Real.sqrt x) :=
+        Chebyshev.theta_mono hsqrt
+      have htheta_eight := Chebyshev.theta_eq_sum_primesLE_log 8
+      have hp8 : Nat.primesLE 8 = {2, 3, 5, 7} := by decide
+      rw [hp8] at htheta_eight
+      norm_num [Nat.log, Nat.log.go] at htheta_eight
+      have htheta_lower : (5 : Real) < Chebyshev.theta 8 := by
+        nlinarith [htheta_eight, Real.log_two_gt_d9,
+          Real.log_three_gt_d9, Real.log_five_gt_d9,
+          LogTables.log_7_gt]
+      have hpow := Real.rpow_le_rpow (by norm_num : (0 : Real) ≤ 64)
+        hx64 (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
+      norm_num at hpow ⊢
+      nlinarith [hleft, htheta_mono, htheta_lower, hpow] }
+
+theorem dusartLemma33FiniteRowsCover_onetwenty :
+    DusartLemma33FiniteRowsCover
+      ([dusartLemma33FiniteRow_zero_one, dusartLemma33FiniteRow_two,
+        dusartLemma33FiniteRow_three, dusartLemma33FiniteRow_four,
+        dusartLemma33FiniteRow_five, dusartLemma33FiniteRow_six,
+        dusartLemma33FiniteRow_seven, dusartLemma33FiniteRow_eight,
+        dusartLemma33FiniteRow_nine, dusartLemma33FiniteRow_ten_twentyfour,
+        dusartLemma33FiniteRow_twentyfive_thirtyfive,
+        dusartLemma33FiniteRow_thirtysix_sixtythree] ++
+        [dusartLemma33FiniteRow_sixtyfour_onetwenty]) 120 := by
+  intro x hx hX
+  by_cases hle : x ≤ 63
+  · obtain ⟨row, hrow, hleft, hright⟩ :=
+      dusartLemma33FiniteRowsCover_sixtythree x hx hle
+    exact ⟨row, by simp [hrow], hleft, hright⟩
+  · refine ⟨dusartLemma33FiniteRow_sixtyfour_onetwenty, by simp, ?_, ?_⟩
+    · exact le_of_not_ge hle
+    · norm_num
+      linarith
+
 theorem dusart_proposition_3_2_small_64
     {x : Real} (hx : 0 < x) (hx64 : x < 64) :
     Chebyshev.psi x - Chebyshev.theta x <
