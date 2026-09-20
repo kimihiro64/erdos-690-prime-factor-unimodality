@@ -1525,6 +1525,101 @@ def dusartLemma33FiniteRow_twothousandonehundredninetyseven_twothousandtwohundre
       _ ≤ x ^ (1 / 3 : Real) := hpow
   · norm_num
 
+theorem log_47_lt_three_point_eight_eight : Real.log 47 < (388 : Real) / 100 := by
+  have h := Real.log_lt_log (by norm_num : (0 : Real) < 47)
+    (by norm_num : (47 : Real) < 48)
+  rw [show (48 : Real) = 2 ^ (4 : Nat) * 3 by norm_num,
+    Real.log_mul, Real.log_pow] at h
+  · nlinarith [LogTables.log_2_lt, LogTables.log_3_lt]
+  all_goals positivity
+
+theorem psi_sub_theta_nat_2400_lt_sixtythree :
+    Chebyshev.psi (2400 : Real) - Chebyshev.theta 2400 < 63 := by
+  have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 2400
+  have htheta := Chebyshev.theta_eq_sum_primesLE_log 2400
+  norm_num at hpsi htheta
+  rw [hpsi, htheta]
+  change (∑ p ∈ Nat.primesBelow 2401,
+      ↑(Nat.log p 2400) * Real.log ↑p) -
+    ∑ p ∈ Nat.primesBelow 2401, Real.log ↑p < 63
+  have hp : Nat.primesBelow 2401 =
+      {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
+        59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113,
+        127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181,
+        191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251,
+        257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317,
+        331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397,
+        401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463,
+        467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557,
+        563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619,
+        631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701,
+        709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787,
+        797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863,
+        877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953,
+        967, 971, 977, 983, 991, 997, 1009, 1013, 1019, 1021, 1031,
+        1033, 1039, 1049, 1051, 1061, 1063, 1069, 1087, 1091, 1093,
+        1097, 1103, 1109, 1117, 1123, 1129, 1151, 1153, 1163, 1171,
+        1181, 1187, 1193, 1201, 1213, 1217, 1223, 1229, 1231, 1237,
+        1249, 1259, 1277, 1279, 1283, 1289, 1291, 1297, 1301, 1303,
+        1307, 1319, 1321, 1327, 1361, 1367, 1373, 1381, 1399, 1409,
+        1423, 1427, 1429, 1433, 1439, 1447, 1451, 1453, 1459, 1471,
+        1481, 1483, 1487, 1489, 1493, 1499, 1511, 1523, 1531, 1543,
+        1549, 1553, 1559, 1567, 1571, 1579, 1583, 1597, 1601, 1607,
+        1609, 1613, 1619, 1621, 1627, 1637, 1657, 1663, 1667, 1669,
+        1693, 1697, 1699, 1709, 1721, 1723, 1733, 1741, 1747, 1753,
+        1759, 1777, 1783, 1787, 1789, 1801, 1811, 1823, 1831, 1847,
+        1861, 1867, 1871, 1873, 1877, 1879, 1889, 1901, 1907, 1913,
+        1931, 1933, 1949, 1951, 1973, 1979, 1987, 1993, 1997, 1999,
+        2003, 2011, 2017, 2027, 2029, 2039, 2053, 2063, 2069, 2081,
+        2083, 2087, 2089, 2099, 2111, 2113, 2129, 2131, 2137, 2141,
+        2143, 2153, 2161, 2179, 2203, 2207, 2213, 2221, 2237, 2239,
+        2243, 2251, 2267, 2269, 2273, 2281, 2287, 2293, 2297, 2309,
+        2311, 2333, 2339, 2341, 2347, 2351, 2357, 2371, 2377, 2381,
+        2383, 2389, 2393, 2399} := by
+    decide
+  rw [hp]
+  norm_num [Nat.log, Nat.log.go]
+  nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
+    Real.log_five_lt_d9, LogTables.log_7_lt,
+    ElementaryLogBounds.log_11_lt, ElementaryLogBounds.log_13_lt,
+    ElementaryLogBounds.log_17_lt, ElementaryLogBounds.log_19_lt,
+    ElementaryLogBounds.log_23_lt, ElementaryLogBounds.log_29_lt,
+    log_31_lt_three_point_four_seven, log_37_lt_three_point_seven,
+    log_41_lt_three_point_eight, log_43_lt_three_point_nine,
+    log_47_lt_three_point_eight_eight]
+
+def dusartLemma33FiniteRow_twothousandtwohundrednine_twothousandfourhundred :
+    DusartLemma33FiniteRow := by
+  have htheta_fortyseven := Chebyshev.theta_eq_sum_primesLE_log 47
+  have hp47 : Nat.primesLE 47 =
+      {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47} := by decide
+  rw [hp47] at htheta_fortyseven
+  norm_num [Nat.log, Nat.log.go] at htheta_fortyseven
+  have hlog42_le47 : Real.log 42 ≤ Real.log 47 :=
+    Real.log_le_log (by norm_num) (by norm_num)
+  apply dusartLemma33FiniteRow_of_endpoint_bounds 2209 2400 47
+    (63 : Real) 40 13
+  · norm_num
+  · intro x hx hleft hright
+    nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+  · exact psi_sub_theta_nat_2400_lt_sixtythree
+  · nlinarith [htheta_fortyseven, hlog42_le47,
+      LogTables.log_30_gt, Real.log_two_gt_d9, Real.log_three_gt_d9,
+      Real.log_five_gt_d9, LogTables.log_7_gt]
+  · intro x hx hleft
+    have hbase : ((13 : Real) ^ (3 : Nat)) ≤ x := by
+      norm_num
+      linarith
+    have hpow := Real.rpow_le_rpow (by positivity :
+        (0 : Real) ≤ (13 : Real) ^ (3 : Nat)) hbase
+      (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
+    calc
+      (13 : Real) = ((13 : Real) ^ (3 : Nat)) ^ (1 / 3 : Real) := by
+        rw [← Real.rpow_natCast, ← Real.rpow_mul (by positivity)]
+        norm_num
+      _ ≤ x ^ (1 / 3 : Real) := hpow
+  · norm_num
+
 theorem psi_sub_theta_nat_2047_lt_fiftysix :
     Chebyshev.psi (2047 : Real) - Chebyshev.theta 2047 < 56 := by
   have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 2047
@@ -2504,6 +2599,46 @@ theorem dusartLemma33FiniteRowsCover_twothousandtwohundredeight :
   · norm_num
     linarith
 
+theorem dusartLemma33FiniteRowsCover_twothousandfourhundred :
+    DusartLemma33FiniteRowsCover
+      ([dusartLemma33FiniteRow_zero_one, dusartLemma33FiniteRow_two,
+        dusartLemma33FiniteRow_three, dusartLemma33FiniteRow_four,
+        dusartLemma33FiniteRow_five, dusartLemma33FiniteRow_six,
+        dusartLemma33FiniteRow_seven, dusartLemma33FiniteRow_eight,
+        dusartLemma33FiniteRow_nine, dusartLemma33FiniteRow_ten_twentyfour,
+        dusartLemma33FiniteRow_twentyfive_thirtyfive,
+        dusartLemma33FiniteRow_thirtysix_sixtythree,
+        dusartLemma33FiniteRow_sixtyfour_onetwenty,
+        dusartLemma33FiniteRow_onetwentyone_onehundredsixtyseven,
+        dusartLemma33FiniteRow_onehundredsixtyeight,
+        dusartLemma33FiniteRow_onenine_sixtythree,
+        dusartLemma33FiniteRow_twohundredfiftysix_twohundredeightyeight,
+        dusartLemma33FiniteRow_twohundredeightynine_threehundredfortytwo,
+        dusartLemma33FiniteRow_threehundredfortythree_threehundredsixty,
+        dusartLemma33FiniteRow_threehundredsixtyone_fivehundredeleven,
+        dusartLemma33FiniteRow_fivehundredtwelve_fivehundredeight,
+        dusartLemma33FiniteRow_fivehundredtwentynine_fivehundredseventyfive,
+        dusartLemma33FiniteRow_fivehundredseventysix_sixhundredtwentyfour,
+        dusartLemma33FiniteRow_sixhundredtwentyfive_sixhundredseventyfive,
+        dusartLemma33FiniteRow_sixhundredseventysix_sevenhundredtwentyeight,
+        dusartLemma33FiniteRow_sevenhundredtwentynine_eighthundredforty,
+        dusartLemma33FiniteRow_eighthundredfortyone_ninehundredsixty,
+        dusartLemma33FiniteRow_ninehundredsixtyone_tenthousandtwentythree,
+        dusartLemma33FiniteRow_tenthousandtwentyfour_thirteenhundredsixtyeight,
+        dusartLemma33FiniteRow_thirteenhundredsixtynine_sixteeneighty,
+        dusartLemma33FiniteRow_sixteeneighty_one_eighteenfortyeight,
+        dusartLemma33FiniteRow_eighteenfortynine_twothousandfortyseven,
+        dusartLemma33FiniteRow_twothousandtwentyfive_twothousandonehundredninetysix,
+        dusartLemma33FiniteRow_twothousandonehundredninetyseven_twothousandtwohundredeight] ++
+        [dusartLemma33FiniteRow_twothousandtwohundrednine_twothousandfourhundred]) 2400 := by
+  apply dusartLemma33FiniteRowsCover_append_row
+    dusartLemma33FiniteRowsCover_twothousandtwohundredeight
+  intro x hgt hx hX
+  constructor
+  · linarith
+  · norm_num
+    linarith
+
 theorem dusart_lemma_3_3_finite_120 :
     ∀ x : Real, 0 < x → x ≤ 120 →
       Chebyshev.psi x - Chebyshev.theta x -
@@ -2639,6 +2774,14 @@ theorem dusart_lemma_3_3_finite_2208 :
         (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
   exact dusart_lemma_3_3_finite_of_rows
     dusartLemma33FiniteRowsCover_twothousandtwohundredeight
+
+theorem dusart_lemma_3_3_finite_2400 :
+    ∀ x : Real, 0 < x → x ≤ 2400 →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  exact dusart_lemma_3_3_finite_of_rows
+    dusartLemma33FiniteRowsCover_twothousandfourhundred
 
 theorem dusart_proposition_3_2_small_64
     {x : Real} (hx : 0 < x) (hx64 : x < 64) :
