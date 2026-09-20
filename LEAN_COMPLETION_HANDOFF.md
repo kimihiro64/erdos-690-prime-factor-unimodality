@@ -429,3 +429,28 @@ Dusart proof until that underlying theorem and its transitive dependencies are
 proved. The admissible next analytic target is the first missing source-level
 decay/explicit-estimate theorem, not another wrapper around the BKLNW
 placeholder.
+
+## September 20 paper-aligned Dusart boundaries
+
+The following additional source-level boundaries are now pushed through
+`fab836e2`:
+
+- `dusart_proposition_3_1_of_finite_and_thetaErrorAbove` converts the exact
+  `HasThetaLogFourthErrorAbove (648 / 1000) (4e18)` tail into Dusart's
+  Proposition 3.1 after its bounded interval is proved.
+- `dusart_proposition_5_1_tail_of_logFourthError` derives the Proposition 5.1
+  large range beginning at `exp 28` from an explicit log-fourth error.
+- `wangCrapis_thetaBounds_of_paper_ranges_and_prop31_thetaError` derives the
+  middle-range `psi - theta` gap through Proposition 3.1, rather than taking
+  that gap as an independent theorem.
+- `wangCrapis_thetaBounds_of_paper_finite_prefix_and_logFourthTail` combines
+  separate finite upper and lower theta obligations with the analytic tail;
+  the finite lower estimate is no longer forced into a symmetric endpoint
+  row.
+
+The remaining non-certificate inputs are therefore the actual bounded
+verification data (Dusart's Table 6.4 upper range, the bounded part of
+Proposition 3.1, and the lower-theta prefix), plus the explicit zero-free
+region/error proof that supplies the `648 / 1000` tail. These are not
+discharged by the adapters above and must remain open until their underlying
+arguments or compact reusable row assemblers are formalized.
