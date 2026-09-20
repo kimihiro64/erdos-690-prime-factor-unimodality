@@ -52,6 +52,23 @@ theorem wangCrapis_shortInterval_of_logCubedTail
   exact hasDusartShortIntervalPrime_of_below_and_logCubed
     wangCrapis_shortIntervalPrefix tail
 
+/-! Selected-cutoff form used by the split all-`k` assembly. -/
+theorem wangCrapis_shortInterval_of_selected_cutoff
+    {A X : Real} (hXcutoff : (89693 : Real) ≤ X)
+    (finite : HasLogCubedShortIntervalPrimeBelow X)
+    (hXpos : 0 < X) (h2X : 2 ≤ X)
+    (hlogX : (10 : Real) < Real.log X)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthErrorAbove A X) :
+    HasDusartShortIntervalPrime := by
+  apply wangCrapis_shortInterval_of_logCubedTail
+  apply hasLogCubedShortIntervalPrime_of_below_and_above hXcutoff finite
+  apply wangCrapis_logCubedTail_of_thetaLogFourthError
+    hXpos h2X hlogX hA_nonneg hA
+  intro x hx
+  exact thetaError x hx
+
 /-! Source-level all-range assembly.  The finite argument is intentionally
 quantified over the eventual cutoff selected by the medium-PNT proof; this
 keeps the analytic theorem honest while allowing the compact certificate
