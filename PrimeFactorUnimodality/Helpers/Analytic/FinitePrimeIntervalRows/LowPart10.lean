@@ -9,728 +9,545 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_14767_15526_part08 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_15521 (p := 15289) (q := 15299) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15299) (q := 15307) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15307) (q := 15313) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15313) (q := 15319) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15319) (q := 15329) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15329) (q := 15331) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15331) (q := 15349) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15349) (q := 15359) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
+def dusartPrimeRows_17159_18040 : List DusartPrimeRow :=
+[
+    dusartPrimeRow_of_explicit_18033 (p := 17159) (q := 17167) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17167) (q := 17183) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17183) (q := 17189) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17189) (q := 17191) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17191) (q := 17203) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17203) (q := 17207) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17207) (q := 17209) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17209) (q := 17231) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17231) (q := 17239) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17239) (q := 17257) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17257) (q := 17291) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17291) (q := 17293) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17293) (q := 17299) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17299) (q := 17317) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17317) (q := 17321) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17321) (q := 17327) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17327) (q := 17333) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17333) (q := 17341) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17341) (q := 17351) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17351) (q := 17359) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17359) (q := 17377) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17377) (q := 17383) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17383) (q := 17387) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17387) (q := 17389) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17389) (q := 17393) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17393) (q := 17401) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17401) (q := 17417) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17417) (q := 17419) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17419) (q := 17431) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17431) (q := 17443) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17443) (q := 17449) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17449) (q := 17467) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17467) (q := 17471) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17471) (q := 17477) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17477) (q := 17483) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17483) (q := 17489) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17489) (q := 17491) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17491) (q := 17497) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17497) (q := 17509) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17509) (q := 17519) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17519) (q := 17539) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17539) (q := 17551) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17551) (q := 17569) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17569) (q := 17573) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17573) (q := 17579) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17579) (q := 17581) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17581) (q := 17597) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17597) (q := 17599) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17599) (q := 17609) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17609) (q := 17623) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17623) (q := 17627) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17627) (q := 17657) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17657) (q := 17659) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17659) (q := 17669) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17669) (q := 17681) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17681) (q := 17683) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17683) (q := 17707) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17707) (q := 17713) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17713) (q := 17729) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17729) (q := 17737) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17737) (q := 17747) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17747) (q := 17749) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17749) (q := 17761) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17761) (q := 17783) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17783) (q := 17789) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17789) (q := 17791) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17791) (q := 17807) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17807) (q := 17827) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17827) (q := 17837) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17837) (q := 17839) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17839) (q := 17851) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17851) (q := 17863) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17863) (q := 17881) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17881) (q := 17891) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17891) (q := 17903) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17903) (q := 17909) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17909) (q := 17911) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17911) (q := 17921) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17921) (q := 17923) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17923) (q := 17929) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17929) (q := 17939) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17939) (q := 17957) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17957) (q := 17959) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17959) (q := 17971) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17971) (q := 17977) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17977) (q := 17981) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17981) (q := 17987) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17987) (q := 17989) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17989) (q := 18013) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 18013) (q := 18041) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+]
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_14767_15526_part08_chain :
-    DusartPrimeRowsChain 15289 15359 dusartPrimeRows_14767_15526_part08 := by
+theorem dusartPrimeRows_17159_18040_chain :
+    DusartPrimeRowsChain 17159 18040 dusartPrimeRows_17159_18040 := by
   apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15289) (q := 15299) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15299) (q := 15307) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+    (dusartPrimeRow_of_explicit_18033 (p := 17159) (q := 17167) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
   · norm_num
   · norm_num
   apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15307) (q := 15313) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+    (dusartPrimeRow_of_explicit_18033 (p := 17167) (q := 17183) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
   · norm_num
   · norm_num
   apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15313) (q := 15319) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+    (dusartPrimeRow_of_explicit_18033 (p := 17183) (q := 17189) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
   · norm_num
   · norm_num
   apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15319) (q := 15329) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+    (dusartPrimeRow_of_explicit_18033 (p := 17189) (q := 17191) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
   · norm_num
   · norm_num
   apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15329) (q := 15331) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+    (dusartPrimeRow_of_explicit_18033 (p := 17191) (q := 17203) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
   · norm_num
   · norm_num
   apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15331) (q := 15349) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+    (dusartPrimeRow_of_explicit_18033 (p := 17203) (q := 17207) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
   · norm_num
   · norm_num
   apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15349) (q := 15359) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+    (dusartPrimeRow_of_explicit_18033 (p := 17207) (q := 17209) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
   · norm_num
   · norm_num
-
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17209) (q := 17231) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17231) (q := 17239) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17239) (q := 17257) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17257) (q := 17291) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17291) (q := 17293) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17293) (q := 17299) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17299) (q := 17317) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17317) (q := 17321) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17321) (q := 17327) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17327) (q := 17333) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17333) (q := 17341) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17341) (q := 17351) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17351) (q := 17359) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17359) (q := 17377) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17377) (q := 17383) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17383) (q := 17387) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17387) (q := 17389) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17389) (q := 17393) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17393) (q := 17401) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17401) (q := 17417) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17417) (q := 17419) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17419) (q := 17431) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17431) (q := 17443) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17443) (q := 17449) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17449) (q := 17467) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17467) (q := 17471) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17471) (q := 17477) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17477) (q := 17483) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17483) (q := 17489) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17489) (q := 17491) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17491) (q := 17497) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17497) (q := 17509) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17509) (q := 17519) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17519) (q := 17539) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17539) (q := 17551) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17551) (q := 17569) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17569) (q := 17573) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17573) (q := 17579) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17579) (q := 17581) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17581) (q := 17597) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17597) (q := 17599) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17599) (q := 17609) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17609) (q := 17623) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17623) (q := 17627) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17627) (q := 17657) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17657) (q := 17659) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17659) (q := 17669) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17669) (q := 17681) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17681) (q := 17683) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17683) (q := 17707) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17707) (q := 17713) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17713) (q := 17729) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17729) (q := 17737) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17737) (q := 17747) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17747) (q := 17749) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17749) (q := 17761) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17761) (q := 17783) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17783) (q := 17789) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17789) (q := 17791) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17791) (q := 17807) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17807) (q := 17827) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17827) (q := 17837) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17837) (q := 17839) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17839) (q := 17851) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17851) (q := 17863) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17863) (q := 17881) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17881) (q := 17891) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17891) (q := 17903) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17903) (q := 17909) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17909) (q := 17911) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17911) (q := 17921) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17921) (q := 17923) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17923) (q := 17929) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17929) (q := 17939) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17939) (q := 17957) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17957) (q := 17959) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17959) (q := 17971) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17971) (q := 17977) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17977) (q := 17981) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17981) (q := 17987) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17987) (q := 17989) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 17989) (q := 18013) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
+  apply DusartPrimeRowsChain.cons
+    (dusartPrimeRow_of_explicit_18033 (p := 18013) (q := 18041) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
+  · norm_num
+  · norm_num
   exact DusartPrimeRowsChain.empty (by norm_num)
 
-set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_14767_15526_part09 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_15521 (p := 15359) (q := 15361) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15361) (q := 15373) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15373) (q := 15377) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15377) (q := 15383) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15383) (q := 15391) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15391) (q := 15401) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15401) (q := 15413) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15413) (q := 15427) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
+
+
+
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_14767_15526_part09_chain :
-    DusartPrimeRowsChain 15359 15427 dusartPrimeRows_14767_15526_part09 := by
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15359) (q := 15361) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15361) (q := 15373) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15373) (q := 15377) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15377) (q := 15383) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15383) (q := 15391) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15391) (q := 15401) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15401) (q := 15413) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15413) (q := 15427) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-
-  exact DusartPrimeRowsChain.empty (by norm_num)
+def dusartPrimeRows_3275_16318 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_15526 ++ dusartPrimeRows_15527_16318
 
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_14767_15526_part10 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_15521 (p := 15427) (q := 15439) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15439) (q := 15443) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15443) (q := 15451) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15451) (q := 15461) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15461) (q := 15467) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15467) (q := 15473) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15473) (q := 15493) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15493) (q := 15497) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
-
-set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_14767_15526_part10_chain :
-    DusartPrimeRowsChain 15427 15497 dusartPrimeRows_14767_15526_part10 := by
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15427) (q := 15439) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15439) (q := 15443) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15443) (q := 15451) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15451) (q := 15461) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15461) (q := 15467) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15467) (q := 15473) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15473) (q := 15493) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15493) (q := 15497) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-
-  exact DusartPrimeRowsChain.empty (by norm_num)
-
-set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_14767_15526_part11 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_15521 (p := 15497) (q := 15511) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_15521 (p := 15511) (q := 15527) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
-
-set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_14767_15526_part11_chain :
-    DusartPrimeRowsChain 15497 15527 dusartPrimeRows_14767_15526_part11 := by
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15497) (q := 15511) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_15521 (p := 15511) (q := 15527) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-
-  exact DusartPrimeRowsChain.empty (by norm_num)
-
-set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_14767_15526 : List DusartPrimeRow :=
-  dusartPrimeRows_14767_15526_part01 ++ dusartPrimeRows_14767_15526_part02 ++ dusartPrimeRows_14767_15526_part03 ++ dusartPrimeRows_14767_15526_part04 ++ dusartPrimeRows_14767_15526_part05 ++ dusartPrimeRows_14767_15526_part06 ++ dusartPrimeRows_14767_15526_part07 ++ dusartPrimeRows_14767_15526_part08 ++ dusartPrimeRows_14767_15526_part09 ++ dusartPrimeRows_14767_15526_part10 ++ dusartPrimeRows_14767_15526_part11
-
-set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_14767_15526_chain :
-    DusartPrimeRowsChain 14767 15526 dusartPrimeRows_14767_15526 := by
-  exact dusartPrimeRowsChain_append dusartPrimeRows_14767_15526_part01_chain (dusartPrimeRowsChain_append dusartPrimeRows_14767_15526_part02_chain (dusartPrimeRowsChain_append dusartPrimeRows_14767_15526_part03_chain (dusartPrimeRowsChain_append dusartPrimeRows_14767_15526_part04_chain (dusartPrimeRowsChain_append dusartPrimeRows_14767_15526_part05_chain (dusartPrimeRowsChain_append dusartPrimeRows_14767_15526_part06_chain (dusartPrimeRowsChain_append dusartPrimeRows_14767_15526_part07_chain (dusartPrimeRowsChain_append dusartPrimeRows_14767_15526_part08_chain (dusartPrimeRowsChain_append dusartPrimeRows_14767_15526_part09_chain (dusartPrimeRowsChain_append dusartPrimeRows_14767_15526_part10_chain (dusartPrimeRows_14767_15526_part11_chain))))))))))
-set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_3275_15526 : List DusartPrimeRow :=
-  dusartPrimeRows_3275_14766 ++ dusartPrimeRows_14767_15526
-
-set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_3275_15526_chain :
-    DusartPrimeRowsChain 3275 15526 dusartPrimeRows_3275_15526 := by
+theorem dusartPrimeRows_3275_16318_chain :
+    DusartPrimeRowsChain 3275 16318 dusartPrimeRows_3275_16318 := by
   exact dusartPrimeRowsChain_append
-    dusartPrimeRows_3275_14766_chain dusartPrimeRows_14767_15526_chain
+    dusartPrimeRows_3275_15526_chain dusartPrimeRows_15527_16318_chain
 
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_15527_16318_part01 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_16317 (p := 15527) (q := 15541) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15541) (q := 15551) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15551) (q := 15559) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15559) (q := 15569) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15569) (q := 15581) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15581) (q := 15583) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15583) (q := 15601) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15601) (q := 15607) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
+def dusartPrimeRows_3275_17158 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_16318 ++ dusartPrimeRows_16319_17158
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_15527_16318_part01_chain :
-    DusartPrimeRowsChain 15527 15607 dusartPrimeRows_15527_16318_part01 := by
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15527) (q := 15541) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15541) (q := 15551) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15551) (q := 15559) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15559) (q := 15569) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15569) (q := 15581) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15581) (q := 15583) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15583) (q := 15601) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15601) (q := 15607) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-
-  exact DusartPrimeRowsChain.empty (by norm_num)
+theorem dusartPrimeRows_3275_17158_chain :
+    DusartPrimeRowsChain 3275 17158 dusartPrimeRows_3275_17158 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_16318_chain dusartPrimeRows_16319_17158_chain
 
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_15527_16318_part02 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_16317 (p := 15607) (q := 15619) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15619) (q := 15629) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15629) (q := 15641) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15641) (q := 15643) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15643) (q := 15647) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15647) (q := 15649) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15649) (q := 15661) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15661) (q := 15667) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
+def dusartPrimeRows_3275_18040 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_17158 ++ dusartPrimeRows_17159_18040
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_15527_16318_part02_chain :
-    DusartPrimeRowsChain 15607 15667 dusartPrimeRows_15527_16318_part02 := by
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15607) (q := 15619) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15619) (q := 15629) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15629) (q := 15641) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15641) (q := 15643) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15643) (q := 15647) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15647) (q := 15649) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15649) (q := 15661) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15661) (q := 15667) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-
-  exact DusartPrimeRowsChain.empty (by norm_num)
+theorem dusartPrimeRows_3275_18040_chain :
+    DusartPrimeRowsChain 3275 18040 dusartPrimeRows_3275_18040 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_17158_chain dusartPrimeRows_17159_18040_chain
 
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_15527_16318_part03 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_16317 (p := 15667) (q := 15671) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15671) (q := 15679) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15679) (q := 15683) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15683) (q := 15727) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15727) (q := 15731) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15731) (q := 15733) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15733) (q := 15737) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15737) (q := 15739) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
+def dusartPrimeRows_3275_18958 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_18040 ++ dusartPrimeRows_18041_18958
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_15527_16318_part03_chain :
-    DusartPrimeRowsChain 15667 15739 dusartPrimeRows_15527_16318_part03 := by
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15667) (q := 15671) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15671) (q := 15679) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15679) (q := 15683) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15683) (q := 15727) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15727) (q := 15731) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15731) (q := 15733) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15733) (q := 15737) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15737) (q := 15739) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-
-  exact DusartPrimeRowsChain.empty (by norm_num)
+theorem dusartPrimeRows_3275_18958_chain :
+    DusartPrimeRowsChain 3275 18958 dusartPrimeRows_3275_18958 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_18040_chain dusartPrimeRows_18041_18958_chain
 
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_15527_16318_part04 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_16317 (p := 15739) (q := 15749) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15749) (q := 15761) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15761) (q := 15767) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15767) (q := 15773) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15773) (q := 15787) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15787) (q := 15791) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15791) (q := 15797) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15797) (q := 15803) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
+def dusartPrimeRows_3275_19936 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_18958 ++ dusartPrimeRows_18959_19936
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_15527_16318_part04_chain :
-    DusartPrimeRowsChain 15739 15803 dusartPrimeRows_15527_16318_part04 := by
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15739) (q := 15749) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15749) (q := 15761) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15761) (q := 15767) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15767) (q := 15773) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15773) (q := 15787) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15787) (q := 15791) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15791) (q := 15797) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15797) (q := 15803) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-
-  exact DusartPrimeRowsChain.empty (by norm_num)
+theorem dusartPrimeRows_3275_19936_chain :
+    DusartPrimeRowsChain 3275 19936 dusartPrimeRows_3275_19936 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_18958_chain dusartPrimeRows_18959_19936_chain
 
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_15527_16318_part05 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_16317 (p := 15803) (q := 15809) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15809) (q := 15817) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15817) (q := 15823) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15823) (q := 15859) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15859) (q := 15877) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15877) (q := 15881) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15881) (q := 15887) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15887) (q := 15889) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
+def dusartPrimeRows_3275_20958 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_19936 ++ dusartPrimeRows_19937_20958
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_15527_16318_part05_chain :
-    DusartPrimeRowsChain 15803 15889 dusartPrimeRows_15527_16318_part05 := by
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15803) (q := 15809) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15809) (q := 15817) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15817) (q := 15823) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15823) (q := 15859) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15859) (q := 15877) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15877) (q := 15881) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15881) (q := 15887) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15887) (q := 15889) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-
-  exact DusartPrimeRowsChain.empty (by norm_num)
+theorem dusartPrimeRows_3275_20958_chain :
+    DusartPrimeRowsChain 3275 20958 dusartPrimeRows_3275_20958 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_19936_chain dusartPrimeRows_19937_20958_chain
 
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_15527_16318_part06 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_16317 (p := 15889) (q := 15901) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15901) (q := 15907) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15907) (q := 15913) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15913) (q := 15919) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15919) (q := 15923) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15923) (q := 15937) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15937) (q := 15959) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15959) (q := 15971) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
+def dusartPrimeRows_3275_22026 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_20958 ++ dusartPrimeRows_20959_22026
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_15527_16318_part06_chain :
-    DusartPrimeRowsChain 15889 15971 dusartPrimeRows_15527_16318_part06 := by
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15889) (q := 15901) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15901) (q := 15907) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15907) (q := 15913) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15913) (q := 15919) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15919) (q := 15923) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15923) (q := 15937) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15937) (q := 15959) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15959) (q := 15971) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-
-  exact DusartPrimeRowsChain.empty (by norm_num)
+theorem dusartPrimeRows_3275_22026_chain :
+    DusartPrimeRowsChain 3275 22026 dusartPrimeRows_3275_22026 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_20958_chain dusartPrimeRows_20959_22026_chain
 
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_15527_16318_part07 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_16317 (p := 15971) (q := 15973) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15973) (q := 15991) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 15991) (q := 16001) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16001) (q := 16007) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16007) (q := 16033) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16033) (q := 16057) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16057) (q := 16061) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16061) (q := 16063) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
+def dusartPrimeRows_3275_23158 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_22026 ++ dusartPrimeRows_22027_23158
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_15527_16318_part07_chain :
-    DusartPrimeRowsChain 15971 16063 dusartPrimeRows_15527_16318_part07 := by
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15971) (q := 15973) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15973) (q := 15991) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 15991) (q := 16001) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16001) (q := 16007) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16007) (q := 16033) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16033) (q := 16057) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16057) (q := 16061) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16061) (q := 16063) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-
-  exact DusartPrimeRowsChain.empty (by norm_num)
-
-set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_15527_16318_part08 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_16317 (p := 16063) (q := 16067) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16067) (q := 16069) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16069) (q := 16073) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16073) (q := 16087) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16087) (q := 16091) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16091) (q := 16097) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16097) (q := 16103) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16103) (q := 16111) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
-
-set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_15527_16318_part08_chain :
-    DusartPrimeRowsChain 16063 16111 dusartPrimeRows_15527_16318_part08 := by
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16063) (q := 16067) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16067) (q := 16069) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16069) (q := 16073) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16073) (q := 16087) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16087) (q := 16091) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16091) (q := 16097) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16097) (q := 16103) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16103) (q := 16111) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-
-  exact DusartPrimeRowsChain.empty (by norm_num)
-
-set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_15527_16318_part09 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_16317 (p := 16111) (q := 16127) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16127) (q := 16139) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16139) (q := 16141) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16141) (q := 16183) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16183) (q := 16187) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16187) (q := 16189) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16189) (q := 16193) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16193) (q := 16217) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
-
-set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_15527_16318_part09_chain :
-    DusartPrimeRowsChain 16111 16217 dusartPrimeRows_15527_16318_part09 := by
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16111) (q := 16127) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16127) (q := 16139) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16139) (q := 16141) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16141) (q := 16183) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16183) (q := 16187) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16187) (q := 16189) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16189) (q := 16193) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16193) (q := 16217) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-
-  exact DusartPrimeRowsChain.empty (by norm_num)
-
-set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_15527_16318_part10 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_16317 (p := 16217) (q := 16223) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16223) (q := 16229) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16229) (q := 16231) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16231) (q := 16249) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16249) (q := 16253) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16253) (q := 16267) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16267) (q := 16273) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_16317 (p := 16273) (q := 16301) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
-
-set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_15527_16318_part10_chain :
-    DusartPrimeRowsChain 16217 16301 dusartPrimeRows_15527_16318_part10 := by
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16217) (q := 16223) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16223) (q := 16229) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16229) (q := 16231) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16231) (q := 16249) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16249) (q := 16253) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16253) (q := 16267) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16267) (q := 16273) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16273) (q := 16301) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-
-  exact DusartPrimeRowsChain.empty (by norm_num)
-
-set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_15527_16318_part11 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_16317 (p := 16301) (q := 16319) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
-
-set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_15527_16318_part11_chain :
-    DusartPrimeRowsChain 16301 16319 dusartPrimeRows_15527_16318_part11 := by
-  apply DusartPrimeRowsChain.cons
-    (dusartPrimeRow_of_explicit_16317 (p := 16301) (q := 16319) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num))
-  · norm_num
-  · norm_num
-
-  exact DusartPrimeRowsChain.empty (by norm_num)
-
-set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_15527_16318 : List DusartPrimeRow :=
-  dusartPrimeRows_15527_16318_part01 ++ dusartPrimeRows_15527_16318_part02 ++ dusartPrimeRows_15527_16318_part03 ++ dusartPrimeRows_15527_16318_part04 ++ dusartPrimeRows_15527_16318_part05 ++ dusartPrimeRows_15527_16318_part06 ++ dusartPrimeRows_15527_16318_part07 ++ dusartPrimeRows_15527_16318_part08 ++ dusartPrimeRows_15527_16318_part09 ++ dusartPrimeRows_15527_16318_part10 ++ dusartPrimeRows_15527_16318_part11
-
-set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_15527_16318_chain :
-    DusartPrimeRowsChain 15527 16318 dusartPrimeRows_15527_16318 := by
-  exact dusartPrimeRowsChain_append dusartPrimeRows_15527_16318_part01_chain (dusartPrimeRowsChain_append dusartPrimeRows_15527_16318_part02_chain (dusartPrimeRowsChain_append dusartPrimeRows_15527_16318_part03_chain (dusartPrimeRowsChain_append dusartPrimeRows_15527_16318_part04_chain (dusartPrimeRowsChain_append dusartPrimeRows_15527_16318_part05_chain (dusartPrimeRowsChain_append dusartPrimeRows_15527_16318_part06_chain (dusartPrimeRowsChain_append dusartPrimeRows_15527_16318_part07_chain (dusartPrimeRowsChain_append dusartPrimeRows_15527_16318_part08_chain (dusartPrimeRowsChain_append dusartPrimeRows_15527_16318_part09_chain (dusartPrimeRowsChain_append dusartPrimeRows_15527_16318_part10_chain (dusartPrimeRows_15527_16318_part11_chain))))))))))
+theorem dusartPrimeRows_3275_23158_chain :
+    DusartPrimeRowsChain 3275 23158 dusartPrimeRows_3275_23158 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_22026_chain dusartPrimeRows_22027_23158_chain

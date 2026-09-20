@@ -140,7 +140,6 @@ def split_large_row_families(body: str) -> str:
             assert first and last
             assert int(first.group(1)) == expected_start
             expected_start = int(last.group(2))
-            part_blocks = blocks[index * ROW_PART_SIZE : (index + 1) * ROW_PART_SIZE]
             output.extend(
                 [
                     "set_option maxHeartbeats 20000000 in",
@@ -152,8 +151,8 @@ def split_large_row_families(body: str) -> str:
                     "set_option maxHeartbeats 20000000 in",
                     f"theorem {part_name}_chain :",
                     f"    DusartPrimeRowsChain {first.group(1)} {last.group(2)} {part_name} := by",
-                    "".join(part_blocks),
-                    "  exact DusartPrimeRowsChain.empty (by norm_num)",
+                    "  apply dusartPrimeRowsChain_of_data",
+                    f"  norm_num [DusartPrimeRowsChainData, {part_name}]",
                     "",
                 ]
             )
@@ -189,6 +188,24 @@ namespace PrimeFactorUnimodality
 noncomputable section
 """
 
+CHAIN_ASSEMBLER = """
+/-! Reusable assembler for generated row parts. -/
+def DusartPrimeRowsChainData (a b : Nat) : List DusartPrimeRow → Prop
+  | [] => b < a
+  | row :: tail =>
+      row.left ≤ a ∧ row.left ≤ row.right ∧
+        DusartPrimeRowsChainData (row.right + 1) b tail
+
+theorem dusartPrimeRowsChain_of_data
+    {a b : Nat} {rows : List DusartPrimeRow}
+    (h : DusartPrimeRowsChainData a b rows) :
+    DusartPrimeRowsChain a b rows := by
+  induction rows generalizing a b with
+  | nil => exact DusartPrimeRowsChain.empty h
+  | cons row tail ih =>
+      exact DusartPrimeRowsChain.cons row h.1 h.2.1 (ih h.2.2)
+"""
+
 HIGH_HEADER = """import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Low
 
 set_option autoImplicit false
@@ -221,7 +238,7 @@ def low_modules(body: str) -> dict[str, str]:
     family_starts = starts[::2]
     family_count = len(family_starts)
     result = {
-        "LowBase.lean": (LOW_HEADER + body[:family_starts[0]]).rstrip() + "\n"
+        "LowBase.lean": (LOW_HEADER + body[:family_starts[0]] + CHAIN_ASSEMBLER).rstrip() + "\n"
     }
     previous = "LowBase"
     ranges: list[tuple[int, int]] = []

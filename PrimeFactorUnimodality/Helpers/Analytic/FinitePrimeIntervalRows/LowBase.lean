@@ -652,3 +652,20 @@ theorem dusartPrimeRowsChain_append
   | @cons a m row hrow hordered tail htail ih =>
       simpa using DusartPrimeRowsChain.cons row hrow hordered
         (ih hright)
+
+
+/-! Reusable assembler for generated row parts. -/
+def DusartPrimeRowsChainData (a b : Nat) : List DusartPrimeRow → Prop
+  | [] => b < a
+  | row :: tail =>
+      row.left ≤ a ∧ row.left ≤ row.right ∧
+        DusartPrimeRowsChainData (row.right + 1) b tail
+
+theorem dusartPrimeRowsChain_of_data
+    {a b : Nat} {rows : List DusartPrimeRow}
+    (h : DusartPrimeRowsChainData a b rows) :
+    DusartPrimeRowsChain a b rows := by
+  induction rows generalizing a b with
+  | nil => exact DusartPrimeRowsChain.empty h
+  | cons row tail ih =>
+      exact DusartPrimeRowsChain.cons row h.1 h.2.1 (ih h.2.2)
