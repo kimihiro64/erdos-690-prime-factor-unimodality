@@ -1190,6 +1190,48 @@ structure DusartThetaTable66Chunk where
   a1_nonneg : ∀ i, 0 ≤ (rows i).a1
   a1_bound : ∀ i, (rows i).a1 < (12323 : Real) / 10000
 
+def DusartThetaTable66Chunk.append
+    (left right : DusartThetaTable66Chunk) : DusartThetaTable66Chunk :=
+  { n := left.n + right.n
+    cutoff := right.cutoff
+    rows := Fin.append left.rows right.rows
+    cover := dusartThetaTable66IndexedCoverUpTo_append
+      left.cover right.cover
+    left_large := by
+      intro i
+      induction i using Fin.addCases with
+      | left j => simpa [Fin.append_left] using left.left_large j
+      | right j => simpa [Fin.append_right] using right.left_large j
+    left_le_right := by
+      intro i
+      induction i using Fin.addCases with
+      | left j => simpa [Fin.append_left] using left.left_le_right j
+      | right j => simpa [Fin.append_right] using right.left_le_right j
+    upper_error := by
+      intro i
+      induction i using Fin.addCases with
+      | left j => simpa [Fin.append_left] using left.upper_error j
+      | right j => simpa [Fin.append_right] using right.upper_error j
+    a1_nonneg := by
+      intro i
+      induction i using Fin.addCases with
+      | left j => simpa [Fin.append_left] using left.a1_nonneg j
+      | right j => simpa [Fin.append_right] using right.a1_nonneg j
+    a1_bound := by
+      intro i
+      induction i using Fin.addCases with
+      | left j => simpa [Fin.append_left] using left.a1_bound j
+      | right j => simpa [Fin.append_right] using right.a1_bound j }
+
+def DusartThetaTable66Chunk.appendMany
+    (first : DusartThetaTable66Chunk)
+    (rest : List DusartThetaTable66Chunk) : DusartThetaTable66Chunk :=
+  match rest with
+  | [] => first
+  | next :: tail =>
+      DusartThetaTable66Chunk.appendMany
+        (DusartThetaTable66Chunk.append first next) tail
+
 def DusartThetaTable66Chunk.toRelativeRows
     (chunk : DusartThetaTable66Chunk) :
     Fin chunk.n → DusartThetaRelativeRow :=
@@ -1207,6 +1249,17 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_table66_chunk
   refine ⟨i, ?_, ?_⟩
   · exact hleft
   · exact hright
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_table66_chunks
+    (first : DusartThetaTable66Chunk)
+    (rest : List DusartThetaTable66Chunk) :
+    HasDusartSymmetricThetaBoundsBelow
+      (DusartThetaTable66Chunk.appendMany first rest).cutoff := by
+  induction rest generalizing first with
+  | nil =>
+      exact hasDusartSymmetricThetaBoundsBelow_of_table66_chunk first
+  | cons next tail ih =>
+      exact ih (DusartThetaTable66Chunk.append first next)
 
 /-! The older two-coefficient projection is retained for data whose
 constant-coefficient validity has already been established independently. -/
