@@ -759,7 +759,63 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_rows
   · intro x hx hX
     obtain ⟨row, hrow, hleft, hright⟩ := cover x
       (by linarith) hX
-    exact row.lower x hx hleft hright
+      exact row.lower x hx hleft hright
+
+/-! Table 6.6 is stated in terms of relative coefficient bounds on each
+interval, rather than fixed endpoint values.  Keep that published shape as a
+separate row type so its finite data can be checked directly and then lowered
+once into the generic theta-row consumer above. -/
+structure DusartThetaRelativeRow where
+  left : Nat
+  right : Nat
+  left_large : 2 ≤ left
+  left_le_right : left ≤ right
+  lower_coeff : Real
+  upper_coeff : Real
+  lower_bound : ∀ x : Real, (left : Real) ≤ x → x ≤ right →
+    lower_coeff * x ≤ Chebyshev.theta x
+  upper_bound : ∀ x : Real, (left : Real) ≤ x → x ≤ right →
+    Chebyshev.theta x ≤ upper_coeff * x
+  upper_coeff_error : upper_coeff - 1 < (1 : Real) / 36260
+  lower_coeff_error : ∀ x : Real, 2 < x → (left : Real) ≤ x → x ≤ right →
+    (1 - lower_coeff) * x <
+      (12323 / 10000 : Real) * x / Real.log x
+
+def dusartThetaRelativeRow_to_bounds
+    (row : DusartThetaRelativeRow) : DusartThetaBoundsRow := by
+  refine {
+    left := row.left
+    right := row.right
+    left_large := row.left_large
+    left_le_right := row.left_le_right
+    upper := ?_
+    lower := ?_ }
+  · intro x hleft hright
+    have hx : 0 ≤ x := by positivity
+    have htheta := row.upper_bound x hleft hright
+    have hcoeff := row.upper_coeff_error
+    nlinarith
+  · intro x hx hleft hright
+    have htheta_upper := row.upper_bound x hleft hright
+    have htheta_lower := row.lower_bound x hleft hright
+    have herror := row.lower_coeff_error x hx hleft hright
+    have hlog : 0 < Real.log x := Real.log_pos (by linarith)
+    apply (abs_lt).2
+    constructor <;> nlinarith
+
+def DusartThetaRelativeRowsCoverUpTo
+    (rows : List DusartThetaRelativeRow) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_relative_rows
+    {X : Real} {rows : List DusartThetaRelativeRow}
+    (cover : DusartThetaRelativeRowsCoverUpTo rows X) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_rows
+  intro x hx hX
+  obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
+  exact ⟨dusartThetaRelativeRow_to_bounds row, by simp [hrow], hleft, hright⟩
 
 structure DusartPrimeCountingRow where
   left : Nat
