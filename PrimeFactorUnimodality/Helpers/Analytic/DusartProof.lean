@@ -65,6 +65,20 @@ theorem psi_sub_theta_le_of_root_bound
     convert h5 using 1 <;> norm_num
   nlinarith [hdecomp, h2', h3', h5']
 
+theorem psi_sub_theta_le_of_three_root_bounds
+    {x c : Real} (hx : 0 ≤ x) (hc : 0 ≤ c)
+    (h2 : Chebyshev.psi (x ^ (2 : Real)⁻¹) ≤
+      c * x ^ (1 / 2 : Real))
+    (h3 : Chebyshev.psi (x ^ (3 : Real)⁻¹) ≤
+      c * x ^ (1 / 3 : Real))
+    (h5 : Chebyshev.psi (x ^ (5 : Real)⁻¹) ≤
+      c * x ^ (1 / 5 : Real)) :
+    Chebyshev.psi x - Chebyshev.theta x ≤
+      c * (x ^ (1 / 2 : Real) + x ^ (1 / 3 : Real) +
+        x ^ (1 / 5 : Real)) := by
+  have hdecomp := Chebyshev.psi_sub_theta_le_psi_add_psi_add_psi x
+  nlinarith [hdecomp, h2, h3, h5]
+
 theorem fifth_rpow_le_three_fifths_cube_rpow
     {x : Real} (hx : (121 : Real) ≤ x) :
     x ^ (1 / 5 : Real) ≤ (3 : Real) / 5 * x ^ (1 / 3 : Real) := by
