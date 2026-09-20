@@ -1269,80 +1269,23 @@ structure DusartThetaTableCoefficientRow where
   lower_coeff : Real
   upper_coeff : Real
 
+def DusartThetaTable66CoefficientData.toCoefficientRow
+    (data : DusartThetaTable66CoefficientData) :
+    DusartThetaTableCoefficientRow :=
+  { left := data.left
+    right := data.right
+    lower_coeff := data.a0
+    upper_coeff := data.b0 }
+
 def dusartThetaTable6_6Coefficients :
-    List DusartThetaTableCoefficientRow := [
-  { left := 100000000, right := 200000000,
-    lower_coeff := 99985 / 100000, upper_coeff := 99998 / 100000 },
-  { left := 200000000, right := 300000000,
-    lower_coeff := 99989 / 100000, upper_coeff := 99997 / 100000 },
-  { left := 300000000, right := 400000000,
-    lower_coeff := 99991 / 100000, upper_coeff := 99998 / 100000 },
-  { left := 400000000, right := 500000000,
-    lower_coeff := 99993 / 100000, upper_coeff := 99998 / 100000 },
-  { left := 500000000, right := 600000000,
-    lower_coeff := 99992 / 100000, upper_coeff := 99998 / 100000 },
-  { left := 600000000, right := 700000000,
-    lower_coeff := 99994 / 100000, upper_coeff := 99999 / 100000 },
-  { left := 700000000, right := 800000000,
-    lower_coeff := 99993 / 100000, upper_coeff := 99998 / 100000 },
-  { left := 800000000, right := 900000000,
-    lower_coeff := 99994 / 100000, upper_coeff := 99998 / 100000 },
-  { left := 900000000, right := 1000000000,
-    lower_coeff := 99994 / 100000, upper_coeff := 99998 / 100000 },
-  { left := 1000000000, right := 2000000000,
-    lower_coeff := 99995 / 100000, upper_coeff := 99999 / 100000 },
-  { left := 2000000000, right := 3000000000,
-    lower_coeff := 99996 / 100000, upper_coeff := 1 },
-  { left := 3000000000, right := 4000000000,
-    lower_coeff := 99997 / 100000, upper_coeff := 1 },
-  { left := 4000000000, right := 5000000000,
-    lower_coeff := 99997 / 100000, upper_coeff := 1 },
-  { left := 5000000000, right := 6000000000,
-    lower_coeff := 99997 / 100000, upper_coeff := 1 },
-  { left := 6000000000, right := 7000000000,
-    lower_coeff := 99998 / 100000, upper_coeff := 1 },
-  { left := 7000000000, right := 8000000000,
-    lower_coeff := 99998 / 100000, upper_coeff := 1 },
-  { left := 8000000000, right := 9000000000,
-    lower_coeff := 99998 / 100000, upper_coeff := 1 },
-  { left := 9000000000, right := 10000000000,
-    lower_coeff := 99998 / 100000, upper_coeff := 1 },
-  { left := 10000000000, right := 20000000000,
-    lower_coeff := 99998 / 100000, upper_coeff := 1 },
-  { left := 20000000000, right := 30000000000,
-    lower_coeff := 99998 / 100000, upper_coeff := 1 },
-  { left := 30000000000, right := 40000000000,
-    lower_coeff := 99999 / 100000, upper_coeff := 1 },
-  { left := 40000000000, right := 50000000000,
-    lower_coeff := 99999 / 100000, upper_coeff := 1 },
-  { left := 50000000000, right := 60000000000,
-    lower_coeff := 99999 / 100000, upper_coeff := 1 },
-  { left := 60000000000, right := 70000000000,
-    lower_coeff := 99999 / 100000, upper_coeff := 1 },
-  { left := 70000000000, right := 80000000000,
-    lower_coeff := 99999 / 100000, upper_coeff := 1 },
-  { left := 80000000000, right := 90000000000,
-    lower_coeff := 99999 / 100000, upper_coeff := 1 },
-  { left := 90000000000, right := 100000000000,
-    lower_coeff := 99999 / 100000, upper_coeff := 1 },
-  { left := 100000000000, right := 200000000000,
-    lower_coeff := 99999 / 100000, upper_coeff := 1 },
-  { left := 200000000000, right := 300000000000,
-    lower_coeff := 99999 / 100000, upper_coeff := 1 },
-  { left := 300000000000, right := 400000000000,
-    lower_coeff := 99999 / 100000, upper_coeff := 1 },
-  { left := 400000000000, right := 500000000000,
-    lower_coeff := 99999 / 100000, upper_coeff := 1 },
-  { left := 500000000000, right := 600000000000,
-    lower_coeff := 99999 / 100000, upper_coeff := 1 },
-  { left := 600000000000, right := 700000000000,
-    lower_coeff := 99999 / 100000, upper_coeff := 1 },
-  { left := 700000000000, right := 800000000000,
-    lower_coeff := 99999 / 100000, upper_coeff := 1 }
-]
+    List DusartThetaTableCoefficientRow :=
+  dusartThetaTable6_6CoefficientData.map
+    DusartThetaTable66CoefficientData.toCoefficientRow
 
 theorem dusartThetaTable6_6Coefficients_length :
-    dusartThetaTable6_6Coefficients.length = 34 := by decide
+    dusartThetaTable6_6Coefficients.length = 34 := by
+  simp [dusartThetaTable6_6Coefficients,
+    dusartThetaTable6_6CoefficientData_length]
 
 /-! The numerical endpoints are projected to a computationally decidable
 representation before checking the table's shape.  This keeps the provenance
@@ -1373,7 +1316,8 @@ theorem dusartThetaTable6_6NatRanges_cover :
       ∃ range ∈ dusartThetaTable6_6NatRanges,
         range.1 ≤ n ∧ n ≤ range.2 := by
   intro n hn hN
-  simp [dusartThetaTable6_6NatRanges, dusartThetaTable6_6Coefficients]
+  simp [dusartThetaTable6_6NatRanges,
+    dusartThetaTable6_6CoefficientDataNatRanges]
   omega
 
 theorem dusartThetaTable_upper_coeff_error_of_le_one
