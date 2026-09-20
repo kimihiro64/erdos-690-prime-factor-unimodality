@@ -884,6 +884,11 @@ theorem dusartThetaTable6_6NatRanges_strictly_ordered :
       (fun first second => first.1 < second.1) := by
   decide
 
+theorem dusartThetaTable6_6NatRanges_adjacent :
+    dusartThetaTable6_6NatRanges.Chain'
+      (fun first second => first.2 = second.1) := by
+  decide
+
 def DusartThetaTableCoefficientRow.toRelativeRow
     (row : DusartThetaTableCoefficientRow)
     (hleft : 2 ≤ row.left) (hle : row.left ≤ row.right)
