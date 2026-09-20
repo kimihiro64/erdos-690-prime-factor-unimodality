@@ -3294,6 +3294,14 @@ theorem dusart_proposition_3_2_of_lemma_3_3_and_dusart_theta_upper
   exact dusart_proposition_3_2_of_lemma_3_3_and_theta_upper
     hx hlemma htheta''
 
+theorem dusart_theta_upper_100007_of_bounds
+    (thetaBounds : HasDusartThetaBounds) :
+    ∀ y : Real, 0 < y →
+      Chebyshev.theta y < (100007 : Real) / 100000 * y := by
+  intro y hy
+  have hupper := thetaBounds.1 y hy
+  nlinarith
+
 /-! The paper's global Proposition 3.2 assembly.  The input `lemma` is the
 uniform Lemma 3.3 estimate, including its bounded direct-computation range;
 the second input is the global Proposition 5.1 theta upper bound. -/
@@ -3319,16 +3327,14 @@ theorem dusart_proposition_3_2_of_paper_lemma_and_theta_bounds
         (1777745 : Real) / 1000000 * x ^ (1 / 3 : Real))
     (thetaBounds : HasDusartThetaBounds) :
     ∀ x : Real, 0 < x →
-      Chebyshev.psi x - Chebyshev.theta x <
+          Chebyshev.psi x - Chebyshev.theta x <
         (100007 : Real) / 100000 * Real.sqrt x +
           (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
-  have hupper : ∀ y : Real, 0 < y →
-      Chebyshev.theta y - y < y / 36260 := by
-    intro y hy
-    have h := thetaBounds.1 y hy
-    nlinarith
-  exact dusart_proposition_3_2_of_paper_lemma_and_theta_upper
-    hlemma hupper
+  intro x hx
+  exact dusart_proposition_3_2_of_lemma_3_3_and_theta_upper hx
+    (hlemma x hx)
+    (dusart_theta_upper_100007_of_bounds thetaBounds
+      (Real.sqrt x) (Real.sqrt_pos.2 hx))
 
 /-! The prime-power part of Dusart's Lemma 3.3.  For the large range the
 floor in the Chebyshev decomposition is at least two, so the square-root
