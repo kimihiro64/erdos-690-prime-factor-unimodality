@@ -32,6 +32,57 @@ theorem wangCrapis_thetaPrefix :
   exact hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
     dusartThetaEndpointRow_two_cover
 
+theorem wangCrapis_thetaBounds_lower_2_3
+    {x : Real} (hx : 2 < x) (hx3 : x ≤ 3) :
+    x * (1 - (12323 / 10000 : Real) / Real.log x) <
+      Chebyshev.theta x := by
+  have hxpos : 0 < x := by linarith
+  have hfloor : ⌊x⌋₊ = 2 := by
+    have hlo : 2 ≤ ⌊x⌋₊ := Nat.le_floor (le_of_lt hx)
+    have hhi : ⌊x⌋₊ ≤ 2 := Nat.floor_le_of_le hx3
+    omega
+  have htheta : Chebyshev.theta x = Real.log 2 := by
+    rw [Chebyshev.theta_eq_theta_coe_floor, hfloor, theta_two_eq_log_two]
+  rw [htheta]
+  have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
+  have hlog_le : Real.log x ≤ Real.log 3 :=
+    Real.log_le_log hxpos hx3
+  have hlog_lt : Real.log x < (12323 : Real) / 10000 := by
+    have hthree : Real.log 3 < (11 : Real) / 10 := by
+      exact Real.log_three_lt_d9
+    linarith
+  have hcoef : 1 - (12323 / 10000 : Real) / Real.log x < 0 := by
+    apply sub_neg.mpr
+    apply (lt_div_iff₀ hlogpos).2
+    linarith
+  have hleft : x * (1 - (12323 / 10000 : Real) / Real.log x) < 0 :=
+    mul_neg_of_pos_of_neg hxpos hcoef
+  have hlog2pos : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
+  linarith
+
+theorem wangCrapis_thetaBounds_upper_0_3
+    {x : Real} (hx : 0 < x) (hx3 : x ≤ 3) :
+    Chebyshev.theta x - x < x / 36260 := by
+  have htheta_nonneg : 0 ≤ Chebyshev.theta x := Chebyshev.theta_nonneg x
+  by_cases hlt : x < 2
+  · rw [Chebyshev.theta_eq_zero_of_lt_two hlt]
+    positivity
+  · have htheta_le : Chebyshev.theta x ≤ Chebyshev.theta 3 :=
+      Chebyshev.theta_mono hx3
+    have htheta3 : Chebyshev.theta (3 : Real) =
+        Real.log 2 + Real.log 3 := by
+      have hsum := Chebyshev.theta_eq_sum_primesLE_log 3
+      have hp : Nat.primesLE 3 = {2, 3} := by decide
+      rw [hp] at hsum
+      simpa using hsum
+    rw [htheta3] at htheta_le
+    have hlog2lt : Real.log (2 : Real) < 1 := by
+      nlinarith [Real.log_two_lt_d9]
+    have hlog3lt : Real.log (3 : Real) < (11 : Real) / 10 :=
+      Real.log_three_lt_d9
+    have hright : 0 < x / 36260 := by positivity
+    linarith
+
 /-! The fixed explicit-formula input is exported at the theta boundary so the
     eventual psi/theta tail proof consumes the constructed estimate rather than
     the package's existential placeholder. -/
