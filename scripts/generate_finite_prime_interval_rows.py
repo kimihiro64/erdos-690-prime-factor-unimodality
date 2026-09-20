@@ -60,6 +60,7 @@ def pocklington_certificate(n: int) -> str:
         for q in set(factors)
     }
     theorem = [
+        "set_option maxRecDepth 100000 in",
         "set_option maxHeartbeats 20000000 in",
         f"theorem lowPrime_{n} : Nat.Prime {n} := by",
         f"  apply Nat.prime_of_pocklington_factor_of_prime_factors {n} {n - 1} 1 {base} [{', '.join(map(str, factors))}]",
@@ -76,18 +77,16 @@ def pocklington_certificate(n: int) -> str:
         ]
     )
     theorem.extend(["    all_goals decide", "  · norm_num", "  · norm_num"])
-    theorem.extend(["  · rw [← natCast_fastPowMod_eq_pow]", "    decide"])
+    theorem.extend(["  · decide"])
     theorem.extend(["  · intro q hq", "    simp at hq"])
+    residue_factors = list(dict.fromkeys(factors))
     theorem.append(
-        "    rcases hq with " + " | ".join("rfl" for _ in factors)
+        "    rcases hq with " + " | ".join("rfl" for _ in residue_factors)
     )
-    for q in factors:
+    for q in residue_factors:
         theorem.extend(
             [
-                "    · change IsUnit "
-                + f"(({base} : ZMod {n}) ^ {(n - 1) // q} - 1)",
-                "      rw [← natCast_fastPowMod_eq_pow]",
-                f"      apply IsUnit.of_mul_eq_one ({inverses[q]} : ZMod {n})",
+                f"    · apply IsUnit.of_mul_eq_one ({inverses[q]} : ZMod {n})",
                 "      decide",
             ]
         )
@@ -201,7 +200,9 @@ def _local_chain_proof(part_rows: list[str]) -> str:
             proof.append(indent + "· apply DusartPrimeRowsChain.cons")
         else:
             proof.append(indent + "· apply DusartPrimeRowsChain.empty")
-            proof.append(indent + "  norm_num")
+            proof.append(indent +
+                         f"  norm_num [{constructor.group(0)}, "
+                         "dusartPrimeRow_of_explicit_right]")
     return "\n".join(proof)
 
 

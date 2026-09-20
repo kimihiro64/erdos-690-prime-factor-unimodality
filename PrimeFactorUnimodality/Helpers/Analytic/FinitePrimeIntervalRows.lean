@@ -317,6 +317,12 @@ structure DusartThetaEndpointRow where
   lower_lower_error : right - theta_lower <
     (12323 / 10000 : Real) * (left : Real) / Real.log right
 
+theorem theta_two_eq_log_two : Chebyshev.theta (2 : Real) = Real.log 2 := by
+  have hprimes : Nat.primesLE 2 = {2} := by decide
+  have hsum := Chebyshev.theta_eq_sum_primesLE_log 2
+  rw [hprimes] at hsum
+  simpa using hsum
+
 /-! A singleton endpoint row is only sound when its three numerical endpoint
 inequalities have already been proved.  Keeping those inequalities explicit
 prevents a singleton constructor from being mistaken for a proof of a
@@ -332,16 +338,26 @@ def dusartThetaEndpointRow_two : DusartThetaEndpointRow :=
     theta_right_le := le_rfl
     upper_error := by
       have hlog : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
+      rw [theta_two_eq_log_two]
       norm_num
-      positivity
+      nlinarith [Real.log_two_lt_d9]
     lower_upper_error := by
       have hlog : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
+      rw [theta_two_eq_log_two]
       norm_num
-      positivity
+      have hpos : 0 < (12323 / 5000 : Real) / Real.log 2 :=
+        div_pos (by norm_num) hlog
+      nlinarith [Real.log_two_lt_d9]
     lower_lower_error := by
       have hlog : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
+      rw [theta_two_eq_log_two]
       norm_num
-      positivity }
+      have hlt : Real.log 2 < 1 := by
+        nlinarith [Real.log_two_lt_d9]
+      have hquot : (2 : Real) < (12323 / 5000 : Real) / Real.log 2 := by
+        apply (lt_div_iff₀ hlog).2
+        nlinarith
+      nlinarith }
 
 def dusartThetaEndpointRow_singleton (n : Nat) (hn : 2 ≤ n)
     (hupper : Chebyshev.theta n - n < (n : Real) / 36260)
