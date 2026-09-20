@@ -217,8 +217,7 @@ theorem wangCrapis_thetaBounds_of_paper_ranges_and_prop31_thetaError
       _ ≤ (4e18 : Real) := by norm_num
   have thetaErrorLarge : HasThetaLogFourthErrorAbove
       (648 / 1000 : Real) (4e18 : Real) := by
-    intro y hy
-    exact thetaError y (hcut.trans hy)
+    exact hasThetaLogFourthErrorAbove_mono hcut thetaError
   have prop31 : ∀ x : Real, (121 : Real) < x →
       (9999 : Real) / 10000 * Real.sqrt x <
         Chebyshev.psi x - Chebyshev.theta x :=

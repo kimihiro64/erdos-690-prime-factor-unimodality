@@ -180,6 +180,13 @@ def HasThetaLogFourthErrorAbove (A X : Real) : Prop :=
   ∀ x : Real, X ≤ x →
     |Chebyshev.theta x - x| ≤ A * x / (Real.log x) ^ 4
 
+theorem hasThetaLogFourthErrorAbove_mono
+    {A X Y : Real} (hXY : X ≤ Y)
+    (tail : HasThetaLogFourthErrorAbove A X) :
+    HasThetaLogFourthErrorAbove A Y := by
+  intro x hx
+  exact tail x (hXY.trans hx)
+
 def HasThetaLogFourthErrorOn (A x₀ X : Real) : Prop :=
   ∀ x : Real, x₀ ≤ x → x ≤ X →
     |Chebyshev.theta x - x| ≤ A * x / (Real.log x) ^ 4
