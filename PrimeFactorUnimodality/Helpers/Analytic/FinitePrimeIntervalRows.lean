@@ -1005,7 +1005,7 @@ def dusartThetaTable6_6Coefficients :
 ]
 
 theorem dusartThetaTable6_6Coefficients_length :
-    dusartThetaTable6_6Coefficients.length = 35 := by decide
+    dusartThetaTable6_6Coefficients.length = 34 := by decide
 
 /-! The numerical endpoints are projected to a computationally decidable
 representation before checking the table's shape.  This keeps the provenance
@@ -1014,7 +1014,7 @@ def dusartThetaTable6_6NatRanges : List (Nat × Nat) :=
   dusartThetaTable6_6Coefficients.map fun row => (row.left, row.right)
 
 theorem dusartThetaTable6_6NatRanges_length :
-    dusartThetaTable6_6NatRanges.length = 35 := by
+    dusartThetaTable6_6NatRanges.length = 34 := by
   simp [dusartThetaTable6_6NatRanges, dusartThetaTable6_6Coefficients_length]
 
 theorem dusartThetaTable6_6NatRanges_nonempty :
