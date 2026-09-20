@@ -62,5 +62,34 @@ theorem zetaUpperBnd_explicit
   convert! ZetaUpperBnd' ⟨by norm_num, le_rfl⟩ ht hσ using 1
   simp
 
+theorem zetaDerivUpperBnd_explicit
+    (σ t : Real) (ht : 3 < |t|)
+    (hσ : σ ∈ Icc (1 - (1 / 2 : Real) / Real.log |t|) 2) :
+    ‖deriv riemannZeta (σ + t * Complex.I)‖ ≤
+      Real.exp (1 / 2 : Real) * 59 * Real.log |t| ^ 2 := by
+  obtain ⟨Npos, _, _, _, σPos, neOne⟩ :=
+    UpperBnd_aux ⟨by norm_num, by norm_num⟩ ht hσ.1
+  rw [← DerivZeta0EqDerivZeta Npos (by simp [σPos]) neOne]
+  set N : Nat := ⌊|t|⌋₊
+  rw [(HasDerivAtZeta0 Npos (s := σ + t * Complex.I)
+    (by simp [σPos]) neOne).deriv]
+  dsimp only [ζ₀']
+  set aa := ∑ n ∈ Finset.range (N + 1),
+    -1 / (n : Complex) ^ (σ + t * Complex.I) * (Real.log n)
+  set bb := -(N : Complex) ^ (1 - (σ + t * Complex.I)) /
+    (1 - (σ + t * Complex.I)) ^ 2
+  set cc := (Real.log N) * (N : Complex) ^ (1 - (σ + t * Complex.I)) /
+    (1 - (σ + t * Complex.I))
+  set dd := (Real.log N) * (N : Complex) ^ (-(σ + t * Complex.I)) / 2
+  set ee := 1 * ∫ x in Ioi (N : Real),
+    (⌊x⌋ + 1 / 2 - x) * (x : Complex) ^ (-(σ + t * Complex.I) - 1)
+  set ff := (σ + t * Complex.I) * ∫ x in Ioi (N : Real),
+    (⌊x⌋ + 1 / 2 - x) * (x : Complex) ^ (-(σ + t * Complex.I) - 1) *
+      -(Real.log x)
+  rw [(by ring : aa + (bb + cc) + dd + ee + ff = aa + bb + cc + dd + ee + ff)]
+  apply le_trans (by apply norm_add₆)
+  convert! ZetaDerivUpperBnd' ⟨by norm_num, le_rfl⟩ ht hσ using 1
+
+
 end
 end PrimeFactorUnimodality
