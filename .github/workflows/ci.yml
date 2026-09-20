@@ -175,6 +175,10 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.MertensProvider
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartProof
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowBase
           last_part=$(sed -nE 's/.*:= ([0-9]+).*/\1/p' \
             PrimeFactorUnimodality/Helpers/Analytic/FinitePrimeIntervalRows/LowManifest.lean)
