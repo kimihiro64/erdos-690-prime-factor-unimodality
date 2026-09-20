@@ -1307,6 +1307,14 @@ theorem dusart_lemma_3_3_finite_511 :
   exact dusart_lemma_3_3_finite_of_rows
     dusartLemma33FiniteRowsCover_fivehundredeleven
 
+theorem dusart_lemma_3_3_finite_624 :
+    ∀ x : Real, 0 < x → x ≤ 624 →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  exact dusart_lemma_3_3_finite_of_rows
+    dusartLemma33FiniteRowsCover_sixhundredtwentyfour
+
 theorem dusart_proposition_3_2_small_64
     {x : Real} (hx : 0 < x) (hx64 : x < 64) :
     Chebyshev.psi x - Chebyshev.theta x <
