@@ -402,8 +402,16 @@ The following sorry-free assembly boundaries are now pushed:
 - `wangCrapis_shortInterval_of_mediumPNT` assembles the exact global
   short-interval provider from the source-level medium-PNT tail and a finite
   log-cubed row provider.
+- `wangCrapis_thetaBounds_of_indexed_endpoint_rows_and_tail` assembles the
+  global theta provider from compact indexed Table 6.4-style endpoint rows
+  and an explicit log-fourth tail.
+- `dusart_proposition_3_2_of_indexed_rows_and_theta_bounds` assembles the
+  all-`x` Proposition 3.2 bound from compact indexed Lemma 3.3 rows and the
+  separately proved theta provider.
 
-These are in commits `10dca102` and `9080f4ca`.
+The earlier tail assemblies are in commits `10dca102` and `9080f4ca`; the
+indexed endpoint and Lemma 3.3/Proposition 3.2 assemblies are in commits
+`2904169f` and `f40e48c5`.
 
 The BKLNW shortcut was audited and rejected: `BKLNW.thm_1a` depends on
 `BKLNW_app.theorem_2`, whose source declaration is `by sorry`. Therefore no
