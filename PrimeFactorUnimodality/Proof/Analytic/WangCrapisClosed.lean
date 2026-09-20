@@ -15,7 +15,7 @@ layer has one stable interface to the analytic assembly. -/
 source-level MediumPNT argument.  Quantifying the finite fields over every
 possible cutoff would impose a stronger obligation than the analytic proof
 uses and would obscure the actual all-`k` boundary. -/
-abbrev WangCrapisFiniteProviders : Type :=
+abbrev WangCrapisFiniteProviders : Prop :=
   MediumPNTSelectedSplitInputs (4e18 : Real) (3 / 5 : Real)
 
 theorem wangCrapis_thetaBounds_of_finite_providers
