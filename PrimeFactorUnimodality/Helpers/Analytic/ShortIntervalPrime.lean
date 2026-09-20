@@ -573,3 +573,8 @@ theorem exists_consecutive_primes_above_fixed
   have prev_large : 3275 ≤ qPrev := s_large.trans s_le_prev
   have q_le := consecutive.right_le_shortInterval_upper shortInterval prev_large
   exact ⟨qPrev, q, consecutive, s_le_prev, x_lt_q, q_upper,
+    x_lt_q.trans_le q_le⟩
+
+end
+
+end PrimeFactorUnimodality
