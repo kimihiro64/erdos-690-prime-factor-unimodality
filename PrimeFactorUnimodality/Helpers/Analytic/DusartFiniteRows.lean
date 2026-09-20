@@ -483,6 +483,106 @@ theorem dusartLemma33FiniteRowsCover_eight :
                 · norm_num [dusartLemma33FiniteRow_eight]
                   linarith
 
+def dusartLemma33FiniteRow_nine : DusartLemma33FiniteRow :=
+  { left := 9
+    right := 9
+    left_le_right := by norm_num
+    valid := by
+      intro x hx hleft hright
+      have hx9 : (9 : Real) ≤ x := by exact_mod_cast hleft
+      have hx10 : x < 10 := by norm_num at hright ⊢; exact hright
+      have hfloor : ⌊x⌋₊ = 9 := by
+        apply (Nat.floor_eq_iff (by linarith : (0 : Real) ≤ x)).2
+        constructor <;> norm_num <;> linarith
+      have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 9
+      have htheta := Chebyshev.theta_eq_sum_primesLE_log 9
+      have htheta_three := Chebyshev.theta_eq_sum_primesLE_log 3
+      have hp9 : Nat.primesLE 9 = {2, 3, 5, 7} := by decide
+      have hp3 : Nat.primesLE 3 = {2, 3} := by decide
+      rw [hp9] at hpsi htheta
+      rw [hp3] at htheta_three
+      norm_num [Nat.log, Nat.log.go] at hpsi htheta htheta_three
+      have hsqrt_lower : (3 : Real) ≤ Real.sqrt x := by
+        nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+      have hsqrt_upper : Real.sqrt x < 4 := by
+        nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+      have hsqrt_floor : ⌊Real.sqrt x⌋₊ = 3 := by
+        apply (Nat.floor_eq_iff (by positivity : (0 : Real) ≤ Real.sqrt x)).2
+        constructor <;> norm_num <;> linarith
+      rw [Chebyshev.psi_eq_psi_coe_floor,
+        Chebyshev.theta_eq_theta_coe_floor, hfloor]
+      rw [Chebyshev.theta_eq_theta_coe_floor, hsqrt_floor]
+      have hvalue : Chebyshev.psi (9 : Real) - Chebyshev.theta 9 -
+          Chebyshev.theta 3 < 1 := by
+        nlinarith [hpsi, htheta, htheta_three, Real.log_two_lt_d9]
+      have hpow := Real.rpow_le_rpow (by norm_num : (0 : Real) ≤ 8)
+        (by linarith : (8 : Real) ≤ x)
+        (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
+      norm_num at hpow ⊢
+      nlinarith [hvalue]
+
+theorem dusartLemma33FiniteRowsCover_nine :
+    DusartLemma33FiniteRowsCover
+      [dusartLemma33FiniteRow_zero_one, dusartLemma33FiniteRow_two,
+        dusartLemma33FiniteRow_three, dusartLemma33FiniteRow_four,
+        dusartLemma33FiniteRow_five, dusartLemma33FiniteRow_six,
+        dusartLemma33FiniteRow_seven, dusartLemma33FiniteRow_eight,
+        dusartLemma33FiniteRow_nine] 9 := by
+  intro x hx hX
+  by_cases hsmall : x < 2
+  · refine ⟨dusartLemma33FiniteRow_zero_one, by simp, ?_, ?_⟩
+    · norm_num [dusartLemma33FiniteRow_zero_one]
+      exact hx.le
+    · norm_num [dusartLemma33FiniteRow_zero_one]
+      linarith
+  · by_cases htwo : x < 3
+    · refine ⟨dusartLemma33FiniteRow_two, by simp, ?_, ?_⟩
+      · norm_num [dusartLemma33FiniteRow_two]
+        exact le_of_not_gt hsmall
+      · norm_num [dusartLemma33FiniteRow_two]
+        linarith
+    · by_cases hthree : x < 4
+      · refine ⟨dusartLemma33FiniteRow_three, by simp, ?_, ?_⟩
+        · norm_num [dusartLemma33FiniteRow_three]
+          exact le_of_not_gt htwo
+        · norm_num [dusartLemma33FiniteRow_three]
+          linarith
+      · by_cases hfour : x < 5
+        · refine ⟨dusartLemma33FiniteRow_four, by simp, ?_, ?_⟩
+          · norm_num [dusartLemma33FiniteRow_four]
+            exact le_of_not_gt hthree
+          · norm_num [dusartLemma33FiniteRow_four]
+            linarith
+        · by_cases hfive : x < 6
+          · refine ⟨dusartLemma33FiniteRow_five, by simp, ?_, ?_⟩
+            · norm_num [dusartLemma33FiniteRow_five]
+              exact le_of_not_gt hfour
+            · norm_num [dusartLemma33FiniteRow_five]
+              linarith
+          · by_cases hsix : x < 7
+            · refine ⟨dusartLemma33FiniteRow_six, by simp, ?_, ?_⟩
+              · norm_num [dusartLemma33FiniteRow_six]
+                exact le_of_not_gt hfive
+              · norm_num [dusartLemma33FiniteRow_six]
+                linarith
+            · by_cases hseven : x < 8
+              · refine ⟨dusartLemma33FiniteRow_seven, by simp, ?_, ?_⟩
+                · norm_num [dusartLemma33FiniteRow_seven]
+                  exact le_of_not_gt hsix
+                · norm_num [dusartLemma33FiniteRow_seven]
+                  linarith
+              · by_cases height : x < 9
+                · refine ⟨dusartLemma33FiniteRow_eight, by simp, ?_, ?_⟩
+                  · norm_num [dusartLemma33FiniteRow_eight]
+                    exact le_of_not_gt hseven
+                  · norm_num [dusartLemma33FiniteRow_eight]
+                    linarith
+                · refine ⟨dusartLemma33FiniteRow_nine, by simp, ?_, ?_⟩
+                  · norm_num [dusartLemma33FiniteRow_nine]
+                    exact le_of_not_gt height
+                  · norm_num [dusartLemma33FiniteRow_nine]
+                    linarith
+
 theorem dusart_lemma_3_3_finite_of_rows
     {rows : List DusartLemma33FiniteRow} {X : Real}
     (cover : DusartLemma33FiniteRowsCover rows X) :
