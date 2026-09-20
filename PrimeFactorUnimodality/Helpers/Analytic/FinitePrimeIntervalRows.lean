@@ -1134,6 +1134,28 @@ def DusartThetaTable66Row.toRelativeRow
       nlinarith
   }
 
+def DusartThetaTable66RowsCoverUpTo
+    (rows : List DusartThetaTable66Row) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_table66_rows
+    {X : Real} {rows : List DusartThetaTable66Row}
+    (cover : DusartThetaTable66RowsCoverUpTo rows X)
+    (hleft : ∀ row ∈ rows, 2 ≤ row.left)
+    (hle : ∀ row ∈ rows, row.left ≤ row.right)
+    (hupper_error : ∀ row ∈ rows,
+      row.b0 - 1 < (1 : Real) / 36260)
+    (ha1_nonneg : ∀ row ∈ rows, 0 ≤ row.a1)
+    (ha1 : ∀ row ∈ rows, row.a1 < (12323 : Real) / 10000) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_relative_rows
+  intro x hx hX
+  obtain ⟨row, hrow, hleftx, hrightx⟩ := cover x hx hX
+  refine ⟨row.toRelativeRow (hleft row hrow) (hle row hrow)
+      (hupper_error row hrow) (ha1_nonneg row hrow) (ha1 row hrow),
+    hrow, hleftx, hrightx⟩
+
 /-! The older two-coefficient projection is retained for data whose
 constant-coefficient validity has already been established independently. -/
 structure DusartThetaTableCoefficientRow where
