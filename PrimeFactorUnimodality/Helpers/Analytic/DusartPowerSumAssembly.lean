@@ -12,16 +12,16 @@ noncomputable section
    The caller supplies the individual power comparisons; this theorem handles
    the ordered finite partition and its cardinality once and for all. -/
 theorem dusart_power_sum_of_finite_and_tail
-    {x : Real} (hx : 1 ≤ x) {N K : Nat} (q : Nat → Nat)
+    {x : Real} (hx : 1 ≤ x) {N K : Nat} (q : Nat → Real)
     (hK : 4 ≤ K) (hKN : K ≤ N)
     (hfinite : ∀ k ∈ Finset.Icc 4 K,
       x ^ (1 / (k : Real)) ≤
-        (q k : Real) * x ^ (1 / (3 : Real)))
+        q k * x ^ (1 / (3 : Real)))
     (htail : ∀ k ∈ Finset.Icc (K + 1) N,
       x ^ (1 / (k : Real)) ≤
-        (q (K + 1) : Real) * x ^ (1 / (3 : Real))) :
+        q (K + 1) * x ^ (1 / (3 : Real))) :
     ∑ k ∈ Finset.Icc 3 N, x ^ (1 / (k : Real)) ≤
-      (1 + (∑ k ∈ Finset.Icc 4 K, (q k : Real)) +
+      (1 + (∑ k ∈ Finset.Icc 4 K, q k) +
         ((N - K : Nat) : Real) * q (K + 1)) *
         x ^ (1 / (3 : Real)) := by
   have hpartition : Finset.Icc 3 N =
@@ -46,14 +46,14 @@ theorem dusart_power_sum_of_finite_and_tail
   have hfinite_sum :
       (∑ k ∈ Finset.Icc 4 K, x ^ (1 / (k : Real))) ≤
         ∑ k ∈ Finset.Icc 4 K,
-          (q k : Real) * x ^ (1 / (3 : Real)) := by
+          q k * x ^ (1 / (3 : Real)) := by
     apply Finset.sum_le_sum
     intro k hk
     exact hfinite k hk
   have htail_sum :
       (∑ k ∈ Finset.Icc (K + 1) N, x ^ (1 / (k : Real))) ≤
         (Finset.Icc (K + 1) N).card •
-          ((q (K + 1) : Real) * x ^ (1 / (3 : Real))) := by
+          (q (K + 1) * x ^ (1 / (3 : Real))) := by
     apply Finset.sum_le_card_nsmul
     intro k hk
     exact htail k hk
@@ -64,11 +64,11 @@ theorem dusart_power_sum_of_finite_and_tail
           ∑ x_1 ∈ Finset.Icc (K + 1) N, x ^ (1 / (x_1 : Real)) ≤
         x ^ (1 / (3 : Real)) +
           ∑ k ∈ Finset.Icc 4 K,
-            (q k : Real) * x ^ (1 / (3 : Real)) +
+            q k * x ^ (1 / (3 : Real)) +
           (Finset.Icc (K + 1) N).card •
-            ((q (K + 1) : Real) * x ^ (1 / (3 : Real))) := by
+            (q (K + 1) * x ^ (1 / (3 : Real))) := by
       gcongr
-    _ = (1 + (∑ k ∈ Finset.Icc 4 K, (q k : Real)) +
+    _ = (1 + (∑ k ∈ Finset.Icc 4 K, q k) +
         ((N - K : Nat) : Real) * q (K + 1)) *
         x ^ (1 / (3 : Real)) := by
       rw [nsmul_eq_mul, Nat.card_Icc]
