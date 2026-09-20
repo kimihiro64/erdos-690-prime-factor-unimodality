@@ -1161,6 +1161,17 @@ def DusartThetaTable66IndexedCoverUpTo {n : Nat}
   ∀ x : Real, 2 ≤ x → x ≤ X →
     ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
 
+theorem dusartThetaTable66IndexedCoverUpTo_of_list
+    {X : Real} {rows : List DusartThetaTable66Row}
+    (cover : DusartThetaTable66RowsCoverUpTo rows X) :
+    DusartThetaTable66IndexedCoverUpTo
+      (fun i : Fin rows.length => rows.get i) X := by
+  intro x hx hX
+  obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
+  obtain ⟨i, hi, hget⟩ := List.getElem_of_mem hrow
+  refine ⟨⟨i, hi⟩, ?_⟩
+  simpa [List.get_eq_getElem, hget] using And.intro hleft hright
+
 theorem dusartThetaTable66IndexedCoverUpTo_append
     {m X : Real} {n₁ n₂ : Nat}
     {left : Fin n₁ → DusartThetaTable66Row}
@@ -1189,6 +1200,37 @@ structure DusartThetaTable66Chunk where
   upper_error : ∀ i, (rows i).b0 - 1 < (1 : Real) / 36260
   a1_nonneg : ∀ i, 0 ≤ (rows i).a1
   a1_bound : ∀ i, (rows i).a1 < (12323 : Real) / 10000
+
+def DusartThetaTable66Chunk.of_list
+    {rows : List DusartThetaTable66Row} {cutoff : Real}
+    (cover : DusartThetaTable66RowsCoverUpTo rows cutoff)
+    (left_large : ∀ row ∈ rows, 2 ≤ row.left)
+    (left_le_right : ∀ row ∈ rows, row.left ≤ row.right)
+    (upper_error : ∀ row ∈ rows,
+      row.b0 - 1 < (1 : Real) / 36260)
+    (a1_nonneg : ∀ row ∈ rows, 0 ≤ row.a1)
+    (a1_bound : ∀ row ∈ rows,
+      row.a1 < (12323 : Real) / 10000) :
+    DusartThetaTable66Chunk :=
+  { n := rows.length
+    cutoff := cutoff
+    rows := fun i => rows.get i
+    cover := dusartThetaTable66IndexedCoverUpTo_of_list cover
+    left_large := by
+      intro i
+      exact left_large (rows.get i) (List.get_mem rows i)
+    left_le_right := by
+      intro i
+      exact left_le_right (rows.get i) (List.get_mem rows i)
+    upper_error := by
+      intro i
+      exact upper_error (rows.get i) (List.get_mem rows i)
+    a1_nonneg := by
+      intro i
+      exact a1_nonneg (rows.get i) (List.get_mem rows i)
+    a1_bound := by
+      intro i
+      exact a1_bound (rows.get i) (List.get_mem rows i) }
 
 def DusartThetaTable66Chunk.append
     (left right : DusartThetaTable66Chunk) : DusartThetaTable66Chunk :=
