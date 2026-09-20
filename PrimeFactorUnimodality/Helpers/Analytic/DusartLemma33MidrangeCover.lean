@@ -6,15 +6,18 @@ set_option maxHeartbeats 10000000
 
 /-! # Coverage of Dusart's Lemma 3.3 midrange rows
 
-This module proves that the midrange rows cover the complete bounded interval. -/
+This module proves that the midrange rows cover their explicit bounded
+interval; the preceding 2401 row supplies the lower prefix. -/
 
 namespace PrimeFactorUnimodality
 
 noncomputable section
 
 theorem dusartLemma33MidrangeRowsCover :
-    DusartLemma33FiniteRowsCover dusartLemma33MidrangeRows 10000000 := by
-  intro x hx hX
+    DusartLemma33FiniteRowsCoverOn dusartLemma33MidrangeRows
+      (2402 : Real) 10000000 := by
+  intro x hlow hX
+  have hx : 0 < x := by linarith
   let n : Nat := ⌊x⌋₊
   have hnlow : (2402 : Nat) ≤ n := by
     dsimp [n]

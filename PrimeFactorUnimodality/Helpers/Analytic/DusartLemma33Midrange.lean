@@ -49,13 +49,24 @@ theorem dusartLemma33FinitePrefixRowsCover :
   simpa [dusartLemma33FinitePrefixRows] using
     dusartLemma33FiniteRowsCover_twofourzeroone
 
+theorem dusartLemma33FinitePrefixRowsCover_through_2402 :
+    DusartLemma33FiniteRowsCover dusartLemma33FinitePrefixRows 2402 := by
+  intro x hx hX
+  by_cases hprefix : x ≤ (2401 : Real)
+  · exact dusartLemma33FinitePrefixRowsCover x hx hprefix
+  · refine ⟨dusartLemma33FiniteRow_exact_twofourzeroone, ?_, ?_, ?_⟩
+    · simp [dusartLemma33FinitePrefixRows]
+    · linarith
+    · norm_num
+      linarith
+
 theorem dusartLemma33FiniteRowsCover_through_10000000 :
     DusartLemma33FiniteRowsCover
       (dusartLemma33FinitePrefixRows ++
         dusartLemma33MidrangeRows) 10000000 := by
-  exact dusartLemma33FiniteRowsCover_append
-    dusartLemma33FinitePrefixRowsCover
-    dusartLemma33MidrangeRowsCover
+  exact dusart_lemma_3_3_finite_rows_cover_append_on
+    dusartLemma33FinitePrefixRowsCover_through_2402
+    dusartLemma33MidrangeRowsCover le_rfl
 
 theorem dusart_lemma_3_3_finite_through_10000000 :
     ∀ x : Real, 0 < x → x ≤ 10000000 →

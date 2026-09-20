@@ -200,11 +200,68 @@ structure DusartLemma33FiniteRow where
     x < (right : Real) + 1 →
       Chebyshev.psi x - Chebyshev.theta x -
           Chebyshev.theta (Real.sqrt x) <
-        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real))
+      (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real))
+
+/-! A row chain stores only the successor boundary between neighboring rows.
+    The recursive cover theorem below is shared by all bounded Lemma 3.3
+    row families. -/
+def dusartLemma33RowsFollow : DusartLemma33FiniteRow →
+    List DusartLemma33FiniteRow → Prop
+  | _, [] => True
+  | previous, next :: rest =>
+      previous.right + 1 = next.left ∧ dusartLemma33RowsFollow next rest
+
+def dusartLemma33LastRight (first : DusartLemma33FiniteRow) :
+    List DusartLemma33FiniteRow → Nat
+  | [] => first.right
+  | next :: rest => dusartLemma33LastRight next rest
+
+theorem dusartLemma33FiniteRowsCover_of_following
+    (first : DusartLemma33FiniteRow)
+    (rest : List DusartLemma33FiniteRow)
+    (hfollow : dusartLemma33RowsFollow first rest) :
+    ∀ x : Real, 0 < x →
+      (first.left : Real) ≤ x →
+      x ≤ (dusartLemma33LastRight first rest : Real) →
+      ∃ row ∈ first :: rest, (row.left : Real) ≤ x ∧
+        x < (row.right : Real) + 1 := by
+  induction rest generalizing first with
+  | nil =>
+      intro x hx hleft hright
+      refine ⟨first, by simp, hleft, ?_⟩
+      change x ≤ (first.right : Real) at hright
+      have hstep : (first.right : Real) < (first.right : Real) + 1 := by
+        norm_num
+      linarith
+  | cons next rest ih =>
+      intro x hx hleft hright
+      have hnext := hfollow.1
+      have htail := hfollow.2
+      by_cases hfirst : x < (first.right : Real) + 1
+      · exact ⟨first, by simp, hleft, hfirst⟩
+      · have hfirst_right : (first.right : Real) < x := by
+          have : (first.right : Real) + 1 ≤ x := le_of_not_gt hfirst
+          linarith
+        have hnext_left : (next.left : Real) ≤ x := by
+          have hnext' : (next.left : Real) = (first.right : Real) + 1 := by
+            exact_mod_cast hnext.symm
+          rw [hnext']
+          linarith
+        obtain ⟨row, hrow, hrow_left, hrow_right⟩ :=
+          ih next htail x hx hnext_left hright
+        exact ⟨row, by simp [hrow], hrow_left, hrow_right⟩
 
 def DusartLemma33FiniteRowsCover
     (rows : List DusartLemma33FiniteRow) (X : Real) : Prop :=
   ∀ x : Real, 0 < x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧
+      x < (row.right : Real) + 1
+
+/-! A partial cover is used for a row family whose first endpoint is handled
+    by a preceding family. -/
+def DusartLemma33FiniteRowsCoverOn
+    (rows : List DusartLemma33FiniteRow) (lower X : Real) : Prop :=
+  ∀ x : Real, lower ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧
       x < (row.right : Real) + 1
 
@@ -1065,6 +1122,20 @@ theorem dusart_lemma_3_3_finite_rows_cover_append
   · obtain ⟨row, hrow, hleft_row, hright_row⟩ :=
       hright x hx hX
     exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+
+theorem dusart_lemma_3_3_finite_rows_cover_append_on
+    {left right : List DusartLemma33FiniteRow} {m lower X : Real}
+    (hleft : DusartLemma33FiniteRowsCover left m)
+    (hright : DusartLemma33FiniteRowsCoverOn right lower X)
+    (hm : lower ≤ m) :
+    DusartLemma33FiniteRowsCover (left ++ right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hright_row_left, hright_row_right⟩ :=
+      hright x (le_trans hm (le_of_not_ge hxm)) hX
+    exact ⟨row, by simp [hrow], hright_row_left, hright_row_right⟩
 
 theorem dusartLemma33FiniteRowsCover_append_row
     {rows : List DusartLemma33FiniteRow} {row : DusartLemma33FiniteRow}
