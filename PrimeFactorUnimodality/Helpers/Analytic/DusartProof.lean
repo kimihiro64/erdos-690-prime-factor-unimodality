@@ -137,41 +137,25 @@ theorem psi_sub_theta_nat_63_lt_nine :
   nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
     Real.log_five_lt_d9, LogTables.log_7_lt]
 
-def dusartLemma33FiniteRow_ten_twentyfour : DusartLemma33FiniteRow :=
-  { left := 10
-    right := 24
-    left_le_right := by norm_num
-    valid := by
-      intro x hx hleft hright
-      have hx10 : (10 : Real) ≤ x := by exact_mod_cast hleft
-      have hx25 : x < 25 := by norm_num at hright ⊢; exact hright
-      have htransport : Chebyshev.psi x - Chebyshev.theta x =
-          Chebyshev.psi (⌊x⌋₊ : Real) - Chebyshev.theta (⌊x⌋₊ : Real) := by
-        rw [Chebyshev.psi_eq_psi_coe_floor,
-          Chebyshev.theta_eq_theta_coe_floor]
-      have hfloor : (⌊x⌋₊ : Real) ≤ 24 := by
-        exact_mod_cast Nat.le_of_lt_succ
-          ((Nat.floor_lt hx.le).2 (by norm_num; exact hx25))
-      have hleft : Chebyshev.psi x - Chebyshev.theta x < 4 := by
-        rw [htransport]
-        exact (psi_sub_theta_mono hfloor).trans_lt psi_sub_theta_nat_24_lt_four
-      have hsqrt : (3 : Real) ≤ Real.sqrt x := by
-        nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
-      have htheta_mono : Chebyshev.theta 3 ≤
-          Chebyshev.theta (Real.sqrt x) :=
-        Chebyshev.theta_mono hsqrt
-      have htheta_three := Chebyshev.theta_eq_sum_primesLE_log 3
-      have hp3 : Nat.primesLE 3 = {2, 3} := by decide
-      rw [hp3] at htheta_three
-      norm_num [Nat.log, Nat.log.go] at htheta_three
-      have htheta_lower : (1 / 2 : Real) < Chebyshev.theta 3 := by
-        nlinarith [htheta_three, Real.log_two_gt_d9,
-          Real.log_pos (by norm_num : (1 : Real) < 3)]
-      have hpow := Real.rpow_le_rpow (by norm_num : (0 : Real) ≤ 8)
-        (by linarith : (8 : Real) ≤ x)
-        (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
-      norm_num at hpow ⊢
-      nlinarith [hleft, htheta_mono, htheta_lower, hpow] }
+def dusartLemma33FiniteRow_ten_twentyfour : DusartLemma33FiniteRow := by
+  have htheta_three := Chebyshev.theta_eq_sum_primesLE_log 3
+  have hp3 : Nat.primesLE 3 = {2, 3} := by decide
+  rw [hp3] at htheta_three
+  norm_num [Nat.log, Nat.log.go] at htheta_three
+  apply dusartLemma33FiniteRow_of_endpoint_bounds 10 24 3 4 (1 / 2) 2
+  · norm_num
+  · intro x hx hleft hright
+    nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+  · exact psi_sub_theta_nat_24_lt_four
+  · nlinarith [htheta_three, Real.log_two_gt_d9,
+      Real.log_pos (by norm_num : (1 : Real) < 3)]
+  · intro x hx hleft
+    have hpow := Real.rpow_le_rpow (by norm_num : (0 : Real) ≤ 8)
+      (by linarith : (8 : Real) ≤ x)
+      (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
+    norm_num at hpow ⊢
+    exact hpow
+  · norm_num
 
 theorem dusartLemma33FiniteRowsCover_ten_twentyfour :
     DusartLemma33FiniteRowsCover
