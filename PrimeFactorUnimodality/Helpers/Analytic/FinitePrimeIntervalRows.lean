@@ -1040,6 +1040,23 @@ def DusartThetaTableVerifiedRow.toRelativeRow
     row.right_le_cutoff row.lower_coeff_min row.upper_coeff_le_one
     row.lower_bound row.upper_bound
 
+def DusartThetaTableVerifiedRow.toStrictUpperRow
+    (row : DusartThetaTableVerifiedRow)
+    (hmargin : row.data.upper_coeff * (row.data.right : Real) <
+      row.data.left) : StrictThetaUpperRow := by
+  have hleft : (row.data.left : Real) ≤ (row.data.right : Real) := by
+    exact_mod_cast row.left_le_right
+  refine {
+    left := row.data.left
+    right := row.data.right
+    left_large := row.left_large
+    left_le_right := row.left_le_right
+    theta_upper := row.data.upper_coeff * (row.data.right : Real)
+    theta_right_le := ?_
+    upper_error := ?_ }
+  · exact row.upper_bound (row.data.right : Real) hleft le_rfl
+  · exact sub_neg.mpr hmargin
+
 def DusartThetaTableVerifiedRowsCoverUpTo
     (rows : List DusartThetaTableVerifiedRow) (X : Real) : Prop :=
   ∀ x : Real, 2 ≤ x → x ≤ X →
