@@ -119,6 +119,35 @@ def dusartLemma33FiniteRow_zero_one : DusartLemma33FiniteRow :=
       norm_num
       positivity }
 
+theorem dusart_lemma_3_3_finite_of_integer_endpoints
+    {X : Real}
+    (endpoint : ∀ n : Nat, 1 ≤ n → (n : Real) ≤ X →
+      Chebyshev.psi (n : Real) - Chebyshev.theta n -
+          Chebyshev.theta (Real.sqrt n) <
+        (1777745 : Real) / 1000000 * (n : Real) ^ (1 / (3 : Real))) :
+    ∀ x : Real, 0 < x → x ≤ X →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  intro x hx hX
+  by_cases hx1 : x < 1
+  · exact dusartLemma33FiniteRow_zero_one.valid x hx
+      (by positivity) (by norm_num; linarith)
+  · let n : Nat := ⌊x⌋₊
+    have hx1' : (1 : Real) ≤ x := le_of_not_gt hx1
+    have hn_one : 1 ≤ n := by
+      dsimp [n]
+      exact Nat.le_floor hx1'
+    have hn_lower : (n : Real) ≤ x := by
+      dsimp [n]
+      exact Nat.floor_le hx.le
+    have hn_upper : x < (n : Real) + 1 := by
+      simpa only [n] using Nat.lt_floor_add_one x
+    have hn_X : (n : Real) ≤ X := hn_lower.trans hX
+    have hend := endpoint n hn_one hn_X
+    exact (dusartLemma33FiniteRow_of_integer_endpoint n hend).valid x hx
+      hn_lower hn_upper
+
 theorem dusartLemma33FiniteRow_zero_one_cover :
     DusartLemma33FiniteRowsCover [dusartLemma33FiniteRow_zero_one] 1 := by
   intro x hx hX
