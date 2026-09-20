@@ -17,6 +17,7 @@ from pathlib import Path
 
 
 CONSTANT = 1_777_745 / 1_000_000
+PAPER_FINITE_CUTOFF = 10**33
 
 
 def sieve(limit: int) -> bytearray:
@@ -120,6 +121,8 @@ def main() -> None:
         "source": "Dusart, Estimates of Some Functions over Primes Without R.H., Lemma 3.3",
         "left": 2402,
         "right": args.limit,
+        "paper_finite_cutoff": PAPER_FINITE_CUTOFF,
+        "covers_paper_finite_range": args.limit >= PAPER_FINITE_CUTOFF,
         "constant": "1777745/1000000",
         "rows": rows,
     }

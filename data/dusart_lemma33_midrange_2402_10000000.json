@@ -2,6 +2,8 @@
   "source": "Dusart, Estimates of Some Functions over Primes Without R.H., Lemma 3.3",
   "left": 2402,
   "right": 10000000,
+  "paper_finite_cutoff": 1000000000000000000000000000000000,
+  "covers_paper_finite_range": false,
   "constant": "1777745/1000000",
   "rows": [
     {
