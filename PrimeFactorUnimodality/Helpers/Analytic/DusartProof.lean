@@ -209,6 +209,178 @@ theorem dusartLemma33FiniteRowsCover_ten_twentyfour :
                     · norm_num [dusartLemma33FiniteRow_ten_twentyfour]
                       linarith
 
+def dusartLemma33FiniteRow_twentyfive_thirtyfive : DusartLemma33FiniteRow :=
+  { left := 25
+    right := 35
+    left_le_right := by norm_num
+    valid := by
+      intro x hx hleft hright
+      have hx25 : (25 : Real) ≤ x := by exact_mod_cast hleft
+      have hx36 : x < 36 := by norm_num at hright ⊢; exact hright
+      have htransport : Chebyshev.psi x - Chebyshev.theta x =
+          Chebyshev.psi (⌊x⌋₊ : Real) - Chebyshev.theta (⌊x⌋₊ : Real) := by
+        rw [Chebyshev.psi_eq_psi_coe_floor,
+          Chebyshev.theta_eq_theta_coe_floor]
+      have hfloor : (⌊x⌋₊ : Real) ≤ 35 := by
+        exact_mod_cast Nat.le_of_lt_succ
+          ((Nat.floor_lt hx.le).2 (by norm_num; exact hx36))
+      have hleft : Chebyshev.psi x - Chebyshev.theta x < 8 := by
+        rw [htransport]
+        exact (psi_sub_theta_mono hfloor).trans_lt psi_sub_theta_nat_35_lt_eight
+      have hsqrt : (5 : Real) ≤ Real.sqrt x := by
+        nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+      have htheta_mono : Chebyshev.theta 5 ≤
+          Chebyshev.theta (Real.sqrt x) :=
+        Chebyshev.theta_mono hsqrt
+      have htheta_five := Chebyshev.theta_eq_sum_primesLE_log 5
+      have hp5 : Nat.primesLE 5 = {2, 3, 5} := by decide
+      rw [hp5] at htheta_five
+      norm_num [Nat.log, Nat.log.go] at htheta_five
+      have htheta_lower : (3 : Real) < Chebyshev.theta 5 := by
+        nlinarith [htheta_five, Real.log_two_gt_d9,
+          Real.log_three_gt_d9, Real.log_five_gt_d9]
+      have hbase : ((14 / 5 : Real) ^ (3 : Nat)) ≤ x := by
+        norm_num
+        linarith
+      have hpow := Real.rpow_le_rpow (by positivity :
+          (0 : Real) ≤ (14 / 5 : Real) ^ (3 : Nat)) hbase
+        (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
+      have hpow_const : (14 / 5 : Real) ≤ x ^ (1 / 3 : Real) := by
+        calc
+          (14 / 5 : Real) = ((14 / 5 : Real) ^ (3 : Nat)) ^
+              (1 / 3 : Real) := by
+                rw [← Real.rpow_natCast, ← Real.rpow_mul (by positivity)]
+                norm_num
+          _ ≤ x ^ (1 / 3 : Real) := hpow
+      nlinarith [hleft, htheta_mono, htheta_lower, hpow_const] }
+
+def dusartLemma33FiniteRow_thirtysix_sixtythree : DusartLemma33FiniteRow :=
+  { left := 36
+    right := 63
+    left_le_right := by norm_num
+    valid := by
+      intro x hx hleft hright
+      have hx36 : (36 : Real) ≤ x := by exact_mod_cast hleft
+      have hx64 : x < 64 := by norm_num at hright ⊢; exact hright
+      have htransport : Chebyshev.psi x - Chebyshev.theta x =
+          Chebyshev.psi (⌊x⌋₊ : Real) - Chebyshev.theta (⌊x⌋₊ : Real) := by
+        rw [Chebyshev.psi_eq_psi_coe_floor,
+          Chebyshev.theta_eq_theta_coe_floor]
+      have hfloor : (⌊x⌋₊ : Real) ≤ 63 := by
+        exact_mod_cast Nat.le_of_lt_succ
+          ((Nat.floor_lt hx.le).2 (by norm_num; exact hx64))
+      have hleft : Chebyshev.psi x - Chebyshev.theta x < 9 := by
+        rw [htransport]
+        exact (psi_sub_theta_mono hfloor).trans_lt psi_sub_theta_nat_63_lt_nine
+      have hsqrt : (6 : Real) ≤ Real.sqrt x := by
+        nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+      have htheta_mono : Chebyshev.theta 6 ≤
+          Chebyshev.theta (Real.sqrt x) :=
+        Chebyshev.theta_mono hsqrt
+      have htheta_six := Chebyshev.theta_eq_sum_primesLE_log 6
+      have hp6 : Nat.primesLE 6 = {2, 3, 5} := by decide
+      rw [hp6] at htheta_six
+      norm_num [Nat.log, Nat.log.go] at htheta_six
+      have htheta_lower : (3 : Real) < Chebyshev.theta 6 := by
+        nlinarith [htheta_six, Real.log_two_gt_d9,
+          Real.log_three_gt_d9, Real.log_five_gt_d9]
+      have hbase : ((16 / 5 : Real) ^ (3 : Nat)) ≤ x := by
+        norm_num
+        linarith
+      have hpow := Real.rpow_le_rpow (by positivity :
+          (0 : Real) ≤ (16 / 5 : Real) ^ (3 : Nat)) hbase
+        (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
+      have hpow_const : (16 / 5 : Real) ≤ x ^ (1 / 3 : Real) := by
+        calc
+          (16 / 5 : Real) = ((16 / 5 : Real) ^ (3 : Nat)) ^
+              (1 / 3 : Real) := by
+                rw [← Real.rpow_natCast, ← Real.rpow_mul (by positivity)]
+                norm_num
+          _ ≤ x ^ (1 / 3 : Real) := hpow
+      nlinarith [hleft, htheta_mono, htheta_lower, hpow_const] }
+
+theorem dusartLemma33FiniteRowsCover_sixtythree :
+    DusartLemma33FiniteRowsCover
+      [dusartLemma33FiniteRow_zero_one, dusartLemma33FiniteRow_two,
+        dusartLemma33FiniteRow_three, dusartLemma33FiniteRow_four,
+        dusartLemma33FiniteRow_five, dusartLemma33FiniteRow_six,
+        dusartLemma33FiniteRow_seven, dusartLemma33FiniteRow_eight,
+        dusartLemma33FiniteRow_nine, dusartLemma33FiniteRow_ten_twentyfour,
+        dusartLemma33FiniteRow_twentyfive_thirtyfive,
+        dusartLemma33FiniteRow_thirtysix_sixtythree] 63 := by
+  intro x hx hX
+  by_cases hsmall : x < 2
+  · refine ⟨dusartLemma33FiniteRow_zero_one, by simp, ?_, ?_⟩
+    · norm_num [dusartLemma33FiniteRow_zero_one]
+      exact hx.le
+    · norm_num [dusartLemma33FiniteRow_zero_one]
+      linarith
+  · by_cases htwo : x < 3
+    · refine ⟨dusartLemma33FiniteRow_two, by simp, ?_, ?_⟩
+      · norm_num [dusartLemma33FiniteRow_two]
+        exact le_of_not_gt hsmall
+      · norm_num [dusartLemma33FiniteRow_two]
+        linarith
+    · by_cases hthree : x < 4
+      · refine ⟨dusartLemma33FiniteRow_three, by simp, ?_, ?_⟩
+        · norm_num [dusartLemma33FiniteRow_three]
+          exact le_of_not_gt htwo
+        · norm_num [dusartLemma33FiniteRow_three]
+          linarith
+      · by_cases hfour : x < 5
+        · refine ⟨dusartLemma33FiniteRow_four, by simp, ?_, ?_⟩
+          · norm_num [dusartLemma33FiniteRow_four]
+            exact le_of_not_gt hthree
+          · norm_num [dusartLemma33FiniteRow_four]
+            linarith
+        · by_cases hfive : x < 6
+          · refine ⟨dusartLemma33FiniteRow_five, by simp, ?_, ?_⟩
+            · norm_num [dusartLemma33FiniteRow_five]
+              exact le_of_not_gt hfour
+            · norm_num [dusartLemma33FiniteRow_five]
+              linarith
+          · by_cases hsix : x < 7
+            · refine ⟨dusartLemma33FiniteRow_six, by simp, ?_, ?_⟩
+              · norm_num [dusartLemma33FiniteRow_six]
+                exact le_of_not_gt hfive
+              · norm_num [dusartLemma33FiniteRow_six]
+                linarith
+            · by_cases hseven : x < 8
+              · refine ⟨dusartLemma33FiniteRow_seven, by simp, ?_, ?_⟩
+                · norm_num [dusartLemma33FiniteRow_seven]
+                  exact le_of_not_gt hsix
+                · norm_num [dusartLemma33FiniteRow_seven]
+                  linarith
+              · by_cases height : x < 9
+                · refine ⟨dusartLemma33FiniteRow_eight, by simp, ?_, ?_⟩
+                  · norm_num [dusartLemma33FiniteRow_eight]
+                    exact le_of_not_gt hseven
+                  · norm_num [dusartLemma33FiniteRow_eight]
+                    linarith
+                · by_cases hnine : x < 10
+                  · refine ⟨dusartLemma33FiniteRow_nine, by simp, ?_, ?_⟩
+                    · norm_num [dusartLemma33FiniteRow_nine]
+                      exact le_of_not_gt height
+                    · norm_num [dusartLemma33FiniteRow_nine]
+                      linarith
+                  · by_cases htwentyfour : x < 25
+                    · refine ⟨dusartLemma33FiniteRow_ten_twentyfour, by simp, ?_, ?_⟩
+                      · norm_num [dusartLemma33FiniteRow_ten_twentyfour]
+                        exact le_of_not_gt hnine
+                      · norm_num [dusartLemma33FiniteRow_ten_twentyfour]
+                        linarith
+                    · by_cases hthirtyfive : x < 36
+                      · refine ⟨dusartLemma33FiniteRow_twentyfive_thirtyfive, by simp, ?_, ?_⟩
+                        · norm_num [dusartLemma33FiniteRow_twentyfive_thirtyfive]
+                          exact le_of_not_gt htwentyfour
+                        · norm_num [dusartLemma33FiniteRow_twentyfive_thirtyfive]
+                          linarith
+                      · refine ⟨dusartLemma33FiniteRow_thirtysix_sixtythree, by simp, ?_, ?_⟩
+                        · norm_num [dusartLemma33FiniteRow_thirtysix_sixtythree]
+                          exact le_of_not_gt hthirtyfive
+                        · norm_num [dusartLemma33FiniteRow_thirtysix_sixtythree]
+                          linarith
+
 theorem dusart_proposition_3_2_small_64
     {x : Real} (hx : 0 < x) (hx64 : x < 64) :
     Chebyshev.psi x - Chebyshev.theta x <
