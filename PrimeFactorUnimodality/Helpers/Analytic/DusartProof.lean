@@ -170,6 +170,27 @@ theorem psi_sub_theta_le_of_root_bound
     convert h5 using 1 <;> norm_num
   nlinarith [hdecomp, h2', h3', h5']
 
+theorem psi_sub_theta_lt_of_root_bound
+    {x c : Real} (hx : 0 ≤ x) (hc : 0 ≤ c)
+    (hroot : ∀ y : Real, 0 ≤ y → Chebyshev.psi y < c * y) :
+    Chebyshev.psi x - Chebyshev.theta x <
+      c * (x ^ (1 / 2 : Real) + x ^ (1 / 3 : Real) +
+        x ^ (1 / 5 : Real)) := by
+  have hdecomp := Chebyshev.psi_sub_theta_le_psi_add_psi_add_psi x
+  have h2 := hroot (x ^ (2 : Real)⁻¹) (by positivity)
+  have h3 := hroot (x ^ (3 : Real)⁻¹) (by positivity)
+  have h5 := hroot (x ^ (5 : Real)⁻¹) (by positivity)
+  have h2' : Chebyshev.psi (x ^ (2 : Real)⁻¹) <
+      c * x ^ (1 / 2 : Real) := by
+    convert h2 using 1 <;> norm_num
+  have h3' : Chebyshev.psi (x ^ (3 : Real)⁻¹) <
+      c * x ^ (1 / 3 : Real) := by
+    convert h3 using 1 <;> norm_num
+  have h5' : Chebyshev.psi (x ^ (5 : Real)⁻¹) <
+      c * x ^ (1 / 5 : Real) := by
+    convert h5 using 1 <;> norm_num
+  nlinarith [hdecomp, h2', h3', h5']
+
 theorem psi_sub_theta_le_of_three_root_bounds
     {x c : Real} (hx : 0 ≤ x) (hc : 0 ≤ c)
     (h2 : Chebyshev.psi (x ^ (2 : Real)⁻¹) ≤
@@ -216,6 +237,37 @@ theorem fifth_rpow_le_three_fifths_cube_rpow
   have hmul := mul_le_mul_of_nonneg_left hunit (by positivity : 0 ≤ a ^ 3)
   dsimp [a] at hmul ⊢
   nlinarith
+
+/-! This is Dusart's Proposition 3.2 after the root estimate has been
+supplied.  The root estimate is kept explicit so this theorem records the
+actual prime-power argument rather than importing Proposition 3.2. -/
+theorem dusart_proposition_3_2_of_uniform_strict_root_bound
+    {x : Real} (hx : (121 : Real) ≤ x)
+    (hroot : ∀ y : Real, 0 ≤ y →
+      Chebyshev.psi y < (100007 : Real) / 100000 * y) :
+    Chebyshev.psi x - Chebyshev.theta x <
+      (100007 : Real) / 100000 * Real.sqrt x +
+        (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
+  have hdecomp := psi_sub_theta_lt_of_root_bound
+    (x := x) (c := (100007 : Real) / 100000) (by linarith) (by norm_num)
+    hroot
+  have hfive := fifth_rpow_le_three_fifths_cube_rpow hx
+  have hscaled := mul_le_mul_of_nonneg_left hfive
+    (by norm_num : (0 : Real) ≤ (100007 : Real) / 100000)
+  have hsqrt : x ^ (1 / 2 : Real) = Real.sqrt x := by
+    rw [Real.sqrt_eq_rpow]
+  rw [hsqrt] at hdecomp
+  have hscaled' : (100007 : Real) / 100000 * x ^ (1 / 5 : Real) ≤
+      (100007 : Real) / 100000 * (3 / 5 : Real) *
+        x ^ (1 / 3 : Real) := by
+    nlinarith [hscaled]
+  have hcuberoot : 0 ≤ x ^ (1 / 3 : Real) := by positivity
+  have hcoeff : (100007 : Real) / 100000 * x ^ (1 / 3 : Real) +
+      (100007 : Real) / 100000 * (3 / 5 : Real) *
+        x ^ (1 / 3 : Real) ≤ (178 : Real) / 100 *
+          x ^ (1 / 3 : Real) := by
+    nlinarith
+  nlinarith [hdecomp, hscaled', hcoeff]
 
 theorem dusart_gap_upper_from_uniform_root_bound
     {x : Real} (hx : (121 : Real) ≤ x)
