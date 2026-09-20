@@ -58,7 +58,7 @@ theorem dusart_power_sum_of_finite_and_tail
     intro k hk
     exact htail k hk
   rw [Finset.sum_singleton]
-  calc
+    calc
     x ^ (1 / (3 : Real)) +
           ∑ x_1 ∈ Finset.Icc 4 K, x ^ (1 / (x_1 : Real)) +
           ∑ x_1 ∈ Finset.Icc (K + 1) N, x ^ (1 / (x_1 : Real)) ≤
@@ -67,7 +67,7 @@ theorem dusart_power_sum_of_finite_and_tail
             q k * x ^ (1 / (3 : Real)) +
           (Finset.Icc (K + 1) N).card •
             (q (K + 1) * x ^ (1 / (3 : Real))) := by
-      gcongr
+      exact add_le_add (add_le_add le_rfl hfinite_sum) htail_sum
     _ = (1 + (∑ k ∈ Finset.Icc 4 K, q k) +
         ((N - K : Nat) : Real) * q (K + 1)) *
         x ^ (1 / (3 : Real)) := by
