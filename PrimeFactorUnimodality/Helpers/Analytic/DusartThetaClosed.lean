@@ -464,6 +464,21 @@ theorem wangCrapis_thetaBounds_of_indexed_strict_rows_and_logFourthTail
     hXpos hlogX (hasStrictThetaUpperBelow_of_indexed_rows cover) lower
     hA_nonneg hA thetaError
 
+/-! The verified Table 6.6 representation can feed the same source-level
+    theta assembly once its endpoint computation and the lower estimate are
+    supplied. -/
+theorem wangCrapis_thetaBounds_of_verified_table_rows_and_logFourthTail
+    {A X : Real} {rows : List DusartThetaTableVerifiedRow}
+    (cover : DusartThetaTableVerifiedRowsCoverUpTo rows X)
+    (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds := by
+  exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
+    (hasDusartSymmetricThetaBoundsBelow_of_verified_table_rows cover)
+    hA_nonneg hA thetaError
+
 /-! Selected-cutoff form used by the split all-`k` assembly. -/
 theorem wangCrapis_thetaBounds_of_selected_cutoff
     {A X : Real} (finite : HasDusartSymmetricThetaBoundsBelow X)
