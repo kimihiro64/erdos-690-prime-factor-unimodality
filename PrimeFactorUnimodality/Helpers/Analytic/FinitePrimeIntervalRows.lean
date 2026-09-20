@@ -1673,6 +1673,28 @@ def DusartThetaTableVerifiedChunk.appendMany
       DusartThetaTableVerifiedChunk.appendMany
         (DusartThetaTableVerifiedChunk.append first next) tail
 
+theorem hasStrictThetaUpperBelow_of_verified_chunk
+    (chunk : DusartThetaTableVerifiedChunk)
+    (margin : ∀ i,
+      (chunk.rows i).data.upper_coeff *
+          ((chunk.rows i).data.right : Real) <
+        (chunk.rows i).data.left) :
+    HasStrictThetaUpperBelow chunk.cutoff := by
+  exact hasStrictThetaUpperBelow_of_indexed_verified_table_rows
+    chunk.cover margin
+
+theorem hasStrictThetaUpperBelow_of_verified_chunks
+    (first : DusartThetaTableVerifiedChunk)
+    (rest : List DusartThetaTableVerifiedChunk)
+    (margin : ∀ i,
+      ((DusartThetaTableVerifiedChunk.appendMany first rest).rows i).data.upper_coeff *
+          (((DusartThetaTableVerifiedChunk.appendMany first rest).rows i).data.right : Real) <
+        ((DusartThetaTableVerifiedChunk.appendMany first rest).rows i).data.left) :
+    HasStrictThetaUpperBelow
+      (DusartThetaTableVerifiedChunk.appendMany first rest).cutoff := by
+  exact hasStrictThetaUpperBelow_of_verified_chunk
+    (DusartThetaTableVerifiedChunk.appendMany first rest) margin
+
 theorem hasDusartSymmetricThetaBoundsBelow_of_verified_chunk
     (chunk : DusartThetaTableVerifiedChunk) :
     HasDusartSymmetricThetaBoundsBelow chunk.cutoff := by
