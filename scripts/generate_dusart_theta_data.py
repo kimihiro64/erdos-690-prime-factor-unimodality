@@ -53,6 +53,8 @@ def render(values: list[int]) -> str:
         "import Mathlib.NumberTheory.Chebyshev",
         "",
         "set_option autoImplicit false",
+        "set_option maxRecDepth 100000",
+        "set_option maxHeartbeats 10000000",
         "",
         "namespace PrimeFactorUnimodality",
         "",
@@ -75,7 +77,7 @@ def render(values: list[int]) -> str:
                 "",
             ]
         )
-    out.extend(["end", "", "end PrimeFactorUnimodularity", ""])
+    out.extend(["end", "", "end PrimeFactorUnimodality", ""])
     return "\n".join(out)
 
 
