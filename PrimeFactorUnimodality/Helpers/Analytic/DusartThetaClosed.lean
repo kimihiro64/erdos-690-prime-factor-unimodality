@@ -249,6 +249,30 @@ theorem wangCrapis_thetaBounds_of_paper_ranges_and_prop31_thetaError
       (by norm_num) hA thetaError
   · exact lower
 
+theorem wangCrapis_thetaBounds_of_indexed_prop31_rows_and_thetaError
+    {X : Real} {n : Nat}
+    (hX : (4e18 : Real) ^ 2 ≤ X)
+    (rows : Fin n → DusartProposition31FiniteRow)
+    (cover : DusartProposition31FiniteIndexedRowsCover rows X)
+    (finite : ∀ x : Real, 0 < x → x ≤ (8e11 : Real) →
+      Chebyshev.theta x - x < x / 36260)
+    (middlePsi : ∀ x : Real, (8e11 : Real) ≤ x →
+      x ≤ Real.exp 28 →
+      |Chebyshev.psi x - x| < (2841 : Real) / 100000000 * x)
+    (thetaError : HasThetaLogFourthErrorAbove
+      (648 / 1000 : Real) (Real.exp 28))
+    (lower : ∀ x : Real, 2 < x →
+      x * (1 - (12323 / 10000 : Real) / Real.log x) <
+        Chebyshev.theta x) :
+    HasDusartThetaBounds := by
+  apply wangCrapis_thetaBounds_of_paper_ranges_and_prop31_thetaError
+    finite middlePsi
+  · intro x hx hxc
+    exact dusartProposition31Finite_of_indexed_rows cover x hx
+      (le_trans (le_of_lt hxc) hX)
+  · exact thetaError
+  · exact lower
+
 /-! Direct finite-prefix assembly for the provider interface.  The finite
 upper and lower estimates are kept as separate obligations, as in the paper;
 only the unbounded tail is converted from the explicit error estimate. -/
