@@ -556,6 +556,24 @@ theorem wangCrapis_thetaBounds_of_verified_table_chunks_and_logFourthTail
     (hasDusartSymmetricThetaBoundsBelow_of_verified_chunks first rest)
     hA_nonneg hA thetaError
 
+theorem wangCrapis_thetaBounds_of_table66_chunks_and_logFourthTail
+    {A : Real} (first : DusartThetaTable66Chunk)
+    (rest : List DusartThetaTable66Chunk)
+    (hXpos : 0 <
+      (DusartThetaTable66Chunk.appendMany first rest).cutoff)
+    (hlogX : (10 : Real) < Real.log
+      (DusartThetaTable66Chunk.appendMany first rest).cutoff)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log
+      (DusartThetaTable66Chunk.appendMany first rest).cutoff ≤
+      12167 / 500000)
+    (thetaError : HasThetaLogFourthError A
+      (DusartThetaTable66Chunk.appendMany first rest).cutoff) :
+    HasDusartThetaBounds := by
+  exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
+    (hasDusartSymmetricThetaBoundsBelow_of_table66_chunks first rest)
+    hA_nonneg hA thetaError
+
 /-! Selected-cutoff form used by the split all-`k` assembly. -/
 theorem wangCrapis_thetaBounds_of_selected_cutoff
     {A X : Real} (finite : HasDusartSymmetricThetaBoundsBelow X)
