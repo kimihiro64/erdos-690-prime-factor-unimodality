@@ -791,7 +791,8 @@ def dusartThetaRelativeRow_to_bounds
     upper := ?_
     lower := ?_ }
   · intro x hleft hright
-    have hx : 0 ≤ x := by positivity
+    have hleft_nonneg : (0 : Real) ≤ (row.left : Real) := by positivity
+    have hx : 0 ≤ x := hleft_nonneg.trans hleft
     have htheta := row.upper_bound x hleft hright
     have hcoeff := row.upper_coeff_error
     nlinarith
@@ -799,7 +800,6 @@ def dusartThetaRelativeRow_to_bounds
     have htheta_upper := row.upper_bound x hleft hright
     have htheta_lower := row.lower_bound x hleft hright
     have herror := row.lower_coeff_error x hx hleft hright
-    have hlog : 0 < Real.log x := Real.log_pos (by linarith)
     apply (abs_lt).2
     constructor <;> nlinarith
 
