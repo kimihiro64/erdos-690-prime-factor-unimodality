@@ -222,18 +222,14 @@ theorem zetaZeroFree_explicit :
     · exact min_le_left _ _
   let c : Real := C₁ * A ^ ((3 : Real) / 4) - 2 * C₂ * A
   have hc : 0 < c := by
-    have hpow := Real.rpow_le_rpow hA.1.le
-      (min_le_right (1 / 2 : Real) ((C₁ / (4 * C₂)) ^ (4 : Real)))
-      (by norm_num : (0 : Real) ≤ (4 : Real))
-    rw [Real.pow_rpow_inv_natCast (div_nonneg (by positivity) (by positivity))
-      four_ne_zero] at hpow
-    rw [le_div_iff₀ (by positivity : 0 < 4 * C₂)] at hpow
-    have hpow' := mul_le_mul_of_nonneg_right hpow
-      (Real.rpow_nonneg hA.1.le ((3 : Real) / 4))
-    rw [← Real.rpow_add hA.1.le] at hpow'
-    norm_num at hpow'
-    dsimp [c]
-    nlinarith
+    have hpow := A.rpow_le_rpow hA.1.le (min_le_right _ _)
+      (inv_pos.mpr four_pos).le
+    erw [Real.pow_rpow_inv_natCast
+      (div_pos hC₁ (mul_pos four_pos hC₂)).le four_ne_zero,
+      le_div_iff₀ (mul_pos four_pos hC₂)] at hpow
+    norm_num [mul_assoc, c, mul_left_comm, hC₂, hA.1,
+      (mul_le_mul_of_nonneg_right hpow
+        (A.rpow_nonneg hA.1.le _)).trans_lt', ← A.rpow_add]
   refine ⟨A, hA, c, hc, ?_⟩
   intro σ t ht hσ
   let σ' : Real := 1 + A / Real.log |t| ^ (9 : Real)
