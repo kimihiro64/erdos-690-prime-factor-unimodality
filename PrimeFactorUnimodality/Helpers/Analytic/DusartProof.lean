@@ -1,6 +1,7 @@
 import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
 import PrimeFactorUnimodality.Helpers.Analytic.ElementaryChebyshevConsequences
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
+import PrimeFactorUnimodality.Helpers.Analytic.ElementaryLogBounds
 import Mathlib.Analysis.Complex.ExponentialBounds
 
 set_option autoImplicit false
@@ -8,6 +9,185 @@ set_option autoImplicit false
 namespace PrimeFactorUnimodality
 
 noncomputable section
+
+set_option maxRecDepth 100000
+set_option maxHeartbeats 10000000
+
+theorem psi_sub_theta_mono {x y : Real} (hxy : x ≤ y) :
+    Chebyshev.psi x - Chebyshev.theta x ≤
+      Chebyshev.psi y - Chebyshev.theta y := by
+  rw [Chebyshev.psi_sub_theta_eq_sum_not_prime,
+    Chebyshev.psi_sub_theta_eq_sum_not_prime]
+  apply Finset.sum_le_sum_of_subset_of_nonneg
+  · intro n hn
+    simp only [Finset.mem_filter, Finset.mem_Ioc] at hn ⊢
+    exact ⟨⟨hn.1.1, hn.1.2.trans (Nat.floor_mono hxy)⟩, hn.2⟩
+  · intro n hn hns
+    exact ArithmeticFunction.vonMangoldt_nonneg
+
+theorem psi_sub_theta_nat_24_lt_four :
+    Chebyshev.psi (24 : Real) - Chebyshev.theta 24 < 4 := by
+  have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 24
+  have htheta := Chebyshev.theta_eq_sum_primesLE_log 24
+  norm_num at hpsi htheta
+  rw [hpsi, htheta]
+  change (∑ p ∈ Nat.primesBelow 25,
+      ↑(Nat.log p 24) * Real.log ↑p) -
+    ∑ p ∈ Nat.primesBelow 25, Real.log ↑p < 4
+  have hp : Nat.primesBelow 25 = {2, 3, 5, 7, 11, 13, 17, 19, 23} := by
+    decide
+  rw [hp]
+  norm_num [Nat.log, Nat.log.go]
+  nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9]
+
+theorem psi_sub_theta_nat_3_eq_zero :
+    Chebyshev.psi (3 : Real) - Chebyshev.theta 3 = 0 := by
+  have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 3
+  have htheta := Chebyshev.theta_eq_sum_primesLE_log 3
+  norm_num at hpsi htheta
+  rw [hpsi, htheta]
+  change (∑ p ∈ Nat.primesLE 3,
+      ↑(Nat.log p 3) * Real.log ↑p) -
+    ∑ p ∈ Nat.primesLE 3, Real.log ↑p = 0
+  have hp : Nat.primesLE 3 = {2, 3} := by decide
+  rw [hp]
+  norm_num [Nat.log, Nat.log.go]
+
+theorem psi_sub_theta_nat_8_lt_two :
+    Chebyshev.psi (8 : Real) - Chebyshev.theta 8 < 2 := by
+  have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 8
+  have htheta := Chebyshev.theta_eq_sum_primesLE_log 8
+  norm_num at hpsi htheta
+  rw [hpsi, htheta]
+  change (∑ p ∈ Nat.primesBelow 9,
+      ↑(Nat.log p 8) * Real.log ↑p) -
+    ∑ p ∈ Nat.primesBelow 9, Real.log ↑p < 2
+  have hp : Nat.primesBelow 9 = {2, 3, 5, 7} := by decide
+  rw [hp]
+  norm_num [Nat.log, Nat.log.go]
+  nlinarith [Real.log_two_lt_d9]
+
+theorem psi_sub_theta_nat_35_lt_eight :
+    Chebyshev.psi (35 : Real) - Chebyshev.theta 35 < 8 := by
+  have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 35
+  have htheta := Chebyshev.theta_eq_sum_primesLE_log 35
+  norm_num at hpsi htheta
+  rw [hpsi, htheta]
+  change (∑ p ∈ Nat.primesLE 35,
+      ↑(Nat.log p 35) * Real.log ↑p) -
+    ∑ p ∈ Nat.primesLE 35, Real.log ↑p < 8
+  have hp : Nat.primesLE 35 =
+      {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31} := by
+    decide
+  rw [hp]
+  norm_num [Nat.log, Nat.log.go]
+  ring_nf
+  nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
+    Real.log_five_lt_d9, LogTables.log_7_lt]
+
+theorem psi_sub_theta_nat_63_lt_nine :
+    Chebyshev.psi (63 : Real) - Chebyshev.theta 63 < 9 := by
+  have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 63
+  have htheta := Chebyshev.theta_eq_sum_primesLE_log 63
+  norm_num at hpsi htheta
+  rw [hpsi, htheta]
+  change (∑ p ∈ Nat.primesLE 63,
+      ↑(Nat.log p 63) * Real.log ↑p) -
+    ∑ p ∈ Nat.primesLE 63, Real.log ↑p < 9
+  have hp : Nat.primesLE 63 =
+      {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
+        59, 61} := by
+    decide
+  rw [hp]
+  norm_num [Nat.log, Nat.log.go]
+  ring_nf
+  nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
+    Real.log_five_lt_d9, LogTables.log_7_lt]
+
+theorem dusart_proposition_3_2_small_64
+    {x : Real} (hx : 0 < x) (hx64 : x < 64) :
+    Chebyshev.psi x - Chebyshev.theta x <
+      (100007 : Real) / 100000 * Real.sqrt x +
+        (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
+  have htransport : Chebyshev.psi x - Chebyshev.theta x =
+      Chebyshev.psi (⌊x⌋₊ : Real) - Chebyshev.theta (⌊x⌋₊ : Real) := by
+    rw [Chebyshev.psi_eq_psi_coe_floor, Chebyshev.theta_eq_theta_coe_floor]
+  by_cases h9 : x < 9
+  · by_cases h4 : x < 4
+    · have hzero : Chebyshev.psi x - Chebyshev.theta x = 0 := by
+        have hf : ⌊x⌋₊ < 4 := (Nat.floor_lt hx.le).2 h4
+        have hfloor : (⌊x⌋₊ : Real) ≤ 3 := by
+          exact_mod_cast Nat.le_of_lt_succ hf
+        have hupper : Chebyshev.psi x - Chebyshev.theta x ≤ 0 := by
+          rw [htransport]
+          exact (psi_sub_theta_mono hfloor).trans_eq
+            psi_sub_theta_nat_3_eq_zero
+        have hnonneg : 0 ≤ Chebyshev.psi x - Chebyshev.theta x := by
+          exact sub_nonneg.mpr (Chebyshev.theta_le_psi x)
+        exact le_antisymm hupper hnonneg
+      rw [hzero]
+      positivity
+    · have hx4 : (4 : Real) ≤ x := le_of_not_gt h4
+      have hfloor : (⌊x⌋₊ : Real) ≤ 8 := by
+        exact_mod_cast Nat.le_of_lt_succ
+          ((Nat.floor_lt hx.le).2 (by norm_num; exact h9))
+      have hleft : Chebyshev.psi x - Chebyshev.theta x < 2 := by
+        rw [htransport]
+        exact (psi_sub_theta_mono hfloor).trans_lt psi_sub_theta_nat_8_lt_two
+      have hsqrt : (2 : Real) ≤ Real.sqrt x := by
+        nlinarith [Real.sq_sqrt (show 0 ≤ x by linarith), Real.sqrt_nonneg x]
+      nlinarith [hleft, hsqrt,
+        Real.rpow_nonneg (show 0 ≤ x by linarith) (1 / 3 : Real)]
+  · have hx9 : (9 : Real) ≤ x := le_of_not_gt h9
+    by_cases h25 : x < 25
+    · have hfloor : (⌊x⌋₊ : Real) ≤ 24 := by
+        exact_mod_cast Nat.le_of_lt_succ
+          ((Nat.floor_lt hx.le).2 (by norm_num; exact h25))
+      have hleft : Chebyshev.psi x - Chebyshev.theta x < 4 := by
+        rw [htransport]
+        exact (psi_sub_theta_mono hfloor).trans_lt psi_sub_theta_nat_24_lt_four
+      have hsqrt : (3 : Real) ≤ Real.sqrt x := by
+        nlinarith [Real.sq_sqrt (show 0 ≤ x by linarith), Real.sqrt_nonneg x]
+      have hcuberoot : (2 : Real) ≤ x ^ (1 / 3 : Real) := by
+        have hpow := Real.rpow_le_rpow (by norm_num : (0 : Real) ≤ 8)
+          (by linarith : (8 : Real) ≤ x)
+          (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
+        norm_num at hpow ⊢
+        exact hpow
+      nlinarith [hleft, hsqrt, hcuberoot]
+    · have hx25 : (25 : Real) ≤ x := le_of_not_gt h25
+      by_cases h36 : x < 36
+      · have hfloor : (⌊x⌋₊ : Real) ≤ 35 := by
+          exact_mod_cast Nat.le_of_lt_succ
+            ((Nat.floor_lt hx.le).2 (by norm_num; exact h36))
+        have hleft : Chebyshev.psi x - Chebyshev.theta x < 8 := by
+          rw [htransport]
+          exact (psi_sub_theta_mono hfloor).trans_lt psi_sub_theta_nat_35_lt_eight
+        have hsqrt : (5 : Real) ≤ Real.sqrt x := by
+          nlinarith [Real.sq_sqrt (show 0 ≤ x by linarith), Real.sqrt_nonneg x]
+        have hcuberoot : (2 : Real) ≤ x ^ (1 / 3 : Real) := by
+          have hpow := Real.rpow_le_rpow (by norm_num : (0 : Real) ≤ 8)
+            (by linarith : (8 : Real) ≤ x)
+            (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
+          norm_num at hpow ⊢
+          exact hpow
+        nlinarith [hleft, hsqrt, hcuberoot]
+      · have hx36 : (36 : Real) ≤ x := le_of_not_gt h36
+        have hfloor : (⌊x⌋₊ : Real) ≤ 63 := by
+          exact_mod_cast Nat.le_of_lt_succ
+            ((Nat.floor_lt hx.le).2 (by norm_num; exact hx64))
+        have hleft : Chebyshev.psi x - Chebyshev.theta x < 9 := by
+          rw [htransport]
+          exact (psi_sub_theta_mono hfloor).trans_lt psi_sub_theta_nat_63_lt_nine
+        have hsqrt : (6 : Real) ≤ Real.sqrt x := by
+          nlinarith [Real.sq_sqrt (show 0 ≤ x by linarith), Real.sqrt_nonneg x]
+        have hcuberoot : (2 : Real) ≤ x ^ (1 / 3 : Real) := by
+          have hpow := Real.rpow_le_rpow (by norm_num : (0 : Real) ≤ 8)
+            (by linarith : (8 : Real) ≤ x)
+            (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
+          norm_num at hpow ⊢
+          exact hpow
+        nlinarith [hleft, hsqrt, hcuberoot]
 
 theorem exp_twentyEight_lt_dusart_endpoint :
     Real.exp 28 < (1446257067000 : Real) := by
@@ -294,13 +474,13 @@ check below `121` and the prime-power argument above that endpoint; keeping
 those two inputs separate makes the exact scope of the remaining finite check
 visible to the final provider. -/
 theorem dusart_proposition_3_2_of_uniform_strict_root_bound_all
-    (small : ∀ x : Real, 0 ≤ x → x < 64 →
+    (small : ∀ x : Real, 0 < x → x < 64 →
       Chebyshev.psi x - Chebyshev.theta x <
         (100007 : Real) / 100000 * Real.sqrt x +
           (178 : Real) / 100 * x ^ (1 / 3 : Real))
     (hroot : ∀ y : Real, 0 ≤ y →
       Chebyshev.psi y < (100007 : Real) / 100000 * y) :
-    ∀ x : Real, 0 ≤ x →
+    ∀ x : Real, 0 < x →
       Chebyshev.psi x - Chebyshev.theta x <
         (100007 : Real) / 100000 * Real.sqrt x +
           (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
@@ -309,6 +489,17 @@ theorem dusart_proposition_3_2_of_uniform_strict_root_bound_all
   · exact small x hx hsmall
   · exact dusart_proposition_3_2_of_uniform_strict_root_bound
       (le_of_not_gt hsmall) hroot
+
+theorem dusart_proposition_3_2_of_uniform_strict_root_bound_all_closed
+    (hroot : ∀ y : Real, 0 ≤ y →
+      Chebyshev.psi y < (100007 : Real) / 100000 * y) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x <
+        (100007 : Real) / 100000 * Real.sqrt x +
+          (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
+  intro x hx
+  exact dusart_proposition_3_2_of_uniform_strict_root_bound_all
+    (fun y hy hy64 => dusart_proposition_3_2_small_64 hy hy64) hroot x hx
 
 /-! This is the numerical composition used in the paper: Lemma 3.3 controls
 the prime-power tail after the square-root term, while Proposition 5.1
