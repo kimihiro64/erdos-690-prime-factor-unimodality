@@ -18,6 +18,94 @@ uses and would obscure the actual all-`k` boundary. -/
 abbrev WangCrapisFiniteProviders : Type :=
   MediumPNTSelectedSplitInputs (4e18 : Real) (3 / 5 : Real)
 
+theorem wangCrapis_thetaBounds_of_finite_providers
+    (providers : WangCrapisFiniteProviders) :
+    HasDusartThetaBounds := by
+  have hXpos : 0 < providers.cutoff := by linarith [providers.lower]
+  have hlogX : (42 : Real) ≤ Real.log providers.cutoff := by
+    exact forty_two_lt_log_four_e18.le.trans
+      (Real.log_le_log (by norm_num) providers.lower)
+  have hA : (648 / 1000 : Real) / Real.log providers.cutoff ≤
+      (12167 / 500000 : Real) := by
+    have hlog_pos : 0 < Real.log providers.cutoff := by linarith
+    apply (div_le_iff₀ hlog_pos).2
+    nlinarith
+  exact wangCrapis_thetaBounds_of_selected_cutoff providers.theta
+    hXpos (by linarith) (by norm_num) hA providers.thetaError
+
+theorem wangCrapis_shortInterval_of_finite_providers
+    (providers : WangCrapisFiniteProviders) :
+    HasDusartShortIntervalPrime := by
+  have hXpos : 0 < providers.cutoff := by linarith [providers.lower]
+  have hlogX : (10 : Real) < Real.log providers.cutoff := by
+    have hlog := forty_two_lt_log_four_e18.le.trans
+      (Real.log_le_log (by norm_num) providers.lower)
+    linarith
+  have hA : (648 / 1000 : Real) / Real.log providers.cutoff ≤
+      (12167 / 500000 : Real) := by
+    have hlog_pos : 0 < Real.log providers.cutoff := by linarith
+    apply (div_le_iff₀ hlog_pos).2
+    nlinarith
+  exact wangCrapis_shortInterval_of_selected_cutoff
+    (by linarith [providers.lower]) providers.shortInterval
+    hXpos (by linarith) hlogX (by norm_num) hA providers.thetaError
+
+theorem wangCrapis_primeCounting_of_finite_providers
+    (providers : WangCrapisFiniteProviders) :
+    HasDusartPrimeCountingBounds := by
+  obtain ⟨R, hR, hcoreR⟩ := providers.remainder
+  have hcore0 : |primeCountingCore providers.cutoff| ≤
+      4000 + 720 * (∫ t in (2 : Real)..providers.cutoff,
+        1 / Real.log t ^ 7) + R :=
+    primeCountingCore_abs_le_of_integral_remainder
+      (by linarith [providers.lower]) hR
+  have hcore : |primeCountingCore providers.cutoff| ≤
+      (3 / 5 : Real) * providers.cutoff / Real.log providers.cutoff ^ 4 :=
+    hcore0.trans hcoreR
+  have hXpos : 0 < providers.cutoff := by linarith [providers.lower]
+  have hlogX : (42 : Real) ≤ Real.log providers.cutoff := by
+    exact forty_two_lt_log_four_e18.le.trans
+      (Real.log_le_log (by norm_num) providers.lower)
+  exact wangCrapis_primeCounting_of_selected_cutoff providers.primeCounting
+    providers.lower hXpos (by linarith) (by norm_num) (by norm_num)
+    (by norm_num) le_rfl hlogX hcore providers.thetaError
+
+theorem wangCrapisPaperInputs_of_finite_providers
+    (providers : WangCrapisFiniteProviders) :
+    WangCrapisPaperInputs := by
+  exact wangCrapisPaperInputs_of_providers
+    (wangCrapis_primeCounting_of_finite_providers providers)
+    (wangCrapis_thetaBounds_of_finite_providers providers)
+    (wangCrapis_shortInterval_of_finite_providers providers)
+
+theorem wangCrapisFiniteProviders_of_indexed_split_certificate
+    (certificate :
+      MediumPNTSelectedIndexedSplitCertificate
+        (4e18 : Real) (3 / 5 : Real)) :
+    WangCrapisFiniteProviders := by
+  obtain ⟨nPrime, primeRows, primeCover⟩ := certificate.primeCountingRows
+  obtain ⟨nTheta, thetaRows, thetaCover⟩ := certificate.thetaRows
+  obtain ⟨nLog, logRows, logCover⟩ := certificate.logRows
+  have finitePrimeCounting :
+      HasDusartRealPrimeCountingBoundsBelow certificate.cutoff :=
+    hasDusartRealPrimeCountingBoundsBelow_of_indexed_endpoint_rows
+      primeCover dusartSmallUpperIntervalRows_provide
+  have finiteTheta :
+      HasDusartSymmetricThetaBoundsBelow certificate.cutoff :=
+    hasDusartSymmetricThetaBoundsBelow_of_indexed_endpoint_rows thetaCover
+  have finiteShortInterval :
+      HasLogCubedShortIntervalPrimeBelow certificate.cutoff :=
+    hasLogCubedShortIntervalPrimeBelow_of_indexed_rows logCover
+  exact {
+    cutoff := certificate.cutoff
+    lower := certificate.lower
+    large := certificate.large
+    thetaError := certificate.thetaError
+    primeCounting := finitePrimeCounting
+    theta := finiteTheta
+    shortInterval := finiteShortInterval
+    remainder := certificate.remainder }
+
 /-!
 # Closed Wang--Crapis analytic package
 
@@ -58,9 +146,8 @@ theorem completeClassification_closed_of_providers
 theorem completeClassification_closed_of_finite_providers
     (providers : WangCrapisFiniteProviders) :
     CompleteClassification := by
-  exact completeClassification_of_mediumPNT_and_selected_split_inputs
-    (X := (4e18 : Real)) (C := (3 / 5 : Real)) le_rfl
-    (by norm_num) providers
+  exact completeClassification_of_wangCrapis_paper_inputs
+    (wangCrapisPaperInputs_of_finite_providers providers)
 
 /-! Stable consumer for the compact indexed certificate boundary. -/
 theorem completeClassification_closed_of_indexed_split_certificate
@@ -68,9 +155,8 @@ theorem completeClassification_closed_of_indexed_split_certificate
       MediumPNTSelectedIndexedSplitCertificate
         (4e18 : Real) (3 / 5 : Real)) :
     CompleteClassification := by
-  exact completeClassification_of_mediumPNT_and_selected_indexed_split_certificate
-    (X := (4e18 : Real)) (C := (3 / 5 : Real))
-    le_rfl (by norm_num) (by norm_num) certificate
+  exact completeClassification_closed_of_finite_providers
+    (wangCrapisFiniteProviders_of_indexed_split_certificate certificate)
 
 end
 
