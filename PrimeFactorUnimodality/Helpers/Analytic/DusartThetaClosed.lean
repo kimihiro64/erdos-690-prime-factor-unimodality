@@ -80,6 +80,39 @@ theorem dusart_proposition_5_1_of_paper_ranges
       (le_of_not_ge hfinite) hmiddle hpsi hgap
   · exact tail x (le_of_not_ge hmiddle)
 
+/-! Translate the paper's one-sided Proposition 5.1 estimate together with
+its independent lower estimate into the exact theta-provider interface. -/
+theorem wangCrapis_thetaBounds_of_paper_upper_and_lower
+    (upper : ∀ x : Real, 0 < x →
+      Chebyshev.theta x - x < x / 36260)
+    (lower : ∀ x : Real, 2 < x →
+      x * (1 - (12323 / 10000 : Real) / Real.log x) <
+        Chebyshev.theta x) :
+    HasDusartThetaBounds := by
+  constructor
+  · intro x hx
+    have h := upper x hx
+    nlinarith
+  · exact lower
+
+theorem wangCrapis_thetaBounds_of_paper_ranges
+    (finite : ∀ x : Real, 0 < x → x ≤ (8e11 : Real) →
+      Chebyshev.theta x - x < x / 36260)
+    (middle : ∀ x : Real, (8e11 : Real) ≤ x →
+      x ≤ Real.exp 28 →
+      |Chebyshev.psi x - x| < (2841 : Real) / 100000000 * x ∧
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x)
+    (tail : ∀ x : Real, Real.exp 28 ≤ x →
+      Chebyshev.theta x - x < x / 36260)
+    (lower : ∀ x : Real, 2 < x →
+      x * (1 - (12323 / 10000 : Real) / Real.log x) <
+        Chebyshev.theta x) :
+    HasDusartThetaBounds := by
+  apply wangCrapis_thetaBounds_of_paper_upper_and_lower
+  · exact dusart_proposition_5_1_of_paper_ranges finite middle tail
+  · exact lower
+
 /-! Global Proposition 5.1 in the three ranges used by Dusart: the finite
 Table 6.4 range, the explicit middle range ending at `exp 28`, and the
 large-range theta-error tail. -/
