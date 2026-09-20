@@ -1556,6 +1556,23 @@ def DusartThetaTableVerifiedIndexedCoverUpTo {n : Nat}
   ∀ x : Real, 2 ≤ x → x ≤ X →
     ∃ i : Fin n, (rows i).data.left ≤ x ∧ x ≤ (rows i).data.right
 
+theorem hasStrictThetaUpperBelow_of_indexed_verified_table_rows
+    {n : Nat} {X : Real}
+    {rows : Fin n → DusartThetaTableVerifiedRow}
+    (cover : DusartThetaTableVerifiedIndexedCoverUpTo rows X)
+    (margin : ∀ i,
+      (rows i).data.upper_coeff * ((rows i).data.right : Real) <
+        (rows i).data.left) :
+    HasStrictThetaUpperBelow X := by
+  apply hasStrictThetaUpperBelow_of_indexed_rows
+  intro x hx hX
+  obtain ⟨i, hleft, hright⟩ := cover x hx hX
+  let strictRow := (rows i).toStrictUpperRow (margin i)
+  refine ⟨strictRow, ?_, ?_, ?_⟩
+  · simpa [strictRow, DusartThetaTableVerifiedRow.toStrictUpperRow] using hleft
+  · simpa [strictRow, DusartThetaTableVerifiedRow.toStrictUpperRow] using hright
+  · simpa [strictRow, DusartThetaTableVerifiedRow.toStrictUpperRow] using margin i
+
 theorem dusartThetaTableVerifiedIndexedCoverUpTo_of_list
     {X : Real} {rows : List DusartThetaTableVerifiedRow}
     (cover : DusartThetaTableVerifiedRowsCoverUpTo rows X) :
