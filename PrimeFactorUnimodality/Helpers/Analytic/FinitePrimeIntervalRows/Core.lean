@@ -225,6 +225,33 @@ def finitePrimeGapLogRow_of_explicit
     norm_num [Nat.cast_sub (Nat.le_of_lt hpq)]
   linarith
 
+/-! Variant for generated finite tables whose logarithm envelope is a
+rational number.  The kernel checks the scaled natural-number product once;
+the conversion below supplies the corresponding real inequality to the
+general row constructor. -/
+def finitePrimeGapLogRow_of_scaled_explicit
+    {p q Lnum Lden : Nat}
+    (hq : q.Prime)
+    (hpq : p < q)
+    (hleft_large : 89693 ≤ p)
+    (hlog : Real.log p ≤ (Lnum : Real) / Lden)
+    (hLden : 0 < Lden)
+    (hproduct : (q - p) * Lnum ^ 3 ≤ p * Lden ^ 3) :
+    FinitePrimeGapLogRow := by
+  apply finitePrimeGapLogRow_of_explicit hq hpq hleft_large hlog
+    (by positivity)
+  rw [div_pow]
+  calc
+    (↑q - ↑p) * (↑Lnum ^ 3 / ↑Lden ^ 3) =
+        ((↑q - ↑p) * ↑Lnum ^ 3) / ↑Lden ^ 3 := by ring
+    _ ≤ (p : Real) := by
+      apply (div_le_iff₀ (by positivity : (0 : Real) < (Lden : Real) ^ 3)).2
+      have hcast : ((q - p : Nat) : Real) * (Lnum : Real) ^ 3 ≤
+          (p : Real) * (Lden : Real) ^ 3 := by
+        exact_mod_cast hproduct
+      rw [Nat.cast_sub (Nat.le_of_lt hpq)] at hcast
+      exact hcast
+
 def FinitePrimeGapRowsCover
     {a b g : Nat} (rows : List (FinitePrimeGapRow g)) : Prop :=
   ∀ n : Nat, a ≤ n → n ≤ b →
