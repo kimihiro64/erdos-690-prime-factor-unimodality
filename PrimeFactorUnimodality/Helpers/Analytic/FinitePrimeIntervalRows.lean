@@ -1019,6 +1019,73 @@ def DusartThetaTableCoefficientRow.toRelativeRow_of_table_bounds
       dusartThetaTable_lower_coeff_error_of_minimum hlower_min hx
         (hrightx.trans hright_endpoint))
 
+/-! A table row becomes usable only after its numerical theta bounds have been
+    proved.  Keeping those proofs with the row prevents the raw printed
+    coefficients from being consumed as if they already certified theta. -/
+structure DusartThetaTableVerifiedRow where
+  data : DusartThetaTableCoefficientRow
+  left_large : 2 ≤ data.left
+  left_le_right : data.left ≤ data.right
+  right_le_cutoff : (data.right : Real) ≤ (8e11 : Real)
+  lower_coeff_min : (99985 : Real) / 100000 ≤ data.lower_coeff
+  upper_coeff_le_one : data.upper_coeff ≤ 1
+  lower_bound : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+    data.lower_coeff * x ≤ Chebyshev.theta x
+  upper_bound : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+    Chebyshev.theta x ≤ data.upper_coeff * x
+
+def DusartThetaTableVerifiedRow.toRelativeRow
+    (row : DusartThetaTableVerifiedRow) : DusartThetaRelativeRow :=
+  row.data.toRelativeRow_of_table_bounds row.left_large row.left_le_right
+    row.right_le_cutoff row.lower_coeff_min row.upper_coeff_le_one
+    row.lower_bound row.upper_bound
+
+def DusartThetaTableVerifiedRowsCoverUpTo
+    (rows : List DusartThetaTableVerifiedRow) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.data.left : Real) ≤ x ∧ x ≤ row.data.right
+
+def DusartThetaTableVerifiedIndexedCoverUpTo {n : Nat}
+    (rows : Fin n → DusartThetaTableVerifiedRow) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ i : Fin n, (rows i).data.left ≤ x ∧ x ≤ (rows i).data.right
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_verified_table_rows
+  {X : Real} {rows : List DusartThetaTableVerifiedRow}
+    (cover : DusartThetaTableVerifiedRowsCoverUpTo rows X) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_relative_rows
+    (rows := rows.map DusartThetaTableVerifiedRow.toRelativeRow)
+  intro x hx hX
+  obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
+  refine ⟨row.toRelativeRow, ?_, ?_, ?_⟩
+  · exact List.mem_map.2 ⟨row, hrow, rfl⟩
+  · simpa [DusartThetaTableVerifiedRow.toRelativeRow] using hleft
+  · simpa [DusartThetaTableVerifiedRow.toRelativeRow] using hright
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_indexed_verified_table_rows
+    {n : Nat} {X : Real} {rows : Fin n → DusartThetaTableVerifiedRow}
+    (cover : DusartThetaTableVerifiedIndexedCoverUpTo rows X) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_indexed_relative_rows
+  intro x hx hX
+  obtain ⟨i, hleft, hright⟩ := cover x hx hX
+  refine ⟨i, ?_⟩
+  simpa [DusartThetaTableVerifiedRow.toRelativeRow] using
+    And.intro hleft hright
+
+theorem dusartThetaTableVerifiedRowsCoverUpTo_append
+    {m X : Real} {left right : List DusartThetaTableVerifiedRow}
+    (hleft : DusartThetaTableVerifiedRowsCoverUpTo left m)
+    (hright : DusartThetaTableVerifiedRowsCoverUpTo right X) :
+    DusartThetaTableVerifiedRowsCoverUpTo (left ++ right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+
 def dusartThetaRelativeRow_to_bounds
     (row : DusartThetaRelativeRow) : DusartThetaBoundsRow := by
   refine {
