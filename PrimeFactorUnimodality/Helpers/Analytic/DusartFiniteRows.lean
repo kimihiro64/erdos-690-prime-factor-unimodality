@@ -871,6 +871,15 @@ structure DusartLemma33FiniteChunk where
   rows : Fin n → DusartLemma33FiniteRow
   cover : DusartLemma33FiniteRowsIndexedCover rows cutoff
 
+def DusartLemma33FiniteChunk.of_list
+    {rows : List DusartLemma33FiniteRow} {cutoff : Real}
+    (cover : DusartLemma33FiniteRowsCover rows cutoff) :
+    DusartLemma33FiniteChunk :=
+  { n := rows.length
+    cutoff := cutoff
+    rows := fun i => rows.get i
+    cover := dusartLemma33FiniteRowsIndexedCover_of_list cover }
+
 theorem DusartLemma33FiniteChunk.provides
     (chunk : DusartLemma33FiniteChunk) :
     ∀ x : Real, 0 < x → x ≤ chunk.cutoff →
@@ -886,11 +895,6 @@ def DusartLemma33FiniteChunk.append
     rows := Fin.append left.rows right.rows
     cover := dusartLemma33FiniteRowsIndexedCover_append
       left.cover right.cover }
-
-theorem DusartLemma33FiniteChunk.append_provides
-    (left right : DusartLemma33FiniteChunk) :
-    (DusartLemma33FiniteChunk.append left right).provides := by
-  exact (DusartLemma33FiniteChunk.append left right).provides
 
 theorem dusart_lemma_3_3_finite_rows_cover_append
     {left right : List DusartLemma33FiniteRow} {m X : Real}
