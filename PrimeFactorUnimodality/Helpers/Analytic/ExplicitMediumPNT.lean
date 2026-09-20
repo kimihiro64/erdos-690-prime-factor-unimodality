@@ -1,3 +1,4 @@
+import Architect
 import PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
 import PrimeNumberTheoremAnd.MediumPNT
 
@@ -13,9 +14,10 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 
-open Set Function Filter Complex Real
+open Set Function Filter Complex Real MeasureTheory
 open ArithmeticFunction (vonMangoldt)
 open scoped Chebyshev
+open scoped Topology
 
 local notation (name := mellintransform2) "𝓜" => mellin
 local notation "Λ" => vonMangoldt
