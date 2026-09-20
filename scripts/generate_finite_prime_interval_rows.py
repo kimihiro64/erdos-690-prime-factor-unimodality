@@ -21,6 +21,7 @@ LOW_START = "def dusartUpper"
 LOW_END = "theorem dusartPrimeRows_3275_23158_chain"
 HIGH_START = "def dusartPrimeRows_23159_89693"
 HIGH_END = "structure LogCubedPrimeRow"
+ROW_PART_SIZE = 24
 
 
 def source_text(repo: Path) -> str:
@@ -85,6 +86,89 @@ def normalize(body: str) -> str:
         body,
     )
     return body
+
+
+def _append_chain_terms(names: list[str]) -> str:
+    """Build a right-associated expression using the generic append lemma."""
+    if len(names) == 1:
+        return f"{names[0]}_chain"
+    return f"dusartPrimeRowsChain_append {names[0]}_chain ({_append_chain_terms(names[1:])})"
+
+
+def split_large_row_families(body: str) -> str:
+    """Split literal row families before module sharding.
+
+    A literal family carries both its row data and a chain proof that repeats
+    the rows.  Keeping those two large terms together makes elaboration peak
+    memory grow needlessly.  Each generated part has its own bounded list and
+    chain proof; the original family name remains the append of those parts.
+    """
+    family = re.compile(
+        r"(?ms)^set_option maxHeartbeats 20000000 in\n"
+        r"def (dusartPrimeRows_\d+_\d+) : List DusartPrimeRow :=\n"
+        r"  \[(.*?)\]\n\n"
+        r"set_option maxHeartbeats 20000000 in\n"
+        r"theorem \1_chain :\n"
+        r"    DusartPrimeRowsChain (\d+) (\d+) \1 := by\n"
+        r"(.*?)(?=^set_option maxHeartbeats 20000000 in\n|\Z)",
+    )
+
+    def replace(match: re.Match[str]) -> str:
+        name, rows_text, start, finish, proof = match.groups()
+        rows = re.findall(r"^    dusartPrimeRow[^\n]+(?:\n)?", rows_text, re.M)
+        blocks = re.findall(
+            r"(?ms)^  apply DusartPrimeRowsChain\.cons\n"
+            r"    \(dusartPrimeRow[^\n]+\)\n"
+            r"  · norm_num\n"
+            r"  · norm_num\n",
+            proof,
+        )
+        if len(rows) != len(blocks) or len(rows) <= ROW_PART_SIZE:
+            return match.group(0)
+
+        parts = [
+            rows[offset : offset + ROW_PART_SIZE]
+            for offset in range(0, len(rows), ROW_PART_SIZE)
+        ]
+        part_names = [f"{name}_part{index:02d}" for index in range(1, len(parts) + 1)]
+        output: list[str] = []
+        for index, (part_name, part_rows) in enumerate(zip(part_names, parts)):
+            first = re.search(r"\(p := (\d+)\).*\(q := (\d+)\)", part_rows[0])
+            last = re.search(r"\(p := (\d+)\).*\(q := (\d+)\)", part_rows[-1])
+            assert first and last
+            part_blocks = blocks[index * ROW_PART_SIZE : (index + 1) * ROW_PART_SIZE]
+            output.extend(
+                [
+                    "set_option maxHeartbeats 20000000 in",
+                    f"def {part_name} : List DusartPrimeRow :=",
+                    "  [",
+                    ",\n".join(row.rstrip(",\n") + "," for row in part_rows),
+                    "  ]",
+                    "",
+                    "set_option maxHeartbeats 20000000 in",
+                    f"theorem {part_name}_chain :",
+                    f"    DusartPrimeRowsChain {first.group(1)} {last.group(2)} {part_name} := by",
+                    "".join(part_blocks),
+                    "  exact DusartPrimeRowsChain.empty (by norm_num)",
+                    "",
+                ]
+            )
+        output.extend(
+            [
+                "set_option maxHeartbeats 20000000 in",
+                f"def {name} : List DusartPrimeRow :=",
+                "  " + " ++ ".join(part_names),
+                "",
+                "set_option maxHeartbeats 20000000 in",
+                f"theorem {name}_chain :",
+                f"    DusartPrimeRowsChain {start} {finish} {name} := by",
+                f"  exact {_append_chain_terms(part_names)}",
+                "",
+            ]
+        )
+        return "\n".join(output)
+
+    return family.sub(replace, body)
 
 
 LOW_HEADER = """import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Core
@@ -168,7 +252,7 @@ def main() -> None:
     out = (args.output_dir or repo / "PrimeFactorUnimodality/Helpers/Analytic/FinitePrimeIntervalRows").resolve()
     out.mkdir(parents=True, exist_ok=True)
     text = source_text(repo)
-    low = normalize(extract(text, LOW_START, HIGH_START))
+    low = split_large_row_families(normalize(extract(text, LOW_START, HIGH_START)))
     high = normalize(extract(text, HIGH_START, HIGH_END))
     assert low.count("def dusartUpper") == 1
     assert low.count(LOW_END) == 1
