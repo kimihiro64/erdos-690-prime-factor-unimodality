@@ -1,4 +1,5 @@
 import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
+import PrimeFactorUnimodality.Helpers.Analytic.ElementaryChebyshevConsequences
 
 set_option autoImplicit false
 
@@ -28,6 +29,24 @@ theorem dusart_gap_from_theta_root_lower
       Chebyshev.theta (x ^ (1 / 2 : Real)) := by
     simpa only [Real.sqrt_eq_rpow] using hroot
   simpa only [Real.sqrt_eq_rpow] using hroot'.trans hdecomp
+
+theorem psi_sub_theta_ge_elementary_sqrt_gap
+    {x : Real} (hx : (62500000000 : Real) ≤ x) :
+    (86 : Real) / 100 * Real.sqrt x ≤
+      Chebyshev.psi x - Chebyshev.theta x := by
+  have hx_pos : 0 < x := by linarith
+  have hroot_lower : (250000 : Real) ≤ Real.sqrt x := by
+    apply (Real.le_sqrt' (by norm_num : (0 : Real) < 250000)).2
+    nlinarith
+  have htheta := elementary_theta_lower_from_250000 hroot_lower
+  have hdecomp := psi_sub_theta_ge_theta_sqrt (by linarith : (2 : Real) ≤ x)
+  have htheta' : (86 : Real) / 100 * Real.sqrt x ≤
+      Chebyshev.theta (Real.sqrt x) := by
+    simpa only [Real.sqrt_eq_rpow] using htheta
+  have hdecomp' : Chebyshev.theta (Real.sqrt x) ≤
+      Chebyshev.psi x - Chebyshev.theta x := by
+    simpa only [Real.sqrt_eq_rpow] using hdecomp
+  exact htheta'.trans hdecomp'
 
 theorem dusart_theta_upper_tail_step
     {x : Real} (hx : (8e11 : Real) ≤ x)
