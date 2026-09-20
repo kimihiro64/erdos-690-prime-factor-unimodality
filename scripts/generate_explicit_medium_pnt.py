@@ -1,12 +1,20 @@
+import argparse
 from pathlib import Path
 
-dependency = Path(
-    "/home/ubuntu/research/erdos-690-prime-factor-unimodality/.lake/packages/"
-    "PrimeNumberTheoremAnd/PrimeNumberTheoremAnd/MediumPNT.lean"
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--dependency",
+    type=Path,
+    default=Path(".lake/packages/PrimeNumberTheoremAnd/PrimeNumberTheoremAnd/MediumPNT.lean"),
 )
-target = Path(
-    "PrimeFactorUnimodality/Helpers/Analytic/ExplicitMediumPNT.lean"
+parser.add_argument(
+    "--output",
+    type=Path,
+    default=Path("PrimeFactorUnimodality/Helpers/Analytic/ExplicitMediumPNT.lean"),
 )
+args = parser.parse_args()
+dependency = args.dependency
+target = args.output
 source = dependency.read_text()
 start = source.index("theorem MediumPNT :")
 body = source[start:]
