@@ -3645,6 +3645,18 @@ theorem dusart_lemma_3_3_of_rows_and_theta_upper
   exact dusart_lemma_3_3_of_finite_and_theta_upper hX
     (dusart_lemma_3_3_finite_of_rows cover) theta_upper
 
+/-! The upper half of Proposition 5.1 is stronger than the relaxed uniform
+estimate used in the large-range part of Lemma 3.3.  Export the numerical
+conversion once so downstream source proofs use the paper's displayed
+constant rather than repeating an arithmetic adapter. -/
+theorem dusart_theta_upper_1000081_of_bounds
+    (thetaBounds : HasDusartThetaBounds) :
+    ∀ y : Real, 0 < y →
+      Chebyshev.theta y < (1000081 : Real) / 1000000 * y := by
+  intro y hy
+  have hupper := thetaBounds.1 y hy
+  nlinarith
+
 /-! The paper's theta hypothesis is exported in the project's bundled
 Proposition 5.1 interface.  This adapter keeps the Lemma 3.3 proof connected
 to that interface without weakening the finite-range obligation. -/
@@ -3655,12 +3667,10 @@ theorem dusart_lemma_3_3_of_rows_and_theta_bounds
     (thetaBounds : HasDusartThetaBounds) :
     ∀ x : Real, 0 < x →
       Chebyshev.psi x - Chebyshev.theta x -
-          Chebyshev.theta (Real.sqrt x) <
+        Chebyshev.theta (Real.sqrt x) <
         (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
   apply dusart_lemma_3_3_of_rows_and_theta_upper hX cover
-  intro y hy
-  have hupper := thetaBounds.1 y hy
-  nlinarith
+  exact dusart_theta_upper_1000081_of_bounds thetaBounds
 
 /-! Indexed form for the compact bounded computation.  The proof is kept at
 the source boundary so a generated table can be assembled from reusable rows
