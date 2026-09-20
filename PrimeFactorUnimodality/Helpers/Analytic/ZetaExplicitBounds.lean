@@ -1,4 +1,5 @@
 import PrimeNumberTheoremAnd.ZetaBounds
+import PrimeNumberTheoremAnd.Mathlib.NumberTheory.LSeries.RiemannZetaConvexity
 
 set_option autoImplicit false
 
@@ -86,7 +87,9 @@ theorem zetaDerivUpperBnd_explicit
   set ff := (σ + t * Complex.I) * ∫ x in Ioi (N : Real),
     (⌊x⌋ + 1 / 2 - x) * (x : Complex) ^ (-(σ + t * Complex.I) - 1) *
       -(Real.log x)
-  rw [(by ring : aa + (bb + cc) + dd + ee + ff = aa + bb + cc + dd + ee + ff)]
+  have hsum : aa + (bb + cc) + dd + (ee + ff) =
+      aa + bb + cc + dd + ee + ff := by ring
+  rw [hsum]
   apply le_trans (by apply norm_add₆)
   convert! ZetaDerivUpperBnd' ⟨by norm_num, le_rfl⟩ ht hσ using 1
 
@@ -98,8 +101,9 @@ theorem zetaDiffBnd_explicit
         riemannZeta (σ₁ + t * Complex.I)‖ ≤
       Real.exp (1 / 2 : Real) * 59 * Real.log |t| ^ 2 * (σ₂ - σ₁) := by
   have htne : t ≠ 0 := by
-    contrapose! ht
-    simp
+    intro ht0
+    subst t
+    norm_num at ht
   rw [← Zeta_eq_int_derivZeta htne]
   convert intervalIntegral.norm_integral_le_of_norm_le_const (C :=
     Real.exp (1 / 2 : Real) * 59 * Real.log |t| ^ 2) ?_ using 1
@@ -154,8 +158,11 @@ theorem zetaLowerBound3_explicit_fixed :
         3 ^ ((3 : Real) / 4) * (σ - 1) ^ (-(3 : Real) / 4) *
           C₀ ^ ((1 : Real) / 4) * (Real.log |2 * t|) ^ ((1 : Real) / 4) := by
     convert denom_bound using 1
+    have hC₀ : 0 < C₀ := by
+      dsimp [C₀]
+      positivity
     rw [Real.div_rpow (by linarith) (by linarith),
-      Real.mul_rpow (by linarith) (Real.log_nonneg (by linarith))]
+      Real.mul_rpow (by linarith) hC₀.le]
     ring_nf
   have pos_left : 0 <
       3 ^ ((3 : Real) / 4) * (σ - 1) ^ (-(3 : Real) / 4) *
