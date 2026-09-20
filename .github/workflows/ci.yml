@@ -171,6 +171,16 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowBase
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart01
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart02
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart03
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart04
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Proof.LargeRange.UniformTail
