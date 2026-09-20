@@ -3092,6 +3092,22 @@ theorem dusart_proposition_3_1_of_finite_and_strict_theta_error
       hlarge herror
   · exact finite x hx (lt_of_not_ge hlarge)
 
+/-! The same Proposition 3.1 split in the exact tail interface used by the
+provider modules. -/
+theorem dusart_proposition_3_1_of_finite_and_thetaErrorAbove
+    (finite : ∀ x : Real, (121 : Real) < x →
+      x < (4e18 : Real) ^ 2 →
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x)
+    (thetaError : HasThetaLogFourthErrorAbove
+      (648 / 1000 : Real) (4e18 : Real)) :
+    ∀ x : Real, (121 : Real) < x →
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x := by
+  apply dusart_proposition_3_1_of_finite_and_strict_theta_error finite
+  intro y hy
+  exact thetaError y hy
+
 theorem psi_sub_theta_le_of_root_bound
     {x c : Real} (hx : 0 ≤ x) (hc : 0 ≤ c)
     (hroot : ∀ y : Real, 0 ≤ y → Chebyshev.psi y ≤ c * y) :

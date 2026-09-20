@@ -187,6 +187,58 @@ theorem wangCrapis_thetaBounds_of_paper_ranges_and_prop31
   · exact hA
   · exact thetaError
 
+/-! A single published-size error input supplies both analytic tails: its
+`exp 28` instance feeds Proposition 5.1, while monotonicity of the cutoff
+feeds the square-root argument in Proposition 3.1. -/
+theorem wangCrapis_thetaBounds_of_paper_ranges_and_prop31_thetaError
+    (finite : ∀ x : Real, 0 < x → x ≤ (8e11 : Real) →
+      Chebyshev.theta x - x < x / 36260)
+    (middlePsi : ∀ x : Real, (8e11 : Real) ≤ x →
+      x ≤ Real.exp 28 →
+      |Chebyshev.psi x - x| < (2841 : Real) / 100000000 * x)
+    (finiteGap : ∀ x : Real, (121 : Real) < x →
+      x < (4e18 : Real) ^ 2 →
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x)
+    (thetaError : HasThetaLogFourthErrorAbove
+      (648 / 1000 : Real) (Real.exp 28))
+    (lower : ∀ x : Real, 2 < x →
+      x * (1 - (12323 / 10000 : Real) / Real.log x) <
+        Chebyshev.theta x) :
+    HasDusartThetaBounds := by
+  have hA : (648 / 1000 : Real) / Real.log (Real.exp 28) ≤
+      12167 / 500000 := by
+    rw [Real.log_exp]
+    norm_num
+  have hcut : Real.exp 28 ≤ (4e18 : Real) := by
+    calc
+      Real.exp 28 < (1446257067000 : Real) :=
+        exp_twentyEight_lt_dusart_endpoint
+      _ ≤ (4e18 : Real) := by norm_num
+  have thetaErrorLarge : HasThetaLogFourthErrorAbove
+      (648 / 1000 : Real) (4e18 : Real) := by
+    intro y hy
+    exact thetaError y (hcut.trans hy)
+  have prop31 : ∀ x : Real, (121 : Real) < x →
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x :=
+    dusart_proposition_3_1_of_finite_and_thetaErrorAbove
+      finiteGap thetaErrorLarge
+  apply wangCrapis_thetaBounds_of_paper_ranges
+    finite
+  · intro x hx hx_exp
+    refine ⟨middlePsi x hx hx_exp, ?_⟩
+    apply prop31 x
+    · linarith
+    · calc
+        x ≤ Real.exp 28 := hx_exp
+        _ < (1446257067000 : Real) :=
+          exp_twentyEight_lt_dusart_endpoint
+        _ < (4e18 : Real) ^ 2 := by norm_num
+  · exact dusart_proposition_5_1_tail_of_logFourthError
+      (by norm_num) hA thetaError
+  · exact lower
+
 /-! Global Proposition 5.1 in the three ranges used by Dusart: the finite
 Table 6.4 range, the explicit middle range ending at `exp 28`, and the
 large-range theta-error tail. -/
