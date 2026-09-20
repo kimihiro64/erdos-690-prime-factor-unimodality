@@ -1,4 +1,4 @@
-import PrimeNumberTheoremAnd.Mathlib.NumberTheory.LSeries.RiemannZetaConvexity
+import PrimeNumberTheoremAnd.ZetaBounds
 
 set_option autoImplicit false
 
@@ -49,6 +49,18 @@ theorem zetaNear1BndExact_explicit :
       ‖riemannZeta (σ : Complex)‖ ≤ c / (σ - 1) := by
   refine ⟨3, by norm_num, ?_⟩
   exact riemannZeta_near_one_explicit
+
+theorem zetaUpperBnd_explicit
+    (σ t : Real) (ht : 3 < |t|)
+    (hσ : σ ∈ Icc (1 - (1 / 2 : Real) / Real.log |t|) 2) :
+    ‖riemannZeta (σ + t * Complex.I)‖ ≤
+      Real.exp (1 / 2 : Real) * (5 + 8 * 2) * Real.log |t| := by
+  obtain ⟨Npos, _, _, _, σPos, neOne⟩ :=
+    UpperBnd_aux ⟨by norm_num, by norm_num⟩ ht hσ.1
+  rw [← Zeta0EqZeta Npos (by simp [σPos]) neOne]
+  apply le_trans (by apply norm_add₄_le)
+  convert! ZetaUpperBnd' ⟨by norm_num, le_rfl⟩ ht hσ using 1
+  simp
 
 end
 end PrimeFactorUnimodality
