@@ -841,9 +841,91 @@ structure DusartThetaRelativeRow where
     (1 - lower_coeff) * x <
       (12323 / 10000 : Real) * x / Real.log x
 
-/-! The coefficient data printed in Dusart's Table 6.6.  These are kept as a
-raw, exact rational table; the analytic validity fields remain explicit in
-`DusartThetaRelativeRow` and are supplied by the finite verification layer. -/
+/-! The six coefficient columns printed in Dusart's Table 6.6.  The first
+pair gives constant-coefficient bounds; the next two pairs give the
+`1 / log x` and `1 / log^2 x` correction bounds. -/
+structure DusartThetaTable66Row where
+  left : Nat
+  right : Nat
+  a0 : Real
+  b0 : Real
+  a1 : Real
+  b1 : Real
+  a2 : Real
+  b2 : Real
+  lower_zero : ∀ x : Real, (left : Real) ≤ x → x ≤ right →
+    a0 * x ≤ Chebyshev.theta x
+  upper_zero : ∀ x : Real, (left : Real) ≤ x → x ≤ right →
+    Chebyshev.theta x ≤ b0 * x
+  lower_one : ∀ x : Real, (left : Real) ≤ x → x ≤ right →
+    x - a1 * x / Real.log x ≤ Chebyshev.theta x
+  upper_one : ∀ x : Real, (left : Real) ≤ x → x ≤ right →
+    Chebyshev.theta x ≤ x + b1 * x / Real.log x
+  lower_two : ∀ x : Real, (left : Real) ≤ x → x ≤ right →
+    x - a2 * x / Real.log x ^ 2 ≤ Chebyshev.theta x
+  upper_two : ∀ x : Real, (left : Real) ≤ x → x ≤ right →
+    Chebyshev.theta x ≤ x + b2 * x / Real.log x ^ 2
+
+def DusartThetaTable66Row.toRelativeRow
+    (row : DusartThetaTable66Row)
+    (hleft : 2 ≤ row.left) (hle : row.left ≤ row.right)
+    (hupper_error : row.b0 - 1 < (1 : Real) / 36260)
+    (ha1_nonneg : 0 ≤ row.a1)
+    (ha1 : row.a1 < (12323 : Real) / 10000) :
+    DusartThetaRelativeRow :=
+  { left := row.left
+    right := row.right
+    left_large := hleft
+    left_le_right := hle
+    lower_coeff := 1 - row.a1 / Real.log (row.right : Real)
+    upper_coeff := row.b0
+    lower_bound := by
+      intro x hleftx hrightx
+      have hxpos : 0 < x := by linarith
+      have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
+      have hlog_le : Real.log x ≤ Real.log (row.right : Real) :=
+        Real.log_le_log hxpos hrightx
+      have hinv : 1 / Real.log (row.right : Real) ≤ 1 / Real.log x :=
+        one_div_le_one_div_of_le hlogpos hlog_le
+      have hmul : row.a1 * x / Real.log (row.right : Real) ≤
+          row.a1 * x / Real.log x := by
+        calc
+          row.a1 * x / Real.log (row.right : Real) =
+              (row.a1 * x) * (1 / Real.log (row.right : Real)) := by ring
+          _ ≤ (row.a1 * x) * (1 / Real.log x) :=
+            mul_le_mul_of_nonneg_left hinv
+              (mul_nonneg ha1_nonneg hxpos.le)
+          _ = row.a1 * x / Real.log x := by ring
+      have hformula := row.lower_one x hleftx hrightx
+      nlinarith
+    upper_bound := row.upper_zero
+    upper_coeff_error := hupper_error
+    lower_coeff_error := by
+      intro x hx hleftx hrightx
+      have hxpos : 0 < x := by linarith
+      have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
+      have hlog_le : Real.log x ≤ Real.log (row.right : Real) :=
+        Real.log_le_log hxpos hrightx
+      have hinv : 1 / Real.log (row.right : Real) ≤ 1 / Real.log x :=
+        one_div_le_one_div_of_le hlogpos hlog_le
+      have hmul : row.a1 * x / Real.log (row.right : Real) ≤
+          row.a1 * x / Real.log x := by
+        calc
+          row.a1 * x / Real.log (row.right : Real) =
+              (row.a1 * x) * (1 / Real.log (row.right : Real)) := by ring
+          _ ≤ (row.a1 * x) * (1 / Real.log x) :=
+            mul_le_mul_of_nonneg_left hinv
+              (mul_nonneg ha1_nonneg hxpos.le)
+          _ = row.a1 * x / Real.log x := by ring
+      have ha1' : row.a1 * x / Real.log x <
+          (12323 / 10000 : Real) * x / Real.log x := by
+        apply (div_lt_div_iff_of_pos_right hlogpos).2
+        exact mul_lt_mul_of_pos_right ha1 hxpos
+      nlinarith
+  }
+
+/-! The older two-coefficient projection is retained for data whose
+constant-coefficient validity has already been established independently. -/
 structure DusartThetaTableCoefficientRow where
   left : Nat
   right : Nat
