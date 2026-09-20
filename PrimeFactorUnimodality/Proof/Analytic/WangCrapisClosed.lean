@@ -99,6 +99,13 @@ theorem completeClassification_closed_of_finite_providers
     providers.thetaBounds providers.thetaError providers.primeCounting
     providers.logCubed
 
+theorem wangCrapisPaperInputs_of_finite_providers
+    (providers : WangCrapisFiniteProviders) :
+    WangCrapisPaperInputs := by
+  exact wangCrapisPaperInputs_of_mediumPNT_finite_providers
+    providers.thetaBounds providers.thetaError providers.primeCounting
+    providers.logCubed
+
 end
 
 end PrimeFactorUnimodality
