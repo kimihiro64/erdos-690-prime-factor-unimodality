@@ -112,372 +112,556 @@ theorem lowPocklingtonData05_valid : PocklingtonRow.Valid lowPocklingtonData05 :
   decide
 
 theorem lowPrime_6451 : Nat.Prime 6451 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨0, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6469 : Nat.Prime 6469 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨1, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6473 : Nat.Prime 6473 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨2, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6481 : Nat.Prime 6481 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨3, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6491 : Nat.Prime 6491 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨4, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6521 : Nat.Prime 6521 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨5, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6529 : Nat.Prime 6529 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨6, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6547 : Nat.Prime 6547 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨7, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6551 : Nat.Prime 6551 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨8, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6553 : Nat.Prime 6553 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨9, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6563 : Nat.Prime 6563 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨10, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6569 : Nat.Prime 6569 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨11, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6571 : Nat.Prime 6571 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨12, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6577 : Nat.Prime 6577 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨13, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6581 : Nat.Prime 6581 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨14, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6599 : Nat.Prime 6599 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨15, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6607 : Nat.Prime 6607 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨16, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6619 : Nat.Prime 6619 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨17, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6637 : Nat.Prime 6637 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨18, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6653 : Nat.Prime 6653 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨19, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6659 : Nat.Prime 6659 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨20, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6661 : Nat.Prime 6661 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨21, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6673 : Nat.Prime 6673 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨22, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6679 : Nat.Prime 6679 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨23, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6689 : Nat.Prime 6689 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨24, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6691 : Nat.Prime 6691 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨25, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6701 : Nat.Prime 6701 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨26, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6703 : Nat.Prime 6703 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨27, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6709 : Nat.Prime 6709 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨28, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6719 : Nat.Prime 6719 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨29, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6733 : Nat.Prime 6733 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨30, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6737 : Nat.Prime 6737 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨31, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6761 : Nat.Prime 6761 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨32, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6763 : Nat.Prime 6763 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨33, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6779 : Nat.Prime 6779 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨34, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6781 : Nat.Prime 6781 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨35, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6791 : Nat.Prime 6791 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨36, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6793 : Nat.Prime 6793 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨37, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6803 : Nat.Prime 6803 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨38, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6823 : Nat.Prime 6823 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨39, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6827 : Nat.Prime 6827 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨40, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6829 : Nat.Prime 6829 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨41, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6833 : Nat.Prime 6833 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨42, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6841 : Nat.Prime 6841 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨43, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6857 : Nat.Prime 6857 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨44, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6863 : Nat.Prime 6863 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨45, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6869 : Nat.Prime 6869 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨46, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6871 : Nat.Prime 6871 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨47, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6883 : Nat.Prime 6883 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨48, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6899 : Nat.Prime 6899 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨49, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6907 : Nat.Prime 6907 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨50, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6911 : Nat.Prime 6911 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨51, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6917 : Nat.Prime 6917 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨52, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6947 : Nat.Prime 6947 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨53, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6949 : Nat.Prime 6949 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨54, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6959 : Nat.Prime 6959 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨55, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6961 : Nat.Prime 6961 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨56, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6967 : Nat.Prime 6967 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨57, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6971 : Nat.Prime 6971 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨58, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6977 : Nat.Prime 6977 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨59, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6983 : Nat.Prime 6983 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨60, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6991 : Nat.Prime 6991 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨61, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_6997 : Nat.Prime 6997 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨62, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7001 : Nat.Prime 7001 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨63, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7013 : Nat.Prime 7013 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨64, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7019 : Nat.Prime 7019 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨65, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7027 : Nat.Prime 7027 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨66, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7039 : Nat.Prime 7039 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨67, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7043 : Nat.Prime 7043 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨68, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7057 : Nat.Prime 7057 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨69, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7069 : Nat.Prime 7069 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨70, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7079 : Nat.Prime 7079 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨71, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7103 : Nat.Prime 7103 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨72, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7109 : Nat.Prime 7109 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨73, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7121 : Nat.Prime 7121 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨74, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7127 : Nat.Prime 7127 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨75, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7129 : Nat.Prime 7129 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨76, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7151 : Nat.Prime 7151 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨77, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7159 : Nat.Prime 7159 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨78, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7177 : Nat.Prime 7177 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨79, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7187 : Nat.Prime 7187 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨80, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7193 : Nat.Prime 7193 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨81, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7207 : Nat.Prime 7207 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨82, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7211 : Nat.Prime 7211 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨83, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7213 : Nat.Prime 7213 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨84, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7219 : Nat.Prime 7219 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨85, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7229 : Nat.Prime 7229 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨86, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7237 : Nat.Prime 7237 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨87, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7243 : Nat.Prime 7243 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨88, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7247 : Nat.Prime 7247 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨89, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7253 : Nat.Prime 7253 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨90, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 
 theorem lowPrime_7283 : Nat.Prime 7283 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData05_valid
-  simp [lowPocklingtonData05]
+  let d := lowPocklingtonData05.get ⟨91, by simp [lowPocklingtonData05]⟩
+  have hd : d ∈ lowPocklingtonData05 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData05_valid hd
+  simpa [d, lowPocklingtonData05] using hp
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_6311_6636_part03 : List DusartPrimeRow :=
   [

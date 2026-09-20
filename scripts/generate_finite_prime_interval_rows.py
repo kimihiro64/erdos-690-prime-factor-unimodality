@@ -92,12 +92,14 @@ def prime_certificates(rows: list[str], data_name: str) -> str:
         "  decide",
         "",
     ]
-    for n in witnesses:
+    for index, n in enumerate(witnesses):
         body.extend(
             [
                 f"theorem lowPrime_{n} : Nat.Prime {n} := by",
-                f"  apply PocklingtonRow.prime_of_mem {data_name}_valid",
-                f"  simp [{data_name}]",
+                f"  let d := {data_name}.get ⟨{index}, by simp [{data_name}]⟩",
+                f"  have hd : d ∈ {data_name} := List.get_mem _ _",
+                f"  have hp := PocklingtonRow.prime_of_mem {data_name}_valid hd",
+                f"  simpa [d, {data_name}] using hp",
                 "",
             ]
         )

@@ -30,44 +30,64 @@ theorem lowPocklingtonData24_valid : PocklingtonRow.Valid lowPocklingtonData24 :
   decide
 
 theorem lowPrime_17939 : Nat.Prime 17939 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData24_valid
-  simp [lowPocklingtonData24]
+  let d := lowPocklingtonData24.get ⟨0, by simp [lowPocklingtonData24]⟩
+  have hd : d ∈ lowPocklingtonData24 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData24_valid hd
+  simpa [d, lowPocklingtonData24] using hp
 
 theorem lowPrime_17957 : Nat.Prime 17957 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData24_valid
-  simp [lowPocklingtonData24]
+  let d := lowPocklingtonData24.get ⟨1, by simp [lowPocklingtonData24]⟩
+  have hd : d ∈ lowPocklingtonData24 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData24_valid hd
+  simpa [d, lowPocklingtonData24] using hp
 
 theorem lowPrime_17959 : Nat.Prime 17959 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData24_valid
-  simp [lowPocklingtonData24]
+  let d := lowPocklingtonData24.get ⟨2, by simp [lowPocklingtonData24]⟩
+  have hd : d ∈ lowPocklingtonData24 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData24_valid hd
+  simpa [d, lowPocklingtonData24] using hp
 
 theorem lowPrime_17971 : Nat.Prime 17971 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData24_valid
-  simp [lowPocklingtonData24]
+  let d := lowPocklingtonData24.get ⟨3, by simp [lowPocklingtonData24]⟩
+  have hd : d ∈ lowPocklingtonData24 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData24_valid hd
+  simpa [d, lowPocklingtonData24] using hp
 
 theorem lowPrime_17977 : Nat.Prime 17977 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData24_valid
-  simp [lowPocklingtonData24]
+  let d := lowPocklingtonData24.get ⟨4, by simp [lowPocklingtonData24]⟩
+  have hd : d ∈ lowPocklingtonData24 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData24_valid hd
+  simpa [d, lowPocklingtonData24] using hp
 
 theorem lowPrime_17981 : Nat.Prime 17981 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData24_valid
-  simp [lowPocklingtonData24]
+  let d := lowPocklingtonData24.get ⟨5, by simp [lowPocklingtonData24]⟩
+  have hd : d ∈ lowPocklingtonData24 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData24_valid hd
+  simpa [d, lowPocklingtonData24] using hp
 
 theorem lowPrime_17987 : Nat.Prime 17987 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData24_valid
-  simp [lowPocklingtonData24]
+  let d := lowPocklingtonData24.get ⟨6, by simp [lowPocklingtonData24]⟩
+  have hd : d ∈ lowPocklingtonData24 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData24_valid hd
+  simpa [d, lowPocklingtonData24] using hp
 
 theorem lowPrime_17989 : Nat.Prime 17989 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData24_valid
-  simp [lowPocklingtonData24]
+  let d := lowPocklingtonData24.get ⟨7, by simp [lowPocklingtonData24]⟩
+  have hd : d ∈ lowPocklingtonData24 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData24_valid hd
+  simpa [d, lowPocklingtonData24] using hp
 
 theorem lowPrime_18013 : Nat.Prime 18013 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData24_valid
-  simp [lowPocklingtonData24]
+  let d := lowPocklingtonData24.get ⟨8, by simp [lowPocklingtonData24]⟩
+  have hd : d ∈ lowPocklingtonData24 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData24_valid hd
+  simpa [d, lowPocklingtonData24] using hp
 
 theorem lowPrime_18041 : Nat.Prime 18041 := by
-  apply PocklingtonRow.prime_of_mem lowPocklingtonData24_valid
-  simp [lowPocklingtonData24]
+  let d := lowPocklingtonData24.get ⟨9, by simp [lowPocklingtonData24]⟩
+  have hd : d ∈ lowPocklingtonData24 := List.get_mem _ _
+  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData24_valid hd
+  simpa [d, lowPocklingtonData24] using hp
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_17159_18040_part11 : List DusartPrimeRow :=
   [
