@@ -22,7 +22,7 @@ LOW_END = "theorem dusartPrimeRows_3275_23158_chain"
 HIGH_START = "def dusartPrimeRows_23159_89693"
 HIGH_END = "structure LogCubedPrimeRow"
 ROW_PART_SIZE = 8
-LOW_MODULE_TARGET_BYTES = 60_000
+LOW_MODULE_TARGET_BYTES = 20_000
 
 
 def source_text(repo: Path) -> str:
@@ -228,7 +228,12 @@ def low_modules(body: str) -> dict[str, str]:
     )
     starts = [match.start() for match in marker.finditer(body)]
     assert starts
-    family_starts = starts[::2]
+    # `split_large_row_families` emits a definition for every compact part,
+    # followed by the append definition for the original family.  Earlier
+    # versions selected every other marker because the unsplit source had a
+    # different marker layout; after splitting that skipped valid boundaries
+    # and produced oversized LowPart modules.
+    family_starts = starts
     family_count = len(family_starts)
     result = {
         "LowBase.lean": (LOW_HEADER + body[:family_starts[0]] + CHAIN_ASSEMBLER).rstrip() + "\n"
@@ -240,11 +245,7 @@ def low_modules(body: str) -> dict[str, str]:
         end_family = offset + 1
         while end_family < family_count:
             start = family_starts[offset]
-            candidate_end = (
-                family_starts[end_family + 1]
-                if end_family + 1 < family_count
-                else len(body)
-            )
+            candidate_end = family_starts[end_family] if end_family < family_count else len(body)
             if candidate_end - start > LOW_MODULE_TARGET_BYTES:
                 break
             end_family += 1

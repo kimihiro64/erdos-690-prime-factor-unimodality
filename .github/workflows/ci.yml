@@ -172,7 +172,9 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowBase
-          for part in $(seq -w 1 8); do
+          last_part=$(sed -nE 's/.*LowPart([0-9]+).*/\1/p' \
+            PrimeFactorUnimodality/Helpers/Analytic/FinitePrimeIntervalRows/Low.lean)
+          for part in $(seq -w 1 "$((10#$last_part))"); do
             module="LowPart$part"
             /usr/bin/time -v lake build \
               "+PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.$module"
