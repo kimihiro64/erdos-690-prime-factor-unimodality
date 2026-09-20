@@ -44,5 +44,11 @@ theorem riemannZeta_near_one_explicit :
   intro σ hσ
   exact riemannZeta_norm_real_le_three_div_sub_one hσ.1 hσ.2
 
+theorem zetaNear1BndExact_explicit :
+    ∃ (c : Real), 0 < c ∧ ∀ (σ : Real), σ ∈ Ioc 1 2 →
+      ‖riemannZeta (σ : Complex)‖ ≤ c / (σ - 1) := by
+  refine ⟨3, by norm_num, ?_⟩
+  exact riemannZeta_near_one_explicit
+
 end
 end PrimeFactorUnimodality
