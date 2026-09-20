@@ -338,6 +338,41 @@ theorem zetaZeroFree_explicit_only :
   intro σ t ht hσ
   exact (h σ t ht hσ).2
 
+theorem zetaLogDeriv_explicit_below :
+    ∃ (A : Real) (_ : A ∈ Ioc 0 (1 / 2)) (C : Real) (_ : 0 < C),
+    ∀ (σ t : Real) (_ : 3 < |t|)
+      (_ : σ ∈ Ico (1 - A / (Real.log |t|) ^ 9) 1),
+      ‖deriv riemannZeta (σ + t * Complex.I) /
+        riemannZeta (σ + t * Complex.I)‖ ≤
+        C * Real.log |t| ^ 9 := by
+  obtain ⟨A, hA, c, hc, hbound⟩ := zetaZeroFree_explicit
+  let D : Real := Real.exp (1 / 2 : Real) * 59
+  refine ⟨A, hA, D / c, div_pos (by positivity) hc, ?_⟩
+  intro σ t ht hσ
+  have hlogpow : Real.log |t| ≤ Real.log |t| ^ (9 : Real) :=
+    ZetaInvBnd_aux (logt_gt_one ht.le)
+  have hσderiv : σ ∈ Icc
+      (1 - (1 / 2 : Real) / Real.log |t|) 2 := by
+    constructor
+    · apply le_trans ?_ hσ.1
+      gcongr
+      · exact hA.2
+      · exact hlogpow
+    · linarith [hσ.2]
+  have hderiv := zetaDerivUpperBnd_explicit σ t ht hσderiv
+  have hlower := (hbound σ t ht hσ).1
+  have hlower_pos : 0 <
+      ‖riemannZeta (σ + t * Complex.I)‖ := by
+    have h : 0 < c / Real.log |t| ^ 7 := by positivity
+    exact h.trans_le hlower
+  rw [norm_div]
+  apply le_trans (div_le_div_of_nonneg_left hderiv.le
+    (le_of_lt hlower_pos) (norm_nonneg _))
+  have hcpos : 0 < c := hc
+  dsimp [D]
+  field_simp
+  ring
+
 
 end
 end PrimeFactorUnimodality
