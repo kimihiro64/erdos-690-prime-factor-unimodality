@@ -1564,14 +1564,14 @@ theorem hasStrictThetaUpperBelow_of_indexed_verified_table_rows
       (rows i).data.upper_coeff * ((rows i).data.right : Real) <
         (rows i).data.left) :
     HasStrictThetaUpperBelow X := by
-  apply hasStrictThetaUpperBelow_of_indexed_rows
+  let strictRows : Fin n → StrictThetaUpperRow :=
+    fun i => (rows i).toStrictUpperRow (margin i)
+  apply hasStrictThetaUpperBelow_of_indexed_rows (rows := strictRows)
   intro x hx hX
   obtain ⟨i, hleft, hright⟩ := cover x hx hX
-  let strictRow := (rows i).toStrictUpperRow (margin i)
-  refine ⟨strictRow, ?_, ?_, ?_⟩
-  · simpa [strictRow, DusartThetaTableVerifiedRow.toStrictUpperRow] using hleft
-  · simpa [strictRow, DusartThetaTableVerifiedRow.toStrictUpperRow] using hright
-  · simpa [strictRow, DusartThetaTableVerifiedRow.toStrictUpperRow] using margin i
+  refine ⟨i, ?_, ?_⟩
+  · simpa [strictRows, DusartThetaTableVerifiedRow.toStrictUpperRow] using hleft
+  · simpa [strictRows, DusartThetaTableVerifiedRow.toStrictUpperRow] using hright
 
 theorem dusartThetaTableVerifiedIndexedCoverUpTo_of_list
     {X : Real} {rows : List DusartThetaTableVerifiedRow}
