@@ -188,7 +188,6 @@ theorem zetaLowerBound3_explicit_fixed :
     Real.rpow_pos_of_pos hlog₂ _
   field_simp
   rw [Real.mul_rpow (by norm_num) (by positivity)]
-  move_mul [C₀ ^ ((1 : Real) / 4)]
   rw [mul_le_mul_iff_left₀]
   swap
   · positivity
