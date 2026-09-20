@@ -103,6 +103,14 @@ eventual asymptotic consequence:
   table and the explicit large-range input remain separate provider
   obligations.
 
+Schoenfeld's page-360 improvement also fixes the natural finite theta split:
+first prove the strict finite estimate `theta x < x` for `0 < x <= 10^11`,
+then combine it with the large-range estimate to obtain the published
+`theta x < 1.000081*x` bound.  The finite provider should therefore expose
+the stronger `theta x < x` prefix and let the analytic tail supply the
+`1.000081` constant, rather than certifying that relaxed constant separately
+at every low endpoint.
+
 The paper-reading check fixes an important boundary here.  In Lemma 3.3,
 Dusart writes that the displayed power-sum estimate is effective only above
 `(10^11)^3`; the assertion that the maximum of the remaining bounded
