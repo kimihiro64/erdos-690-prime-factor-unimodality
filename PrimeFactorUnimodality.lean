@@ -1,9 +1,15 @@
 import PrimeFactorUnimodality.Assembly.FourthWitness
-import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
+import PrimeFactorUnimodality.Helpers.Analytic.DusartIntermediateIndex
+import PrimeFactorUnimodality.Helpers.Analytic.DusartIntermediateLemma
+import PrimeFactorUnimodality.Helpers.Analytic.DusartIntermediatePower
+import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33AllRanges
+import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33Midrange
+import PrimeFactorUnimodality.Helpers.Analytic.DusartPowerSumAssembly
 import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
+import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
 import PrimeFactorUnimodality.Mathlib
-import PrimeFactorUnimodality.Proof.CompleteClassification
 import PrimeFactorUnimodality.Proof.Analytic.WangCrapisClosed
+import PrimeFactorUnimodality.Proof.CompleteClassification
 
 /-!
 # Public library root

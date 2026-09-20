@@ -1,6 +1,6 @@
 import PrimeFactorUnimodality.Helpers.Analytic.DusartPrimeCountingClosed
-import PrimeFactorUnimodality.Helpers.Analytic.DusartThetaClosed
 import PrimeFactorUnimodality.Helpers.Analytic.DusartShortIntervalClosed
+import PrimeFactorUnimodality.Helpers.Analytic.DusartThetaClosed
 import PrimeFactorUnimodality.Proof.CompleteClassification
 
 set_option autoImplicit false
@@ -157,6 +157,15 @@ theorem completeClassification_closed_of_selected_finite_providers
     CompleteClassification := by
   exact completeClassification_of_wangCrapis_paper_inputs
     (wangCrapisPaperInputs_of_finite_providers providers)
+
+/-! Direct all-`k` consumer for the selected split package.  This keeps the
+finite Abel remainder and the common analytic cutoff visible at the final
+classification boundary. -/
+theorem completeClassification_closed_of_selected_split_inputs
+    (providers : WangCrapisSelectedFiniteProviders) :
+    CompleteClassification := by
+  exact completeClassification_of_mediumPNT_and_selected_split_inputs
+    (by norm_num) (by norm_num) (by norm_num) providers
 
 /-! Stable consumer for the compact indexed certificate boundary. -/
 theorem completeClassification_closed_of_indexed_split_certificate

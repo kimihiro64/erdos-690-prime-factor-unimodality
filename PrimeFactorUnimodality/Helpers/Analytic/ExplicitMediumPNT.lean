@@ -4,6 +4,11 @@ import PrimeNumberTheoremAnd.MediumPNT
 set_option autoImplicit false
 set_option maxHeartbeats 400000
 
+/-! # Explicit medium prime number theorem input
+
+This module connects the explicit zeta bounds to the source-level medium-PNT
+estimate used by the Dusart tail arguments. -/
+
 namespace PrimeFactorUnimodality
 
 noncomputable section

@@ -1,7 +1,7 @@
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
 import PrimeFactorUnimodality.Helpers.Analytic.DecayToLogFourth
-import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
 import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
+import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
 import PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
 
 set_option autoImplicit false
@@ -29,8 +29,14 @@ does not claim to be the global provider.
 /-! Closed singleton seed for the finite theta assembler. -/
 theorem wangCrapis_thetaPrefix :
     HasDusartSymmetricThetaBoundsBelow (2 : Real) := by
+  exact hasDusartSymmetricThetaBoundsBelow_mono (by norm_num)
+    (hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
+      dusartThetaEndpointRow_three_cover)
+
+theorem wangCrapis_thetaPrefix_three :
+    HasDusartSymmetricThetaBoundsBelow (3 : Real) := by
   exact hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
-    dusartThetaEndpointRow_two_cover
+    dusartThetaEndpointRow_three_cover
 
 theorem wangCrapis_thetaBounds_lower_2_3
     {x : Real} (hx : 2 < x) (hx3 : x ≤ 3) :
@@ -429,6 +435,55 @@ theorem wangCrapis_thetaBounds_of_indexed_endpoint_rows_and_tail
     (hasDusartSymmetricThetaBoundsBelow_of_indexed_endpoint_rows cover)
     hA_nonneg hA thetaError
 
+/-! The same boundary consumes compact endpoint chunks directly.  This keeps
+    the generated finite table independent of the analytic tail proof. -/
+theorem wangCrapis_thetaBounds_of_endpoint_chunks_and_tail
+    {A : Real} (first : DusartThetaEndpointChunk)
+    (rest : List DusartThetaEndpointChunk)
+    (hXpos : 0 <
+      (DusartThetaEndpointChunk.appendMany first rest).cutoff)
+    (hlogX : (10 : Real) < Real.log
+      (DusartThetaEndpointChunk.appendMany first rest).cutoff)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log
+      (DusartThetaEndpointChunk.appendMany first rest).cutoff ≤
+      12167 / 500000)
+    (thetaError : HasThetaLogFourthError A
+      (DusartThetaEndpointChunk.appendMany first rest).cutoff) :
+    HasDusartThetaBounds := by
+  exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
+    (hasDusartSymmetricThetaBoundsBelow_of_endpoint_chunks first rest)
+    hA_nonneg hA thetaError
+
+theorem wangCrapis_thetaBounds_of_prefix_and_endpoint_chunks_and_tail
+    {A x₀ : Real} (hx₀ : (2 : Real) ≤ x₀)
+    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (first : DusartThetaEndpointChunk)
+    (rest : List DusartThetaEndpointChunk)
+    (hcutoff : x₀ ≤
+      (DusartThetaEndpointChunk.appendMany first rest).cutoff)
+    (hXpos : 0 <
+      (DusartThetaEndpointChunk.appendMany first rest).cutoff)
+    (hlogX : (10 : Real) < Real.log
+      (DusartThetaEndpointChunk.appendMany first rest).cutoff)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log
+      (DusartThetaEndpointChunk.appendMany first rest).cutoff ≤
+      12167 / 500000)
+    (thetaError : HasThetaLogFourthError A
+      (DusartThetaEndpointChunk.appendMany first rest).cutoff) :
+    HasDusartThetaBounds := by
+  exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
+    (hasDusartSymmetricThetaBoundsBelow_of_indexed_prefix_and_endpoint_rows
+      hx₀ prefix
+      (by
+        intro x hx hX
+        obtain ⟨i, hleft, hright⟩ :=
+          (DusartThetaEndpointChunk.appendMany first rest).cover x
+            (hx₀.trans hx) hX
+        exact ⟨i, hleft, hright⟩))
+    hA_nonneg hA thetaError
+
 /-! Paper-facing form when a separately proved prefix is followed by an
 indexed Table 6.4 suffix. -/
 theorem wangCrapis_thetaBounds_of_indexed_prefix_endpoint_rows_and_tail
@@ -674,6 +729,27 @@ theorem wangCrapis_thetaBounds_of_mediumPNT
     nlinarith
   exact wangCrapis_thetaBounds_of_logFourthTail
     hYpos (by linarith) (finite Y h4Y) (by norm_num) hA thetaError
+
+/-! One finite prefix is enough once the source-level tail has chosen its
+cutoff.  This is the boundary consumed by a shared finite certificate package.
+-/
+theorem wangCrapis_thetaBounds_of_selected_mediumPNT_cutoff
+    (selected : ∃ Y : Real, (4e18 : Real) ≤ Y ∧
+      HasDusartSymmetricThetaBoundsBelow Y ∧
+      HasThetaLogFourthError (648 / 1000 : Real) Y) :
+    HasDusartThetaBounds := by
+  obtain ⟨Y, h4Y, finite, thetaError⟩ := selected
+  have hYpos : 0 < Y := by linarith
+  have hlogY : (42 : Real) ≤ Real.log Y := by
+    exact forty_two_lt_log_four_e18.le.trans
+      (Real.log_le_log (by norm_num) h4Y)
+  have hA : (648 / 1000 : Real) / Real.log Y ≤
+      12167 / 500000 := by
+    have hlogYpos : 0 < Real.log Y := by linarith
+    apply (div_le_iff₀ hlogYpos).2
+    nlinarith
+  exact wangCrapis_thetaBounds_of_logFourthTail
+    hYpos (by linarith) finite (by norm_num) hA thetaError
 
 /-! The source-level decay route can also provide the theta provider directly.
 The finite endpoint argument is the only bounded input: the arbitrary

@@ -55,13 +55,13 @@ def band_module(index: int, band: tuple[int, int, int, int, str], pairs: list[tu
     row_chain_name = f"mediumLogRows{index:02d}_chain"
     end = pairs[-1][1] - 1
     lines = [
-        "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.MediumLogRowsBase",
         "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.EndpointBounds",
+        "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.MediumLogRowsBase",
         "",
         "set_option autoImplicit false",
         "set_option maxRecDepth 100000",
         f"set_option maxHeartbeats 200000000 in",
-        f"/-! Compact medium log-cubed band {index:02d}. -/",
+        f"/-! # Compact medium log-cubed band {index:02d} -/",
         "",
         "namespace PrimeFactorUnimodality",
         "",
@@ -107,7 +107,20 @@ def aggregate(bands: list[tuple[tuple[int, int, int, int, str], list[tuple[int, 
         for index in range(1, len(bands) + 1)
     )
     end = bands[-1][1][-1][1] - 1
-    lines = [imports, "", "set_option autoImplicit false", "", "namespace PrimeFactorUnimodality", "", "noncomputable section", ""]
+    lines = [
+        imports,
+        "",
+        "set_option autoImplicit false",
+        "",
+        "/-! # Generated medium logarithmic rows",
+        "",
+        "This facade assembles the independent medium log-cubed row bands. -/",
+        "",
+        "namespace PrimeFactorUnimodality",
+        "",
+        "noncomputable section",
+        "",
+    ]
     for index, (_, pairs) in enumerate(bands, 1):
         lines.append(f"def mediumLogRowsPrefix{index:02d} : List FinitePrimeGapLogRow :=")
         if index == 1:

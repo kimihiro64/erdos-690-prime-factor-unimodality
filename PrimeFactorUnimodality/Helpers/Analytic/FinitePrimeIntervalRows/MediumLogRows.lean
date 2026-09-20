@@ -8,6 +8,10 @@ import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.MediumLog
 
 set_option autoImplicit false
 
+/-! # Generated medium logarithmic rows
+
+This facade assembles the independent medium log-cubed row bands. -/
+
 namespace PrimeFactorUnimodality
 
 noncomputable section

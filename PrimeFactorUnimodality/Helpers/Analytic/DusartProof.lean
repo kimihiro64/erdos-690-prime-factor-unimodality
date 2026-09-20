@@ -1,11 +1,11 @@
-import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
-import PrimeFactorUnimodality.Helpers.Analytic.ElementaryChebyshevConsequences
-import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
-import PrimeFactorUnimodality.Helpers.Analytic.ElementaryLogBounds
-import PrimeFactorUnimodality.Helpers.Analytic.DusartFiniteRows
-import PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
-import Mathlib.Analysis.Complex.ExponentialBounds
 import LeanCert.Tactic.IntervalAuto
+import Mathlib.Analysis.Complex.ExponentialBounds
+import PrimeFactorUnimodality.Helpers.Analytic.DusartFiniteRows
+import PrimeFactorUnimodality.Helpers.Analytic.ElementaryChebyshevConsequences
+import PrimeFactorUnimodality.Helpers.Analytic.ElementaryLogBounds
+import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
+import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
+import PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
 
 set_option autoImplicit false
 
@@ -15,6 +15,11 @@ noncomputable section
 
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
+
+/- The finite boundary in Dusart's Lemma 3.3 is exactly 10^33. -/
+theorem dusart_paper_lemma_3_3_finite_cutoff_eq :
+    ((10 ^ 11 : Real) ^ 3) = 10 ^ 33 := by
+  norm_num [pow_mul]
 
 theorem psi_sub_theta_mono {x y : Real} (hxy : x ≤ y) :
     Chebyshev.psi x - Chebyshev.theta x ≤
@@ -27,6 +32,41 @@ theorem psi_sub_theta_mono {x y : Real} (hxy : x ≤ y) :
     exact ⟨⟨hn.1.1, hn.1.2.trans (Nat.floor_mono hxy)⟩, hn.2⟩
   · intro n hn hns
     exact ArithmeticFunction.vonMangoldt_nonneg
+
+/- A compact interval row can consume an endpoint inequality already stated
+   at the row's left-hand power.  This avoids manufacturing singleton rows
+   or weakening the endpoint with an artificial numerical margin. -/
+def dusartLemma33FiniteRow_of_endpoint_left_power
+    (left right root : Nat) (hleft : left ≤ right)
+    (hroot : ∀ x : Real, 0 < x → (left : Real) ≤ x →
+      x < (right : Real) + 1 → (root : Real) ≤ Real.sqrt x)
+    (hend : Chebyshev.psi (right : Real) - Chebyshev.theta right -
+        Chebyshev.theta (root : Real) <
+      (1777745 : Real) / 1000000 * (left : Real) ^ (1 / (3 : Real)))
+    (hpow : ∀ x : Real, 0 < x → (left : Real) ≤ x →
+      (left : Real) ^ (1 / (3 : Real)) ≤ x ^ (1 / (3 : Real))) :
+    DusartLemma33FiniteRow :=
+  { left := left
+    right := right
+    left_le_right := hleft
+    valid := by
+      intro x hx hleft_x hright_x
+      have htransport : Chebyshev.psi x - Chebyshev.theta x =
+          Chebyshev.psi (⌊x⌋₊ : Real) - Chebyshev.theta (⌊x⌋₊ : Real) := by
+        rw [Chebyshev.psi_eq_psi_coe_floor,
+          Chebyshev.theta_eq_theta_coe_floor]
+      have hfloor : (⌊x⌋₊ : Real) ≤ right := by
+        exact_mod_cast Nat.le_of_lt_succ
+          ((Nat.floor_lt hx.le).2 (by simpa using hright_x))
+      have hpsi : Chebyshev.psi x - Chebyshev.theta x ≤
+          Chebyshev.psi (right : Real) - Chebyshev.theta right := by
+        rw [htransport]
+        exact psi_sub_theta_mono hfloor
+      have htheta : Chebyshev.theta (root : Real) ≤
+          Chebyshev.theta (Real.sqrt x) :=
+        Chebyshev.theta_mono (hroot x hx hleft_x hright_x)
+      have hpow_x := hpow x hx hleft_x
+      nlinarith
 
 def dusartLemma33FiniteRow_of_endpoint_bounds
     (left right root : Nat) (B L P : Real)
@@ -3462,6 +3502,44 @@ theorem dusart_lemma_3_3_prime_power_decomposition
   rw [hsplit, hsqrt] at hdecomp
   linarith
 
+/- Integer-power certificates can bound each real power in the intermediate
+   exponent range without asking the kernel to approximate an irrational root. -/
+theorem dusart_rpow_ratio_bound
+    {x b q : Real} {k : Nat}
+    (hb : 1 ≤ b) (hbx : b ≤ x) (hk : 3 ≤ k)
+    (hq0 : 0 ≤ q)
+    (hq : 1 ≤ q ^ (3 * k) * b ^ (k - 3)) :
+    x ^ (1 / (k : Real)) ≤ q * x ^ (1 / (3 : Real)) := by
+  have hx : 0 < x := lt_of_lt_of_le (by linarith) hbx
+  have hpow_base : b ^ (k - 3) ≤ x ^ (k - 3) := by
+    exact pow_le_pow_left' (by linarith) hbx
+  have hprod : 1 ≤ q ^ (3 * k) * x ^ (k - 3) := by
+    calc
+      (1 : Real) ≤ q ^ (3 * k) * b ^ (k - 3) := hq
+      _ ≤ q ^ (3 * k) * x ^ (k - 3) := by
+        gcongr
+  have hpow_nat : x ^ 3 ≤ q ^ (3 * k) * x ^ k := by
+    have hx3 : 0 ≤ x ^ 3 := by positivity
+    have hmul := mul_le_mul_of_nonneg_left hprod hx3
+    rw [← pow_add] at hmul
+    have hkadd : 3 + (k - 3) = k := by omega
+    rw [hkadd] at hmul
+    nlinarith
+  have hpow :
+      (x ^ (1 / (k : Real))) ^ (3 * k) ≤
+        (q * x ^ (1 / (3 : Real))) ^ (3 * k) := by
+    rw [← Real.rpow_natCast, ← Real.rpow_natCast]
+    rw [← Real.rpow_mul (by positivity), ← Real.rpow_mul (by positivity)]
+    norm_num at *
+    rw [show (1 / (k : Real)) * (3 * k : Real) = 3 by
+      field_simp; ring]
+    rw [show (1 / (3 : Real)) * (3 * k : Real) = k by
+      norm_num; ring]
+    rw [Real.mul_rpow (by positivity) (by positivity)]
+    simpa [pow_mul] using hpow_nat
+  exact (Real.rpow_le_rpow_iff (by positivity) (by positivity)
+    (by positivity : (0 : Real) < (3 * k : Real))).mp hpow
+
 /-! A reusable elementary estimate for the real-power sum occurring after the
 decomposition.  The only input is monotonicity of `x^a` in the exponent when
 `x ≥ 1`; the finite cardinality calculation is kept explicit. -/
@@ -3968,6 +4046,20 @@ theorem dusart_proposition_3_2_of_finite_lemma_and_theta_upper
     have h := theta_error y hy
     nlinarith
   · exact theta_error
+
+theorem dusart_proposition_3_2_of_proof_chunks_and_theta_error
+    (first : DusartLemma33FiniteProofChunk)
+    (rest : List DusartLemma33FiniteProofChunk)
+    (hX : (10 ^ 11 : Real) ^ 3 ≤
+      (DusartLemma33FiniteProofChunk.appendMany first rest).cutoff)
+    (theta_error : ∀ y : Real, 0 < y →
+      Chebyshev.theta y - y < y / 36260) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x <
+        (100007 : Real) / 100000 * Real.sqrt x +
+          (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
+  exact dusart_proposition_3_2_of_finite_lemma_and_theta_upper hX
+    (DusartLemma33FiniteProofChunk.appendMany first rest).valid theta_error
 
 theorem dusart_gap_upper_from_uniform_root_bound
     {x : Real} (hx : (64 : Real) ≤ x)

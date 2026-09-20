@@ -505,6 +505,70 @@ def dusartThetaEndpointRow_two : DusartThetaEndpointRow :=
         nlinarith
       nlinarith }
 
+/-! The next endpoint is small enough for a direct Chebyshev sum.  Keeping it
+as an ordinary endpoint row lets the same cover and assembler consume it as
+the larger finite tables. -/
+def dusartThetaEndpointRow_three : DusartThetaEndpointRow := by
+  have htheta := Chebyshev.theta_eq_sum_primesLE_log 3
+  have hp : Nat.primesLE 3 = {2, 3} := by decide
+  rw [hp] at htheta
+  norm_num [Nat.log, Nat.log.go] at htheta
+  have hlog2pos : 0 < Real.log (2 : Real) :=
+    Real.log_pos (by norm_num)
+  have hlog3pos : 0 < Real.log (3 : Real) :=
+    Real.log_pos (by norm_num)
+  have htheta_lt : Chebyshev.theta (3 : Real) < 3 := by
+    nlinarith [htheta, Real.log_two_lt_d9, Real.log_three_lt_d9]
+  have hupper : Chebyshev.theta (3 : Real) - 3 < (3 : Real) / 36260 := by
+    nlinarith
+  have hlower_upper : Chebyshev.theta (3 : Real) - 3 <
+      (12323 / 10000 : Real) * 3 / Real.log 3 := by
+    have hrhs : 0 < (12323 / 10000 : Real) * 3 / Real.log 3 := by
+      positivity
+    linarith
+  have htheta_nonneg : 0 ≤ Chebyshev.theta (3 : Real) :=
+    Chebyshev.theta_nonneg 3
+  have hdiff_nonneg : 0 ≤ (3 : Real) - Chebyshev.theta 3 := by
+    linarith
+  have hdiff_log : ((3 : Real) - Chebyshev.theta 3) * Real.log 3 <
+      (3 : Real) * (11 / 10 : Real) := by
+    have hlog3 : Real.log (3 : Real) < (11 : Real) / 10 :=
+      Real.log_three_lt_d9
+    have hfirst := mul_le_mul_of_nonneg_left hlog3.le hdiff_nonneg
+    have hsecond := mul_le_mul_of_nonneg_right
+      (show (3 : Real) - Chebyshev.theta 3 ≤ 3 by linarith)
+      (by norm_num : (0 : Real) ≤ (11 : Real) / 10)
+    nlinarith
+  have hlower_lower : (3 : Real) - Chebyshev.theta 3 <
+      (12323 / 10000 : Real) * 3 / Real.log 3 := by
+    apply (lt_div_iff₀ hlog3pos).2
+    nlinarith [hdiff_log]
+  exact
+    { left := 3
+      right := 3
+      left_large := by norm_num
+      left_le_right := by norm_num
+      theta_lower := Chebyshev.theta 3
+      theta_upper := Chebyshev.theta 3
+      theta_lower_le := le_rfl
+      theta_right_le := le_rfl
+      upper_error := hupper
+      lower_upper_error := hlower_upper
+      lower_lower_error := hlower_lower }
+
+theorem dusartThetaEndpointRow_three_cover :
+    DusartThetaEndpointRowsCoverUpTo
+      [dusartThetaEndpointRow_two, dusartThetaEndpointRow_three] 3 := by
+  intro x hx hX
+  by_cases hsmall : x ≤ 2
+  · refine ⟨dusartThetaEndpointRow_two, by simp, ?_, hsmall⟩
+    norm_num
+    exact hx
+  · refine ⟨dusartThetaEndpointRow_three, by simp, ?_, ?_⟩
+    · norm_num
+      exact le_of_not_ge hsmall
+    · exact hX
+
 def dusartThetaEndpointRow_singleton (n : Nat) (hn : 2 ≤ n)
     (hupper : Chebyshev.theta n - n < (n : Real) / 36260)
     (hlower_upper : Chebyshev.theta n - n <
@@ -798,6 +862,60 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_indexed_prefix_and_endpoint_rows
         (le_of_not_ge hsmall) hX
       exact (dusartThetaEndpointRow_provides (rows i) hleft hright).lower
         x hleft hright
+
+/-! Compact chunks for the bounded theta endpoint table.  A chunk carries its
+    coverage proof, so later generated bands can be appended without exposing
+    one declaration per endpoint to the analytic assembly. -/
+structure DusartThetaEndpointChunk where
+  n : Nat
+  cutoff : Real
+  rows : Fin n → DusartThetaEndpointRow
+  cover : DusartThetaEndpointIndexedCoverUpTo rows cutoff
+
+def DusartThetaEndpointChunk.of_list
+    {rows : List DusartThetaEndpointRow} {cutoff : Real}
+    (cover : DusartThetaEndpointRowsCoverUpTo rows cutoff) :
+    DusartThetaEndpointChunk :=
+  { n := rows.length
+    cutoff := cutoff
+    rows := fun i => rows.get i
+    cover := dusartThetaEndpointIndexedCover_of_list cover }
+
+def DusartThetaEndpointChunk.append
+    (left right : DusartThetaEndpointChunk) :
+    DusartThetaEndpointChunk :=
+  { n := left.n + right.n
+    cutoff := right.cutoff
+    rows := Fin.append left.rows right.rows
+    cover := dusartThetaEndpointIndexedCoverUpTo_append
+      left.cover right.cover }
+
+def DusartThetaEndpointChunk.appendMany
+    (first : DusartThetaEndpointChunk)
+    (rest : List DusartThetaEndpointChunk) :
+    DusartThetaEndpointChunk :=
+  match rest with
+  | [] => first
+  | next :: tail =>
+      DusartThetaEndpointChunk.appendMany
+        (DusartThetaEndpointChunk.append first next) tail
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_endpoint_chunk
+    (chunk : DusartThetaEndpointChunk) :
+    HasDusartSymmetricThetaBoundsBelow chunk.cutoff := by
+  exact hasDusartSymmetricThetaBoundsBelow_of_indexed_endpoint_rows
+    chunk.cover
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_endpoint_chunks
+    (first : DusartThetaEndpointChunk)
+    (rest : List DusartThetaEndpointChunk) :
+    HasDusartSymmetricThetaBoundsBelow
+      (DusartThetaEndpointChunk.appendMany first rest).cutoff := by
+  induction rest generalizing first with
+  | nil =>
+      exact hasDusartSymmetricThetaBoundsBelow_of_endpoint_chunk first
+  | cons next tail ih =>
+      exact ih (DusartThetaEndpointChunk.append first next)
 
 def DusartThetaBoundsRowsCoverUpTo
     (rows : List DusartThetaBoundsRow) (X : Real) : Prop :=
@@ -1502,6 +1620,23 @@ def DusartThetaTableVerifiedIndexedCoverUpTo {n : Nat}
   ∀ x : Real, 2 ≤ x → x ≤ X →
     ∃ i : Fin n, (rows i).data.left ≤ x ∧ x ≤ (rows i).data.right
 
+theorem hasStrictThetaUpperBelow_of_indexed_verified_table_rows
+    {n : Nat} {X : Real}
+    {rows : Fin n → DusartThetaTableVerifiedRow}
+    (cover : DusartThetaTableVerifiedIndexedCoverUpTo rows X)
+    (margin : ∀ i,
+      (rows i).data.upper_coeff * ((rows i).data.right : Real) <
+        (rows i).data.left) :
+    HasStrictThetaUpperBelow X := by
+  let strictRows : Fin n → StrictThetaUpperRow :=
+    fun i => (rows i).toStrictUpperRow (margin i)
+  apply hasStrictThetaUpperBelow_of_indexed_rows (rows := strictRows)
+  intro x hx hX
+  obtain ⟨i, hleft, hright⟩ := cover x hx hX
+  refine ⟨i, ?_, ?_⟩
+  · simpa [strictRows, DusartThetaTableVerifiedRow.toStrictUpperRow] using hleft
+  · simpa [strictRows, DusartThetaTableVerifiedRow.toStrictUpperRow] using hright
+
 theorem dusartThetaTableVerifiedIndexedCoverUpTo_of_list
     {X : Real} {rows : List DusartThetaTableVerifiedRow}
     (cover : DusartThetaTableVerifiedRowsCoverUpTo rows X) :
@@ -1601,6 +1736,28 @@ def DusartThetaTableVerifiedChunk.appendMany
   | next :: tail =>
       DusartThetaTableVerifiedChunk.appendMany
         (DusartThetaTableVerifiedChunk.append first next) tail
+
+theorem hasStrictThetaUpperBelow_of_verified_chunk
+    (chunk : DusartThetaTableVerifiedChunk)
+    (margin : ∀ i,
+      (chunk.rows i).data.upper_coeff *
+          ((chunk.rows i).data.right : Real) <
+        (chunk.rows i).data.left) :
+    HasStrictThetaUpperBelow chunk.cutoff := by
+  exact hasStrictThetaUpperBelow_of_indexed_verified_table_rows
+    chunk.cover margin
+
+theorem hasStrictThetaUpperBelow_of_verified_chunks
+    (first : DusartThetaTableVerifiedChunk)
+    (rest : List DusartThetaTableVerifiedChunk)
+    (margin : ∀ i,
+      ((DusartThetaTableVerifiedChunk.appendMany first rest).rows i).data.upper_coeff *
+          (((DusartThetaTableVerifiedChunk.appendMany first rest).rows i).data.right : Real) <
+        ((DusartThetaTableVerifiedChunk.appendMany first rest).rows i).data.left) :
+    HasStrictThetaUpperBelow
+      (DusartThetaTableVerifiedChunk.appendMany first rest).cutoff := by
+  exact hasStrictThetaUpperBelow_of_verified_chunk
+    (DusartThetaTableVerifiedChunk.appendMany first rest) margin
 
 theorem hasDusartSymmetricThetaBoundsBelow_of_verified_chunk
     (chunk : DusartThetaTableVerifiedChunk) :

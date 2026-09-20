@@ -176,6 +176,22 @@ theorem hasThetaLogFourthErrorBelow_mono
   intro x hx hX
   exact finite x hx (hX.trans hXY)
 
+theorem hasThetaLogFourthErrorBelow_coeff_mono
+    {A B X : Real} (hAB : A ≤ B)
+    (finite : HasThetaLogFourthErrorBelow A X) :
+    HasThetaLogFourthErrorBelow B X := by
+  intro x hx hX
+  have hxpos : 0 < x := by linarith
+  have hfactor : 0 ≤ x / (Real.log x) ^ 4 := by
+    have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
+    positivity
+  calc
+    |Chebyshev.theta x - x| ≤ A * x / (Real.log x) ^ 4 := finite x hx hX
+    _ = A * (x / (Real.log x) ^ 4) := by ring
+    _ ≤ B * (x / (Real.log x) ^ 4) :=
+      mul_le_mul_of_nonneg_right hAB hfactor
+    _ = B * x / (Real.log x) ^ 4 := by ring
+
 def HasThetaLogFourthErrorAbove (A X : Real) : Prop :=
   ∀ x : Real, X ≤ x →
     |Chebyshev.theta x - x| ≤ A * x / (Real.log x) ^ 4
@@ -186,6 +202,22 @@ theorem hasThetaLogFourthErrorAbove_mono
     HasThetaLogFourthErrorAbove A Y := by
   intro x hx
   exact tail x (hXY.trans hx)
+
+theorem hasThetaLogFourthErrorAbove_coeff_mono
+    {A B X : Real} (hX : (2 : Real) ≤ X) (hAB : A ≤ B)
+    (tail : HasThetaLogFourthErrorAbove A X) :
+    HasThetaLogFourthErrorAbove B X := by
+  intro x hx
+  have hx2 : (2 : Real) ≤ x := hX.trans hx
+  have hxpos : 0 < x := by linarith
+  have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
+  have hfactor : 0 ≤ x / (Real.log x) ^ 4 := by positivity
+  calc
+    |Chebyshev.theta x - x| ≤ A * x / (Real.log x) ^ 4 := tail x hx
+    _ = A * (x / (Real.log x) ^ 4) := by ring
+    _ ≤ B * (x / (Real.log x) ^ 4) :=
+      mul_le_mul_of_nonneg_right hAB hfactor
+    _ = B * x / (Real.log x) ^ 4 := by ring
 
 def HasThetaLogFourthErrorOn (A x₀ X : Real) : Prop :=
   ∀ x : Real, x₀ ≤ x → x ≤ X →

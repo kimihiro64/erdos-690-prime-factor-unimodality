@@ -1,7 +1,7 @@
 import PrimeFactorUnimodality.Helpers.Analytic.DecayToLogFourth
+import PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitPrimeCounting
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
-import PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT
 
 set_option autoImplicit false
 
