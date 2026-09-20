@@ -44,6 +44,51 @@ theorem dusart_gap_from_theta_root_lower
     simpa only [Real.sqrt_eq_rpow] using hroot
   simpa only [Real.sqrt_eq_rpow] using hroot'.trans hdecomp
 
+theorem theta_lower_9999_of_logFourth_error_at_large
+    {y : Real} (hy : (4e18 : Real) ≤ y)
+    (herror : |Chebyshev.theta y - y| ≤
+      (648 : Real) / 1000 * y / (Real.log y) ^ 4) :
+    (9999 : Real) / 10000 * y ≤ Chebyshev.theta y := by
+  have hy_pos : 0 < y := by linarith
+  have hlog : (42 : Real) ≤ Real.log y := by
+    exact forty_two_lt_log_four_e18.le.trans
+      (Real.log_le_log (by norm_num) hy)
+  have hlog_pos : 0 < Real.log y := by linarith
+  have hpow : (42 : Real) ^ (4 : Nat) ≤ (Real.log y) ^ (4 : Nat) := by
+    exact pow_le_pow_left₀ (by norm_num) hlog 4
+  have hscaled : y / (Real.log y) ^ 4 ≤ y / (42 : Real) ^ 4 := by
+    exact div_le_div_of_nonneg_left hy_pos.le (by positivity) hpow
+  have hscaled' : (648 : Real) / 1000 * y / (Real.log y) ^ 4 ≤
+      (648 : Real) / 1000 * y / (42 : Real) ^ 4 := by
+    calc
+      (648 : Real) / 1000 * y / (Real.log y) ^ 4 =
+          (648 : Real) / 1000 * (y / (Real.log y) ^ 4) := by ring
+      _ ≤ (648 : Real) / 1000 * (y / (42 : Real) ^ 4) :=
+        mul_le_mul_of_nonneg_left hscaled (by norm_num)
+      _ = (648 : Real) / 1000 * y / (42 : Real) ^ 4 := by ring
+  have hlow := (abs_le.mp herror).1
+  nlinarith [hscaled']
+
+theorem psi_sub_theta_ge_9999_sqrt_of_large_theta_error
+    {x : Real} (hx : (4e18 : Real) ^ 2 ≤ x)
+    (herror : ∀ y : Real, (4e18 : Real) ≤ y →
+      |Chebyshev.theta y - y| ≤
+        (648 : Real) / 1000 * y / (Real.log y) ^ 4) :
+    (9999 : Real) / 10000 * Real.sqrt x ≤
+      Chebyshev.psi x - Chebyshev.theta x := by
+  have hx_pos : 0 < x := by
+    have hcut : (0 : Real) < (4e18 : Real) ^ 2 := by positivity
+    linarith
+  have hroot_cut : (4e18 : Real) ≤ Real.sqrt x := by
+    apply (Real.le_sqrt' (by positivity : (0 : Real) < (4e18 : Real))).2
+    nlinarith
+  have hroot := theta_lower_9999_of_logFourth_error_at_large
+    hroot_cut (herror (Real.sqrt x) hroot_cut)
+  have hroot' : (9999 : Real) / 10000 * Real.sqrt x ≤
+      Chebyshev.theta (x ^ (1 / 2 : Real)) := by
+    simpa only [Real.sqrt_eq_rpow] using hroot
+  exact dusart_gap_from_theta_root_lower (by linarith) hroot'
+
 theorem psi_sub_theta_le_of_root_bound
     {x c : Real} (hx : 0 ≤ x) (hc : 0 ≤ c)
     (hroot : ∀ y : Real, 0 ≤ y → Chebyshev.psi y ≤ c * y) :
