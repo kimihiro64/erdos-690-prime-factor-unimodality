@@ -14,7 +14,6 @@ import re
 import subprocess
 from pathlib import Path
 
-
 SOURCE_REVISION = "c6200344"
 SOURCE_PATH = "PrimeFactorUnimodality/Helpers/Analytic/FinitePrimeIntervalRows.lean"
 LOW_START = "def dusartUpper"
@@ -57,17 +56,12 @@ def pocklington_data(n: int) -> str:
     """
     factors = factor_nat(n - 1)
     base = next(
-        a for a in range(2, n)
-        if pow(a, n - 1, n) == 1
-        and all(pow(a, (n - 1) // q, n) != 1 for q in set(factors))
+        a
+        for a in range(2, n)
+        if pow(a, n - 1, n) == 1 and all(pow(a, (n - 1) // q, n) != 1 for q in set(factors))
     )
-    inverses = {
-        q: pow((pow(base, (n - 1) // q, n) - 1) % n, -1, n)
-        for q in set(factors)
-    }
-    residues = ", ".join(
-        f"({q}, {inverses[q]})" for q in dict.fromkeys(factors)
-    )
+    inverses = {q: pow((pow(base, (n - 1) // q, n) - 1) % n, -1, n) for q in set(factors)}
+    residues = ", ".join(f"({q}, {inverses[q]})" for q in dict.fromkeys(factors))
     return (
         f"{{ n := {n}, F := {n - 1}, R := 1, a := {base}, "
         f"factors := [{', '.join(map(str, factors))}], "
@@ -193,9 +187,6 @@ def _local_chain_proof(part_rows: list[str]) -> str:
         bounds = re.search(r"\(p := (\d+)\) \(q := (\d+)\)", row)
         assert bounds, row
         left, right_prime = map(int, bounds.groups())
-        chain_start = left if index == 0 else int(
-            re.search(r"\(q := (\d+)\)", part_rows[index - 1]).group(1)
-        )
         indent = "  " * (index + 1)
         proof.extend(
             [
@@ -207,9 +198,9 @@ def _local_chain_proof(part_rows: list[str]) -> str:
             proof.append(indent + "· apply DusartPrimeRowsChain.cons")
         else:
             proof.append(indent + "· apply DusartPrimeRowsChain.empty")
-            proof.append(indent +
-                         f"  norm_num [{constructor.group(0)}, "
-                         "dusartPrimeRow_of_explicit_right]")
+            proof.append(
+                indent + f"  norm_num [{constructor.group(0)}, dusartPrimeRow_of_explicit_right]"
+            )
     return "\n".join(proof)
 
 
@@ -238,13 +229,12 @@ def split_large_row_families(body: str) -> str:
             return match.group(0)
 
         parts = [
-            rows[offset : offset + ROW_PART_SIZE]
-            for offset in range(0, len(rows), ROW_PART_SIZE)
+            rows[offset : offset + ROW_PART_SIZE] for offset in range(0, len(rows), ROW_PART_SIZE)
         ]
         part_names = [f"{name}_part{index:02d}" for index in range(1, len(parts) + 1)]
         output: list[str] = []
         expected_start = int(start)
-        for index, (part_name, part_rows) in enumerate(zip(part_names, parts)):
+        for _index, (part_name, part_rows) in enumerate(zip(part_names, parts, strict=False)):
             first = re.search(r"\(p := (\d+)\).*\(q := (\d+)\)", part_rows[0])
             last = re.search(r"\(p := (\d+)\).*\(q := (\d+)\)", part_rows[-1])
             assert first and last
@@ -260,7 +250,8 @@ def split_large_row_families(body: str) -> str:
                     "",
                     "set_option maxHeartbeats 20000000 in",
                     f"theorem {part_name}_chain :",
-                    f"    DusartPrimeRowsChain {first.group(1)} {int(last.group(2)) - 1} {part_name} := by",
+                    "    DusartPrimeRowsChain "
+                    f"{first.group(1)} {int(last.group(2)) - 1} {part_name} := by",
                     _local_chain_proof(part_rows),
                     "",
                 ]
@@ -346,8 +337,11 @@ namespace PrimeFactorUnimodality
 noncomputable section
 """
 
+
 def low_facade(last_part: int) -> str:
-    return f"""import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart{last_part:02d}
+    return f"""import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart{
+        last_part:02d
+    }
 
 /-! # Lower finite Dusart prefix facade
 
@@ -375,9 +369,7 @@ def low_modules(body: str) -> dict[str, str]:
     definitions and their chain proofs are small and belong in ``Low.lean``,
     after all row chunks have been imported.
     """
-    marker = re.compile(
-        r"(?m)^set_option maxHeartbeats 20000000 in\ndef dusartPrimeRows_"
-    )
+    marker = re.compile(r"(?m)^set_option maxHeartbeats 20000000 in\ndef dusartPrimeRows_")
     starts = [match.start() for match in marker.finditer(body)]
     assert starts
     family_starts = starts
@@ -397,8 +389,9 @@ def low_modules(body: str) -> dict[str, str]:
             aggregate_segments.append(segment)
 
     result = {
-        "LowBase.lean":
-        (LOW_HEADER + body[:family_starts[0]] + ROW_PROJECTIONS + CHAIN_ASSEMBLER).rstrip()
+        "LowBase.lean": (
+            LOW_HEADER + body[: family_starts[0]] + ROW_PROJECTIONS + CHAIN_ASSEMBLER
+        ).rstrip()
         + "\n"
     }
     ranges: list[tuple[int, int]] = []
@@ -406,7 +399,7 @@ def low_modules(body: str) -> dict[str, str]:
     while offset < len(part_segments):
         end_family = offset + 1
         while end_family < len(part_segments):
-            candidate = "".join(part_segments[offset:end_family + 1])
+            candidate = "".join(part_segments[offset : end_family + 1])
             if len(candidate) > LOW_MODULE_TARGET_BYTES:
                 break
             end_family += 1
@@ -426,8 +419,7 @@ namespace PrimeFactorUnimodality
 noncomputable section
 """
         part_body = "".join(part_segments[offset:end_family])
-        part_rows = re.findall(
-            r"^    dusartPrimeRow_of_explicit[^\n]+(?:\n)?", part_body, re.M)
+        part_rows = re.findall(r"^    dusartPrimeRow_of_explicit[^\n]+(?:\n)?", part_body, re.M)
         certificates = prime_certificates(part_rows, f"lowPocklingtonData{part:02d}")
         part_body = re.sub(
             r"(\(q := (\d+)\)) \(by decide\)",
@@ -435,9 +427,7 @@ noncomputable section
             part_body,
             count=0,
         )
-        result[f"{module}.lean"] = (
-            header + certificates + part_body
-        ).rstrip() + "\n"
+        result[f"{module}.lean"] = (header + certificates + part_body).rstrip() + "\n"
     imports = "\n".join(
         f"import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart{part:02d}"
         for part in range(1, len(ranges) + 1)
@@ -446,7 +436,8 @@ noncomputable section
         imports
         + "\n\nset_option autoImplicit false\nset_option maxRecDepth 1000000\n\n"
         + "{-! # Generated low finite prime interval rows\n\n"
-        + "This facade imports the independent low-range row chunks and assembles their shared coverage data. -}\n\n"
+        + "This facade imports the independent low-range row chunks and assembles "
+        + "their shared coverage data. -}\n\n"
         + "namespace PrimeFactorUnimodality\n\nnoncomputable section\n"
         + "".join(aggregate_segments)
     ).rstrip() + "\n"
@@ -465,7 +456,9 @@ def main() -> None:
     args = parser.parse_args()
 
     repo = args.repo.resolve()
-    out = (args.output_dir or repo / "PrimeFactorUnimodality/Helpers/Analytic/FinitePrimeIntervalRows").resolve()
+    out = (
+        args.output_dir or repo / "PrimeFactorUnimodality/Helpers/Analytic/FinitePrimeIntervalRows"
+    ).resolve()
     out.mkdir(parents=True, exist_ok=True)
     text = source_text(repo)
     low = split_large_row_families(normalize(extract(text, LOW_START, HIGH_START)))
@@ -485,7 +478,8 @@ def main() -> None:
     row_count = sum(
         len(re.findall(r"^    dusartPrimeRow_of_explicit[^\n]+(?:\n)?", segment, re.M))
         for segment in re.findall(
-            r"(?ms)^set_option maxHeartbeats 20000000 in\ndef dusartPrimeRows_.*?(?=^set_option maxHeartbeats 20000000 in\ndef dusartPrimeRows_|\Z)",
+            r"(?ms)^set_option maxHeartbeats 20000000 in\ndef dusartPrimeRows_.*?"
+            r"(?=^set_option maxHeartbeats 20000000 in\ndef dusartPrimeRows_|\Z)",
             low,
         )
     )

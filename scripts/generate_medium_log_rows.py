@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-
 BANDS = (
     (89693, 100000, 58, 5, "log_le_116_over_10_of_89693_le_of_le_100000"),
     (100001, 110000, 59, 5, "log_le_59_over_5_of_100001_le_of_le_110000"),
@@ -39,13 +38,12 @@ def band_pairs(primes: list[int], lower: int, upper: int) -> list[tuple[int, int
 
 
 def datum_line(p: int, q: int, lower: int, upper: int, lnum: int, lden: int) -> str:
-    return (
-        f"    ⟨{p}, {q}, by norm_num, by norm_num, by decide, "
-        f"by norm_num, by decide⟩,"
-    )
+    return f"    ⟨{p}, {q}, by norm_num, by norm_num, by decide, by norm_num, by decide⟩,"
 
 
-def band_module(index: int, band: tuple[int, int, int, int, str], pairs: list[tuple[int, int]]) -> str:
+def band_module(
+    index: int, band: tuple[int, int, int, int, str], pairs: list[tuple[int, int]]
+) -> str:
     lower, upper, lnum, lden, log_bound = band
     datum = f"MediumLogDatum {lower} {upper} {lnum} {lden}"
     row_name = f"mediumLogRow{index:02d}"
@@ -60,7 +58,7 @@ def band_module(index: int, band: tuple[int, int, int, int, str], pairs: list[tu
         "",
         "set_option autoImplicit false",
         "set_option maxRecDepth 100000",
-        f"set_option maxHeartbeats 200000000 in",
+        "set_option maxHeartbeats 200000000 in",
         f"/-! # Compact medium log-cubed band {index:02d} -/",
         "",
         "namespace PrimeFactorUnimodality",
@@ -77,8 +75,7 @@ def band_module(index: int, band: tuple[int, int, int, int, str], pairs: list[tu
             "",
             f"def {row_name} (datum : {datum}) : FinitePrimeGapLogRow :=",
             "  finitePrimeGapLogRow_of_scaled_explicit datum.q_prime datum.p_lt_q",
-            f"    (by have h := datum.p_lower; omega) "
-            f"({log_bound} datum.p_lower datum.p_upper)",
+            f"    (by have h := datum.p_lower; omega) ({log_bound} datum.p_lower datum.p_upper)",
             "    (by norm_num) datum.scaled_product",
             "",
             f"def {rows_name} : List FinitePrimeGapLogRow :=",
@@ -103,7 +100,8 @@ def band_module(index: int, band: tuple[int, int, int, int, str], pairs: list[tu
 
 def aggregate(bands: list[tuple[tuple[int, int, int, int, str], list[tuple[int, int]]]]) -> str:
     imports = "\n".join(
-        f"import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.MediumLogBand{index:02d}"
+        "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.MediumLogBand"
+        f"{index:02d}"
         for index in range(1, len(bands) + 1)
     )
     end = bands[-1][1][-1][1] - 1
@@ -121,7 +119,7 @@ def aggregate(bands: list[tuple[tuple[int, int, int, int, str], list[tuple[int, 
         "noncomputable section",
         "",
     ]
-    for index, (_, pairs) in enumerate(bands, 1):
+    for index, (_, _pairs) in enumerate(bands, 1):
         lines.append(f"def mediumLogRowsPrefix{index:02d} : List FinitePrimeGapLogRow :=")
         if index == 1:
             lines.append(f"  [mediumLogSeedRow] ++ mediumLogRows{index:02d}")
@@ -143,7 +141,8 @@ def aggregate(bands: list[tuple[tuple[int, int, int, int, str], list[tuple[int, 
             )
         else:
             lines.append(
-                f"  exact finitePrimeGapLogRowsChain_append mediumLogRowsPrefix{index - 1:02d}_chain"
+                "  exact finitePrimeGapLogRowsChain_append "
+                f"mediumLogRowsPrefix{index - 1:02d}_chain"
                 f" mediumLogRows{index:02d}_chain"
             )
         lines.append("")
@@ -158,7 +157,8 @@ def aggregate(bands: list[tuple[tuple[int, int, int, int, str], list[tuple[int, 
     lines.extend(
         [
             "theorem mediumLogRows_89693_360653_cover :",
-            f"    FinitePrimeGapLogRowsCoverUpTo mediumLogRowsPrefix{len(bands):02d} (360653 : Real) := by",
+            "    FinitePrimeGapLogRowsCoverUpTo "
+            f"mediumLogRowsPrefix{len(bands):02d} (360653 : Real) := by",
             "  exact finitePrimeGapLogRowsCoverUpTo_of_chain",
             "    mediumLogRows_89693_360653_chain (by norm_num)",
             "",
@@ -187,14 +187,9 @@ def main() -> None:
     for index, band in enumerate(BANDS, 1):
         pairs = band_pairs(primes, band[0], band[1])
         assert pairs and pairs[0][0] >= band[0] and pairs[-1][0] <= band[1]
-        assert all(
-            (q - p) * band[2] ** 3 <= p * band[3] ** 3
-            for p, q in pairs
-        )
+        assert all((q - p) * band[2] ** 3 <= p * band[3] ** 3 for p, q in pairs)
         generated.append((band, pairs))
-        (output / f"MediumLogBand{index:02d}.lean").write_text(
-            band_module(index, band, pairs)
-        )
+        (output / f"MediumLogBand{index:02d}.lean").write_text(band_module(index, band, pairs))
     (output / "MediumLogRows.lean").write_text(aggregate(generated))
     print("generated", sum(len(pairs) for _, pairs in generated), "adjacent-prime rows")
 

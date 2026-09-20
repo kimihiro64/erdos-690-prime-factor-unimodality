@@ -13,7 +13,6 @@ import ast
 import re
 from pathlib import Path
 
-
 THEOREM = re.compile(
     r"theorem lowPrime_(\d+) : Nat\.Prime \1 := by\n"
     r".*?apply Nat\.prime_of_pocklington_factor_of_prime_factors "
@@ -30,17 +29,15 @@ def extract(path: Path) -> list[tuple[int, int, int, int, list[int], list[int]]]
         start = match.start()
         finish = matches[index + 1].start() if index + 1 < len(matches) else len(text)
         block = text[start:finish]
-        n, _, F, R, base = map(int, match.groups()[:5])
+        n, _, factor_bound, remainder_bound, base = map(int, match.groups()[:5])
         factors = ast.literal_eval(match.group(6))
         inverses = [
             int(value)
-            for value in re.findall(
-                rf"apply IsUnit\.of_mul_eq_one \((\d+) : ZMod {n}\)", block
-            )
+            for value in re.findall(rf"apply IsUnit\.of_mul_eq_one \((\d+) : ZMod {n}\)", block)
         ]
         if len(inverses) != len(factors):
             raise ValueError(f"{path}: {n}: factor/residue count mismatch")
-        result.append((n, F, R, base, factors, inverses))
+        result.append((n, factor_bound, remainder_bound, base, factors, inverses))
     if not result:
         raise ValueError(f"no Pocklington witnesses found in {path}")
     return result
@@ -50,22 +47,22 @@ def render(name: str, certificates: list[tuple[int, int, int, int, list[int], li
     data_name = f"pocklingtonData{name}"
     defs = []
     data_names = []
-    for n, F, R, base, factors, inverses in certificates:
-        residues = ", ".join(f"({q}, {inv})" for q, inv in zip(factors, inverses))
+    for n, factor_bound, remainder_bound, base, factors, inverses in certificates:
+        residues = ", ".join(f"({q}, {inv})" for q, inv in zip(factors, inverses, strict=False))
         datum_name = f"{data_name}_{n}"
         data_names.append(datum_name)
         defs.extend(
             [
                 f"def {datum_name} : PocklingtonData :=",
                 "  { n := "
-                f"{n}, F := {F}, R := {R}, a := {base}, "
+                f"{n}, F := {factor_bound}, R := {remainder_bound}, a := {base}, "
                 f"factors := {factors!r}, residues := [{residues}] }}",
                 "",
             ]
         )
     cases = " | ".join("rfl" for _ in data_names)
     wrappers = []
-    for datum_name, (n, *_rest) in zip(data_names, certificates):
+    for datum_name, (n, *_rest) in zip(data_names, certificates, strict=False):
         wrappers.extend(
             [
                 f"set_option maxRecDepth 100000 in\ntheorem lowPrime_{n} : Nat.Prime {n} := by",

@@ -3,10 +3,9 @@
 
 from __future__ import annotations
 
-from fractions import Fraction
 import math
+from fractions import Fraction
 from pathlib import Path
-
 
 DEN = 10_000
 
@@ -82,4 +81,6 @@ def render() -> str:
 
 
 if __name__ == "__main__":
-    Path("PrimeFactorUnimodality/Helpers/Analytic/DusartIntermediateCoeffData.lean").write_text(render())
+    Path("PrimeFactorUnimodality/Helpers/Analytic/DusartIntermediateCoeffData.lean").write_text(
+        render()
+    )

@@ -15,7 +15,6 @@ import json
 import math
 from pathlib import Path
 
-
 CONSTANT = 1_777_745 / 1_000_000
 PAPER_FINITE_CUTOFF = 10**33
 
@@ -25,9 +24,7 @@ def sieve(limit: int) -> bytearray:
     prime[:2] = b"\0\0"
     for p in range(2, math.isqrt(limit) + 1):
         if prime[p]:
-            prime[p * p : limit + 1 : p] = b"\0" * (
-                (limit - p * p) // p + 1
-            )
+            prime[p * p : limit + 1 : p] = b"\0" * ((limit - p * p) // p + 1)
     return prime
 
 
@@ -83,11 +80,9 @@ def lean_data(rows: list[dict[str, int]]) -> str:
         "namespace PrimeFactorUnimodality",
         "",
         "/-! Endpoint metadata for the compact Lemma 3.3 midrange rows. -/",
-        "def dusartLemma33MidrangeData : List (Nat × Nat × Nat) := [",
+        "def dusartLemma33MidrangeData : List (Nat " + "\u00d7" + " Nat " + "\u00d7" + " Nat) := [",
     ]
-    lines.extend(
-        f"  ({row['left']}, {row['right']}, {row['root']})," for row in rows
-    )
+    lines.extend(f"  ({row['left']}, {row['right']}, {row['root']})," for row in rows)
     lines.extend(
         [
             "]",
