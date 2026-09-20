@@ -221,6 +221,14 @@ The implementation is chained through cacheable generated row modules.
 """
 
 
+def low_manifest(part_count: int) -> str:
+    """Record the generated part sequence for deterministic CI sharding."""
+    return f"""/-! Generated lower-prefix module manifest. -/
+
+def finitePrimeIntervalRowsLowPartCount : Nat := {part_count}
+"""
+
+
 def low_modules(body: str) -> dict[str, str]:
     """Split the lower prefix at complete row-list/chain family boundaries."""
     marker = re.compile(
@@ -270,6 +278,7 @@ noncomputable section
         previous = module
     assert previous == f"LowPart{len(ranges):02d}"
     result["Low.lean"] = low_facade(len(ranges))
+    result["LowManifest.lean"] = low_manifest(len(ranges))
     return result
 
 
@@ -296,6 +305,11 @@ def main() -> None:
                 proofs = len(re.findall(r"\(by (?:norm_num|decide|omega)\)", line))
                 assert proofs == 5, (proofs, line)
     generated_low = low_modules(low)
+    generated_names = set(generated_low)
+    stale_pattern = re.compile(r"LowPart\d+\.lean")
+    for stale in out.glob("LowPart*.lean"):
+        if stale_pattern.fullmatch(stale.name) and stale.name not in generated_names:
+            stale.unlink()
     for name, generated in generated_low.items():
         (out / name).write_text(generated)
     (out / "High.lean").write_text((HIGH_HEADER + high).rstrip() + "\n")
