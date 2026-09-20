@@ -73,10 +73,47 @@ def choose_rows(limit: int) -> list[dict[str, int]]:
     return rows
 
 
+def lean_data(rows: list[dict[str, int]]) -> str:
+    lines = [
+        "import PrimeFactorUnimodality.Helpers.Analytic.DusartFiniteRows",
+        "",
+        "set_option autoImplicit false",
+        "",
+        "namespace PrimeFactorUnimodality",
+        "",
+        "/-! Endpoint metadata for the compact Lemma 3.3 midrange rows. -/",
+        "def dusartLemma33MidrangeData : List (Nat × Nat × Nat) := [",
+    ]
+    lines.extend(
+        f"  ({row['left']}, {row['right']}, {row['root']})," for row in rows
+    )
+    lines.extend(
+        [
+            "]",
+            "",
+            "theorem dusartLemma33MidrangeData_length :",
+            f"    dusartLemma33MidrangeData.length = {len(rows)} := by decide",
+            "",
+            "theorem dusartLemma33MidrangeData_cover :",
+            "    ∀ n : Nat, 2402 ≤ n → n ≤ 10000000 →",
+            "      ∃ row ∈ dusartLemma33MidrangeData,",
+            "        row.1 ≤ n ∧ n ≤ row.2.1 := by",
+            "  intro n hn hN",
+            "  simp [dusartLemma33MidrangeData]",
+            "  omega",
+            "",
+            "end PrimeFactorUnimodality",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=10_000_000)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--lean-output", type=Path)
     args = parser.parse_args()
     rows = choose_rows(args.limit)
     payload = {
@@ -88,6 +125,9 @@ def main() -> None:
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(payload, indent=2) + "\n")
+    if args.lean_output is not None:
+        args.lean_output.parent.mkdir(parents=True, exist_ok=True)
+        args.lean_output.write_text(lean_data(rows))
     print(f"generated {len(rows)} rows through {args.limit}")
 
 
