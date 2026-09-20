@@ -1,6 +1,7 @@
 import Mathlib.Tactic.NormNum
 import PrimeFactorUnimodality.Definitions.DivisibilityPredicate
 import PrimeFactorUnimodality.Definitions.FiniteDensity
+import PrimeFactorUnimodality.Helpers.FiniteCertificates.ComputablePrimePrefix
 
 set_option autoImplicit false
 
@@ -37,7 +38,8 @@ theorem fourthNaturalDensityAt13 :
   have h := hasNaturalDensity_isKthDistinctPrimeFactor_eq_prescribed
     4 (p := 13) (by decide)
   have hp : primesBelow 13 = primesBefore13 := by
-    decide
+    rw [primesBelow_eq_computablePrimesBelow]
+    norm_num [computablePrimesBelow, isPrimeTrial]
   rw [hp, fourthDensityAt13] at h
   exact h
 
@@ -47,7 +49,8 @@ theorem fourthNaturalDensityAt17 :
   have h := hasNaturalDensity_isKthDistinctPrimeFactor_eq_prescribed
     4 (p := 17) (by decide)
   have hp : primesBelow 17 = primesBefore17 := by
-    decide
+    rw [primesBelow_eq_computablePrimesBelow]
+    norm_num [computablePrimesBelow, isPrimeTrial]
   rw [hp, fourthDensityAt17] at h
   exact h
 
@@ -57,7 +60,8 @@ theorem fourthNaturalDensityAt19 :
   have h := hasNaturalDensity_isKthDistinctPrimeFactor_eq_prescribed
     4 (p := 19) (by decide)
   have hp : primesBelow 19 = primesBefore19 := by
-    decide
+    rw [primesBelow_eq_computablePrimesBelow]
+    norm_num [computablePrimesBelow, isPrimeTrial]
   rw [hp, fourthDensityAt19] at h
   exact h
 
