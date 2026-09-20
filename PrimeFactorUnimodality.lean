@@ -1,5 +1,6 @@
 import PrimeFactorUnimodality.Assembly.FourthWitness
 import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
+import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
 import PrimeFactorUnimodality.Mathlib
 import PrimeFactorUnimodality.Proof.CompleteClassification
 import PrimeFactorUnimodality.Proof.Analytic.WangCrapisClosed
