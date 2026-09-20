@@ -21,6 +21,20 @@ structure WangCrapisFiniteProviders where
   logCubed : ∀ Y : Real, (89693 : Real) ≤ Y →
     HasLogCubedShortIntervalPrimeBelow Y
 
+/-! A certificate package is needed only at the cutoff selected by the
+source-level MediumPNT argument.  Quantifying the finite fields over every
+possible cutoff would impose a stronger obligation than the analytic proof
+uses and would obscure the actual all-`k` boundary. -/
+structure WangCrapisSelectedFiniteProviders where
+  cutoff : Real
+  lower : (4e18 : Real) ≤ cutoff
+  thetaErrorBelow :
+    HasThetaLogFourthErrorBelow (648 / 1000 : Real) (4e18 : Real)
+  thetaError : HasThetaLogFourthError (648 / 1000 : Real) cutoff
+  primeCounting : HasDusartRealPrimeCountingBoundsBelow cutoff
+  theta : HasDusartSymmetricThetaBoundsBelow cutoff
+  shortInterval : HasLogCubedShortIntervalPrimeBelow cutoff
+
 /-!
 # Closed Wang--Crapis analytic package
 
@@ -98,6 +112,23 @@ theorem completeClassification_closed_of_finite_providers
   exact completeClassification_closed_of_mediumPNT_finite_providers
     providers.thetaBounds providers.thetaError providers.primeCounting
     providers.logCubed
+
+theorem completeClassification_closed_of_selected_finite_providers
+    (providers : WangCrapisSelectedFiniteProviders) :
+    CompleteClassification := by
+  have finiteThetaError :
+      HasThetaLogFourthErrorBelow (648 / 1000 : Real) (4e18 : Real) :=
+    providers.thetaErrorBelow
+  exact completeClassification_of_mediumPNT_and_selected_finite_theta_error
+    (X := (4e18 : Real)) (A := (648 / 1000 : Real))
+    le_rfl (by norm_num) (by norm_num) finiteThetaError
+    { cutoff := providers.cutoff
+      lower := providers.lower
+      large := providers.lower
+      thetaError := providers.thetaError
+      primeCounting := providers.primeCounting
+      theta := providers.theta
+      shortInterval := providers.shortInterval }
 
 theorem wangCrapisPaperInputs_of_finite_providers
     (providers : WangCrapisFiniteProviders) :
