@@ -455,6 +455,92 @@ theorem dusart_prime_power_rpow_sum_le
     simp only [Finset.mem_Icc] at hk₂
     omega
 
+/-! The logarithmic count of exponents is negligible at Dusart's large
+cutoff.  This is the elementary monotonicity estimate used to turn the
+finite sum above into a fixed multiple of `x^(1/3)`. -/
+theorem dusart_floor_log_div_two_le_rpow
+    {x : Real} (hx : (10 ^ 11 : Real) ^ 3 ≤ x) :
+    (⌊Real.log x / Real.log 2⌋₊ : Real) ≤
+      (7 : Real) / 10 * x ^ (1 / (12 : Real)) := by
+  have hx0 : (10 : Real) ^ 33 ≤ x := by
+    convert hx using 1
+    norm_num [pow_mul]
+  have hx0_pos : 0 < (10 : Real) ^ 33 := by positivity
+  have hx_pos : 0 < x := hx0_pos.trans_le hx0
+  have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
+  have hlogx_pos : 0 < Real.log x := by
+    apply Real.log_pos
+    have : (1 : Real) < (10 : Real) ^ 33 := by norm_num
+    exact this.trans_le hx0
+  have hthreshold : Real.exp ((1 / (12 : Real))⁻¹) ≤ (10 : Real) ^ 33 := by
+    rw [show (1 / (12 : Real))⁻¹ = 12 by norm_num]
+    have hexp : Real.exp (12 : Real) < (3 : Real) ^ 12 := by
+      rw [show (12 : Real) = (12 : Nat) * 1 by norm_num,
+        Real.exp_nat_mul]
+      exact pow_lt_pow_left₀ Real.exp_one_lt_three
+        (Real.exp_pos 1).le (by norm_num)
+    linarith
+  have hratio_mono := Real.log_div_self_rpow_antitoneOn
+    (a := (1 / (12 : Real))) (by norm_num)
+    hthreshold (le_trans hthreshold hx0) hx0
+  have hpow160 : (160 : Real) ≤ ((10 : Real) ^ 33) ^ (1 / (12 : Real)) := by
+    rw [← Real.rpow_natCast, ← Real.rpow_mul (by norm_num)]
+    apply Real.le_rpow_of_log_le (by norm_num)
+    rw [show (160 : Real) = 2 ^ (4 : Nat) * 10 by norm_num,
+      Real.log_mul (by norm_num) (by norm_num), Real.log_pow]
+    have hlog2_10 : 16 * Real.log 2 ≤ 7 * Real.log 10 := by
+      have hpow : (2 : Real) ^ 16 ≤ (10 : Real) ^ 7 := by norm_num
+      have := Real.log_le_log (by positivity) hpow
+      rw [Real.log_pow, Real.log_pow] at this
+      exact this
+    have hlog10_pos : 0 < Real.log 10 := Real.log_pos (by norm_num)
+    have hlog160 : Real.log 160 = 4 * Real.log 2 + Real.log 10 := by
+      rw [show (160 : Real) = 2 ^ (4 : Nat) * 10 by norm_num,
+        Real.log_mul (by norm_num) (by norm_num), Real.log_pow]
+      norm_num
+    nlinarith [hlog2_10]
+  have hlog10_lt : Real.log 10 < (231 : Real) / 100 := by
+    have hexp : (10 : Real) < Real.exp ((231 : Real) / 100) := by
+      have h := Real.sum_le_exp_of_nonneg (x := (231 : Real) / 100)
+        (by norm_num) 8
+      norm_num [Finset.sum_range_succ, Nat.factorial] at h ⊢
+      nlinarith
+    exact (Real.log_lt_iff_lt_exp (x := (10 : Real))
+      (y := (231 : Real) / 100) (by norm_num)).2 hexp
+  have hratio : Real.log x / x ^ (1 / (12 : Real)) ≤
+      (7 : Real) / 10 * Real.log 2 := by
+    have hden : 0 < x ^ (1 / (12 : Real)) := by positivity
+    have hmono : Real.log x / x ^ (1 / (12 : Real)) ≤
+        Real.log ((10 : Real) ^ 33) / ((10 : Real) ^ 33) ^ (1 / (12 : Real)) := by
+      simpa using hratio_mono
+    have hnum : Real.log ((10 : Real) ^ 33) ≤ (33 : Real) * ((231 : Real) / 100) := by
+      rw [Real.log_pow]
+      nlinarith
+    have hquot : Real.log ((10 : Real) ^ 33) /
+        ((10 : Real) ^ 33) ^ (1 / (12 : Real)) ≤
+        ((33 : Real) * ((231 : Real) / 100)) / 160 := by
+      calc
+        Real.log ((10 : Real) ^ 33) /
+            ((10 : Real) ^ 33) ^ (1 / (12 : Real)) ≤
+            ((33 : Real) * ((231 : Real) / 100)) /
+              ((10 : Real) ^ 33) ^ (1 / (12 : Real)) :=
+          div_le_div_of_nonneg_right hnum (by positivity)
+        _ ≤ ((33 : Real) * ((231 : Real) / 100)) / 160 :=
+          div_le_div_of_nonneg_left (by norm_num) (by norm_num) hpow160
+    have hlog2_lower : (69 : Real) / 100 < Real.log 2 := by
+      nlinarith [Real.log_two_gt_d9]
+    nlinarith [hmono, hquot]
+  have hfloor : (⌊Real.log x / Real.log 2⌋₊ : Real) ≤
+      Real.log x / Real.log 2 := by
+    exact_mod_cast Nat.floor_le (div_nonneg hlogx_pos.le hlog2.le)
+  have hcount : Real.log x / Real.log 2 ≤
+      (7 : Real) / 10 * x ^ (1 / (12 : Real)) := by
+    have hden : 0 < x ^ (1 / (12 : Real)) := by positivity
+    apply (div_le_iff₀ hlog2).2
+    have h := (div_le_iff₀ hden).1 hratio
+    nlinarith
+  exact hfloor.trans hcount
+
 theorem dusart_gap_upper_from_uniform_root_bound
     {x : Real} (hx : (121 : Real) ≤ x)
     (hroot : ∀ y : Real, 0 ≤ y →
