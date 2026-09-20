@@ -354,12 +354,14 @@ The implementation is chained through cacheable generated row modules.
 """
 
 
-def low_manifest(part_count: int) -> str:
+def low_manifest(part_count: int, row_count: int) -> str:
     """Record the generated part sequence for deterministic CI sharding."""
-    return f"""/-! Generated lower-prefix module manifest. -/
+    return f'''/-! Generated lower-prefix module manifest. -/
 
 def finitePrimeIntervalRowsLowPartCount : Nat := {part_count}
-"""
+def finitePrimeIntervalRowsLowRowCount : Nat := {row_count}
+def finitePrimeIntervalRowsLowSourceRevision : String := "{SOURCE_REVISION}"
+'''
 
 
 def low_modules(body: str) -> dict[str, str]:
@@ -443,7 +445,11 @@ noncomputable section
         + "namespace PrimeFactorUnimodality\n\nnoncomputable section\n"
         + "".join(aggregate_segments)
     ).rstrip() + "\n"
-    result["LowManifest.lean"] = low_manifest(len(ranges))
+    row_count = sum(
+        len(re.findall(r"^    dusartPrimeRow[^\\n]+(?:\\n)?", segment, re.M))
+        for segment in part_segments
+    )
+    result["LowManifest.lean"] = low_manifest(len(ranges), row_count)
     return result
 
 
@@ -470,6 +476,7 @@ def main() -> None:
                 proofs = len(re.findall(r"\(by (?:norm_num|decide|omega)\)", line))
                 assert proofs == 5, (proofs, line)
     generated_low = low_modules(low)
+    assert len([name for name in generated_low if name.startswith("LowPart")]) <= 32
     generated_names = set(generated_low)
     stale_pattern = re.compile(r"LowPart\d+\.lean")
     for stale in out.glob("LowPart*.lean"):
