@@ -64,14 +64,15 @@ theorem computablePrimesBelow_succ_length (n : Nat) :
 
 theorem theta_nat_eq_computablePrimePrefix_log_sum (n : Nat) :
     Chebyshev.theta n =
-      (computablePrimesBelow (n + 1)).map Real.log |>.sum := by
+      ((computablePrimesBelow (n + 1)).map (fun p : Nat => Real.log p)).sum := by
   rw [Chebyshev.theta_eq_sum_primesLE_log]
   rw [← primesBelow_eq_computablePrimesBelow (n + 1)]
-  change (∑ p ∈ Nat.primesLE n, Real.log p) =
-    (List.map Real.log (primesBelow (n + 1))).sum
-  change (∑ p ∈ Nat.primesLE n, Real.log p) =
-    (Multiset.map Real.log
-      (↑((Nat.primesLE n).sort (fun a b => a ≤ b)) : Multiset Nat)).sum
-  rw [Finset.sort_eq]
+  rw [show primesBelow (n + 1) = (Nat.primesLE n).sort (fun a b => a ≤ b) by
+    rfl]
+  symm
+  simpa [List.map_flatMap, List.flatMap] using (List.sum_toFinset
+    (l := (Nat.primesLE n).sort (fun a b : Nat => a ≤ b))
+    (fun p : Nat => Real.log p)
+    (Finset.sort_nodup (Nat.primesLE n) (fun a b : Nat => a ≤ b))).symm
 
 end PrimeFactorUnimodality
