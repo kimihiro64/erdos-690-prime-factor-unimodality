@@ -334,5 +334,44 @@ theorem dusart_theta_upper_e28_from_absolute_psi_error
     nlinarith
   exact dusart_theta_upper_e28_step hx hx_exp hpsi hgap
 
+/-! The strict form is the one consumed by the published theta interface.
+The paper's two strict input estimates are retained here instead of being
+weakened to a closed inequality at this boundary. -/
+theorem dusart_theta_upper_e28_step_strict
+    {x : Real} (hx : (8e11 : Real) ≤ x)
+    (hx_exp : x ≤ Real.exp 28)
+    (hpsi : Chebyshev.psi x < (100002841 : Real) / 100000000 * x)
+    (hgap : (9999 : Real) / 10000 * Real.sqrt x <
+      Chebyshev.psi x - Chebyshev.theta x) :
+    Chebyshev.theta x - x < x / 36260 := by
+  have hx_pos : 0 < x := by linarith
+  have hsqrt_nonneg : 0 ≤ Real.sqrt x := Real.sqrt_nonneg x
+  have hsqrt_sq : (Real.sqrt x) ^ 2 = x := by
+    simpa using Real.sq_sqrt (le_of_lt hx_pos)
+  have hx_upper : x ≤ (1446257067000 : Real) := by
+    exact hx_exp.trans (le_of_lt exp_twentyEight_lt_dusart_endpoint)
+  have hsqrt_lower : (894000 : Real) ≤ Real.sqrt x := by
+    apply (Real.le_sqrt' (by norm_num : (0 : Real) < 894000)).2
+    nlinarith
+  have hsqrt_upper : Real.sqrt x ≤ (12026689 : Real) / 10 := by
+    apply (Real.sqrt_le_iff).2
+    constructor
+    · norm_num
+    · nlinarith
+  have hxs : x ≤ (12026689 : Real) / 10 * Real.sqrt x := by
+    calc
+      x = Real.sqrt x * Real.sqrt x := by nlinarith [hsqrt_sq]
+      _ ≤ (12026689 : Real) / 10 * Real.sqrt x :=
+        mul_le_mul_of_nonneg_right hsqrt_upper hsqrt_nonneg
+  have hlinear :
+      (100002841 : Real) / 100000000 * x -
+          (9999 : Real) / 10000 * Real.sqrt x - x ≤ x / 36260 := by
+    nlinarith
+  have hmain : Chebyshev.theta x - x <
+      (100002841 : Real) / 100000000 * x -
+        (9999 : Real) / 10000 * Real.sqrt x - x := by
+    linarith
+  exact hmain.trans_le hlinear
+
 end
 end PrimeFactorUnimodality

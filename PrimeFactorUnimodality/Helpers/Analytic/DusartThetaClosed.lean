@@ -42,6 +42,16 @@ theorem wangCrapis_theta_upper_e28_from_paper_inputs
   exact dusart_theta_upper_e28_from_absolute_psi_error
     hx hx_exp hpsi_error hgap
 
+theorem wangCrapis_theta_upper_e28_from_strict_paper_inputs
+    {x : Real} (hx : (8e11 : Real) ≤ x)
+    (hx_exp : x ≤ Real.exp 28)
+    (hpsi : Chebyshev.psi x <
+      (100002841 : Real) / 100000000 * x)
+    (hgap : (9999 : Real) / 10000 * Real.sqrt x <
+      Chebyshev.psi x - Chebyshev.theta x) :
+    Chebyshev.theta x - x < x / 36260 := by
+  exact dusart_theta_upper_e28_step_strict hx hx_exp hpsi hgap
+
 /-! Exact assembly boundary for the theta provider.  The finite endpoint
 proof and the explicit log-fourth tail remain separate inputs until both are
 proved from their underlying arguments. -/
