@@ -92,6 +92,45 @@ def witness_list(
     return f"def {name} : List {type_name} := [\n    {entries}\n  ]"
 
 
+def fermat_rows_text(fermat_offsets: list[tuple[int, str]]) -> str:
+    """Render all replay rows and derived facts in the compact source file."""
+    lines: list[str] = []
+    row_size = 64
+    for start in range(0, len(fermat_offsets), row_size):
+        row_number = start // row_size + 1
+        row_name = f"fullRecordGapRow{row_number:05d}"
+        entries = fermat_offsets[start : start + row_size]
+        values = ",\n    ".join(
+            f"fullRecordGapCenterValue {'-' if offset < 0 else '+'} {abs(offset)}"
+            for offset, _ in entries
+        )
+        lines.extend(
+            [
+                f"def {row_name}_values : List Nat :=\n  [{values}]\n",
+                "set_option maxHeartbeats 0 in",
+                f"theorem {row_name}_fermat : ∀ n ∈ {row_name}_values,",
+                "    fastPowMod 3 n (n - 1) ≠ 1 := by",
+                "  decide\n",
+            ]
+        )
+        for index, (offset, _) in enumerate(entries, start=start + 1):
+            label = f"{index:05d}"
+            sign = "-" if offset < 0 else "+"
+            lines.extend(
+                [
+                    f"theorem fullRecordGapTerm{label}_not_prime : "
+                    f"¬(recordGapCenter {sign} {abs(offset)}).Prime := by",
+                    "  rw [recordGapCenter_eq_fullRecordGapCenterValue]",
+                    "  apply not_prime_of_fastPowMod_ne_one (a := 3)",
+                    "  · norm_num",
+                    f"  · norm_num [fullRecordGapCenterValue {sign} {abs(offset)}]",
+                    f"  · apply {row_name}_fermat",
+                    f"    simp [{row_name}_values]\n",
+                ]
+            )
+    return "\n".join(lines)
+
+
 def render(output: Path) -> None:
     sub_archive, add_archive, sub_fermat, add_fermat = classify()
     fermat_offsets = sorted([(-d, "sub") for d in sub_fermat] + [(d, "add") for d in add_fermat])
@@ -108,8 +147,10 @@ def render(output: Path) -> None:
         [(d, indices[d]) for d in add_fermat],
         "fullRecordGapTerm",
     )
+    fermat_rows = fermat_rows_text(fermat_offsets)
     source = f"""import PrimeFactorUnimodality.Proof.LargeRange.RecordGapOwnerRows
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapFermat
+import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCenter
 
 set_option autoImplicit false
 set_option maxRecDepth 10000000
@@ -172,6 +213,8 @@ def fullRecordGapSubOwner? (d : Nat) : Option FullRecordGapOwner :=
 def fullRecordGapAddOwner? (d : Nat) : Option FullRecordGapOwner :=
   fullRecordGapSmallAddOwner? d |>.orElse (fun _ =>
     fullRecordGapTailOwner? d |>.orElse (fun _ => fullRecordGapAddArchiveOwner? d))
+
+{fermat_rows}
 
 {sub_entries}
 
