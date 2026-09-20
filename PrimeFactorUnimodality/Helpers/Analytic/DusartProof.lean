@@ -16,6 +16,11 @@ noncomputable section
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
 
+/- The finite boundary in Dusart's Lemma 3.3 is exactly 10^33. -/
+theorem dusart_paper_lemma_3_3_finite_cutoff_eq :
+    ((10 ^ 11 : Real) ^ 3) = 10 ^ 33 := by
+  norm_num [pow_mul]
+
 theorem psi_sub_theta_mono {x y : Real} (hxy : x ≤ y) :
     Chebyshev.psi x - Chebyshev.theta x ≤
       Chebyshev.psi y - Chebyshev.theta y := by
