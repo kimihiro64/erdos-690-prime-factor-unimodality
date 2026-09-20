@@ -48,16 +48,33 @@ def extract(path: Path) -> list[tuple[int, int, int, int, list[int], list[int]]]
 
 def render(name: str, certificates: list[tuple[int, int, int, int, list[int], list[int]]]) -> str:
     data_name = f"pocklingtonData{name}"
-    rows = []
+    defs = []
+    data_names = []
     for n, F, R, base, factors, inverses in certificates:
         residues = ", ".join(f"({q}, {inv})" for q, inv in zip(factors, inverses))
-        rows.append(
-            "    { n := "
-            f"{n}, F := {F}, R := {R}, a := {base}, "
-            f"factors := {factors!r}, residues := [{residues}] }}"
+        datum_name = f"{data_name}_{n}"
+        data_names.append(datum_name)
+        defs.extend(
+            [
+                f"def {datum_name} : PocklingtonData :=",
+                "  { n := "
+                f"{n}, F := {F}, R := {R}, a := {base}, "
+                f"factors := {factors!r}, residues := [{residues}] }}",
+                "",
+            ]
         )
-    names = [f"d{index}" for index in range(len(certificates))]
-    cases = " | ".join("rfl" for _ in names)
+    cases = " | ".join("rfl" for _ in data_names)
+    wrappers = []
+    for datum_name, (n, *_rest) in zip(data_names, certificates):
+        wrappers.extend(
+            [
+                f"set_option maxRecDepth 100000 in\ntheorem lowPrime_{n} : Nat.Prime {n} := by",
+                f"  apply PocklingtonData.prime {datum_name}",
+                f"  apply {data_name}_valid",
+                f"  simp [{data_name}, {datum_name}]",
+                "",
+            ]
+        )
     return "\n".join(
         [
             "import PrimeFactorUnimodality.Mathlib.NumberTheory.PocklingtonRows",
@@ -67,10 +84,8 @@ def render(name: str, certificates: list[tuple[int, int, int, int, list[int], li
             "",
             "namespace PrimeFactorUnimodality",
             "",
-            f"def {data_name} : List PocklingtonData :=",
-            "  [",
-            ",\n".join(rows),
-            "  ]",
+            *defs,
+            f"def {data_name} : List PocklingtonData := [{', '.join(data_names)}]",
             "",
             f"set_option maxRecDepth 100000 in\ntheorem {data_name}_valid :",
             f"    PocklingtonRow.Valid {data_name} := by",
@@ -82,6 +97,7 @@ def render(name: str, certificates: list[tuple[int, int, int, int, list[int], li
             "      PocklingtonData.residueValid",
             "    decide",
             "",
+            *wrappers,
             "end PrimeFactorUnimodality",
             "",
         ]
