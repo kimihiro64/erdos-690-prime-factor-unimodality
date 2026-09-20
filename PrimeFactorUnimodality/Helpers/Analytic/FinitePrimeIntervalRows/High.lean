@@ -1,7 +1,7 @@
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Low
 
 set_option autoImplicit false
-set_option maxRecDepth 100000
+set_option maxRecDepth 1000000
 
 /-! # Upper finite Dusart prime-row prefix -/
 

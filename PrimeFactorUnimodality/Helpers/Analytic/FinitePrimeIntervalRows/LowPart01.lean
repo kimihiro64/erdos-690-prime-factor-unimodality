@@ -1,14 +1,14 @@
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowBase
 
 set_option autoImplicit false
-set_option maxRecDepth 100000
+set_option maxRecDepth 1000000
 
 /-! # Lower finite Dusart prefix chunk 01 -/
 
 namespace PrimeFactorUnimodality
 
 noncomputable section
-set_option maxRecDepth 100000 in
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
 theorem lowPrime_3299 : Nat.Prime 3299 := by
   apply Nat.prime_of_pocklington_factor_of_prime_factors 3299 3298 1 2 [2, 17, 97]
@@ -33,7 +33,7 @@ theorem lowPrime_3299 : Nat.Prime 3299 := by
       decide
   · norm_num
 
-set_option maxRecDepth 100000 in
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
 theorem lowPrime_3301 : Nat.Prime 3301 := by
   apply Nat.prime_of_pocklington_factor_of_prime_factors 3301 3300 1 6 [2, 2, 3, 5, 5, 11]
@@ -60,7 +60,7 @@ theorem lowPrime_3301 : Nat.Prime 3301 := by
       decide
   · norm_num
 
-set_option maxRecDepth 100000 in
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
 theorem lowPrime_3307 : Nat.Prime 3307 := by
   apply Nat.prime_of_pocklington_factor_of_prime_factors 3307 3306 1 2 [2, 3, 19, 29]
@@ -87,7 +87,7 @@ theorem lowPrime_3307 : Nat.Prime 3307 := by
       decide
   · norm_num
 
-set_option maxRecDepth 100000 in
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
 theorem lowPrime_3313 : Nat.Prime 3313 := by
   apply Nat.prime_of_pocklington_factor_of_prime_factors 3313 3312 1 10 [2, 2, 2, 2, 3, 3, 23]
@@ -112,7 +112,7 @@ theorem lowPrime_3313 : Nat.Prime 3313 := by
       decide
   · norm_num
 
-set_option maxRecDepth 100000 in
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
 theorem lowPrime_3319 : Nat.Prime 3319 := by
   apply Nat.prime_of_pocklington_factor_of_prime_factors 3319 3318 1 6 [2, 3, 7, 79]
@@ -139,7 +139,7 @@ theorem lowPrime_3319 : Nat.Prime 3319 := by
       decide
   · norm_num
 
-set_option maxRecDepth 100000 in
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
 theorem lowPrime_3323 : Nat.Prime 3323 := by
   apply Nat.prime_of_pocklington_factor_of_prime_factors 3323 3322 1 2 [2, 11, 151]
@@ -164,7 +164,7 @@ theorem lowPrime_3323 : Nat.Prime 3323 := by
       decide
   · norm_num
 
-set_option maxRecDepth 100000 in
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
 theorem lowPrime_3329 : Nat.Prime 3329 := by
   apply Nat.prime_of_pocklington_factor_of_prime_factors 3329 3328 1 3 [2, 2, 2, 2, 2, 2, 2, 2, 13]
@@ -187,7 +187,7 @@ theorem lowPrime_3329 : Nat.Prime 3329 := by
       decide
   · norm_num
 
-set_option maxRecDepth 100000 in
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
 theorem lowPrime_3331 : Nat.Prime 3331 := by
   apply Nat.prime_of_pocklington_factor_of_prime_factors 3331 3330 1 3 [2, 3, 3, 5, 37]

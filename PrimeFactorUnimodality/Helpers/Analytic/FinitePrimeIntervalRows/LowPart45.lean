@@ -1,13 +1,14 @@
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowBase
 
 set_option autoImplicit false
-set_option maxRecDepth 100000
+set_option maxRecDepth 1000000
 
 /-! # Lower finite Dusart prefix chunk 45 -/
 
 namespace PrimeFactorUnimodality
 
 noncomputable section
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
 theorem lowPrime_6079 : Nat.Prime 6079 := by
   apply Nat.prime_of_pocklington_factor_of_prime_factors 6079 6078 1 17 [2, 3, 1013]
@@ -20,25 +21,19 @@ theorem lowPrime_6079 : Nat.Prime 6079 := by
     all_goals decide
   · norm_num
   · norm_num
-  · rw [← natCast_fastPowMod_eq_pow]
-    decide
+  · decide
   · intro q hq
     simp at hq
     rcases hq with rfl | rfl | rfl
-    · change IsUnit ((17 : ZMod 6079) ^ 3039 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3039 : ZMod 6079)
+    · apply IsUnit.of_mul_eq_one (3039 : ZMod 6079)
       decide
-    · change IsUnit ((17 : ZMod 6079) ^ 2026 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (1508 : ZMod 6079)
+    · apply IsUnit.of_mul_eq_one (1508 : ZMod 6079)
       decide
-    · change IsUnit ((17 : ZMod 6079) ^ 6 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (4895 : ZMod 6079)
+    · apply IsUnit.of_mul_eq_one (4895 : ZMod 6079)
       decide
   · norm_num
 
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
 theorem lowPrime_6089 : Nat.Prime 6089 := by
   apply Nat.prime_of_pocklington_factor_of_prime_factors 6089 6088 1 3 [2, 2, 2, 761]
@@ -51,29 +46,17 @@ theorem lowPrime_6089 : Nat.Prime 6089 := by
     all_goals decide
   · norm_num
   · norm_num
-  · rw [← natCast_fastPowMod_eq_pow]
-    decide
+  · decide
   · intro q hq
     simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · change IsUnit ((3 : ZMod 6089) ^ 3044 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3044 : ZMod 6089)
+    rcases hq with rfl | rfl
+    · apply IsUnit.of_mul_eq_one (3044 : ZMod 6089)
       decide
-    · change IsUnit ((3 : ZMod 6089) ^ 3044 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3044 : ZMod 6089)
-      decide
-    · change IsUnit ((3 : ZMod 6089) ^ 3044 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3044 : ZMod 6089)
-      decide
-    · change IsUnit ((3 : ZMod 6089) ^ 8 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (1254 : ZMod 6089)
+    · apply IsUnit.of_mul_eq_one (1254 : ZMod 6089)
       decide
   · norm_num
 
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
 theorem lowPrime_6091 : Nat.Prime 6091 := by
   apply Nat.prime_of_pocklington_factor_of_prime_factors 6091 6090 1 7 [2, 3, 5, 7, 29]
@@ -86,33 +69,23 @@ theorem lowPrime_6091 : Nat.Prime 6091 := by
     all_goals decide
   · norm_num
   · norm_num
-  · rw [← natCast_fastPowMod_eq_pow]
-    decide
+  · decide
   · intro q hq
     simp at hq
     rcases hq with rfl | rfl | rfl | rfl | rfl
-    · change IsUnit ((7 : ZMod 6091) ^ 3045 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3045 : ZMod 6091)
+    · apply IsUnit.of_mul_eq_one (3045 : ZMod 6091)
       decide
-    · change IsUnit ((7 : ZMod 6091) ^ 2030 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (2278 : ZMod 6091)
+    · apply IsUnit.of_mul_eq_one (2278 : ZMod 6091)
       decide
-    · change IsUnit ((7 : ZMod 6091) ^ 1218 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (1836 : ZMod 6091)
+    · apply IsUnit.of_mul_eq_one (1836 : ZMod 6091)
       decide
-    · change IsUnit ((7 : ZMod 6091) ^ 870 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (1226 : ZMod 6091)
+    · apply IsUnit.of_mul_eq_one (1226 : ZMod 6091)
       decide
-    · change IsUnit ((7 : ZMod 6091) ^ 210 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3205 : ZMod 6091)
+    · apply IsUnit.of_mul_eq_one (3205 : ZMod 6091)
       decide
   · norm_num
 
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
 theorem lowPrime_6101 : Nat.Prime 6101 := by
   apply Nat.prime_of_pocklington_factor_of_prime_factors 6101 6100 1 2 [2, 2, 5, 5, 61]
@@ -125,33 +98,19 @@ theorem lowPrime_6101 : Nat.Prime 6101 := by
     all_goals decide
   · norm_num
   · norm_num
-  · rw [← natCast_fastPowMod_eq_pow]
-    decide
+  · decide
   · intro q hq
     simp at hq
-    rcases hq with rfl | rfl | rfl | rfl | rfl
-    · change IsUnit ((2 : ZMod 6101) ^ 3050 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3050 : ZMod 6101)
+    rcases hq with rfl | rfl | rfl
+    · apply IsUnit.of_mul_eq_one (3050 : ZMod 6101)
       decide
-    · change IsUnit ((2 : ZMod 6101) ^ 3050 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3050 : ZMod 6101)
+    · apply IsUnit.of_mul_eq_one (3503 : ZMod 6101)
       decide
-    · change IsUnit ((2 : ZMod 6101) ^ 1220 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3503 : ZMod 6101)
-      decide
-    · change IsUnit ((2 : ZMod 6101) ^ 1220 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3503 : ZMod 6101)
-      decide
-    · change IsUnit ((2 : ZMod 6101) ^ 100 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (4968 : ZMod 6101)
+    · apply IsUnit.of_mul_eq_one (4968 : ZMod 6101)
       decide
   · norm_num
 
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
 theorem lowPrime_6113 : Nat.Prime 6113 := by
   apply Nat.prime_of_pocklington_factor_of_prime_factors 6113 6112 1 3 [2, 2, 2, 2, 2, 191]
@@ -164,37 +123,17 @@ theorem lowPrime_6113 : Nat.Prime 6113 := by
     all_goals decide
   · norm_num
   · norm_num
-  · rw [← natCast_fastPowMod_eq_pow]
-    decide
+  · decide
   · intro q hq
     simp at hq
-    rcases hq with rfl | rfl | rfl | rfl | rfl | rfl
-    · change IsUnit ((3 : ZMod 6113) ^ 3056 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3056 : ZMod 6113)
+    rcases hq with rfl | rfl
+    · apply IsUnit.of_mul_eq_one (3056 : ZMod 6113)
       decide
-    · change IsUnit ((3 : ZMod 6113) ^ 3056 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3056 : ZMod 6113)
-      decide
-    · change IsUnit ((3 : ZMod 6113) ^ 3056 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3056 : ZMod 6113)
-      decide
-    · change IsUnit ((3 : ZMod 6113) ^ 3056 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3056 : ZMod 6113)
-      decide
-    · change IsUnit ((3 : ZMod 6113) ^ 3056 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3056 : ZMod 6113)
-      decide
-    · change IsUnit ((3 : ZMod 6113) ^ 32 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (399 : ZMod 6113)
+    · apply IsUnit.of_mul_eq_one (399 : ZMod 6113)
       decide
   · norm_num
 
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
 theorem lowPrime_6121 : Nat.Prime 6121 := by
   apply Nat.prime_of_pocklington_factor_of_prime_factors 6121 6120 1 7 [2, 2, 2, 3, 3, 5, 17]
@@ -207,41 +146,21 @@ theorem lowPrime_6121 : Nat.Prime 6121 := by
     all_goals decide
   · norm_num
   · norm_num
-  · rw [← natCast_fastPowMod_eq_pow]
-    decide
+  · decide
   · intro q hq
     simp at hq
-    rcases hq with rfl | rfl | rfl | rfl | rfl | rfl | rfl
-    · change IsUnit ((7 : ZMod 6121) ^ 3060 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3060 : ZMod 6121)
+    rcases hq with rfl | rfl | rfl | rfl
+    · apply IsUnit.of_mul_eq_one (3060 : ZMod 6121)
       decide
-    · change IsUnit ((7 : ZMod 6121) ^ 3060 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3060 : ZMod 6121)
+    · apply IsUnit.of_mul_eq_one (2424 : ZMod 6121)
       decide
-    · change IsUnit ((7 : ZMod 6121) ^ 3060 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3060 : ZMod 6121)
+    · apply IsUnit.of_mul_eq_one (4649 : ZMod 6121)
       decide
-    · change IsUnit ((7 : ZMod 6121) ^ 2040 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (2424 : ZMod 6121)
-      decide
-    · change IsUnit ((7 : ZMod 6121) ^ 2040 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (2424 : ZMod 6121)
-      decide
-    · change IsUnit ((7 : ZMod 6121) ^ 1224 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (4649 : ZMod 6121)
-      decide
-    · change IsUnit ((7 : ZMod 6121) ^ 360 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (1797 : ZMod 6121)
+    · apply IsUnit.of_mul_eq_one (1797 : ZMod 6121)
       decide
   · norm_num
 
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
 theorem lowPrime_6131 : Nat.Prime 6131 := by
   apply Nat.prime_of_pocklington_factor_of_prime_factors 6131 6130 1 2 [2, 5, 613]
@@ -254,25 +173,19 @@ theorem lowPrime_6131 : Nat.Prime 6131 := by
     all_goals decide
   · norm_num
   · norm_num
-  · rw [← natCast_fastPowMod_eq_pow]
-    decide
+  · decide
   · intro q hq
     simp at hq
     rcases hq with rfl | rfl | rfl
-    · change IsUnit ((2 : ZMod 6131) ^ 3065 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3065 : ZMod 6131)
+    · apply IsUnit.of_mul_eq_one (3065 : ZMod 6131)
       decide
-    · change IsUnit ((2 : ZMod 6131) ^ 1226 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (4906 : ZMod 6131)
+    · apply IsUnit.of_mul_eq_one (4906 : ZMod 6131)
       decide
-    · change IsUnit ((2 : ZMod 6131) ^ 10 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (5256 : ZMod 6131)
+    · apply IsUnit.of_mul_eq_one (5256 : ZMod 6131)
       decide
   · norm_num
 
+set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
 theorem lowPrime_6133 : Nat.Prime 6133 := by
   apply Nat.prime_of_pocklington_factor_of_prime_factors 6133 6132 1 5 [2, 2, 3, 7, 73]
@@ -285,30 +198,17 @@ theorem lowPrime_6133 : Nat.Prime 6133 := by
     all_goals decide
   · norm_num
   · norm_num
-  · rw [← natCast_fastPowMod_eq_pow]
-    decide
+  · decide
   · intro q hq
     simp at hq
-    rcases hq with rfl | rfl | rfl | rfl | rfl
-    · change IsUnit ((5 : ZMod 6133) ^ 3066 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3066 : ZMod 6133)
+    rcases hq with rfl | rfl | rfl | rfl
+    · apply IsUnit.of_mul_eq_one (3066 : ZMod 6133)
       decide
-    · change IsUnit ((5 : ZMod 6133) ^ 3066 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (3066 : ZMod 6133)
+    · apply IsUnit.of_mul_eq_one (316 : ZMod 6133)
       decide
-    · change IsUnit ((5 : ZMod 6133) ^ 2044 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (316 : ZMod 6133)
+    · apply IsUnit.of_mul_eq_one (443 : ZMod 6133)
       decide
-    · change IsUnit ((5 : ZMod 6133) ^ 876 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (443 : ZMod 6133)
-      decide
-    · change IsUnit ((5 : ZMod 6133) ^ 84 - 1)
-      rw [← natCast_fastPowMod_eq_pow]
-      apply IsUnit.of_mul_eq_one (5878 : ZMod 6133)
+    · apply IsUnit.of_mul_eq_one (5878 : ZMod 6133)
       decide
   · norm_num
 set_option maxHeartbeats 20000000 in
@@ -326,7 +226,7 @@ def dusartPrimeRows_6007_6310_part02 : List DusartPrimeRow :=
 
 set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_6007_6310_part02_chain :
-    DusartPrimeRowsChain 6073 6133 dusartPrimeRows_6007_6310_part02 := by
+    DusartPrimeRowsChain 6073 6132 dusartPrimeRows_6007_6310_part02 := by
   apply DusartPrimeRowsChain.cons
   · norm_num [dusartPrimeRow_of_explicit_6310]
   · norm_num [dusartPrimeRow_of_explicit_6310]
@@ -352,4 +252,4 @@ theorem dusartPrimeRows_6007_6310_part02_chain :
                 · norm_num [dusartPrimeRow_of_explicit_6310]
                 · norm_num [dusartPrimeRow_of_explicit_6310]
                 · apply DusartPrimeRowsChain.empty
-                  norm_num
+                  norm_num [dusartPrimeRow_of_explicit_6310, dusartPrimeRow_of_explicit_right]

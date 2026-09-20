@@ -60,7 +60,7 @@ def pocklington_certificate(n: int) -> str:
         for q in set(factors)
     }
     theorem = [
-        "set_option maxRecDepth 100000 in",
+        "set_option maxRecDepth 1000000 in",
         "set_option maxHeartbeats 20000000 in",
         f"theorem lowPrime_{n} : Nat.Prime {n} := by",
         f"  apply Nat.prime_of_pocklington_factor_of_prime_factors {n} {n - 1} 1 {base} [{', '.join(map(str, factors))}]",
@@ -283,7 +283,7 @@ import PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington
 import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod
 
 set_option autoImplicit false
-set_option maxRecDepth 100000
+set_option maxRecDepth 1000000
 
 /-! # Lower finite Dusart prime-row prefix -/
 
@@ -310,10 +310,26 @@ theorem dusartPrimeRowsChain_of_data
       exact DusartPrimeRowsChain.cons row h.1 h.2.1 (ih h.2.2)
 """
 
+ROW_PROJECTIONS = """
+@[simp] theorem dusartPrimeRow_of_explicit_left
+    {p q : Nat} {L : Real} (hq : q.Prime) (hpq : p < q)
+    (hleft_large : 3275 ≤ p) (hlog : Real.log p ≤ L)
+    (hL : 0 < L) (hproduct : (q - p : Real) * (2 * L ^ 2) ≤ p) :
+    (dusartPrimeRow_of_explicit hq hpq hleft_large hlog hL hproduct).left = p := by
+  rfl
+
+@[simp] theorem dusartPrimeRow_of_explicit_right
+    {p q : Nat} {L : Real} (hq : q.Prime) (hpq : p < q)
+    (hleft_large : 3275 ≤ p) (hlog : Real.log p ≤ L)
+    (hL : 0 < L) (hproduct : (q - p : Real) * (2 * L ^ 2) ≤ p) :
+    (dusartPrimeRow_of_explicit hq hpq hleft_large hlog hL hproduct).right = q - 1 := by
+  rfl
+"""
+
 HIGH_HEADER = """import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Low
 
 set_option autoImplicit false
-set_option maxRecDepth 100000
+set_option maxRecDepth 1000000
 
 /-! # Upper finite Dusart prime-row prefix -/
 
@@ -371,7 +387,9 @@ def low_modules(body: str) -> dict[str, str]:
             aggregate_segments.append(segment)
 
     result = {
-        "LowBase.lean": (LOW_HEADER + body[:family_starts[0]] + CHAIN_ASSEMBLER).rstrip() + "\n"
+        "LowBase.lean":
+        (LOW_HEADER + body[:family_starts[0]] + ROW_PROJECTIONS + CHAIN_ASSEMBLER).rstrip()
+        + "\n"
     }
     ranges: list[tuple[int, int]] = []
     offset = 0
@@ -389,7 +407,7 @@ def low_modules(body: str) -> dict[str, str]:
         header = f"""import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowBase
 
 set_option autoImplicit false
-set_option maxRecDepth 100000
+set_option maxRecDepth 1000000
 
 /-! # Lower finite Dusart prefix chunk {part:02d} -/
 
@@ -415,7 +433,7 @@ noncomputable section
     )
     result["Low.lean"] = (
         imports
-        + "\n\nset_option autoImplicit false\nset_option maxRecDepth 100000\n\n"
+        + "\n\nset_option autoImplicit false\nset_option maxRecDepth 1000000\n\n"
         + "namespace PrimeFactorUnimodality\n\nnoncomputable section\n"
         + "".join(aggregate_segments)
     ).rstrip() + "\n"

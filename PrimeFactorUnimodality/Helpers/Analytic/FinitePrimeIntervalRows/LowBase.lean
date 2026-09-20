@@ -4,7 +4,7 @@ import PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington
 import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod
 
 set_option autoImplicit false
-set_option maxRecDepth 100000
+set_option maxRecDepth 1000000
 
 /-! # Lower finite Dusart prime-row prefix -/
 
@@ -132,20 +132,6 @@ def dusartPrimeRow_of_explicit
     (q : Real) = p + ((q : Real) - p) := by ring
     _ ≤ p + p / (2 * (Real.log p) ^ 2) := by linarith
     _ = p * (1 + (1 / 2 : Real) / (Real.log p) ^ 2) := by ring
-
-@[simp] theorem dusartPrimeRow_of_explicit_left
-    {p q : Nat} {L : Real} (hq : q.Prime) (hpq : p < q)
-    (hleft_large : 3275 ≤ p) (hlog : Real.log p ≤ L)
-    (hL : 0 < L) (hproduct : (q - p : Real) * (2 * L ^ 2) ≤ p) :
-    (dusartPrimeRow_of_explicit hq hpq hleft_large hlog hL hproduct).left = p := by
-  rfl
-
-@[simp] theorem dusartPrimeRow_of_explicit_right
-    {p q : Nat} {L : Real} (hq : q.Prime) (hpq : p < q)
-    (hleft_large : 3275 ≤ p) (hlog : Real.log p ≤ L)
-    (hL : 0 < L) (hproduct : (q - p : Real) * (2 * L ^ 2) ≤ p) :
-    (dusartPrimeRow_of_explicit hq hpq hleft_large hlog hL hproduct).right = q - 1 := by
-  rfl
 
 def dusartPrimeRow_of_explicit_3802
     {p q : Nat}
@@ -669,6 +655,20 @@ theorem dusartPrimeRowsChain_append
       simpa using DusartPrimeRowsChain.cons row hrow hordered
         (ih hright)
 
+
+@[simp] theorem dusartPrimeRow_of_explicit_left
+    {p q : Nat} {L : Real} (hq : q.Prime) (hpq : p < q)
+    (hleft_large : 3275 ≤ p) (hlog : Real.log p ≤ L)
+    (hL : 0 < L) (hproduct : (q - p : Real) * (2 * L ^ 2) ≤ p) :
+    (dusartPrimeRow_of_explicit hq hpq hleft_large hlog hL hproduct).left = p := by
+  rfl
+
+@[simp] theorem dusartPrimeRow_of_explicit_right
+    {p q : Nat} {L : Real} (hq : q.Prime) (hpq : p < q)
+    (hleft_large : 3275 ≤ p) (hlog : Real.log p ≤ L)
+    (hL : 0 < L) (hproduct : (q - p : Real) * (2 * L ^ 2) ≤ p) :
+    (dusartPrimeRow_of_explicit hq hpq hleft_large hlog hL hproduct).right = q - 1 := by
+  rfl
 
 /-! Reusable assembler for generated row parts. -/
 def DusartPrimeRowsChainData (a b : Nat) : List DusartPrimeRow → Prop

@@ -282,7 +282,7 @@ import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart28
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart282
 
 set_option autoImplicit false
-set_option maxRecDepth 100000
+set_option maxRecDepth 1000000
 
 namespace PrimeFactorUnimodality
 
