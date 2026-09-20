@@ -90,6 +90,26 @@ theorem zetaDerivUpperBnd_explicit
   apply le_trans (by apply norm_add₆)
   convert! ZetaDerivUpperBnd' ⟨by norm_num, le_rfl⟩ ht hσ using 1
 
+theorem zetaDiffBnd_explicit
+    (σ₁ σ₂ t : Real) (ht : 3 < |t|)
+    (hσ₁ : 1 - (1 / 2 : Real) / Real.log |t| ≤ σ₁)
+    (hσ₂ : σ₂ ≤ 2) (hσ₁₂ : σ₁ < σ₂) :
+    ‖riemannZeta (σ₂ + t * Complex.I) -
+        riemannZeta (σ₁ + t * Complex.I)‖ ≤
+      Real.exp (1 / 2 : Real) * 59 * Real.log |t| ^ 2 * (σ₂ - σ₁) := by
+  have htne : t ≠ 0 := by
+    contrapose! ht
+    simp
+  rw [← Zeta_eq_int_derivZeta htne]
+  convert intervalIntegral.norm_integral_le_of_norm_le_const (C :=
+    Real.exp (1 / 2 : Real) * 59 * Real.log |t| ^ 2) ?_ using 1
+  · congr
+    rw [abs_of_nonneg (by linarith)]
+  · intro σ hσ
+    rw [uIoc_of_le hσ₁₂.le, mem_Ioc] at hσ
+    exact zetaDerivUpperBnd_explicit σ t ht ⟨le_trans hσ₁ hσ.1.le,
+      le_trans hσ.2 hσ₂⟩
+
 
 end
 end PrimeFactorUnimodality
