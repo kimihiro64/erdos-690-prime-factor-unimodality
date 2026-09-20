@@ -18,10 +18,66 @@ structure DusartProposition31FiniteRow where
       (9999 : Real) / 10000 * Real.sqrt x <
         Chebyshev.psi x - Chebyshev.theta x
 
+def dusartProposition31FiniteRow_of_integer_endpoint
+    (n : Nat)
+    (hvalid : (9999 : Real) / 10000 * Real.sqrt ((n : Real) + 1) <
+      Chebyshev.psi (n : Real) - Chebyshev.theta n) :
+    DusartProposition31FiniteRow := by
+  refine {
+    left := n
+    right := n
+    left_le_right := le_rfl
+    valid := ?_ }
+  intro x hx hleft hright
+  have hfloor : ⌊x⌋₊ = n := by
+    apply (Nat.floor_eq_iff (by linarith : (0 : Real) ≤ x)).2
+    constructor
+    · exact hleft
+    · simpa using hright
+  have hgap : Chebyshev.psi x - Chebyshev.theta x =
+      Chebyshev.psi (n : Real) - Chebyshev.theta n := by
+    rw [Chebyshev.psi_eq_psi_coe_floor,
+      Chebyshev.theta_eq_theta_coe_floor, hfloor]
+  have hsqrt : Real.sqrt x < Real.sqrt ((n : Real) + 1) := by
+    have hsqrt_x_nonneg : 0 ≤ Real.sqrt x := Real.sqrt_nonneg x
+    have hsqrt_n_nonneg : 0 ≤ Real.sqrt ((n : Real) + 1) :=
+      Real.sqrt_nonneg _
+    have hsquare_x : (Real.sqrt x) ^ 2 = x := Real.sq_sqrt (by linarith)
+    have hsquare_n : (Real.sqrt ((n : Real) + 1)) ^ 2 = (n : Real) + 1 :=
+      Real.sq_sqrt (by positivity)
+    by_contra hnot
+    have hreverse : Real.sqrt ((n : Real) + 1) ≤ Real.sqrt x :=
+      le_of_not_gt hnot
+    nlinarith
+  rw [hgap]
+  have hcoef : (0 : Real) < (9999 : Real) / 10000 := by norm_num
+  exact (mul_lt_mul_of_pos_left hsqrt hcoef).trans hvalid
+
 def DusartProposition31FiniteRowsCover
     (rows : List DusartProposition31FiniteRow) (X : Real) : Prop :=
   ∀ x : Real, (121 : Real) < x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem dusartProposition31Finite_of_integer_endpoint_check
+    {X : Real}
+    (endpoint : ∀ n : Nat, 121 ≤ n →
+      (9999 : Real) / 10000 * Real.sqrt ((n : Real) + 1) <
+        Chebyshev.psi (n : Real) - Chebyshev.theta n) :
+    ∀ x : Real, (121 : Real) < x → x ≤ X →
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x := by
+  intro x hx hX
+  let n : Nat := ⌊x⌋₊
+  have hn121 : 121 ≤ n := by
+    dsimp [n]
+    exact Nat.le_floor (by linarith)
+  have hn_lower : (n : Real) ≤ x := by
+    dsimp [n]
+    exact Nat.floor_le (by linarith)
+  have hn_upper : x < (n : Real) + 1 := by
+    simpa only [n] using Nat.lt_floor_add_one x
+  exact (dusartProposition31FiniteRow_of_integer_endpoint
+    n (endpoint n hn121)).valid x hx hn_lower (by linarith)
 
 def DusartProposition31FiniteIndexedRowsCover {n : Nat}
     (rows : Fin n → DusartProposition31FiniteRow) (X : Real) : Prop :=
