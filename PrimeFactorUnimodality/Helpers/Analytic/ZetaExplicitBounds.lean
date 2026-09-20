@@ -245,11 +245,10 @@ theorem zetaZeroFree_explicit :
     positivity
   have hσ'le : σ' ≤ 2 := by
     dsimp [σ']
-    apply le_add_of_nonpos_right
-    apply neg_nonpos.mpr
-    apply le_of_lt
-    apply div_lt_one (by positivity)
-    exact lt_trans (by norm_num) (ZetaInvBnd_aux' (logt_gt_one ht.le))
+    have hfrac : A / Real.log |t| ^ (9 : Real) < 1 := by
+      apply div_lt_one (by positivity)
+      exact lt_trans (by norm_num) (ZetaInvBnd_aux' (logt_gt_one ht.le))
+    linarith
   have hσ'upper : σ' ∈ Ioc (1 : Real) 2 := ⟨hσ'gt, hσ'le⟩
   have hlower := zetaLowerBound3_explicit_fixed hσ'upper t ht
   have hlower' :
@@ -273,7 +272,7 @@ theorem zetaZeroFree_explicit :
     · dsimp [A]
       apply le_trans hσ.1
       gcongr
-      exact ZetaInvBnd_aux hlog.le
+      exact ZetaInvBnd_aux (logt_gt_one ht.le)
     · exact hσ'le
     · dsimp [σ']
       have : 0 < A / Real.log |t| ^ 9 := by positivity
