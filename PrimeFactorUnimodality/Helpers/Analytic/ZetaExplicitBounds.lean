@@ -200,6 +200,131 @@ theorem zetaLowerBound3_explicit :
   · positivity
   · exact zetaLowerBound3_explicit_fixed
 
+theorem zetaZeroFree_explicit :
+    ∃ (A : Real) (_ : A ∈ Ioc 0 (1 / 2)) (c : Real) (_ : 0 < c),
+    ∀ (σ t : Real) (_ : 3 < |t|)
+      (_ : σ ∈ Ico (1 - A / (Real.log |t|) ^ 9) 1),
+      riemannZeta (σ + t * Complex.I) ≠ 0 := by
+  let C₁ : Real := 1 / (3 ^ ((3 : Real) / 4) *
+    (2 * (Real.exp (1 / 2 : Real) * (5 + 8 * 2))) ^ ((1 : Real) / 4))
+  let C₂ : Real := Real.exp (1 / 2 : Real) * 59
+  have hC₁ : 0 < C₁ := by
+    dsimp [C₁]
+    positivity
+  have hC₂ : 0 < C₂ := by
+    dsimp [C₂]
+    positivity
+  let A : Real := min (1 / 2 : Real) ((C₁ / (4 * C₂)) ^ (4 : Real))
+  have hA : A ∈ Ioc (0 : Real) (1 / 2) := by
+    constructor
+    · dsimp [A]
+      positivity
+    · exact min_le_left _ _
+  let c : Real := C₁ * A ^ ((3 : Real) / 4) - 2 * C₂ * A
+  have hc : 0 < c := by
+    have hpow := Real.rpow_le_rpow hA.1.le
+      (min_le_right (1 / 2 : Real) ((C₁ / (4 * C₂)) ^ (4 : Real)))
+      (by norm_num : (0 : Real) ≤ (4 : Real))
+    rw [Real.pow_rpow_inv_natCast (div_nonneg (by positivity) (by positivity))
+      four_ne_zero] at hpow
+    rw [le_div_iff₀ (by positivity : 0 < 4 * C₂)] at hpow
+    have hpow' := mul_le_mul_of_nonneg_right hpow
+      (Real.rpow_nonneg hA.1.le ((3 : Real) / 4))
+    rw [← Real.rpow_add hA.1.le] at hpow'
+    norm_num at hpow'
+    dsimp [c]
+    nlinarith
+  refine ⟨A, hA, c, hc, ?_⟩
+  intro σ t ht hσ
+  let σ' : Real := 1 + A / Real.log |t| ^ (9 : Real)
+  have hlog : 1 ≤ Real.log |t| := (logt_gt_one ht.le).le
+  have hlogpow : (1 / 2 : Real) ≤ Real.log |t| ^ 9 :=
+    one_half_lt_one.le.trans (one_le_pow₀ hlog)
+  have hσ'gt : 1 < σ' := by
+    dsimp [σ']
+    positivity
+  have hσ'le : σ' ≤ 2 := by
+    dsimp [σ']
+    apply le_add_of_nonpos_right
+    apply neg_nonpos.mpr
+    apply le_of_lt
+    apply div_lt_one (by positivity)
+    exact lt_trans (by norm_num) (ZetaInvBnd_aux' (logt_gt_one ht.le))
+  have hσ'upper : σ' ∈ Ioc (1 : Real) 2 := ⟨hσ'gt, hσ'le⟩
+  have hlower := zetaLowerBound3_explicit_fixed hσ'upper t ht
+  have hlower' :
+      C₁ * A ^ ((3 : Real) / 4) / Real.log |t| ^ (7 : Real) ≤
+        ‖riemannZeta (σ' + t * Complex.I)‖ := by
+    have hbase : C₁ * (σ' - 1) ^ ((3 : Real) / 4) /
+        Real.log |t| ^ ((1 : Real) / 4) ≤
+        ‖riemannZeta (σ' + t * Complex.I)‖ := by
+      simpa [C₁] using hlower
+    apply hbase.trans'
+    dsimp [σ']
+    rw [sub_add_cancel, div_rpow (le_of_lt hA.1) (by positivity),
+      Real.rpow_div_natCast, ← Real.rpow_add (by positivity)]
+    norm_num
+  have hdiff := zetaDiffBnd_explicit σ σ' t ht
+  have hdiff' :
+      ‖riemannZeta (σ + t * Complex.I) -
+          riemannZeta (σ' + t * Complex.I)‖ ≤
+        C₂ * Real.log |t| ^ 2 * (σ' - σ) := by
+    apply hdiff
+    · dsimp [A]
+      apply le_trans hσ.1
+      gcongr
+      exact ZetaInvBnd_aux hlog.le
+    · exact hσ'le
+    · dsimp [σ']
+      have : 0 < A / Real.log |t| ^ 9 := by positivity
+      linarith [hσ.2]
+  have hσ'diff : σ' - σ ≤ 2 * A / Real.log |t| ^ 9 := by
+    dsimp [σ']
+    have hpowpos : 0 < Real.log |t| ^ (9 : Real) := by positivity
+    apply (div_le_iff₀ hpowpos).2
+    have := hσ.1
+    nlinarith
+  have hdiff'' :
+      ‖riemannZeta (σ + t * Complex.I) -
+          riemannZeta (σ' + t * Complex.I)‖ ≤
+        2 * C₂ * A / Real.log |t| ^ 7 := by
+    calc
+      _ ≤ C₂ * Real.log |t| ^ 2 * (2 * A / Real.log |t| ^ 9) :=
+        mul_le_mul_of_nonneg_left hσ'diff (by positivity)
+      _ = 2 * C₂ * A / Real.log |t| ^ 7 := by
+        rw [← Real.rpow_natCast]
+        field_simp
+        ring
+  have hnorm :
+      c / Real.log |t| ^ 7 ≤ ‖riemannZeta (σ + t * Complex.I)‖ := by
+    have htriangle := norm_sub_norm_le
+      (riemannZeta (σ' + t * Complex.I))
+      (riemannZeta (σ' + t * Complex.I) -
+        riemannZeta (σ + t * Complex.I))
+    have hdiffsymm :
+        ‖riemannZeta (σ' + t * Complex.I) -
+            riemannZeta (σ + t * Complex.I)‖ ≤
+          2 * C₂ * A / Real.log |t| ^ 7 := by
+      convert hdiff'' using 1
+      rw [show riemannZeta (σ' + t * Complex.I) -
+          riemannZeta (σ + t * Complex.I) =
+          -(riemannZeta (σ + t * Complex.I) -
+            riemannZeta (σ' + t * Complex.I)) by ring, norm_neg]
+    have hmain : c / Real.log |t| ^ 7 ≤
+        ‖riemannZeta (σ' + t * Complex.I)‖ -
+          ‖riemannZeta (σ' + t * Complex.I) -
+            riemannZeta (σ + t * Complex.I)‖ := by
+      rw [div_le_iff₀ (by positivity)]
+      dsimp [c]
+      nlinarith [hlower', hdiffsymm]
+    exact hmain.trans (by
+      have := htriangle
+      nlinarith)
+  intro hz
+  have : ‖riemannZeta (σ + t * Complex.I)‖ = 0 := by simp [hz]
+  have hpos : 0 < c / Real.log |t| ^ 7 := by positivity
+  linarith
+
 
 end
 end PrimeFactorUnimodality
