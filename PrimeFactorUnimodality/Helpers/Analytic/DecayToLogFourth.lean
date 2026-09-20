@@ -305,6 +305,18 @@ theorem exists_hasThetaLogFourthError_of_logRpowDecay_of_pos_coefficient
   exact hasThetaLogFourthError_of_logRpowDecay_of_envelope
     (C := C) (D := D) hYpos hdecayY henv
 
+theorem exists_hasThetaLogFourthErrorAbove_of_logRpowDecay_of_pos_coefficient
+    {C D c α X : Real} (hC : 0 ≤ C) (hD : 0 < D)
+    (hc : 0 < c) (hα : 0 < α)
+    (hdecay : HasThetaLogRpowDecay C c α X) :
+    ∃ Y : Real, X ≤ Y ∧ HasThetaLogFourthErrorAbove D Y := by
+  obtain ⟨Y, hXY, herror⟩ :=
+    exists_hasThetaLogFourthError_of_logRpowDecay_of_pos_coefficient
+      hC hD hc hα hdecay
+  refine ⟨Y, hXY, ?_⟩
+  intro x hx
+  exact herror x hx
+
 /-! Any strictly positive target coefficient can be reached by increasing the
 cutoff.  This is the quantitative form needed when an explicit PNT supplies
 an arbitrary Big-O constant but the downstream Dusart budget reserves a
