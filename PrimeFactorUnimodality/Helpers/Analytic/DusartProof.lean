@@ -1633,16 +1633,7 @@ def dusartLemma33FiniteRow_twothousandtwohundrednine_twothousandfourhundred :
   · norm_num
 
 def dusartLemma33FiniteRow_exact_twofourzeroone : DusartLemma33FiniteRow :=
-  { left := 2401
-    right := 2401
-    left_le_right := by norm_num
-    valid := by
-      intro x hx hleft hright
-      have hx_eq : x = 2401 := by
-        norm_num at hleft hright ⊢
-        linarith
-      subst x
-      exact dusart_lemma_3_3_at_2401 }
+  dusartLemma33FiniteRow_of_integer_endpoint 2401 dusart_lemma_3_3_at_2401
 
 theorem psi_sub_theta_nat_2047_lt_fiftysix :
     Chebyshev.psi (2047 : Real) - Chebyshev.theta 2047 < 56 := by
