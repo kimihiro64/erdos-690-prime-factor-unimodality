@@ -16,10 +16,13 @@ source-level MediumPNT argument.  Quantifying the finite fields over every
 possible cutoff would impose a stronger obligation than the analytic proof
 uses and would obscure the actual all-`k` boundary. -/
 abbrev WangCrapisFiniteProviders : Prop :=
+  MediumPNTFiniteIntegerIntervalBundledListPrefixProvider
+
+abbrev WangCrapisSelectedFiniteProviders : Prop :=
   MediumPNTSelectedSplitInputs (4e18 : Real) (3 / 5 : Real)
 
 theorem wangCrapis_thetaBounds_of_finite_providers
-    (providers : WangCrapisFiniteProviders) :
+    (providers : WangCrapisSelectedFiniteProviders) :
     HasDusartThetaBounds := by
   have hXpos : 0 < providers.cutoff := by linarith [providers.lower]
   have hlogX : (42 : Real) ≤ Real.log providers.cutoff := by
@@ -34,7 +37,7 @@ theorem wangCrapis_thetaBounds_of_finite_providers
     hXpos (by linarith) (by norm_num) hA providers.thetaError
 
 theorem wangCrapis_shortInterval_of_finite_providers
-    (providers : WangCrapisFiniteProviders) :
+    (providers : WangCrapisSelectedFiniteProviders) :
     HasDusartShortIntervalPrime := by
   have hXpos : 0 < providers.cutoff := by linarith [providers.lower]
   have hlogX : (10 : Real) < Real.log providers.cutoff := by
@@ -51,7 +54,7 @@ theorem wangCrapis_shortInterval_of_finite_providers
     hXpos (by linarith) hlogX (by norm_num) hA providers.thetaError
 
 theorem wangCrapis_primeCounting_of_finite_providers
-    (providers : WangCrapisFiniteProviders) :
+    (providers : WangCrapisSelectedFiniteProviders) :
     HasDusartPrimeCountingBounds := by
   obtain ⟨R, hR, hcoreR⟩ := providers.remainder
   have hcore0 : |primeCountingCore providers.cutoff| ≤
@@ -71,18 +74,18 @@ theorem wangCrapis_primeCounting_of_finite_providers
     (by norm_num) le_rfl hlogX hcore providers.thetaError
 
 theorem wangCrapisPaperInputs_of_finite_providers
-    (providers : WangCrapisFiniteProviders) :
+    (providers : WangCrapisSelectedFiniteProviders) :
     WangCrapisPaperInputs := by
   exact wangCrapisPaperInputs_of_providers
     (wangCrapis_primeCounting_of_finite_providers providers)
     (wangCrapis_thetaBounds_of_finite_providers providers)
     (wangCrapis_shortInterval_of_finite_providers providers)
 
-theorem wangCrapisFiniteProviders_of_indexed_split_certificate
+theorem wangCrapisSelectedFiniteProviders_of_indexed_split_certificate
     (certificate :
       MediumPNTSelectedIndexedSplitCertificate
         (4e18 : Real) (3 / 5 : Real)) :
-    WangCrapisFiniteProviders := by
+    WangCrapisSelectedFiniteProviders := by
   obtain ⟨nPrime, primeRows, primeCover⟩ := certificate.primeCountingRows
   obtain ⟨nTheta, thetaRows, thetaCover⟩ := certificate.thetaRows
   obtain ⟨nLog, logRows, logCover⟩ := certificate.logRows
@@ -146,6 +149,12 @@ theorem completeClassification_closed_of_providers
 theorem completeClassification_closed_of_finite_providers
     (providers : WangCrapisFiniteProviders) :
     CompleteClassification := by
+  exact completeClassification_of_mediumPNT_and_integer_interval_bundled_list_prefix_provider
+    providers
+
+theorem completeClassification_closed_of_selected_finite_providers
+    (providers : WangCrapisSelectedFiniteProviders) :
+    CompleteClassification := by
   exact completeClassification_of_wangCrapis_paper_inputs
     (wangCrapisPaperInputs_of_finite_providers providers)
 
@@ -155,8 +164,8 @@ theorem completeClassification_closed_of_indexed_split_certificate
       MediumPNTSelectedIndexedSplitCertificate
         (4e18 : Real) (3 / 5 : Real)) :
     CompleteClassification := by
-  exact completeClassification_closed_of_finite_providers
-    (wangCrapisFiniteProviders_of_indexed_split_certificate certificate)
+  exact completeClassification_closed_of_selected_finite_providers
+    (wangCrapisSelectedFiniteProviders_of_indexed_split_certificate certificate)
 
 end
 
