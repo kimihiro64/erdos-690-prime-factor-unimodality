@@ -87,3 +87,48 @@ theorem Nat.prime_of_pocklington_factor (n F R a : ℕ)
     rw [← pow_mul, mul_comm R (p - 1), pow_mul, hzFermat, one_pow]
   have hdvd := orderOf_dvd_of_pow_eq_one hgammaPow
   rwa [horder] at hdvd
+
+theorem Nat.prime_of_pocklington_factor_of_prime_factors
+    (n F R a : ℕ) (factors : List ℕ)
+    (hn : 1 < n)
+    (hfactor : n - 1 = F * R)
+    (hF : F = factors.prod)
+    (hFactorsPrime : ∀ p ∈ factors, p.Prime)
+    (hFpos : 0 < F)
+    (hlarge : n < F ^ 2)
+    (hmain : (a : ZMod n) ^ (n - 1) = 1)
+    (hproper : ∀ q : ℕ, q ∈ factors →
+      IsUnit ((a : ZMod n) ^ ((n - 1) / q) - 1))
+    (hexclude : ¬ F - 1 ∣ n) :
+    n.Prime := by
+  apply Nat.prime_of_pocklington_factor n F R a hn hfactor hFpos hlarge hmain
+  · intro q hq hqF
+    apply hproper q
+    have hqProd : q ∣ factors.prod := by
+      rw [← hF]
+      exact hqF
+    have prime_mem : ∀ (xs : List ℕ),
+        (∀ p ∈ xs, p.Prime) → q ∣ xs.prod → q ∈ xs := by
+      intro xs
+      induction xs with
+      | nil =>
+          intro _ h
+          have hq2 := hq.two_le
+          have hqne : q ≠ 1 := by omega
+          have hq1 : q = 1 := by simpa using h
+          exact (hqne hq1).elim
+      | cons p xs ih =>
+          intro hpr hprod
+          simp only [List.prod_cons] at hprod
+          rcases hq.dvd_mul.mp hprod with hqp | hqrest
+          · have hp : p.Prime := hpr p (by simp)
+            rcases (Nat.dvd_prime hp).mp hqp with hq1 | hqp
+            · have hq2 := hq.two_le
+              omega
+            · subst p
+              simp
+          · exact List.mem_cons_of_mem p (ih (by
+              intro r hr
+              exact hpr r (by simp [hr])) hqrest)
+    exact prime_mem factors hFactorsPrime hqProd
+  · exact hexclude
