@@ -147,6 +147,76 @@ theorem dusartLemma33FiniteRowsCover_three :
         exact le_of_not_gt htwo
       · norm_num [dusartLemma33FiniteRow_three]
         linarith
+
+def dusartLemma33FiniteRow_four : DusartLemma33FiniteRow :=
+  { left := 4
+    right := 4
+    left_le_right := by norm_num
+    valid := by
+      intro x hx hleft hright
+      have hx4 : (4 : Real) ≤ x := by exact_mod_cast hleft
+      have hx5 : x < 5 := by norm_num at hright ⊢; exact hright
+      have hfloor : ⌊x⌋₊ = 4 := by
+        apply (Nat.floor_eq_iff (by linarith : (0 : Real) ≤ x)).2
+        constructor <;> norm_num <;> linarith
+      have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 4
+      have htheta := Chebyshev.theta_eq_sum_primesLE_log 4
+      have htheta_two := Chebyshev.theta_eq_sum_primesLE_log 2
+      have hp4 : Nat.primesLE 4 = {2, 3} := by decide
+      have hp2 : Nat.primesLE 2 = {2} := by decide
+      rw [hp4] at hpsi htheta
+      rw [hp2] at htheta_two
+      norm_num [Nat.log, Nat.log.go] at hpsi htheta htheta_two
+      have hzero : Chebyshev.psi (4 : Real) - Chebyshev.theta 4 -
+          Chebyshev.theta 2 = 0 := by
+        nlinarith [hpsi, htheta, htheta_two]
+      have hsqrt_lower : (2 : Real) ≤ Real.sqrt x := by
+        nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+      have hsqrt_upper : Real.sqrt x < 3 := by
+        nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+      have hsqrt_floor : ⌊Real.sqrt x⌋₊ = 2 := by
+        apply (Nat.floor_eq_iff (by positivity : (0 : Real) ≤ Real.sqrt x)).2
+        constructor <;> norm_num <;> linarith
+      rw [Chebyshev.psi_eq_psi_coe_floor,
+        Chebyshev.theta_eq_theta_coe_floor, hfloor]
+      rw [Chebyshev.theta_eq_theta_coe_floor, hsqrt_floor]
+      have hzero' : Chebyshev.psi (↑(4 : Nat) : Real) -
+          Chebyshev.theta (↑(4 : Nat) : Real) -
+            Chebyshev.theta (↑(2 : Nat) : Real) = 0 := by
+        simpa using hzero
+      rw [hzero']
+      norm_num
+      positivity }
+
+theorem dusartLemma33FiniteRowsCover_four :
+    DusartLemma33FiniteRowsCover
+      [dusartLemma33FiniteRow_zero_one, dusartLemma33FiniteRow_two,
+        dusartLemma33FiniteRow_three, dusartLemma33FiniteRow_four] 4 := by
+  intro x hx hX
+  by_cases hsmall : x < 2
+  · refine ⟨dusartLemma33FiniteRow_zero_one, by simp, ?_, ?_⟩
+    · norm_num [dusartLemma33FiniteRow_zero_one]
+      exact hx.le
+    · norm_num [dusartLemma33FiniteRow_zero_one]
+      linarith
+  · by_cases htwo : x < 3
+    · refine ⟨dusartLemma33FiniteRow_two, by simp, ?_, ?_⟩
+      · norm_num [dusartLemma33FiniteRow_two]
+        exact le_of_not_gt hsmall
+      · norm_num [dusartLemma33FiniteRow_two]
+        linarith
+    · by_cases hthree : x < 4
+      · refine ⟨dusartLemma33FiniteRow_three, by simp, ?_, ?_⟩
+        · norm_num [dusartLemma33FiniteRow_three]
+          exact le_of_not_gt htwo
+        · norm_num [dusartLemma33FiniteRow_three]
+          linarith
+      · refine ⟨dusartLemma33FiniteRow_four, by simp, ?_, ?_⟩
+        · norm_num [dusartLemma33FiniteRow_four]
+          exact le_of_not_gt hthree
+        · norm_num [dusartLemma33FiniteRow_four]
+          linarith
+
 theorem dusart_lemma_3_3_finite_of_rows
     {rows : List DusartLemma33FiniteRow} {X : Real}
     (cover : DusartLemma33FiniteRowsCover rows X) :
