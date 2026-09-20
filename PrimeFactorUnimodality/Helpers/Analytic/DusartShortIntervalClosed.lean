@@ -36,6 +36,12 @@ theorem wangCrapis_logCubedPrefix :
   exact hasLogCubedShortIntervalPrimeBelow_of_finite_gap_log_rows
     finitePrimeGapLogRows_89693_89890_cover
 
+/-! Compact adjacent-prime rows extend the published finite prefix through
+the endpoint used by Proposition 5.4(c). -/
+theorem wangCrapis_logCubedMediumPrefix :
+    HasLogCubedShortIntervalPrimeBelow (360653 : Real) := by
+  exact hasLogCubedShortIntervalPrimeBelow_360653
+
 theorem wangCrapis_shortIntervalPrefix_89890 :
     HasDusartShortIntervalPrimeBelow (89890 : Real) := by
   exact hasDusartShortIntervalPrimeBelow_of_finite_gap_log_rows
