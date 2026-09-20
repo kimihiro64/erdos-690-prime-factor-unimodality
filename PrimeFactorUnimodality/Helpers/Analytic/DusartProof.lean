@@ -455,6 +455,13 @@ theorem dusartLemma33FiniteRowsCover_onetwenty :
     · norm_num
       linarith
 
+theorem dusart_lemma_3_3_finite_120 :
+    ∀ x : Real, 0 < x → x ≤ 120 →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  exact dusart_lemma_3_3_finite_of_rows dusartLemma33FiniteRowsCover_onetwenty
+
 theorem dusart_proposition_3_2_small_64
     {x : Real} (hx : 0 < x) (hx64 : x < 64) :
     Chebyshev.psi x - Chebyshev.theta x <
