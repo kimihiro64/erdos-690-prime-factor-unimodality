@@ -224,5 +224,19 @@ theorem dusart_theta_upper_e28_step
   apply dusart_theta_upper_tail_step hx ?_ hpsi hgap
   exact hx_exp.trans (le_of_lt exp_twentyEight_lt_dusart_endpoint)
 
+theorem dusart_theta_upper_e28_from_absolute_psi_error
+    {x : Real} (hx : (8e11 : Real) ≤ x)
+    (hx_exp : x ≤ Real.exp 28)
+    (hpsi_error : |Chebyshev.psi x - x| ≤
+      (2841 : Real) / 100000000 * x)
+    (hgap : (9999 : Real) / 10000 * Real.sqrt x ≤
+      Chebyshev.psi x - Chebyshev.theta x) :
+    Chebyshev.theta x - x ≤ x / 36260 := by
+  have hpsi : Chebyshev.psi x ≤
+      (100002841 : Real) / 100000000 * x := by
+    have hupper := (abs_le.mp hpsi_error).2
+    nlinarith
+  exact dusart_theta_upper_e28_step hx hx_exp hpsi hgap
+
 end
 end PrimeFactorUnimodality
