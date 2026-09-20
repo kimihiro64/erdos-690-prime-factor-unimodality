@@ -243,7 +243,8 @@ theorem zetaZeroFree_explicit :
     dsimp [σ']
     have hfrac : A / Real.log |t| ^ (9 : Real) < 1 := by
       apply div_lt_one (by positivity)
-      exact lt_trans (by norm_num) (ZetaInvBnd_aux' (logt_gt_one ht.le))
+      exact hA.2.trans_lt (lt_of_lt_of_le (by norm_num)
+        (one_le_pow₀ (logt_gt_one ht.le).le))
     linarith
   have hσ'upper : σ' ∈ Ioc (1 : Real) 2 := ⟨hσ'gt, hσ'le⟩
   have hlower := zetaLowerBound3_explicit_fixed hσ'upper t ht
@@ -274,10 +275,7 @@ theorem zetaZeroFree_explicit :
       linarith [hσ.2]
   have hσ'diff : σ' - σ ≤ 2 * A / Real.log |t| ^ 9 := by
     dsimp [σ']
-    have hpowpos : 0 < Real.log |t| ^ (9 : Real) := by positivity
-    apply (div_le_iff₀ hpowpos).2
-    have := hσ.1
-    nlinarith
+    linarith [hσ.1]
   have hdiff'' :
       ‖riemannZeta (σ + t * Complex.I) -
           riemannZeta (σ' + t * Complex.I)‖ ≤
@@ -312,8 +310,7 @@ theorem zetaZeroFree_explicit :
       dsimp [c]
       nlinarith [hlower', hdiffsymm]
     exact hmain.trans (by
-      have := htriangle
-      nlinarith)
+      convert htriangle using 1 <;> ring)
   intro hz
   have : ‖riemannZeta (σ + t * Complex.I)‖ = 0 := by simp [hz]
   have hpos : 0 < c / Real.log |t| ^ 7 := by positivity
