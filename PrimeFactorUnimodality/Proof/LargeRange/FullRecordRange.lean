@@ -1,7 +1,7 @@
 import PrimeFactorUnimodality.Proof.LargeRange.FullRecordAnalyticReduction
 import PrimeFactorUnimodality.Proof.LargeRange.FullRecordGapConsequence
 import PrimeFactorUnimodality.Proof.LargeRange.FullRecordNumericBounds
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapOwners
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCompact
 import PrimeFactorUnimodality.Proof.LargeRange.RecordTwinClosed
 import PrimeFactorUnimodality.Proof.LargeRange.UniformTailClosedMertens
 
