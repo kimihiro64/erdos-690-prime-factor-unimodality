@@ -3516,8 +3516,10 @@ theorem dusart_floor_log_div_two_le_rpow
 /-! Large-range form of Dusart's Lemma 3.3.  The remaining finite range is
 handled separately by the paper's direct computation; this theorem contains
 the complete analytic tail argument. -/
-theorem dusart_lemma_3_3_large
+theorem dusart_lemma_3_3_large_of_count
     {x : Real} (hx : (10 ^ 11 : Real) ^ 3 ≤ x)
+    (hcount : (⌊Real.log x / Real.log 2⌋₊ : Real) ≤
+      (7 : Real) / 10 * x ^ (1 / (12 : Real)))
     (theta_upper : ∀ y : Real, 0 < y →
       Chebyshev.theta y < (1000081 : Real) / 1000000 * y) :
     Chebyshev.psi x - Chebyshev.theta x -
@@ -3540,7 +3542,6 @@ theorem dusart_lemma_3_3_large
       Real.log_pow] at hlog
     norm_num at hlog ⊢
     linarith
-  have hcount := dusart_floor_log_div_two_le_rpow hx
   have hsum17 := dusart_prime_power_rpow_sum_le_of_count
     (x := x) (by linarith [hx]) hN3 hcount
   have htheta_sum :
@@ -3579,6 +3580,19 @@ theorem dusart_lemma_3_3_large
         x ^ (1 / (3 : Real)) := by ring
     _ < (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) :=
       mul_lt_mul_of_pos_right hcoef (by positivity)
+
+/-! The published large-range theorem supplies the count estimate by the
+elementary logarithmic argument, while the preceding theorem keeps that
+numerical step replaceable by an independent explicit estimate. -/
+theorem dusart_lemma_3_3_large
+    {x : Real} (hx : (10 ^ 11 : Real) ^ 3 ≤ x)
+    (theta_upper : ∀ y : Real, 0 < y →
+      Chebyshev.theta y < (1000081 : Real) / 1000000 * y) :
+    Chebyshev.psi x - Chebyshev.theta x -
+        Chebyshev.theta (Real.sqrt x) <
+      (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  exact dusart_lemma_3_3_large_of_count hx
+    (dusart_floor_log_div_two_le_rpow hx) theta_upper
 
 /-! Global Lemma 3.3 assembled from the paper's bounded direct computation
 and the analytic tail above. -/
