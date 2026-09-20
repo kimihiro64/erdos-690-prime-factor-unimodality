@@ -25,7 +25,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_3802_part01_chain :
     DusartPrimeRowsChain 3275 3331 dusartPrimeRows_3275_3802_part01 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3275_3802_part01]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3275_3802_part02 : List DusartPrimeRow :=
@@ -44,7 +44,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_3802_part02_chain :
     DusartPrimeRowsChain 3331 3391 dusartPrimeRows_3275_3802_part02 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3275_3802_part02]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3275_3802_part03 : List DusartPrimeRow :=
@@ -63,7 +63,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_3802_part03_chain :
     DusartPrimeRowsChain 3391 3467 dusartPrimeRows_3275_3802_part03 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3275_3802_part03]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3275_3802_part04 : List DusartPrimeRow :=
@@ -82,7 +82,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_3802_part04_chain :
     DusartPrimeRowsChain 3467 3533 dusartPrimeRows_3275_3802_part04 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3275_3802_part04]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3275_3802_part05 : List DusartPrimeRow :=
@@ -101,7 +101,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_3802_part05_chain :
     DusartPrimeRowsChain 3533 3583 dusartPrimeRows_3275_3802_part05 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3275_3802_part05]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3275_3802_part06 : List DusartPrimeRow :=
@@ -120,7 +120,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_3802_part06_chain :
     DusartPrimeRowsChain 3583 3643 dusartPrimeRows_3275_3802_part06 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3275_3802_part06]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3275_3802_part07 : List DusartPrimeRow :=
@@ -139,7 +139,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_3802_part07_chain :
     DusartPrimeRowsChain 3643 3709 dusartPrimeRows_3275_3802_part07 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3275_3802_part07]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3275_3802_part08 : List DusartPrimeRow :=
@@ -158,7 +158,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_3802_part08_chain :
     DusartPrimeRowsChain 3709 3779 dusartPrimeRows_3275_3802_part08 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3275_3802_part08]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3275_3802_part09 : List DusartPrimeRow :=
@@ -172,7 +172,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_3802_part09_chain :
     DusartPrimeRowsChain 3779 3803 dusartPrimeRows_3275_3802_part09 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3275_3802_part09]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3275_3802 : List DusartPrimeRow :=
@@ -199,7 +199,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3803_4672_part01_chain :
     DusartPrimeRowsChain 3803 3877 dusartPrimeRows_3803_4672_part01 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3803_4672_part01]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3803_4672_part02 : List DusartPrimeRow :=
@@ -218,7 +218,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3803_4672_part02_chain :
     DusartPrimeRowsChain 3877 3929 dusartPrimeRows_3803_4672_part02 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3803_4672_part02]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3803_4672_part03 : List DusartPrimeRow :=
@@ -237,7 +237,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3803_4672_part03_chain :
     DusartPrimeRowsChain 3929 4007 dusartPrimeRows_3803_4672_part03 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3803_4672_part03]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3803_4672_part04 : List DusartPrimeRow :=
@@ -256,7 +256,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3803_4672_part04_chain :
     DusartPrimeRowsChain 4007 4073 dusartPrimeRows_3803_4672_part04 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3803_4672_part04]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3803_4672_part05 : List DusartPrimeRow :=
@@ -275,7 +275,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3803_4672_part05_chain :
     DusartPrimeRowsChain 4073 4133 dusartPrimeRows_3803_4672_part05 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3803_4672_part05]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3803_4672_part06 : List DusartPrimeRow :=
@@ -294,7 +294,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3803_4672_part06_chain :
     DusartPrimeRowsChain 4133 4217 dusartPrimeRows_3803_4672_part06 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3803_4672_part06]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3803_4672_part07 : List DusartPrimeRow :=
@@ -313,7 +313,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3803_4672_part07_chain :
     DusartPrimeRowsChain 4217 4261 dusartPrimeRows_3803_4672_part07 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3803_4672_part07]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3803_4672_part08 : List DusartPrimeRow :=
@@ -332,7 +332,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3803_4672_part08_chain :
     DusartPrimeRowsChain 4261 4339 dusartPrimeRows_3803_4672_part08 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3803_4672_part08]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3803_4672_part09 : List DusartPrimeRow :=
@@ -351,7 +351,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3803_4672_part09_chain :
     DusartPrimeRowsChain 4339 4421 dusartPrimeRows_3803_4672_part09 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3803_4672_part09]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3803_4672_part10 : List DusartPrimeRow :=
@@ -370,7 +370,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3803_4672_part10_chain :
     DusartPrimeRowsChain 4421 4483 dusartPrimeRows_3803_4672_part10 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3803_4672_part10]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3803_4672_part11 : List DusartPrimeRow :=
@@ -389,7 +389,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3803_4672_part11_chain :
     DusartPrimeRowsChain 4483 4549 dusartPrimeRows_3803_4672_part11 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3803_4672_part11]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3803_4672_part12 : List DusartPrimeRow :=
@@ -408,7 +408,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3803_4672_part12_chain :
     DusartPrimeRowsChain 4549 4637 dusartPrimeRows_3803_4672_part12 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3803_4672_part12]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3803_4672_part13 : List DusartPrimeRow :=
@@ -426,7 +426,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3803_4672_part13_chain :
     DusartPrimeRowsChain 4637 4673 dusartPrimeRows_3803_4672_part13 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_3803_4672_part13]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3803_4672 : List DusartPrimeRow :=
@@ -464,7 +464,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_4673_4918_part01_chain :
     DusartPrimeRowsChain 4673 4751 dusartPrimeRows_4673_4918_part01 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_4673_4918_part01]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_4673_4918_part02 : List DusartPrimeRow :=
@@ -483,7 +483,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_4673_4918_part02_chain :
     DusartPrimeRowsChain 4751 4813 dusartPrimeRows_4673_4918_part02 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_4673_4918_part02]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_4673_4918_part03 : List DusartPrimeRow :=
@@ -502,7 +502,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_4673_4918_part03_chain :
     DusartPrimeRowsChain 4813 4909 dusartPrimeRows_4673_4918_part03 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_4673_4918_part03]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_4673_4918_part04 : List DusartPrimeRow :=
@@ -514,7 +514,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_4673_4918_part04_chain :
     DusartPrimeRowsChain 4909 4919 dusartPrimeRows_4673_4918_part04 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_4673_4918_part04]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_4673_4918 : List DusartPrimeRow :=
@@ -551,7 +551,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_4919_5166_part01_chain :
     DusartPrimeRowsChain 4919 4969 dusartPrimeRows_4919_5166_part01 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_4919_5166_part01]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_4919_5166_part02 : List DusartPrimeRow :=
@@ -570,7 +570,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_4919_5166_part02_chain :
     DusartPrimeRowsChain 4969 5021 dusartPrimeRows_4919_5166_part02 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_4919_5166_part02]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_4919_5166_part03 : List DusartPrimeRow :=
@@ -589,7 +589,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_4919_5166_part03_chain :
     DusartPrimeRowsChain 5021 5099 dusartPrimeRows_4919_5166_part03 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_4919_5166_part03]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_4919_5166_part04 : List DusartPrimeRow :=
@@ -607,7 +607,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_4919_5166_part04_chain :
     DusartPrimeRowsChain 5099 5167 dusartPrimeRows_4919_5166_part04 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_4919_5166_part04]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_4919_5166 : List DusartPrimeRow :=
@@ -644,7 +644,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_5167_5436_part01_chain :
     DusartPrimeRowsChain 5167 5233 dusartPrimeRows_5167_5436_part01 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_5167_5436_part01]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_5167_5436_part02 : List DusartPrimeRow :=
@@ -663,7 +663,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_5167_5436_part02_chain :
     DusartPrimeRowsChain 5233 5309 dusartPrimeRows_5167_5436_part02 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_5167_5436_part02]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_5167_5436_part03 : List DusartPrimeRow :=
@@ -682,7 +682,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_5167_5436_part03_chain :
     DusartPrimeRowsChain 5309 5399 dusartPrimeRows_5167_5436_part03 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_5167_5436_part03]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_5167_5436_part04 : List DusartPrimeRow :=
@@ -699,7 +699,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_5167_5436_part04_chain :
     DusartPrimeRowsChain 5399 5437 dusartPrimeRows_5167_5436_part04 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_5167_5436_part04]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_5167_5436 : List DusartPrimeRow :=
@@ -736,7 +736,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_5437_5710_part01_chain :
     DusartPrimeRowsChain 5437 5501 dusartPrimeRows_5437_5710_part01 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_5437_5710_part01]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_5437_5710_part02 : List DusartPrimeRow :=
@@ -755,7 +755,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_5437_5710_part02_chain :
     DusartPrimeRowsChain 5501 5563 dusartPrimeRows_5437_5710_part02 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_5437_5710_part02]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_5437_5710_part03 : List DusartPrimeRow :=
@@ -774,7 +774,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_5437_5710_part03_chain :
     DusartPrimeRowsChain 5563 5647 dusartPrimeRows_5437_5710_part03 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_5437_5710_part03]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_5437_5710_part04 : List DusartPrimeRow :=
@@ -793,7 +793,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_5437_5710_part04_chain :
     DusartPrimeRowsChain 5647 5693 dusartPrimeRows_5437_5710_part04 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_5437_5710_part04]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_5437_5710_part05 : List DusartPrimeRow :=
@@ -806,7 +806,7 @@ set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_5437_5710_part05_chain :
     DusartPrimeRowsChain 5693 5711 dusartPrimeRows_5437_5710_part05 := by
   apply dusartPrimeRowsChain_of_data
-  norm_num [DusartPrimeRowsChainData, dusartPrimeRows_5437_5710_part05]
+  decide +kernel
 
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_5437_5710 : List DusartPrimeRow :=

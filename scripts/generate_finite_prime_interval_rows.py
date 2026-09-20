@@ -145,7 +145,7 @@ def split_large_row_families(body: str) -> str:
                     f"theorem {part_name}_chain :",
                     f"    DusartPrimeRowsChain {first.group(1)} {last.group(2)} {part_name} := by",
                     "  apply dusartPrimeRowsChain_of_data",
-                    f"  norm_num [DusartPrimeRowsChainData, {part_name}]",
+                    "  decide +kernel",
                     "",
                 ]
             )
