@@ -48,13 +48,12 @@ def factor_nat(n: int) -> list[int]:
     return factors
 
 
-def pocklington_certificate(n: int) -> str:
-    """Emit one compact Pocklington proof for a small prime witness.
+def pocklington_data(n: int) -> str:
+    """Emit one compact Pocklington data literal for a witness.
 
-    The factor-list assembler supplies the divisor reasoning.  The generated
-    proof contains only the factorization and modular residues; it does not
-    ask Lean to search for primality by reducing the full trial-division
-    predicate.
+    The generated shard validates the complete data list once through the
+    reusable row assembler.  Keeping factorizations and residues as data
+    avoids repeating the Pocklington proof term at every row occurrence.
     """
     factors = factor_nat(n - 1)
     base = next(
@@ -66,44 +65,43 @@ def pocklington_certificate(n: int) -> str:
         q: pow((pow(base, (n - 1) // q, n) - 1) % n, -1, n)
         for q in set(factors)
     }
-    theorem = [
+    residues = ", ".join(
+        f"({q}, {inverses[q]})" for q in dict.fromkeys(factors)
+    )
+    return (
+        f"{{ n := {n}, F := {n - 1}, R := 1, a := {base}, "
+        f"factors := [{', '.join(map(str, factors))}], "
+        f"residues := [{residues}] }}"
+    )
+
+
+def prime_certificates(rows: list[str], data_name: str) -> str:
+    witnesses = sorted({int(q) for row in rows for q in re.findall(r"\(q := (\d+)\)", row)})
+    data = ",\n    ".join(pocklington_data(q) for q in witnesses)
+    body = [
         "set_option maxRecDepth 1000000 in",
         "set_option maxHeartbeats 20000000 in",
-        f"theorem lowPrime_{n} : Nat.Prime {n} := by",
-        f"  apply Nat.prime_of_pocklington_factor_of_prime_factors {n} {n - 1} 1 {base} [{', '.join(map(str, factors))}]",
-        "  · norm_num",
-        "  · norm_num",
-        "  · norm_num",
+        f"def {data_name} : List PocklingtonData := [",
+        f"    {data}",
+        "  ]",
+        "",
+        "set_option maxRecDepth 1000000 in",
+        "set_option maxHeartbeats 20000000 in",
+        f"theorem {data_name}_valid : PocklingtonRow.Valid {data_name} := by",
+        "  apply PocklingtonRow.valid_of_decide_all",
+        "  decide",
+        "",
     ]
-    theorem.extend(
-        [
-            "  · intro p hp",
-            "    simp at hp",
-            "    rcases hp with "
-            + " | ".join("rfl" for _ in factors),
-        ]
-    )
-    theorem.extend(["    all_goals decide", "  · norm_num", "  · norm_num"])
-    theorem.extend(["  · decide"])
-    theorem.extend(["  · intro q hq", "    simp at hq"])
-    residue_factors = list(dict.fromkeys(factors))
-    theorem.append(
-        "    rcases hq with " + " | ".join("rfl" for _ in residue_factors)
-    )
-    for q in residue_factors:
-        theorem.extend(
+    for n in witnesses:
+        body.extend(
             [
-                f"    · apply IsUnit.of_mul_eq_one ({inverses[q]} : ZMod {n})",
-                "      decide",
+                f"theorem lowPrime_{n} : Nat.Prime {n} := by",
+                f"  apply PocklingtonRow.prime_of_mem {data_name}_valid",
+                f"  simp [{data_name}]",
+                "",
             ]
         )
-    theorem.extend(["  · norm_num", ""])
-    return "\n".join(theorem)
-
-
-def prime_certificates(rows: list[str]) -> str:
-    witnesses = sorted({int(q) for row in rows for q in re.findall(r"\(q := (\d+)\)", row)})
-    return "\n".join(pocklington_certificate(q) for q in witnesses)
+    return "\n".join(body)
 
 
 def source_text(repo: Path) -> str:
@@ -287,6 +285,7 @@ def split_large_row_families(body: str) -> str:
 LOW_HEADER = """import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Core
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.EndpointBounds
 import PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington
+import PrimeFactorUnimodality.Mathlib.NumberTheory.PocklingtonRows
 import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod
 
 set_option autoImplicit false
@@ -427,7 +426,7 @@ noncomputable section
         part_body = "".join(part_segments[offset:end_family])
         part_rows = re.findall(
             r"^    dusartPrimeRow_of_explicit[^\n]+(?:\n)?", part_body, re.M)
-        certificates = prime_certificates(part_rows)
+        certificates = prime_certificates(part_rows, f"lowPocklingtonData{part:02d}")
         part_body = re.sub(
             r"(\(q := (\d+)\)) \(by decide\)",
             lambda match: f"{match.group(1)} (by exact lowPrime_{match.group(2)})",

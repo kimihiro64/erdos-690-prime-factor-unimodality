@@ -10,2313 +10,464 @@ namespace PrimeFactorUnimodality
 noncomputable section
 set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 20000000 in
+def lowPocklingtonData22 : List PocklingtonData := [
+    { n := 18043, F := 18042, R := 1, a := 2, factors := [2, 3, 31, 97], residues := [(2, 9021), (3, 14098), (31, 8385), (97, 860)] },
+    { n := 18047, F := 18046, R := 1, a := 5, factors := [2, 7, 1289], residues := [(2, 9023), (7, 17111), (1289, 572)] },
+    { n := 18049, F := 18048, R := 1, a := 13, factors := [2, 2, 2, 2, 2, 2, 2, 3, 47], residues := [(2, 9024), (3, 13119), (47, 3873)] },
+    { n := 18059, F := 18058, R := 1, a := 2, factors := [2, 9029], residues := [(2, 9029), (9029, 6020)] },
+    { n := 18061, F := 18060, R := 1, a := 6, factors := [2, 2, 3, 5, 7, 43], residues := [(2, 9030), (3, 11108), (5, 939), (7, 14576), (43, 17703)] },
+    { n := 18077, F := 18076, R := 1, a := 2, factors := [2, 2, 4519], residues := [(2, 9038), (4519, 8436)] },
+    { n := 18089, F := 18088, R := 1, a := 3, factors := [2, 2, 2, 7, 17, 19], residues := [(2, 9044), (7, 1018), (17, 9477), (19, 7795)] },
+    { n := 18097, F := 18096, R := 1, a := 5, factors := [2, 2, 2, 2, 3, 13, 29], residues := [(2, 9048), (3, 14060), (13, 16363), (29, 10916)] },
+    { n := 18119, F := 18118, R := 1, a := 17, factors := [2, 9059], residues := [(2, 9059), (9059, 16672)] },
+    { n := 18121, F := 18120, R := 1, a := 23, factors := [2, 2, 2, 3, 5, 151], residues := [(2, 9060), (3, 12330), (5, 15075), (151, 11791)] },
+    { n := 18127, F := 18126, R := 1, a := 3, factors := [2, 3, 3, 19, 53], residues := [(2, 9063), (3, 8625), (19, 9151), (53, 7244)] },
+    { n := 18131, F := 18130, R := 1, a := 7, factors := [2, 5, 7, 7, 37], residues := [(2, 9065), (5, 4996), (7, 10679), (37, 11177)] },
+    { n := 18133, F := 18132, R := 1, a := 5, factors := [2, 2, 3, 1511], residues := [(2, 9066), (3, 1176), (1511, 2614)] },
+    { n := 18143, F := 18142, R := 1, a := 5, factors := [2, 47, 193], residues := [(2, 9071), (47, 5780), (193, 1879)] },
+    { n := 18149, F := 18148, R := 1, a := 2, factors := [2, 2, 13, 349], residues := [(2, 9074), (13, 13400), (349, 4583)] },
+    { n := 18169, F := 18168, R := 1, a := 11, factors := [2, 2, 2, 3, 757], residues := [(2, 9084), (3, 2191), (757, 3494)] },
+    { n := 18181, F := 18180, R := 1, a := 2, factors := [2, 2, 3, 3, 5, 101], residues := [(2, 9090), (3, 3852), (5, 1019), (101, 13973)] },
+    { n := 18191, F := 18190, R := 1, a := 29, factors := [2, 5, 17, 107], residues := [(2, 9095), (5, 166), (17, 960), (107, 4925)] },
+    { n := 18199, F := 18198, R := 1, a := 11, factors := [2, 3, 3, 3, 337], residues := [(2, 9099), (3, 339), (337, 7826)] },
+    { n := 18211, F := 18210, R := 1, a := 7, factors := [2, 3, 5, 607], residues := [(2, 9105), (3, 17518), (5, 7603), (607, 3102)] },
+    { n := 18217, F := 18216, R := 1, a := 7, factors := [2, 2, 2, 3, 3, 11, 23], residues := [(2, 9108), (3, 9345), (11, 9454), (23, 8815)] },
+    { n := 18223, F := 18222, R := 1, a := 3, factors := [2, 3, 3037], residues := [(2, 9111), (3, 11424), (3037, 15845)] },
+    { n := 18229, F := 18228, R := 1, a := 2, factors := [2, 2, 3, 7, 7, 31], residues := [(2, 9114), (3, 16974), (7, 17385), (31, 3809)] },
+    { n := 18233, F := 18232, R := 1, a := 3, factors := [2, 2, 2, 43, 53], residues := [(2, 9116), (43, 13150), (53, 438)] },
+    { n := 18251, F := 18250, R := 1, a := 2, factors := [2, 5, 5, 5, 73], residues := [(2, 9125), (5, 4597), (73, 2194)] },
+    { n := 18253, F := 18252, R := 1, a := 5, factors := [2, 2, 3, 3, 3, 13, 13], residues := [(2, 9126), (3, 9087), (13, 2928)] },
+    { n := 18257, F := 18256, R := 1, a := 5, factors := [2, 2, 2, 2, 7, 163], residues := [(2, 9128), (7, 4491), (163, 4217)] },
+    { n := 18269, F := 18268, R := 1, a := 2, factors := [2, 2, 4567], residues := [(2, 9134), (4567, 1218)] },
+    { n := 18287, F := 18286, R := 1, a := 5, factors := [2, 41, 223], residues := [(2, 9143), (41, 10760), (223, 5113)] },
+    { n := 18289, F := 18288, R := 1, a := 13, factors := [2, 2, 2, 2, 3, 3, 127], residues := [(2, 9144), (3, 13275), (127, 8872)] },
+    { n := 18301, F := 18300, R := 1, a := 6, factors := [2, 2, 3, 5, 5, 61], residues := [(2, 9150), (3, 6530), (5, 11614), (61, 4247)] },
+    { n := 18307, F := 18306, R := 1, a := 11, factors := [2, 3, 3, 3, 3, 113], residues := [(2, 9153), (3, 7894), (113, 8525)] },
+    { n := 18311, F := 18310, R := 1, a := 13, factors := [2, 5, 1831], residues := [(2, 9155), (5, 2654), (1831, 3709)] },
+    { n := 18313, F := 18312, R := 1, a := 10, factors := [2, 2, 2, 3, 7, 109], residues := [(2, 9156), (3, 997), (7, 9675), (109, 2521)] },
+    { n := 18329, F := 18328, R := 1, a := 3, factors := [2, 2, 2, 29, 79], residues := [(2, 9164), (29, 11378), (79, 9344)] },
+    { n := 18341, F := 18340, R := 1, a := 3, factors := [2, 2, 5, 7, 131], residues := [(2, 9170), (5, 10579), (7, 12998), (131, 4363)] },
+    { n := 18353, F := 18352, R := 1, a := 3, factors := [2, 2, 2, 2, 31, 37], residues := [(2, 9176), (31, 8481), (37, 5670)] },
+    { n := 18367, F := 18366, R := 1, a := 3, factors := [2, 3, 3061], residues := [(2, 9183), (3, 4066), (3061, 11328)] },
+    { n := 18371, F := 18370, R := 1, a := 11, factors := [2, 5, 11, 167], residues := [(2, 9185), (5, 8990), (11, 17496), (167, 11524)] },
+    { n := 18379, F := 18378, R := 1, a := 3, factors := [2, 3, 3, 1021], residues := [(2, 9189), (3, 15937), (1021, 3136)] },
+    { n := 18397, F := 18396, R := 1, a := 6, factors := [2, 2, 3, 3, 7, 73], residues := [(2, 9198), (3, 882), (7, 2579), (73, 125)] },
+    { n := 18401, F := 18400, R := 1, a := 3, factors := [2, 2, 2, 2, 2, 5, 5, 23], residues := [(2, 9200), (5, 818), (23, 6221)] },
+    { n := 18413, F := 18412, R := 1, a := 2, factors := [2, 2, 4603], residues := [(2, 9206), (4603, 15958)] },
+    { n := 18427, F := 18426, R := 1, a := 2, factors := [2, 3, 37, 83], residues := [(2, 9213), (3, 5620), (37, 17644), (83, 6299)] },
+    { n := 18433, F := 18432, R := 1, a := 5, factors := [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3], residues := [(2, 9216), (3, 1261)] },
+    { n := 18439, F := 18438, R := 1, a := 3, factors := [2, 3, 7, 439], residues := [(2, 9219), (3, 15742), (7, 10852), (439, 11356)] },
+    { n := 18443, F := 18442, R := 1, a := 2, factors := [2, 9221], residues := [(2, 9221), (9221, 6148)] },
+    { n := 18451, F := 18450, R := 1, a := 3, factors := [2, 3, 3, 5, 5, 41], residues := [(2, 9225), (3, 2791), (5, 1554), (41, 10309)] },
+    { n := 18457, F := 18456, R := 1, a := 5, factors := [2, 2, 2, 3, 769], residues := [(2, 9228), (3, 6730), (769, 3407)] },
+    { n := 18461, F := 18460, R := 1, a := 2, factors := [2, 2, 5, 13, 71], residues := [(2, 9230), (5, 9097), (13, 14440), (71, 3619)] },
+    { n := 18481, F := 18480, R := 1, a := 13, factors := [2, 2, 2, 2, 3, 5, 7, 11], residues := [(2, 9240), (3, 13751), (5, 3806), (7, 160), (11, 12344)] },
+    { n := 18493, F := 18492, R := 1, a := 2, factors := [2, 2, 3, 23, 67], residues := [(2, 9246), (3, 7381), (23, 3325), (67, 164)] },
+    { n := 18503, F := 18502, R := 1, a := 5, factors := [2, 11, 29, 29], residues := [(2, 9251), (11, 8656), (29, 18083)] },
+    { n := 18517, F := 18516, R := 1, a := 6, factors := [2, 2, 3, 1543], residues := [(2, 9258), (3, 1690), (1543, 13715)] },
+    { n := 18521, F := 18520, R := 1, a := 3, factors := [2, 2, 2, 5, 463], residues := [(2, 9260), (5, 4206), (463, 315)] },
+    { n := 18523, F := 18522, R := 1, a := 3, factors := [2, 3, 3, 3, 7, 7, 7], residues := [(2, 9261), (3, 1021), (7, 17556)] },
+    { n := 18539, F := 18538, R := 1, a := 6, factors := [2, 13, 23, 31], residues := [(2, 9269), (13, 923), (23, 8637), (31, 8127)] },
+    { n := 18541, F := 18540, R := 1, a := 6, factors := [2, 2, 3, 3, 5, 103], residues := [(2, 9270), (3, 7091), (5, 6191), (103, 13871)] },
+    { n := 18553, F := 18552, R := 1, a := 5, factors := [2, 2, 2, 3, 773], residues := [(2, 9276), (3, 9805), (773, 1722)] },
+    { n := 18583, F := 18582, R := 1, a := 3, factors := [2, 3, 19, 163], residues := [(2, 9291), (3, 8204), (19, 15045), (163, 14429)] },
+    { n := 18587, F := 18586, R := 1, a := 2, factors := [2, 9293], residues := [(2, 9293), (9293, 6196)] },
+    { n := 18593, F := 18592, R := 1, a := 3, factors := [2, 2, 2, 2, 2, 7, 83], residues := [(2, 9296), (7, 10267), (83, 2167)] },
+    { n := 18617, F := 18616, R := 1, a := 3, factors := [2, 2, 2, 13, 179], residues := [(2, 9308), (13, 13446), (179, 2884)] },
+    { n := 18637, F := 18636, R := 1, a := 2, factors := [2, 2, 3, 1553], residues := [(2, 9318), (3, 12886), (1553, 15301)] },
+    { n := 18661, F := 18660, R := 1, a := 10, factors := [2, 2, 3, 5, 311], residues := [(2, 9330), (3, 7085), (5, 9560), (311, 10989)] },
+    { n := 18671, F := 18670, R := 1, a := 7, factors := [2, 5, 1867], residues := [(2, 9335), (5, 4460), (1867, 10756)] },
+    { n := 18679, F := 18678, R := 1, a := 6, factors := [2, 3, 11, 283], residues := [(2, 9339), (3, 11150), (11, 11491), (283, 14067)] },
+    { n := 18691, F := 18690, R := 1, a := 3, factors := [2, 3, 5, 7, 89], residues := [(2, 9345), (3, 5931), (5, 2968), (7, 5439), (89, 14194)] },
+    { n := 18701, F := 18700, R := 1, a := 2, factors := [2, 2, 5, 5, 11, 17], residues := [(2, 9350), (5, 11237), (11, 18381), (17, 16714)] },
+    { n := 18713, F := 18712, R := 1, a := 3, factors := [2, 2, 2, 2339], residues := [(2, 9356), (2339, 5999)] },
+    { n := 18719, F := 18718, R := 1, a := 7, factors := [2, 7, 7, 191], residues := [(2, 9359), (7, 6223), (191, 5581)] },
+    { n := 18731, F := 18730, R := 1, a := 2, factors := [2, 5, 1873], residues := [(2, 9365), (5, 17677), (1873, 17431)] },
+    { n := 18743, F := 18742, R := 1, a := 5, factors := [2, 9371], residues := [(2, 9371), (9371, 781)] },
+    { n := 18749, F := 18748, R := 1, a := 2, factors := [2, 2, 43, 109], residues := [(2, 9374), (43, 3262), (109, 12720)] },
+    { n := 18757, F := 18756, R := 1, a := 2, factors := [2, 2, 3, 3, 521], residues := [(2, 9378), (3, 7613), (521, 1858)] },
+    { n := 18773, F := 18772, R := 1, a := 2, factors := [2, 2, 13, 19, 19], residues := [(2, 9386), (13, 8038), (19, 9050)] },
+    { n := 18787, F := 18786, R := 1, a := 2, factors := [2, 3, 31, 101], residues := [(2, 9393), (3, 3527), (31, 9175), (101, 18714)] },
+    { n := 18793, F := 18792, R := 1, a := 5, factors := [2, 2, 2, 3, 3, 3, 3, 29], residues := [(2, 9396), (3, 11810), (29, 4890)] },
+    { n := 18797, F := 18796, R := 1, a := 3, factors := [2, 2, 37, 127], residues := [(2, 9398), (37, 17289), (127, 17111)] },
+    { n := 18803, F := 18802, R := 1, a := 5, factors := [2, 7, 17, 79], residues := [(2, 9401), (7, 13310), (17, 12984), (79, 12069)] },
+    { n := 19843, F := 19842, R := 1, a := 19, factors := [2, 3, 3307], residues := [(2, 9921), (3, 15803), (3307, 15065)] },
+    { n := 19853, F := 19852, R := 1, a := 2, factors := [2, 2, 7, 709], residues := [(2, 9926), (7, 9158), (709, 124)] },
+    { n := 19861, F := 19860, R := 1, a := 11, factors := [2, 2, 3, 5, 331], residues := [(2, 9930), (3, 11143), (5, 6913), (331, 2000)] },
+    { n := 19867, F := 19866, R := 1, a := 2, factors := [2, 3, 7, 11, 43], residues := [(2, 9933), (3, 14776), (7, 5342), (11, 19534), (43, 12416)] },
+    { n := 19889, F := 19888, R := 1, a := 3, factors := [2, 2, 2, 2, 11, 113], residues := [(2, 9944), (11, 1630), (113, 13974)] },
+    { n := 19891, F := 19890, R := 1, a := 2, factors := [2, 3, 3, 5, 13, 17], residues := [(2, 9945), (3, 7172), (5, 19139), (13, 11976), (17, 2694)] },
+    { n := 19913, F := 19912, R := 1, a := 3, factors := [2, 2, 2, 19, 131], residues := [(2, 9956), (19, 15115), (131, 8511)] },
+    { n := 19919, F := 19918, R := 1, a := 7, factors := [2, 23, 433], residues := [(2, 9959), (23, 16088), (433, 14882)] },
+    { n := 19927, F := 19926, R := 1, a := 6, factors := [2, 3, 3, 3, 3, 3, 41], residues := [(2, 9963), (3, 81), (41, 3982)] },
+    { n := 19937, F := 19936, R := 1, a := 3, factors := [2, 2, 2, 2, 2, 7, 89], residues := [(2, 9968), (7, 11232), (89, 12798)] }
+  ]
+
+set_option maxRecDepth 1000000 in
+set_option maxHeartbeats 20000000 in
+theorem lowPocklingtonData22_valid : PocklingtonRow.Valid lowPocklingtonData22 := by
+  apply PocklingtonRow.valid_of_decide_all
+  decide
+
 theorem lowPrime_18043 : Nat.Prime 18043 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18043 18042 1 2 [2, 3, 31, 97]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9021 : ZMod 18043)
-      decide
-    · apply IsUnit.of_mul_eq_one (14098 : ZMod 18043)
-      decide
-    · apply IsUnit.of_mul_eq_one (8385 : ZMod 18043)
-      decide
-    · apply IsUnit.of_mul_eq_one (860 : ZMod 18043)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18047 : Nat.Prime 18047 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18047 18046 1 5 [2, 7, 1289]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9023 : ZMod 18047)
-      decide
-    · apply IsUnit.of_mul_eq_one (17111 : ZMod 18047)
-      decide
-    · apply IsUnit.of_mul_eq_one (572 : ZMod 18047)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18049 : Nat.Prime 18049 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18049 18048 1 13 [2, 2, 2, 2, 2, 2, 2, 3, 47]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9024 : ZMod 18049)
-      decide
-    · apply IsUnit.of_mul_eq_one (13119 : ZMod 18049)
-      decide
-    · apply IsUnit.of_mul_eq_one (3873 : ZMod 18049)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18059 : Nat.Prime 18059 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18059 18058 1 2 [2, 9029]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9029 : ZMod 18059)
-      decide
-    · apply IsUnit.of_mul_eq_one (6020 : ZMod 18059)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18061 : Nat.Prime 18061 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18061 18060 1 6 [2, 2, 3, 5, 7, 43]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9030 : ZMod 18061)
-      decide
-    · apply IsUnit.of_mul_eq_one (11108 : ZMod 18061)
-      decide
-    · apply IsUnit.of_mul_eq_one (939 : ZMod 18061)
-      decide
-    · apply IsUnit.of_mul_eq_one (14576 : ZMod 18061)
-      decide
-    · apply IsUnit.of_mul_eq_one (17703 : ZMod 18061)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18077 : Nat.Prime 18077 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18077 18076 1 2 [2, 2, 4519]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9038 : ZMod 18077)
-      decide
-    · apply IsUnit.of_mul_eq_one (8436 : ZMod 18077)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18089 : Nat.Prime 18089 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18089 18088 1 3 [2, 2, 2, 7, 17, 19]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9044 : ZMod 18089)
-      decide
-    · apply IsUnit.of_mul_eq_one (1018 : ZMod 18089)
-      decide
-    · apply IsUnit.of_mul_eq_one (9477 : ZMod 18089)
-      decide
-    · apply IsUnit.of_mul_eq_one (7795 : ZMod 18089)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18097 : Nat.Prime 18097 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18097 18096 1 5 [2, 2, 2, 2, 3, 13, 29]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9048 : ZMod 18097)
-      decide
-    · apply IsUnit.of_mul_eq_one (14060 : ZMod 18097)
-      decide
-    · apply IsUnit.of_mul_eq_one (16363 : ZMod 18097)
-      decide
-    · apply IsUnit.of_mul_eq_one (10916 : ZMod 18097)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18119 : Nat.Prime 18119 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18119 18118 1 17 [2, 9059]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9059 : ZMod 18119)
-      decide
-    · apply IsUnit.of_mul_eq_one (16672 : ZMod 18119)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18121 : Nat.Prime 18121 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18121 18120 1 23 [2, 2, 2, 3, 5, 151]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9060 : ZMod 18121)
-      decide
-    · apply IsUnit.of_mul_eq_one (12330 : ZMod 18121)
-      decide
-    · apply IsUnit.of_mul_eq_one (15075 : ZMod 18121)
-      decide
-    · apply IsUnit.of_mul_eq_one (11791 : ZMod 18121)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18127 : Nat.Prime 18127 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18127 18126 1 3 [2, 3, 3, 19, 53]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9063 : ZMod 18127)
-      decide
-    · apply IsUnit.of_mul_eq_one (8625 : ZMod 18127)
-      decide
-    · apply IsUnit.of_mul_eq_one (9151 : ZMod 18127)
-      decide
-    · apply IsUnit.of_mul_eq_one (7244 : ZMod 18127)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18131 : Nat.Prime 18131 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18131 18130 1 7 [2, 5, 7, 7, 37]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9065 : ZMod 18131)
-      decide
-    · apply IsUnit.of_mul_eq_one (4996 : ZMod 18131)
-      decide
-    · apply IsUnit.of_mul_eq_one (10679 : ZMod 18131)
-      decide
-    · apply IsUnit.of_mul_eq_one (11177 : ZMod 18131)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18133 : Nat.Prime 18133 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18133 18132 1 5 [2, 2, 3, 1511]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9066 : ZMod 18133)
-      decide
-    · apply IsUnit.of_mul_eq_one (1176 : ZMod 18133)
-      decide
-    · apply IsUnit.of_mul_eq_one (2614 : ZMod 18133)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18143 : Nat.Prime 18143 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18143 18142 1 5 [2, 47, 193]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9071 : ZMod 18143)
-      decide
-    · apply IsUnit.of_mul_eq_one (5780 : ZMod 18143)
-      decide
-    · apply IsUnit.of_mul_eq_one (1879 : ZMod 18143)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18149 : Nat.Prime 18149 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18149 18148 1 2 [2, 2, 13, 349]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9074 : ZMod 18149)
-      decide
-    · apply IsUnit.of_mul_eq_one (13400 : ZMod 18149)
-      decide
-    · apply IsUnit.of_mul_eq_one (4583 : ZMod 18149)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18169 : Nat.Prime 18169 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18169 18168 1 11 [2, 2, 2, 3, 757]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9084 : ZMod 18169)
-      decide
-    · apply IsUnit.of_mul_eq_one (2191 : ZMod 18169)
-      decide
-    · apply IsUnit.of_mul_eq_one (3494 : ZMod 18169)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18181 : Nat.Prime 18181 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18181 18180 1 2 [2, 2, 3, 3, 5, 101]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9090 : ZMod 18181)
-      decide
-    · apply IsUnit.of_mul_eq_one (3852 : ZMod 18181)
-      decide
-    · apply IsUnit.of_mul_eq_one (1019 : ZMod 18181)
-      decide
-    · apply IsUnit.of_mul_eq_one (13973 : ZMod 18181)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18191 : Nat.Prime 18191 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18191 18190 1 29 [2, 5, 17, 107]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9095 : ZMod 18191)
-      decide
-    · apply IsUnit.of_mul_eq_one (166 : ZMod 18191)
-      decide
-    · apply IsUnit.of_mul_eq_one (960 : ZMod 18191)
-      decide
-    · apply IsUnit.of_mul_eq_one (4925 : ZMod 18191)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18199 : Nat.Prime 18199 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18199 18198 1 11 [2, 3, 3, 3, 337]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9099 : ZMod 18199)
-      decide
-    · apply IsUnit.of_mul_eq_one (339 : ZMod 18199)
-      decide
-    · apply IsUnit.of_mul_eq_one (7826 : ZMod 18199)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18211 : Nat.Prime 18211 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18211 18210 1 7 [2, 3, 5, 607]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9105 : ZMod 18211)
-      decide
-    · apply IsUnit.of_mul_eq_one (17518 : ZMod 18211)
-      decide
-    · apply IsUnit.of_mul_eq_one (7603 : ZMod 18211)
-      decide
-    · apply IsUnit.of_mul_eq_one (3102 : ZMod 18211)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18217 : Nat.Prime 18217 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18217 18216 1 7 [2, 2, 2, 3, 3, 11, 23]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9108 : ZMod 18217)
-      decide
-    · apply IsUnit.of_mul_eq_one (9345 : ZMod 18217)
-      decide
-    · apply IsUnit.of_mul_eq_one (9454 : ZMod 18217)
-      decide
-    · apply IsUnit.of_mul_eq_one (8815 : ZMod 18217)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18223 : Nat.Prime 18223 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18223 18222 1 3 [2, 3, 3037]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9111 : ZMod 18223)
-      decide
-    · apply IsUnit.of_mul_eq_one (11424 : ZMod 18223)
-      decide
-    · apply IsUnit.of_mul_eq_one (15845 : ZMod 18223)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18229 : Nat.Prime 18229 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18229 18228 1 2 [2, 2, 3, 7, 7, 31]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9114 : ZMod 18229)
-      decide
-    · apply IsUnit.of_mul_eq_one (16974 : ZMod 18229)
-      decide
-    · apply IsUnit.of_mul_eq_one (17385 : ZMod 18229)
-      decide
-    · apply IsUnit.of_mul_eq_one (3809 : ZMod 18229)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18233 : Nat.Prime 18233 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18233 18232 1 3 [2, 2, 2, 43, 53]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9116 : ZMod 18233)
-      decide
-    · apply IsUnit.of_mul_eq_one (13150 : ZMod 18233)
-      decide
-    · apply IsUnit.of_mul_eq_one (438 : ZMod 18233)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18251 : Nat.Prime 18251 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18251 18250 1 2 [2, 5, 5, 5, 73]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9125 : ZMod 18251)
-      decide
-    · apply IsUnit.of_mul_eq_one (4597 : ZMod 18251)
-      decide
-    · apply IsUnit.of_mul_eq_one (2194 : ZMod 18251)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18253 : Nat.Prime 18253 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18253 18252 1 5 [2, 2, 3, 3, 3, 13, 13]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9126 : ZMod 18253)
-      decide
-    · apply IsUnit.of_mul_eq_one (9087 : ZMod 18253)
-      decide
-    · apply IsUnit.of_mul_eq_one (2928 : ZMod 18253)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18257 : Nat.Prime 18257 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18257 18256 1 5 [2, 2, 2, 2, 7, 163]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9128 : ZMod 18257)
-      decide
-    · apply IsUnit.of_mul_eq_one (4491 : ZMod 18257)
-      decide
-    · apply IsUnit.of_mul_eq_one (4217 : ZMod 18257)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18269 : Nat.Prime 18269 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18269 18268 1 2 [2, 2, 4567]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9134 : ZMod 18269)
-      decide
-    · apply IsUnit.of_mul_eq_one (1218 : ZMod 18269)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18287 : Nat.Prime 18287 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18287 18286 1 5 [2, 41, 223]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9143 : ZMod 18287)
-      decide
-    · apply IsUnit.of_mul_eq_one (10760 : ZMod 18287)
-      decide
-    · apply IsUnit.of_mul_eq_one (5113 : ZMod 18287)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18289 : Nat.Prime 18289 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18289 18288 1 13 [2, 2, 2, 2, 3, 3, 127]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9144 : ZMod 18289)
-      decide
-    · apply IsUnit.of_mul_eq_one (13275 : ZMod 18289)
-      decide
-    · apply IsUnit.of_mul_eq_one (8872 : ZMod 18289)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18301 : Nat.Prime 18301 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18301 18300 1 6 [2, 2, 3, 5, 5, 61]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9150 : ZMod 18301)
-      decide
-    · apply IsUnit.of_mul_eq_one (6530 : ZMod 18301)
-      decide
-    · apply IsUnit.of_mul_eq_one (11614 : ZMod 18301)
-      decide
-    · apply IsUnit.of_mul_eq_one (4247 : ZMod 18301)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18307 : Nat.Prime 18307 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18307 18306 1 11 [2, 3, 3, 3, 3, 113]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9153 : ZMod 18307)
-      decide
-    · apply IsUnit.of_mul_eq_one (7894 : ZMod 18307)
-      decide
-    · apply IsUnit.of_mul_eq_one (8525 : ZMod 18307)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18311 : Nat.Prime 18311 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18311 18310 1 13 [2, 5, 1831]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9155 : ZMod 18311)
-      decide
-    · apply IsUnit.of_mul_eq_one (2654 : ZMod 18311)
-      decide
-    · apply IsUnit.of_mul_eq_one (3709 : ZMod 18311)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18313 : Nat.Prime 18313 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18313 18312 1 10 [2, 2, 2, 3, 7, 109]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9156 : ZMod 18313)
-      decide
-    · apply IsUnit.of_mul_eq_one (997 : ZMod 18313)
-      decide
-    · apply IsUnit.of_mul_eq_one (9675 : ZMod 18313)
-      decide
-    · apply IsUnit.of_mul_eq_one (2521 : ZMod 18313)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18329 : Nat.Prime 18329 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18329 18328 1 3 [2, 2, 2, 29, 79]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9164 : ZMod 18329)
-      decide
-    · apply IsUnit.of_mul_eq_one (11378 : ZMod 18329)
-      decide
-    · apply IsUnit.of_mul_eq_one (9344 : ZMod 18329)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18341 : Nat.Prime 18341 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18341 18340 1 3 [2, 2, 5, 7, 131]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9170 : ZMod 18341)
-      decide
-    · apply IsUnit.of_mul_eq_one (10579 : ZMod 18341)
-      decide
-    · apply IsUnit.of_mul_eq_one (12998 : ZMod 18341)
-      decide
-    · apply IsUnit.of_mul_eq_one (4363 : ZMod 18341)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18353 : Nat.Prime 18353 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18353 18352 1 3 [2, 2, 2, 2, 31, 37]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9176 : ZMod 18353)
-      decide
-    · apply IsUnit.of_mul_eq_one (8481 : ZMod 18353)
-      decide
-    · apply IsUnit.of_mul_eq_one (5670 : ZMod 18353)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18367 : Nat.Prime 18367 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18367 18366 1 3 [2, 3, 3061]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9183 : ZMod 18367)
-      decide
-    · apply IsUnit.of_mul_eq_one (4066 : ZMod 18367)
-      decide
-    · apply IsUnit.of_mul_eq_one (11328 : ZMod 18367)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18371 : Nat.Prime 18371 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18371 18370 1 11 [2, 5, 11, 167]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9185 : ZMod 18371)
-      decide
-    · apply IsUnit.of_mul_eq_one (8990 : ZMod 18371)
-      decide
-    · apply IsUnit.of_mul_eq_one (17496 : ZMod 18371)
-      decide
-    · apply IsUnit.of_mul_eq_one (11524 : ZMod 18371)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18379 : Nat.Prime 18379 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18379 18378 1 3 [2, 3, 3, 1021]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9189 : ZMod 18379)
-      decide
-    · apply IsUnit.of_mul_eq_one (15937 : ZMod 18379)
-      decide
-    · apply IsUnit.of_mul_eq_one (3136 : ZMod 18379)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18397 : Nat.Prime 18397 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18397 18396 1 6 [2, 2, 3, 3, 7, 73]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9198 : ZMod 18397)
-      decide
-    · apply IsUnit.of_mul_eq_one (882 : ZMod 18397)
-      decide
-    · apply IsUnit.of_mul_eq_one (2579 : ZMod 18397)
-      decide
-    · apply IsUnit.of_mul_eq_one (125 : ZMod 18397)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18401 : Nat.Prime 18401 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18401 18400 1 3 [2, 2, 2, 2, 2, 5, 5, 23]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9200 : ZMod 18401)
-      decide
-    · apply IsUnit.of_mul_eq_one (818 : ZMod 18401)
-      decide
-    · apply IsUnit.of_mul_eq_one (6221 : ZMod 18401)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18413 : Nat.Prime 18413 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18413 18412 1 2 [2, 2, 4603]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9206 : ZMod 18413)
-      decide
-    · apply IsUnit.of_mul_eq_one (15958 : ZMod 18413)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18427 : Nat.Prime 18427 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18427 18426 1 2 [2, 3, 37, 83]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9213 : ZMod 18427)
-      decide
-    · apply IsUnit.of_mul_eq_one (5620 : ZMod 18427)
-      decide
-    · apply IsUnit.of_mul_eq_one (17644 : ZMod 18427)
-      decide
-    · apply IsUnit.of_mul_eq_one (6299 : ZMod 18427)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18433 : Nat.Prime 18433 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18433 18432 1 5 [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9216 : ZMod 18433)
-      decide
-    · apply IsUnit.of_mul_eq_one (1261 : ZMod 18433)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18439 : Nat.Prime 18439 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18439 18438 1 3 [2, 3, 7, 439]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9219 : ZMod 18439)
-      decide
-    · apply IsUnit.of_mul_eq_one (15742 : ZMod 18439)
-      decide
-    · apply IsUnit.of_mul_eq_one (10852 : ZMod 18439)
-      decide
-    · apply IsUnit.of_mul_eq_one (11356 : ZMod 18439)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18443 : Nat.Prime 18443 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18443 18442 1 2 [2, 9221]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9221 : ZMod 18443)
-      decide
-    · apply IsUnit.of_mul_eq_one (6148 : ZMod 18443)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18451 : Nat.Prime 18451 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18451 18450 1 3 [2, 3, 3, 5, 5, 41]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9225 : ZMod 18451)
-      decide
-    · apply IsUnit.of_mul_eq_one (2791 : ZMod 18451)
-      decide
-    · apply IsUnit.of_mul_eq_one (1554 : ZMod 18451)
-      decide
-    · apply IsUnit.of_mul_eq_one (10309 : ZMod 18451)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18457 : Nat.Prime 18457 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18457 18456 1 5 [2, 2, 2, 3, 769]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9228 : ZMod 18457)
-      decide
-    · apply IsUnit.of_mul_eq_one (6730 : ZMod 18457)
-      decide
-    · apply IsUnit.of_mul_eq_one (3407 : ZMod 18457)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18461 : Nat.Prime 18461 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18461 18460 1 2 [2, 2, 5, 13, 71]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9230 : ZMod 18461)
-      decide
-    · apply IsUnit.of_mul_eq_one (9097 : ZMod 18461)
-      decide
-    · apply IsUnit.of_mul_eq_one (14440 : ZMod 18461)
-      decide
-    · apply IsUnit.of_mul_eq_one (3619 : ZMod 18461)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18481 : Nat.Prime 18481 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18481 18480 1 13 [2, 2, 2, 2, 3, 5, 7, 11]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9240 : ZMod 18481)
-      decide
-    · apply IsUnit.of_mul_eq_one (13751 : ZMod 18481)
-      decide
-    · apply IsUnit.of_mul_eq_one (3806 : ZMod 18481)
-      decide
-    · apply IsUnit.of_mul_eq_one (160 : ZMod 18481)
-      decide
-    · apply IsUnit.of_mul_eq_one (12344 : ZMod 18481)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18493 : Nat.Prime 18493 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18493 18492 1 2 [2, 2, 3, 23, 67]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9246 : ZMod 18493)
-      decide
-    · apply IsUnit.of_mul_eq_one (7381 : ZMod 18493)
-      decide
-    · apply IsUnit.of_mul_eq_one (3325 : ZMod 18493)
-      decide
-    · apply IsUnit.of_mul_eq_one (164 : ZMod 18493)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18503 : Nat.Prime 18503 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18503 18502 1 5 [2, 11, 29, 29]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9251 : ZMod 18503)
-      decide
-    · apply IsUnit.of_mul_eq_one (8656 : ZMod 18503)
-      decide
-    · apply IsUnit.of_mul_eq_one (18083 : ZMod 18503)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18517 : Nat.Prime 18517 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18517 18516 1 6 [2, 2, 3, 1543]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9258 : ZMod 18517)
-      decide
-    · apply IsUnit.of_mul_eq_one (1690 : ZMod 18517)
-      decide
-    · apply IsUnit.of_mul_eq_one (13715 : ZMod 18517)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18521 : Nat.Prime 18521 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18521 18520 1 3 [2, 2, 2, 5, 463]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9260 : ZMod 18521)
-      decide
-    · apply IsUnit.of_mul_eq_one (4206 : ZMod 18521)
-      decide
-    · apply IsUnit.of_mul_eq_one (315 : ZMod 18521)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18523 : Nat.Prime 18523 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18523 18522 1 3 [2, 3, 3, 3, 7, 7, 7]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9261 : ZMod 18523)
-      decide
-    · apply IsUnit.of_mul_eq_one (1021 : ZMod 18523)
-      decide
-    · apply IsUnit.of_mul_eq_one (17556 : ZMod 18523)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18539 : Nat.Prime 18539 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18539 18538 1 6 [2, 13, 23, 31]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9269 : ZMod 18539)
-      decide
-    · apply IsUnit.of_mul_eq_one (923 : ZMod 18539)
-      decide
-    · apply IsUnit.of_mul_eq_one (8637 : ZMod 18539)
-      decide
-    · apply IsUnit.of_mul_eq_one (8127 : ZMod 18539)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18541 : Nat.Prime 18541 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18541 18540 1 6 [2, 2, 3, 3, 5, 103]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9270 : ZMod 18541)
-      decide
-    · apply IsUnit.of_mul_eq_one (7091 : ZMod 18541)
-      decide
-    · apply IsUnit.of_mul_eq_one (6191 : ZMod 18541)
-      decide
-    · apply IsUnit.of_mul_eq_one (13871 : ZMod 18541)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18553 : Nat.Prime 18553 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18553 18552 1 5 [2, 2, 2, 3, 773]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9276 : ZMod 18553)
-      decide
-    · apply IsUnit.of_mul_eq_one (9805 : ZMod 18553)
-      decide
-    · apply IsUnit.of_mul_eq_one (1722 : ZMod 18553)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18583 : Nat.Prime 18583 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18583 18582 1 3 [2, 3, 19, 163]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9291 : ZMod 18583)
-      decide
-    · apply IsUnit.of_mul_eq_one (8204 : ZMod 18583)
-      decide
-    · apply IsUnit.of_mul_eq_one (15045 : ZMod 18583)
-      decide
-    · apply IsUnit.of_mul_eq_one (14429 : ZMod 18583)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18587 : Nat.Prime 18587 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18587 18586 1 2 [2, 9293]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9293 : ZMod 18587)
-      decide
-    · apply IsUnit.of_mul_eq_one (6196 : ZMod 18587)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18593 : Nat.Prime 18593 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18593 18592 1 3 [2, 2, 2, 2, 2, 7, 83]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9296 : ZMod 18593)
-      decide
-    · apply IsUnit.of_mul_eq_one (10267 : ZMod 18593)
-      decide
-    · apply IsUnit.of_mul_eq_one (2167 : ZMod 18593)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18617 : Nat.Prime 18617 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18617 18616 1 3 [2, 2, 2, 13, 179]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9308 : ZMod 18617)
-      decide
-    · apply IsUnit.of_mul_eq_one (13446 : ZMod 18617)
-      decide
-    · apply IsUnit.of_mul_eq_one (2884 : ZMod 18617)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18637 : Nat.Prime 18637 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18637 18636 1 2 [2, 2, 3, 1553]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9318 : ZMod 18637)
-      decide
-    · apply IsUnit.of_mul_eq_one (12886 : ZMod 18637)
-      decide
-    · apply IsUnit.of_mul_eq_one (15301 : ZMod 18637)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18661 : Nat.Prime 18661 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18661 18660 1 10 [2, 2, 3, 5, 311]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9330 : ZMod 18661)
-      decide
-    · apply IsUnit.of_mul_eq_one (7085 : ZMod 18661)
-      decide
-    · apply IsUnit.of_mul_eq_one (9560 : ZMod 18661)
-      decide
-    · apply IsUnit.of_mul_eq_one (10989 : ZMod 18661)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18671 : Nat.Prime 18671 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18671 18670 1 7 [2, 5, 1867]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9335 : ZMod 18671)
-      decide
-    · apply IsUnit.of_mul_eq_one (4460 : ZMod 18671)
-      decide
-    · apply IsUnit.of_mul_eq_one (10756 : ZMod 18671)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18679 : Nat.Prime 18679 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18679 18678 1 6 [2, 3, 11, 283]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9339 : ZMod 18679)
-      decide
-    · apply IsUnit.of_mul_eq_one (11150 : ZMod 18679)
-      decide
-    · apply IsUnit.of_mul_eq_one (11491 : ZMod 18679)
-      decide
-    · apply IsUnit.of_mul_eq_one (14067 : ZMod 18679)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18691 : Nat.Prime 18691 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18691 18690 1 3 [2, 3, 5, 7, 89]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9345 : ZMod 18691)
-      decide
-    · apply IsUnit.of_mul_eq_one (5931 : ZMod 18691)
-      decide
-    · apply IsUnit.of_mul_eq_one (2968 : ZMod 18691)
-      decide
-    · apply IsUnit.of_mul_eq_one (5439 : ZMod 18691)
-      decide
-    · apply IsUnit.of_mul_eq_one (14194 : ZMod 18691)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18701 : Nat.Prime 18701 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18701 18700 1 2 [2, 2, 5, 5, 11, 17]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9350 : ZMod 18701)
-      decide
-    · apply IsUnit.of_mul_eq_one (11237 : ZMod 18701)
-      decide
-    · apply IsUnit.of_mul_eq_one (18381 : ZMod 18701)
-      decide
-    · apply IsUnit.of_mul_eq_one (16714 : ZMod 18701)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18713 : Nat.Prime 18713 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18713 18712 1 3 [2, 2, 2, 2339]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9356 : ZMod 18713)
-      decide
-    · apply IsUnit.of_mul_eq_one (5999 : ZMod 18713)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18719 : Nat.Prime 18719 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18719 18718 1 7 [2, 7, 7, 191]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9359 : ZMod 18719)
-      decide
-    · apply IsUnit.of_mul_eq_one (6223 : ZMod 18719)
-      decide
-    · apply IsUnit.of_mul_eq_one (5581 : ZMod 18719)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18731 : Nat.Prime 18731 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18731 18730 1 2 [2, 5, 1873]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9365 : ZMod 18731)
-      decide
-    · apply IsUnit.of_mul_eq_one (17677 : ZMod 18731)
-      decide
-    · apply IsUnit.of_mul_eq_one (17431 : ZMod 18731)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18743 : Nat.Prime 18743 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18743 18742 1 5 [2, 9371]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9371 : ZMod 18743)
-      decide
-    · apply IsUnit.of_mul_eq_one (781 : ZMod 18743)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18749 : Nat.Prime 18749 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18749 18748 1 2 [2, 2, 43, 109]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9374 : ZMod 18749)
-      decide
-    · apply IsUnit.of_mul_eq_one (3262 : ZMod 18749)
-      decide
-    · apply IsUnit.of_mul_eq_one (12720 : ZMod 18749)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18757 : Nat.Prime 18757 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18757 18756 1 2 [2, 2, 3, 3, 521]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9378 : ZMod 18757)
-      decide
-    · apply IsUnit.of_mul_eq_one (7613 : ZMod 18757)
-      decide
-    · apply IsUnit.of_mul_eq_one (1858 : ZMod 18757)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18773 : Nat.Prime 18773 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18773 18772 1 2 [2, 2, 13, 19, 19]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9386 : ZMod 18773)
-      decide
-    · apply IsUnit.of_mul_eq_one (8038 : ZMod 18773)
-      decide
-    · apply IsUnit.of_mul_eq_one (9050 : ZMod 18773)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18787 : Nat.Prime 18787 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18787 18786 1 2 [2, 3, 31, 101]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9393 : ZMod 18787)
-      decide
-    · apply IsUnit.of_mul_eq_one (3527 : ZMod 18787)
-      decide
-    · apply IsUnit.of_mul_eq_one (9175 : ZMod 18787)
-      decide
-    · apply IsUnit.of_mul_eq_one (18714 : ZMod 18787)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18793 : Nat.Prime 18793 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18793 18792 1 5 [2, 2, 2, 3, 3, 3, 3, 29]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9396 : ZMod 18793)
-      decide
-    · apply IsUnit.of_mul_eq_one (11810 : ZMod 18793)
-      decide
-    · apply IsUnit.of_mul_eq_one (4890 : ZMod 18793)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18797 : Nat.Prime 18797 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18797 18796 1 3 [2, 2, 37, 127]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9398 : ZMod 18797)
-      decide
-    · apply IsUnit.of_mul_eq_one (17289 : ZMod 18797)
-      decide
-    · apply IsUnit.of_mul_eq_one (17111 : ZMod 18797)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_18803 : Nat.Prime 18803 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 18803 18802 1 5 [2, 7, 17, 79]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9401 : ZMod 18803)
-      decide
-    · apply IsUnit.of_mul_eq_one (13310 : ZMod 18803)
-      decide
-    · apply IsUnit.of_mul_eq_one (12984 : ZMod 18803)
-      decide
-    · apply IsUnit.of_mul_eq_one (12069 : ZMod 18803)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_19843 : Nat.Prime 19843 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 19843 19842 1 19 [2, 3, 3307]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9921 : ZMod 19843)
-      decide
-    · apply IsUnit.of_mul_eq_one (15803 : ZMod 19843)
-      decide
-    · apply IsUnit.of_mul_eq_one (15065 : ZMod 19843)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_19853 : Nat.Prime 19853 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 19853 19852 1 2 [2, 2, 7, 709]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9926 : ZMod 19853)
-      decide
-    · apply IsUnit.of_mul_eq_one (9158 : ZMod 19853)
-      decide
-    · apply IsUnit.of_mul_eq_one (124 : ZMod 19853)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_19861 : Nat.Prime 19861 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 19861 19860 1 11 [2, 2, 3, 5, 331]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9930 : ZMod 19861)
-      decide
-    · apply IsUnit.of_mul_eq_one (11143 : ZMod 19861)
-      decide
-    · apply IsUnit.of_mul_eq_one (6913 : ZMod 19861)
-      decide
-    · apply IsUnit.of_mul_eq_one (2000 : ZMod 19861)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_19867 : Nat.Prime 19867 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 19867 19866 1 2 [2, 3, 7, 11, 43]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9933 : ZMod 19867)
-      decide
-    · apply IsUnit.of_mul_eq_one (14776 : ZMod 19867)
-      decide
-    · apply IsUnit.of_mul_eq_one (5342 : ZMod 19867)
-      decide
-    · apply IsUnit.of_mul_eq_one (19534 : ZMod 19867)
-      decide
-    · apply IsUnit.of_mul_eq_one (12416 : ZMod 19867)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_19889 : Nat.Prime 19889 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 19889 19888 1 3 [2, 2, 2, 2, 11, 113]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9944 : ZMod 19889)
-      decide
-    · apply IsUnit.of_mul_eq_one (1630 : ZMod 19889)
-      decide
-    · apply IsUnit.of_mul_eq_one (13974 : ZMod 19889)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_19891 : Nat.Prime 19891 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 19891 19890 1 2 [2, 3, 3, 5, 13, 17]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9945 : ZMod 19891)
-      decide
-    · apply IsUnit.of_mul_eq_one (7172 : ZMod 19891)
-      decide
-    · apply IsUnit.of_mul_eq_one (19139 : ZMod 19891)
-      decide
-    · apply IsUnit.of_mul_eq_one (11976 : ZMod 19891)
-      decide
-    · apply IsUnit.of_mul_eq_one (2694 : ZMod 19891)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_19913 : Nat.Prime 19913 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 19913 19912 1 3 [2, 2, 2, 19, 131]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9956 : ZMod 19913)
-      decide
-    · apply IsUnit.of_mul_eq_one (15115 : ZMod 19913)
-      decide
-    · apply IsUnit.of_mul_eq_one (8511 : ZMod 19913)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_19919 : Nat.Prime 19919 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 19919 19918 1 7 [2, 23, 433]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9959 : ZMod 19919)
-      decide
-    · apply IsUnit.of_mul_eq_one (16088 : ZMod 19919)
-      decide
-    · apply IsUnit.of_mul_eq_one (14882 : ZMod 19919)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_19927 : Nat.Prime 19927 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 19927 19926 1 6 [2, 3, 3, 3, 3, 3, 41]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9963 : ZMod 19927)
-      decide
-    · apply IsUnit.of_mul_eq_one (81 : ZMod 19927)
-      decide
-    · apply IsUnit.of_mul_eq_one (3982 : ZMod 19927)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 
-set_option maxRecDepth 1000000 in
-set_option maxHeartbeats 20000000 in
 theorem lowPrime_19937 : Nat.Prime 19937 := by
-  apply Nat.prime_of_pocklington_factor_of_prime_factors 19937 19936 1 3 [2, 2, 2, 2, 2, 7, 89]
-  · norm_num
-  · norm_num
-  · norm_num
-  · intro p hp
-    simp at hp
-    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl
-    all_goals decide
-  · norm_num
-  · norm_num
-  · decide
-  · intro q hq
-    simp at hq
-    rcases hq with rfl | rfl | rfl
-    · apply IsUnit.of_mul_eq_one (9968 : ZMod 19937)
-      decide
-    · apply IsUnit.of_mul_eq_one (11232 : ZMod 19937)
-      decide
-    · apply IsUnit.of_mul_eq_one (12798 : ZMod 19937)
-      decide
-  · norm_num
+  apply PocklingtonRow.prime_of_mem lowPocklingtonData22_valid
+  simp [lowPocklingtonData22]
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_18959_19936_part12 : List DusartPrimeRow :=
   [
