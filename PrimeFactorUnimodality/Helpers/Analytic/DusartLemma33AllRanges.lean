@@ -1,10 +1,15 @@
-import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
-import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33Midrange
 import PrimeFactorUnimodality.Helpers.Analytic.DusartIntermediateLemma
+import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33Midrange
+import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
 
 set_option autoImplicit false
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
+
+/-! # All ranges of Dusart's Lemma 3.3
+
+The direct finite rows, intermediate power-sum argument, and analytic tail are
+assembled here into the paper's all-range statement. -/
 
 namespace PrimeFactorUnimodality
 

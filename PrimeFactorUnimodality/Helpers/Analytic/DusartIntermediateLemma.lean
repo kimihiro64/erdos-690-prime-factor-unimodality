@@ -1,9 +1,14 @@
-import PrimeFactorUnimodality.Helpers.Analytic.DusartIntermediatePower
 import PrimeFactorUnimodality.Helpers.Analytic.DusartIntermediateIndex
+import PrimeFactorUnimodality.Helpers.Analytic.DusartIntermediatePower
 
 set_option autoImplicit false
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
+
+/-! # Dusart's intermediate power-sum range
+
+This module assembles the coefficient-table estimate into the intermediate
+range of Lemma 3.3. -/
 
 namespace PrimeFactorUnimodality
 
