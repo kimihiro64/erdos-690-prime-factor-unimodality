@@ -3832,6 +3832,39 @@ theorem dusart_lemma_3_3_of_proof_chunks_and_theta_bounds
   exact dusart_lemma_3_3_of_proof_chunk_and_theta_bounds
     (DusartLemma33FiniteProofChunk.appendMany first rest) hX thetaBounds
 
+/-! The paper's Lemma 3.3 depends on the independent global estimate
+`theta y < 1.000081 * y`, not on Proposition 5.1 itself.  Keep that
+dependency explicit so a Proposition 5.1 construction cannot accidentally
+become circular. -/
+theorem dusart_lemma_3_3_of_proof_chunks_and_theta_upper
+    (first : DusartLemma33FiniteProofChunk)
+    (rest : List DusartLemma33FiniteProofChunk)
+    (hX : (10 ^ 11 : Real) ^ 3 ≤
+      (DusartLemma33FiniteProofChunk.appendMany first rest).cutoff)
+    (theta_upper : ∀ y : Real, 0 < y →
+      Chebyshev.theta y < (1000081 : Real) / 1000000 * y) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  exact dusart_lemma_3_3_of_finite_and_theta_upper hX
+    (DusartLemma33FiniteProofChunk.appendMany first rest).valid theta_upper
+
+theorem dusart_lemma_3_3_of_paper_finite_check_and_theta_upper
+    (finite : ∀ x : Real, 0 < x →
+      x ≤ (10 ^ 11 : Real) ^ 3 →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)))
+    (theta_upper : ∀ y : Real, 0 < y →
+      Chebyshev.theta y < (1000081 : Real) / 1000000 * y) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  exact dusart_lemma_3_3_of_finite_and_theta_upper
+    (by norm_num) finite theta_upper
+
 /-! This is the exact finite/analytic split stated in Dusart's proof: the
 bounded computation ends at `(10^11)^3`, while the displayed power-sum
 estimate handles the tail. -/
