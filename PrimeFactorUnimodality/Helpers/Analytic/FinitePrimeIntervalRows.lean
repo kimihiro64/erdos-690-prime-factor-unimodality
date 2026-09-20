@@ -1062,6 +1062,28 @@ def DusartThetaTableVerifiedRowsCoverUpTo
   ∀ x : Real, 2 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.data.left : Real) ≤ x ∧ x ≤ row.data.right
 
+def DusartThetaTableVerifiedStrictRowsCoverUpTo
+    (rows : List DusartThetaTableVerifiedRow) (X : Real)
+    (margin : ∀ row,
+      row.data.upper_coeff * (row.data.right : Real) < row.data.left) : Prop :=
+  StrictThetaUpperRowsCoverUpTo
+    (rows.map fun row => row.toStrictUpperRow (margin row)) X
+
+theorem hasStrictThetaUpperBelow_of_verified_table_rows
+    {X : Real} {rows : List DusartThetaTableVerifiedRow}
+    (cover : DusartThetaTableVerifiedRowsCoverUpTo rows X)
+    (margin : ∀ row,
+      row.data.upper_coeff * (row.data.right : Real) < row.data.left) :
+    HasStrictThetaUpperBelow X := by
+  apply hasStrictThetaUpperBelow_of_rows
+  intro x hx hX
+  obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
+  let strictRow := row.toStrictUpperRow (margin row)
+  refine ⟨strictRow, ?_, ?_, ?_⟩
+  · exact List.mem_map.2 ⟨row, hrow, rfl⟩
+  · simpa [strictRow, DusartThetaTableVerifiedRow.toStrictUpperRow] using hleft
+  · simpa [strictRow, DusartThetaTableVerifiedRow.toStrictUpperRow] using hright
+
 def DusartThetaTableVerifiedIndexedCoverUpTo {n : Nat}
     (rows : Fin n → DusartThetaTableVerifiedRow) (X : Real) : Prop :=
   ∀ x : Real, 2 ≤ x → x ≤ X →
