@@ -1156,6 +1156,40 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_table66_rows
       (hupper_error row hrow) (ha1_nonneg row hrow) (ha1 row hrow),
     hrow, hleftx, hrightx⟩
 
+def DusartThetaTable66IndexedCoverUpTo {n : Nat}
+    (rows : Fin n → DusartThetaTable66Row) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+
+structure DusartThetaTable66Chunk where
+  n : Nat
+  cutoff : Real
+  rows : Fin n → DusartThetaTable66Row
+  cover : DusartThetaTable66IndexedCoverUpTo rows cutoff
+  left_large : ∀ i, 2 ≤ (rows i).left
+  left_le_right : ∀ i, (rows i).left ≤ (rows i).right
+  upper_error : ∀ i, (rows i).b0 - 1 < (1 : Real) / 36260
+  a1_nonneg : ∀ i, 0 ≤ (rows i).a1
+  a1_bound : ∀ i, (rows i).a1 < (12323 : Real) / 10000
+
+def DusartThetaTable66Chunk.toRelativeRows
+    (chunk : DusartThetaTable66Chunk) :
+    Fin chunk.n → DusartThetaRelativeRow :=
+  fun i => (chunk.rows i).toRelativeRow
+    (chunk.left_large i) (chunk.left_le_right i)
+    (chunk.upper_error i) (chunk.a1_nonneg i) (chunk.a1_bound i)
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_table66_chunk
+    (chunk : DusartThetaTable66Chunk) :
+    HasDusartSymmetricThetaBoundsBelow chunk.cutoff := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_indexed_relative_rows
+    (rows := chunk.toRelativeRows)
+  intro x hx hX
+  obtain ⟨i, hleft, hright⟩ := chunk.cover x hx hX
+  refine ⟨i, ?_, ?_⟩
+  · exact hleft
+  · exact hright
+
 /-! The older two-coefficient projection is retained for data whose
 constant-coefficient validity has already been established independently. -/
 structure DusartThetaTableCoefficientRow where
