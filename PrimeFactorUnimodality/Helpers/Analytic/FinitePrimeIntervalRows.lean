@@ -1076,6 +1076,43 @@ def DusartThetaTableVerifiedRow.of_endpoint_bounds
       _ ≤ data.upper_coeff * x := by
         exact mul_le_mul_of_nonneg_left hleft upper_coeff_nonneg
 
+/-! Existing endpoint rows can be fed into the coefficient-row interface
+    without expanding their interval proof. -/
+def DusartThetaTableVerifiedRow.of_endpoint_row
+    (data : DusartThetaTableCoefficientRow)
+    (endpoint : DusartThetaEndpointRow)
+    (hleft : endpoint.left = data.left)
+    (hright : endpoint.right = data.right)
+    (right_le_cutoff : (data.right : Real) ≤ (8e11 : Real))
+    (lower_coeff_min : (99985 : Real) / 100000 ≤ data.lower_coeff)
+    (upper_coeff_le_one : data.upper_coeff ≤ 1)
+    (lower_coeff_nonneg : 0 ≤ data.lower_coeff)
+    (upper_coeff_nonneg : 0 ≤ data.upper_coeff)
+    (lower_endpoint : data.lower_coeff * (data.right : Real) ≤
+      endpoint.theta_lower)
+    (upper_endpoint : endpoint.theta_upper ≤
+      data.upper_coeff * (data.left : Real)) :
+    DusartThetaTableVerifiedRow := by
+  have hlower : data.lower_coeff * (data.right : Real) ≤
+      Chebyshev.theta data.left := by
+    calc
+      data.lower_coeff * (data.right : Real) ≤ endpoint.theta_lower :=
+        lower_endpoint
+      _ ≤ Chebyshev.theta endpoint.left := endpoint.theta_lower_le
+      _ = Chebyshev.theta data.left := by rw [hleft]
+  have hupper : Chebyshev.theta data.right ≤
+      data.upper_coeff * (data.left : Real) := by
+    calc
+      Chebyshev.theta data.right = Chebyshev.theta endpoint.right := by
+        rw [hright]
+      _ ≤ endpoint.theta_upper := endpoint.theta_right_le
+      _ ≤ data.upper_coeff * (data.left : Real) := upper_endpoint
+  exact DusartThetaTableVerifiedRow.of_endpoint_bounds data
+    (by simpa [hleft] using endpoint.left_large)
+    (by simpa [hleft, hright] using endpoint.left_le_right)
+    right_le_cutoff lower_coeff_min upper_coeff_le_one
+    lower_coeff_nonneg upper_coeff_nonneg hlower hupper
+
 def DusartThetaTableVerifiedRow.toRelativeRow
     (row : DusartThetaTableVerifiedRow) : DusartThetaRelativeRow :=
   row.data.toRelativeRow_of_table_bounds row.left_large row.left_le_right
