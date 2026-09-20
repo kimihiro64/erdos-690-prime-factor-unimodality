@@ -2,6 +2,7 @@ import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
 import PrimeFactorUnimodality.Helpers.Analytic.DecayToLogFourth
 import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
 import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
+import PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
 
 set_option autoImplicit false
 
@@ -30,6 +31,16 @@ theorem wangCrapis_thetaPrefix :
     HasDusartSymmetricThetaBoundsBelow (2 : Real) := by
   exact hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
     dusartThetaEndpointRow_two_cover
+
+/-! The fixed explicit-formula input is exported at the theta boundary so the
+    eventual psi/theta tail proof consumes the constructed estimate rather than
+    the package's existential placeholder. -/
+theorem wangCrapis_explicit_log_derivative_input :
+    ∃ A C : Real, 0 < C ∧ A ∈ Ioc 0 (1 / 2) ∧
+      LogDerivZetaHasBound A C := by
+  obtain ⟨A, C, hC, hA, hbound, _⟩ :=
+    zetaLogDeriv_explicit_bounded_and_holo
+  exact ⟨A, C, hC, hA, hbound⟩
 
 theorem wangCrapis_theta_upper_e28_from_paper_inputs
     {x : Real} (hx : (8e11 : Real) ≤ x)
