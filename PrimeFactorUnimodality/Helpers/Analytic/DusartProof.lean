@@ -580,56 +580,39 @@ theorem psi_sub_theta_nat_168_lt_sixteen :
   nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
     Real.log_five_lt_d9, LogTables.log_7_lt, ElementaryLogBounds.log_11_lt]
 
-def dusartLemma33FiniteRow_onehundredsixtyeight : DusartLemma33FiniteRow :=
-  { left := 168
-    right := 168
-    left_le_right := by norm_num
-    valid := by
-      intro x hx hleft hright
-      have hx168 : (168 : Real) ≤ x := by exact_mod_cast hleft
-      have hx169 : x < 169 := by norm_num at hright ⊢; exact hright
-      have hfloor : ⌊x⌋₊ = 168 := by
-        apply (Nat.floor_eq_iff (by linarith : (0 : Real) ≤ x)).2
-        constructor <;> norm_num <;> linarith
-      have hleft : Chebyshev.psi x - Chebyshev.theta x < 16 := by
-        have htransport : Chebyshev.psi x - Chebyshev.theta x =
-            Chebyshev.psi (⌊x⌋₊ : Real) - Chebyshev.theta (⌊x⌋₊ : Real) := by
-          rw [Chebyshev.psi_eq_psi_coe_floor,
-            Chebyshev.theta_eq_theta_coe_floor]
-        rw [htransport, hfloor]
-        exact psi_sub_theta_nat_168_lt_sixteen
-      have hsqrt : (11 : Real) ≤ Real.sqrt x := by
-        nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
-      have htheta_mono : Chebyshev.theta 11 ≤
-          Chebyshev.theta (Real.sqrt x) := Chebyshev.theta_mono hsqrt
-      have htheta_eleven := Chebyshev.theta_eq_sum_primesLE_log 11
-      have hp11 : Nat.primesLE 11 = {2, 3, 5, 7, 11} := by decide
-      rw [hp11] at htheta_eleven
-      norm_num [Nat.log, Nat.log.go] at htheta_eleven
-      have hlog10 : Real.log 10 = Real.log 2 + Real.log 5 := by
-        rw [show (10 : Real) = 2 * 5 by norm_num, Real.log_mul]
-        · norm_num
-        all_goals positivity
-      have hlog10_le : Real.log 10 ≤ Real.log 11 :=
-        Real.log_le_log (by norm_num) (by norm_num)
-      have htheta_lower : (15 / 2 : Real) < Chebyshev.theta 11 := by
-        nlinarith [htheta_eleven, hlog10, hlog10_le,
-          Real.log_two_gt_d9, Real.log_three_gt_d9,
-          Real.log_five_gt_d9, LogTables.log_7_gt]
-      have hbase : ((11 / 2 : Real) ^ (3 : Nat)) ≤ x := by
-        norm_num
-        linarith
-      have hpow := Real.rpow_le_rpow (by positivity :
-          (0 : Real) ≤ (11 / 2 : Real) ^ (3 : Nat)) hbase
-        (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
-      have hpow_const : (11 / 2 : Real) ≤ x ^ (1 / 3 : Real) := by
-        calc
-          (11 / 2 : Real) = ((11 / 2 : Real) ^ (3 : Nat)) ^
-              (1 / 3 : Real) := by
-                rw [← Real.rpow_natCast, ← Real.rpow_mul (by positivity)]
-                norm_num
-          _ ≤ x ^ (1 / 3 : Real) := hpow
-      nlinarith [hleft, htheta_mono, htheta_lower, hpow_const] }
+def dusartLemma33FiniteRow_onehundredsixtyeight : DusartLemma33FiniteRow := by
+  have htheta_eleven := Chebyshev.theta_eq_sum_primesLE_log 11
+  have hp11 : Nat.primesLE 11 = {2, 3, 5, 7, 11} := by decide
+  rw [hp11] at htheta_eleven
+  norm_num [Nat.log, Nat.log.go] at htheta_eleven
+  have hlog10 : Real.log 10 = Real.log 2 + Real.log 5 := by
+    rw [show (10 : Real) = 2 * 5 by norm_num, Real.log_mul]
+    · norm_num
+    all_goals positivity
+  have hlog10_le : Real.log 10 ≤ Real.log 11 :=
+    Real.log_le_log (by norm_num) (by norm_num)
+  apply dusartLemma33FiniteRow_of_endpoint_bounds 168 168 11 16 (15 / 2) (11 / 2)
+  · norm_num
+  · intro x hx hleft hright
+    nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+  · exact psi_sub_theta_nat_168_lt_sixteen
+  · nlinarith [htheta_eleven, hlog10, hlog10_le,
+      Real.log_two_gt_d9, Real.log_three_gt_d9,
+      Real.log_five_gt_d9, LogTables.log_7_gt]
+  · intro x hx hleft
+    have hbase : ((11 / 2 : Real) ^ (3 : Nat)) ≤ x := by
+      norm_num
+      linarith
+    have hpow := Real.rpow_le_rpow (by positivity :
+        (0 : Real) ≤ (11 / 2 : Real) ^ (3 : Nat)) hbase
+      (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
+    calc
+      (11 / 2 : Real) = ((11 / 2 : Real) ^ (3 : Nat)) ^
+          (1 / 3 : Real) := by
+            rw [← Real.rpow_natCast, ← Real.rpow_mul (by positivity)]
+            norm_num
+      _ ≤ x ^ (1 / 3 : Real) := hpow
+  · norm_num
 
 theorem psi_sub_theta_nat_255_lt_nineteen :
     Chebyshev.psi (255 : Real) - Chebyshev.theta 255 < (187 : Real) / 10 := by
@@ -652,58 +635,42 @@ theorem psi_sub_theta_nat_255_lt_nineteen :
     Real.log_five_lt_d9, LogTables.log_7_lt,
     ElementaryLogBounds.log_11_lt, ElementaryLogBounds.log_13_lt]
 
-def dusartLemma33FiniteRow_onenine_sixtythree : DusartLemma33FiniteRow :=
-  { left := 169
-    right := 255
-    left_le_right := by norm_num
-    valid := by
-      intro x hx hleft hright
-      have hx169 : (169 : Real) ≤ x := by exact_mod_cast hleft
-      have hx256 : x < 256 := by norm_num at hright ⊢; exact hright
-      have htransport : Chebyshev.psi x - Chebyshev.theta x =
-          Chebyshev.psi (⌊x⌋₊ : Real) - Chebyshev.theta (⌊x⌋₊ : Real) := by
-        rw [Chebyshev.psi_eq_psi_coe_floor,
-          Chebyshev.theta_eq_theta_coe_floor]
-      have hfloor : (⌊x⌋₊ : Real) ≤ 255 := by
-        exact_mod_cast Nat.le_of_lt_succ
-          ((Nat.floor_lt hx.le).2 (by norm_num; exact hx256))
-      have hleft : Chebyshev.psi x - Chebyshev.theta x < (187 : Real) / 10 := by
-        rw [htransport]
-        exact (psi_sub_theta_mono hfloor).trans_lt psi_sub_theta_nat_255_lt_nineteen
-      have hsqrt : (13 : Real) ≤ Real.sqrt x := by
-        nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
-      have htheta_mono : Chebyshev.theta 13 ≤
-          Chebyshev.theta (Real.sqrt x) := Chebyshev.theta_mono hsqrt
-      have htheta_thirteen := Chebyshev.theta_eq_sum_primesLE_log 13
-      have hp13 : Nat.primesLE 13 = {2, 3, 5, 7, 11, 13} := by decide
-      rw [hp13] at htheta_thirteen
-      norm_num [Nat.log, Nat.log.go] at htheta_thirteen
-      have hlog10 : Real.log 10 = Real.log 2 + Real.log 5 := by
-        rw [show (10 : Real) = 2 * 5 by norm_num, Real.log_mul]
-        · norm_num
-        all_goals positivity
-      have hlog10_le11 : Real.log 10 ≤ Real.log 11 :=
-        Real.log_le_log (by norm_num) (by norm_num)
-      have hlog10_le13 : Real.log 10 ≤ Real.log 13 :=
-        Real.log_le_log (by norm_num) (by norm_num)
-      have htheta_lower : (10 : Real) < Chebyshev.theta 13 := by
-        nlinarith [htheta_thirteen, hlog10, hlog10_le11, hlog10_le13,
-          Real.log_two_gt_d9, Real.log_three_gt_d9,
-          Real.log_five_gt_d9, LogTables.log_7_gt]
-      have hbase : ((49 / 10 : Real) ^ (3 : Nat)) ≤ x := by
-        norm_num
-        linarith
-      have hpow := Real.rpow_le_rpow (by positivity :
-          (0 : Real) ≤ (49 / 10 : Real) ^ (3 : Nat)) hbase
-        (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
-      have hpow_const : (49 / 10 : Real) ≤ x ^ (1 / 3 : Real) := by
-        calc
-          (49 / 10 : Real) = ((49 / 10 : Real) ^ (3 : Nat)) ^
-              (1 / 3 : Real) := by
-                rw [← Real.rpow_natCast, ← Real.rpow_mul (by positivity)]
-                norm_num
-          _ ≤ x ^ (1 / 3 : Real) := hpow
-      nlinarith [hleft, htheta_mono, htheta_lower, hpow_const] }
+def dusartLemma33FiniteRow_onenine_sixtythree : DusartLemma33FiniteRow := by
+  have htheta_thirteen := Chebyshev.theta_eq_sum_primesLE_log 13
+  have hp13 : Nat.primesLE 13 = {2, 3, 5, 7, 11, 13} := by decide
+  rw [hp13] at htheta_thirteen
+  norm_num [Nat.log, Nat.log.go] at htheta_thirteen
+  have hlog10 : Real.log 10 = Real.log 2 + Real.log 5 := by
+    rw [show (10 : Real) = 2 * 5 by norm_num, Real.log_mul]
+    · norm_num
+    all_goals positivity
+  have hlog10_le11 : Real.log 10 ≤ Real.log 11 :=
+    Real.log_le_log (by norm_num) (by norm_num)
+  have hlog10_le13 : Real.log 10 ≤ Real.log 13 :=
+    Real.log_le_log (by norm_num) (by norm_num)
+  apply dusartLemma33FiniteRow_of_endpoint_bounds 169 255 13
+    ((187 : Real) / 10) 10 (49 / 10)
+  · norm_num
+  · intro x hx hleft hright
+    nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+  · exact psi_sub_theta_nat_255_lt_nineteen
+  · nlinarith [htheta_thirteen, hlog10, hlog10_le11, hlog10_le13,
+      Real.log_two_gt_d9, Real.log_three_gt_d9,
+      Real.log_five_gt_d9, LogTables.log_7_gt]
+  · intro x hx hleft
+    have hbase : ((49 / 10 : Real) ^ (3 : Nat)) ≤ x := by
+      norm_num
+      linarith
+    have hpow := Real.rpow_le_rpow (by positivity :
+        (0 : Real) ≤ (49 / 10 : Real) ^ (3 : Nat)) hbase
+      (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
+    calc
+      (49 / 10 : Real) = ((49 / 10 : Real) ^ (3 : Nat)) ^
+          (1 / 3 : Real) := by
+            rw [← Real.rpow_natCast, ← Real.rpow_mul (by positivity)]
+            norm_num
+      _ ≤ x ^ (1 / 3 : Real) := hpow
+  · norm_num
 
 theorem dusartLemma33FiniteRowsCover_twohundredfiftyfive :
     DusartLemma33FiniteRowsCover
