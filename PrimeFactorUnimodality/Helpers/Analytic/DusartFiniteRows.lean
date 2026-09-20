@@ -27,6 +27,37 @@ def DusartLemma33FiniteRowsCover
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧
       x < (row.right : Real) + 1
 
+def dusartLemma33FiniteRow_of_zero
+    (n m : Nat)
+    (hsqrt_floor : ∀ x : Real, 0 < x → (n : Real) ≤ x →
+      x < (n : Real) + 1 → ⌊Real.sqrt x⌋₊ = m)
+    (hzero : Chebyshev.psi (n : Real) - Chebyshev.theta n -
+      Chebyshev.theta m = 0) : DusartLemma33FiniteRow :=
+  { left := n
+    right := n
+    left_le_right := by rfl
+    valid := by
+      intro x hx hleft hright
+      have hfloor : ⌊x⌋₊ = n := by
+        apply (Nat.floor_eq_iff (by linarith : (0 : Real) ≤ x)).2
+        constructor
+        · exact hleft
+        · simpa using hright
+      have hpsi_floor := Chebyshev.psi_eq_psi_coe_floor x
+      have htheta_floor := Chebyshev.theta_eq_theta_coe_floor x
+      rw [hpsi_floor, htheta_floor, hfloor]
+      have htheta_sqrt_floor : Chebyshev.theta (Real.sqrt x) =
+          Chebyshev.theta (m : Real) := by
+        rw [Chebyshev.theta_eq_theta_coe_floor,
+          hsqrt_floor x hx hleft hright]
+      rw [htheta_sqrt_floor]
+      have hzero' : Chebyshev.psi (↑n : Real) - Chebyshev.theta (↑n : Real) -
+          Chebyshev.theta (↑m : Real) = 0 := by
+        simpa using hzero
+      rw [hzero']
+      norm_num
+      positivity }
+
 def dusartLemma33FiniteRow_zero_one : DusartLemma33FiniteRow :=
   { left := 0
     right := 1
@@ -220,6 +251,60 @@ theorem dusartLemma33FiniteRowsCover_four :
           exact le_of_not_gt hthree
         · norm_num [dusartLemma33FiniteRow_four]
           linarith
+
+def dusartLemma33FiniteRow_five : DusartLemma33FiniteRow := by
+  have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 5
+  have htheta := Chebyshev.theta_eq_sum_primesLE_log 5
+  have htheta_two := Chebyshev.theta_eq_sum_primesLE_log 2
+  have hp5 : Nat.primesLE 5 = {2, 3, 5} := by decide
+  have hp2 : Nat.primesLE 2 = {2} := by decide
+  rw [hp5] at hpsi htheta
+  rw [hp2] at htheta_two
+  norm_num [Nat.log, Nat.log.go] at hpsi htheta htheta_two
+  apply dusartLemma33FiniteRow_of_zero 5 2
+  · intro x hx hleft hright
+    have hx5 : (5 : Real) ≤ x := hleft
+    have hx6 : x < 6 := by simpa using hright
+    apply (Nat.floor_eq_iff (by positivity : (0 : Real) ≤ Real.sqrt x)).2
+    constructor <;> norm_num <;>
+      nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+  · nlinarith [hpsi, htheta, htheta_two]
+
+theorem dusartLemma33FiniteRowsCover_five :
+    DusartLemma33FiniteRowsCover
+      [dusartLemma33FiniteRow_zero_one, dusartLemma33FiniteRow_two,
+        dusartLemma33FiniteRow_three, dusartLemma33FiniteRow_four,
+        dusartLemma33FiniteRow_five] 5 := by
+  intro x hx hX
+  by_cases hsmall : x < 2
+  · refine ⟨dusartLemma33FiniteRow_zero_one, by simp, ?_, ?_⟩
+    · norm_num [dusartLemma33FiniteRow_zero_one]
+      exact hx.le
+    · norm_num [dusartLemma33FiniteRow_zero_one]
+      linarith
+  · by_cases htwo : x < 3
+    · refine ⟨dusartLemma33FiniteRow_two, by simp, ?_, ?_⟩
+      · norm_num [dusartLemma33FiniteRow_two]
+        exact le_of_not_gt hsmall
+      · norm_num [dusartLemma33FiniteRow_two]
+        linarith
+    · by_cases hthree : x < 4
+      · refine ⟨dusartLemma33FiniteRow_three, by simp, ?_, ?_⟩
+        · norm_num [dusartLemma33FiniteRow_three]
+          exact le_of_not_gt htwo
+        · norm_num [dusartLemma33FiniteRow_three]
+          linarith
+      · by_cases hfour : x < 5
+        · refine ⟨dusartLemma33FiniteRow_four, by simp, ?_, ?_⟩
+          · norm_num [dusartLemma33FiniteRow_four]
+            exact le_of_not_gt hthree
+          · norm_num [dusartLemma33FiniteRow_four]
+            linarith
+        · refine ⟨dusartLemma33FiniteRow_five, by simp, ?_, ?_⟩
+          · norm_num [dusartLemma33FiniteRow_five]
+            exact le_of_not_gt hfour
+          · norm_num [dusartLemma33FiniteRow_five]
+            linarith
 
 theorem dusart_lemma_3_3_finite_of_rows
     {rows : List DusartLemma33FiniteRow} {X : Real}
