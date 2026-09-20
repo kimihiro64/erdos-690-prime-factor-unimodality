@@ -79,6 +79,11 @@ def normalize(body: str) -> str:
         "exact DusartPrimeRowsChain.cons row (by omega) hordered ih",
         "exact DusartPrimeRowsChain.cons row (by omega) hordered htail",
     )
+    body = re.sub(
+        r"(?m)^(def dusartPrimeRows_|theorem dusartPrimeRows_)",
+        "set_option maxHeartbeats 20000000 in\\n\\1",
+        body,
+    )
     return body
 
 

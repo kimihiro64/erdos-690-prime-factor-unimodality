@@ -8,6 +8,7 @@ set_option maxRecDepth 100000
 namespace PrimeFactorUnimodality
 
 noncomputable section
+set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_23159_89693 : List DusartPrimeRow :=
   [
     dusartPrimeRow_of_explicit_89693 (p := 23159) (q := 23227) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
@@ -384,6 +385,7 @@ def dusartPrimeRows_23159_89693 : List DusartPrimeRow :=
     dusartPrimeRow_of_explicit_89693 (p := 89417) (q := 89759) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
   ]
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_23159_89693_chain :
     DusartPrimeRowsChain 23159 89693 dusartPrimeRows_23159_89693 := by
   apply DusartPrimeRowsChain.cons
@@ -1876,9 +1878,11 @@ theorem dusartPrimeRows_23159_89693_chain :
   · norm_num
   exact DusartPrimeRowsChain.empty (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_3275_89693 : List DusartPrimeRow :=
   dusartPrimeRows_3275_23158 ++ dusartPrimeRows_23159_89693
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_89693_chain :
     DusartPrimeRowsChain 3275 89693 dusartPrimeRows_3275_89693 := by
   exact dusartPrimeRowsChain_append
@@ -1932,177 +1936,211 @@ theorem dusartPrimeRowsCoverUpTo_append_from
       (by linarith) hX
     exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_3802_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_3802 (3802 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_3802_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_4672_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_4672 (4672 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_4672_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_4918_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_4918 (4918 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_4918_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_5166_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_5166 (5166 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_5166_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_5436_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_5436 (5436 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_5436_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_5710_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_5710 (5710 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_5710_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_6006_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_6006 (6006 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_6006_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_6310_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_6310 (6310 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_6310_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_6636_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_6636 (6636 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_6636_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_6976_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_6976 (6976 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_6976_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_7332_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_7332 (7332 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_7332_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_7716_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_7716 (7716 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_7716_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_8110_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_8110 (8110 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_8110_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_8520_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_8520 (8520 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_8520_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_8962_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_8962 (8962 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_8962_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_9418_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_9418 (9418 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_9418_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_9900_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_9900 (9900 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_9900_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_10426_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_10426 (10426 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_10426_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_10938_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_10938 (10938 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_10938_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_11502_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_11502 (11502 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_11502_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_12096_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_12096 (12096 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_12096_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_12712_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_12712 (12712 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_12712_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_13366_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_13366 (13366 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_13366_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_14050_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_14050 (14050 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_14050_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_14766_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_14766 (14766 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_14766_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_15526_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_15526 (15526 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_15526_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_16318_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_16318 (16318 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_16318_chain (by norm_num)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_23158_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_23158 (23158 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_23158_chain (by norm_num)
 
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_22026_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_22026 (22026 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_22026_chain (by norm_num)
 
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_20958_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_20958 (20958 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_20958_chain (by norm_num)
 
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_19936_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_19936 (19936 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_19936_chain (by norm_num)
 
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_18958_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_18958 (18958 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_18958_chain (by norm_num)
 
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_18040_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_18040 (18040 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
     dusartPrimeRows_3275_18040_chain (by norm_num)
 
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_17158_cover :
     DusartPrimeRowsCoverUpTo dusartPrimeRows_3275_17158 (17158 : Real) := by
   exact dusartPrimeRowsCoverUpTo_of_chain
@@ -2116,6 +2154,7 @@ theorem dusartPrimeRowsCoverBelow_of_chain
   intro x hleft hright
   exact dusartPrimeRowsCover_of_chain chain x hleft (by linarith)
 
+set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_3275_89693_cover :
     DusartPrimeRowsCoverBelow dusartPrimeRows_3275_89693 := by
   exact dusartPrimeRowsCoverBelow_of_chain
