@@ -329,6 +329,37 @@ structure StrictThetaUpperRow where
   theta_right_le : Chebyshev.theta right ≤ theta_upper
   upper_error : theta_upper - left < 0
 
+def DusartThetaEndpointRow.toStrictUpperRow
+    (row : DusartThetaEndpointRow)
+    (hstrict : row.theta_upper < row.left) : StrictThetaUpperRow :=
+  { left := row.left
+    right := row.right
+    left_large := row.left_large
+    left_le_right := row.left_le_right
+    theta_upper := row.theta_upper
+    theta_right_le := row.theta_right_le
+    upper_error := by
+      exact sub_neg.mpr hstrict }
+
+def DusartThetaEndpointRowsStrictUpperCoverUpTo
+    (rows : List DusartThetaEndpointRow) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right ∧
+      row.theta_upper < row.left
+
+theorem hasStrictThetaUpperBelow_of_endpoint_rows
+    {X : Real} {rows : List DusartThetaEndpointRow}
+    (cover : DusartThetaEndpointRowsStrictUpperCoverUpTo rows X) :
+    HasStrictThetaUpperBelow X := by
+  intro x hx hX
+  by_cases hsmall : x < 2
+  · rw [Chebyshev.theta_eq_zero_of_lt_two hsmall]
+    linarith
+  · obtain ⟨row, hrow, hleft, hright, hstrict⟩ :=
+      cover x (le_of_not_gt hsmall) hX
+    exact strictThetaUpperRow_provides
+      (row.toStrictUpperRow hstrict) hleft hright
+
 def strictThetaUpperRow_singleton (n : Nat) (hn : 2 ≤ n)
     (hupper : Chebyshev.theta n < n) : StrictThetaUpperRow :=
   { left := n
