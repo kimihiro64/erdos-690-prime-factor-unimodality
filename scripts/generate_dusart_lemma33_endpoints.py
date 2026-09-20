@@ -20,15 +20,15 @@ def integer_root(n: int, k: int) -> int:
     return lo
 
 
-def endpoint_theorem(n: int) -> str:
+def endpoint_theorem(left: int, n: int) -> str:
     N = n.bit_length() - 1
     roots = [(k, integer_root(n, k)) for k in range(2, N + 1)]
-    name = f"dusart_lemma33_endpoint_{n}"
+    name = f"dusart_lemma33_row_endpoint_{left}_{n}"
     out = [
         f"theorem {name} :",
         f"    Chebyshev.psi ({n} : Real) - Chebyshev.theta {n} -",
         f"        Chebyshev.theta (Real.sqrt ({n} : Real)) <",
-        f"      (1777745 : Real) / 1000000 * ({n} : Real) ^ (1 / (3 : Real)) := by",
+        f"      (1777745 : Real) / 1000000 * ({left} : Real) ^ (1 / (3 : Real)) := by",
         "  have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)",
         f"  have hN : ⌊Real.log ({n} : Real) / Real.log 2⌋₊ ≤ {N} := by",
         "    apply Nat.le_of_lt_succ",
@@ -79,7 +79,7 @@ def main() -> None:
     parser.add_argument("--limit", type=int)
     args = parser.parse_args()
     payload = json.loads(args.input.read_text())
-    values = [row["right"] for row in payload["rows"]]
+    values = [(row["left"], row["right"]) for row in payload["rows"]]
     if args.limit is not None:
         values = values[: args.limit]
     header = [
@@ -98,7 +98,8 @@ def main() -> None:
         "",
     ]
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text("\n".join(header) + "\n".join(endpoint_theorem(n) for n in values) +
+    args.output.write_text("\n".join(header) + "\n".join(endpoint_theorem(left, right)
+                          for left, right in values) +
                           "\nend\n\nend PrimeFactorUnimodality\n")
     print(f"generated {len(values)} endpoint theorems")
 
