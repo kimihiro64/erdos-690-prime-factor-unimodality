@@ -38,7 +38,10 @@ def test_finite_prime_interval_rows_low_generation_is_sharded(tmp_path, monkeypa
     first = (tmp_path / "LowPart01.lean").read_text()
     assert "apply DusartPrimeRowsChain.cons" in first
     assert "change 3275 ≤ 3275; omega" in first
-    assert "decide +kernel" not in first
+    for path in tmp_path.glob("LowPart*.lean"):
+        text = path.read_text()
+        assert "apply DusartPrimeRowsChain.cons" in text
+        assert "decide +kernel" not in text
 
     assert not list(tmp_path.glob(f"LowPart{count + 1:02d}.lean"))
     assert not (tmp_path / "LowPart99.lean").exists()
