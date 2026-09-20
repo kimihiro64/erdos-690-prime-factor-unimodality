@@ -103,6 +103,18 @@ eventual asymptotic consequence:
   table and the explicit large-range input remain separate provider
   obligations.
 
+The paper-reading check fixes an important boundary here.  In Lemma 3.3,
+Dusart writes that the displayed power-sum estimate is effective only above
+`(10^11)^3`; the assertion that the maximum of the remaining bounded
+calculation occurs at `x = 2401` is the conclusion of that direct computation,
+not a monotonicity lemma that discharges every `2401 < x < (10^11)^3`.
+Consequently, the current exact `2401` row is a seed/checkpoint only.  The
+global provider still needs either the complete bounded computation (encoded
+as compact rows and assembled once) or a separately proved interval argument
+covering the entire intermediate range.  Likewise, Proposition 5.1 explicitly
+uses Table 6.4 through `8*10^11`; a small theta prefix cannot be promoted to
+that published bound without proving the intervening table argument.
+
 These are source obligations before certificate replay.  A certificate may
  discharge only the finite computation it actually represents; it must not be
  used to hide a missing analytic theorem or to weaken an all-`x` statement to
