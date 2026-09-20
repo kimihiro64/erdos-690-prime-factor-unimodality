@@ -2848,6 +2848,19 @@ theorem dusart_lemma_3_3_finite_2401 :
   exact dusart_lemma_3_3_finite_of_rows
     dusartLemma33FiniteRowsCover_twofourzeroone
 
+/-! The existing closed prefix is also exported through the chunk boundary;
+    later generated chunks can be appended without changing this consumer. -/
+def dusartLemma33FiniteChunk_2401 : DusartLemma33FiniteChunk :=
+  DusartLemma33FiniteChunk.of_list
+    (cutoff := (2401 : Real)) dusartLemma33FiniteRowsCover_twofourzeroone
+
+theorem dusart_lemma_3_3_finite_chunk_2401 :
+    ∀ x : Real, 0 < x → x ≤ 2401 →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  exact dusartLemma33FiniteChunk_2401.provides
+
 theorem dusart_proposition_3_2_small_64
     {x : Real} (hx : 0 < x) (hx64 : x < 64) :
     Chebyshev.psi x - Chebyshev.theta x <
