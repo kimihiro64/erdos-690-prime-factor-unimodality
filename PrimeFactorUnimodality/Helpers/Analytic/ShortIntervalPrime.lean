@@ -187,6 +187,22 @@ theorem hasThetaLogFourthErrorAbove_mono
   intro x hx
   exact tail x (hXY.trans hx)
 
+theorem hasThetaLogFourthErrorAbove_coeff_mono
+    {A B X : Real} (hX : (2 : Real) ≤ X) (hAB : A ≤ B)
+    (tail : HasThetaLogFourthErrorAbove A X) :
+    HasThetaLogFourthErrorAbove B X := by
+  intro x hx
+  have hx2 : (2 : Real) ≤ x := hX.trans hx
+  have hxpos : 0 < x := by linarith
+  have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
+  have hfactor : 0 ≤ x / (Real.log x) ^ 4 := by positivity
+  calc
+    |Chebyshev.theta x - x| ≤ A * x / (Real.log x) ^ 4 := tail x hx
+    _ = A * (x / (Real.log x) ^ 4) := by ring
+    _ ≤ B * (x / (Real.log x) ^ 4) :=
+      mul_le_mul_of_nonneg_right hAB hfactor
+    _ = B * x / (Real.log x) ^ 4 := by ring
+
 def HasThetaLogFourthErrorOn (A x₀ X : Real) : Prop :=
   ∀ x : Real, x₀ ≤ x → x ≤ X →
     |Chebyshev.theta x - x| ≤ A * x / (Real.log x) ^ 4
@@ -557,8 +573,3 @@ theorem exists_consecutive_primes_above_fixed
   have prev_large : 3275 ≤ qPrev := s_large.trans s_le_prev
   have q_le := consecutive.right_le_shortInterval_upper shortInterval prev_large
   exact ⟨qPrev, q, consecutive, s_le_prev, x_lt_q, q_upper,
-    x_lt_q.trans_le q_le⟩
-
-end
-
-end PrimeFactorUnimodality
