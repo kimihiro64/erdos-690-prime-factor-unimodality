@@ -123,6 +123,12 @@ covering the entire intermediate range.  Likewise, Proposition 5.1 explicitly
 uses Table 6.4 through `8*10^11`; a small theta prefix cannot be promoted to
 that published bound without proving the intervening table argument.
 
+The finite-row facade also exposes `DusartThetaEndpointRow.toStrictUpperRow`
+and `hasStrictThetaUpperBelow_of_endpoint_rows`.  These adapters consume an
+explicit endpoint inequality `theta_upper < left`; they do not derive that
+inequality from the relaxed Dusart error fields.  Use them for the Schoenfeld
+strict Table 6.4 prefix once its bounded endpoint computation is available.
+
 These are source obligations before certificate replay.  A certificate may
  discharge only the finite computation it actually represents; it must not be
  used to hide a missing analytic theorem or to weaken an all-`x` statement to
