@@ -799,6 +799,60 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_indexed_prefix_and_endpoint_rows
       exact (dusartThetaEndpointRow_provides (rows i) hleft hright).lower
         x hleft hright
 
+/-! Compact chunks for the bounded theta endpoint table.  A chunk carries its
+    coverage proof, so later generated bands can be appended without exposing
+    one declaration per endpoint to the analytic assembly. -/
+structure DusartThetaEndpointChunk where
+  n : Nat
+  cutoff : Real
+  rows : Fin n → DusartThetaEndpointRow
+  cover : DusartThetaEndpointIndexedCoverUpTo rows cutoff
+
+def DusartThetaEndpointChunk.of_list
+    {rows : List DusartThetaEndpointRow} {cutoff : Real}
+    (cover : DusartThetaEndpointRowsCoverUpTo rows cutoff) :
+    DusartThetaEndpointChunk :=
+  { n := rows.length
+    cutoff := cutoff
+    rows := fun i => rows.get i
+    cover := dusartThetaEndpointIndexedCover_of_list cover }
+
+def DusartThetaEndpointChunk.append
+    (left right : DusartThetaEndpointChunk) :
+    DusartThetaEndpointChunk :=
+  { n := left.n + right.n
+    cutoff := right.cutoff
+    rows := Fin.append left.rows right.rows
+    cover := dusartThetaEndpointIndexedCoverUpTo_append
+      left.cover right.cover }
+
+def DusartThetaEndpointChunk.appendMany
+    (first : DusartThetaEndpointChunk)
+    (rest : List DusartThetaEndpointChunk) :
+    DusartThetaEndpointChunk :=
+  match rest with
+  | [] => first
+  | next :: tail =>
+      DusartThetaEndpointChunk.appendMany
+        (DusartThetaEndpointChunk.append first next) tail
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_endpoint_chunk
+    (chunk : DusartThetaEndpointChunk) :
+    HasDusartSymmetricThetaBoundsBelow chunk.cutoff := by
+  exact hasDusartSymmetricThetaBoundsBelow_of_indexed_endpoint_rows
+    chunk.cover
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_endpoint_chunks
+    (first : DusartThetaEndpointChunk)
+    (rest : List DusartThetaEndpointChunk) :
+    HasDusartSymmetricThetaBoundsBelow
+      (DusartThetaEndpointChunk.appendMany first rest).cutoff := by
+  induction rest generalizing first with
+  | nil =>
+      exact hasDusartSymmetricThetaBoundsBelow_of_endpoint_chunk first
+  | cons next tail ih =>
+      exact ih (DusartThetaEndpointChunk.append first next)
+
 def DusartThetaBoundsRowsCoverUpTo
     (rows : List DusartThetaBoundsRow) (X : Real) : Prop :=
   ∀ x : Real, 2 ≤ x → x ≤ X →

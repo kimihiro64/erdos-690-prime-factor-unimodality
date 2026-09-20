@@ -429,6 +429,26 @@ theorem wangCrapis_thetaBounds_of_indexed_endpoint_rows_and_tail
     (hasDusartSymmetricThetaBoundsBelow_of_indexed_endpoint_rows cover)
     hA_nonneg hA thetaError
 
+/-! The same boundary consumes compact endpoint chunks directly.  This keeps
+    the generated finite table independent of the analytic tail proof. -/
+theorem wangCrapis_thetaBounds_of_endpoint_chunks_and_tail
+    {A : Real} (first : DusartThetaEndpointChunk)
+    (rest : List DusartThetaEndpointChunk)
+    (hXpos : 0 <
+      (DusartThetaEndpointChunk.appendMany first rest).cutoff)
+    (hlogX : (10 : Real) < Real.log
+      (DusartThetaEndpointChunk.appendMany first rest).cutoff)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log
+      (DusartThetaEndpointChunk.appendMany first rest).cutoff ≤
+      12167 / 500000)
+    (thetaError : HasThetaLogFourthError A
+      (DusartThetaEndpointChunk.appendMany first rest).cutoff) :
+    HasDusartThetaBounds := by
+  exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
+    (hasDusartSymmetricThetaBoundsBelow_of_endpoint_chunks first rest)
+    hA_nonneg hA thetaError
+
 /-! Paper-facing form when a separately proved prefix is followed by an
 indexed Table 6.4 suffix. -/
 theorem wangCrapis_thetaBounds_of_indexed_prefix_endpoint_rows_and_tail
