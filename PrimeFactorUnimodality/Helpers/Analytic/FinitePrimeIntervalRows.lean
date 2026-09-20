@@ -942,6 +942,23 @@ def DusartThetaTableCoefficientRow.toRelativeRow
     upper_coeff_error := hupper_error
     lower_coeff_error := hlower_error }
 
+def DusartThetaTableCoefficientRow.toRelativeRow_of_table_bounds
+    (row : DusartThetaTableCoefficientRow)
+    (hleft : 2 ≤ row.left) (hle : row.left ≤ row.right)
+    (hright_endpoint : (row.right : Real) ≤ (8e11 : Real))
+    (hlower_min : (99985 : Real) / 100000 ≤ row.lower_coeff)
+    (hupper_le : row.upper_coeff ≤ 1)
+    (hlower : ∀ x : Real, (row.left : Real) ≤ x → x ≤ row.right →
+      row.lower_coeff * x ≤ Chebyshev.theta x)
+    (hupper : ∀ x : Real, (row.left : Real) ≤ x → x ≤ row.right →
+      Chebyshev.theta x ≤ row.upper_coeff * x) :
+    DusartThetaRelativeRow :=
+  row.toRelativeRow hleft hle hlower hupper
+    (dusartThetaTable_upper_coeff_error_of_le_one hupper_le)
+    (fun x hx hleftx hrightx =>
+      dusartThetaTable_lower_coeff_error_of_minimum hlower_min hx
+        (hrightx.trans hright_endpoint))
+
 def dusartThetaRelativeRow_to_bounds
     (row : DusartThetaRelativeRow) : DusartThetaBoundsRow := by
   refine {
