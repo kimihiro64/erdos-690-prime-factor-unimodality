@@ -729,6 +729,27 @@ theorem wangCrapis_thetaBounds_of_mediumPNT
   exact wangCrapis_thetaBounds_of_logFourthTail
     hYpos (by linarith) (finite Y h4Y) (by norm_num) hA thetaError
 
+/-! One finite prefix is enough once the source-level tail has chosen its
+cutoff.  This is the boundary consumed by a shared finite certificate package.
+-/
+theorem wangCrapis_thetaBounds_of_selected_mediumPNT_cutoff
+    (selected : ∃ Y : Real, (4e18 : Real) ≤ Y ∧
+      HasDusartSymmetricThetaBoundsBelow Y ∧
+      HasThetaLogFourthError (648 / 1000 : Real) Y) :
+    HasDusartThetaBounds := by
+  obtain ⟨Y, h4Y, finite, thetaError⟩ := selected
+  have hYpos : 0 < Y := by linarith
+  have hlogY : (42 : Real) ≤ Real.log Y := by
+    exact forty_two_lt_log_four_e18.le.trans
+      (Real.log_le_log (by norm_num) h4Y)
+  have hA : (648 / 1000 : Real) / Real.log Y ≤
+      12167 / 500000 := by
+    have hlogYpos : 0 < Real.log Y := by linarith
+    apply (div_le_iff₀ hlogYpos).2
+    nlinarith
+  exact wangCrapis_thetaBounds_of_logFourthTail
+    hYpos (by linarith) finite (by norm_num) hA thetaError
+
 /-! The source-level decay route can also provide the theta provider directly.
 The finite endpoint argument is the only bounded input: the arbitrary
 coefficient delivered by the PNT is absorbed by raising the selected cutoff
