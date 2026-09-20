@@ -41,18 +41,19 @@ def normalize(body: str) -> str:
     """Apply the small source repairs required by the split module API."""
     lines = []
     for line in body.splitlines(keepends=True):
-        if "dusartPrimeRow_of_explicit_3802" in line:
-            count = line.count("(by norm_num)")
+        if "dusartPrimeRow_of_explicit_" in line and "(q := " in line:
+            count = len(re.findall(r"\(by (?:norm_num|decide|omega)\)", line))
             if count == 4:
                 stripped = line.rstrip()
                 if stripped.endswith(","):
                     close = line.rfind(",")
-                elif stripped.endswith(")] ".rstrip()):
+                elif stripped.endswith(")]"):
                     close = line.rfind("]")
-                else:
+                elif stripped.endswith("))"):
                     close = line.rfind(")")
+                else:
+                    close = len(line.rstrip("\n"))
                 line = line[:close] + " (by norm_num)" + line[close:]
-        if "dusartPrimeRow_of_explicit_" in line and "(q := " in line:
             line = re.sub(
                 r"(\(q := \d+\)) \(by norm_num\)",
                 r"\1 (by decide)",
@@ -124,6 +125,11 @@ def main() -> None:
     assert high.count(HIGH_START) == 1
     assert high.count("theorem hasDusartShortIntervalPrimeBelow_3275_23158") == 1
     assert "sorry" not in low and "sorry" not in high
+    for module in (low, high):
+        for line in module.splitlines():
+            if "dusartPrimeRow_of_explicit_" in line and "(q := " in line:
+                proofs = len(re.findall(r"\(by (?:norm_num|decide|omega)\)", line))
+                assert proofs == 5, (proofs, line)
     (out / "Low.lean").write_text((LOW_HEADER + low).rstrip() + "\n")
     (out / "High.lean").write_text((HIGH_HEADER + high).rstrip() + "\n")
     print(f"generated Low.lean: {len(low.splitlines())} lines, {len(low)} bytes")
