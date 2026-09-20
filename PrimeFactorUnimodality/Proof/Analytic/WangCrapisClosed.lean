@@ -9,6 +9,18 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 
+/-! The finite endpoint obligations are kept together so the computational
+layer has one stable interface to the analytic assembly. -/
+structure WangCrapisFiniteProviders where
+  thetaBounds : ∀ Y : Real, (4e18 : Real) ≤ Y →
+    HasDusartSymmetricThetaBoundsBelow Y
+  thetaError : ∀ Y : Real, (4e18 : Real) ≤ Y →
+    HasThetaLogFourthErrorBelow (648 / 1000 : Real) Y
+  primeCounting : ∀ Y : Real, (4e18 : Real) ≤ Y →
+    HasDusartRealPrimeCountingBoundsBelow Y
+  logCubed : ∀ Y : Real, (89693 : Real) ≤ Y →
+    HasLogCubedShortIntervalPrimeBelow Y
+
 /-!
 # Closed Wang--Crapis analytic package
 
@@ -79,6 +91,13 @@ theorem completeClassification_closed_of_mediumPNT_finite_providers
   exact completeClassification_of_wangCrapis_paper_inputs
     (wangCrapisPaperInputs_of_mediumPNT_finite_providers
       finiteThetaBounds finiteThetaError finitePrimeCounting finiteLogCubed)
+
+theorem completeClassification_closed_of_finite_providers
+    (providers : WangCrapisFiniteProviders) :
+    CompleteClassification := by
+  exact completeClassification_closed_of_mediumPNT_finite_providers
+    providers.thetaBounds providers.thetaError providers.primeCounting
+    providers.logCubed
 
 end
 
