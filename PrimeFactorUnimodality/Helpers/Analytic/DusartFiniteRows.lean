@@ -84,6 +84,17 @@ def DusartProposition31FiniteIndexedRowsCover {n : Nat}
   ∀ x : Real, (121 : Real) < x → x ≤ X →
     ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
 
+theorem dusartProposition31FiniteIndexedRowsCover_of_list
+    {X : Real} {rows : List DusartProposition31FiniteRow}
+    (cover : DusartProposition31FiniteRowsCover rows X) :
+    DusartProposition31FiniteIndexedRowsCover
+      (fun i : Fin rows.length => rows.get i) X := by
+  intro x hx hX
+  obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
+  obtain ⟨i, hi, hget⟩ := List.getElem_of_mem hrow
+  refine ⟨⟨i, hi⟩, ?_⟩
+  simpa [List.get_eq_getElem, hget] using And.intro hleft hright
+
 theorem dusartProposition31Finite_of_rows
     {X : Real} {rows : List DusartProposition31FiniteRow}
     (cover : DusartProposition31FiniteRowsCover rows X) :
