@@ -808,6 +808,11 @@ def DusartThetaRelativeRowsCoverUpTo
   ∀ x : Real, 2 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
+def DusartThetaRelativeIndexedCoverUpTo {n : Nat}
+    (rows : Fin n → DusartThetaRelativeRow) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+
 theorem hasDusartSymmetricThetaBoundsBelow_of_relative_rows
     {X : Real} {rows : List DusartThetaRelativeRow}
     (cover : DusartThetaRelativeRowsCoverUpTo rows X) :
@@ -816,6 +821,15 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_relative_rows
   intro x hx hX
   obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
   exact ⟨dusartThetaRelativeRow_to_bounds row, by simp [hrow], hleft, hright⟩
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_indexed_relative_rows
+    {n : Nat} {X : Real} {rows : Fin n → DusartThetaRelativeRow}
+    (cover : DusartThetaRelativeIndexedCoverUpTo rows X) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_indexed_rows
+  intro x hx hX
+  obtain ⟨i, hleft, hright⟩ := cover x hx hX
+  exact ⟨dusartThetaRelativeRow_to_bounds (rows i), hleft, hright⟩
 
 /-! Closed regression seed for the coefficient-row adapter.  The published
 table starts much later; this singleton only checks that the coefficient
