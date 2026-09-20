@@ -463,3 +463,29 @@ proofs establish positivity but do not expose rational lower bounds for the
 region parameter. A direct fixed-Dusart tail proof must therefore strengthen
 that chain at its first numerical bound, rather than choosing a fixed value
 after `ZetaZeroFree` has already hidden the parameter existentially.
+
+## September 20 dependency audit
+
+The explicit finite-range shortcut through the upstream Büthe/BKLNW files is
+not an admissible proof route. `PrimeNumberTheoremAnd/IEANTN/Buthe.lean`
+declares `Buthe.theorem_2c` with a placeholder body, and
+`BKLNW.buthe_eq_1_7` proves its `theta x < x` prefix by invoking that theorem.
+The corresponding BKLNW table and FKS2 aggregate declarations also inherit
+placeholder-backed numerical inputs. They must not be imported into the
+canonical providers.
+
+The reusable project-side interfaces that remain valid are:
+
+- `hasStrictThetaUpperBelow_of_indexed_rows` and
+  `hasDusartSymmetricThetaBoundsBelow_of_indexed_endpoint_rows` for compact
+  finite theta data;
+- `wangCrapis_thetaBounds_of_indexed_endpoint_rows_and_tail` for the global
+  theta assembly;
+- `dusart_proposition_3_1_of_finite_and_thetaErrorAbove` and
+  `dusart_lemma_3_3_of_indexed_rows_and_theta_bounds` for the exact all-range
+  Dusart splits.
+
+This audit is a dependency exclusion, not a closure of the outstanding
+mathematics. The next source implementation must prove the finite numerical
+facts or their reusable row assemblers directly, and must expose the fixed
+analytic tail constants without passing through those upstream placeholders.
