@@ -77,7 +77,8 @@ def band_module(index: int, band: tuple[int, int, int, int, str], pairs: list[tu
             "",
             f"def {row_name} (datum : {datum}) : FinitePrimeGapLogRow :=",
             "  finitePrimeGapLogRow_of_scaled_explicit datum.q_prime datum.p_lt_q",
-            f"    (by omega) ({log_bound} datum.p_lower datum.p_upper)",
+            f"    (by have h := datum.p_lower; omega) "
+            f"({log_bound} datum.p_lower datum.p_upper)",
             "    (by norm_num) datum.scaled_product",
             "",
             f"def {rows_name} : List FinitePrimeGapLogRow :=",

@@ -3411,7 +3411,7 @@ def mediumLogData03 : List (MediumLogDatum 110001 150000 12 1) :=
 
 def mediumLogRow03 (datum : MediumLogDatum 110001 150000 12 1) : FinitePrimeGapLogRow :=
   finitePrimeGapLogRow_of_scaled_explicit datum.q_prime datum.p_lt_q
-    (by omega) (log_le_12_of_110001_le_of_le_150000 datum.p_lower datum.p_upper)
+    (by have h := datum.p_lower; omega) (log_le_12_of_110001_le_of_le_150000 datum.p_lower datum.p_upper)
     (by norm_num) datum.scaled_product
 
 def mediumLogRows03 : List FinitePrimeGapLogRow :=
