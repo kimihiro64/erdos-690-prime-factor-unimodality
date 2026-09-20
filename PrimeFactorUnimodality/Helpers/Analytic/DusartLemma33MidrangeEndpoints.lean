@@ -10,10 +10,10 @@ set_option maxHeartbeats 10000000
 namespace PrimeFactorUnimodality
 
 noncomputable section
-theorem dusart_lemma33_endpoint_2808 :
+theorem dusart_lemma33_row_endpoint_2402_2808 :
     Chebyshev.psi (2808 : Real) - Chebyshev.theta 2808 -
         Chebyshev.theta (Real.sqrt (2808 : Real)) <
-      (1777745 : Real) / 1000000 * (2808 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (2402 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (2808 : Real) / Real.log 2⌋₊ ≤ 11 := by
     apply Nat.le_of_lt_succ
@@ -117,10 +117,10 @@ theorem dusart_lemma33_endpoint_2808 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_3124 :
+theorem dusart_lemma33_row_endpoint_2809_3124 :
     Chebyshev.psi (3124 : Real) - Chebyshev.theta 3124 -
         Chebyshev.theta (Real.sqrt (3124 : Real)) <
-      (1777745 : Real) / 1000000 * (3124 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (2809 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (3124 : Real) / Real.log 2⌋₊ ≤ 11 := by
     apply Nat.le_of_lt_succ
@@ -224,10 +224,10 @@ theorem dusart_lemma33_endpoint_3124 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_3480 :
+theorem dusart_lemma33_row_endpoint_3125_3480 :
     Chebyshev.psi (3480 : Real) - Chebyshev.theta 3480 -
         Chebyshev.theta (Real.sqrt (3480 : Real)) <
-      (1777745 : Real) / 1000000 * (3480 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (3125 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (3480 : Real) / Real.log 2⌋₊ ≤ 11 := by
     apply Nat.le_of_lt_succ
@@ -331,10 +331,10 @@ theorem dusart_lemma33_endpoint_3480 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_3720 :
+theorem dusart_lemma33_row_endpoint_3481_3720 :
     Chebyshev.psi (3720 : Real) - Chebyshev.theta 3720 -
         Chebyshev.theta (Real.sqrt (3720 : Real)) <
-      (1777745 : Real) / 1000000 * (3720 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (3481 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (3720 : Real) / Real.log 2⌋₊ ≤ 11 := by
     apply Nat.le_of_lt_succ
@@ -438,10 +438,10 @@ theorem dusart_lemma33_endpoint_3720 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_4488 :
+theorem dusart_lemma33_row_endpoint_3721_4488 :
     Chebyshev.psi (4488 : Real) - Chebyshev.theta 4488 -
         Chebyshev.theta (Real.sqrt (4488 : Real)) <
-      (1777745 : Real) / 1000000 * (4488 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (3721 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (4488 : Real) / Real.log 2⌋₊ ≤ 12 := by
     apply Nat.le_of_lt_succ
@@ -553,10 +553,10 @@ theorem dusart_lemma33_endpoint_4488 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_5040 :
+theorem dusart_lemma33_row_endpoint_4489_5040 :
     Chebyshev.psi (5040 : Real) - Chebyshev.theta 5040 -
         Chebyshev.theta (Real.sqrt (5040 : Real)) <
-      (1777745 : Real) / 1000000 * (5040 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (4489 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (5040 : Real) / Real.log 2⌋₊ ≤ 12 := by
     apply Nat.le_of_lt_succ
@@ -668,10 +668,10 @@ theorem dusart_lemma33_endpoint_5040 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_5328 :
+theorem dusart_lemma33_row_endpoint_5041_5328 :
     Chebyshev.psi (5328 : Real) - Chebyshev.theta 5328 -
         Chebyshev.theta (Real.sqrt (5328 : Real)) <
-      (1777745 : Real) / 1000000 * (5328 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (5041 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (5328 : Real) / Real.log 2⌋₊ ≤ 12 := by
     apply Nat.le_of_lt_succ
@@ -783,10 +783,10 @@ theorem dusart_lemma33_endpoint_5328 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_6240 :
+theorem dusart_lemma33_row_endpoint_5329_6240 :
     Chebyshev.psi (6240 : Real) - Chebyshev.theta 6240 -
         Chebyshev.theta (Real.sqrt (6240 : Real)) <
-      (1777745 : Real) / 1000000 * (6240 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (5329 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (6240 : Real) / Real.log 2⌋₊ ≤ 12 := by
     apply Nat.le_of_lt_succ
@@ -898,10 +898,10 @@ theorem dusart_lemma33_endpoint_6240 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_6858 :
+theorem dusart_lemma33_row_endpoint_6241_6858 :
     Chebyshev.psi (6858 : Real) - Chebyshev.theta 6858 -
         Chebyshev.theta (Real.sqrt (6858 : Real)) <
-      (1777745 : Real) / 1000000 * (6858 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (6241 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (6858 : Real) / Real.log 2⌋₊ ≤ 12 := by
     apply Nat.le_of_lt_succ
@@ -1013,10 +1013,10 @@ theorem dusart_lemma33_endpoint_6858 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_6888 :
+theorem dusart_lemma33_row_endpoint_6859_6888 :
     Chebyshev.psi (6888 : Real) - Chebyshev.theta 6888 -
         Chebyshev.theta (Real.sqrt (6888 : Real)) <
-      (1777745 : Real) / 1000000 * (6888 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (6859 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (6888 : Real) / Real.log 2⌋₊ ≤ 12 := by
     apply Nat.le_of_lt_succ
@@ -1128,10 +1128,10 @@ theorem dusart_lemma33_endpoint_6888 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_7920 :
+theorem dusart_lemma33_row_endpoint_6889_7920 :
     Chebyshev.psi (7920 : Real) - Chebyshev.theta 7920 -
         Chebyshev.theta (Real.sqrt (7920 : Real)) <
-      (1777745 : Real) / 1000000 * (7920 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (6889 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (7920 : Real) / Real.log 2⌋₊ ≤ 12 := by
     apply Nat.le_of_lt_succ
@@ -1243,10 +1243,10 @@ theorem dusart_lemma33_endpoint_7920 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_9408 :
+theorem dusart_lemma33_row_endpoint_7921_9408 :
     Chebyshev.psi (9408 : Real) - Chebyshev.theta 9408 -
         Chebyshev.theta (Real.sqrt (9408 : Real)) <
-      (1777745 : Real) / 1000000 * (9408 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (7921 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (9408 : Real) / Real.log 2⌋₊ ≤ 13 := by
     apply Nat.le_of_lt_succ
@@ -1366,10 +1366,10 @@ theorem dusart_lemma33_endpoint_9408 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_10200 :
+theorem dusart_lemma33_row_endpoint_9409_10200 :
     Chebyshev.psi (10200 : Real) - Chebyshev.theta 10200 -
         Chebyshev.theta (Real.sqrt (10200 : Real)) <
-      (1777745 : Real) / 1000000 * (10200 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (9409 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (10200 : Real) / Real.log 2⌋₊ ≤ 13 := by
     apply Nat.le_of_lt_succ
@@ -1489,10 +1489,10 @@ theorem dusart_lemma33_endpoint_10200 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_11448 :
+theorem dusart_lemma33_row_endpoint_10201_11448 :
     Chebyshev.psi (11448 : Real) - Chebyshev.theta 11448 -
         Chebyshev.theta (Real.sqrt (11448 : Real)) <
-      (1777745 : Real) / 1000000 * (11448 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (10201 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (11448 : Real) / Real.log 2⌋₊ ≤ 13 := by
     apply Nat.le_of_lt_succ
@@ -1612,10 +1612,10 @@ theorem dusart_lemma33_endpoint_11448 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_12166 :
+theorem dusart_lemma33_row_endpoint_11449_12166 :
     Chebyshev.psi (12166 : Real) - Chebyshev.theta 12166 -
         Chebyshev.theta (Real.sqrt (12166 : Real)) <
-      (1777745 : Real) / 1000000 * (12166 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (11449 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (12166 : Real) / Real.log 2⌋₊ ≤ 13 := by
     apply Nat.le_of_lt_succ
@@ -1735,10 +1735,10 @@ theorem dusart_lemma33_endpoint_12166 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_12768 :
+theorem dusart_lemma33_row_endpoint_12167_12768 :
     Chebyshev.psi (12768 : Real) - Chebyshev.theta 12768 -
         Chebyshev.theta (Real.sqrt (12768 : Real)) <
-      (1777745 : Real) / 1000000 * (12768 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (12167 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (12768 : Real) / Real.log 2⌋₊ ≤ 13 := by
     apply Nat.le_of_lt_succ
@@ -1858,10 +1858,10 @@ theorem dusart_lemma33_endpoint_12768 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_16128 :
+theorem dusart_lemma33_row_endpoint_12769_16128 :
     Chebyshev.psi (16128 : Real) - Chebyshev.theta 16128 -
         Chebyshev.theta (Real.sqrt (16128 : Real)) <
-      (1777745 : Real) / 1000000 * (16128 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (12769 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (16128 : Real) / Real.log 2⌋₊ ≤ 13 := by
     apply Nat.le_of_lt_succ
@@ -1981,10 +1981,10 @@ theorem dusart_lemma33_endpoint_16128 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_17160 :
+theorem dusart_lemma33_row_endpoint_16129_17160 :
     Chebyshev.psi (17160 : Real) - Chebyshev.theta 17160 -
         Chebyshev.theta (Real.sqrt (17160 : Real)) <
-      (1777745 : Real) / 1000000 * (17160 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (16129 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (17160 : Real) / Real.log 2⌋₊ ≤ 14 := by
     apply Nat.le_of_lt_succ
@@ -2112,10 +2112,10 @@ theorem dusart_lemma33_endpoint_17160 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_18768 :
+theorem dusart_lemma33_row_endpoint_17161_18768 :
     Chebyshev.psi (18768 : Real) - Chebyshev.theta 18768 -
         Chebyshev.theta (Real.sqrt (18768 : Real)) <
-      (1777745 : Real) / 1000000 * (18768 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (17161 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (18768 : Real) / Real.log 2⌋₊ ≤ 14 := by
     apply Nat.le_of_lt_succ
@@ -2243,10 +2243,10 @@ theorem dusart_lemma33_endpoint_18768 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_19320 :
+theorem dusart_lemma33_row_endpoint_18769_19320 :
     Chebyshev.psi (19320 : Real) - Chebyshev.theta 19320 -
         Chebyshev.theta (Real.sqrt (19320 : Real)) <
-      (1777745 : Real) / 1000000 * (19320 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (18769 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (19320 : Real) / Real.log 2⌋₊ ≤ 14 := by
     apply Nat.le_of_lt_succ
@@ -2374,10 +2374,10 @@ theorem dusart_lemma33_endpoint_19320 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_22200 :
+theorem dusart_lemma33_row_endpoint_19321_22200 :
     Chebyshev.psi (22200 : Real) - Chebyshev.theta 22200 -
         Chebyshev.theta (Real.sqrt (22200 : Real)) <
-      (1777745 : Real) / 1000000 * (22200 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (19321 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (22200 : Real) / Real.log 2⌋₊ ≤ 14 := by
     apply Nat.le_of_lt_succ
@@ -2505,10 +2505,10 @@ theorem dusart_lemma33_endpoint_22200 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_24388 :
+theorem dusart_lemma33_row_endpoint_22201_24388 :
     Chebyshev.psi (24388 : Real) - Chebyshev.theta 24388 -
         Chebyshev.theta (Real.sqrt (24388 : Real)) <
-      (1777745 : Real) / 1000000 * (24388 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (22201 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (24388 : Real) / Real.log 2⌋₊ ≤ 14 := by
     apply Nat.le_of_lt_succ
@@ -2636,10 +2636,10 @@ theorem dusart_lemma33_endpoint_24388 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_24648 :
+theorem dusart_lemma33_row_endpoint_24389_24648 :
     Chebyshev.psi (24648 : Real) - Chebyshev.theta 24648 -
         Chebyshev.theta (Real.sqrt (24648 : Real)) <
-      (1777745 : Real) / 1000000 * (24648 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (24389 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (24648 : Real) / Real.log 2⌋₊ ≤ 14 := by
     apply Nat.le_of_lt_succ
@@ -2767,10 +2767,10 @@ theorem dusart_lemma33_endpoint_24648 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_26568 :
+theorem dusart_lemma33_row_endpoint_24649_26568 :
     Chebyshev.psi (26568 : Real) - Chebyshev.theta 26568 -
         Chebyshev.theta (Real.sqrt (26568 : Real)) <
-      (1777745 : Real) / 1000000 * (26568 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (24649 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (26568 : Real) / Real.log 2⌋₊ ≤ 14 := by
     apply Nat.le_of_lt_succ
@@ -2898,10 +2898,10 @@ theorem dusart_lemma33_endpoint_26568 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_28560 :
+theorem dusart_lemma33_row_endpoint_26569_28560 :
     Chebyshev.psi (28560 : Real) - Chebyshev.theta 28560 -
         Chebyshev.theta (Real.sqrt (28560 : Real)) <
-      (1777745 : Real) / 1000000 * (28560 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (26569 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (28560 : Real) / Real.log 2⌋₊ ≤ 14 := by
     apply Nat.le_of_lt_succ
@@ -3029,10 +3029,10 @@ theorem dusart_lemma33_endpoint_28560 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_29928 :
+theorem dusart_lemma33_row_endpoint_28561_29928 :
     Chebyshev.psi (29928 : Real) - Chebyshev.theta 29928 -
         Chebyshev.theta (Real.sqrt (29928 : Real)) <
-      (1777745 : Real) / 1000000 * (29928 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (28561 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (29928 : Real) / Real.log 2⌋₊ ≤ 14 := by
     apply Nat.le_of_lt_succ
@@ -3160,10 +3160,10 @@ theorem dusart_lemma33_endpoint_29928 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_32040 :
+theorem dusart_lemma33_row_endpoint_29929_32040 :
     Chebyshev.psi (32040 : Real) - Chebyshev.theta 32040 -
         Chebyshev.theta (Real.sqrt (32040 : Real)) <
-      (1777745 : Real) / 1000000 * (32040 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (29929 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (32040 : Real) / Real.log 2⌋₊ ≤ 14 := by
     apply Nat.le_of_lt_succ
@@ -3291,10 +3291,10 @@ theorem dusart_lemma33_endpoint_32040 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_32760 :
+theorem dusart_lemma33_row_endpoint_32041_32760 :
     Chebyshev.psi (32760 : Real) - Chebyshev.theta 32760 -
         Chebyshev.theta (Real.sqrt (32760 : Real)) <
-      (1777745 : Real) / 1000000 * (32760 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (32041 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (32760 : Real) / Real.log 2⌋₊ ≤ 14 := by
     apply Nat.le_of_lt_succ
@@ -3422,10 +3422,10 @@ theorem dusart_lemma33_endpoint_32760 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_36480 :
+theorem dusart_lemma33_row_endpoint_32761_36480 :
     Chebyshev.psi (36480 : Real) - Chebyshev.theta 36480 -
         Chebyshev.theta (Real.sqrt (36480 : Real)) <
-      (1777745 : Real) / 1000000 * (36480 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (32761 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (36480 : Real) / Real.log 2⌋₊ ≤ 15 := by
     apply Nat.le_of_lt_succ
@@ -3561,10 +3561,10 @@ theorem dusart_lemma33_endpoint_36480 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_37248 :
+theorem dusart_lemma33_row_endpoint_36481_37248 :
     Chebyshev.psi (37248 : Real) - Chebyshev.theta 37248 -
         Chebyshev.theta (Real.sqrt (37248 : Real)) <
-      (1777745 : Real) / 1000000 * (37248 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (36481 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (37248 : Real) / Real.log 2⌋₊ ≤ 15 := by
     apply Nat.le_of_lt_succ
@@ -3700,10 +3700,10 @@ theorem dusart_lemma33_endpoint_37248 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_38808 :
+theorem dusart_lemma33_row_endpoint_37249_38808 :
     Chebyshev.psi (38808 : Real) - Chebyshev.theta 38808 -
         Chebyshev.theta (Real.sqrt (38808 : Real)) <
-      (1777745 : Real) / 1000000 * (38808 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (37249 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (38808 : Real) / Real.log 2⌋₊ ≤ 15 := by
     apply Nat.le_of_lt_succ
@@ -3839,10 +3839,10 @@ theorem dusart_lemma33_endpoint_38808 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_44520 :
+theorem dusart_lemma33_row_endpoint_38809_44520 :
     Chebyshev.psi (44520 : Real) - Chebyshev.theta 44520 -
         Chebyshev.theta (Real.sqrt (44520 : Real)) <
-      (1777745 : Real) / 1000000 * (44520 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (38809 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (44520 : Real) / Real.log 2⌋₊ ≤ 15 := by
     apply Nat.le_of_lt_succ
@@ -3978,10 +3978,10 @@ theorem dusart_lemma33_endpoint_44520 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_50652 :
+theorem dusart_lemma33_row_endpoint_44521_50652 :
     Chebyshev.psi (50652 : Real) - Chebyshev.theta 50652 -
         Chebyshev.theta (Real.sqrt (50652 : Real)) <
-      (1777745 : Real) / 1000000 * (50652 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (44521 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (50652 : Real) / Real.log 2⌋₊ ≤ 15 := by
     apply Nat.le_of_lt_succ
@@ -4117,10 +4117,10 @@ theorem dusart_lemma33_endpoint_50652 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_52440 :
+theorem dusart_lemma33_row_endpoint_50653_52440 :
     Chebyshev.psi (52440 : Real) - Chebyshev.theta 52440 -
         Chebyshev.theta (Real.sqrt (52440 : Real)) <
-      (1777745 : Real) / 1000000 * (52440 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (50653 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (52440 : Real) / Real.log 2⌋₊ ≤ 15 := by
     apply Nat.le_of_lt_succ
@@ -4256,10 +4256,10 @@ theorem dusart_lemma33_endpoint_52440 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_57120 :
+theorem dusart_lemma33_row_endpoint_52441_57120 :
     Chebyshev.psi (57120 : Real) - Chebyshev.theta 57120 -
         Chebyshev.theta (Real.sqrt (57120 : Real)) <
-      (1777745 : Real) / 1000000 * (57120 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (52441 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (57120 : Real) / Real.log 2⌋₊ ≤ 15 := by
     apply Nat.le_of_lt_succ
@@ -4395,10 +4395,10 @@ theorem dusart_lemma33_endpoint_57120 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_63000 :
+theorem dusart_lemma33_row_endpoint_57121_63000 :
     Chebyshev.psi (63000 : Real) - Chebyshev.theta 63000 -
         Chebyshev.theta (Real.sqrt (63000 : Real)) <
-      (1777745 : Real) / 1000000 * (63000 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (57121 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (63000 : Real) / Real.log 2⌋₊ ≤ 15 := by
     apply Nat.le_of_lt_succ
@@ -4534,10 +4534,10 @@ theorem dusart_lemma33_endpoint_63000 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_69168 :
+theorem dusart_lemma33_row_endpoint_63001_69168 :
     Chebyshev.psi (69168 : Real) - Chebyshev.theta 69168 -
         Chebyshev.theta (Real.sqrt (69168 : Real)) <
-      (1777745 : Real) / 1000000 * (69168 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (63001 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (69168 : Real) / Real.log 2⌋₊ ≤ 16 := by
     apply Nat.le_of_lt_succ
@@ -4681,10 +4681,10 @@ theorem dusart_lemma33_endpoint_69168 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_73440 :
+theorem dusart_lemma33_row_endpoint_69169_73440 :
     Chebyshev.psi (73440 : Real) - Chebyshev.theta 73440 -
         Chebyshev.theta (Real.sqrt (73440 : Real)) <
-      (1777745 : Real) / 1000000 * (73440 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (69169 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (73440 : Real) / Real.log 2⌋₊ ≤ 16 := by
     apply Nat.le_of_lt_succ
@@ -4828,10 +4828,10 @@ theorem dusart_lemma33_endpoint_73440 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_78960 :
+theorem dusart_lemma33_row_endpoint_73441_78960 :
     Chebyshev.psi (78960 : Real) - Chebyshev.theta 78960 -
         Chebyshev.theta (Real.sqrt (78960 : Real)) <
-      (1777745 : Real) / 1000000 * (78960 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (73441 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (78960 : Real) / Real.log 2⌋₊ ≤ 16 := by
     apply Nat.le_of_lt_succ
@@ -4975,10 +4975,10 @@ theorem dusart_lemma33_endpoint_78960 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_83520 :
+theorem dusart_lemma33_row_endpoint_78961_83520 :
     Chebyshev.psi (83520 : Real) - Chebyshev.theta 83520 -
         Chebyshev.theta (Real.sqrt (83520 : Real)) <
-      (1777745 : Real) / 1000000 * (83520 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (78961 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (83520 : Real) / Real.log 2⌋₊ ≤ 16 := by
     apply Nat.le_of_lt_succ
@@ -5122,10 +5122,10 @@ theorem dusart_lemma33_endpoint_83520 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_94248 :
+theorem dusart_lemma33_row_endpoint_83521_94248 :
     Chebyshev.psi (94248 : Real) - Chebyshev.theta 94248 -
         Chebyshev.theta (Real.sqrt (94248 : Real)) <
-      (1777745 : Real) / 1000000 * (94248 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (83521 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (94248 : Real) / Real.log 2⌋₊ ≤ 16 := by
     apply Nat.le_of_lt_succ
@@ -5269,10 +5269,10 @@ theorem dusart_lemma33_endpoint_94248 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_97968 :
+theorem dusart_lemma33_row_endpoint_94249_97968 :
     Chebyshev.psi (97968 : Real) - Chebyshev.theta 97968 -
         Chebyshev.theta (Real.sqrt (97968 : Real)) <
-      (1777745 : Real) / 1000000 * (97968 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (94249 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (97968 : Real) / Real.log 2⌋₊ ≤ 16 := by
     apply Nat.le_of_lt_succ
@@ -5416,10 +5416,10 @@ theorem dusart_lemma33_endpoint_97968 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_109560 :
+theorem dusart_lemma33_row_endpoint_97969_109560 :
     Chebyshev.psi (109560 : Real) - Chebyshev.theta 109560 -
         Chebyshev.theta (Real.sqrt (109560 : Real)) <
-      (1777745 : Real) / 1000000 * (109560 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (97969 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (109560 : Real) / Real.log 2⌋₊ ≤ 16 := by
     apply Nat.le_of_lt_succ
@@ -5563,10 +5563,10 @@ theorem dusart_lemma33_endpoint_109560 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_120408 :
+theorem dusart_lemma33_row_endpoint_109561_120408 :
     Chebyshev.psi (120408 : Real) - Chebyshev.theta 120408 -
         Chebyshev.theta (Real.sqrt (120408 : Real)) <
-      (1777745 : Real) / 1000000 * (120408 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (109561 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (120408 : Real) / Real.log 2⌋₊ ≤ 16 := by
     apply Nat.le_of_lt_succ
@@ -5710,10 +5710,10 @@ theorem dusart_lemma33_endpoint_120408 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_124608 :
+theorem dusart_lemma33_row_endpoint_120409_124608 :
     Chebyshev.psi (124608 : Real) - Chebyshev.theta 124608 -
         Chebyshev.theta (Real.sqrt (124608 : Real)) <
-      (1777745 : Real) / 1000000 * (124608 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (120409 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (124608 : Real) / Real.log 2⌋₊ ≤ 16 := by
     apply Nat.le_of_lt_succ
@@ -5857,10 +5857,10 @@ theorem dusart_lemma33_endpoint_124608 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_134688 :
+theorem dusart_lemma33_row_endpoint_124609_134688 :
     Chebyshev.psi (134688 : Real) - Chebyshev.theta 134688 -
         Chebyshev.theta (Real.sqrt (134688 : Real)) <
-      (1777745 : Real) / 1000000 * (134688 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (124609 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (134688 : Real) / Real.log 2⌋₊ ≤ 17 := by
     apply Nat.le_of_lt_succ
@@ -6012,10 +6012,10 @@ theorem dusart_lemma33_endpoint_134688 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_143640 :
+theorem dusart_lemma33_row_endpoint_134689_143640 :
     Chebyshev.psi (143640 : Real) - Chebyshev.theta 143640 -
         Chebyshev.theta (Real.sqrt (143640 : Real)) <
-      (1777745 : Real) / 1000000 * (143640 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (134689 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (143640 : Real) / Real.log 2⌋₊ ≤ 17 := by
     apply Nat.le_of_lt_succ
@@ -6167,10 +6167,10 @@ theorem dusart_lemma33_endpoint_143640 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_151320 :
+theorem dusart_lemma33_row_endpoint_143641_151320 :
     Chebyshev.psi (151320 : Real) - Chebyshev.theta 151320 -
         Chebyshev.theta (Real.sqrt (151320 : Real)) <
-      (1777745 : Real) / 1000000 * (151320 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (143641 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (151320 : Real) / Real.log 2⌋₊ ≤ 17 := by
     apply Nat.le_of_lt_succ
@@ -6322,10 +6322,10 @@ theorem dusart_lemma33_endpoint_151320 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_160800 :
+theorem dusart_lemma33_row_endpoint_151321_160800 :
     Chebyshev.psi (160800 : Real) - Chebyshev.theta 160800 -
         Chebyshev.theta (Real.sqrt (160800 : Real)) <
-      (1777745 : Real) / 1000000 * (160800 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (151321 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (160800 : Real) / Real.log 2⌋₊ ≤ 17 := by
     apply Nat.le_of_lt_succ
@@ -6477,10 +6477,10 @@ theorem dusart_lemma33_endpoint_160800 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_175560 :
+theorem dusart_lemma33_row_endpoint_160801_175560 :
     Chebyshev.psi (175560 : Real) - Chebyshev.theta 175560 -
         Chebyshev.theta (Real.sqrt (175560 : Real)) <
-      (1777745 : Real) / 1000000 * (175560 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (160801 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (175560 : Real) / Real.log 2⌋₊ ≤ 17 := by
     apply Nat.le_of_lt_succ
@@ -6632,10 +6632,10 @@ theorem dusart_lemma33_endpoint_175560 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_185760 :
+theorem dusart_lemma33_row_endpoint_175561_185760 :
     Chebyshev.psi (185760 : Real) - Chebyshev.theta 185760 -
         Chebyshev.theta (Real.sqrt (185760 : Real)) <
-      (1777745 : Real) / 1000000 * (185760 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (175561 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (185760 : Real) / Real.log 2⌋₊ ≤ 17 := by
     apply Nat.le_of_lt_succ
@@ -6787,10 +6787,10 @@ theorem dusart_lemma33_endpoint_185760 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_196248 :
+theorem dusart_lemma33_row_endpoint_185761_196248 :
     Chebyshev.psi (196248 : Real) - Chebyshev.theta 196248 -
         Chebyshev.theta (Real.sqrt (196248 : Real)) <
-      (1777745 : Real) / 1000000 * (196248 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (185761 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (196248 : Real) / Real.log 2⌋₊ ≤ 17 := by
     apply Nat.le_of_lt_succ
@@ -6942,10 +6942,10 @@ theorem dusart_lemma33_endpoint_196248 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_208848 :
+theorem dusart_lemma33_row_endpoint_196249_208848 :
     Chebyshev.psi (208848 : Real) - Chebyshev.theta 208848 -
         Chebyshev.theta (Real.sqrt (208848 : Real)) <
-      (1777745 : Real) / 1000000 * (208848 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (196249 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (208848 : Real) / Real.log 2⌋₊ ≤ 17 := by
     apply Nat.le_of_lt_succ
@@ -7097,10 +7097,10 @@ theorem dusart_lemma33_endpoint_208848 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_218088 :
+theorem dusart_lemma33_row_endpoint_208849_218088 :
     Chebyshev.psi (218088 : Real) - Chebyshev.theta 218088 -
         Chebyshev.theta (Real.sqrt (218088 : Real)) <
-      (1777745 : Real) / 1000000 * (218088 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (208849 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (218088 : Real) / Real.log 2⌋₊ ≤ 17 := by
     apply Nat.le_of_lt_succ
@@ -7252,10 +7252,10 @@ theorem dusart_lemma33_endpoint_218088 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_237168 :
+theorem dusart_lemma33_row_endpoint_218089_237168 :
     Chebyshev.psi (237168 : Real) - Chebyshev.theta 237168 -
         Chebyshev.theta (Real.sqrt (237168 : Real)) <
-      (1777745 : Real) / 1000000 * (237168 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (218089 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (237168 : Real) / Real.log 2⌋₊ ≤ 17 := by
     apply Nat.le_of_lt_succ
@@ -7407,10 +7407,10 @@ theorem dusart_lemma33_endpoint_237168 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_253008 :
+theorem dusart_lemma33_row_endpoint_237169_253008 :
     Chebyshev.psi (253008 : Real) - Chebyshev.theta 253008 -
         Chebyshev.theta (Real.sqrt (253008 : Real)) <
-      (1777745 : Real) / 1000000 * (253008 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (237169 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (253008 : Real) / Real.log 2⌋₊ ≤ 17 := by
     apply Nat.le_of_lt_succ
@@ -7562,10 +7562,10 @@ theorem dusart_lemma33_endpoint_253008 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_273528 :
+theorem dusart_lemma33_row_endpoint_253009_273528 :
     Chebyshev.psi (273528 : Real) - Chebyshev.theta 273528 -
         Chebyshev.theta (Real.sqrt (273528 : Real)) <
-      (1777745 : Real) / 1000000 * (273528 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (253009 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (273528 : Real) / Real.log 2⌋₊ ≤ 18 := by
     apply Nat.le_of_lt_succ
@@ -7725,10 +7725,10 @@ theorem dusart_lemma33_endpoint_273528 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_300762 :
+theorem dusart_lemma33_row_endpoint_273529_300762 :
     Chebyshev.psi (300762 : Real) - Chebyshev.theta 300762 -
         Chebyshev.theta (Real.sqrt (300762 : Real)) <
-      (1777745 : Real) / 1000000 * (300762 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (273529 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (300762 : Real) / Real.log 2⌋₊ ≤ 18 := by
     apply Nat.le_of_lt_succ
@@ -7888,10 +7888,10 @@ theorem dusart_lemma33_endpoint_300762 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_323760 :
+theorem dusart_lemma33_row_endpoint_300763_323760 :
     Chebyshev.psi (323760 : Real) - Chebyshev.theta 323760 -
         Chebyshev.theta (Real.sqrt (323760 : Real)) <
-      (1777745 : Real) / 1000000 * (323760 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (300763 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (323760 : Real) / Real.log 2⌋₊ ≤ 18 := by
     apply Nat.le_of_lt_succ
@@ -8051,10 +8051,10 @@ theorem dusart_lemma33_endpoint_323760 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_344568 :
+theorem dusart_lemma33_row_endpoint_323761_344568 :
     Chebyshev.psi (344568 : Real) - Chebyshev.theta 344568 -
         Chebyshev.theta (Real.sqrt (344568 : Real)) <
-      (1777745 : Real) / 1000000 * (344568 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (323761 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (344568 : Real) / Real.log 2⌋₊ ≤ 18 := by
     apply Nat.le_of_lt_succ
@@ -8214,10 +8214,10 @@ theorem dusart_lemma33_endpoint_344568 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_361200 :
+theorem dusart_lemma33_row_endpoint_344569_361200 :
     Chebyshev.psi (361200 : Real) - Chebyshev.theta 361200 -
         Chebyshev.theta (Real.sqrt (361200 : Real)) <
-      (1777745 : Real) / 1000000 * (361200 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (344569 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (361200 : Real) / Real.log 2⌋₊ ≤ 18 := by
     apply Nat.le_of_lt_succ
@@ -8377,10 +8377,10 @@ theorem dusart_lemma33_endpoint_361200 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_380688 :
+theorem dusart_lemma33_row_endpoint_361201_380688 :
     Chebyshev.psi (380688 : Real) - Chebyshev.theta 380688 -
         Chebyshev.theta (Real.sqrt (380688 : Real)) <
-      (1777745 : Real) / 1000000 * (380688 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (361201 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (380688 : Real) / Real.log 2⌋₊ ≤ 18 := by
     apply Nat.le_of_lt_succ
@@ -8540,10 +8540,10 @@ theorem dusart_lemma33_endpoint_380688 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_398160 :
+theorem dusart_lemma33_row_endpoint_380689_398160 :
     Chebyshev.psi (398160 : Real) - Chebyshev.theta 398160 -
         Chebyshev.theta (Real.sqrt (398160 : Real)) <
-      (1777745 : Real) / 1000000 * (398160 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (380689 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (398160 : Real) / Real.log 2⌋₊ ≤ 18 := by
     apply Nat.le_of_lt_succ
@@ -8703,10 +8703,10 @@ theorem dusart_lemma33_endpoint_398160 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_418608 :
+theorem dusart_lemma33_row_endpoint_398161_418608 :
     Chebyshev.psi (418608 : Real) - Chebyshev.theta 418608 -
         Chebyshev.theta (Real.sqrt (418608 : Real)) <
-      (1777745 : Real) / 1000000 * (418608 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (398161 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (418608 : Real) / Real.log 2⌋₊ ≤ 18 := by
     apply Nat.le_of_lt_succ
@@ -8866,10 +8866,10 @@ theorem dusart_lemma33_endpoint_418608 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_436920 :
+theorem dusart_lemma33_row_endpoint_418609_436920 :
     Chebyshev.psi (436920 : Real) - Chebyshev.theta 436920 -
         Chebyshev.theta (Real.sqrt (436920 : Real)) <
-      (1777745 : Real) / 1000000 * (436920 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (418609 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (436920 : Real) / Real.log 2⌋₊ ≤ 18 := by
     apply Nat.le_of_lt_succ
@@ -9029,10 +9029,10 @@ theorem dusart_lemma33_endpoint_436920 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_466488 :
+theorem dusart_lemma33_row_endpoint_436921_466488 :
     Chebyshev.psi (466488 : Real) - Chebyshev.theta 466488 -
         Chebyshev.theta (Real.sqrt (466488 : Real)) <
-      (1777745 : Real) / 1000000 * (466488 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (436921 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (466488 : Real) / Real.log 2⌋₊ ≤ 18 := by
     apply Nat.le_of_lt_succ
@@ -9192,10 +9192,10 @@ theorem dusart_lemma33_endpoint_466488 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_502680 :
+theorem dusart_lemma33_row_endpoint_466489_502680 :
     Chebyshev.psi (502680 : Real) - Chebyshev.theta 502680 -
         Chebyshev.theta (Real.sqrt (502680 : Real)) <
-      (1777745 : Real) / 1000000 * (502680 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (466489 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (502680 : Real) / Real.log 2⌋₊ ≤ 18 := by
     apply Nat.le_of_lt_succ
@@ -9355,10 +9355,10 @@ theorem dusart_lemma33_endpoint_502680 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_537288 :
+theorem dusart_lemma33_row_endpoint_502681_537288 :
     Chebyshev.psi (537288 : Real) - Chebyshev.theta 537288 -
         Chebyshev.theta (Real.sqrt (537288 : Real)) <
-      (1777745 : Real) / 1000000 * (537288 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (502681 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (537288 : Real) / Real.log 2⌋₊ ≤ 19 := by
     apply Nat.le_of_lt_succ
@@ -9526,10 +9526,10 @@ theorem dusart_lemma33_endpoint_537288 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_571786 :
+theorem dusart_lemma33_row_endpoint_537289_571786 :
     Chebyshev.psi (571786 : Real) - Chebyshev.theta 571786 -
         Chebyshev.theta (Real.sqrt (571786 : Real)) <
-      (1777745 : Real) / 1000000 * (571786 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (537289 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (571786 : Real) / Real.log 2⌋₊ ≤ 19 := by
     apply Nat.le_of_lt_succ
@@ -9697,10 +9697,10 @@ theorem dusart_lemma33_endpoint_571786 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_591360 :
+theorem dusart_lemma33_row_endpoint_571787_591360 :
     Chebyshev.psi (591360 : Real) - Chebyshev.theta 591360 -
         Chebyshev.theta (Real.sqrt (591360 : Real)) <
-      (1777745 : Real) / 1000000 * (591360 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (571787 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (591360 : Real) / Real.log 2⌋₊ ≤ 19 := by
     apply Nat.le_of_lt_succ
@@ -9868,10 +9868,10 @@ theorem dusart_lemma33_endpoint_591360 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_654480 :
+theorem dusart_lemma33_row_endpoint_591361_654480 :
     Chebyshev.psi (654480 : Real) - Chebyshev.theta 654480 -
         Chebyshev.theta (Real.sqrt (654480 : Real)) <
-      (1777745 : Real) / 1000000 * (654480 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (591361 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (654480 : Real) / Real.log 2⌋₊ ≤ 19 := by
     apply Nat.le_of_lt_succ
@@ -10039,10 +10039,10 @@ theorem dusart_lemma33_endpoint_654480 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_683928 :
+theorem dusart_lemma33_row_endpoint_654481_683928 :
     Chebyshev.psi (683928 : Real) - Chebyshev.theta 683928 -
         Chebyshev.theta (Real.sqrt (683928 : Real)) <
-      (1777745 : Real) / 1000000 * (683928 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (654481 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (683928 : Real) / Real.log 2⌋₊ ≤ 19 := by
     apply Nat.le_of_lt_succ
@@ -10210,10 +10210,10 @@ theorem dusart_lemma33_endpoint_683928 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_734448 :
+theorem dusart_lemma33_row_endpoint_683929_734448 :
     Chebyshev.psi (734448 : Real) - Chebyshev.theta 734448 -
         Chebyshev.theta (Real.sqrt (734448 : Real)) <
-      (1777745 : Real) / 1000000 * (734448 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (683929 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (734448 : Real) / Real.log 2⌋₊ ≤ 19 := by
     apply Nat.le_of_lt_succ
@@ -10381,10 +10381,10 @@ theorem dusart_lemma33_endpoint_734448 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_776160 :
+theorem dusart_lemma33_row_endpoint_734449_776160 :
     Chebyshev.psi (776160 : Real) - Chebyshev.theta 776160 -
         Chebyshev.theta (Real.sqrt (776160 : Real)) <
-      (1777745 : Real) / 1000000 * (776160 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (734449 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (776160 : Real) / Real.log 2⌋₊ ≤ 19 := by
     apply Nat.le_of_lt_succ
@@ -10552,10 +10552,10 @@ theorem dusart_lemma33_endpoint_776160 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_829920 :
+theorem dusart_lemma33_row_endpoint_776161_829920 :
     Chebyshev.psi (829920 : Real) - Chebyshev.theta 829920 -
         Chebyshev.theta (Real.sqrt (829920 : Real)) <
-      (1777745 : Real) / 1000000 * (829920 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (776161 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (829920 : Real) / Real.log 2⌋₊ ≤ 19 := by
     apply Nat.le_of_lt_succ
@@ -10723,10 +10723,10 @@ theorem dusart_lemma33_endpoint_829920 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_896808 :
+theorem dusart_lemma33_row_endpoint_829921_896808 :
     Chebyshev.psi (896808 : Real) - Chebyshev.theta 896808 -
         Chebyshev.theta (Real.sqrt (896808 : Real)) <
-      (1777745 : Real) / 1000000 * (896808 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (829921 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (896808 : Real) / Real.log 2⌋₊ ≤ 19 := by
     apply Nat.le_of_lt_succ
@@ -10894,10 +10894,10 @@ theorem dusart_lemma33_endpoint_896808 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_954528 :
+theorem dusart_lemma33_row_endpoint_896809_954528 :
     Chebyshev.psi (954528 : Real) - Chebyshev.theta 954528 -
         Chebyshev.theta (Real.sqrt (954528 : Real)) <
-      (1777745 : Real) / 1000000 * (954528 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (896809 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (954528 : Real) / Real.log 2⌋₊ ≤ 19 := by
     apply Nat.le_of_lt_succ
@@ -11065,10 +11065,10 @@ theorem dusart_lemma33_endpoint_954528 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_1026168 :
+theorem dusart_lemma33_row_endpoint_954529_1026168 :
     Chebyshev.psi (1026168 : Real) - Chebyshev.theta 1026168 -
         Chebyshev.theta (Real.sqrt (1026168 : Real)) <
-      (1777745 : Real) / 1000000 * (1026168 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (954529 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (1026168 : Real) / Real.log 2⌋₊ ≤ 19 := by
     apply Nat.le_of_lt_succ
@@ -11236,10 +11236,10 @@ theorem dusart_lemma33_endpoint_1026168 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_1079520 :
+theorem dusart_lemma33_row_endpoint_1026169_1079520 :
     Chebyshev.psi (1079520 : Real) - Chebyshev.theta 1079520 -
         Chebyshev.theta (Real.sqrt (1079520 : Real)) <
-      (1777745 : Real) / 1000000 * (1079520 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (1026169 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (1079520 : Real) / Real.log 2⌋₊ ≤ 20 := by
     apply Nat.le_of_lt_succ
@@ -11415,10 +11415,10 @@ theorem dusart_lemma33_endpoint_1079520 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_1129968 :
+theorem dusart_lemma33_row_endpoint_1079521_1129968 :
     Chebyshev.psi (1129968 : Real) - Chebyshev.theta 1129968 -
         Chebyshev.theta (Real.sqrt (1129968 : Real)) <
-      (1777745 : Real) / 1000000 * (1129968 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (1079521 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (1129968 : Real) / Real.log 2⌋₊ ≤ 20 := by
     apply Nat.le_of_lt_succ
@@ -11594,10 +11594,10 @@ theorem dusart_lemma33_endpoint_1129968 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_1203408 :
+theorem dusart_lemma33_row_endpoint_1129969_1203408 :
     Chebyshev.psi (1203408 : Real) - Chebyshev.theta 1203408 -
         Chebyshev.theta (Real.sqrt (1203408 : Real)) <
-      (1777745 : Real) / 1000000 * (1203408 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (1129969 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (1203408 : Real) / Real.log 2⌋₊ ≤ 20 := by
     apply Nat.le_of_lt_succ
@@ -11773,10 +11773,10 @@ theorem dusart_lemma33_endpoint_1203408 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_1274640 :
+theorem dusart_lemma33_row_endpoint_1203409_1274640 :
     Chebyshev.psi (1274640 : Real) - Chebyshev.theta 1274640 -
         Chebyshev.theta (Real.sqrt (1274640 : Real)) <
-      (1777745 : Real) / 1000000 * (1274640 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (1203409 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (1274640 : Real) / Real.log 2⌋₊ ≤ 20 := by
     apply Nat.le_of_lt_succ
@@ -11952,10 +11952,10 @@ theorem dusart_lemma33_endpoint_1274640 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_1371240 :
+theorem dusart_lemma33_row_endpoint_1274641_1371240 :
     Chebyshev.psi (1371240 : Real) - Chebyshev.theta 1371240 -
         Chebyshev.theta (Real.sqrt (1371240 : Real)) <
-      (1777745 : Real) / 1000000 * (1371240 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (1274641 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (1371240 : Real) / Real.log 2⌋₊ ≤ 20 := by
     apply Nat.le_of_lt_succ
@@ -12131,10 +12131,10 @@ theorem dusart_lemma33_endpoint_1371240 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_1442896 :
+theorem dusart_lemma33_row_endpoint_1371241_1442896 :
     Chebyshev.psi (1442896 : Real) - Chebyshev.theta 1442896 -
         Chebyshev.theta (Real.sqrt (1442896 : Real)) <
-      (1777745 : Real) / 1000000 * (1442896 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (1371241 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (1442896 : Real) / Real.log 2⌋₊ ≤ 20 := by
     apply Nat.le_of_lt_succ
@@ -12310,10 +12310,10 @@ theorem dusart_lemma33_endpoint_1442896 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_1510440 :
+theorem dusart_lemma33_row_endpoint_1442897_1510440 :
     Chebyshev.psi (1510440 : Real) - Chebyshev.theta 1510440 -
         Chebyshev.theta (Real.sqrt (1510440 : Real)) <
-      (1777745 : Real) / 1000000 * (1510440 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (1442897 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (1510440 : Real) / Real.log 2⌋₊ ≤ 20 := by
     apply Nat.le_of_lt_succ
@@ -12489,10 +12489,10 @@ theorem dusart_lemma33_endpoint_1510440 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_1630728 :
+theorem dusart_lemma33_row_endpoint_1510441_1630728 :
     Chebyshev.psi (1630728 : Real) - Chebyshev.theta 1630728 -
         Chebyshev.theta (Real.sqrt (1630728 : Real)) <
-      (1777745 : Real) / 1000000 * (1630728 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (1510441 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (1630728 : Real) / Real.log 2⌋₊ ≤ 20 := by
     apply Nat.le_of_lt_succ
@@ -12668,10 +12668,10 @@ theorem dusart_lemma33_endpoint_1630728 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_1682208 :
+theorem dusart_lemma33_row_endpoint_1630729_1682208 :
     Chebyshev.psi (1682208 : Real) - Chebyshev.theta 1682208 -
         Chebyshev.theta (Real.sqrt (1682208 : Real)) <
-      (1777745 : Real) / 1000000 * (1682208 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (1630729 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (1682208 : Real) / Real.log 2⌋₊ ≤ 20 := by
     apply Nat.le_of_lt_succ
@@ -12847,10 +12847,10 @@ theorem dusart_lemma33_endpoint_1682208 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_1760928 :
+theorem dusart_lemma33_row_endpoint_1682209_1760928 :
     Chebyshev.psi (1760928 : Real) - Chebyshev.theta 1760928 -
         Chebyshev.theta (Real.sqrt (1760928 : Real)) <
-      (1777745 : Real) / 1000000 * (1760928 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (1682209 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (1760928 : Real) / Real.log 2⌋₊ ≤ 20 := by
     apply Nat.le_of_lt_succ
@@ -13026,10 +13026,10 @@ theorem dusart_lemma33_endpoint_1760928 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_1957200 :
+theorem dusart_lemma33_row_endpoint_1760929_1957200 :
     Chebyshev.psi (1957200 : Real) - Chebyshev.theta 1957200 -
         Chebyshev.theta (Real.sqrt (1957200 : Real)) <
-      (1777745 : Real) / 1000000 * (1957200 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (1760929 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (1957200 : Real) / Real.log 2⌋₊ ≤ 20 := by
     apply Nat.le_of_lt_succ
@@ -13205,10 +13205,10 @@ theorem dusart_lemma33_endpoint_1957200 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_2053488 :
+theorem dusart_lemma33_row_endpoint_1957201_2053488 :
     Chebyshev.psi (2053488 : Real) - Chebyshev.theta 2053488 -
         Chebyshev.theta (Real.sqrt (2053488 : Real)) <
-      (1777745 : Real) / 1000000 * (2053488 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (1957201 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (2053488 : Real) / Real.log 2⌋₊ ≤ 20 := by
     apply Nat.le_of_lt_succ
@@ -13384,10 +13384,10 @@ theorem dusart_lemma33_endpoint_2053488 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_2163840 :
+theorem dusart_lemma33_row_endpoint_2053489_2163840 :
     Chebyshev.psi (2163840 : Real) - Chebyshev.theta 2163840 -
         Chebyshev.theta (Real.sqrt (2163840 : Real)) <
-      (1777745 : Real) / 1000000 * (2163840 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (2053489 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (2163840 : Real) / Real.log 2⌋₊ ≤ 21 := by
     apply Nat.le_of_lt_succ
@@ -13571,10 +13571,10 @@ theorem dusart_lemma33_endpoint_2163840 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_2247000 :
+theorem dusart_lemma33_row_endpoint_2163841_2247000 :
     Chebyshev.psi (2247000 : Real) - Chebyshev.theta 2247000 -
         Chebyshev.theta (Real.sqrt (2247000 : Real)) <
-      (1777745 : Real) / 1000000 * (2247000 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (2163841 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (2247000 : Real) / Real.log 2⌋₊ ≤ 21 := by
     apply Nat.le_of_lt_succ
@@ -13758,10 +13758,10 @@ theorem dusart_lemma33_endpoint_2247000 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_2411808 :
+theorem dusart_lemma33_row_endpoint_2247001_2411808 :
     Chebyshev.psi (2411808 : Real) - Chebyshev.theta 2411808 -
         Chebyshev.theta (Real.sqrt (2411808 : Real)) <
-      (1777745 : Real) / 1000000 * (2411808 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (2247001 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (2411808 : Real) / Real.log 2⌋₊ ≤ 21 := by
     apply Nat.le_of_lt_succ
@@ -13945,10 +13945,10 @@ theorem dusart_lemma33_endpoint_2411808 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_2550408 :
+theorem dusart_lemma33_row_endpoint_2411809_2550408 :
     Chebyshev.psi (2550408 : Real) - Chebyshev.theta 2550408 -
         Chebyshev.theta (Real.sqrt (2550408 : Real)) <
-      (1777745 : Real) / 1000000 * (2550408 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (2411809 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (2550408 : Real) / Real.log 2⌋₊ ≤ 21 := by
     apply Nat.le_of_lt_succ
@@ -14132,10 +14132,10 @@ theorem dusart_lemma33_endpoint_2550408 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_2627640 :
+theorem dusart_lemma33_row_endpoint_2550409_2627640 :
     Chebyshev.psi (2627640 : Real) - Chebyshev.theta 2627640 -
         Chebyshev.theta (Real.sqrt (2627640 : Real)) <
-      (1777745 : Real) / 1000000 * (2627640 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (2550409 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (2627640 : Real) / Real.log 2⌋₊ ≤ 21 := by
     apply Nat.le_of_lt_succ
@@ -14319,10 +14319,10 @@ theorem dusart_lemma33_endpoint_2627640 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_2785560 :
+theorem dusart_lemma33_row_endpoint_2627641_2785560 :
     Chebyshev.psi (2785560 : Real) - Chebyshev.theta 2785560 -
         Chebyshev.theta (Real.sqrt (2785560 : Real)) <
-      (1777745 : Real) / 1000000 * (2785560 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (2627641 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (2785560 : Real) / Real.log 2⌋₊ ≤ 21 := by
     apply Nat.le_of_lt_succ
@@ -14506,10 +14506,10 @@ theorem dusart_lemma33_endpoint_2785560 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_2968728 :
+theorem dusart_lemma33_row_endpoint_2785561_2968728 :
     Chebyshev.psi (2968728 : Real) - Chebyshev.theta 2968728 -
         Chebyshev.theta (Real.sqrt (2968728 : Real)) <
-      (1777745 : Real) / 1000000 * (2968728 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (2785561 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (2968728 : Real) / Real.log 2⌋₊ ≤ 21 := by
     apply Nat.le_of_lt_succ
@@ -14693,10 +14693,10 @@ theorem dusart_lemma33_endpoint_2968728 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_3179088 :
+theorem dusart_lemma33_row_endpoint_2968729_3179088 :
     Chebyshev.psi (3179088 : Real) - Chebyshev.theta 3179088 -
         Chebyshev.theta (Real.sqrt (3179088 : Real)) <
-      (1777745 : Real) / 1000000 * (3179088 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (2968729 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (3179088 : Real) / Real.log 2⌋₊ ≤ 21 := by
     apply Nat.le_of_lt_succ
@@ -14880,10 +14880,10 @@ theorem dusart_lemma33_endpoint_3179088 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_3411408 :
+theorem dusart_lemma33_row_endpoint_3179089_3411408 :
     Chebyshev.psi (3411408 : Real) - Chebyshev.theta 3411408 -
         Chebyshev.theta (Real.sqrt (3411408 : Real)) <
-      (1777745 : Real) / 1000000 * (3411408 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (3179089 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (3411408 : Real) / Real.log 2⌋₊ ≤ 21 := by
     apply Nat.le_of_lt_succ
@@ -15067,10 +15067,10 @@ theorem dusart_lemma33_endpoint_3411408 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_3530640 :
+theorem dusart_lemma33_row_endpoint_3411409_3530640 :
     Chebyshev.psi (3530640 : Real) - Chebyshev.theta 3530640 -
         Chebyshev.theta (Real.sqrt (3530640 : Real)) <
-      (1777745 : Real) / 1000000 * (3530640 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (3411409 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (3530640 : Real) / Real.log 2⌋₊ ≤ 21 := by
     apply Nat.le_of_lt_succ
@@ -15254,10 +15254,10 @@ theorem dusart_lemma33_endpoint_3530640 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_3798600 :
+theorem dusart_lemma33_row_endpoint_3530641_3798600 :
     Chebyshev.psi (3798600 : Real) - Chebyshev.theta 3798600 -
         Chebyshev.theta (Real.sqrt (3798600 : Real)) <
-      (1777745 : Real) / 1000000 * (3798600 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (3530641 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (3798600 : Real) / Real.log 2⌋₊ ≤ 21 := by
     apply Nat.le_of_lt_succ
@@ -15441,10 +15441,10 @@ theorem dusart_lemma33_endpoint_3798600 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_3996000 :
+theorem dusart_lemma33_row_endpoint_3798601_3996000 :
     Chebyshev.psi (3996000 : Real) - Chebyshev.theta 3996000 -
         Chebyshev.theta (Real.sqrt (3996000 : Real)) <
-      (1777745 : Real) / 1000000 * (3996000 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (3798601 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (3996000 : Real) / Real.log 2⌋₊ ≤ 21 := by
     apply Nat.le_of_lt_succ
@@ -15628,10 +15628,10 @@ theorem dusart_lemma33_endpoint_3996000 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_4255968 :
+theorem dusart_lemma33_row_endpoint_3996001_4255968 :
     Chebyshev.psi (4255968 : Real) - Chebyshev.theta 4255968 -
         Chebyshev.theta (Real.sqrt (4255968 : Real)) <
-      (1777745 : Real) / 1000000 * (4255968 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (3996001 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (4255968 : Real) / Real.log 2⌋₊ ≤ 22 := by
     apply Nat.le_of_lt_succ
@@ -15823,10 +15823,10 @@ theorem dusart_lemma33_endpoint_4255968 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_4464768 :
+theorem dusart_lemma33_row_endpoint_4255969_4464768 :
     Chebyshev.psi (4464768 : Real) - Chebyshev.theta 4464768 -
         Chebyshev.theta (Real.sqrt (4464768 : Real)) <
-      (1777745 : Real) / 1000000 * (4464768 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (4255969 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (4464768 : Real) / Real.log 2⌋₊ ≤ 22 := by
     apply Nat.le_of_lt_succ
@@ -16018,10 +16018,10 @@ theorem dusart_lemma33_endpoint_4464768 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_4748040 :
+theorem dusart_lemma33_row_endpoint_4464769_4748040 :
     Chebyshev.psi (4748040 : Real) - Chebyshev.theta 4748040 -
         Chebyshev.theta (Real.sqrt (4748040 : Real)) <
-      (1777745 : Real) / 1000000 * (4748040 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (4464769 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (4748040 : Real) / Real.log 2⌋₊ ≤ 22 := by
     apply Nat.le_of_lt_succ
@@ -16213,10 +16213,10 @@ theorem dusart_lemma33_endpoint_4748040 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_5031048 :
+theorem dusart_lemma33_row_endpoint_4748041_5031048 :
     Chebyshev.psi (5031048 : Real) - Chebyshev.theta 5031048 -
         Chebyshev.theta (Real.sqrt (5031048 : Real)) <
-      (1777745 : Real) / 1000000 * (5031048 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (4748041 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (5031048 : Real) / Real.log 2⌋₊ ≤ 22 := by
     apply Nat.le_of_lt_succ
@@ -16408,10 +16408,10 @@ theorem dusart_lemma33_endpoint_5031048 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_5257848 :
+theorem dusart_lemma33_row_endpoint_5031049_5257848 :
     Chebyshev.psi (5257848 : Real) - Chebyshev.theta 5257848 -
         Chebyshev.theta (Real.sqrt (5257848 : Real)) <
-      (1777745 : Real) / 1000000 * (5257848 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (5031049 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (5257848 : Real) / Real.log 2⌋₊ ≤ 22 := by
     apply Nat.le_of_lt_succ
@@ -16603,10 +16603,10 @@ theorem dusart_lemma33_endpoint_5257848 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_5527200 :
+theorem dusart_lemma33_row_endpoint_5257849_5527200 :
     Chebyshev.psi (5527200 : Real) - Chebyshev.theta 5527200 -
         Chebyshev.theta (Real.sqrt (5527200 : Real)) <
-      (1777745 : Real) / 1000000 * (5527200 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (5257849 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (5527200 : Real) / Real.log 2⌋₊ ≤ 22 := by
     apply Nat.le_of_lt_succ
@@ -16798,10 +16798,10 @@ theorem dusart_lemma33_endpoint_5527200 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_5755200 :
+theorem dusart_lemma33_row_endpoint_5527201_5755200 :
     Chebyshev.psi (5755200 : Real) - Chebyshev.theta 5755200 -
         Chebyshev.theta (Real.sqrt (5755200 : Real)) <
-      (1777745 : Real) / 1000000 * (5755200 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (5527201 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (5755200 : Real) / Real.log 2⌋₊ ≤ 22 := by
     apply Nat.le_of_lt_succ
@@ -16993,10 +16993,10 @@ theorem dusart_lemma33_endpoint_5755200 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_6086088 :
+theorem dusart_lemma33_row_endpoint_5755201_6086088 :
     Chebyshev.psi (6086088 : Real) - Chebyshev.theta 6086088 -
         Chebyshev.theta (Real.sqrt (6086088 : Real)) <
-      (1777745 : Real) / 1000000 * (6086088 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (5755201 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (6086088 : Real) / Real.log 2⌋₊ ≤ 22 := by
     apply Nat.le_of_lt_succ
@@ -17188,10 +17188,10 @@ theorem dusart_lemma33_endpoint_6086088 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_6497400 :
+theorem dusart_lemma33_row_endpoint_6086089_6497400 :
     Chebyshev.psi (6497400 : Real) - Chebyshev.theta 6497400 -
         Chebyshev.theta (Real.sqrt (6497400 : Real)) <
-      (1777745 : Real) / 1000000 * (6497400 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (6086089 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (6497400 : Real) / Real.log 2⌋₊ ≤ 22 := by
     apply Nat.le_of_lt_succ
@@ -17383,10 +17383,10 @@ theorem dusart_lemma33_endpoint_6497400 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_6932688 :
+theorem dusart_lemma33_row_endpoint_6497401_6932688 :
     Chebyshev.psi (6932688 : Real) - Chebyshev.theta 6932688 -
         Chebyshev.theta (Real.sqrt (6932688 : Real)) <
-      (1777745 : Real) / 1000000 * (6932688 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (6497401 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (6932688 : Real) / Real.log 2⌋₊ ≤ 22 := by
     apply Nat.le_of_lt_succ
@@ -17578,10 +17578,10 @@ theorem dusart_lemma33_endpoint_6932688 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_7219968 :
+theorem dusart_lemma33_row_endpoint_6932689_7219968 :
     Chebyshev.psi (7219968 : Real) - Chebyshev.theta 7219968 -
         Chebyshev.theta (Real.sqrt (7219968 : Real)) <
-      (1777745 : Real) / 1000000 * (7219968 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (6932689 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (7219968 : Real) / Real.log 2⌋₊ ≤ 22 := by
     apply Nat.le_of_lt_succ
@@ -17773,10 +17773,10 @@ theorem dusart_lemma33_endpoint_7219968 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_7458360 :
+theorem dusart_lemma33_row_endpoint_7219969_7458360 :
     Chebyshev.psi (7458360 : Real) - Chebyshev.theta 7458360 -
         Chebyshev.theta (Real.sqrt (7458360 : Real)) <
-      (1777745 : Real) / 1000000 * (7458360 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (7219969 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (7458360 : Real) / Real.log 2⌋₊ ≤ 22 := by
     apply Nat.le_of_lt_succ
@@ -17968,10 +17968,10 @@ theorem dusart_lemma33_endpoint_7458360 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_7845600 :
+theorem dusart_lemma33_row_endpoint_7458361_7845600 :
     Chebyshev.psi (7845600 : Real) - Chebyshev.theta 7845600 -
         Chebyshev.theta (Real.sqrt (7845600 : Real)) <
-      (1777745 : Real) / 1000000 * (7845600 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (7458361 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (7845600 : Real) / Real.log 2⌋₊ ≤ 22 := by
     apply Nat.le_of_lt_succ
@@ -18163,10 +18163,10 @@ theorem dusart_lemma33_endpoint_7845600 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_8185320 :
+theorem dusart_lemma33_row_endpoint_7845601_8185320 :
     Chebyshev.psi (8185320 : Real) - Chebyshev.theta 8185320 -
         Chebyshev.theta (Real.sqrt (8185320 : Real)) <
-      (1777745 : Real) / 1000000 * (8185320 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (7845601 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (8185320 : Real) / Real.log 2⌋₊ ≤ 22 := by
     apply Nat.le_of_lt_succ
@@ -18358,10 +18358,10 @@ theorem dusart_lemma33_endpoint_8185320 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_8720208 :
+theorem dusart_lemma33_row_endpoint_8185321_8720208 :
     Chebyshev.psi (8720208 : Real) - Chebyshev.theta 8720208 -
         Chebyshev.theta (Real.sqrt (8720208 : Real)) <
-      (1777745 : Real) / 1000000 * (8720208 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (8185321 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (8720208 : Real) / Real.log 2⌋₊ ≤ 23 := by
     apply Nat.le_of_lt_succ
@@ -18561,10 +18561,10 @@ theorem dusart_lemma33_endpoint_8720208 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_9223368 :
+theorem dusart_lemma33_row_endpoint_8720209_9223368 :
     Chebyshev.psi (9223368 : Real) - Chebyshev.theta 9223368 -
         Chebyshev.theta (Real.sqrt (9223368 : Real)) <
-      (1777745 : Real) / 1000000 * (9223368 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (8720209 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (9223368 : Real) / Real.log 2⌋₊ ≤ 23 := by
     apply Nat.le_of_lt_succ
@@ -18764,10 +18764,10 @@ theorem dusart_lemma33_endpoint_9223368 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_9740640 :
+theorem dusart_lemma33_row_endpoint_9223369_9740640 :
     Chebyshev.psi (9740640 : Real) - Chebyshev.theta 9740640 -
         Chebyshev.theta (Real.sqrt (9740640 : Real)) <
-      (1777745 : Real) / 1000000 * (9740640 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (9223369 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (9740640 : Real) / Real.log 2⌋₊ ≤ 23 := by
     apply Nat.le_of_lt_succ
@@ -18967,10 +18967,10 @@ theorem dusart_lemma33_endpoint_9740640 :
   norm_num [Finset.sum_insert, Finset.sum_singleton, Nat.log, Nat.log.go]
   interval_decide
 
-theorem dusart_lemma33_endpoint_10000000 :
+theorem dusart_lemma33_row_endpoint_9740641_10000000 :
     Chebyshev.psi (10000000 : Real) - Chebyshev.theta 10000000 -
         Chebyshev.theta (Real.sqrt (10000000 : Real)) <
-      (1777745 : Real) / 1000000 * (10000000 : Real) ^ (1 / (3 : Real)) := by
+      (1777745 : Real) / 1000000 * (9740641 : Real) ^ (1 / (3 : Real)) := by
   have hlog2 : 0 < Real.log (2 : Real) := Real.log_pos (by norm_num)
   have hN : ⌊Real.log (10000000 : Real) / Real.log 2⌋₊ ≤ 23 := by
     apply Nat.le_of_lt_succ
