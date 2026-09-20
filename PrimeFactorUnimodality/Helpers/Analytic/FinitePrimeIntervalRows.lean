@@ -865,6 +865,25 @@ def dusartThetaTable6_6Coefficients :
 theorem dusartThetaTable6_6Coefficients_length :
     dusartThetaTable6_6Coefficients.length = 35 := by decide
 
+/-! The numerical endpoints are projected to a computationally decidable
+representation before checking the table's shape.  This keeps the provenance
+checks independent of the real-valued coefficient fields. -/
+def dusartThetaTable6_6NatRanges : List (Nat × Nat) :=
+  dusartThetaTable6_6Coefficients.map fun row => (row.left, row.right)
+
+theorem dusartThetaTable6_6NatRanges_length :
+    dusartThetaTable6_6NatRanges.length = 35 := by
+  simp [dusartThetaTable6_6NatRanges, dusartThetaTable6_6Coefficients_length]
+
+theorem dusartThetaTable6_6NatRanges_nonempty :
+    ∀ range ∈ dusartThetaTable6_6NatRanges, range.1 ≤ range.2 := by
+  decide
+
+theorem dusartThetaTable6_6NatRanges_strictly_ordered :
+    dusartThetaTable6_6NatRanges.Chain'
+      (fun first second => first.1 < second.1) := by
+  decide
+
 def DusartThetaTableCoefficientRow.toRelativeRow
     (row : DusartThetaTableCoefficientRow)
     (hleft : 2 ≤ row.left) (hle : row.left ≤ row.right)
