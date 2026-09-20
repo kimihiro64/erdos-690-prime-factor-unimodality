@@ -133,6 +133,20 @@ def dusartPrimeRow_of_explicit
     _ ≤ p + p / (2 * (Real.log p) ^ 2) := by linarith
     _ = p * (1 + (1 / 2 : Real) / (Real.log p) ^ 2) := by ring
 
+@[simp] theorem dusartPrimeRow_of_explicit_left
+    {p q : Nat} {L : Real} (hq : q.Prime) (hpq : p < q)
+    (hleft_large : 3275 ≤ p) (hlog : Real.log p ≤ L)
+    (hL : 0 < L) (hproduct : (q - p : Real) * (2 * L ^ 2) ≤ p) :
+    (dusartPrimeRow_of_explicit hq hpq hleft_large hlog hL hproduct).left = p := by
+  rfl
+
+@[simp] theorem dusartPrimeRow_of_explicit_right
+    {p q : Nat} {L : Real} (hq : q.Prime) (hpq : p < q)
+    (hleft_large : 3275 ≤ p) (hlog : Real.log p ≤ L)
+    (hL : 0 < L) (hproduct : (q - p : Real) * (2 * L ^ 2) ≤ p) :
+    (dusartPrimeRow_of_explicit hq hpq hleft_large hlog hL hproduct).right = q - 1 := by
+  rfl
+
 def dusartPrimeRow_of_explicit_3802
     {p q : Nat}
     (hq : q.Prime)

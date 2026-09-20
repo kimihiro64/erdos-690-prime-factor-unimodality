@@ -252,7 +252,7 @@ def split_large_row_families(body: str) -> str:
                     "",
                     "set_option maxHeartbeats 20000000 in",
                     f"theorem {part_name}_chain :",
-                    f"    DusartPrimeRowsChain {first.group(1)} {last.group(2)} {part_name} := by",
+                    f"    DusartPrimeRowsChain {first.group(1)} {int(last.group(2)) - 1} {part_name} := by",
                     _local_chain_proof(part_rows),
                     "",
                 ]
