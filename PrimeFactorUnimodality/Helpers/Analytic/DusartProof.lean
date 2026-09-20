@@ -17,6 +17,18 @@ theorem theta_le_one_plus_dusart_error_of_psi_upper_and_gap
         (9999 : Real) / 10000 * Real.sqrt x := by
   linarith
 
+theorem dusart_gap_from_theta_root_lower
+    {x : Real} (hx : 2 ≤ x)
+    (hroot : (9999 : Real) / 10000 * Real.sqrt x ≤
+      Chebyshev.theta (x ^ (1 / 2 : Real))) :
+    (9999 : Real) / 10000 * Real.sqrt x ≤
+      Chebyshev.psi x - Chebyshev.theta x := by
+  have hdecomp := psi_sub_theta_ge_theta_sqrt hx
+  have hroot' : (9999 : Real) / 10000 * x ^ (1 / 2 : Real) ≤
+      Chebyshev.theta (x ^ (1 / 2 : Real)) := by
+    simpa only [Real.sqrt_eq_rpow] using hroot
+  simpa only [Real.sqrt_eq_rpow] using hroot'.trans hdecomp
+
 theorem dusart_theta_upper_tail_step
     {x : Real} (hx : (8e11 : Real) ≤ x)
     (hx_upper : x ≤ (1446000000000 : Real))
