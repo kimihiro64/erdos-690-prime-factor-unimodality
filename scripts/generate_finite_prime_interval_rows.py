@@ -133,10 +133,13 @@ def split_large_row_families(body: str) -> str:
         ]
         part_names = [f"{name}_part{index:02d}" for index in range(1, len(parts) + 1)]
         output: list[str] = []
+        expected_start = int(start)
         for index, (part_name, part_rows) in enumerate(zip(part_names, parts)):
             first = re.search(r"\(p := (\d+)\).*\(q := (\d+)\)", part_rows[0])
             last = re.search(r"\(p := (\d+)\).*\(q := (\d+)\)", part_rows[-1])
             assert first and last
+            assert int(first.group(1)) == expected_start
+            expected_start = int(last.group(2))
             part_blocks = blocks[index * ROW_PART_SIZE : (index + 1) * ROW_PART_SIZE]
             output.extend(
                 [
@@ -154,6 +157,7 @@ def split_large_row_families(body: str) -> str:
                     "",
                 ]
             )
+        assert expected_start - 1 == int(finish), (name, expected_start, finish)
         output.extend(
             [
                 "set_option maxHeartbeats 20000000 in",
