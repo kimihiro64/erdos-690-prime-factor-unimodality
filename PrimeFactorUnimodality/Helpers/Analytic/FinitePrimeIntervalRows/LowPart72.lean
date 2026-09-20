@@ -24,5 +24,29 @@ def dusartPrimeRows_7717_8110_part02 : List DusartPrimeRow :=
 set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_7717_8110_part02_chain :
     DusartPrimeRowsChain 7793 7877 dusartPrimeRows_7717_8110_part02 := by
-  apply dusartPrimeRowsChain_of_data
-  decide +kernel
+  apply DusartPrimeRowsChain.cons
+  · change 7793 ≤ 7793; omega
+  · change 7793 ≤ 7816; omega
+  · apply DusartPrimeRowsChain.cons
+    · change 7817 ≤ 7817; omega
+    · change 7817 ≤ 7822; omega
+    · apply DusartPrimeRowsChain.cons
+      · change 7823 ≤ 7823; omega
+      · change 7823 ≤ 7828; omega
+      · apply DusartPrimeRowsChain.cons
+        · change 7829 ≤ 7829; omega
+        · change 7829 ≤ 7840; omega
+        · apply DusartPrimeRowsChain.cons
+          · change 7841 ≤ 7841; omega
+          · change 7841 ≤ 7852; omega
+          · apply DusartPrimeRowsChain.cons
+            · change 7853 ≤ 7853; omega
+            · change 7853 ≤ 7866; omega
+            · apply DusartPrimeRowsChain.cons
+              · change 7867 ≤ 7867; omega
+              · change 7867 ≤ 7872; omega
+              · apply DusartPrimeRowsChain.cons
+                · change 7873 ≤ 7873; omega
+                · change 7873 ≤ 7876; omega
+                · apply DusartPrimeRowsChain.empty
+                  norm_num

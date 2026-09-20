@@ -99,6 +99,38 @@ def _append_chain_terms(names: list[str]) -> str:
     return f"dusartPrimeRowsChain_append {names[0]}_chain ({_append_chain_terms(names[1:])})"
 
 
+def _local_chain_proof(part_rows: list[str]) -> str:
+    """Generate a constructor proof for one small row chunk.
+
+    A single ``decide +kernel`` over the whole chunk forces Lean to unfold
+    every row constructor while reducing the recursive data predicate.  The
+    constructor proof keeps each arithmetic obligation local, so the shard
+    remains cheap to elaborate and does not depend on reduction of the entire
+    generated list at once.
+    """
+    proof: list[str] = ["  apply DusartPrimeRowsChain.cons"]
+    for index, row in enumerate(part_rows):
+        bounds = re.search(r"\(p := (\d+)\) \(q := (\d+)\)", row)
+        assert bounds, row
+        left, right_prime = map(int, bounds.groups())
+        chain_start = left if index == 0 else int(
+            re.search(r"\(q := (\d+)\)", part_rows[index - 1]).group(1)
+        )
+        indent = "  " * (index + 1)
+        proof.extend(
+            [
+                indent + f"· change {left} ≤ {chain_start}; omega",
+                indent + f"· change {left} ≤ {right_prime - 1}; omega",
+            ]
+        )
+        if index + 1 < len(part_rows):
+            proof.append(indent + "· apply DusartPrimeRowsChain.cons")
+        else:
+            proof.append(indent + "· apply DusartPrimeRowsChain.empty")
+            proof.append(indent + "  norm_num")
+    return "\n".join(proof)
+
+
 def split_large_row_families(body: str) -> str:
     """Split literal row families before module sharding.
 
@@ -147,8 +179,7 @@ def split_large_row_families(body: str) -> str:
                     "set_option maxHeartbeats 20000000 in",
                     f"theorem {part_name}_chain :",
                     f"    DusartPrimeRowsChain {first.group(1)} {last.group(2)} {part_name} := by",
-                    "  apply dusartPrimeRowsChain_of_data",
-                    "  decide +kernel",
+                    _local_chain_proof(part_rows),
                     "",
                 ]
             )

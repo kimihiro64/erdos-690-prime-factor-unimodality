@@ -17,5 +17,8 @@ def dusartPrimeRows_4673_4918_part04 : List DusartPrimeRow :=
 set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_4673_4918_part04_chain :
     DusartPrimeRowsChain 4909 4919 dusartPrimeRows_4673_4918_part04 := by
-  apply dusartPrimeRowsChain_of_data
-  decide +kernel
+  apply DusartPrimeRowsChain.cons
+  · change 4909 ≤ 4909; omega
+  · change 4909 ≤ 4918; omega
+  · apply DusartPrimeRowsChain.empty
+    norm_num
