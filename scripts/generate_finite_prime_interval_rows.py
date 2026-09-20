@@ -112,6 +112,51 @@ namespace PrimeFactorUnimodality
 noncomputable section
 """
 
+LOW_FACADE = """import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart04
+
+/-! # Lower finite Dusart prefix facade
+
+The implementation is chained through cacheable generated row modules.
+-/
+"""
+
+
+def low_modules(body: str) -> dict[str, str]:
+    """Split the lower prefix at complete row-list/chain family boundaries."""
+    marker = re.compile(
+        r"(?m)^set_option maxHeartbeats 20000000 in\ndef dusartPrimeRows_"
+    )
+    starts = [match.start() for match in marker.finditer(body)]
+    assert starts
+    family_starts = starts[::2]
+    family_count = len(family_starts)
+    chunk_size = (family_count + 3) // 4
+    result = {
+        "LowBase.lean": (LOW_HEADER + body[:family_starts[0]]).rstrip() + "\n"
+    }
+    previous = "LowBase"
+    for part, offset in enumerate(range(0, family_count, chunk_size), 1):
+        end_family = min(offset + chunk_size, family_count)
+        start = family_starts[offset]
+        end = family_starts[end_family] if end_family < family_count else len(body)
+        module = f"LowPart{part:02d}"
+        header = f"""import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.{previous}
+
+set_option autoImplicit false
+set_option maxRecDepth 100000
+
+/-! # Lower finite Dusart prefix chunk {part:02d} -/
+
+namespace PrimeFactorUnimodality
+
+noncomputable section
+"""
+        result[f"{module}.lean"] = (header + body[start:end]).rstrip() + "\n"
+        previous = module
+    assert previous == "LowPart04"
+    result["Low.lean"] = LOW_FACADE
+    return result
+
 
 def main() -> None:
     parser = argparse.ArgumentParser()
@@ -135,9 +180,12 @@ def main() -> None:
             if "dusartPrimeRow_of_explicit_" in line and "(q := " in line:
                 proofs = len(re.findall(r"\(by (?:norm_num|decide|omega)\)", line))
                 assert proofs == 5, (proofs, line)
-    (out / "Low.lean").write_text((LOW_HEADER + low).rstrip() + "\n")
+    for name, generated in low_modules(low).items():
+        (out / name).write_text(generated)
     (out / "High.lean").write_text((HIGH_HEADER + high).rstrip() + "\n")
-    print(f"generated Low.lean: {len(low.splitlines())} lines, {len(low)} bytes")
+    for name in ("LowBase.lean", "LowPart01.lean", "LowPart02.lean", "LowPart03.lean", "LowPart04.lean", "Low.lean"):
+        generated = (out / name).read_text()
+        print(f"generated {name}: {len(generated.splitlines())} lines, {len(generated)} bytes")
     print(f"generated High.lean: {len(high.splitlines())} lines, {len(high)} bytes")
 
 
