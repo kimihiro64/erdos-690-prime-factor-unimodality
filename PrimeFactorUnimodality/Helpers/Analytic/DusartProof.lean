@@ -1,5 +1,6 @@
 import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
 import PrimeFactorUnimodality.Helpers.Analytic.ElementaryChebyshevConsequences
+import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
 import Mathlib.Analysis.Complex.ExponentialBounds
 
 set_option autoImplicit false
@@ -127,6 +128,28 @@ theorem dusart_gap_upper_from_uniform_root_bound
         x ^ (1 / 3 : Real) ≤ (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
     nlinarith
   nlinarith [hdecomp', hscaled', hcoeff]
+
+theorem psi_upper_of_theta_upper_at_large
+    {y : Real} (hy : (4e18 : Real) ≤ y)
+    (htheta : Chebyshev.theta y ≤ y + y / 36260) :
+    Chebyshev.psi y ≤ (100007 : Real) / 100000 * y := by
+  have hy_pos : 0 < y := by linarith
+  have hlog : (42 : Real) ≤ Real.log y := by
+    exact forty_two_lt_log_four_e18.le.trans
+      (Real.log_le_log (by norm_num) hy)
+  have hlog_pos : 0 < Real.log y := by linarith
+  have hpow : (42 : Real) ^ (4 : Nat) ≤ (Real.log y) ^ (4 : Nat) := by
+    exact pow_le_pow_left₀ (by norm_num) hlog 4
+  have hcor : Chebyshev.psi y - Chebyshev.theta y ≤
+      y / (Real.log y) ^ 4 := by
+    have habs := theta_sub_psi_abs_le_logFourth hy
+    have hnonneg : 0 ≤ Chebyshev.psi y - Chebyshev.theta y := by
+      linarith [Chebyshev.theta_le_psi y]
+    rw [abs_sub_comm, abs_of_nonneg hnonneg] at habs
+    exact habs
+  have hscaled : y / (Real.log y) ^ 4 ≤ y / (42 : Real) ^ 4 := by
+    exact div_le_div_of_nonneg_left hy_pos.le (by positivity) hpow
+  nlinarith [hcor, hscaled, htheta]
 
 theorem psi_sub_theta_ge_elementary_sqrt_gap
     {x : Real} (hx : (62500000000 : Real) ≤ x) :
