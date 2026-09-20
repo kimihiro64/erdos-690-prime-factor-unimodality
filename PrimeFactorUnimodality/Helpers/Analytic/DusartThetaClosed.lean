@@ -486,6 +486,23 @@ theorem wangCrapis_thetaBounds_of_logFourthTail
   exact hasDusartThetaBounds_of_finite_and_logFourth_from
     hXpos hlogX finite hA_nonneg hA thetaError
 
+/-! This is the independent theta upper estimate used by Dusart's Lemma 3.3.
+It is derived from the finite prefix and the explicit tail directly, rather
+than obtained from the final bundled Proposition 5.1 provider. -/
+theorem wangCrapis_theta_upper_1000081_of_finite_and_logFourthTail
+    {A X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (finite : HasDusartSymmetricThetaBoundsBelow X)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    ∀ y : Real, 0 < y →
+      Chebyshev.theta y < (1000081 : Real) / 1000000 * y := by
+  have bounds := wangCrapis_thetaBounds_of_logFourthTail
+    hXpos hlogX finite hA_nonneg hA thetaError
+  intro y hy
+  have hupper := bounds.1 y hy
+  nlinarith
+
 /-! Paper-shaped variant: the bounded upper estimate is supplied as
 Schoenfeld's strict `theta x < x` prefix, while the bounded lower estimate is
 kept as its own finite obligation. -/
