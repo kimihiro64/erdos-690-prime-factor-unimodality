@@ -25,7 +25,7 @@ ROW_PART_SIZE = 8
 # Keep each generated module small enough that its local arithmetic proof does
 # not retain the entire lower-prefix row family during elaboration.  The
 # module count remains proportional to row chunks, rather than to witnesses.
-LOW_MODULE_TARGET_BYTES = 8_000
+LOW_MODULE_TARGET_BYTES = 2_000
 
 
 def source_text(repo: Path) -> str:

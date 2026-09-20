@@ -1,3 +1,3 @@
 /-! Generated lower-prefix module manifest. -/
 
-def finitePrimeIntervalRowsLowPartCount : Nat := 50
+def finitePrimeIntervalRowsLowPartCount : Nat := 155

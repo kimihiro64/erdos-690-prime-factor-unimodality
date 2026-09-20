@@ -175,7 +175,8 @@ jobs:
           last_part=$(sed -nE 's/.*:= ([0-9]+).*/\1/p' \
             PrimeFactorUnimodality/Helpers/Analytic/FinitePrimeIntervalRows/LowManifest.lean)
           test -n "$last_part"
-          for part in $(seq -w 1 "$((10#$last_part))"); do
+          for part_number in $(seq 1 "$((10#$last_part))"); do
+            part=$(printf '%02d' "$part_number")
             module="LowPart$part"
             /usr/bin/time -v lake build \
               "+PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.$module"

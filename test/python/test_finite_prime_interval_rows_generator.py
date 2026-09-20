@@ -29,7 +29,7 @@ def test_finite_prime_interval_rows_low_generation_is_sharded(tmp_path, monkeypa
     for part in range(1, count + 1):
         path = tmp_path / f"LowPart{part:02d}.lean"
         assert path.exists()
-        assert path.stat().st_size <= 10_000
+        assert path.stat().st_size <= 5_000
         if part == 1:
             expected = "LowBase"
         else:
