@@ -431,41 +431,24 @@ theorem psi_sub_theta_nat_120_lt_ten :
   nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
     Real.log_five_lt_d9, LogTables.log_7_lt]
 
-def dusartLemma33FiniteRow_sixtyfour_onetwenty : DusartLemma33FiniteRow :=
-  { left := 64
-    right := 120
-    left_le_right := by norm_num
-    valid := by
-      intro x hx hleft hright
-      have hx64 : (64 : Real) ≤ x := by exact_mod_cast hleft
-      have hx121 : x < 121 := by norm_num at hright ⊢; exact hright
-      have htransport : Chebyshev.psi x - Chebyshev.theta x =
-          Chebyshev.psi (⌊x⌋₊ : Real) - Chebyshev.theta (⌊x⌋₊ : Real) := by
-        rw [Chebyshev.psi_eq_psi_coe_floor,
-          Chebyshev.theta_eq_theta_coe_floor]
-      have hfloor : (⌊x⌋₊ : Real) ≤ 120 := by
-        exact_mod_cast Nat.le_of_lt_succ
-          ((Nat.floor_lt hx.le).2 (by norm_num; exact hx121))
-      have hleft : Chebyshev.psi x - Chebyshev.theta x < 10 := by
-        rw [htransport]
-        exact (psi_sub_theta_mono hfloor).trans_lt psi_sub_theta_nat_120_lt_ten
-      have hsqrt : (8 : Real) ≤ Real.sqrt x := by
-        nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
-      have htheta_mono : Chebyshev.theta 8 ≤
-          Chebyshev.theta (Real.sqrt x) :=
-        Chebyshev.theta_mono hsqrt
-      have htheta_eight := Chebyshev.theta_eq_sum_primesLE_log 8
-      have hp8 : Nat.primesLE 8 = {2, 3, 5, 7} := by decide
-      rw [hp8] at htheta_eight
-      norm_num [Nat.log, Nat.log.go] at htheta_eight
-      have htheta_lower : (5 : Real) < Chebyshev.theta 8 := by
-        nlinarith [htheta_eight, Real.log_two_gt_d9,
-          Real.log_three_gt_d9, Real.log_five_gt_d9,
-          LogTables.log_7_gt]
-      have hpow := Real.rpow_le_rpow (by norm_num : (0 : Real) ≤ 64)
-        hx64 (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
-      norm_num at hpow ⊢
-      nlinarith [hleft, htheta_mono, htheta_lower, hpow] }
+def dusartLemma33FiniteRow_sixtyfour_onetwenty : DusartLemma33FiniteRow := by
+  have htheta_eight := Chebyshev.theta_eq_sum_primesLE_log 8
+  have hp8 : Nat.primesLE 8 = {2, 3, 5, 7} := by decide
+  rw [hp8] at htheta_eight
+  norm_num [Nat.log, Nat.log.go] at htheta_eight
+  apply dusartLemma33FiniteRow_of_endpoint_bounds 64 120 8 10 5 4
+  · norm_num
+  · intro x hx hleft hright
+    nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+  · exact psi_sub_theta_nat_120_lt_ten
+  · nlinarith [htheta_eight, Real.log_two_gt_d9, Real.log_three_gt_d9,
+      Real.log_five_gt_d9, LogTables.log_7_gt]
+  · intro x hx hleft
+    have hpow := Real.rpow_le_rpow (by norm_num : (0 : Real) ≤ 64)
+      hleft (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
+    norm_num at hpow ⊢
+    exact hpow
+  · norm_num
 
 theorem dusartLemma33FiniteRowsCover_onetwenty :
     DusartLemma33FiniteRowsCover
