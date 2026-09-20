@@ -433,7 +433,7 @@ placeholder.
 ## September 20 paper-aligned Dusart boundaries
 
 The following additional source-level boundaries are now pushed through
-`fab836e2`:
+`033b2f2b`:
 
 - `dusart_proposition_3_1_of_finite_and_thetaErrorAbove` converts the exact
   `HasThetaLogFourthErrorAbove (648 / 1000) (4e18)` tail into Dusart's
