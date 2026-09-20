@@ -32,6 +32,7 @@ ROW_PART_SIZE = 8
 # shared support and leave the reusable row assembler—not the filesystem—as
 # the unit of composition.
 LOW_MODULE_TARGET_BYTES = 32_000
+EXPECTED_LOW_ROW_COUNT = 2_122
 
 
 def factor_nat(n: int) -> list[int]:
@@ -232,7 +233,7 @@ def split_large_row_families(body: str) -> str:
 
     def replace(match: re.Match[str]) -> str:
         name, rows_text, start, finish, proof = match.groups()
-        rows = re.findall(r"^    dusartPrimeRow[^\n]+(?:\n)?", rows_text, re.M)
+        rows = re.findall(r"^    dusartPrimeRow_of_explicit[^\n]+(?:\n)?", rows_text, re.M)
         if len(rows) <= ROW_PART_SIZE:
             return match.group(0)
 
@@ -424,7 +425,8 @@ namespace PrimeFactorUnimodality
 noncomputable section
 """
         part_body = "".join(part_segments[offset:end_family])
-        part_rows = re.findall(r"^    dusartPrimeRow[^\n]+(?:\n)?", part_body, re.M)
+        part_rows = re.findall(
+            r"^    dusartPrimeRow_of_explicit[^\n]+(?:\n)?", part_body, re.M)
         certificates = prime_certificates(part_rows)
         part_body = re.sub(
             r"(\(q := (\d+)\)) \(by decide\)",
@@ -446,7 +448,7 @@ noncomputable section
         + "".join(aggregate_segments)
     ).rstrip() + "\n"
     row_count = sum(
-        len(re.findall(r"^    dusartPrimeRow[^\\n]+(?:\\n)?", segment, re.M))
+        len(re.findall(r"^    dusartPrimeRow_of_explicit[^\\n]+(?:\\n)?", segment, re.M))
         for segment in part_segments
     )
     result["LowManifest.lean"] = low_manifest(len(ranges), row_count)
@@ -477,6 +479,14 @@ def main() -> None:
                 assert proofs == 5, (proofs, line)
     generated_low = low_modules(low)
     assert len([name for name in generated_low if name.startswith("LowPart")]) <= 32
+    row_count = sum(
+        len(re.findall(r"^    dusartPrimeRow_of_explicit[^\n]+(?:\n)?", segment, re.M))
+        for segment in re.findall(
+            r"(?ms)^set_option maxHeartbeats 20000000 in\ndef dusartPrimeRows_.*?(?=^set_option maxHeartbeats 20000000 in\ndef dusartPrimeRows_|\Z)",
+            low,
+        )
+    )
+    assert row_count == EXPECTED_LOW_ROW_COUNT, row_count
     generated_names = set(generated_low)
     stale_pattern = re.compile(r"LowPart\d+\.lean")
     for stale in out.glob("LowPart*.lean"):
