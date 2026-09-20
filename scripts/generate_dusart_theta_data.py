@@ -12,6 +12,7 @@ import argparse
 import json
 import math
 from pathlib import Path
+from typing import Any
 
 
 def integer_root(n: int, k: int) -> int:
@@ -37,7 +38,7 @@ def primes_le(n: int) -> list[int]:
     return [p for p in range(2, n + 1) if sieve[p]]
 
 
-def roots(payload: dict) -> list[int]:
+def roots(payload: dict[str, Any]) -> list[int]:
     result: set[int] = set()
     for row in payload["rows"]:
         for n in (row["left"], row["right"]):

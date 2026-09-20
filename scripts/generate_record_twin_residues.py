@@ -15,7 +15,7 @@ import sys
 import time
 from pathlib import Path
 
-import gmpy2  # type: ignore[import-not-found]
+import gmpy2  # type: ignore[import-untyped]
 
 BASE = gmpy2.mpz(504_983_334)
 PRIME_DIVISORS = (2, 3, 17, 4_950_817)

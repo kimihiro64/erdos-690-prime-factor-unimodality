@@ -1,10 +1,14 @@
 import re
 from pathlib import Path
 
+import pytest
+
 from scripts.generate_finite_prime_interval_rows import main
 
 
-def test_finite_prime_interval_rows_low_generation_is_sharded(tmp_path, monkeypatch):
+def test_finite_prime_interval_rows_low_generation_is_sharded(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     repo = Path(__file__).resolve().parents[2]
     monkeypatch.setattr(
         "sys.argv",
@@ -21,7 +25,9 @@ def test_finite_prime_interval_rows_low_generation_is_sharded(tmp_path, monkeypa
     main()
 
     manifest = (tmp_path / "LowManifest.lean").read_text()
-    count = int(re.search(r"finitePrimeIntervalRowsLowPartCount : Nat := (\d+)", manifest).group(1))
+    match = re.search(r"finitePrimeIntervalRowsLowPartCount : Nat := (\d+)", manifest)
+    assert match is not None
+    count = int(match.group(1))
     assert count > 0
 
     facade = (tmp_path / "Low.lean").read_text()

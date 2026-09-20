@@ -4,7 +4,7 @@ from pathlib import Path
 from scripts.generate_medium_log_rows import BANDS, band_pairs, primes_through
 
 
-def test_medium_log_bands_cover_endpoint_with_scaled_products():
+def test_medium_log_bands_cover_endpoint_with_scaled_products() -> None:
     primes = primes_through(361000)
     all_pairs = []
     for lower, upper, lnum, lden, _ in BANDS:
@@ -21,7 +21,7 @@ def test_medium_log_bands_cover_endpoint_with_scaled_products():
     assert all(left[1] == right[0] for left, right in pairwise(all_pairs))
 
 
-def test_medium_log_generator_has_no_per_witness_output_directory():
+def test_medium_log_generator_has_no_per_witness_output_directory() -> None:
     script = Path("scripts/generate_medium_log_rows.py")
     assert script.exists()
     assert "MediumLogBand" in script.read_text()
