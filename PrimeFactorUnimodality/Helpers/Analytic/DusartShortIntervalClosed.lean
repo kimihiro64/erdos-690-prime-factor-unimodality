@@ -42,6 +42,12 @@ theorem wangCrapis_logCubedMediumPrefix :
     HasLogCubedShortIntervalPrimeBelow (360653 : Real) := by
   exact hasLogCubedShortIntervalPrimeBelow_360653
 
+theorem wangCrapis_shortIntervalMediumPrefix :
+    HasDusartShortIntervalPrimeBelow (360653 : Real) := by
+  exact hasDusartShortIntervalPrimeBelow_of_below_and_logCubed
+    (by norm_num) wangCrapis_shortIntervalPrefix
+    wangCrapis_logCubedMediumPrefix
+
 theorem wangCrapis_shortIntervalPrefix_89890 :
     HasDusartShortIntervalPrimeBelow (89890 : Real) := by
   exact hasDusartShortIntervalPrimeBelow_of_finite_gap_log_rows

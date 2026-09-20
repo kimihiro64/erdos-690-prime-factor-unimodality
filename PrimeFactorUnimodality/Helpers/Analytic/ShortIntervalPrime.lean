@@ -118,6 +118,20 @@ theorem hasDusartShortIntervalPrime_of_below_and_logCubed
     refine ⟨q, hq, hxq, ?_⟩
     exact dusartShortIntervalUpper_of_logCubed hlarge hupper
 
+theorem hasDusartShortIntervalPrimeBelow_of_below_and_logCubed
+    {X : Real} (hX : (89693 : Real) ≤ X)
+    (finite : HasDusartShortIntervalPrimeBelow (89693 : Real))
+    (tail : HasLogCubedShortIntervalPrimeBelow X) :
+    HasDusartShortIntervalPrimeBelow X := by
+  intro x hx hupperX
+  by_cases hsmall : x ≤ (89693 : Real)
+  · exact finite x hx hsmall
+  · have hlarge : (89693 : Real) ≤ x :=
+      le_of_lt (lt_of_not_ge hsmall)
+    obtain ⟨q, hq, hxq, hupper⟩ := tail x hlarge hupperX
+    refine ⟨q, hq, hxq, ?_⟩
+    exact dusartShortIntervalUpper_of_logCubed hlarge hupper
+
 /-- A uniform logarithmic theta error, together with its elementary numerical
 margin, is enough to produce the logarithm-cubed prime interval.  This is the
 analytic bridge used by the large-`x` provider; it deliberately exposes the
