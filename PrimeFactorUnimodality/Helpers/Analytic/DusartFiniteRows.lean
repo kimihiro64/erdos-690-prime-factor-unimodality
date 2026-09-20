@@ -50,6 +50,52 @@ theorem dusartLemma33FiniteRow_zero_one_cover :
   · norm_num [dusartLemma33FiniteRow_zero_one]
     linarith
 
+def dusartLemma33FiniteRow_two : DusartLemma33FiniteRow :=
+  { left := 2
+    right := 2
+    left_le_right := by norm_num
+    valid := by
+      intro x hx hleft hright
+      have hx2 : (2 : Real) ≤ x := by exact_mod_cast hleft
+      have hx3 : x < 3 := by norm_num at hright ⊢; exact hright
+      have hfloor : ⌊x⌋₊ = 2 := by
+        apply (Nat.floor_eq_iff (by linarith : (0 : Real) ≤ x)).2
+        constructor <;> norm_num <;> linarith
+      have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 2
+      have htheta := Chebyshev.theta_eq_sum_primesLE_log 2
+      have hp : Nat.primesLE 2 = {2} := by decide
+      rw [hp] at hpsi htheta
+      norm_num [Nat.log, Nat.log.go] at hpsi htheta
+      have hzero : Chebyshev.psi (2 : Real) - Chebyshev.theta 2 = 0 := by
+        nlinarith [hpsi, htheta]
+      have hsqrt : Real.sqrt x < 2 := by
+        nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+      rw [Chebyshev.psi_eq_psi_coe_floor,
+        Chebyshev.theta_eq_theta_coe_floor, hfloor]
+      have hzero' : Chebyshev.psi (↑(2 : Nat) : Real) -
+          Chebyshev.theta (↑(2 : Nat) : Real) = 0 := by
+        simpa using hzero
+      rw [hzero',
+        Chebyshev.theta_eq_zero_of_lt_two hsqrt]
+      norm_num
+      positivity }
+
+theorem dusartLemma33FiniteRowsCover_two :
+    DusartLemma33FiniteRowsCover
+      [dusartLemma33FiniteRow_zero_one, dusartLemma33FiniteRow_two] 2 := by
+  intro x hx hX
+  by_cases hsmall : x < 2
+  · refine ⟨dusartLemma33FiniteRow_zero_one, by simp, ?_, ?_⟩
+    · norm_num [dusartLemma33FiniteRow_zero_one]
+      exact hx.le
+    · norm_num [dusartLemma33FiniteRow_zero_one]
+      linarith
+  · refine ⟨dusartLemma33FiniteRow_two, by simp, ?_, ?_⟩
+    · norm_num [dusartLemma33FiniteRow_two]
+      exact le_of_not_gt hsmall
+    · norm_num [dusartLemma33FiniteRow_two]
+      linarith
+
 theorem dusart_lemma_3_3_finite_of_rows
     {rows : List DusartLemma33FiniteRow} {X : Real}
     (cover : DusartLemma33FiniteRowsCover rows X) :
