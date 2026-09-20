@@ -277,6 +277,28 @@ theorem wangCrapis_thetaBounds_of_paper_finite_prefix_and_logFourthTail
       rw [htarget]
       linarith
 
+/-! Specialization at the cutoff used in Dusart's Proposition 5.1. -/
+theorem wangCrapis_thetaBounds_of_paper_finite_exp28
+    (finiteUpper : ∀ x : Real, 0 < x → x ≤ Real.exp 28 →
+      Chebyshev.theta x - x < x / 36260)
+    (finiteLower : ∀ x : Real, 2 < x → x ≤ Real.exp 28 →
+      x * (1 - (12323 / 10000 : Real) / Real.log x) <
+        Chebyshev.theta x)
+    (thetaError : HasThetaLogFourthErrorAbove
+      (648 / 1000 : Real) (Real.exp 28)) :
+    HasDusartThetaBounds := by
+  apply wangCrapis_thetaBounds_of_paper_finite_prefix_and_logFourthTail
+    (X := Real.exp 28) (A := (648 / 1000 : Real))
+    (Real.exp_pos 28)
+  · rw [Real.log_exp]
+    norm_num
+  · exact finiteUpper
+  · exact finiteLower
+  · norm_num
+  · rw [Real.log_exp]
+    norm_num
+  · exact thetaError
+
 /-! Global Proposition 5.1 in the three ranges used by Dusart: the finite
 Table 6.4 range, the explicit middle range ending at `exp 28`, and the
 large-range theta-error tail. -/
