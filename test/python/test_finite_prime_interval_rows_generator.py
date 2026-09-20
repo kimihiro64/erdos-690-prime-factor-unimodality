@@ -29,7 +29,7 @@ def test_finite_prime_interval_rows_low_generation_is_sharded(tmp_path, monkeypa
     for part in range(1, count + 1):
         path = tmp_path / f"LowPart{part:02d}.lean"
         assert path.exists()
-        assert path.stat().st_size <= 4_000
+        assert path.stat().st_size <= 20_000
         assert ".LowBase\n" in path.read_text()
 
     assert ".LowPart01\n" in facade
@@ -37,7 +37,8 @@ def test_finite_prime_interval_rows_low_generation_is_sharded(tmp_path, monkeypa
 
     first = (tmp_path / "LowPart01.lean").read_text()
     assert "apply DusartPrimeRowsChain.cons" in first
-    assert "change 3275 ≤ 3275; omega" in first
+    assert "theorem lowPrime_3299" in first
+    assert "lowPrime_3299" in first.split("theorem dusartPrimeRows", 1)[1]
     for path in tmp_path.glob("LowPart*.lean"):
         text = path.read_text()
         assert "apply DusartPrimeRowsChain.cons" in text

@@ -1,4 +1,5 @@
 import Mathlib.Data.Nat.BinaryRec
+import Mathlib.Data.ZMod.Basic
 
 set_option autoImplicit false
 
@@ -29,5 +30,10 @@ theorem fastPowMod_eq_pow_mod (a m e : Nat) :
         exact (Nat.mul_mod (a ^ n) (a ^ n) m).symm
       · rw [ih, Nat.two_mul, Nat.pow_succ, Nat.pow_add]
         rw [Nat.mul_mod (a ^ n * a ^ n) a m, Nat.mul_mod (a ^ n) (a ^ n) m]
+
+theorem natCast_fastPowMod_eq_pow (a m e : Nat) :
+    ((fastPowMod a m e : Nat) : ZMod m) = (a : ZMod m) ^ e := by
+  rw [fastPowMod_eq_pow_mod, ZMod.natCast_mod]
+  simp only [Nat.cast_pow]
 
 end PrimeFactorUnimodality

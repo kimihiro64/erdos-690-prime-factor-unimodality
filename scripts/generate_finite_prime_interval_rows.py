@@ -28,6 +28,78 @@ ROW_PART_SIZE = 8
 LOW_MODULE_TARGET_BYTES = 1_000
 
 
+def factor_nat(n: int) -> list[int]:
+    factors: list[int] = []
+    d = 2
+    while d * d <= n:
+        while n % d == 0:
+            factors.append(d)
+            n //= d
+        d += 1
+    if n > 1:
+        factors.append(n)
+    return factors
+
+
+def pocklington_certificate(n: int) -> str:
+    """Emit one compact Pocklington proof for a small prime witness.
+
+    The factor-list assembler supplies the divisor reasoning.  The generated
+    proof contains only the factorization and modular residues; it does not
+    ask Lean to search for primality by reducing the full trial-division
+    predicate.
+    """
+    factors = factor_nat(n - 1)
+    base = next(
+        a for a in range(2, n)
+        if pow(a, n - 1, n) == 1
+        and all(pow(a, (n - 1) // q, n) != 1 for q in set(factors))
+    )
+    inverses = {
+        q: pow((pow(base, (n - 1) // q, n) - 1) % n, -1, n)
+        for q in set(factors)
+    }
+    theorem = [
+        "set_option maxHeartbeats 20000000 in",
+        f"theorem lowPrime_{n} : Nat.Prime {n} := by",
+        f"  apply Nat.prime_of_pocklington_factor_of_prime_factors {n} {n - 1} 1 {base} [{', '.join(map(str, factors))}]",
+        "  · norm_num",
+        "  · norm_num",
+        "  · norm_num",
+    ]
+    theorem.extend(
+        [
+            "  · intro p hp",
+            "    simp at hp",
+            "    rcases hp with "
+            + " | ".join("rfl" for _ in factors),
+        ]
+    )
+    theorem.extend(["    all_goals decide", "  · norm_num", "  · norm_num"])
+    theorem.extend(["  · rw [← natCast_fastPowMod_eq_pow]", "    decide"])
+    theorem.extend(["  · intro q hq", "    simp at hq"])
+    theorem.append(
+        "    rcases hq with " + " | ".join("rfl" for _ in factors)
+    )
+    for q in factors:
+        theorem.extend(
+            [
+                "    · change IsUnit "
+                + f"(({base} : ZMod {n}) ^ {(n - 1) // q} - 1)",
+                "      rw [← natCast_fastPowMod_eq_pow]",
+                f"      apply IsUnit.of_mul_eq_one ({inverses[q]} : ZMod {n})",
+                "      decide",
+            ]
+        )
+    theorem.extend(["  · norm_num", ""])
+    return "\n".join(theorem)
+
+
+def prime_certificates(rows: list[str]) -> str:
+    witnesses = sorted({int(q) for row in rows for q in re.findall(r"\(q := (\d+)\)", row)})
+    return "\n".join(pocklington_certificate(q) for q in witnesses)
+
+
 def source_text(repo: Path) -> str:
     return subprocess.check_output(
         ["git", "show", f"{SOURCE_REVISION}:{SOURCE_PATH}"],
@@ -110,6 +182,8 @@ def _local_chain_proof(part_rows: list[str]) -> str:
     """
     proof: list[str] = ["  apply DusartPrimeRowsChain.cons"]
     for index, row in enumerate(part_rows):
+        constructor = re.search(r"dusartPrimeRow_of_explicit_[A-Za-z0-9_]+", row)
+        assert constructor, row
         bounds = re.search(r"\(p := (\d+)\) \(q := (\d+)\)", row)
         assert bounds, row
         left, right_prime = map(int, bounds.groups())
@@ -119,8 +193,8 @@ def _local_chain_proof(part_rows: list[str]) -> str:
         indent = "  " * (index + 1)
         proof.extend(
             [
-                indent + f"· change {left} ≤ {chain_start}; omega",
-                indent + f"· change {left} ≤ {right_prime - 1}; omega",
+                indent + f"· norm_num [{constructor.group(0)}]",
+                indent + f"· norm_num [{constructor.group(0)}]",
             ]
         )
         if index + 1 < len(part_rows):
@@ -204,6 +278,8 @@ def split_large_row_families(body: str) -> str:
 
 LOW_HEADER = """import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Core
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.EndpointBounds
+import PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington
+import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod
 
 set_option autoImplicit false
 set_option maxRecDepth 100000
@@ -320,7 +396,18 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 """
-        result[f"{module}.lean"] = (header + "".join(part_segments[offset:end_family])).rstrip() + "\n"
+        part_body = "".join(part_segments[offset:end_family])
+        part_rows = re.findall(r"^    dusartPrimeRow[^\n]+(?:\n)?", part_body, re.M)
+        certificates = prime_certificates(part_rows)
+        part_body = re.sub(
+            r"(\(q := (\d+)\)) \(by decide\)",
+            lambda match: f"{match.group(1)} (by exact lowPrime_{match.group(2)})",
+            part_body,
+            count=0,
+        )
+        result[f"{module}.lean"] = (
+            header + certificates + part_body
+        ).rstrip() + "\n"
     imports = "\n".join(
         f"import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart{part:02d}"
         for part in range(1, len(ranges) + 1)

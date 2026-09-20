@@ -1,5 +1,7 @@
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Core
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.EndpointBounds
+import PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington
+import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod
 
 set_option autoImplicit false
 set_option maxRecDepth 100000

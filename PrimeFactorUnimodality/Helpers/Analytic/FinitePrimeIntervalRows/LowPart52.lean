@@ -9,44 +9,339 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 set_option maxHeartbeats 20000000 in
+theorem lowPrime_6551 : Nat.Prime 6551 := by
+  apply Nat.prime_of_pocklington_factor_of_prime_factors 6551 6550 1 17 [2, 5, 5, 131]
+  · norm_num
+  · norm_num
+  · norm_num
+  · intro p hp
+    simp at hp
+    rcases hp with rfl | rfl | rfl | rfl
+    all_goals decide
+  · norm_num
+  · norm_num
+  · rw [← natCast_fastPowMod_eq_pow]
+    decide
+  · intro q hq
+    simp at hq
+    rcases hq with rfl | rfl | rfl | rfl
+    · change IsUnit ((17 : ZMod 6551) ^ 3275 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3275 : ZMod 6551)
+      decide
+    · change IsUnit ((17 : ZMod 6551) ^ 1310 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (5283 : ZMod 6551)
+      decide
+    · change IsUnit ((17 : ZMod 6551) ^ 1310 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (5283 : ZMod 6551)
+      decide
+    · change IsUnit ((17 : ZMod 6551) ^ 50 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3333 : ZMod 6551)
+      decide
+  · norm_num
+
+set_option maxHeartbeats 20000000 in
+theorem lowPrime_6553 : Nat.Prime 6553 := by
+  apply Nat.prime_of_pocklington_factor_of_prime_factors 6553 6552 1 10 [2, 2, 2, 3, 3, 7, 13]
+  · norm_num
+  · norm_num
+  · norm_num
+  · intro p hp
+    simp at hp
+    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl | rfl
+    all_goals decide
+  · norm_num
+  · norm_num
+  · rw [← natCast_fastPowMod_eq_pow]
+    decide
+  · intro q hq
+    simp at hq
+    rcases hq with rfl | rfl | rfl | rfl | rfl | rfl | rfl
+    · change IsUnit ((10 : ZMod 6553) ^ 3276 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3276 : ZMod 6553)
+      decide
+    · change IsUnit ((10 : ZMod 6553) ^ 3276 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3276 : ZMod 6553)
+      decide
+    · change IsUnit ((10 : ZMod 6553) ^ 3276 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3276 : ZMod 6553)
+      decide
+    · change IsUnit ((10 : ZMod 6553) ^ 2184 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3720 : ZMod 6553)
+      decide
+    · change IsUnit ((10 : ZMod 6553) ^ 2184 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3720 : ZMod 6553)
+      decide
+    · change IsUnit ((10 : ZMod 6553) ^ 936 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (1608 : ZMod 6553)
+      decide
+    · change IsUnit ((10 : ZMod 6553) ^ 504 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (661 : ZMod 6553)
+      decide
+  · norm_num
+
+set_option maxHeartbeats 20000000 in
+theorem lowPrime_6563 : Nat.Prime 6563 := by
+  apply Nat.prime_of_pocklington_factor_of_prime_factors 6563 6562 1 5 [2, 17, 193]
+  · norm_num
+  · norm_num
+  · norm_num
+  · intro p hp
+    simp at hp
+    rcases hp with rfl | rfl | rfl
+    all_goals decide
+  · norm_num
+  · norm_num
+  · rw [← natCast_fastPowMod_eq_pow]
+    decide
+  · intro q hq
+    simp at hq
+    rcases hq with rfl | rfl | rfl
+    · change IsUnit ((5 : ZMod 6563) ^ 3281 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3281 : ZMod 6563)
+      decide
+    · change IsUnit ((5 : ZMod 6563) ^ 386 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3199 : ZMod 6563)
+      decide
+    · change IsUnit ((5 : ZMod 6563) ^ 34 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (2244 : ZMod 6563)
+      decide
+  · norm_num
+
+set_option maxHeartbeats 20000000 in
+theorem lowPrime_6569 : Nat.Prime 6569 := by
+  apply Nat.prime_of_pocklington_factor_of_prime_factors 6569 6568 1 3 [2, 2, 2, 821]
+  · norm_num
+  · norm_num
+  · norm_num
+  · intro p hp
+    simp at hp
+    rcases hp with rfl | rfl | rfl | rfl
+    all_goals decide
+  · norm_num
+  · norm_num
+  · rw [← natCast_fastPowMod_eq_pow]
+    decide
+  · intro q hq
+    simp at hq
+    rcases hq with rfl | rfl | rfl | rfl
+    · change IsUnit ((3 : ZMod 6569) ^ 3284 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3284 : ZMod 6569)
+      decide
+    · change IsUnit ((3 : ZMod 6569) ^ 3284 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3284 : ZMod 6569)
+      decide
+    · change IsUnit ((3 : ZMod 6569) ^ 3284 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3284 : ZMod 6569)
+      decide
+    · change IsUnit ((3 : ZMod 6569) ^ 8 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (5839 : ZMod 6569)
+      decide
+  · norm_num
+
+set_option maxHeartbeats 20000000 in
+theorem lowPrime_6571 : Nat.Prime 6571 := by
+  apply Nat.prime_of_pocklington_factor_of_prime_factors 6571 6570 1 3 [2, 3, 3, 5, 73]
+  · norm_num
+  · norm_num
+  · norm_num
+  · intro p hp
+    simp at hp
+    rcases hp with rfl | rfl | rfl | rfl | rfl
+    all_goals decide
+  · norm_num
+  · norm_num
+  · rw [← natCast_fastPowMod_eq_pow]
+    decide
+  · intro q hq
+    simp at hq
+    rcases hq with rfl | rfl | rfl | rfl | rfl
+    · change IsUnit ((3 : ZMod 6571) ^ 3285 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3285 : ZMod 6571)
+      decide
+    · change IsUnit ((3 : ZMod 6571) ^ 2190 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3387 : ZMod 6571)
+      decide
+    · change IsUnit ((3 : ZMod 6571) ^ 2190 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3387 : ZMod 6571)
+      decide
+    · change IsUnit ((3 : ZMod 6571) ^ 1314 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (6443 : ZMod 6571)
+      decide
+    · change IsUnit ((3 : ZMod 6571) ^ 90 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (6452 : ZMod 6571)
+      decide
+  · norm_num
+
+set_option maxHeartbeats 20000000 in
+theorem lowPrime_6577 : Nat.Prime 6577 := by
+  apply Nat.prime_of_pocklington_factor_of_prime_factors 6577 6576 1 5 [2, 2, 2, 2, 3, 137]
+  · norm_num
+  · norm_num
+  · norm_num
+  · intro p hp
+    simp at hp
+    rcases hp with rfl | rfl | rfl | rfl | rfl | rfl
+    all_goals decide
+  · norm_num
+  · norm_num
+  · rw [← natCast_fastPowMod_eq_pow]
+    decide
+  · intro q hq
+    simp at hq
+    rcases hq with rfl | rfl | rfl | rfl | rfl | rfl
+    · change IsUnit ((5 : ZMod 6577) ^ 3288 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3288 : ZMod 6577)
+      decide
+    · change IsUnit ((5 : ZMod 6577) ^ 3288 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3288 : ZMod 6577)
+      decide
+    · change IsUnit ((5 : ZMod 6577) ^ 3288 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3288 : ZMod 6577)
+      decide
+    · change IsUnit ((5 : ZMod 6577) ^ 3288 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3288 : ZMod 6577)
+      decide
+    · change IsUnit ((5 : ZMod 6577) ^ 2192 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (4502 : ZMod 6577)
+      decide
+    · change IsUnit ((5 : ZMod 6577) ^ 48 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (2000 : ZMod 6577)
+      decide
+  · norm_num
+
+set_option maxHeartbeats 20000000 in
+theorem lowPrime_6581 : Nat.Prime 6581 := by
+  apply Nat.prime_of_pocklington_factor_of_prime_factors 6581 6580 1 14 [2, 2, 5, 7, 47]
+  · norm_num
+  · norm_num
+  · norm_num
+  · intro p hp
+    simp at hp
+    rcases hp with rfl | rfl | rfl | rfl | rfl
+    all_goals decide
+  · norm_num
+  · norm_num
+  · rw [← natCast_fastPowMod_eq_pow]
+    decide
+  · intro q hq
+    simp at hq
+    rcases hq with rfl | rfl | rfl | rfl | rfl
+    · change IsUnit ((14 : ZMod 6581) ^ 3290 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3290 : ZMod 6581)
+      decide
+    · change IsUnit ((14 : ZMod 6581) ^ 3290 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3290 : ZMod 6581)
+      decide
+    · change IsUnit ((14 : ZMod 6581) ^ 1316 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (5454 : ZMod 6581)
+      decide
+    · change IsUnit ((14 : ZMod 6581) ^ 940 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (1674 : ZMod 6581)
+      decide
+    · change IsUnit ((14 : ZMod 6581) ^ 140 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (369 : ZMod 6581)
+      decide
+  · norm_num
+
+set_option maxHeartbeats 20000000 in
+theorem lowPrime_6599 : Nat.Prime 6599 := by
+  apply Nat.prime_of_pocklington_factor_of_prime_factors 6599 6598 1 13 [2, 3299]
+  · norm_num
+  · norm_num
+  · norm_num
+  · intro p hp
+    simp at hp
+    rcases hp with rfl | rfl
+    all_goals decide
+  · norm_num
+  · norm_num
+  · rw [← natCast_fastPowMod_eq_pow]
+    decide
+  · intro q hq
+    simp at hq
+    rcases hq with rfl | rfl
+    · change IsUnit ((13 : ZMod 6599) ^ 3299 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (3299 : ZMod 6599)
+      decide
+    · change IsUnit ((13 : ZMod 6599) ^ 2 - 1)
+      rw [← natCast_fastPowMod_eq_pow]
+      apply IsUnit.of_mul_eq_one (982 : ZMod 6599)
+      decide
+  · norm_num
+set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_6311_6636_part04 : List DusartPrimeRow :=
   [
-    dusartPrimeRow_of_explicit_6634 (p := 6547) (q := 6551) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_6634 (p := 6551) (q := 6553) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_6634 (p := 6553) (q := 6563) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_6634 (p := 6563) (q := 6569) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_6634 (p := 6569) (q := 6571) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_6634 (p := 6571) (q := 6577) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_6634 (p := 6577) (q := 6581) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_6634 (p := 6581) (q := 6599) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_6634 (p := 6547) (q := 6551) (by exact lowPrime_6551) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_6634 (p := 6551) (q := 6553) (by exact lowPrime_6553) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_6634 (p := 6553) (q := 6563) (by exact lowPrime_6563) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_6634 (p := 6563) (q := 6569) (by exact lowPrime_6569) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_6634 (p := 6569) (q := 6571) (by exact lowPrime_6571) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_6634 (p := 6571) (q := 6577) (by exact lowPrime_6577) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_6634 (p := 6577) (q := 6581) (by exact lowPrime_6581) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_6634 (p := 6581) (q := 6599) (by exact lowPrime_6599) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
   ]
 
 set_option maxHeartbeats 20000000 in
 theorem dusartPrimeRows_6311_6636_part04_chain :
     DusartPrimeRowsChain 6547 6599 dusartPrimeRows_6311_6636_part04 := by
   apply DusartPrimeRowsChain.cons
-  · change 6547 ≤ 6547; omega
-  · change 6547 ≤ 6550; omega
+  · norm_num [dusartPrimeRow_of_explicit_6634]
+  · norm_num [dusartPrimeRow_of_explicit_6634]
   · apply DusartPrimeRowsChain.cons
-    · change 6551 ≤ 6551; omega
-    · change 6551 ≤ 6552; omega
+    · norm_num [dusartPrimeRow_of_explicit_6634]
+    · norm_num [dusartPrimeRow_of_explicit_6634]
     · apply DusartPrimeRowsChain.cons
-      · change 6553 ≤ 6553; omega
-      · change 6553 ≤ 6562; omega
+      · norm_num [dusartPrimeRow_of_explicit_6634]
+      · norm_num [dusartPrimeRow_of_explicit_6634]
       · apply DusartPrimeRowsChain.cons
-        · change 6563 ≤ 6563; omega
-        · change 6563 ≤ 6568; omega
+        · norm_num [dusartPrimeRow_of_explicit_6634]
+        · norm_num [dusartPrimeRow_of_explicit_6634]
         · apply DusartPrimeRowsChain.cons
-          · change 6569 ≤ 6569; omega
-          · change 6569 ≤ 6570; omega
+          · norm_num [dusartPrimeRow_of_explicit_6634]
+          · norm_num [dusartPrimeRow_of_explicit_6634]
           · apply DusartPrimeRowsChain.cons
-            · change 6571 ≤ 6571; omega
-            · change 6571 ≤ 6576; omega
+            · norm_num [dusartPrimeRow_of_explicit_6634]
+            · norm_num [dusartPrimeRow_of_explicit_6634]
             · apply DusartPrimeRowsChain.cons
-              · change 6577 ≤ 6577; omega
-              · change 6577 ≤ 6580; omega
+              · norm_num [dusartPrimeRow_of_explicit_6634]
+              · norm_num [dusartPrimeRow_of_explicit_6634]
               · apply DusartPrimeRowsChain.cons
-                · change 6581 ≤ 6581; omega
-                · change 6581 ≤ 6598; omega
+                · norm_num [dusartPrimeRow_of_explicit_6634]
+                · norm_num [dusartPrimeRow_of_explicit_6634]
                 · apply DusartPrimeRowsChain.empty
                   norm_num
