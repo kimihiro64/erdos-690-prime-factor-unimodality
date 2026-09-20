@@ -32,6 +32,11 @@ theorem wangCrapis_thetaPrefix :
   exact hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
     dusartThetaEndpointRow_two_cover
 
+theorem wangCrapis_thetaPrefix_three :
+    HasDusartSymmetricThetaBoundsBelow (3 : Real) := by
+  exact hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
+    dusartThetaEndpointRow_three_cover
+
 theorem wangCrapis_thetaBounds_lower_2_3
     {x : Real} (hx : 2 < x) (hx3 : x ≤ 3) :
     x * (1 - (12323 / 10000 : Real) / Real.log x) <

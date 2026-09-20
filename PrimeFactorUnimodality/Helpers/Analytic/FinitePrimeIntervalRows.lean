@@ -505,6 +505,70 @@ def dusartThetaEndpointRow_two : DusartThetaEndpointRow :=
         nlinarith
       nlinarith }
 
+/-! The next endpoint is small enough for a direct Chebyshev sum.  Keeping it
+as an ordinary endpoint row lets the same cover and assembler consume it as
+the larger finite tables. -/
+def dusartThetaEndpointRow_three : DusartThetaEndpointRow := by
+  have htheta := Chebyshev.theta_eq_sum_primesLE_log 3
+  have hp : Nat.primesLE 3 = {2, 3} := by decide
+  rw [hp] at htheta
+  norm_num [Nat.log, Nat.log.go] at htheta
+  have hlog2pos : 0 < Real.log (2 : Real) :=
+    Real.log_pos (by norm_num)
+  have hlog3pos : 0 < Real.log (3 : Real) :=
+    Real.log_pos (by norm_num)
+  have htheta_lt : Chebyshev.theta (3 : Real) < 3 := by
+    nlinarith [htheta, Real.log_two_lt_d9, Real.log_three_lt_d9]
+  have hupper : Chebyshev.theta (3 : Real) - 3 < (3 : Real) / 36260 := by
+    nlinarith
+  have hlower_upper : Chebyshev.theta (3 : Real) - 3 <
+      (12323 / 10000 : Real) * 3 / Real.log 3 := by
+    have hrhs : 0 < (12323 / 10000 : Real) * 3 / Real.log 3 := by
+      positivity
+    linarith
+  have htheta_nonneg : 0 ≤ Chebyshev.theta (3 : Real) :=
+    Chebyshev.theta_nonneg 3
+  have hdiff_nonneg : 0 ≤ (3 : Real) - Chebyshev.theta 3 := by
+    linarith
+  have hdiff_log : ((3 : Real) - Chebyshev.theta 3) * Real.log 3 <
+      (3 : Real) * (11 / 10 : Real) := by
+    have hlog3 : Real.log (3 : Real) < (11 : Real) / 10 :=
+      Real.log_three_lt_d9
+    have hfirst := mul_le_mul_of_nonneg_left hlog3.le hdiff_nonneg
+    have hsecond := mul_le_mul_of_nonneg_right
+      (show (3 : Real) - Chebyshev.theta 3 ≤ 3 by linarith)
+      (by norm_num : (0 : Real) ≤ (11 : Real) / 10)
+    nlinarith
+  have hlower_lower : (3 : Real) - Chebyshev.theta 3 <
+      (12323 / 10000 : Real) * 3 / Real.log 3 := by
+    apply (lt_div_iff₀ hlog3pos).2
+    nlinarith [hdiff_log]
+  exact
+    { left := 3
+      right := 3
+      left_large := by norm_num
+      left_le_right := by norm_num
+      theta_lower := Chebyshev.theta 3
+      theta_upper := Chebyshev.theta 3
+      theta_lower_le := le_rfl
+      theta_right_le := le_rfl
+      upper_error := hupper
+      lower_upper_error := hlower_upper
+      lower_lower_error := hlower_lower }
+
+theorem dusartThetaEndpointRow_three_cover :
+    DusartThetaEndpointRowsCoverUpTo
+      [dusartThetaEndpointRow_two, dusartThetaEndpointRow_three] 3 := by
+  intro x hx hX
+  by_cases hsmall : x ≤ 2
+  · refine ⟨dusartThetaEndpointRow_two, by simp, ?_, hsmall⟩
+    norm_num
+    exact hx
+  · refine ⟨dusartThetaEndpointRow_three, by simp, ?_, ?_⟩
+    · norm_num
+      exact le_of_not_ge hsmall
+    · exact hX
+
 def dusartThetaEndpointRow_singleton (n : Nat) (hn : 2 ≤ n)
     (hupper : Chebyshev.theta n - n < (n : Real) / 36260)
     (hlower_upper : Chebyshev.theta n - n <
