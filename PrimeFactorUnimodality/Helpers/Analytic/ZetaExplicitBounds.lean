@@ -326,9 +326,12 @@ theorem zetaZeroFree_explicit :
         ‖riemannZeta (σ' + t * Complex.I)‖ -
           ‖riemannZeta (σ' + t * Complex.I) -
             riemannZeta (σ + t * Complex.I)‖ := by
-      rw [div_le_iff₀ (by positivity)]
+      have hL7 : 0 < Real.log |t| ^ (7 : Nat) := by positivity
+      rw [div_le_iff₀ hL7]
       dsimp [c]
-      nlinarith [hlower', hdiffsymm]
+      have hlower_mul := (div_le_iff₀ hL7).mp hlower'
+      have hdiff_mul := (le_div_iff₀ hL7).mp hdiffsymm
+      nlinarith
     exact hmain.trans (by
       convert htriangle using 1 <;> ring)
   refine ⟨hnorm, ?_⟩
