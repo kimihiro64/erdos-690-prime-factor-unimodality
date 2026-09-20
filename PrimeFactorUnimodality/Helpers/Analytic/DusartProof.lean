@@ -2854,6 +2854,9 @@ def dusartLemma33FiniteChunk_2401 : DusartLemma33FiniteChunk :=
   DusartLemma33FiniteChunk.of_list
     (cutoff := (2401 : Real)) dusartLemma33FiniteRowsCover_twofourzeroone
 
+def dusartLemma33FiniteProofChunk_2401 : DusartLemma33FiniteProofChunk :=
+  dusartLemma33FiniteChunk_2401.toProofChunk
+
 theorem dusart_lemma_3_3_finite_chunk_2401 :
     ∀ x : Real, 0 < x → x ≤ 2401 →
       Chebyshev.psi x - Chebyshev.theta x -
