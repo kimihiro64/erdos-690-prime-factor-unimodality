@@ -172,20 +172,11 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowBase
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart01
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart02
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart03
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart04
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart05
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart06
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart07
+          for source in PrimeFactorUnimodality/Helpers/Analytic/FinitePrimeIntervalRows/LowPart*.lean; do
+            module=$(basename "$source" .lean)
+            /usr/bin/time -v lake build \
+              "+PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.$module"
+          done
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
           /usr/bin/time -v lake build \
