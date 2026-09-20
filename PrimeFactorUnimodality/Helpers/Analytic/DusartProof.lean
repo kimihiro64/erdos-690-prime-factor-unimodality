@@ -43,6 +43,27 @@ theorem dusart_gap_from_theta_root_lower
     simpa only [Real.sqrt_eq_rpow] using hroot
   simpa only [Real.sqrt_eq_rpow] using hroot'.trans hdecomp
 
+theorem psi_sub_theta_le_of_root_bound
+    {x c : Real} (hx : 0 ≤ x) (hc : 0 ≤ c)
+    (hroot : ∀ y : Real, 0 ≤ y → Chebyshev.psi y ≤ c * y) :
+    Chebyshev.psi x - Chebyshev.theta x ≤
+      c * (x ^ (1 / 2 : Real) + x ^ (1 / 3 : Real) +
+        x ^ (1 / 5 : Real)) := by
+  have hdecomp := Chebyshev.psi_sub_theta_le_psi_add_psi_add_psi x
+  have h2 := hroot (x ^ (2 : Real)⁻¹) (by positivity)
+  have h3 := hroot (x ^ (3 : Real)⁻¹) (by positivity)
+  have h5 := hroot (x ^ (5 : Real)⁻¹) (by positivity)
+  have h2' : Chebyshev.psi (x ^ (2 : Real)⁻¹) ≤
+      c * x ^ (1 / 2 : Real) := by
+    convert h2 using 1 <;> norm_num
+  have h3' : Chebyshev.psi (x ^ (3 : Real)⁻¹) ≤
+      c * x ^ (1 / 3 : Real) := by
+    convert h3 using 1 <;> norm_num
+  have h5' : Chebyshev.psi (x ^ (5 : Real)⁻¹) ≤
+      c * x ^ (1 / 5 : Real) := by
+    convert h5 using 1 <;> norm_num
+  nlinarith [hdecomp, h2', h3', h5']
+
 theorem psi_sub_theta_ge_elementary_sqrt_gap
     {x : Real} (hx : (62500000000 : Real) ≤ x) :
     (86 : Real) / 100 * Real.sqrt x ≤
