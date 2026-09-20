@@ -91,28 +91,35 @@ table through `4e18`.
 
 ### Raise the finite record theorem to the published cutoff
 
+Implementation note: the current descent inequality's certified numerical
+margin supports `k ≤ 7,300,000`; widening `fullRecord_descentNumeric` itself
+to `8,600,001` is not valid with its present logarithm and Mertens-error
+constants. The published `8,600,001` theorem must therefore continue to use
+the already proved closed-Mertens tail for `k ≥ 7,300,001`, as
+`fullRecordRange_not_isUnimodal_closed_through8600001` does. Do not replace
+that overlap with a numeral-only widening of the descent proof. Any future
+attempt to make the descent inequality itself reach `8,600,001` must first
+add and prove genuinely stronger numerical bounds.
+
 This is non-certificate proof work and must be completed before any expensive
 replay.  The side-condition module already reaches `k = 8,600,001`, but the
-numeric descent and every downstream assembly are still hard-coded to
-`7,430,000`.  Merely extending the record-gap owners does not close this gap.
+numeric descent remains hard-coded to `7,300,000`, which is the verified
+descent cutoff. The final published split already reaches `8,600,001` by
+using the closed tail from `7,300,001`; merely extending the record-gap
+owners does not change the descent inequality.
 
-Change and prove, in dependency order:
+The required source-level checks are therefore:
 
-1. `fullRecord_prefix_log_log_lt` in
-   `Proof/LargeRange/FullRecordNumericBounds.lean`, with
-   `hkUpper : k ≤ 8600001`.
-2. `fullRecord_descentNumeric` in the same file, with
-   `hkUpper : k ≤ 8600001`.  Its current proof explicitly uses
-   `k - 1 ≤ 7429999`; reproduce the sharper numerical argument from the
-   source paper (or prove stronger logarithmic/Mertens bounds) rather than
-   changing only the numeral.
-3. `fullRecordRange_not_isUnimodal` and
-   `fullRecordRange_not_isUnimodal_closed` in
-   `Proof/LargeRange/FullRecordRange.lean`, both through `8600001`.
-4. `completeClassification_of_finite_record_range` in
-   `Proof/CompleteClassificationReduction.lean`, with cutoff `8600001` and
-   tail beginning at `8600002`.
-5. `completeClassification_of_full_record_inputs` in
+1. Keep `fullRecord_prefix_log_log_lt` valid through `8,600,001`, as it is.
+2. Keep `fullRecord_descentNumeric` at its certified cutoff
+   `k ≤ 7,300,000`; its proof uses `k - 1 ≤ 7,299,999`.
+3. Keep `fullRecordRange_not_isUnimodal` and
+   `fullRecordRange_not_isUnimodal_closed` at `7,300,000`, and use
+   `fullRecordRange_not_isUnimodal_closed_through8600001` for the published
+   range.
+4. Keep `completeClassification_of_finite_record_range` at cutoff
+   `8,600,001`, with the uniform tail beginning at `8,600,002`.
+5. Check `completeClassification_of_full_record_inputs` in
    `Proof/CompleteClassification.lean`, with cutoff `8600001`; every adapter
    above it must elaborate without reintroducing `7430000`.
 
