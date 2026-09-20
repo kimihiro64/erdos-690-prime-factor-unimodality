@@ -149,6 +149,26 @@ theorem psi_sub_theta_gt_9999_sqrt_of_large_strict_theta_error
     simpa only [Real.sqrt_eq_rpow] using hroot
   exact dusart_gap_from_strict_theta_root_lower (by linarith) hroot'
 
+/-! Global form of Dusart's Proposition 3.1.  The finite interval ending at
+the square of the explicit theta cutoff is kept as a separate input; above it
+the square-root substitution and the theta error prove the estimate directly. -/
+theorem dusart_proposition_3_1_of_finite_and_strict_theta_error
+    (finite : ∀ x : Real, (121 : Real) < x →
+      x < (4e18 : Real) ^ 2 →
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x)
+    (herror : ∀ y : Real, (4e18 : Real) ≤ y →
+      |Chebyshev.theta y - y| <
+        (648 : Real) / 1000 * y / (Real.log y) ^ 4) :
+    ∀ x : Real, (121 : Real) < x →
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x := by
+  intro x hx
+  by_cases hlarge : (4e18 : Real) ^ 2 ≤ x
+  · exact psi_sub_theta_gt_9999_sqrt_of_large_strict_theta_error
+      hlarge herror
+  · exact finite x hx (lt_of_not_ge hlarge)
+
 theorem psi_sub_theta_le_of_root_bound
     {x c : Real} (hx : 0 ≤ x) (hc : 0 ≤ c)
     (hroot : ∀ y : Real, 0 ≤ y → Chebyshev.psi y ≤ c * y) :
