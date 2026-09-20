@@ -210,7 +210,8 @@ theorem zetaLowerBound3_explicit :
 theorem zetaZeroFree_explicit :
     ∃ (A : Real) (_ : A ∈ Ioc 0 (1 / 2)) (c : Real) (_ : 0 < c),
     ∀ (σ t : Real) (_ : 3 < |t|)
-      (_ : σ ∈ Ico (1 - A / (Real.log |t|) ^ 9) 1),
+      (_ : σ ∈ Ico (1 - A / (Real.log |t|) ^ 9)
+        (1 + A / (Real.log |t|) ^ 9)),
       c / (Real.log |t|) ^ 7 ≤ ‖riemannZeta (σ + t * Complex.I)‖ ∧
         riemannZeta (σ + t * Complex.I) ≠ 0 := by
   let C₁ : Real := 1 / (3 ^ ((3 : Real) / 4) *
@@ -222,7 +223,7 @@ theorem zetaZeroFree_explicit :
   have hC₂ : 0 < C₂ := by
     dsimp [C₂]
     positivity
-  let A : Real := min (1 / 2 : Real) ((C₁ / (4 * C₂)) ^ (4 : Real))
+  let A : Real := min (1 / 2 : Real) ((C₁ / (4 * C₂)) ^ (4 : Nat))
   have hA : A ∈ Ioc (0 : Real) (1 / 2) := by
     constructor
     · dsimp [A]
@@ -246,11 +247,13 @@ theorem zetaZeroFree_explicit :
     one_half_lt_one.le.trans (one_le_pow₀ hlog)
   have hσ'gt : 1 < σ' := by
     dsimp [σ']
-    positivity
+    have hpos : 0 < A / Real.log |t| ^ (9 : Nat) := by
+      exact div_pos hA.1 (by positivity)
+    linarith
   have hσ'le : σ' ≤ 2 := by
     dsimp [σ']
-    have hfrac : A / Real.log |t| ^ (9 : Real) < 1 := by
-      apply div_lt_one (by positivity)
+    have hfrac : A / Real.log |t| ^ (9 : Nat) < 1 := by
+      apply (div_lt_one (by positivity)).2
       exact hA.2.trans_lt (lt_of_lt_of_le (by norm_num)
         (one_le_pow₀ (logt_gt_one ht.le).le))
     linarith
@@ -272,15 +275,22 @@ theorem zetaZeroFree_explicit :
       ‖riemannZeta (σ + t * Complex.I) -
           riemannZeta (σ' + t * Complex.I)‖ ≤
         C₂ * Real.log |t| ^ 2 * (σ' - σ) := by
-    apply hdiff
-    · dsimp [A]
-      apply le_trans hσ.1
-      gcongr
-      exact ZetaInvBnd_aux (logt_gt_one ht.le)
-    · exact hσ'le
-    · dsimp [σ']
-      have : 0 < A / Real.log |t| ^ 9 := by positivity
-      linarith [hσ.2]
+    have hdiff1 := hdiff σ σ' t ht
+      (by
+        dsimp [A]
+        apply le_trans hσ.1
+        gcongr
+        exact ZetaInvBnd_aux (logt_gt_one ht.le))
+      hσ'le
+      (by
+        dsimp [σ']
+        have h : 0 < A / Real.log |t| ^ 9 := by positivity
+        linarith [hσ.2])
+    convert hdiff1 using 1
+    rw [show riemannZeta (σ + t * Complex.I) -
+        riemannZeta (σ' + t * Complex.I) =
+        -(riemannZeta (σ' + t * Complex.I) -
+          riemannZeta (σ + t * Complex.I)) by ring, norm_neg]
   have hσ'diff : σ' - σ ≤ 2 * A / Real.log |t| ^ 9 := by
     dsimp [σ']
     linarith [hσ.1]
@@ -328,7 +338,8 @@ theorem zetaZeroFree_explicit :
 theorem zetaLowerBnd_explicit :
     ∃ (A : Real) (_ : A ∈ Ioc 0 (1 / 2)) (c : Real) (_ : 0 < c),
     ∀ (σ t : Real) (_ : 3 < |t|)
-      (_ : σ ∈ Ico (1 - A / (Real.log |t|) ^ 9) 1),
+      (_ : σ ∈ Ico (1 - A / (Real.log |t|) ^ 9)
+        (1 + A / (Real.log |t|) ^ 9)),
       c / (Real.log |t|) ^ 7 ≤ ‖riemannZeta (σ + t * Complex.I)‖ := by
   obtain ⟨A, hA, c, hc, h⟩ := zetaZeroFree_explicit
   refine ⟨A, hA, c, hc, ?_⟩
@@ -338,7 +349,8 @@ theorem zetaLowerBnd_explicit :
 theorem zetaZeroFree_explicit_only :
     ∃ (A : Real) (_ : A ∈ Ioc 0 (1 / 2)),
     ∀ (σ t : Real) (_ : 3 < |t|)
-      (_ : σ ∈ Ico (1 - A / (Real.log |t|) ^ 9) 1),
+      (_ : σ ∈ Ico (1 - A / (Real.log |t|) ^ 9)
+        (1 + A / (Real.log |t|) ^ 9)),
       riemannZeta (σ + t * Complex.I) ≠ 0 := by
   obtain ⟨A, hA, c, hc, h⟩ := zetaZeroFree_explicit
   refine ⟨A, hA, ?_⟩
@@ -356,15 +368,20 @@ theorem zetaLogDeriv_explicit_below :
   let D : Real := Real.exp (1 / 2 : Real) * 59
   refine ⟨A, hA, D / c, div_pos (by positivity) hc, ?_⟩
   intro σ t ht hσ
-  have hlogpow : Real.log |t| ≤ Real.log |t| ^ (9 : Real) :=
+  have hlogpos : 0 < Real.log |t| := Real.log_pos (by linarith)
+  have hlogpow : Real.log |t| ≤ Real.log |t| ^ (9 : ℕ) :=
     ZetaInvBnd_aux (logt_gt_one ht.le)
   have hσderiv : σ ∈ Icc
       (1 - (1 / 2 : Real) / Real.log |t|) 2 := by
     constructor
-    · apply le_trans ?_ hσ.1
-      gcongr
-      · exact hA.2
-      · exact hlogpow
+    · have hdiv : A / Real.log |t| ^ (9 : ℕ) ≤
+          (1 / 2 : Real) / Real.log |t| := by
+        calc
+          A / Real.log |t| ^ (9 : ℕ) ≤
+              (1 / 2 : Real) / Real.log |t| ^ (9 : ℕ) := by
+            exact div_le_div_of_nonneg_right hA.2 (by positivity)
+          _ ≤ (1 / 2 : Real) / Real.log |t| := by
+            gcongr
     · linarith [hσ.2]
   have hderiv := zetaDerivUpperBnd_explicit σ t ht hσderiv
   have hlower := (hbound σ t ht hσ).1
@@ -373,11 +390,10 @@ theorem zetaLogDeriv_explicit_below :
     have h : 0 < c / Real.log |t| ^ 7 := by positivity
     exact h.trans_le hlower
   rw [norm_div]
-  apply le_trans (div_le_div_of_nonneg_left hderiv.le
+  apply le_trans (div_le_div_of_nonneg_left hderiv
     (le_of_lt hlower_pos) (norm_nonneg _))
-  have hcpos : 0 < c := hc
   dsimp [D]
-  field_simp
+  field_simp [ne_of_gt hlogpos, ne_of_gt hc]
   ring
 
 
