@@ -306,7 +306,7 @@ theorem zetaZeroFree_explicit :
       _ = 2 * C₂ * A / Real.log |t| ^ 7 := by
         rw [← Real.rpow_natCast]
         field_simp
-        ring
+        ring_nf
   have hnorm :
       c / Real.log |t| ^ 7 ≤ ‖riemannZeta (σ + t * Complex.I)‖ := by
     have htriangle := norm_sub_norm_le
