@@ -380,6 +380,16 @@ theorem hasStrictThetaUpperBelow_of_indexed_rows
   · obtain ⟨i, hleft, hright⟩ := cover x (le_of_not_gt hsmall) hX
     exact strictThetaUpperRow_provides (rows i) hleft hright
 
+theorem hasDusartSymmetricThetaBoundsBelow_of_strict_rows_and_lower
+    {X : Real} {rows : List StrictThetaUpperRow}
+    (cover : StrictThetaUpperRowsCoverUpTo rows X)
+    (lower : ∀ x : Real, 2 < x → x ≤ X →
+      |Chebyshev.theta x - x| <
+        (12323 / 10000 : Real) * x / Real.log x) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  exact hasDusartSymmetricThetaBoundsBelow_of_strict_theta_prefix
+    (hasStrictThetaUpperBelow_of_rows cover) lower
+
 theorem theta_two_eq_log_two : Chebyshev.theta (2 : Real) = Real.log 2 := by
   have hprimes : Nat.primesLE 2 = {2} := by decide
   have hsum := Chebyshev.theta_eq_sum_primesLE_log 2
