@@ -3739,6 +3739,23 @@ theorem dusart_lemma_3_3_of_indexed_rows_and_theta_bounds
       have hupper := thetaBounds.1 y hy
       nlinarith)
 
+/-! The compact chunk boundary is the provider-facing form of the bounded
+    computation.  Once generated chunks cover the full published finite range,
+    the analytic tail is applied exactly once here. -/
+theorem dusart_lemma_3_3_of_chunk_and_theta_bounds
+    (chunk : DusartLemma33FiniteChunk)
+    (hX : (10 ^ 11 : Real) ^ 3 ≤ chunk.cutoff)
+    (thetaBounds : HasDusartThetaBounds) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  exact dusart_lemma_3_3_of_finite_and_theta_upper hX
+    chunk.provides (by
+      intro y hy
+      have hupper := thetaBounds.1 y hy
+      nlinarith)
+
 /-! This is the exact finite/analytic split stated in Dusart's proof: the
 bounded computation ends at `(10^11)^3`, while the displayed power-sum
 estimate handles the tail. -/
