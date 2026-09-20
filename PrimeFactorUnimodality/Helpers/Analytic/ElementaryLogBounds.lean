@@ -115,6 +115,16 @@ theorem log_le_smooth {x : Real} {a b c : Nat} (hx : 0 < x)
     Real.log_pow, Real.log_pow, Real.log_pow] at h
   simpa [mul_comm, mul_left_comm, mul_assoc] using h
 
+/-! The largest endpoint in Dusart's Table 6.6 has a short certified
+logarithmic upper bound.  Factoring `8 * 10^11` as `2^14 * 5^11` keeps this
+bound inside the elementary logarithm layer. -/
+theorem log_eight_hundred_billion_lt_thirty :
+    log (8e11 : Real) < 30 := by
+  have h := log_le_smooth (x := (8e11 : Real)) (a := 14) (b := 0) (c := 11)
+    (by norm_num) (by norm_num)
+  norm_num at h
+  nlinarith [log_2_lt, log_5_lt]
+
 theorem log_le_smooth_with_seven {x : Real} {a b c d : Nat} (hx : 0 < x)
     (hbound : x ≤ (2 : Real) ^ a * (3 : Real) ^ b *
       (5 : Real) ^ c * (7 : Real) ^ d) :
