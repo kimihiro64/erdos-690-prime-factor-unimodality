@@ -14,7 +14,7 @@ structure DusartProposition31FiniteRow where
   right : Nat
   left_le_right : left ≤ right
   valid : ∀ x : Real, (121 : Real) < x →
-    (left : Real) ≤ x → x ≤ right →
+    (left : Real) ≤ x → x < (right : Real) + 1 →
       (9999 : Real) / 10000 * Real.sqrt x <
         Chebyshev.psi x - Chebyshev.theta x
 
@@ -56,7 +56,8 @@ def dusartProposition31FiniteRow_of_integer_endpoint
 def DusartProposition31FiniteRowsCover
     (rows : List DusartProposition31FiniteRow) (X : Real) : Prop :=
   ∀ x : Real, (121 : Real) < x → x ≤ X →
-    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧
+      x < (row.right : Real) + 1
 
 theorem dusartProposition31Finite_of_integer_endpoint_check
     {X : Real}
@@ -82,7 +83,8 @@ theorem dusartProposition31Finite_of_integer_endpoint_check
 def DusartProposition31FiniteIndexedRowsCover {n : Nat}
     (rows : Fin n → DusartProposition31FiniteRow) (X : Real) : Prop :=
   ∀ x : Real, (121 : Real) < x → x ≤ X →
-    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+    ∃ i : Fin n, (rows i).left ≤ x ∧
+      x < (rows i).right + 1
 
 theorem dusartProposition31FiniteIndexedRowsCover_of_list
     {X : Real} {rows : List DusartProposition31FiniteRow}
