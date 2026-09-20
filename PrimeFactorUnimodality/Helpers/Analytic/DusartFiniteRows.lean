@@ -27,6 +27,29 @@ def DusartLemma33FiniteRowsCover
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧
       x < (row.right : Real) + 1
 
+def dusartLemma33FiniteRow_zero_one : DusartLemma33FiniteRow :=
+  { left := 0
+    right := 1
+    left_le_right := by norm_num
+    valid := by
+      intro x hx _ hright
+      have hx2 : x < 2 := by norm_num at hright ⊢; exact hright
+      have hsqrt : Real.sqrt x < 2 := by
+        nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+      rw [Chebyshev.psi_eq_zero_of_lt_two hx2,
+        Chebyshev.theta_eq_zero_of_lt_two hx2,
+        Chebyshev.theta_eq_zero_of_lt_two hsqrt]
+      norm_num
+      positivity }
+
+theorem dusartLemma33FiniteRow_zero_one_cover :
+    DusartLemma33FiniteRowsCover [dusartLemma33FiniteRow_zero_one] 1 := by
+  intro x hx hX
+  refine ⟨dusartLemma33FiniteRow_zero_one, by simp, ?_, ?_⟩
+  · simpa [dusartLemma33FiniteRow_zero_one] using hx.le
+  · norm_num [dusartLemma33FiniteRow_zero_one]
+    linarith
+
 theorem dusart_lemma_3_3_finite_of_rows
     {rows : List DusartLemma33FiniteRow} {X : Real}
     (cover : DusartLemma33FiniteRowsCover rows X) :
