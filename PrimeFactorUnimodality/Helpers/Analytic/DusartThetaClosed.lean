@@ -152,6 +152,41 @@ theorem wangCrapis_thetaBounds_of_paper_ranges_and_logFourthTail
     (dusart_proposition_5_1_tail_of_logFourthError
       hA_nonneg hA thetaError) lower
 
+/-! The middle-range gap in Proposition 5.1 is supplied by Proposition 3.1.
+Its bounded verification remains a separate finite obligation; the analytic
+tail and the conversion from the paper's `psi` error are assembled here. -/
+theorem wangCrapis_thetaBounds_of_paper_ranges_and_prop31
+    (finite : ∀ x : Real, 0 < x → x ≤ (8e11 : Real) →
+      Chebyshev.theta x - x < x / 36260)
+    (middlePsi : ∀ x : Real, (8e11 : Real) ≤ x →
+      x ≤ Real.exp 28 →
+      |Chebyshev.psi x - x| < (2841 : Real) / 100000000 * x)
+    (finiteGap : ∀ x : Real, (121 : Real) < x →
+      x < (4e18 : Real) ^ 2 →
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x)
+    {A : Real}
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log (Real.exp 28) ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthErrorAbove A (Real.exp 28))
+    (lower : ∀ x : Real, 2 < x →
+      x * (1 - (12323 / 10000 : Real) / Real.log x) <
+        Chebyshev.theta x) :
+    HasDusartThetaBounds := by
+  apply wangCrapis_thetaBounds_of_paper_ranges_and_logFourthTail
+    finite
+  · intro x hx hx_exp
+    refine ⟨middlePsi x hx hx_exp, ?_⟩
+    apply finiteGap x (by linarith)
+    calc
+      x ≤ Real.exp 28 := hx_exp
+      _ < (1446257067000 : Real) := exp_twentyEight_lt_dusart_endpoint
+      _ < (4e18 : Real) ^ 2 := by norm_num
+  · exact lower
+  · exact hA_nonneg
+  · exact hA
+  · exact thetaError
+
 /-! Global Proposition 5.1 in the three ranges used by Dusart: the finite
 Table 6.4 range, the explicit middle range ending at `exp 28`, and the
 large-range theta-error tail. -/
