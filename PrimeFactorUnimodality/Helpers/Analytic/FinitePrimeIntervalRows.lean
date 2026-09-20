@@ -1050,6 +1050,17 @@ def DusartThetaTableVerifiedIndexedCoverUpTo {n : Nat}
   ∀ x : Real, 2 ≤ x → x ≤ X →
     ∃ i : Fin n, (rows i).data.left ≤ x ∧ x ≤ (rows i).data.right
 
+theorem dusartThetaTableVerifiedIndexedCoverUpTo_of_list
+    {X : Real} {rows : List DusartThetaTableVerifiedRow}
+    (cover : DusartThetaTableVerifiedRowsCoverUpTo rows X) :
+    DusartThetaTableVerifiedIndexedCoverUpTo
+      (fun i : Fin rows.length => rows.get i) X := by
+  intro x hx hX
+  obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
+  obtain ⟨i, hi, hget⟩ := List.getElem_of_mem hrow
+  refine ⟨⟨i, hi⟩, ?_⟩
+  simpa [List.get_eq_getElem, hget] using And.intro hleft hright
+
 theorem hasDusartSymmetricThetaBoundsBelow_of_verified_table_rows
   {X : Real} {rows : List DusartThetaTableVerifiedRow}
     (cover : DusartThetaTableVerifiedRowsCoverUpTo rows X) :
