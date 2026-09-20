@@ -290,6 +290,22 @@ theorem dusart_proposition_3_2_of_uniform_strict_root_bound_all
   · exact dusart_proposition_3_2_of_uniform_strict_root_bound
       (le_of_not_gt hsmall) hroot
 
+/-! This is the numerical composition used in the paper: Lemma 3.3 controls
+the prime-power tail after the square-root term, while Proposition 5.1
+controls that square-root theta term. -/
+theorem dusart_proposition_3_2_of_lemma_3_3_and_theta_upper
+    {x : Real} (hx : 0 < x)
+    (hlemma : Chebyshev.psi x - Chebyshev.theta x -
+        Chebyshev.theta (Real.sqrt x) <
+      (1777745 : Real) / 1000000 * x ^ (1 / 3 : Real))
+    (htheta : Chebyshev.theta (Real.sqrt x) <
+      (100007 : Real) / 100000 * Real.sqrt x) :
+    Chebyshev.psi x - Chebyshev.theta x <
+      (100007 : Real) / 100000 * Real.sqrt x +
+        (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
+  have hcuberoot : 0 ≤ x ^ (1 / 3 : Real) := by positivity
+  nlinarith
+
 theorem dusart_gap_upper_from_uniform_root_bound
     {x : Real} (hx : (121 : Real) ≤ x)
     (hroot : ∀ y : Real, 0 ≤ y →
