@@ -144,7 +144,7 @@ theorem fullRecord_prefix_mertensError_lt_sharp {k : Nat} (hk : 38001 ≤ k) :
   nlinarith [mertensErrorConstant_lt_901_div_100]
 
 theorem fullRecord_descentNumeric {k : Nat}
-    (hkLower : 38001 ≤ k) (hkUpper : k ≤ 8600001) :
+    (hkLower : 38001 ≤ k) (hkUpper : k ≤ 7300000) :
     ((k - 1 : Nat) : Real) < 1113107 *
       (Real.log (Real.log (((recordGapCenter - 455703) / 2 : Nat) : Real)) -
         Real.log (Real.log ((primeAt (k - 2) - 1 : Nat) : Real)) -
@@ -152,8 +152,8 @@ theorem fullRecord_descentNumeric {k : Nat}
           Real.log (((recordGapCenter - 455703) / 2 : Nat) : Real) -
         mertensErrorConstant /
           Real.log ((primeAt (k - 2) - 1 : Nat) : Real)) := by
-  have kBound : ((k - 1 : Nat) : Real) ≤ 8599999 := by
-    exact_mod_cast (show k - 1 ≤ 8599999 by omega)
+  have kBound : ((k - 1 : Nat) : Real) ≤ 7299999 := by
+    exact_mod_cast (show k - 1 ≤ 7299999 by omega)
   nlinarith [log_log_fullRecordHalfLower_gt,
     fullRecord_prefix_log_log_lt hkLower hkUpper,
     fullRecordHalf_mertensError_lt,
