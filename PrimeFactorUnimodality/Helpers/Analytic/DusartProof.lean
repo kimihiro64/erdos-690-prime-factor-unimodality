@@ -1,11 +1,11 @@
-import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
-import PrimeFactorUnimodality.Helpers.Analytic.ElementaryChebyshevConsequences
-import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
-import PrimeFactorUnimodality.Helpers.Analytic.ElementaryLogBounds
-import PrimeFactorUnimodality.Helpers.Analytic.DusartFiniteRows
-import PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
-import Mathlib.Analysis.Complex.ExponentialBounds
 import LeanCert.Tactic.IntervalAuto
+import Mathlib.Analysis.Complex.ExponentialBounds
+import PrimeFactorUnimodality.Helpers.Analytic.DusartFiniteRows
+import PrimeFactorUnimodality.Helpers.Analytic.ElementaryChebyshevConsequences
+import PrimeFactorUnimodality.Helpers.Analytic.ElementaryLogBounds
+import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
+import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
+import PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
 
 set_option autoImplicit false
 

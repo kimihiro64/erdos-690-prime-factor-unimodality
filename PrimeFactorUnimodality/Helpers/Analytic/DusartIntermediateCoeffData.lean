@@ -4,6 +4,11 @@ set_option autoImplicit false
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
 
+/-! # Dusart intermediate coefficient data
+
+This module defines the finite coefficient table used in the intermediate
+power-sum estimate. -/
+
 namespace PrimeFactorUnimodality
 
 noncomputable section

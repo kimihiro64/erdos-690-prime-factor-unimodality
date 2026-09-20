@@ -4,6 +4,10 @@ set_option autoImplicit false
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
 
+/-! # Coverage of Dusart's Lemma 3.3 midrange rows
+
+This module proves that the midrange rows cover the complete bounded interval. -/
+
 namespace PrimeFactorUnimodality
 
 noncomputable section

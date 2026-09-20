@@ -5,6 +5,11 @@ set_option autoImplicit false
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
 
+/-! # Dusart intermediate power sum
+
+This module assembles the reusable coefficient table into the required
+power-sum estimate. -/
+
 namespace PrimeFactorUnimodality
 
 noncomputable section

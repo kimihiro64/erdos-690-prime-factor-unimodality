@@ -445,6 +445,8 @@ noncomputable section
     result["Low.lean"] = (
         imports
         + "\n\nset_option autoImplicit false\nset_option maxRecDepth 1000000\n\n"
+        + "{-! # Generated low finite prime interval rows\n\n"
+        + "This facade imports the independent low-range row chunks and assembles their shared coverage data. -}\n\n"
         + "namespace PrimeFactorUnimodality\n\nnoncomputable section\n"
         + "".join(aggregate_segments)
     ).rstrip() + "\n"

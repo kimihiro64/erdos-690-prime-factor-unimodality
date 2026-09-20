@@ -2,6 +2,10 @@ import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33MidrangeCover
 
 set_option autoImplicit false
 
+/-! # Finite rows for Dusart's Lemma 3.3
+
+This module assembles the direct prefix and midrange row families. -/
+
 namespace PrimeFactorUnimodality
 
 noncomputable section

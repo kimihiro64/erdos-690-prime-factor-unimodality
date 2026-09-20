@@ -1,5 +1,5 @@
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.MediumLogRowsBase
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.EndpointBounds
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.MediumLogRowsBase
 
 set_option autoImplicit false
 set_option maxRecDepth 100000

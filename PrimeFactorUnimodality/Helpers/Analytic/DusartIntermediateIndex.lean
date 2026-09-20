@@ -4,6 +4,10 @@ set_option autoImplicit false
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
 
+/-! # Dusart intermediate exponent index
+
+This module bounds the logarithmic exponent index in the intermediate range. -/
+
 namespace PrimeFactorUnimodality
 
 noncomputable section

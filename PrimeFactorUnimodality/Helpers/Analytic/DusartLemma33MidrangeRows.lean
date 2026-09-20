@@ -1,9 +1,13 @@
-import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
 import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33MidrangeEndpoints
+import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
 
 set_option autoImplicit false
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
+
+/-! # Midrange rows for Dusart's Lemma 3.3
+
+This module contains the reusable bounded row definitions. -/
 
 namespace PrimeFactorUnimodality
 

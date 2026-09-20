@@ -4,6 +4,10 @@ set_option autoImplicit false
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
 
+/-! # Reusable Dusart power-sum assembly
+
+This module packages the finite and tail exponent estimates used by Lemma 3.3. -/
+
 namespace PrimeFactorUnimodality
 
 noncomputable section

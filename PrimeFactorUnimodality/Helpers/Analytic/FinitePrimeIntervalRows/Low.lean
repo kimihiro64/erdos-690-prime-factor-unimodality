@@ -26,6 +26,11 @@ import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart24
 set_option autoImplicit false
 set_option maxRecDepth 1000000
 
+/-! # Generated low finite prime interval rows
+
+This facade imports the independent low-range row chunks and assembles their
+shared coverage data. -/
+
 namespace PrimeFactorUnimodality
 
 noncomputable section

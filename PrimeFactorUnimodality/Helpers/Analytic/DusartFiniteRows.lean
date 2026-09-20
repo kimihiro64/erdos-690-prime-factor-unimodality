@@ -1,5 +1,5 @@
-import Mathlib.NumberTheory.Chebyshev
 import Mathlib.Analysis.Complex.ExponentialBounds
+import Mathlib.NumberTheory.Chebyshev
 
 set_option autoImplicit false
 
