@@ -3633,6 +3633,26 @@ theorem dusart_lemma_3_3_of_rows_and_theta_bounds
   have hupper := thetaBounds.1 y hy
   nlinarith
 
+/-! This is the exact finite/analytic split stated in Dusart's proof: the
+bounded computation ends at `(10^11)^3`, while the displayed power-sum
+estimate handles the tail. -/
+theorem dusart_lemma_3_3_of_paper_finite_check
+    (finite : ∀ x : Real, 0 < x →
+      x ≤ (10 ^ 11 : Real) ^ 3 →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)))
+    (thetaBounds : HasDusartThetaBounds) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  exact dusart_lemma_3_3_of_finite_and_theta_upper
+    (by norm_num) finite (by
+      intro y hy
+      have hupper := thetaBounds.1 y hy
+      nlinarith)
+
 theorem dusart_proposition_3_2_of_finite_lemma_and_theta_upper
     {X : Real} (hX : (10 ^ 11 : Real) ^ 3 ≤ X)
     (finite : ∀ x : Real, 0 < x → x ≤ X →
