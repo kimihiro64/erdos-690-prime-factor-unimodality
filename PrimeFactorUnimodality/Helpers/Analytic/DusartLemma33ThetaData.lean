@@ -4,6 +4,11 @@ set_option autoImplicit false
 set_option maxRecDepth 100000
 set_option maxHeartbeats 10000000
 
+/-! # Shared theta endpoint data
+
+This generated module stores the exact integer Chebyshev-theta identities
+reused by the bounded Lemma 3.3 endpoint rows. -/
+
 namespace PrimeFactorUnimodality
 
 noncomputable section
