@@ -176,6 +176,53 @@ theorem completeClassification_closed_of_indexed_split_certificate
   exact completeClassification_closed_of_selected_finite_providers
     (wangCrapisSelectedFiniteProviders_of_indexed_split_certificate certificate)
 
+/-! Source-level closure with the bounded obligations named at the cutoff
+selected by the explicit medium-PNT argument.  This is the non-generated
+boundary: the arguments below are the finite theta, theta-error,
+prime-counting, and log-cubed providers that still have to be constructed
+from the paper's finite estimates. -/
+theorem wangCrapisPaperInputs_of_source_level_providers
+    (finiteTheta : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasDusartSymmetricThetaBoundsBelow Y)
+    (finiteThetaError : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasThetaLogFourthErrorBelow (648 / 1000 : Real) Y)
+    (finitePrimeCounting : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasDusartRealPrimeCountingBoundsBelow Y)
+    (finiteLogCubed : ∀ Y : Real, (89693 : Real) ≤ Y →
+      HasLogCubedShortIntervalPrimeBelow Y) :
+    WangCrapisPaperInputs := by
+  obtain ⟨Y, h4Y, hlogY, thetaError⟩ :=
+    exists_hasThetaLogFourthError_of_mediumPNT_at_large_cutoff
+  have hYpos : 0 < Y := by linarith
+  have hlog42 : (42 : Real) ≤ Real.log Y := by linarith
+  have hA : (648 / 1000 : Real) / Real.log Y ≤
+      12167 / 500000 := by
+    have hlogYpos : 0 < Real.log Y := by linarith
+    apply (div_le_iff₀ hlogYpos).2
+    nlinarith
+  exact {
+    primeCounting := wangCrapis_primeCounting_of_finite_and_thetaTail
+      (finitePrimeCounting Y h4Y) h4Y hYpos (by linarith) le_rfl
+      (by norm_num) (by norm_num) hlog42
+      (finiteThetaError Y h4Y) thetaError
+    thetaBounds := wangCrapis_thetaBounds_of_logFourthTail
+      hYpos (by linarith) (finiteTheta Y h4Y) (by norm_num) hA thetaError
+    shortInterval := wangCrapis_shortInterval_of_mediumPNT finiteLogCubed }
+
+theorem completeClassification_closed_of_source_level_providers
+    (finiteTheta : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasDusartSymmetricThetaBoundsBelow Y)
+    (finiteThetaError : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasThetaLogFourthErrorBelow (648 / 1000 : Real) Y)
+    (finitePrimeCounting : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasDusartRealPrimeCountingBoundsBelow Y)
+    (finiteLogCubed : ∀ Y : Real, (89693 : Real) ≤ Y →
+      HasLogCubedShortIntervalPrimeBelow Y) :
+    CompleteClassification := by
+  exact completeClassification_of_wangCrapis_paper_inputs
+    (wangCrapisPaperInputs_of_source_level_providers finiteTheta
+      finiteThetaError finitePrimeCounting finiteLogCubed)
+
 end
 
 end PrimeFactorUnimodality
