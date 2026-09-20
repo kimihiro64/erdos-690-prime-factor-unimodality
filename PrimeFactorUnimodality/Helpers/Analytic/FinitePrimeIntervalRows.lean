@@ -1427,6 +1427,41 @@ theorem dusartPrimeCountingEndpointIndexedCoverFrom599_append
     (fun y hy _ hym hyX => hright y hy hyX)
     x hx trivial hX
 
+/-! Compact indexed chunks for the bounded prime-counting endpoint table. -/
+structure DusartPrimeCountingEndpointChunk where
+  n : Nat
+  cutoff : Real
+  rows : Fin n → DusartPrimeCountingEndpointRow
+  cover : DusartPrimeCountingEndpointIndexedCoverFrom599 rows cutoff
+
+def DusartPrimeCountingEndpointChunk.of_list
+    {rows : List DusartPrimeCountingEndpointRow} {cutoff : Real}
+    (cover : DusartPrimeCountingEndpointRowsCoverFrom599 rows cutoff) :
+    DusartPrimeCountingEndpointChunk :=
+  { n := rows.length
+    cutoff := cutoff
+    rows := fun i => rows.get i
+    cover := dusartPrimeCountingEndpointIndexedCover_of_list cover }
+
+def DusartPrimeCountingEndpointChunk.append
+    (left right : DusartPrimeCountingEndpointChunk) :
+    DusartPrimeCountingEndpointChunk :=
+  { n := left.n + right.n
+    cutoff := right.cutoff
+    rows := Fin.append left.rows right.rows
+    cover := dusartPrimeCountingEndpointIndexedCoverFrom599_append
+      left.cover right.cover }
+
+def DusartPrimeCountingEndpointChunk.appendMany
+    (first : DusartPrimeCountingEndpointChunk)
+    (rest : List DusartPrimeCountingEndpointChunk) :
+    DusartPrimeCountingEndpointChunk :=
+  match rest with
+  | [] => first
+  | next :: tail =>
+      DusartPrimeCountingEndpointChunk.appendMany
+        (DusartPrimeCountingEndpointChunk.append first next) tail
+
 theorem hasDusartRealPrimeCountingBoundsBelow_of_indexed_endpoint_rows
     {n : Nat} {X : Real}
     {rows : Fin n → DusartPrimeCountingEndpointRow}
@@ -1444,6 +1479,28 @@ theorem hasDusartRealPrimeCountingBoundsBelow_of_indexed_endpoint_rows
     · obtain ⟨i, hleft, hright⟩ := cover x
         (le_of_not_gt hsmall) hX
       exact (dusartPrimeCountingEndpointRow_provides (rows i) hleft hright).2
+
+theorem hasDusartRealPrimeCountingBoundsBelow_of_endpoint_chunk
+    (chunk : DusartPrimeCountingEndpointChunk)
+    (smallUpper : ∀ x : Real, 2 ≤ x → x < 599 →
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x) :
+    HasDusartRealPrimeCountingBoundsBelow chunk.cutoff := by
+  exact hasDusartRealPrimeCountingBoundsBelow_of_indexed_endpoint_rows
+    chunk.cover smallUpper
+
+theorem hasDusartRealPrimeCountingBoundsBelow_of_endpoint_chunks
+    (first : DusartPrimeCountingEndpointChunk)
+    (rest : List DusartPrimeCountingEndpointChunk)
+    (smallUpper : ∀ x : Real, 2 ≤ x → x < 599 →
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x) :
+    HasDusartRealPrimeCountingBoundsBelow
+      (DusartPrimeCountingEndpointChunk.appendMany first rest).cutoff := by
+  induction rest generalizing first with
+  | nil =>
+      exact hasDusartRealPrimeCountingBoundsBelow_of_endpoint_chunk
+        first smallUpper
+  | cons next tail ih =>
+      exact ih (DusartPrimeCountingEndpointChunk.append first next) smallUpper
 
 theorem dusartPrimeCountingEndpointRowsCoverFrom599_append
     {m X : Real} {left right : List DusartPrimeCountingEndpointRow}
