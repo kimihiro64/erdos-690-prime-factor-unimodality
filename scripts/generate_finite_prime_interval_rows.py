@@ -22,7 +22,10 @@ LOW_END = "theorem dusartPrimeRows_3275_23158_chain"
 HIGH_START = "def dusartPrimeRows_23159_89693"
 HIGH_END = "structure LogCubedPrimeRow"
 ROW_PART_SIZE = 8
-LOW_MODULE_TARGET_BYTES = 20_000
+# Keep each generated module small enough that its local arithmetic proof does
+# not retain the entire lower-prefix row family during elaboration.  The
+# module count remains proportional to row chunks, rather than to witnesses.
+LOW_MODULE_TARGET_BYTES = 8_000
 
 
 def source_text(repo: Path) -> str:

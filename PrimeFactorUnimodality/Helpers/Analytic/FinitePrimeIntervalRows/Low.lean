@@ -1,4 +1,4 @@
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart21
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart50
 
 /-! # Lower finite Dusart prefix facade
 
