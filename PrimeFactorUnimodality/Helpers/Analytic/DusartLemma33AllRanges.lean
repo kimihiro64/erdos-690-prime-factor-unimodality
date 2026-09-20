@@ -46,6 +46,15 @@ theorem dusart_lemma_3_3_all_ranges_of_theta_bounds
   exact dusart_lemma_3_3_all_ranges
     (dusart_theta_upper_1000081_of_bounds thetaBounds)
 
+theorem dusart_proposition_3_2_all_ranges_of_theta_bounds
+    (thetaBounds : HasDusartThetaBounds) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x <
+        (100007 : Real) / 100000 * Real.sqrt x +
+          (178 : Real) / 100 * x ^ (1 / (3 : Real)) := by
+  exact dusart_proposition_3_2_of_paper_lemma_and_theta_bounds
+    (dusart_lemma_3_3_all_ranges_of_theta_bounds thetaBounds) thetaBounds
+
 end
 
 end PrimeFactorUnimodality
