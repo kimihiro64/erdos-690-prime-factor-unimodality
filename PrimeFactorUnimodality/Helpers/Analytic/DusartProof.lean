@@ -993,6 +993,66 @@ def dusartLemma33FiniteRow_fivehundredtwelve_fivehundredeight :
       _ ≤ x ^ (1 / 3 : Real) := hpow
   · norm_num
 
+theorem psi_sub_theta_nat_575_lt_thirty :
+    Chebyshev.psi (575 : Real) - Chebyshev.theta 575 < 30 := by
+  have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 575
+  have htheta := Chebyshev.theta_eq_sum_primesLE_log 575
+  norm_num at hpsi htheta
+  rw [hpsi, htheta]
+  change (∑ p ∈ Nat.primesBelow 576,
+      ↑(Nat.log p 575) * Real.log ↑p) -
+    ∑ p ∈ Nat.primesBelow 576, Real.log ↑p < 30
+  have hp : Nat.primesBelow 576 =
+      {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
+        59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113,
+        127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181,
+        191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251,
+        257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317,
+        331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397,
+        401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463,
+        467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557,
+        563, 569, 571} := by
+    decide
+  rw [hp]
+  norm_num [Nat.log, Nat.log.go]
+  nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
+    Real.log_five_lt_d9, LogTables.log_7_lt,
+    ElementaryLogBounds.log_11_lt, ElementaryLogBounds.log_13_lt,
+    ElementaryLogBounds.log_17_lt, ElementaryLogBounds.log_19_lt,
+    ElementaryLogBounds.log_23_lt]
+
+def dusartLemma33FiniteRow_fivehundredtwentynine_fivehundredseventyfive :
+    DusartLemma33FiniteRow := by
+  have htheta_twentytwo := Chebyshev.theta_eq_sum_primesLE_log 22
+  have hp22 : Nat.primesLE 22 = {2, 3, 5, 7, 11, 13, 17, 19} := by decide
+  rw [hp22] at htheta_twentytwo
+  norm_num [Nat.log, Nat.log.go] at htheta_twentytwo
+  apply dusartLemma33FiniteRow_of_endpoint_bounds 529 575 23
+    (30 : Real) 16 8
+  · norm_num
+  · intro x hx hleft hright
+    nlinarith [Real.sq_sqrt hx.le, Real.sqrt_nonneg x]
+  · exact psi_sub_theta_nat_575_lt_thirty
+  · have hmono : Chebyshev.theta (22 : Real) ≤ Chebyshev.theta 23 := by
+      apply Chebyshev.theta_mono
+      norm_num
+    exact lt_of_lt_of_le (by
+      nlinarith [htheta_twentytwo, Real.log_two_gt_d9,
+        Real.log_three_gt_d9, Real.log_five_gt_d9, LogTables.log_7_gt]) hmono
+  · intro x hx hleft
+    have hbase : ((8 : Real) ^ (3 : Nat)) ≤ x := by
+      norm_num
+      linarith
+    have hpow := Real.rpow_le_rpow (by positivity :
+        (0 : Real) ≤ (8 : Real) ^ (3 : Nat)) hbase
+      (by norm_num : (0 : Real) ≤ (1 / 3 : Real))
+    calc
+      (8 : Real) = ((8 : Real) ^ (3 : Nat)) ^ (1 / 3 : Real) := by
+        rw [← Real.rpow_natCast, ← Real.rpow_mul (by positivity)]
+        norm_num
+      _ ≤ x ^ (1 / 3 : Real) := hpow
+  · norm_num
+
 def dusartLemma33FiniteRow_threehundredsixtyone_fivehundredeleven :
     DusartLemma33FiniteRow := by
   have htheta_nineteen := Chebyshev.theta_eq_sum_primesLE_log 19
@@ -1080,6 +1140,33 @@ theorem dusartLemma33FiniteRowsCover_fivehundredeight :
         [dusartLemma33FiniteRow_fivehundredtwelve_fivehundredeight]) 528 := by
   apply dusartLemma33FiniteRowsCover_append_row
     dusartLemma33FiniteRowsCover_fivehundredeleven
+  intro x hgt hx hX
+  constructor
+  · linarith
+  · norm_num
+    linarith
+
+theorem dusartLemma33FiniteRowsCover_fivehundredseventyfive :
+    DusartLemma33FiniteRowsCover
+      ([dusartLemma33FiniteRow_zero_one, dusartLemma33FiniteRow_two,
+        dusartLemma33FiniteRow_three, dusartLemma33FiniteRow_four,
+        dusartLemma33FiniteRow_five, dusartLemma33FiniteRow_six,
+        dusartLemma33FiniteRow_seven, dusartLemma33FiniteRow_eight,
+        dusartLemma33FiniteRow_nine, dusartLemma33FiniteRow_ten_twentyfour,
+        dusartLemma33FiniteRow_twentyfive_thirtyfive,
+        dusartLemma33FiniteRow_thirtysix_sixtythree,
+        dusartLemma33FiniteRow_sixtyfour_onetwenty,
+        dusartLemma33FiniteRow_onetwentyone_onehundredsixtyseven,
+        dusartLemma33FiniteRow_onehundredsixtyeight,
+        dusartLemma33FiniteRow_onenine_sixtythree,
+        dusartLemma33FiniteRow_twohundredfiftysix_twohundredeightyeight,
+        dusartLemma33FiniteRow_twohundredeightynine_threehundredfortytwo,
+        dusartLemma33FiniteRow_threehundredfortythree_threehundredsixty,
+        dusartLemma33FiniteRow_threehundredsixtyone_fivehundredeleven,
+        dusartLemma33FiniteRow_fivehundredtwelve_fivehundredeight] ++
+        [dusartLemma33FiniteRow_fivehundredtwentynine_fivehundredseventyfive]) 575 := by
+  apply dusartLemma33FiniteRowsCover_append_row
+    dusartLemma33FiniteRowsCover_fivehundredeight
   intro x hgt hx hX
   constructor
   · linarith
