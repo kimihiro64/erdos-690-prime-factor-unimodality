@@ -123,6 +123,27 @@ inductive FinitePrimeGapLogRowsChain : Nat → Nat →
       (htail : FinitePrimeGapLogRowsChain (row.right + 1) b tail) :
       FinitePrimeGapLogRowsChain a b (row :: tail)
 
+theorem finitePrimeGapLogRowsChain_append
+    {a m b : Nat} {left right : List FinitePrimeGapLogRow}
+    (hleft : FinitePrimeGapLogRowsChain a m left)
+    (hright : FinitePrimeGapLogRowsChain (m + 1) b right) :
+    FinitePrimeGapLogRowsChain a b (left ++ right) := by
+  have chain_start_mono : ∀ {s t z : Nat} {rows : List FinitePrimeGapLogRow},
+      s ≤ t → FinitePrimeGapLogRowsChain s z rows →
+        FinitePrimeGapLogRowsChain t z rows := by
+    intro s t z rows hst hchain
+    induction hchain generalizing t with
+    | empty h => exact FinitePrimeGapLogRowsChain.empty (by omega)
+    | @cons s z row hleft hordered tail htail ih =>
+        exact FinitePrimeGapLogRowsChain.cons row (hleft.trans hst)
+          hordered (ih (by omega))
+  induction hleft with
+  | empty h =>
+      exact chain_start_mono (by omega) hright
+  | @cons a m row hleft hordered tail htail ih =>
+      exact FinitePrimeGapLogRowsChain.cons row hleft hordered
+        (ih hright)
+
 theorem finitePrimeGapLogRowsCover_of_chain
     {a b : Nat} {rows : List FinitePrimeGapLogRow}
     (chain : FinitePrimeGapLogRowsChain a b rows) :
