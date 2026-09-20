@@ -22,6 +22,7 @@ LOW_END = "theorem dusartPrimeRows_3275_23158_chain"
 HIGH_START = "def dusartPrimeRows_23159_89693"
 HIGH_END = "structure LogCubedPrimeRow"
 ROW_PART_SIZE = 24
+LOW_MODULE_TARGET_BYTES = 120_000
 
 
 def source_text(repo: Path) -> str:
@@ -196,7 +197,8 @@ namespace PrimeFactorUnimodality
 noncomputable section
 """
 
-LOW_FACADE = """import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart04
+def low_facade(last_part: int) -> str:
+    return f"""import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart{last_part:02d}
 
 /-! # Lower finite Dusart prefix facade
 
@@ -214,13 +216,27 @@ def low_modules(body: str) -> dict[str, str]:
     assert starts
     family_starts = starts[::2]
     family_count = len(family_starts)
-    chunk_size = (family_count + 3) // 4
     result = {
         "LowBase.lean": (LOW_HEADER + body[:family_starts[0]]).rstrip() + "\n"
     }
     previous = "LowBase"
-    for part, offset in enumerate(range(0, family_count, chunk_size), 1):
-        end_family = min(offset + chunk_size, family_count)
+    ranges: list[tuple[int, int]] = []
+    offset = 0
+    while offset < family_count:
+        end_family = offset + 1
+        while end_family < family_count:
+            start = family_starts[offset]
+            candidate_end = (
+                family_starts[end_family + 1]
+                if end_family + 1 < family_count
+                else len(body)
+            )
+            if candidate_end - start > LOW_MODULE_TARGET_BYTES:
+                break
+            end_family += 1
+        ranges.append((offset, end_family))
+        offset = end_family
+    for part, (offset, end_family) in enumerate(ranges, 1):
         start = family_starts[offset]
         end = family_starts[end_family] if end_family < family_count else len(body)
         module = f"LowPart{part:02d}"
@@ -237,8 +253,8 @@ noncomputable section
 """
         result[f"{module}.lean"] = (header + body[start:end]).rstrip() + "\n"
         previous = module
-    assert previous == "LowPart04"
-    result["Low.lean"] = LOW_FACADE
+    assert previous == f"LowPart{len(ranges):02d}"
+    result["Low.lean"] = low_facade(len(ranges))
     return result
 
 
@@ -264,10 +280,11 @@ def main() -> None:
             if "dusartPrimeRow_of_explicit_" in line and "(q := " in line:
                 proofs = len(re.findall(r"\(by (?:norm_num|decide|omega)\)", line))
                 assert proofs == 5, (proofs, line)
-    for name, generated in low_modules(low).items():
+    generated_low = low_modules(low)
+    for name, generated in generated_low.items():
         (out / name).write_text(generated)
     (out / "High.lean").write_text((HIGH_HEADER + high).rstrip() + "\n")
-    for name in ("LowBase.lean", "LowPart01.lean", "LowPart02.lean", "LowPart03.lean", "LowPart04.lean", "Low.lean"):
+    for name in generated_low:
         generated = (out / name).read_text()
         print(f"generated {name}: {len(generated.splitlines())} lines, {len(generated)} bytes")
     print(f"generated High.lean: {len(high.splitlines())} lines, {len(high)} bytes")

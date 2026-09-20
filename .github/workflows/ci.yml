@@ -181,6 +181,12 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart04
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart05
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart06
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart07
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartThetaClosed
