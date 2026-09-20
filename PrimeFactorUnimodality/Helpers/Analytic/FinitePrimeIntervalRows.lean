@@ -317,6 +317,59 @@ structure DusartThetaEndpointRow where
   lower_lower_error : right - theta_lower <
     (12323 / 10000 : Real) * (left : Real) / Real.log right
 
+/-! Compact rows for the strict finite prefix used in Schoenfeld's theta
+estimate.  They intentionally carry only the upper endpoint information;
+the published relaxed error budget is assembled separately. -/
+structure StrictThetaUpperRow where
+  left : Nat
+  right : Nat
+  left_large : 2 ≤ left
+  left_le_right : left ≤ right
+  theta_upper : Real
+  theta_right_le : Chebyshev.theta right ≤ theta_upper
+  upper_error : theta_upper - left < 0
+
+def StrictThetaUpperRowsCoverUpTo
+    (rows : List StrictThetaUpperRow) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem strictThetaUpperRow_provides
+    (row : StrictThetaUpperRow) {x : Real}
+    (hleft : (row.left : Real) ≤ x) (hright : x ≤ row.right) :
+    Chebyshev.theta x < x := by
+  have htheta : Chebyshev.theta x ≤ row.theta_upper :=
+    (Chebyshev.theta_mono hright).trans row.theta_right_le
+  have hleft_pos : 0 ≤ (row.left : Real) := by positivity
+  linarith
+
+theorem hasStrictThetaUpperBelow_of_rows
+    {X : Real} {rows : List StrictThetaUpperRow}
+    (cover : StrictThetaUpperRowsCoverUpTo rows X) :
+    HasStrictThetaUpperBelow X := by
+  intro x hx hX
+  by_cases hsmall : x < 2
+  · rw [Chebyshev.theta_eq_zero_of_lt_two hsmall]
+    linarith
+  · obtain ⟨row, hrow, hleft, hright⟩ := cover x (le_of_not_gt hsmall) hX
+    exact strictThetaUpperRow_provides row hleft hright
+
+def StrictThetaUpperIndexedCoverUpTo
+    {n : Nat} (rows : Fin n → StrictThetaUpperRow) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ i : Fin n, ((rows i).left : Real) ≤ x ∧ x ≤ (rows i).right
+
+theorem hasStrictThetaUpperBelow_of_indexed_rows
+    {n : Nat} {rows : Fin n → StrictThetaUpperRow} {X : Real}
+    (cover : StrictThetaUpperIndexedCoverUpTo rows X) :
+    HasStrictThetaUpperBelow X := by
+  intro x hx hX
+  by_cases hsmall : x < 2
+  · rw [Chebyshev.theta_eq_zero_of_lt_two hsmall]
+    linarith
+  · obtain ⟨i, hleft, hright⟩ := cover x (le_of_not_gt hsmall) hX
+    exact strictThetaUpperRow_provides (rows i) hleft hright
+
 theorem theta_two_eq_log_two : Chebyshev.theta (2 : Real) = Real.log 2 := by
   have hprimes : Nat.primesLE 2 = {2} := by decide
   have hsum := Chebyshev.theta_eq_sum_primesLE_log 2
