@@ -1019,6 +1019,11 @@ def dusartThetaTable6_6CoefficientData :
 theorem dusartThetaTable6_6CoefficientData_length :
     dusartThetaTable6_6CoefficientData.length = 34 := by decide
 
+theorem dusartThetaTable6_6CoefficientData_side_conditions :
+    ∀ row ∈ dusartThetaTable6_6CoefficientData,
+      0 ≤ row.a1 ∧ row.a1 < (12323 : Real) / 10000 ∧ row.b0 ≤ 1 := by
+  norm_num [dusartThetaTable6_6CoefficientData]
+
 def DusartThetaTable66CoefficientData.toRow
     (data : DusartThetaTable66CoefficientData)
     (lower_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
