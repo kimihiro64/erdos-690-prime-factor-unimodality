@@ -9,39 +9,24 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_3803_4672_part08 : List DusartPrimeRow :=
+def dusartPrimeRows_3275_3802_part09 : List DusartPrimeRow :=
   [
-    dusartPrimeRow_of_explicit_4670 (p := 4261) (q := 4271) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4670 (p := 4271) (q := 4273) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4670 (p := 4273) (q := 4283) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4670 (p := 4283) (q := 4289) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4670 (p := 4289) (q := 4297) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4670 (p := 4297) (q := 4327) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4670 (p := 4327) (q := 4337) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4670 (p := 4337) (q := 4339) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_3802 (p := 3779) (q := 3793) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_3802 (p := 3793) (q := 3797) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_3802 (p := 3797) (q := 3803) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
   ]
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_3803_4672_part08_chain :
-    DusartPrimeRowsChain 4261 4339 dusartPrimeRows_3803_4672_part08 := by
+theorem dusartPrimeRows_3275_3802_part09_chain :
+    DusartPrimeRowsChain 3779 3803 dusartPrimeRows_3275_3802_part09 := by
   apply dusartPrimeRowsChain_of_data
   decide +kernel
 
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_3803_4672_part09 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_4670 (p := 4339) (q := 4349) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4670 (p := 4349) (q := 4357) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4670 (p := 4357) (q := 4363) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4670 (p := 4363) (q := 4373) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4670 (p := 4373) (q := 4391) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4670 (p := 4391) (q := 4397) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4670 (p := 4397) (q := 4409) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4670 (p := 4409) (q := 4421) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
+def dusartPrimeRows_3275_3802 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_3802_part01 ++ dusartPrimeRows_3275_3802_part02 ++ dusartPrimeRows_3275_3802_part03 ++ dusartPrimeRows_3275_3802_part04 ++ dusartPrimeRows_3275_3802_part05 ++ dusartPrimeRows_3275_3802_part06 ++ dusartPrimeRows_3275_3802_part07 ++ dusartPrimeRows_3275_3802_part08 ++ dusartPrimeRows_3275_3802_part09
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_3803_4672_part09_chain :
-    DusartPrimeRowsChain 4339 4421 dusartPrimeRows_3803_4672_part09 := by
-  apply dusartPrimeRowsChain_of_data
-  decide +kernel
+theorem dusartPrimeRows_3275_3802_chain :
+    DusartPrimeRowsChain 3275 3802 dusartPrimeRows_3275_3802 := by
+  exact dusartPrimeRowsChain_append dusartPrimeRows_3275_3802_part01_chain (dusartPrimeRowsChain_append dusartPrimeRows_3275_3802_part02_chain (dusartPrimeRowsChain_append dusartPrimeRows_3275_3802_part03_chain (dusartPrimeRowsChain_append dusartPrimeRows_3275_3802_part04_chain (dusartPrimeRowsChain_append dusartPrimeRows_3275_3802_part05_chain (dusartPrimeRowsChain_append dusartPrimeRows_3275_3802_part06_chain (dusartPrimeRowsChain_append dusartPrimeRows_3275_3802_part07_chain (dusartPrimeRowsChain_append dusartPrimeRows_3275_3802_part08_chain (dusartPrimeRows_3275_3802_part09_chain))))))))

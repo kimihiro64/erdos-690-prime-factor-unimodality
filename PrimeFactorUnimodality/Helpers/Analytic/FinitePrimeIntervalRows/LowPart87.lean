@@ -9,39 +9,23 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_13367_14050_part05 : List DusartPrimeRow :=
+def dusartPrimeRows_8111_8520_part06 : List DusartPrimeRow :=
   [
-    dusartPrimeRow_of_explicit_14044 (p := 13691) (q := 13693) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_14044 (p := 13693) (q := 13697) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_14044 (p := 13697) (q := 13709) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_14044 (p := 13709) (q := 13711) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_14044 (p := 13711) (q := 13721) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_14044 (p := 13721) (q := 13723) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_14044 (p := 13723) (q := 13729) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_14044 (p := 13729) (q := 13751) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_8518 (p := 8501) (q := 8513) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_8518 (p := 8513) (q := 8521) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
   ]
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_13367_14050_part05_chain :
-    DusartPrimeRowsChain 13691 13751 dusartPrimeRows_13367_14050_part05 := by
+theorem dusartPrimeRows_8111_8520_part06_chain :
+    DusartPrimeRowsChain 8501 8521 dusartPrimeRows_8111_8520_part06 := by
   apply dusartPrimeRowsChain_of_data
   decide +kernel
 
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_13367_14050_part06 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_14044 (p := 13751) (q := 13757) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_14044 (p := 13757) (q := 13759) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_14044 (p := 13759) (q := 13763) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_14044 (p := 13763) (q := 13781) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_14044 (p := 13781) (q := 13789) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_14044 (p := 13789) (q := 13799) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_14044 (p := 13799) (q := 13807) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_14044 (p := 13807) (q := 13829) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
+def dusartPrimeRows_8111_8520 : List DusartPrimeRow :=
+  dusartPrimeRows_8111_8520_part01 ++ dusartPrimeRows_8111_8520_part02 ++ dusartPrimeRows_8111_8520_part03 ++ dusartPrimeRows_8111_8520_part04 ++ dusartPrimeRows_8111_8520_part05 ++ dusartPrimeRows_8111_8520_part06
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_13367_14050_part06_chain :
-    DusartPrimeRowsChain 13751 13829 dusartPrimeRows_13367_14050_part06 := by
-  apply dusartPrimeRowsChain_of_data
-  decide +kernel
+theorem dusartPrimeRows_8111_8520_chain :
+    DusartPrimeRowsChain 8111 8520 dusartPrimeRows_8111_8520 := by
+  exact dusartPrimeRowsChain_append dusartPrimeRows_8111_8520_part01_chain (dusartPrimeRowsChain_append dusartPrimeRows_8111_8520_part02_chain (dusartPrimeRowsChain_append dusartPrimeRows_8111_8520_part03_chain (dusartPrimeRowsChain_append dusartPrimeRows_8111_8520_part04_chain (dusartPrimeRowsChain_append dusartPrimeRows_8111_8520_part05_chain (dusartPrimeRows_8111_8520_part06_chain)))))

@@ -9,39 +9,19 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_16319_17158_part06 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_17154 (p := 16703) (q := 16729) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_17154 (p := 16729) (q := 16741) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_17154 (p := 16741) (q := 16747) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_17154 (p := 16747) (q := 16759) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_17154 (p := 16759) (q := 16763) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_17154 (p := 16763) (q := 16787) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_17154 (p := 16787) (q := 16811) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_17154 (p := 16811) (q := 16823) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
+def dusartPrimeRows_9419_9900 : List DusartPrimeRow :=
+  dusartPrimeRows_9419_9900_part01 ++ dusartPrimeRows_9419_9900_part02 ++ dusartPrimeRows_9419_9900_part03 ++ dusartPrimeRows_9419_9900_part04 ++ dusartPrimeRows_9419_9900_part05 ++ dusartPrimeRows_9419_9900_part06 ++ dusartPrimeRows_9419_9900_part07
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_16319_17158_part06_chain :
-    DusartPrimeRowsChain 16703 16823 dusartPrimeRows_16319_17158_part06 := by
-  apply dusartPrimeRowsChain_of_data
-  decide +kernel
+theorem dusartPrimeRows_9419_9900_chain :
+    DusartPrimeRowsChain 9419 9900 dusartPrimeRows_9419_9900 := by
+  exact dusartPrimeRowsChain_append dusartPrimeRows_9419_9900_part01_chain (dusartPrimeRowsChain_append dusartPrimeRows_9419_9900_part02_chain (dusartPrimeRowsChain_append dusartPrimeRows_9419_9900_part03_chain (dusartPrimeRowsChain_append dusartPrimeRows_9419_9900_part04_chain (dusartPrimeRowsChain_append dusartPrimeRows_9419_9900_part05_chain (dusartPrimeRowsChain_append dusartPrimeRows_9419_9900_part06_chain (dusartPrimeRows_9419_9900_part07_chain))))))
+set_option maxHeartbeats 20000000 in
+def dusartPrimeRows_3275_9900 : List DusartPrimeRow :=
+  dusartPrimeRows_3275_9418 ++ dusartPrimeRows_9419_9900
 
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_16319_17158_part07 : List DusartPrimeRow :=
-  [
-    dusartPrimeRow_of_explicit_17154 (p := 16823) (q := 16829) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_17154 (p := 16829) (q := 16831) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_17154 (p := 16831) (q := 16843) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_17154 (p := 16843) (q := 16871) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_17154 (p := 16871) (q := 16879) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_17154 (p := 16879) (q := 16883) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_17154 (p := 16883) (q := 16889) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_17154 (p := 16889) (q := 16901) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-  ]
-
-set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_16319_17158_part07_chain :
-    DusartPrimeRowsChain 16823 16901 dusartPrimeRows_16319_17158_part07 := by
-  apply dusartPrimeRowsChain_of_data
-  decide +kernel
+theorem dusartPrimeRows_3275_9900_chain :
+    DusartPrimeRowsChain 3275 9900 dusartPrimeRows_3275_9900 := by
+  exact dusartPrimeRowsChain_append
+    dusartPrimeRows_3275_9418_chain dusartPrimeRows_9419_9900_chain

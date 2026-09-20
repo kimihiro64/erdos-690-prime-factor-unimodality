@@ -1,0 +1,18 @@
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart169
+
+set_option autoImplicit false
+set_option maxRecDepth 100000
+
+/-! # Lower finite Dusart prefix chunk 170 -/
+
+namespace PrimeFactorUnimodality
+
+noncomputable section
+set_option maxHeartbeats 20000000 in
+def dusartPrimeRows_13367_14050 : List DusartPrimeRow :=
+  dusartPrimeRows_13367_14050_part01 ++ dusartPrimeRows_13367_14050_part02 ++ dusartPrimeRows_13367_14050_part03 ++ dusartPrimeRows_13367_14050_part04 ++ dusartPrimeRows_13367_14050_part05 ++ dusartPrimeRows_13367_14050_part06 ++ dusartPrimeRows_13367_14050_part07 ++ dusartPrimeRows_13367_14050_part08 ++ dusartPrimeRows_13367_14050_part09
+
+set_option maxHeartbeats 20000000 in
+theorem dusartPrimeRows_13367_14050_chain :
+    DusartPrimeRowsChain 13367 14050 dusartPrimeRows_13367_14050 := by
+  exact dusartPrimeRowsChain_append dusartPrimeRows_13367_14050_part01_chain (dusartPrimeRowsChain_append dusartPrimeRows_13367_14050_part02_chain (dusartPrimeRowsChain_append dusartPrimeRows_13367_14050_part03_chain (dusartPrimeRowsChain_append dusartPrimeRows_13367_14050_part04_chain (dusartPrimeRowsChain_append dusartPrimeRows_13367_14050_part05_chain (dusartPrimeRowsChain_append dusartPrimeRows_13367_14050_part06_chain (dusartPrimeRowsChain_append dusartPrimeRows_13367_14050_part07_chain (dusartPrimeRowsChain_append dusartPrimeRows_13367_14050_part08_chain (dusartPrimeRows_13367_14050_part09_chain))))))))
