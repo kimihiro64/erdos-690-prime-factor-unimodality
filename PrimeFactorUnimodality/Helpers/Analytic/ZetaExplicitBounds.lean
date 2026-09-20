@@ -204,7 +204,8 @@ theorem zetaZeroFree_explicit :
     ∃ (A : Real) (_ : A ∈ Ioc 0 (1 / 2)) (c : Real) (_ : 0 < c),
     ∀ (σ t : Real) (_ : 3 < |t|)
       (_ : σ ∈ Ico (1 - A / (Real.log |t|) ^ 9) 1),
-      riemannZeta (σ + t * Complex.I) ≠ 0 := by
+      c / (Real.log |t|) ^ 7 ≤ ‖riemannZeta (σ + t * Complex.I)‖ ∧
+        riemannZeta (σ + t * Complex.I) ≠ 0 := by
   let C₁ : Real := 1 / (3 ^ ((3 : Real) / 4) *
     (2 * (Real.exp (1 / 2 : Real) * (5 + 8 * 2))) ^ ((1 : Real) / 4))
   let C₂ : Real := Real.exp (1 / 2 : Real) * 59
@@ -311,10 +312,31 @@ theorem zetaZeroFree_explicit :
       nlinarith [hlower', hdiffsymm]
     exact hmain.trans (by
       convert htriangle using 1 <;> ring)
+  refine ⟨hnorm, ?_⟩
   intro hz
   have : ‖riemannZeta (σ + t * Complex.I)‖ = 0 := by simp [hz]
   have hpos : 0 < c / Real.log |t| ^ 7 := by positivity
   linarith
+
+theorem zetaLowerBnd_explicit :
+    ∃ (A : Real) (_ : A ∈ Ioc 0 (1 / 2)) (c : Real) (_ : 0 < c),
+    ∀ (σ t : Real) (_ : 3 < |t|)
+      (_ : σ ∈ Ico (1 - A / (Real.log |t|) ^ 9) 1),
+      c / (Real.log |t|) ^ 7 ≤ ‖riemannZeta (σ + t * Complex.I)‖ := by
+  obtain ⟨A, hA, c, hc, h⟩ := zetaZeroFree_explicit
+  refine ⟨A, hA, c, hc, ?_⟩
+  intro σ t ht hσ
+  exact (h σ t ht hσ).1
+
+theorem zetaZeroFree_explicit_only :
+    ∃ (A : Real) (_ : A ∈ Ioc 0 (1 / 2)),
+    ∀ (σ t : Real) (_ : 3 < |t|)
+      (_ : σ ∈ Ico (1 - A / (Real.log |t|) ^ 9) 1),
+      riemannZeta (σ + t * Complex.I) ≠ 0 := by
+  obtain ⟨A, hA, c, hc, h⟩ := zetaZeroFree_explicit
+  refine ⟨A, hA, ?_⟩
+  intro σ t ht hσ
+  exact (h σ t ht hσ).2
 
 
 end
