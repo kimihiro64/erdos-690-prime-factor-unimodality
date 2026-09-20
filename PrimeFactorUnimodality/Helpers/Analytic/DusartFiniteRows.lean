@@ -861,6 +861,37 @@ theorem dusartLemma33FiniteRowsIndexedCover_append
     · simpa [Fin.append_right] using hright_lower
     · simpa [Fin.append_right] using hright_upper
 
+/-! A bounded computation is assembled from reusable indexed chunks.  The
+    chunk stores one row function and one coverage proof; concatenation keeps
+    the kernel-facing representation independent of the number of generated
+    witness declarations. -/
+structure DusartLemma33FiniteChunk where
+  n : Nat
+  cutoff : Real
+  rows : Fin n → DusartLemma33FiniteRow
+  cover : DusartLemma33FiniteRowsIndexedCover rows cutoff
+
+theorem DusartLemma33FiniteChunk.provides
+    (chunk : DusartLemma33FiniteChunk) :
+    ∀ x : Real, 0 < x → x ≤ chunk.cutoff →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  exact dusart_lemma_3_3_finite_of_indexed_rows chunk.cover
+
+def DusartLemma33FiniteChunk.append
+    (left right : DusartLemma33FiniteChunk) : DusartLemma33FiniteChunk :=
+  { n := left.n + right.n
+    cutoff := right.cutoff
+    rows := Fin.append left.rows right.rows
+    cover := dusartLemma33FiniteRowsIndexedCover_append
+      left.cover right.cover }
+
+theorem DusartLemma33FiniteChunk.append_provides
+    (left right : DusartLemma33FiniteChunk) :
+    (DusartLemma33FiniteChunk.append left right).provides := by
+  exact (DusartLemma33FiniteChunk.append left right).provides
+
 theorem dusart_lemma_3_3_finite_rows_cover_append
     {left right : List DusartLemma33FiniteRow} {m X : Real}
     (hleft : DusartLemma33FiniteRowsCover left m)
