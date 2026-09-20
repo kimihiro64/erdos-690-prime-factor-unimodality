@@ -1,4 +1,4 @@
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart23
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowBase
 
 set_option autoImplicit false
 set_option maxRecDepth 100000
@@ -9,31 +9,20 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_3275_4672 : List DusartPrimeRow :=
-  dusartPrimeRows_3275_3802 ++ dusartPrimeRows_3803_4672
-
-set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_3275_4672_chain :
-    DusartPrimeRowsChain 3275 4672 dusartPrimeRows_3275_4672 := by
-  exact dusartPrimeRowsChain_append
-    dusartPrimeRows_3275_3802_chain
-    dusartPrimeRows_3803_4672_chain
-
-set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_4673_4918_part01 : List DusartPrimeRow :=
+def dusartPrimeRows_4673_4918_part02 : List DusartPrimeRow :=
   [
-    dusartPrimeRow_of_explicit_4914 (p := 4673) (q := 4679) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4914 (p := 4679) (q := 4691) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4914 (p := 4691) (q := 4703) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4914 (p := 4703) (q := 4721) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4914 (p := 4721) (q := 4723) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4914 (p := 4723) (q := 4729) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4914 (p := 4729) (q := 4733) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_4914 (p := 4733) (q := 4751) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_4914 (p := 4751) (q := 4759) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_4914 (p := 4759) (q := 4783) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_4914 (p := 4783) (q := 4787) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_4914 (p := 4787) (q := 4789) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_4914 (p := 4789) (q := 4793) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_4914 (p := 4793) (q := 4799) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_4914 (p := 4799) (q := 4801) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_4914 (p := 4801) (q := 4813) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
   ]
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_4673_4918_part01_chain :
-    DusartPrimeRowsChain 4673 4751 dusartPrimeRows_4673_4918_part01 := by
+theorem dusartPrimeRows_4673_4918_part02_chain :
+    DusartPrimeRowsChain 4751 4813 dusartPrimeRows_4673_4918_part02 := by
   apply dusartPrimeRowsChain_of_data
   decide +kernel

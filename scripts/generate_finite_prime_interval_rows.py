@@ -233,40 +233,52 @@ def finitePrimeIntervalRowsLowPartCount : Nat := {part_count}
 
 
 def low_modules(body: str) -> dict[str, str]:
-    """Split the lower prefix at complete row-list/chain family boundaries."""
+    """Split row data into independent chunks and assemble it in the facade.
+
+    The generated row chunks deliberately do not import one another.  A
+    sequential import chain makes the last chunk retain every earlier chunk
+    during elaboration, defeating the purpose of sharding.  Aggregate list
+    definitions and their chain proofs are small and belong in ``Low.lean``,
+    after all row chunks have been imported.
+    """
     marker = re.compile(
         r"(?m)^set_option maxHeartbeats 20000000 in\ndef dusartPrimeRows_"
     )
     starts = [match.start() for match in marker.finditer(body)]
     assert starts
-    # `split_large_row_families` emits a definition for every compact part,
-    # followed by the append definition for the original family.  Earlier
-    # versions selected every other marker because the unsplit source had a
-    # different marker layout; after splitting that skipped valid boundaries
-    # and produced oversized LowPart modules.
     family_starts = starts
     family_count = len(family_starts)
+    segments = [
+        body[start : family_starts[index + 1] if index + 1 < family_count else len(body)]
+        for index, start in enumerate(family_starts)
+    ]
+    part_segments: list[str] = []
+    aggregate_segments: list[str] = []
+    for segment in segments:
+        match = re.search(r"\ndef (dusartPrimeRows_[A-Za-z0-9_]+)", segment)
+        assert match, segment[:200]
+        if "_part" in match.group(1):
+            part_segments.append(segment)
+        else:
+            aggregate_segments.append(segment)
+
     result = {
         "LowBase.lean": (LOW_HEADER + body[:family_starts[0]] + CHAIN_ASSEMBLER).rstrip() + "\n"
     }
-    previous = "LowBase"
     ranges: list[tuple[int, int]] = []
     offset = 0
-    while offset < family_count:
+    while offset < len(part_segments):
         end_family = offset + 1
-        while end_family < family_count:
-            start = family_starts[offset]
-            candidate_end = family_starts[end_family] if end_family < family_count else len(body)
-            if candidate_end - start > LOW_MODULE_TARGET_BYTES:
+        while end_family < len(part_segments):
+            candidate = "".join(part_segments[offset:end_family + 1])
+            if len(candidate) > LOW_MODULE_TARGET_BYTES:
                 break
             end_family += 1
         ranges.append((offset, end_family))
         offset = end_family
     for part, (offset, end_family) in enumerate(ranges, 1):
-        start = family_starts[offset]
-        end = family_starts[end_family] if end_family < family_count else len(body)
         module = f"LowPart{part:02d}"
-        header = f"""import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.{previous}
+        header = f"""import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowBase
 
 set_option autoImplicit false
 set_option maxRecDepth 100000
@@ -277,10 +289,17 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 """
-        result[f"{module}.lean"] = (header + body[start:end]).rstrip() + "\n"
-        previous = module
-    assert previous == f"LowPart{len(ranges):02d}"
-    result["Low.lean"] = low_facade(len(ranges))
+        result[f"{module}.lean"] = (header + "".join(part_segments[offset:end_family])).rstrip() + "\n"
+    imports = "\n".join(
+        f"import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart{part:02d}"
+        for part in range(1, len(ranges) + 1)
+    )
+    result["Low.lean"] = (
+        imports
+        + "\n\nset_option autoImplicit false\nset_option maxRecDepth 100000\n\n"
+        + "namespace PrimeFactorUnimodality\n\nnoncomputable section\n"
+        + "".join(aggregate_segments)
+    ).rstrip() + "\n"
     result["LowManifest.lean"] = low_manifest(len(ranges))
     return result
 

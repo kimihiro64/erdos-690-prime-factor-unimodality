@@ -1,4 +1,4 @@
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart116
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowBase
 
 set_option autoImplicit false
 set_option maxRecDepth 100000
@@ -9,19 +9,18 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_9901_10426 : List DusartPrimeRow :=
-  dusartPrimeRows_9901_10426_part01 ++ dusartPrimeRows_9901_10426_part02 ++ dusartPrimeRows_9901_10426_part03 ++ dusartPrimeRows_9901_10426_part04 ++ dusartPrimeRows_9901_10426_part05 ++ dusartPrimeRows_9901_10426_part06 ++ dusartPrimeRows_9901_10426_part07
+def dusartPrimeRows_10427_10938_part07 : List DusartPrimeRow :=
+  [
+    dusartPrimeRow_of_explicit_10938 (p := 10883) (q := 10889) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_10938 (p := 10889) (q := 10891) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_10938 (p := 10891) (q := 10903) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_10938 (p := 10903) (q := 10909) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_10938 (p := 10909) (q := 10937) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_10938 (p := 10937) (q := 10939) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+  ]
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_9901_10426_chain :
-    DusartPrimeRowsChain 9901 10426 dusartPrimeRows_9901_10426 := by
-  exact dusartPrimeRowsChain_append dusartPrimeRows_9901_10426_part01_chain (dusartPrimeRowsChain_append dusartPrimeRows_9901_10426_part02_chain (dusartPrimeRowsChain_append dusartPrimeRows_9901_10426_part03_chain (dusartPrimeRowsChain_append dusartPrimeRows_9901_10426_part04_chain (dusartPrimeRowsChain_append dusartPrimeRows_9901_10426_part05_chain (dusartPrimeRowsChain_append dusartPrimeRows_9901_10426_part06_chain (dusartPrimeRows_9901_10426_part07_chain))))))
-set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_3275_10426 : List DusartPrimeRow :=
-  dusartPrimeRows_3275_9900 ++ dusartPrimeRows_9901_10426
-
-set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_3275_10426_chain :
-    DusartPrimeRowsChain 3275 10426 dusartPrimeRows_3275_10426 := by
-  exact dusartPrimeRowsChain_append
-    dusartPrimeRows_3275_9900_chain dusartPrimeRows_9901_10426_chain
+theorem dusartPrimeRows_10427_10938_part07_chain :
+    DusartPrimeRowsChain 10883 10939 dusartPrimeRows_10427_10938_part07 := by
+  apply dusartPrimeRowsChain_of_data
+  decide +kernel

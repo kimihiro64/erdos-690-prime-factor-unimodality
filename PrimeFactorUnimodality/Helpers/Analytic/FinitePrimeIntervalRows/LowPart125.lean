@@ -1,4 +1,4 @@
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart124
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowBase
 
 set_option autoImplicit false
 set_option maxRecDepth 100000
@@ -9,19 +9,15 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_10427_10938 : List DusartPrimeRow :=
-  dusartPrimeRows_10427_10938_part01 ++ dusartPrimeRows_10427_10938_part02 ++ dusartPrimeRows_10427_10938_part03 ++ dusartPrimeRows_10427_10938_part04 ++ dusartPrimeRows_10427_10938_part05 ++ dusartPrimeRows_10427_10938_part06 ++ dusartPrimeRows_10427_10938_part07
+def dusartPrimeRows_10939_11502_part08 : List DusartPrimeRow :=
+  [
+    dusartPrimeRow_of_explicit_11498 (p := 11489) (q := 11491) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_11498 (p := 11491) (q := 11497) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_11498 (p := 11497) (q := 11503) (by decide) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+  ]
 
 set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_10427_10938_chain :
-    DusartPrimeRowsChain 10427 10938 dusartPrimeRows_10427_10938 := by
-  exact dusartPrimeRowsChain_append dusartPrimeRows_10427_10938_part01_chain (dusartPrimeRowsChain_append dusartPrimeRows_10427_10938_part02_chain (dusartPrimeRowsChain_append dusartPrimeRows_10427_10938_part03_chain (dusartPrimeRowsChain_append dusartPrimeRows_10427_10938_part04_chain (dusartPrimeRowsChain_append dusartPrimeRows_10427_10938_part05_chain (dusartPrimeRowsChain_append dusartPrimeRows_10427_10938_part06_chain (dusartPrimeRows_10427_10938_part07_chain))))))
-set_option maxHeartbeats 20000000 in
-def dusartPrimeRows_3275_10938 : List DusartPrimeRow :=
-  dusartPrimeRows_3275_10426 ++ dusartPrimeRows_10427_10938
-
-set_option maxHeartbeats 20000000 in
-theorem dusartPrimeRows_3275_10938_chain :
-    DusartPrimeRowsChain 3275 10938 dusartPrimeRows_3275_10938 := by
-  exact dusartPrimeRowsChain_append
-    dusartPrimeRows_3275_10426_chain dusartPrimeRows_10427_10938_chain
+theorem dusartPrimeRows_10939_11502_part08_chain :
+    DusartPrimeRowsChain 11489 11503 dusartPrimeRows_10939_11502_part08 := by
+  apply dusartPrimeRowsChain_of_data
+  decide +kernel

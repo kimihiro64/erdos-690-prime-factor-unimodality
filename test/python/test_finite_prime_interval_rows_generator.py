@@ -30,11 +30,10 @@ def test_finite_prime_interval_rows_low_generation_is_sharded(tmp_path, monkeypa
         path = tmp_path / f"LowPart{part:02d}.lean"
         assert path.exists()
         assert path.stat().st_size <= 4_000
-        if part == 1:
-            expected = "LowBase"
-        else:
-            expected = f"LowPart{part - 1:02d}"
-        assert f".{expected}\n" in path.read_text()
+        assert ".LowBase\n" in path.read_text()
+
+    assert ".LowPart01\n" in facade
+    assert ".LowPart02\n" in facade
 
     assert not list(tmp_path.glob(f"LowPart{count + 1:02d}.lean"))
     assert not (tmp_path / "LowPart99.lean").exists()
