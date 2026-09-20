@@ -259,10 +259,9 @@ theorem zetaZeroFree_explicit :
         ‖riemannZeta (σ' + t * Complex.I)‖ := by
       simpa [C₁] using hlower
     apply hbase.trans'
-    dsimp [σ']
-    rw [sub_add_cancel, div_rpow (le_of_lt hA.1) (by positivity),
-      Real.rpow_div_natCast, ← Real.rpow_add (by positivity)]
-    norm_num
+    norm_num only [σ', add_sub_cancel_left, A.div_rpow hA.1.le, mul_div,
+      pow_pos, ← Real.rpow_natCast, ← Real.rpow_mul, le_of_lt,
+      Real.log_pos, refl, div_div, ← Real.rpow_sub]
   have hdiff := zetaDiffBnd_explicit σ σ' t ht
   have hdiff' :
       ‖riemannZeta (σ + t * Complex.I) -
