@@ -4,6 +4,7 @@ import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
 import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33Midrange
 import PrimeFactorUnimodality.Helpers.Analytic.DusartIntermediateIndex
 import PrimeFactorUnimodality.Helpers.Analytic.DusartPowerSumAssembly
+import PrimeFactorUnimodality.Helpers.Analytic.DusartIntermediatePower
 import PrimeFactorUnimodality.Mathlib
 import PrimeFactorUnimodality.Proof.CompleteClassification
 import PrimeFactorUnimodality.Proof.Analytic.WangCrapisClosed
