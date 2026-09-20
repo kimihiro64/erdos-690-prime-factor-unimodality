@@ -329,6 +329,16 @@ structure StrictThetaUpperRow where
   theta_right_le : Chebyshev.theta right ≤ theta_upper
   upper_error : theta_upper - left < 0
 
+def strictThetaUpperRow_singleton (n : Nat) (hn : 2 ≤ n)
+    (hupper : Chebyshev.theta n < n) : StrictThetaUpperRow :=
+  { left := n
+    right := n
+    left_large := hn
+    left_le_right := le_rfl
+    theta_upper := Chebyshev.theta n
+    theta_right_le := le_rfl
+    upper_error := by simpa using hupper }
+
 def StrictThetaUpperRowsCoverUpTo
     (rows : List StrictThetaUpperRow) (X : Real) : Prop :=
   ∀ x : Real, 2 ≤ x → x ≤ X →
