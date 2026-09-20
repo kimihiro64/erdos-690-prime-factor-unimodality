@@ -1,6 +1,7 @@
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
 import PrimeFactorUnimodality.Helpers.Analytic.DecayToLogFourth
 import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
+import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
 
 set_option autoImplicit false
 
@@ -29,6 +30,17 @@ theorem wangCrapis_thetaPrefix :
     HasDusartSymmetricThetaBoundsBelow (2 : Real) := by
   exact hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
     dusartThetaEndpointRow_two_cover
+
+theorem wangCrapis_theta_upper_e28_from_paper_inputs
+    {x : Real} (hx : (8e11 : Real) ≤ x)
+    (hx_exp : x ≤ Real.exp 28)
+    (hpsi_error : |Chebyshev.psi x - x| ≤
+      (2841 : Real) / 100000000 * x)
+    (hgap : (9999 : Real) / 10000 * Real.sqrt x ≤
+      Chebyshev.psi x - Chebyshev.theta x) :
+    Chebyshev.theta x - x ≤ x / 36260 := by
+  exact dusart_theta_upper_e28_from_absolute_psi_error
+    hx hx_exp hpsi_error hgap
 
 /-! Exact assembly boundary for the theta provider.  The finite endpoint
 proof and the explicit log-fourth tail remain separate inputs until both are
