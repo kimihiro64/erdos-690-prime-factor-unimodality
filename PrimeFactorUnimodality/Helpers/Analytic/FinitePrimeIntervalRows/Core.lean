@@ -369,7 +369,7 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_two_indexed_prime_gap_certificates
     hasLogCubedShortIntervalPrimeBelow_of_indexed_prime_gap_certificate
       (by linarith [hm, hXm]) hXb₂ second secondWidth
   intro x hx hX
-  by_cases hxm : x < m + 1
+  by_cases hxm : x ≤ (m : Real)
   · exact firstBound x hx hxm
   · exact secondBound x hx hX
 
