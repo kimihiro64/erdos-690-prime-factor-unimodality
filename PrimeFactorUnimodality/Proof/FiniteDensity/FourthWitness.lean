@@ -39,7 +39,7 @@ theorem fourthNaturalDensityAt13 :
     4 (p := 13) (by decide)
   have hp : primesBelow 13 = primesBefore13 := by
     rw [primesBelow_eq_computablePrimesBelow]
-    norm_num [computablePrimesBelow, isPrimeTrial]
+    decide +kernel
   rw [hp, fourthDensityAt13] at h
   exact h
 
@@ -50,7 +50,7 @@ theorem fourthNaturalDensityAt17 :
     4 (p := 17) (by decide)
   have hp : primesBelow 17 = primesBefore17 := by
     rw [primesBelow_eq_computablePrimesBelow]
-    norm_num [computablePrimesBelow, isPrimeTrial]
+    decide +kernel
   rw [hp, fourthDensityAt17] at h
   exact h
 
@@ -61,7 +61,7 @@ theorem fourthNaturalDensityAt19 :
     4 (p := 19) (by decide)
   have hp : primesBelow 19 = primesBefore19 := by
     rw [primesBelow_eq_computablePrimesBelow]
-    norm_num [computablePrimesBelow, isPrimeTrial]
+    decide +kernel
   rw [hp, fourthDensityAt19] at h
   exact h
 
