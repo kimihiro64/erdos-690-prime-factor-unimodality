@@ -31,7 +31,7 @@ theorem dusart_gap_from_theta_root_lower
 
 theorem dusart_theta_upper_tail_step
     {x : Real} (hx : (8e11 : Real) ≤ x)
-    (hx_upper : x ≤ (1446000000000 : Real))
+    (hx_upper : x ≤ (1446257064292 : Real))
     (hpsi : Chebyshev.psi x ≤ (100002841 : Real) / 100000000 * x)
     (hgap : (9999 : Real) / 10000 * Real.sqrt x ≤
       Chebyshev.psi x - Chebyshev.theta x) :
@@ -47,15 +47,15 @@ theorem dusart_theta_upper_tail_step
     have hsqrt_lower : (894000 : Real) ≤ Real.sqrt x := by
       apply (Real.le_sqrt' (by norm_num : (0 : Real) < 894000)).2
       nlinarith
-    have hsqrt_upper : Real.sqrt x ≤ (1202500 : Real) := by
+    have hsqrt_upper : Real.sqrt x ≤ (1202668 : Real) := by
       apply (Real.sqrt_le_iff).2
       constructor
       · norm_num
       · nlinarith
-    have hxs : x ≤ (1202500 : Real) * Real.sqrt x := by
+    have hxs : x ≤ (1202668 : Real) * Real.sqrt x := by
       calc
         x = Real.sqrt x * Real.sqrt x := by nlinarith [hsqrt_sq]
-        _ ≤ (1202500 : Real) * Real.sqrt x :=
+        _ ≤ (1202668 : Real) * Real.sqrt x :=
           mul_le_mul_of_nonneg_right hsqrt_upper hsqrt_nonneg
     nlinarith
   linarith
