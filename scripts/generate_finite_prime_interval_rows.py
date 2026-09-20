@@ -25,7 +25,13 @@ ROW_PART_SIZE = 8
 # Keep each generated module small enough that its local arithmetic proof does
 # not retain the entire lower-prefix row family during elaboration.  The
 # module count remains proportional to row chunks, rather than to witnesses.
-LOW_MODULE_TARGET_BYTES = 1_000
+# Keep the row family in a small number of independently cacheable modules.
+# The old 1 KiB threshold produced hundreds of nearly empty modules because
+# each module repeated the local Pocklington support.  A bounded data shard is
+# still preferable to one monolithic file, but the shard should amortize that
+# shared support and leave the reusable row assembler—not the filesystem—as
+# the unit of composition.
+LOW_MODULE_TARGET_BYTES = 32_000
 
 
 def factor_nat(n: int) -> list[int]:
