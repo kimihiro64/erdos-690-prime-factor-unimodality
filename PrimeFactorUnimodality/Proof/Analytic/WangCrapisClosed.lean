@@ -122,7 +122,7 @@ use for their public all-`k` declarations.
 
 The exact proof obligations and final readiness gate are recorded in
 `LEAN_COMPLETION_HANDOFF.md`.  This file intentionally contains no provisional
-declaration: a `sorry`, axiom, or bodyless constant would hide the live gap.
+declaration: an axiom or bodyless constant would hide the live gap.
 -/
 
 /-! The public package boundary is fully structural: callers must provide the
