@@ -33,13 +33,13 @@ def ValidSub (owner : FullRecordGapOwner) (d : Nat) : Prop :=
   match owner with
   | .tail q => q ∈ recordGapPrimeList ∧ q ∣ d
   | .residue q r =>
-      2 ≤ q ∧ q ≤ 3_100_000_000 ∧ recordGapCenter % q = r ∧ d % q = r
+      2 ≤ q ∧ q ≤ 100_000_000_000 ∧ recordGapCenter % q = r ∧ d % q = r
 
 def ValidAdd (owner : FullRecordGapOwner) (d : Nat) : Prop :=
   match owner with
   | .tail q => q ∈ recordGapPrimeList ∧ q ∣ d
   | .residue q r =>
-      2 ≤ q ∧ q ≤ 3_100_000_000 ∧ recordGapCenter % q = r ∧
+      2 ≤ q ∧ q ≤ 100_000_000_000 ∧ recordGapCenter % q = r ∧
         d % q = (q - r) % q
 
 theorem sub_not_prime {owner : FullRecordGapOwner} {d : Nat}
