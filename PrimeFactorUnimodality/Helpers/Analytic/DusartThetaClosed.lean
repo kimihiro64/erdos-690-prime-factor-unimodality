@@ -73,6 +73,40 @@ theorem dusart_proposition_5_1_of_three_ranges
     · exact middle x (le_of_not_ge hfinite) hmiddle
     · exact tail x (le_of_not_ge hmiddle)
 
+/-! The finite part of the paper's Table 6.4 is represented by compact indexed
+endpoint rows. The assembler proves both theta inequalities on every real
+point covered by those rows, including points between consecutive endpoints. -/
+theorem wangCrapis_thetaBounds_of_indexed_endpoint_rows_and_tail
+    {A X : Real} {n : Nat}
+    (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (rows : Fin n → DusartThetaEndpointRow)
+    (cover : DusartThetaEndpointIndexedCoverUpTo rows X)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds := by
+  exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
+    (hasDusartSymmetricThetaBoundsBelow_of_indexed_endpoint_rows cover)
+    hA_nonneg hA thetaError
+
+/-! Paper-facing form when a separately proved prefix is followed by an
+indexed Table 6.4 suffix. -/
+theorem wangCrapis_thetaBounds_of_indexed_prefix_endpoint_rows_and_tail
+    {A X x₀ : Real} {n : Nat}
+    (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (hx₀ : (2 : Real) ≤ x₀)
+    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (rows : Fin n → DusartThetaEndpointRow)
+    (cover : DusartThetaEndpointIndexedCoverFrom rows x₀ X)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds := by
+  exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
+    (hasDusartSymmetricThetaBoundsBelow_of_indexed_prefix_and_endpoint_rows
+      hx₀ prefix cover)
+    hA_nonneg hA thetaError
+
 theorem wangCrapis_large_root_gap_from_strict_theta_error
     {x : Real} (hx : (4e18 : Real) ^ 2 ≤ x)
     (herror : ∀ y : Real, (4e18 : Real) ≤ y →
