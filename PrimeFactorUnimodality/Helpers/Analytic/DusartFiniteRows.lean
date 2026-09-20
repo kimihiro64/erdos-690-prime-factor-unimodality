@@ -58,6 +58,52 @@ def dusartLemma33FiniteRow_of_zero
       norm_num
       positivity }
 
+/-! A nonzero endpoint check controls the whole half-open unit interval.  This
+is the reduction used by the bounded computation: the two Chebyshev terms at
+`x` are constant on `[n,n+1)`, while the square-root term only increases and
+the target power is monotone. -/
+def dusartLemma33FiniteRow_of_integer_endpoint
+    (n : Nat)
+    (hvalid : Chebyshev.psi (n : Real) - Chebyshev.theta n -
+        Chebyshev.theta (Real.sqrt n) <
+      (1777745 : Real) / 1000000 * (n : Real) ^ (1 / (3 : Real))) :
+    DusartLemma33FiniteRow := by
+  refine {
+    left := n
+    right := n
+    left_le_right := by rfl
+    valid := ?_ }
+  intro x hx hleft hright
+  have hn_le_x : (n : Real) ≤ x := hleft
+  have hfloor : ⌊x⌋₊ = n := by
+    apply (Nat.floor_eq_iff (by linarith : (0 : Real) ≤ x)).2
+    constructor
+    · exact hleft
+    · simpa using hright
+  have hpsi_floor := Chebyshev.psi_eq_psi_coe_floor x
+  have htheta_floor := Chebyshev.theta_eq_theta_coe_floor x
+  rw [hpsi_floor, htheta_floor, hfloor]
+  have hsqrt : Real.sqrt (n : Real) ≤ Real.sqrt x := by
+    exact Real.sqrt_le_sqrt hn_le_x
+  have htheta_sqrt : Chebyshev.theta (Real.sqrt (n : Real)) ≤
+      Chebyshev.theta (Real.sqrt x) := Chebyshev.theta_mono hsqrt
+  have hleft_value : Chebyshev.psi (n : Real) - Chebyshev.theta (n : Real) -
+      Chebyshev.theta (Real.sqrt x) ≤
+      Chebyshev.psi (n : Real) - Chebyshev.theta (n : Real) -
+        Chebyshev.theta (Real.sqrt (n : Real)) := by
+    linarith
+  have hrpow : (n : Real) ^ (1 / (3 : Real)) ≤
+      x ^ (1 / (3 : Real)) := by
+    exact Real.rpow_le_rpow (by positivity) hn_le_x (by norm_num)
+  calc
+    Chebyshev.psi (n : Real) - Chebyshev.theta (n : Real) -
+        Chebyshev.theta (Real.sqrt x) ≤
+      Chebyshev.psi (n : Real) - Chebyshev.theta (n : Real) -
+        Chebyshev.theta (Real.sqrt (n : Real)) := hleft_value
+    _ < (1777745 : Real) / 1000000 * (n : Real) ^ (1 / (3 : Real)) := hvalid
+    _ ≤ (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+      exact mul_le_mul_of_nonneg_left hrpow (by norm_num)
+
 def dusartLemma33FiniteRow_zero_one : DusartLemma33FiniteRow :=
   { left := 0
     right := 1
