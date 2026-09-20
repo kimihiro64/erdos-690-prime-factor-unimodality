@@ -26,6 +26,10 @@ body = body.replace(
     "zetaLogDeriv_explicit_bounded_and_holo",
     1,
 )
+if "LogDerivZetaBoundedAndHolo" in body:
+    raise RuntimeError("the generated proof still uses the package bound")
+if "zetaLogDeriv_explicit_bounded_and_holo" not in body:
+    raise RuntimeError("explicit zeta input was not inserted")
 header = """import PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
 import PrimeNumberTheoremAnd.MediumPNT
 
