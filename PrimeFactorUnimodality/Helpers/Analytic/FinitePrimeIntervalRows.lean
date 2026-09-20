@@ -317,10 +317,10 @@ structure DusartThetaEndpointRow where
   lower_lower_error : right - theta_lower <
     (12323 / 10000 : Real) * (left : Real) / Real.log right
 
-/-! Exact singleton endpoint facts are useful as the seed rows of generated
-finite tables.  They do not appeal to a pre-packaged Dusart estimate: at a
-singleton both endpoint errors are zero, and the remaining obligations are
-just positivity of `log 2`. -/
+/-! A singleton endpoint row is only sound when its three numerical endpoint
+inequalities have already been proved.  Keeping those inequalities explicit
+prevents a singleton constructor from being mistaken for a proof of a
+nontrivial theta estimate. -/
 def dusartThetaEndpointRow_two : DusartThetaEndpointRow :=
   { left := 2
     right := 2
@@ -343,7 +343,12 @@ def dusartThetaEndpointRow_two : DusartThetaEndpointRow :=
       norm_num
       positivity }
 
-def dusartThetaEndpointRow_singleton (n : Nat) (hn : 2 ≤ n) :
+def dusartThetaEndpointRow_singleton (n : Nat) (hn : 2 ≤ n)
+    (hupper : Chebyshev.theta n - n < (n : Real) / 36260)
+    (hlower_upper : Chebyshev.theta n - n <
+      (12323 / 10000 : Real) * (n : Real) / Real.log n)
+    (hlower_lower : (n : Real) - Chebyshev.theta n <
+      (12323 / 10000 : Real) * (n : Real) / Real.log n) :
     DusartThetaEndpointRow :=
   { left := n
     right := n
@@ -353,24 +358,9 @@ def dusartThetaEndpointRow_singleton (n : Nat) (hn : 2 ≤ n) :
     theta_upper := Chebyshev.theta n
     theta_lower_le := le_rfl
     theta_right_le := le_rfl
-    upper_error := by
-      have hnreal : (1 : Real) < n := by
-        exact_mod_cast lt_of_lt_of_le (by norm_num) hn
-      have hlog : 0 < Real.log (n : Real) := Real.log_pos hnreal
-      norm_num
-      positivity
-    lower_upper_error := by
-      have hnreal : (1 : Real) < n := by
-        exact_mod_cast lt_of_lt_of_le (by norm_num) hn
-      have hlog : 0 < Real.log (n : Real) := Real.log_pos hnreal
-      norm_num
-      positivity
-    lower_lower_error := by
-      have hnreal : (1 : Real) < n := by
-        exact_mod_cast lt_of_lt_of_le (by norm_num) hn
-      have hlog : 0 < Real.log (n : Real) := Real.log_pos hnreal
-      norm_num
-      positivity }
+    upper_error := hupper
+    lower_upper_error := hlower_upper
+    lower_lower_error := hlower_lower }
 
 def DusartThetaEndpointRowsCoverUpTo
     (rows : List DusartThetaEndpointRow) (X : Real) : Prop :=
@@ -392,13 +382,19 @@ theorem dusartThetaEndpointRow_two_cover :
   subst x
   exact ⟨dusartThetaEndpointRow_two, by simp, by norm_num, by norm_num⟩
 
-theorem dusartThetaEndpointRow_singleton_cover (n : Nat) (hn : 2 ≤ n) :
+theorem dusartThetaEndpointRow_singleton_cover (n : Nat) (hn : 2 ≤ n)
+    (hupper : Chebyshev.theta n - n < (n : Real) / 36260)
+    (hlower_upper : Chebyshev.theta n - n <
+      (12323 / 10000 : Real) * (n : Real) / Real.log n)
+    (hlower_lower : (n : Real) - Chebyshev.theta n <
+      (12323 / 10000 : Real) * (n : Real) / Real.log n) :
     DusartThetaEndpointRowsCoverFrom
-      [dusartThetaEndpointRow_singleton n hn] n n := by
+      [dusartThetaEndpointRow_singleton n hn hupper hlower_upper hlower_lower] n n := by
   intro x hx hX
   have hxN : x = n := by exact_mod_cast le_antisymm hX hx
   subst x
-  exact ⟨dusartThetaEndpointRow_singleton n hn, by simp, by norm_num, by norm_num⟩
+  exact ⟨dusartThetaEndpointRow_singleton n hn hupper hlower_upper hlower_lower,
+    by simp, by norm_num, by norm_num⟩
 
 def DusartThetaEndpointIndexedCoverUpTo {n : Nat}
     (rows : Fin n → DusartThetaEndpointRow) (X : Real) : Prop :=
