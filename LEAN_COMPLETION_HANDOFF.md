@@ -508,3 +508,9 @@ boundary, but it does not yet discharge Dusart's fixed numerical theta error:
 the explicit-formula constants and cutoff still need to be connected to
 `HasThetaLogFourthErrorAbove (648 / 1000)`, before any finite endpoint rows
 can be treated as the final providers.
+
+The source boundary after this adapter is now explicit: the remaining work is
+the paper's finite Table 6.4, Proposition 3.1, and Lemma 3.3 computations,
+together with the finite prime-counting and short-interval assemblers.  Do not
+reopen the zeta/PNT source route while those rows are being constructed; keep
+the computations behind indexed reusable row interfaces.
