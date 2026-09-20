@@ -2452,14 +2452,32 @@ def dusartIntermediateCoeff : Nat → Nat → Nat
   | 109, 31 => 1
   | _, _ => 0
 
+private theorem dusartIntermediateCoeff_power_of_fixed_N
+    {N k : Nat} (hN : 23 ≤ N) (hN' : N ≤ 109)
+    (hk : 4 ≤ k) (hk' : k ≤ 31) :
+    (1 : Real) ≤
+      ((dusartIntermediateCoeff N k : Real) / 10000) ^ (3 * k) *
+        (2 ^ N : Real) ^ (k - 3) := by
+  interval_cases k <;>
+    norm_num [dusartIntermediateCoeff]
+
 theorem dusartIntermediateCoeff_power
     {N k : Nat} (hN : 23 ≤ N) (hN' : N ≤ 109)
     (hk : 4 ≤ k) (hk' : k ≤ 31) :
     (1 : Real) ≤
       ((dusartIntermediateCoeff N k : Real) / 10000) ^ (3 * k) *
         (2 ^ N : Real) ^ (k - 3) := by
-  interval_cases N <;> interval_cases k <;>
-    norm_num [dusartIntermediateCoeff]
+  interval_cases N <;>
+    exact dusartIntermediateCoeff_power_of_fixed_N hN hN' hk hk'
+
+private theorem dusartIntermediateCoeff_margin_of_fixed_N
+    {N : Nat} (hN : 23 ≤ N) (hN' : N ≤ 109) :
+    (∑ k ∈ (Finset.Icc 4 (min N 30) : Finset Nat),
+      (dusartIntermediateCoeff N k : Real) / 10000) +
+      ((N - min N 30 : Nat) : Real) *
+        (dusartIntermediateCoeff N (min N 30 + 1) : Real) / 10000 ≤
+      (777 : Real) / 1000 := by
+  norm_num [dusartIntermediateCoeff, Finset.sum_Icc_succ_top]
 
 theorem dusartIntermediateCoeff_margin
     {N : Nat} (hN : 23 ≤ N) (hN' : N ≤ 109) :
@@ -2469,7 +2487,7 @@ theorem dusartIntermediateCoeff_margin
         (dusartIntermediateCoeff N (min N 30 + 1) : Real) / 10000 ≤
       (777 : Real) / 1000 := by
   interval_cases N <;>
-    norm_num [dusartIntermediateCoeff, Finset.sum_Icc_succ_top]
+    exact dusartIntermediateCoeff_margin_of_fixed_N hN hN'
 
 end
 
