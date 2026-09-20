@@ -90,7 +90,7 @@ def band_module(index: int, band: tuple[int, int, int, int, str], pairs: list[tu
             f"theorem {row_chain_name} :",
             f"    FinitePrimeGapLogRowsChain {pairs[0][0]} {end} {rows_name} := by",
             f"  exact mediumLogRowsChain_of_data {row_name} (by intro d; rfl) (by",
-            f"    intro d; dsimp [{row_name}]; omega) {chain_name}",
+            f"    intro d; have h := d.p_lt_q; dsimp [{row_name}]; omega) {chain_name}",
             "",
             "end",
             "",

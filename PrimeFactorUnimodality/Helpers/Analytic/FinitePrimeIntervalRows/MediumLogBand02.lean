@@ -889,7 +889,7 @@ def mediumLogDataChain02 : MediumLogDatumChain 100003 110016 mediumLogData02 := 
 theorem mediumLogRows02_chain :
     FinitePrimeGapLogRowsChain 100003 110016 mediumLogRows02 := by
   exact mediumLogRowsChain_of_data mediumLogRow02 (by intro d; rfl) (by
-    intro d; dsimp [mediumLogRow02]; omega) mediumLogDataChain02
+    intro d; have h := d.p_lt_q; dsimp [mediumLogRow02]; omega) mediumLogDataChain02
 
 end
 
