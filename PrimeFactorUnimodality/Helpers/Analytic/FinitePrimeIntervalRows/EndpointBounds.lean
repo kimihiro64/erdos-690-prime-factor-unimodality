@@ -231,6 +231,100 @@ theorem log_100000_le_116_over_10 :
   norm_num at h ⊢
   linarith [h]
 
+/-! The remaining endpoint bounds support the compact Proposition 5.4(c)
+prefix.  Each bound is proved from the same explicit exponential lower
+estimate used by the lower-prefix rows. -/
+theorem log_110000_le_59_over_5 :
+    Real.log (110000 : Real) ≤ (59 : Real) / 5 := by
+  apply (Real.log_le_iff_le_exp (by norm_num)).2
+  have h := exp_lower_nat_add 11 (r := (4 : Real) / 5) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
+
+theorem log_150000_le_12 :
+    Real.log (150000 : Real) ≤ (12 : Real) := by
+  apply (Real.log_le_iff_le_exp (by norm_num)).2
+  have h := exp_lower_nat_add 12 (r := (0 : Real)) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
+
+theorem log_160000_le_121_over_10 :
+    Real.log (160000 : Real) ≤ (121 : Real) / 10 := by
+  apply (Real.log_le_iff_le_exp (by norm_num)).2
+  have h := exp_lower_nat_add 12 (r := (1 : Real) / 10) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
+
+theorem log_220000_le_62_over_5 :
+    Real.log (220000 : Real) ≤ (62 : Real) / 5 := by
+  apply (Real.log_le_iff_le_exp (by norm_num)).2
+  have h := exp_lower_nat_add 12 (r := (4 : Real) / 10) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
+
+theorem log_300000_le_127_over_10 :
+    Real.log (300000 : Real) ≤ (127 : Real) / 10 := by
+  apply (Real.log_le_iff_le_exp (by norm_num)).2
+  have h := exp_lower_nat_add 12 (r := (7 : Real) / 10) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
+
+theorem log_360653_le_13 :
+    Real.log (360653 : Real) ≤ (13 : Real) := by
+  apply (Real.log_le_iff_le_exp (by norm_num)).2
+  have h := exp_lower_nat_add 13 (r := (0 : Real)) (by norm_num)
+  norm_num at h ⊢
+  linarith [h]
+
+theorem log_le_116_over_10_of_89693_le_of_le_100000
+    {p : Nat} (hleft : 89693 ≤ p) (hupper : p ≤ 100000) :
+    Real.log (p : Real) ≤ (116 : Real) / 10 := by
+  have hp : 0 < (p : Real) := by exact_mod_cast (show 0 < p by omega)
+  exact (Real.log_le_log hp (by exact_mod_cast hupper)).trans
+    log_100000_le_116_over_10
+
+theorem log_le_59_over_5_of_100001_le_of_le_110000
+    {p : Nat} (hleft : 100001 ≤ p) (hupper : p ≤ 110000) :
+    Real.log (p : Real) ≤ (59 : Real) / 5 := by
+  have hp : 0 < (p : Real) := by exact_mod_cast (show 0 < p by omega)
+  exact (Real.log_le_log hp (by exact_mod_cast hupper)).trans
+    log_110000_le_59_over_5
+
+theorem log_le_12_of_110001_le_of_le_150000
+    {p : Nat} (hleft : 110001 ≤ p) (hupper : p ≤ 150000) :
+    Real.log (p : Real) ≤ (12 : Real) := by
+  have hp : 0 < (p : Real) := by exact_mod_cast (show 0 < p by omega)
+  exact (Real.log_le_log hp (by exact_mod_cast hupper)).trans
+    log_150000_le_12
+
+theorem log_le_121_over_10_of_150001_le_of_le_160000
+    {p : Nat} (hleft : 150001 ≤ p) (hupper : p ≤ 160000) :
+    Real.log (p : Real) ≤ (121 : Real) / 10 := by
+  have hp : 0 < (p : Real) := by exact_mod_cast (show 0 < p by omega)
+  exact (Real.log_le_log hp (by exact_mod_cast hupper)).trans
+    log_160000_le_121_over_10
+
+theorem log_le_62_over_5_of_160001_le_of_le_220000
+    {p : Nat} (hleft : 160001 ≤ p) (hupper : p ≤ 220000) :
+    Real.log (p : Real) ≤ (62 : Real) / 5 := by
+  have hp : 0 < (p : Real) := by exact_mod_cast (show 0 < p by omega)
+  exact (Real.log_le_log hp (by exact_mod_cast hupper)).trans
+    log_220000_le_62_over_5
+
+theorem log_le_127_over_10_of_220001_le_of_le_300000
+    {p : Nat} (hleft : 220001 ≤ p) (hupper : p ≤ 300000) :
+    Real.log (p : Real) ≤ (127 : Real) / 10 := by
+  have hp : 0 < (p : Real) := by exact_mod_cast (show 0 < p by omega)
+  exact (Real.log_le_log hp (by exact_mod_cast hupper)).trans
+    log_300000_le_127_over_10
+
+theorem log_le_13_of_300001_le_of_le_360653
+    {p : Nat} (hleft : 300001 ≤ p) (hupper : p ≤ 360653) :
+    Real.log (p : Real) ≤ (13 : Real) := by
+  have hp : 0 < (p : Real) := by exact_mod_cast (show 0 < p by omega)
+  exact (Real.log_le_log hp (by exact_mod_cast hupper)).trans
+    log_360653_le_13
+
 theorem log_le_1141_over_100_of_3275_le
     {a : Nat} (ha : 3275 ≤ a) (ha89693 : a ≤ 89693) :
     Real.log a ≤ (1141 : Real) / 100 := by
@@ -876,4 +970,3 @@ theorem log_le_116_over_10_of_89693_le
 end
 
 end PrimeFactorUnimodality
-
