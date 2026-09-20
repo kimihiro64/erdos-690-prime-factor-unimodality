@@ -3124,6 +3124,18 @@ theorem dusart_proposition_3_1_of_indexed_rows_and_thetaErrorAbove
       x hx (le_trans (le_of_lt hxc) hX))
   exact thetaError
 
+theorem dusart_proposition_3_1_of_rows_and_thetaErrorAbove
+    {X : Real} {rows : List DusartProposition31FiniteRow}
+    (hX : (4e18 : Real) ^ 2 ≤ X)
+    (cover : DusartProposition31FiniteRowsCover rows X)
+    (thetaError : HasThetaLogFourthErrorAbove
+      (648 / 1000 : Real) (4e18 : Real)) :
+    ∀ x : Real, (121 : Real) < x →
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x := by
+  exact dusart_proposition_3_1_of_indexed_rows_and_thetaErrorAbove
+    hX (dusartProposition31FiniteIndexedRowsCover_of_list cover) thetaError
+
 theorem dusart_proposition_3_1_of_integer_endpoint_check_and_thetaErrorAbove
     (endpoint : ∀ n : Nat, 121 ≤ n →
       (9999 : Real) / 10000 * Real.sqrt ((n : Real) + 1) <
