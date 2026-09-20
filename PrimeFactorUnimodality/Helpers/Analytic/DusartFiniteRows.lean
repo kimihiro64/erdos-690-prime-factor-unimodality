@@ -930,6 +930,30 @@ def DusartLemma33FiniteProofChunk.appendMany
       DusartLemma33FiniteProofChunk.appendMany
         (DusartLemma33FiniteProofChunk.append first next) tail
 
+theorem DusartLemma33FiniteProofChunk.appendMany_valid
+    (first : DusartLemma33FiniteProofChunk)
+    (rest : List DusartLemma33FiniteProofChunk) :
+    ∀ x : Real, 0 < x → x ≤
+      (DusartLemma33FiniteProofChunk.appendMany first rest).cutoff →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  induction rest generalizing first with
+  | nil =>
+      exact first.valid
+  | cons next tail ih =>
+      exact ih (DusartLemma33FiniteProofChunk.append first next)
+
+theorem dusart_lemma_3_3_finite_of_proof_chunks
+    (first : DusartLemma33FiniteProofChunk)
+    (rest : List DusartLemma33FiniteProofChunk) :
+    ∀ x : Real, 0 < x → x ≤
+      (DusartLemma33FiniteProofChunk.appendMany first rest).cutoff →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  exact DusartLemma33FiniteProofChunk.appendMany_valid first rest
+
 theorem dusart_lemma_3_3_finite_rows_cover_append
     {left right : List DusartLemma33FiniteRow} {m X : Real}
     (hleft : DusartLemma33FiniteRowsCover left m)
