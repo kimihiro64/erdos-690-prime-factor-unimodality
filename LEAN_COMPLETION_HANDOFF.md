@@ -129,6 +129,12 @@ explicit endpoint inequality `theta_upper < left`; they do not derive that
 inequality from the relaxed Dusart error fields.  Use them for the Schoenfeld
 strict Table 6.4 prefix once its bounded endpoint computation is available.
 
+The Proposition 3.1 finite-row interface uses half-open unit intervals
+`[n,n+1)`, not closed singleton intervals.  Its integer reduction therefore
+checks the shifted margin at `sqrt (n+1)` before transporting the constant
+`psi - theta` value across the interval.  Any future bounded-data generator
+must preserve this shifted endpoint condition.
+
 These are source obligations before certificate replay.  A certificate may
  discharge only the finite computation it actually represents; it must not be
  used to hide a missing analytic theorem or to weaken an all-`x` statement to
