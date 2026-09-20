@@ -81,6 +81,16 @@ theorem completeClassification_closed_of_finite_providers
       shortInterval := providers.shortInterval
       remainder := providers.remainder }
 
+/-! Stable consumer for the compact indexed certificate boundary. -/
+theorem completeClassification_closed_of_indexed_split_certificate
+    (certificate :
+      MediumPNTSelectedIndexedSplitCertificate
+        (4e18 : Real) (3 / 5 : Real)) :
+    CompleteClassification := by
+  exact completeClassification_of_mediumPNT_and_selected_indexed_split_certificate
+    (X := (4e18 : Real)) (C := (3 / 5 : Real))
+    le_rfl (by norm_num) (by norm_num) certificate
+
 end
 
 end PrimeFactorUnimodality
