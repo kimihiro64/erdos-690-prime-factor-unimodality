@@ -49,6 +49,34 @@ theorem dusartProposition31Finite_of_indexed_rows
   obtain ⟨i, hleft, hright⟩ := cover x hx hX
   exact (rows i).valid x hx hleft hright
 
+theorem dusartProposition31FiniteRowsCover_append
+    {m X : Real} {left right : List DusartProposition31FiniteRow}
+    (hleft : DusartProposition31FiniteRowsCover left m)
+    (hright : DusartProposition31FiniteRowsCover right X) :
+    DusartProposition31FiniteRowsCover (left ++ right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+
+theorem dusartProposition31FiniteIndexedRowsCover_append
+    {m X : Real} {n₁ n₂ : Nat}
+    {left : Fin n₁ → DusartProposition31FiniteRow}
+    {right : Fin n₂ → DusartProposition31FiniteRow}
+    (hleft : DusartProposition31FiniteIndexedRowsCover left m)
+    (hright : DusartProposition31FiniteIndexedRowsCover right X) :
+    DusartProposition31FiniteIndexedRowsCover (Fin.append left right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨i, hleft_lower, hleft_upper⟩ := hleft x hx hxm
+    refine ⟨Fin.castAdd n₂ i, ?_⟩
+    simpa [Fin.append_left] using And.intro hleft_lower hleft_upper
+  · obtain ⟨i, hright_lower, hright_upper⟩ := hright x hx hX
+    refine ⟨Fin.natAdd n₁ i, ?_⟩
+    simpa [Fin.append_right] using And.intro hright_lower hright_upper
+
 /-! Compact bounded rows for the direct-computation part of Dusart's Lemma 3.3.
 
 The row validity field is the only place where a bounded numerical proof is
