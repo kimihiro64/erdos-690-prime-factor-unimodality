@@ -130,6 +130,28 @@ theorem dusart_proposition_5_1_tail_of_logFourthError
       (by positivity) hlog hA_nonneg hA thetaError
   exact tail.1
 
+/-! Paper-facing Proposition 5.1 assembly with the large-range analytic input
+made explicit at its actual `exp 28` cutoff. -/
+theorem wangCrapis_thetaBounds_of_paper_ranges_and_logFourthTail
+    (finite : ∀ x : Real, 0 < x → x ≤ (8e11 : Real) →
+      Chebyshev.theta x - x < x / 36260)
+    (middle : ∀ x : Real, (8e11 : Real) ≤ x →
+      x ≤ Real.exp 28 →
+      |Chebyshev.psi x - x| < (2841 : Real) / 100000000 * x ∧
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x)
+    (lower : ∀ x : Real, 2 < x →
+      x * (1 - (12323 / 10000 : Real) / Real.log x) <
+        Chebyshev.theta x)
+    {A : Real}
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log (Real.exp 28) ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthErrorAbove A (Real.exp 28)) :
+    HasDusartThetaBounds := by
+  exact wangCrapis_thetaBounds_of_paper_ranges finite middle
+    (dusart_proposition_5_1_tail_of_logFourthError
+      hA_nonneg hA thetaError) lower
+
 /-! Global Proposition 5.1 in the three ranges used by Dusart: the finite
 Table 6.4 range, the explicit middle range ending at `exp 28`, and the
 large-range theta-error tail. -/
