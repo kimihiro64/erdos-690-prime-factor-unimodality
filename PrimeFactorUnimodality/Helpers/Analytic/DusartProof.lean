@@ -380,6 +380,42 @@ theorem dusart_proposition_3_2_of_paper_lemma_and_theta_bounds
   exact dusart_proposition_3_2_of_paper_lemma_and_theta_upper
     hlemma hupper
 
+/-! The prime-power part of Dusart's Lemma 3.3.  For the large range the
+floor in the Chebyshev decomposition is at least two, so the square-root
+term can be split off exactly and only exponents `k ≥ 3` remain. -/
+theorem dusart_lemma_3_3_prime_power_decomposition
+    {x : Real} (hx : (9 : Real) ≤ x) :
+    Chebyshev.psi x - Chebyshev.theta x -
+        Chebyshev.theta (Real.sqrt x) =
+      ∑ k ∈ Finset.Icc 3 ⌊Real.log x / Real.log 2⌋₊,
+        Chebyshev.theta (x ^ (1 / (k : Real))) := by
+  have hx2 : (2 : Real) ≤ x := by linarith
+  have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
+  have hN : 2 ≤ ⌊Real.log x / Real.log 2⌋₊ := by
+    apply Nat.le_floor
+    apply (le_div_iff₀ hlog2).2
+    have hlog : Real.log 4 ≤ Real.log x := by
+      apply Real.log_le_log (by norm_num)
+      linarith
+    rw [show (4 : Real) = 2 ^ (2 : Nat) by norm_num,
+      Real.log_pow] at hlog
+    norm_num at hlog ⊢
+    linarith
+  have hsplit :
+      ∑ k ∈ Finset.Icc 2 ⌊Real.log x / Real.log 2⌋₊,
+          Chebyshev.theta (x ^ (1 / (k : Real))) =
+        Chebyshev.theta (x ^ ((1 : Real) / 2)) +
+          ∑ k ∈ Finset.Icc 3 ⌊Real.log x / Real.log 2⌋₊,
+            Chebyshev.theta (x ^ (1 / (k : Real))) := by
+    rw [← Finset.add_sum_Ioc_eq_sum_Icc hN,
+      ← Finset.Icc_add_one_left_eq_Ioc]
+    ring_nf
+  have hdecomp := Chebyshev.psi_eq_theta_add_sum_theta hx2
+  have hsqrt : x ^ ((1 : Real) / 2) = Real.sqrt x := by
+    rw [Real.sqrt_eq_rpow]
+  rw [hsplit, hsqrt] at hdecomp
+  linarith
+
 theorem dusart_gap_upper_from_uniform_root_bound
     {x : Real} (hx : (121 : Real) ≤ x)
     (hroot : ∀ y : Real, 0 ≤ y →
