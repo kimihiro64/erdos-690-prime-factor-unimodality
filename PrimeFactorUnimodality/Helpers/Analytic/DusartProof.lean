@@ -3816,6 +3816,22 @@ theorem dusart_lemma_3_3_of_proof_chunk_and_theta_bounds
     have hupper := thetaBounds.1 y hy
     nlinarith)
 
+/-! The published bounded computation may be split into independently
+    cacheable proof chunks.  Their assembled validity is consumed here once,
+    before the analytic power-sum tail is applied. -/
+theorem dusart_lemma_3_3_of_proof_chunks_and_theta_bounds
+    (first : DusartLemma33FiniteProofChunk)
+    (rest : List DusartLemma33FiniteProofChunk)
+    (hX : (10 ^ 11 : Real) ^ 3 ≤
+      (DusartLemma33FiniteProofChunk.appendMany first rest).cutoff)
+    (thetaBounds : HasDusartThetaBounds) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  exact dusart_lemma_3_3_of_proof_chunk_and_theta_bounds
+    (DusartLemma33FiniteProofChunk.appendMany first rest) hX thetaBounds
+
 /-! This is the exact finite/analytic split stated in Dusart's proof: the
 bounded computation ends at `(10^11)^3`, while the displayed power-sum
 estimate handles the tail. -/
