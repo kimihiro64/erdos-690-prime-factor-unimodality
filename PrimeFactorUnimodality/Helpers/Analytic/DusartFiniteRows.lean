@@ -177,9 +177,13 @@ def dusartLemma33FiniteRow_four : DusartLemma33FiniteRow :=
       have hsqrt_floor : ⌊Real.sqrt x⌋₊ = 2 := by
         apply (Nat.floor_eq_iff (by positivity : (0 : Real) ≤ Real.sqrt x)).2
         constructor <;> norm_num <;> linarith
-      rw [Chebyshev.psi_eq_psi_coe_floor,
-        Chebyshev.theta_eq_theta_coe_floor, hfloor]
-      rw [Chebyshev.theta_eq_theta_coe_floor, hsqrt_floor]
+      have hpsi_floor := Chebyshev.psi_eq_psi_coe_floor x
+      have htheta_floor := Chebyshev.theta_eq_theta_coe_floor x
+      rw [hpsi_floor, htheta_floor, hfloor]
+      have htheta_sqrt_floor : Chebyshev.theta (Real.sqrt x) =
+          Chebyshev.theta (2 : Real) := by
+        rw [Chebyshev.theta_eq_theta_coe_floor, hsqrt_floor]
+      rw [htheta_sqrt_floor]
       have hzero' : Chebyshev.psi (↑(4 : Nat) : Real) -
           Chebyshev.theta (↑(4 : Nat) : Real) -
             Chebyshev.theta (↑(2 : Nat) : Real) = 0 := by
