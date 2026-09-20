@@ -638,6 +638,28 @@ theorem dusart_lemma_3_3_large
     _ < (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) :=
       mul_lt_mul_of_pos_right hcoef (by positivity)
 
+/-! Global Lemma 3.3 assembled from the paper's bounded direct computation
+and the analytic tail above. -/
+theorem dusart_lemma_3_3_of_finite_and_theta_upper
+    {X : Real} (hX : (10 ^ 11 : Real) ^ 3 ≤ X)
+    (finite : ∀ x : Real, 0 < x → x ≤ X →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)))
+    (theta_upper : ∀ y : Real, 0 < y →
+      Chebyshev.theta y < (1000081 : Real) / 1000000 * y) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  intro x hx
+  by_cases hle : x ≤ X
+  · exact finite x hx hle
+  · have hcut : ¬ x ≤ (10 ^ 11 : Real) ^ 3 := by
+      intro hcut
+      exact hle (hcut.trans hX)
+    exact dusart_lemma_3_3_large (le_of_not_ge hcut) theta_upper
+
 theorem dusart_gap_upper_from_uniform_root_bound
     {x : Real} (hx : (121 : Real) ≤ x)
     (hroot : ∀ y : Real, 0 ≤ y →
