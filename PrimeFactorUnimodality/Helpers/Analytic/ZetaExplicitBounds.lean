@@ -110,15 +110,16 @@ theorem zetaDiffBnd_explicit
     exact zetaDerivUpperBnd_explicit σ t ht ⟨le_trans hσ₁ hσ.1.le,
       le_trans hσ.2 hσ₂⟩
 
-theorem zetaLowerBound3_explicit :
-    ∃ c > 0, ∀ {σ : Real} (_ : σ ∈ Ioc 1 2) (t : Real) (_ : 3 < |t|),
-      c * (σ - 1) ^ ((3 : Real) / 4) / (Real.log |t|) ^ ((1 : Real) / 4) ≤
+theorem zetaLowerBound3_explicit_fixed :
+    ∀ {σ : Real} (_ : σ ∈ Ioc 1 2) (t : Real) (_ : 3 < |t|),
+      (1 / (3 ^ ((3 : Real) / 4) *
+        (2 * (Real.exp (1 / 2 : Real) * (5 + 8 * 2))) ^ ((1 : Real) / 4))) *
+          (σ - 1) ^ ((3 : Real) / 4) / (Real.log |t|) ^ ((1 : Real) / 4) ≤
         ‖riemannZeta (σ + t * Complex.I)‖ := by
-  let C₀ : Real := Real.exp (1 / 2 : Real) * (5 + 8 * 2)
-  use 1 / (3 ^ ((3 : Real) / 4) * (2 * C₀) ^ ((1 : Real) / 4)), by
-    dsimp [C₀]
-    positivity
   intro σ hσ t ht
+  let C₀ : Real := Real.exp (1 / 2 : Real) * (5 + 8 * 2)
+  change (1 / (3 ^ ((3 : Real) / 4) * (2 * C₀) ^ ((1 : Real) / 4))) *
+      (σ - 1) ^ ((3 : Real) / 4) / (Real.log |t|) ^ ((1 : Real) / 4) ≤ _
   obtain ⟨σ_gt, σ_le⟩ := hσ
   have lower := ZetaLowerBound2 (t := t) σ_gt
   apply le_trans _ lower
@@ -189,6 +190,15 @@ theorem zetaLowerBound3_explicit :
   rw [Real.rpow_two, sq]
   gcongr
   linarith
+
+theorem zetaLowerBound3_explicit :
+    ∃ c > 0, ∀ {σ : Real} (_ : σ ∈ Ioc 1 2) (t : Real) (_ : 3 < |t|),
+      c * (σ - 1) ^ ((3 : Real) / 4) / (Real.log |t|) ^ ((1 : Real) / 4) ≤
+        ‖riemannZeta (σ + t * Complex.I)‖ := by
+  refine ⟨1 / (3 ^ ((3 : Real) / 4) *
+    (2 * (Real.exp (1 / 2 : Real) * (5 + 8 * 2))) ^ ((1 : Real) / 4)), ?_, ?_⟩
+  · positivity
+  · exact zetaLowerBound3_explicit_fixed
 
 
 end
