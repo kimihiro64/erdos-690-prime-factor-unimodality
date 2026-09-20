@@ -6,6 +6,45 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 
+/-! Integer power certificates for the floors appearing in the finite
+    Lemma 3.3 endpoint computation. -/
+theorem nat_floor_rpow_eq_of_pow_le_pow_lt
+    {n k r : Nat} (hk : 0 < k)
+    (hlo : r ^ k ≤ n) (hhi : n < (r + 1) ^ k) :
+    ⌊(n : Real) ^ (1 / (k : Real))⌋₊ = r := by
+  have hn_nonneg : (0 : Real) ≤ n := by positivity
+  have hroot_nonneg : 0 ≤ (n : Real) ^ (1 / (k : Real)) := by
+    positivity
+  have hroot_pow :
+      ((n : Real) ^ (1 / (k : Real))) ^ k = (n : Real) := by
+    simpa [one_div] using
+      (Real.rpow_inv_natCast_pow hn_nonneg (Nat.ne_of_gt hk))
+  apply (Nat.floor_eq_iff hroot_nonneg).2
+  constructor
+  · have hpow : (r : Real) ^ k ≤
+        ((n : Real) ^ (1 / (k : Real))) ^ k := by
+      calc
+        (r : Real) ^ k ≤ (n : Real) := by exact_mod_cast hlo
+        _ = ((n : Real) ^ (1 / (k : Real))) ^ k := hroot_pow.symm
+    have hpow' : (r : Real) ^ (k : Real) ≤
+        ((n : Real) ^ (1 / (k : Real))) ^ (k : Real) := by
+      simpa only [Real.rpow_natCast] using hpow
+    exact (Real.rpow_le_rpow_iff (by positivity) (by positivity)
+      (show (0 : Real) < (k : Real) by exact_mod_cast hk)).mp hpow'
+  · have hpow : ((n : Real) ^ (1 / (k : Real))) ^ k <
+        ((r + 1 : Nat) : Real) ^ k := by
+      calc
+        ((n : Real) ^ (1 / (k : Real))) ^ k = (n : Real) := hroot_pow
+        _ < ((r + 1 : Nat) : Real) ^ k := by exact_mod_cast hhi
+    have hpow' : ((n : Real) ^ (1 / (k : Real))) ^ (k : Real) <
+        ((r + 1 : Nat) : Real) ^ (k : Real) := by
+      simpa only [Real.rpow_natCast] using hpow
+    have hpow'' : ((n : Real) ^ (1 / (k : Real))) ^ (k : Real) <
+        ((r : Real) + 1) ^ (k : Real) := by
+      convert hpow' using 1 <;> norm_num
+    exact (Real.rpow_lt_rpow_iff (by positivity) (by positivity)
+      (show (0 : Real) < (k : Real) by exact_mod_cast hk)).mp hpow''
+
 /-! Compact rows for the bounded part of Dusart's Proposition 3.1.  The row
 validity field contains the numerical gap proof; coverage and the analytic
 tail are assembled separately. -/
