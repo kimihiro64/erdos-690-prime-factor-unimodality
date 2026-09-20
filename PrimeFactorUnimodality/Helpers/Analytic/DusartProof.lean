@@ -470,7 +470,7 @@ theorem dusart_proposition_3_2_of_uniform_strict_root_bound
   nlinarith [hdecomp, hscaled', hcoeff]
 
 /-! The published proposition is global.  Its proof has a finite endpoint
-check below `121` and the prime-power argument above that endpoint; keeping
+check below `64` and the prime-power argument above that endpoint; keeping
 those two inputs separate makes the exact scope of the remaining finite check
 visible to the final provider. -/
 theorem dusart_proposition_3_2_of_uniform_strict_root_bound_all
