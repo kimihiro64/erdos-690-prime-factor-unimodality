@@ -11,21 +11,11 @@ noncomputable section
 
 /-! The finite endpoint obligations are kept together so the computational
 layer has one stable interface to the analytic assembly. -/
-structure WangCrapisFiniteProviders where
-  thetaBounds : ∀ Y : Real, (4e18 : Real) ≤ Y →
-    HasDusartSymmetricThetaBoundsBelow Y
-  thetaError : ∀ Y : Real, (4e18 : Real) ≤ Y →
-    HasThetaLogFourthErrorBelow (648 / 1000 : Real) Y
-  primeCounting : ∀ Y : Real, (4e18 : Real) ≤ Y →
-    HasDusartRealPrimeCountingBoundsBelow Y
-  logCubed : ∀ Y : Real, (89693 : Real) ≤ Y →
-    HasLogCubedShortIntervalPrimeBelow Y
-
 /-! A certificate package is needed only at the cutoff selected by the
 source-level MediumPNT argument.  Quantifying the finite fields over every
 possible cutoff would impose a stronger obligation than the analytic proof
 uses and would obscure the actual all-`k` boundary. -/
-structure WangCrapisSelectedFiniteProviders where
+structure WangCrapisFiniteProviders where
   cutoff : Real
   lower : (4e18 : Real) ≤ cutoff
   thetaErrorBelow :
@@ -72,49 +62,8 @@ theorem completeClassification_closed_of_providers
   exact completeClassification_of_wangCrapis_paper_inputs
     (wangCrapisPaperInputs_of_providers primeCounting thetaBounds shortInterval)
 
-/-! The paper-facing package can now be assembled directly from the three
-finite endpoint providers.  The medium-PNT tail is proved in the analytic
-helpers; only the bounded rows remain to be supplied by the certificate
-layer. -/
-theorem wangCrapisPaperInputs_of_mediumPNT_finite_providers
-    (finiteThetaBounds : ∀ Y : Real, (4e18 : Real) ≤ Y →
-      HasDusartSymmetricThetaBoundsBelow Y)
-    (finiteThetaError : ∀ Y : Real, (4e18 : Real) ≤ Y →
-      HasThetaLogFourthErrorBelow (648 / 1000 : Real) Y)
-    (finitePrimeCounting : ∀ Y : Real, (4e18 : Real) ≤ Y →
-      HasDusartRealPrimeCountingBoundsBelow Y)
-    (finiteLogCubed : ∀ Y : Real, (89693 : Real) ≤ Y →
-      HasLogCubedShortIntervalPrimeBelow Y) :
-    WangCrapisPaperInputs := by
-  exact wangCrapisPaperInputs_of_providers
-    (wangCrapis_primeCounting_of_mediumPNT
-      finiteThetaError finitePrimeCounting)
-    (wangCrapis_thetaBounds_of_mediumPNT_via_decay finiteThetaBounds)
-    (wangCrapis_shortInterval_of_mediumPNT finiteLogCubed)
-
-theorem completeClassification_closed_of_mediumPNT_finite_providers
-    (finiteThetaBounds : ∀ Y : Real, (4e18 : Real) ≤ Y →
-      HasDusartSymmetricThetaBoundsBelow Y)
-    (finiteThetaError : ∀ Y : Real, (4e18 : Real) ≤ Y →
-      HasThetaLogFourthErrorBelow (648 / 1000 : Real) Y)
-    (finitePrimeCounting : ∀ Y : Real, (4e18 : Real) ≤ Y →
-      HasDusartRealPrimeCountingBoundsBelow Y)
-    (finiteLogCubed : ∀ Y : Real, (89693 : Real) ≤ Y →
-      HasLogCubedShortIntervalPrimeBelow Y) :
-    CompleteClassification := by
-  exact completeClassification_of_wangCrapis_paper_inputs
-    (wangCrapisPaperInputs_of_mediumPNT_finite_providers
-      finiteThetaBounds finiteThetaError finitePrimeCounting finiteLogCubed)
-
 theorem completeClassification_closed_of_finite_providers
     (providers : WangCrapisFiniteProviders) :
-    CompleteClassification := by
-  exact completeClassification_closed_of_mediumPNT_finite_providers
-    providers.thetaBounds providers.thetaError providers.primeCounting
-    providers.logCubed
-
-theorem completeClassification_closed_of_selected_finite_providers
-    (providers : WangCrapisSelectedFiniteProviders) :
     CompleteClassification := by
   have finiteThetaError :
       HasThetaLogFourthErrorBelow (648 / 1000 : Real) (4e18 : Real) :=
@@ -129,13 +78,6 @@ theorem completeClassification_closed_of_selected_finite_providers
       primeCounting := providers.primeCounting
       theta := providers.theta
       shortInterval := providers.shortInterval }
-
-theorem wangCrapisPaperInputs_of_finite_providers
-    (providers : WangCrapisFiniteProviders) :
-    WangCrapisPaperInputs := by
-  exact wangCrapisPaperInputs_of_mediumPNT_finite_providers
-    providers.thetaBounds providers.thetaError providers.primeCounting
-    providers.logCubed
 
 end
 
