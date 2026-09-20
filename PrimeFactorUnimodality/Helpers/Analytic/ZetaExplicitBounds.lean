@@ -1,5 +1,6 @@
 import PrimeNumberTheoremAnd.ZetaBounds
 import PrimeNumberTheoremAnd.Mathlib.NumberTheory.LSeries.RiemannZetaConvexity
+import PrimeNumberTheoremAnd.MediumPNT
 
 set_option autoImplicit false
 
@@ -360,7 +361,8 @@ theorem zetaZeroFree_explicit_only :
 theorem zetaLogDeriv_explicit_below :
     ∃ (A : Real) (_ : A ∈ Ioc 0 (1 / 2)) (C : Real) (_ : 0 < C),
     ∀ (σ t : Real) (_ : 3 < |t|)
-      (_ : σ ∈ Ico (1 - A / (Real.log |t|) ^ 9) 1),
+      (_ : σ ∈ Ico (1 - A / (Real.log |t|) ^ 9)
+        (1 + A / (Real.log |t|) ^ 9)),
       ‖deriv riemannZeta (σ + t * Complex.I) /
         riemannZeta (σ + t * Complex.I)‖ ≤
         C * Real.log |t| ^ 9 := by
@@ -395,6 +397,83 @@ theorem zetaLogDeriv_explicit_below :
   dsimp [D]
   field_simp [ne_of_gt hlogpos, ne_of_gt hc]
   ring
+
+/-! Uniformize the local strip estimate.  Above the explicit strip we use the
+    Dirichlet-series monotonicity of the logarithmic derivative; in the small
+    real part range outside the strip we use the elementary pole-distance
+    bound. -/
+theorem zetaLogDeriv_explicit_uniform :
+    ∃ (A C : Real), 0 < C ∧ A ∈ Ioc 0 (1 / 2) ∧
+      LogDerivZetaHasBound A C := by
+  obtain ⟨A, hA, C₀, hC₀, hlocal⟩ := zetaLogDeriv_explicit_below
+  obtain ⟨K, hK, htriv⟩ := triv_bound_zeta
+  let B : Real := ‖deriv riemannZeta (2 : Complex) /
+    riemannZeta (2 : Complex)‖
+  let C : Real := C₀ + K + 1 / A + B + 1
+  have hApos : 0 < A := hA.1
+  have hB : 0 ≤ B := norm_nonneg _
+  have hCpos : 0 < C := by
+    dsimp [C]
+    have : 0 < 1 / A := by positivity
+    linarith
+  refine ⟨A, C, hCpos, hA, ?_⟩
+  intro σ t ht hσ
+  have hlog : 1 ≤ Real.log |t| := (logt_gt_one ht.le).le
+  have hpow : 1 ≤ Real.log |t| ^ (9 : Nat) := one_le_pow₀ hlog
+  have hpow_pos : 0 < Real.log |t| ^ (9 : Nat) := by positivity
+  by_cases hσ2 : σ ≤ 2
+  · by_cases hlocal_upper : σ < 1 + A / Real.log |t| ^ (9 : Nat)
+    · have hC₀C : C₀ ≤ C := by
+        dsimp [C]
+        have h : 0 ≤ K + 1 / A + B + 1 := by positivity
+        linarith
+      exact (hlocal σ t ht ⟨hσ, hlocal_upper⟩).trans
+        (mul_le_mul_of_nonneg_right hC₀C (by positivity))
+    · have hσgt : 1 < σ := by
+        have : 1 + A / Real.log |t| ^ (9 : Nat) ≤ σ := le_of_not_gt hlocal_upper
+        have : 1 < 1 + A / Real.log |t| ^ (9 : Nat) := by positivity
+        linarith
+      have htriv' := htriv σ t hσgt
+      rw [norm_neg] at htriv'
+      have hinv : (σ - 1)⁻¹ ≤
+          (1 / A) * Real.log |t| ^ (9 : Nat) := by
+        apply (inv_le_iff₀ (by linarith)).2
+        have hdist : A / Real.log |t| ^ (9 : Nat) ≤ σ - 1 := by
+          linarith [le_of_not_gt hlocal_upper]
+        have := (div_le_iff₀ hpow_pos).1 hdist
+        nlinarith
+      calc
+        ‖deriv riemannZeta (σ + t * Complex.I) /
+            riemannZeta (σ + t * Complex.I)‖ =
+            ‖-(deriv riemannZeta (σ + t * Complex.I) /
+              riemannZeta (σ + t * Complex.I))‖ := by rw [norm_neg]
+        _ ≤ (σ - 1)⁻¹ + K := htriv'
+        _ ≤ (1 / A) * Real.log |t| ^ (9 : Nat) +
+              K * Real.log |t| ^ (9 : Nat) := by
+          exact add_le_add hinv
+            (mul_le_mul_of_nonneg_left hpow hK)
+        _ = ((1 / A) + K) * Real.log |t| ^ (9 : Nat) := by ring
+        _ ≤ C * Real.log |t| ^ (9 : Nat) := by
+          apply mul_le_mul_of_nonneg_right _ (by positivity)
+          dsimp [C]
+          have h : 0 ≤ C₀ + B + 1 := by positivity
+          linarith
+  · have hgen := dlog_riemannZeta_bdd_on_vertical_lines_generalized
+      (2 : Real) σ t (by norm_num) (le_of_not_ge hσ2)
+    rw [norm_neg] at hgen
+    calc
+      ‖deriv riemannZeta (σ + t * Complex.I) /
+          riemannZeta (σ + t * Complex.I)‖ =
+          ‖-(deriv riemannZeta (σ + t * Complex.I) /
+            riemannZeta (σ + t * Complex.I))‖ := by rw [norm_neg]
+      _ ≤ B := hgen.trans_eq rfl
+      _ ≤ B * Real.log |t| ^ (9 : Nat) := by
+        exact mul_le_mul_of_nonneg_left hpow hB
+      _ ≤ C * Real.log |t| ^ (9 : Nat) := by
+        apply mul_le_mul_of_nonneg_right _ (by positivity)
+        dsimp [C]
+        have h : 0 ≤ C₀ + K + 1 / A + 1 := by positivity
+        linarith
 
 
 end
