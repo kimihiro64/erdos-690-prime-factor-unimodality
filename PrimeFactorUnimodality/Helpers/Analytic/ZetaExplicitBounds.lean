@@ -165,6 +165,7 @@ theorem zetaLowerBound3_explicit_fixed :
     rw [Real.div_rpow (by linarith) (by linarith),
       Real.mul_rpow (by linarith) hC₀.le]
     ring_nf
+    exact ZetaLowerBound3_aux3 C₀ 3 t σ_gt
   have pos_left : 0 <
       3 ^ ((3 : Real) / 4) * (σ - 1) ^ (-(3 : Real) / 4) *
         C₀ ^ ((1 : Real) / 4) * (Real.log |2 * t|) ^ ((1 : Real) / 4) := by
