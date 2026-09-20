@@ -491,9 +491,9 @@ theorem zetaLogDeriv_explicit_bounded_and_holo :
       le_trans (min_le_left _ _) hA₁.2⟩
   · intro σ t ht hσ
     apply hbound σ t ht
-    exact le_trans hσ (by
-      gcongr
-      exact min_le_left _ _)
+    apply le_trans ?_ hσ
+    gcongr
+    exact min_le_left _ _
   · intro T hT
     apply (hholo T hT).mono
     intro s hs
