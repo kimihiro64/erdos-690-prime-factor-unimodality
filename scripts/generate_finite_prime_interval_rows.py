@@ -143,7 +143,7 @@ def split_large_row_families(body: str) -> str:
                     "set_option maxHeartbeats 20000000 in",
                     f"def {part_name} : List DusartPrimeRow :=",
                     "  [",
-                    ",\n".join(row.rstrip(",\n") + "," for row in part_rows),
+                    "\n".join(row.rstrip(",\n") + "," for row in part_rows),
                     "  ]",
                     "",
                     "set_option maxHeartbeats 20000000 in",
