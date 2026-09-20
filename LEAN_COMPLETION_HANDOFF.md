@@ -82,6 +82,32 @@ The intended source decomposition is:
   the explicit theta estimate above that point;
 - `Proof/Analytic/WangCrapisClosed.lean` only assembles those three exports.
 
+### Paper-aligned Dusart dependency split
+
+The global scope must follow the statements in Dusart's paper, not merely an
+eventual asymptotic consequence:
+
+- Proposition 3.2 is for every positive `x`.  Its proof separates the direct
+  finite computation below `121` from the prime-power argument above `121`.
+  The latter is now exposed as
+  `dusart_proposition_3_2_of_uniform_strict_root_bound` and the global split as
+  `dusart_proposition_3_2_of_uniform_strict_root_bound_all` in
+  `DusartProof.lean`.
+- Lemma 3.3 uses the published uniform theta estimate `theta x < 1.000081*x`
+  and a finite check for the range where the displayed power-sum estimate is
+  not yet effective.  An eventual Medium-PNT bound is not a replacement for
+  this explicit constant.
+- Proposition 5.1 uses the finite Table 6.4 check through `8*10^11`, the
+  explicit psi error on `[8*10^11, exp 28]`, and the large-range theta error.
+  The middle-range conversion is formalized in `DusartProof.lean`; the finite
+  table and the explicit large-range input remain separate provider
+  obligations.
+
+These are source obligations before certificate replay.  A certificate may
+ discharge only the finite computation it actually represents; it must not be
+ used to hide a missing analytic theorem or to weaken an all-`x` statement to
+ an eventual one.
+
 Preserve the existing generic declarations in `DecayToLogFourth.lean`,
 `ExplicitPrimeCounting.lean`, `ExplicitThetaBounds.lean`,
 `ShortIntervalPrime.lean`, and `MediumPNT.lean`; repair their elaboration
