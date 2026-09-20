@@ -6,6 +6,49 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 
+/-! Compact rows for the bounded part of Dusart's Proposition 3.1.  The row
+validity field contains the numerical gap proof; coverage and the analytic
+tail are assembled separately. -/
+structure DusartProposition31FiniteRow where
+  left : Nat
+  right : Nat
+  left_le_right : left ≤ right
+  valid : ∀ x : Real, (121 : Real) < x →
+    (left : Real) ≤ x → x ≤ right →
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x
+
+def DusartProposition31FiniteRowsCover
+    (rows : List DusartProposition31FiniteRow) (X : Real) : Prop :=
+  ∀ x : Real, (121 : Real) < x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+def DusartProposition31FiniteIndexedRowsCover {n : Nat}
+    (rows : Fin n → DusartProposition31FiniteRow) (X : Real) : Prop :=
+  ∀ x : Real, (121 : Real) < x → x ≤ X →
+    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+
+theorem dusartProposition31Finite_of_rows
+    {X : Real} {rows : List DusartProposition31FiniteRow}
+    (cover : DusartProposition31FiniteRowsCover rows X) :
+    ∀ x : Real, (121 : Real) < x → x ≤ X →
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x := by
+  intro x hx hX
+  obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
+  exact row.valid x hx hleft hright
+
+theorem dusartProposition31Finite_of_indexed_rows
+    {n : Nat} {X : Real}
+    {rows : Fin n → DusartProposition31FiniteRow}
+    (cover : DusartProposition31FiniteIndexedRowsCover rows X) :
+    ∀ x : Real, (121 : Real) < x → x ≤ X →
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x := by
+  intro x hx hX
+  obtain ⟨i, hleft, hright⟩ := cover x hx hX
+  exact (rows i).valid x hx hleft hright
+
 /-! Compact bounded rows for the direct-computation part of Dusart's Lemma 3.3.
 
 The row validity field is the only place where a bounded numerical proof is

@@ -3109,6 +3109,21 @@ theorem dusart_proposition_3_1_of_finite_and_thetaErrorAbove
   intro y hy
   exact thetaError y hy
 
+theorem dusart_proposition_3_1_of_indexed_rows_and_thetaErrorAbove
+    {n : Nat} {X : Real}
+    {rows : Fin n → DusartProposition31FiniteRow}
+    (hX : (4e18 : Real) ^ 2 ≤ X)
+    (cover : DusartProposition31FiniteIndexedRowsCover rows X)
+    (thetaError : HasThetaLogFourthErrorAbove
+      (648 / 1000 : Real) (4e18 : Real)) :
+    ∀ x : Real, (121 : Real) < x →
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x := by
+  apply dusart_proposition_3_1_of_finite_and_thetaErrorAbove
+    (fun x hx hxc => dusartProposition31Finite_of_indexed_rows cover
+      x hx (le_trans (le_of_lt hxc) hX))
+  exact thetaError
+
 theorem psi_sub_theta_le_of_root_bound
     {x c : Real} (hx : 0 ≤ x) (hc : 0 ≤ c)
     (hroot : ∀ y : Real, 0 ≤ y → Chebyshev.psi y ≤ c * y) :
