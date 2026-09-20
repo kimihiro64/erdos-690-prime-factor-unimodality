@@ -660,6 +660,25 @@ theorem dusart_lemma_3_3_of_finite_and_theta_upper
       exact hle (hcut.trans hX)
     exact dusart_lemma_3_3_large (le_of_not_ge hcut) theta_upper
 
+theorem dusart_proposition_3_2_of_finite_lemma_and_theta_upper
+    {X : Real} (hX : (10 ^ 11 : Real) ^ 3 ≤ X)
+    (finite : ∀ x : Real, 0 < x → x ≤ X →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)))
+    (theta_error : ∀ y : Real, 0 < y →
+      Chebyshev.theta y - y < y / 36260) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x <
+        (100007 : Real) / 100000 * Real.sqrt x +
+          (178 : Real) / 100 * x ^ (1 / (3 : Real)) := by
+  apply dusart_proposition_3_2_of_paper_lemma_and_theta_upper
+  · apply dusart_lemma_3_3_of_finite_and_theta_upper hX finite
+    intro y hy
+    have h := theta_error y hy
+    nlinarith
+  · exact theta_error
+
 theorem dusart_gap_upper_from_uniform_root_bound
     {x : Real} (hx : (121 : Real) ≤ x)
     (hroot : ∀ y : Real, 0 ≤ y →
