@@ -416,6 +416,45 @@ theorem dusart_lemma_3_3_prime_power_decomposition
   rw [hsplit, hsqrt] at hdecomp
   linarith
 
+/-! A reusable elementary estimate for the real-power sum occurring after the
+decomposition.  The only input is monotonicity of `x^a` in the exponent when
+`x ≥ 1`; the finite cardinality calculation is kept explicit. -/
+theorem dusart_prime_power_rpow_sum_le
+    {x : Real} (hx : (1 : Real) ≤ x) {N : Nat} (hN : 3 ≤ N) :
+    ∑ k ∈ Finset.Icc 3 N, x ^ (1 / (k : Real)) ≤
+      x ^ (1 / (3 : Real)) +
+        ((N : Real) - 3) * x ^ (1 / (4 : Real)) := by
+  have hunion : Finset.Icc 3 N = {3} ∪ Finset.Icc 4 N := by
+    ext k
+    simp only [Finset.mem_Icc, Finset.mem_singleton, Finset.mem_union]
+    omega
+  rw [hunion, Finset.sum_union]
+  · simp only [Finset.sum_singleton]
+    calc
+      x ^ (1 / (3 : Real)) + ∑ k ∈ Finset.Icc 4 N, x ^ (1 / (k : Real)) ≤
+          x ^ (1 / (3 : Real)) +
+            (Finset.Icc 4 N).card • x ^ (1 / (4 : Real)) := by
+        gcongr
+        apply Finset.sum_le_card_nsmul
+        intro k hk
+        have hk4 : 4 ≤ k := (Finset.mem_Icc.mp hk).1
+        have hkr : (4 : Real) ≤ (k : Real) := by exact_mod_cast hk4
+        have hexp : (1 / (k : Real) : Real) ≤ 1 / 4 := by
+          exact one_div_le_one_div_of_le (by norm_num) hkr
+        exact Real.rpow_le_rpow_of_exponent_le hx hexp
+      _ = x ^ (1 / (3 : Real)) +
+          ((N : Real) - 3) * x ^ (1 / (4 : Real)) := by
+        rw [nsmul_eq_mul, Nat.card_Icc]
+        have hsub : 4 ≤ N + 1 := by omega
+        rw [Nat.cast_sub hsub]
+        push_cast
+        ring
+  · apply Finset.disjoint_left.mpr
+    intro k hk₁ hk₂
+    simp only [Finset.mem_singleton] at hk₁
+    simp only [Finset.mem_Icc] at hk₂
+    omega
+
 theorem dusart_gap_upper_from_uniform_root_bound
     {x : Real} (hx : (121 : Real) ≤ x)
     (hroot : ∀ y : Real, 0 ≤ y →
