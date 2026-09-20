@@ -239,6 +239,44 @@ theorem wangCrapis_thetaBounds_of_paper_ranges_and_prop31_thetaError
       (by norm_num) hA thetaError
   · exact lower
 
+/-! Direct finite-prefix assembly for the provider interface.  The finite
+upper and lower estimates are kept as separate obligations, as in the paper;
+only the unbounded tail is converted from the explicit error estimate. -/
+theorem wangCrapis_thetaBounds_of_paper_finite_prefix_and_logFourthTail
+    {A X : Real}
+    (hXpos : 0 < X)
+    (hlogX : (10 : Real) < Real.log X)
+    (finiteUpper : ∀ x : Real, 0 < x → x ≤ X →
+      Chebyshev.theta x - x < x / 36260)
+    (finiteLower : ∀ x : Real, 2 < x → x ≤ X →
+      x * (1 - (12323 / 10000 : Real) / Real.log x) <
+        Chebyshev.theta x)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthErrorAbove A X) :
+    HasDusartThetaBounds := by
+  have tail : HasDusartSymmetricThetaBoundsAbove X :=
+    hasDusartSymmetricThetaBoundsAbove_of_logFourthError
+      hXpos hlogX hA_nonneg hA thetaError
+  constructor
+  · intro x hx
+    by_cases hsmall : x ≤ X
+    · have h := finiteUpper x hx hsmall
+      nlinarith
+    · have h := tail.1 x (le_of_not_ge hsmall)
+      nlinarith
+  · intro x hx
+    by_cases hsmall : x ≤ X
+    · exact finiteLower x hx hsmall
+    · have hlog_pos : 0 < Real.log x := Real.log_pos (by linarith)
+      have hlow := (abs_lt.mp (tail.2 x hx (le_of_not_ge hsmall))).1
+      have htarget :
+          x * (1 - (12323 / 10000 : Real) / Real.log x) =
+            x - (12323 / 10000 : Real) * x / Real.log x := by
+        field_simp [hlog_pos.ne']
+      rw [htarget]
+      linarith
+
 /-! Global Proposition 5.1 in the three ranges used by Dusart: the finite
 Table 6.4 range, the explicit middle range ending at `exp 28`, and the
 large-range theta-error tail. -/
