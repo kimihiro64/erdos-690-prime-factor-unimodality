@@ -1086,6 +1086,22 @@ theorem dusartThetaTableVerifiedRowsCoverUpTo_append
   · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
     exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
 
+theorem dusartThetaTableVerifiedIndexedCoverUpTo_append
+    {m X : Real} {n₁ n₂ : Nat}
+    {left : Fin n₁ → DusartThetaTableVerifiedRow}
+    {right : Fin n₂ → DusartThetaTableVerifiedRow}
+    (hleft : DusartThetaTableVerifiedIndexedCoverUpTo left m)
+    (hright : DusartThetaTableVerifiedIndexedCoverUpTo right X) :
+    DusartThetaTableVerifiedIndexedCoverUpTo (Fin.append left right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨i, hleft_lower, hleft_upper⟩ := hleft x hx hxm
+    refine ⟨Fin.castAdd n₂ i, ?_⟩
+    simpa [Fin.append_left] using And.intro hleft_lower hleft_upper
+  · obtain ⟨i, hright_lower, hright_upper⟩ := hright x hx hX
+    refine ⟨Fin.natAdd n₁ i, ?_⟩
+    simpa [Fin.append_right] using And.intro hright_lower hright_upper
+
 def dusartThetaRelativeRow_to_bounds
     (row : DusartThetaRelativeRow) : DusartThetaBoundsRow := by
   refine {
