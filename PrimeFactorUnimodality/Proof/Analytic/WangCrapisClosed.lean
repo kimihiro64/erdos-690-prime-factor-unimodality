@@ -63,7 +63,7 @@ theorem wangCrapisPaperInputs_of_mediumPNT_finite_providers
   exact wangCrapisPaperInputs_of_providers
     (wangCrapis_primeCounting_of_mediumPNT
       finiteThetaError finitePrimeCounting)
-    (wangCrapis_thetaBounds_of_mediumPNT finiteThetaBounds)
+    (wangCrapis_thetaBounds_of_mediumPNT_via_decay finiteThetaBounds)
     (wangCrapis_shortInterval_of_mediumPNT finiteLogCubed)
 
 theorem completeClassification_closed_of_mediumPNT_finite_providers
