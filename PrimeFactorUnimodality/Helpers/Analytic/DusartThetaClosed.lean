@@ -113,6 +113,23 @@ theorem wangCrapis_thetaBounds_of_paper_ranges
   · exact dusart_proposition_5_1_of_paper_ranges finite middle tail
   · exact lower
 
+/-! The large-range clause in Proposition 5.1 follows directly from the
+explicit logarithm-fourth error once its cutoff is placed at `exp 28`. -/
+theorem dusart_proposition_5_1_tail_of_logFourthError
+    {A : Real}
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log (Real.exp 28) ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthErrorAbove A (Real.exp 28)) :
+    ∀ x : Real, Real.exp 28 ≤ x →
+      Chebyshev.theta x - x < x / 36260 := by
+  have hlog : (10 : Real) < Real.log (Real.exp 28) := by
+    rw [Real.log_exp]
+    norm_num
+  have tail : HasDusartSymmetricThetaBoundsAbove (Real.exp 28) :=
+    hasDusartSymmetricThetaBoundsAbove_of_logFourthError
+      (by positivity) hlog hA_nonneg hA thetaError
+  exact tail.1
+
 /-! Global Proposition 5.1 in the three ranges used by Dusart: the finite
 Table 6.4 range, the explicit middle range ending at `exp 28`, and the
 large-range theta-error tail. -/
