@@ -306,6 +306,24 @@ theorem dusart_proposition_3_2_of_lemma_3_3_and_theta_upper
   have hcuberoot : 0 ≤ x ^ (1 / 3 : Real) := by positivity
   nlinarith
 
+theorem dusart_proposition_3_2_of_lemma_3_3_and_dusart_theta_upper
+    {x : Real} (hx : 0 < x)
+    (hlemma : Chebyshev.psi x - Chebyshev.theta x -
+        Chebyshev.theta (Real.sqrt x) <
+      (1777745 : Real) / 1000000 * x ^ (1 / 3 : Real))
+    (htheta : ∀ y : Real, 0 < y →
+      Chebyshev.theta y - y < y / 36260) :
+    Chebyshev.psi x - Chebyshev.theta x <
+      (100007 : Real) / 100000 * Real.sqrt x +
+        (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
+  have hsqrt_pos : 0 < Real.sqrt x := Real.sqrt_pos.2 hx
+  have htheta' := htheta (Real.sqrt x) hsqrt_pos
+  have htheta'' : Chebyshev.theta (Real.sqrt x) <
+      (100007 : Real) / 100000 * Real.sqrt x := by
+    nlinarith [Real.sqrt_nonneg x]
+  exact dusart_proposition_3_2_of_lemma_3_3_and_theta_upper
+    hx hlemma htheta''
+
 theorem dusart_gap_upper_from_uniform_root_bound
     {x : Real} (hx : (121 : Real) ≤ x)
     (hroot : ∀ y : Real, 0 ≤ y →
