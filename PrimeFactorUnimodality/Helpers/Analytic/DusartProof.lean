@@ -3507,14 +3507,10 @@ theorem dusart_lemma_3_3_prime_power_decomposition
 theorem dusart_rpow_ratio_bound
     {x b q : Real} {k : Nat}
     (hb : 1 ≤ b) (hbx : b ≤ x) (hk : 3 ≤ k)
+    (hq0 : 0 ≤ q)
     (hq : 1 ≤ q ^ (3 * k) * b ^ (k - 3)) :
     x ^ (1 / (k : Real)) ≤ q * x ^ (1 / (3 : Real)) := by
   have hx : 0 < x := lt_of_lt_of_le (by linarith) hbx
-  have hq0 : 0 ≤ q := by
-    by_contra h
-    have hqneg : q < 0 := lt_of_not_ge h
-    have hqpow : 0 ≤ q ^ (3 * k) := by positivity
-    nlinarith
   have hpow_base : b ^ (k - 3) ≤ x ^ (k - 3) := by
     exact pow_le_pow_left' (by linarith) hbx
   have hprod : 1 ≤ q ^ (3 * k) * x ^ (k - 3) := by
