@@ -43,6 +43,25 @@ def HasDusartSymmetricThetaBoundsBelow (X : Real) : Prop :=
     |Chebyshev.theta x - x| <
       (12323 / 10000 : Real) * x / Real.log x)
 
+/-! Schoenfeld's finite prefix is naturally stronger than the published
+upper-error budget.  Keep that input separate so the finite computation can
+prove `theta x < x` directly and the analytic tail can provide the relaxed
+global constant. -/
+def HasStrictThetaUpperBelow (X : Real) : Prop :=
+  ∀ x : Real, 0 < x → x ≤ X → Chebyshev.theta x < x
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_strict_theta_prefix
+    {X : Real} (upperPrefix : HasStrictThetaUpperBelow X)
+    (lower : ∀ x : Real, 2 < x → x ≤ X →
+      |Chebyshev.theta x - x| <
+        (12323 / 10000 : Real) * x / Real.log x) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  constructor
+  · intro x hx hX
+    have hstrict := upperPrefix x hx hX
+    nlinarith
+  · exact lower
+
 /-! The unbounded half of the published theta estimate.  Keeping this as a
 tail-only predicate lets the source-level PNT proof discharge the analytic
 tail independently of the finite endpoint table. -/

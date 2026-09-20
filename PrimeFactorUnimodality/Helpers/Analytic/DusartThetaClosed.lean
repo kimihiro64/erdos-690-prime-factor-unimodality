@@ -112,6 +112,24 @@ theorem wangCrapis_thetaBounds_of_logFourthTail
   exact hasDusartThetaBounds_of_finite_and_logFourth_from
     hXpos hlogX finite hA_nonneg hA thetaError
 
+/-! Paper-shaped variant: the bounded upper estimate is supplied as
+Schoenfeld's strict `theta x < x` prefix, while the bounded lower estimate is
+kept as its own finite obligation. -/
+theorem wangCrapis_thetaBounds_of_strict_theta_prefix_and_logFourthTail
+    {A X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (upperPrefix : HasStrictThetaUpperBelow X)
+    (lower : ∀ x : Real, 2 < x → x ≤ X →
+      |Chebyshev.theta x - x| <
+        (12323 / 10000 : Real) * x / Real.log x)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds := by
+  exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
+    (hasDusartSymmetricThetaBoundsBelow_of_strict_theta_prefix
+      upperPrefix lower)
+    hA_nonneg hA thetaError
+
 /-! Selected-cutoff form used by the split all-`k` assembly. -/
 theorem wangCrapis_thetaBounds_of_selected_cutoff
     {A X : Real} (finite : HasDusartSymmetricThetaBoundsBelow X)
