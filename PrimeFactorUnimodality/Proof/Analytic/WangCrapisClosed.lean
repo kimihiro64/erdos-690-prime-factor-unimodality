@@ -1,6 +1,6 @@
 import PrimeFactorUnimodality.Helpers.Analytic.DusartPrimeCountingClosed
-import PrimeFactorUnimodality.Helpers.Analytic.DusartThetaClosed
 import PrimeFactorUnimodality.Helpers.Analytic.DusartShortIntervalClosed
+import PrimeFactorUnimodality.Helpers.Analytic.DusartThetaClosed
 import PrimeFactorUnimodality.Proof.CompleteClassification
 
 set_option autoImplicit false
