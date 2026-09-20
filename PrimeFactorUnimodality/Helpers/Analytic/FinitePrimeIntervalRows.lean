@@ -1031,6 +1031,14 @@ theorem dusartThetaTable6_6NatRanges_adjacent :
       (fun first second => first.2 = second.1) := by
   decide
 
+theorem dusartThetaTable6_6NatRanges_cover :
+    ∀ n : Nat, 100000000 ≤ n → n ≤ 800000000000 →
+      ∃ range ∈ dusartThetaTable6_6NatRanges,
+        range.1 ≤ n ∧ n ≤ range.2 := by
+  intro n hn hN
+  simp [dusartThetaTable6_6NatRanges, dusartThetaTable6_6Coefficients]
+  omega
+
 theorem dusartThetaTable_upper_coeff_error_of_le_one
     {upper_coeff : Real} (hupper : upper_coeff ≤ 1) :
     upper_coeff - 1 < (1 : Real) / 36260 := by
