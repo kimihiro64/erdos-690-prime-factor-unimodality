@@ -21,7 +21,7 @@ def integer_root(n: int, k: int) -> int:
 
 
 def endpoint_theorem(n: int) -> str:
-    N = int(math.log2(n))
+    N = n.bit_length() - 1
     roots = [(k, integer_root(n, k)) for k in range(2, N + 1)]
     name = f"dusart_lemma33_endpoint_{n}"
     out = [
