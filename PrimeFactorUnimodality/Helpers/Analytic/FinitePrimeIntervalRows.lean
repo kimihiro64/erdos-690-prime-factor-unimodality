@@ -380,6 +380,35 @@ theorem hasStrictThetaUpperBelow_of_indexed_rows
   · obtain ⟨i, hleft, hright⟩ := cover x (le_of_not_gt hsmall) hX
     exact strictThetaUpperRow_provides (rows i) hleft hright
 
+theorem strictThetaUpperRowsCoverUpTo_append
+    {m X : Real} {left right : List StrictThetaUpperRow}
+    (hleft : StrictThetaUpperRowsCoverUpTo left m)
+    (hright : StrictThetaUpperRowsCoverUpTo right X) :
+    StrictThetaUpperRowsCoverUpTo (left ++ right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+
+theorem strictThetaUpperIndexedCoverUpTo_append
+    {m X : Real} {n₁ n₂ : Nat}
+    {left : Fin n₁ → StrictThetaUpperRow}
+    {right : Fin n₂ → StrictThetaUpperRow}
+    (hleft : StrictThetaUpperIndexedCoverUpTo left m)
+    (hright : StrictThetaUpperIndexedCoverUpTo right X) :
+    StrictThetaUpperIndexedCoverUpTo (Fin.append left right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨i, hleft_lower, hleft_upper⟩ := hleft x hx hxm
+    refine ⟨Fin.castAdd n₂ i, ?_⟩
+    simpa [Fin.append_left] using And.intro hleft_lower hleft_upper
+  · obtain ⟨i, hright_lower, hright_upper⟩ :=
+      hright x hx hX
+    refine ⟨Fin.natAdd n₁ i, ?_⟩
+    simpa [Fin.append_right] using And.intro hright_lower hright_upper
+
 theorem hasDusartSymmetricThetaBoundsBelow_of_strict_rows_and_lower
     {X : Real} {rows : List StrictThetaUpperRow}
     (cover : StrictThetaUpperRowsCoverUpTo rows X)
