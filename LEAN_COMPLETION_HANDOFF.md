@@ -158,6 +158,11 @@ eventual existential decay result.  Do not mistake that theorem for the
 completed explicit Dusart analytic tail: the missing work is the numerical
 specialization and its Chebyshev-error conversion.
 
+The local `PrimeNumberTheoremAnd/IEANTN/Dusart.lean` is not a usable fallback:
+its matching `proposition_4_4` declaration for the (1.777745) Lemma 3.3
+bound has a placeholder proof.  It must remain excluded from the dependency
+chain.
+
 Preserve the existing generic declarations in `DecayToLogFourth.lean`,
 `ExplicitPrimeCounting.lean`, `ExplicitThetaBounds.lean`,
 `ShortIntervalPrime.lean`, and `MediumPNT.lean`; repair their elaboration
