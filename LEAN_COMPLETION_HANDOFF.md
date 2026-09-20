@@ -34,6 +34,13 @@ Do not reopen this split or create one source file per witness.  Remaining
 finite endpoint data must use the same compact row/assembler boundary and be
 added only when it closes an analytic provider obligation.
 
+The Proposition 5.4(c) logarithmic finite prefix is now represented by
+`MediumLogRowsBase.lean`, seven generated `MediumLogBandNN.lean` data bands,
+and `MediumLogRows.lean`.  It stores 22,115 adjacent-prime rows, including
+the endpoint seed at `89693`, and exports the finite prefix through `360653`.
+The scaled natural-number product constructor and ordered-chain assembler
+are shared; do not replace this with one declaration or file per witness.
+
 ### Close the analytic provider by one canonical route
 
 `Proof/CompleteClassification.lean` currently exposes many alternative
