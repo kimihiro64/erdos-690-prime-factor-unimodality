@@ -76,6 +76,27 @@ theorem wangCrapis_primeCounting_of_selected_cutoff
   intro x hx
   exact thetaError x hx
 
+/-! Direct compact-certificate boundary for the prime-counting provider. The
+indexed endpoint rows discharge only the bounded real prime-counting range;
+the Abel core and the unbounded theta error remain explicit inputs. -/
+theorem wangCrapis_primeCounting_of_indexed_endpoint_rows_and_thetaTail
+    {A X Y : Real} {n : Nat}
+    (rows : Fin n → DusartPrimeCountingEndpointRow)
+    (cover : DusartPrimeCountingEndpointIndexedCoverFrom599 rows Y)
+    (smallUpper : ∀ x : Real, 2 ≤ x → x < 599 →
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x)
+    (h4X : (4e18 : Real) ≤ X)
+    (hXpos : 0 < X) (h2X : 2 ≤ X) (hXY : X ≤ Y)
+    (hA0 : 0 ≤ A) (hA : A ≤ 1)
+    (hlog : (42 : Real) ≤ Real.log X)
+    (thetaBelow : HasThetaLogFourthErrorBelow A X)
+    (thetaAbove : HasThetaLogFourthErrorAbove A X) :
+    HasDusartPrimeCountingBounds := by
+  exact wangCrapis_primeCounting_of_finite_and_thetaTail
+    (hasDusartRealPrimeCountingBoundsBelow_of_indexed_endpoint_rows
+      cover smallUpper)
+    h4X hXpos h2X hXY hA0 hA hlog thetaBelow thetaAbove
+
 /-! Complete source-level assembly.  The medium-PNT theorem chooses one
 eventual cutoff after the finite theta-error provider has established the
 Abel core; the finite prime-counting provider is then consumed at exactly
