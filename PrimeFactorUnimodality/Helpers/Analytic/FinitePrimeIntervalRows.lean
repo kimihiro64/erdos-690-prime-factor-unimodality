@@ -1152,6 +1152,60 @@ theorem dusartThetaTableVerifiedIndexedCoverUpTo_append
     refine ⟨Fin.natAdd n₁ i, ?_⟩
     simpa [Fin.append_right] using And.intro hright_lower hright_upper
 
+/-! The verified Table 6.4 rows can be supplied in compact indexed chunks.
+    Adjacent generated bands are assembled here without duplicating their
+    coverage proof or creating one declaration per endpoint. -/
+structure DusartThetaTableVerifiedChunk where
+  n : Nat
+  cutoff : Real
+  rows : Fin n → DusartThetaTableVerifiedRow
+  cover : DusartThetaTableVerifiedIndexedCoverUpTo rows cutoff
+
+def DusartThetaTableVerifiedChunk.of_list
+    {rows : List DusartThetaTableVerifiedRow} {cutoff : Real}
+    (cover : DusartThetaTableVerifiedRowsCoverUpTo rows cutoff) :
+    DusartThetaTableVerifiedChunk :=
+  { n := rows.length
+    cutoff := cutoff
+    rows := fun i => rows.get i
+    cover := dusartThetaTableVerifiedIndexedCoverUpTo_of_list cover }
+
+def DusartThetaTableVerifiedChunk.append
+    (left right : DusartThetaTableVerifiedChunk) :
+    DusartThetaTableVerifiedChunk :=
+  { n := left.n + right.n
+    cutoff := right.cutoff
+    rows := Fin.append left.rows right.rows
+    cover := dusartThetaTableVerifiedIndexedCoverUpTo_append
+      left.cover right.cover }
+
+def DusartThetaTableVerifiedChunk.appendMany
+    (first : DusartThetaTableVerifiedChunk)
+    (rest : List DusartThetaTableVerifiedChunk) :
+    DusartThetaTableVerifiedChunk :=
+  match rest with
+  | [] => first
+  | next :: tail =>
+      DusartThetaTableVerifiedChunk.appendMany
+        (DusartThetaTableVerifiedChunk.append first next) tail
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_verified_chunk
+    (chunk : DusartThetaTableVerifiedChunk) :
+    HasDusartSymmetricThetaBoundsBelow chunk.cutoff := by
+  exact hasDusartSymmetricThetaBoundsBelow_of_indexed_verified_table_rows
+    chunk.cover
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_verified_chunks
+    (first : DusartThetaTableVerifiedChunk)
+    (rest : List DusartThetaTableVerifiedChunk) :
+    HasDusartSymmetricThetaBoundsBelow
+      (DusartThetaTableVerifiedChunk.appendMany first rest).cutoff := by
+  induction rest generalizing first with
+  | nil =>
+      exact hasDusartSymmetricThetaBoundsBelow_of_verified_chunk first
+  | cons next tail ih =>
+      exact ih (DusartThetaTableVerifiedChunk.append first next)
+
 def dusartThetaRelativeRow_to_bounds
     (row : DusartThetaRelativeRow) : DusartThetaBoundsRow := by
   refine {
