@@ -425,7 +425,8 @@ theorem zetaLogDeriv_explicit_uniform :
   · by_cases hlocal_upper : σ < 1 + A / Real.log |t| ^ (9 : Nat)
     · have hC₀C : C₀ ≤ C := by
         dsimp [C]
-        have h : 0 ≤ K + 1 / A + B + 1 := by positivity
+        have hInv : 0 < 1 / A := by positivity
+        have h : 0 ≤ K + 1 / A + B + 1 := by linarith
         linarith
       exact (hlocal σ t ht ⟨hσ, hlocal_upper⟩).trans
         (mul_le_mul_of_nonneg_right hC₀C (by positivity))
@@ -434,7 +435,7 @@ theorem zetaLogDeriv_explicit_uniform :
         have : 1 < 1 + A / Real.log |t| ^ (9 : Nat) := by positivity
         linarith
       have htriv' := htriv σ t hσgt
-      rw [norm_neg] at htriv'
+      rw [neg_div, norm_neg] at htriv'
       have hinv : (σ - 1)⁻¹ ≤
           (1 / A) * Real.log |t| ^ (9 : Nat) := by
         apply (inv_le_iff₀ (by linarith)).2
@@ -460,7 +461,7 @@ theorem zetaLogDeriv_explicit_uniform :
           linarith
   · have hgen := dlog_riemannZeta_bdd_on_vertical_lines_generalized
       (2 : Real) σ t (by norm_num) (le_of_not_ge hσ2)
-    rw [norm_neg] at hgen
+    rw [neg_div, norm_neg] at hgen
     calc
       ‖deriv riemannZeta (σ + t * Complex.I) /
           riemannZeta (σ + t * Complex.I)‖ =
