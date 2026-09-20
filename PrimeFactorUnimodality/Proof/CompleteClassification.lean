@@ -45,7 +45,7 @@ theorem completeClassification_of_explicit_inputs
     (tailPair : HasUniformTailPrimePair) :
     CompleteClassification := by
   intro k hk
-    exact completeClassification_with_explicit_inputs primeCountingBounds reciprocalEstimate
+  exact completeClassification_with_explicit_inputs primeCountingBounds reciprocalEstimate
     thetaBounds tailPair k hk
 
 /-! The reciprocal-prime estimate is a proved Mertens consequence in this
