@@ -97,14 +97,14 @@ eventual asymptotic consequence:
   and a finite check for the range where the displayed power-sum estimate is
   not yet effective.  An eventual Medium-PNT bound is not a replacement for
   this explicit constant.
-- Proposition 5.1 uses the finite Table 6.4 check through `8*10^11`, the
+- Proposition 5.1 uses the finite Table 6.6 check through `8*10^11`, the
   explicit psi error on `[8*10^11, exp 28]`, and the large-range theta error.
   The middle-range conversion is formalized in `DusartProof.lean`; the finite
   table and the explicit large-range input remain separate provider
   obligations.
 
 Schoenfeld's page-360 improvement also fixes the natural finite theta split:
-first prove the strict finite estimate `theta x < x` for `0 < x <= 10^11`,
+first prove the strict finite estimate `theta x < x` for `0 < x <= 8*10^11`,
 then combine it with the large-range estimate to obtain the published
 `theta x < 1.000081*x` bound.  The finite provider should therefore expose
 the stronger `theta x < x` prefix and let the analytic tail supply the
@@ -120,7 +120,7 @@ Consequently, the current exact `2401` row is a seed/checkpoint only.  The
 global provider still needs either the complete bounded computation (encoded
 as compact rows and assembled once) or a separately proved interval argument
 covering the entire intermediate range.  Likewise, Proposition 5.1 explicitly
-uses Table 6.4 through `8*10^11`; a small theta prefix cannot be promoted to
+uses Table 6.6 through `8*10^11`; a small theta prefix cannot be promoted to
 that published bound without proving the intervening table argument.
 
 The finite-row facade also exposes `DusartThetaEndpointRow.toStrictUpperRow`
