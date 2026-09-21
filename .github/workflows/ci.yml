@@ -195,9 +195,6 @@ jobs:
           build: false
           lint: false
       - name: Build the complete formalization
-        env:
-          LAKE_OVERRIDE_LEAN: "1"
-          LEAN: ${{ github.workspace }}/scripts/ci/lean-bounded
         run: lake build
       - name: Run the Lean linters
         run: lake lint
