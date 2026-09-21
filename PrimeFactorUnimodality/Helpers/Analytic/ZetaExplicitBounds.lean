@@ -503,6 +503,16 @@ theorem zetaZeroFree_explicit :
     · norm_num
   · exact h
 
+theorem zetaLowerBnd_explicit_fixed :
+    ∃ (c : Real) (_ : 0 < c),
+    ∀ (σ t : Real) (_ : 3 < |t|)
+      (_ : σ ∈ Ico
+        (1 - ((1 / 100000 : Real) ^ (4 : Nat)) / (Real.log |t|) ^ 9)
+        (1 + ((1 / 100000 : Real) ^ (4 : Nat)) / (Real.log |t|) ^ 9)),
+      c / (Real.log |t|) ^ 7 ≤ ‖riemannZeta (σ + t * Complex.I)‖ := by
+  obtain ⟨c, hc, hbound⟩ := zetaZeroFree_explicit_fixed
+  exact ⟨c, hc, fun σ t ht hσ => (hbound σ t ht hσ).1⟩
+
 theorem zetaLowerBnd_explicit :
     ∃ (A : Real) (_ : A ∈ Ioc 0 (1 / 2)) (c : Real) (_ : 0 < c),
     ∀ (σ t : Real) (_ : 3 < |t|)
