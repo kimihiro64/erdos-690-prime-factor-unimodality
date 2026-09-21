@@ -1,4 +1,5 @@
 import PrimeFactorUnimodality.Helpers.Analytic.DusartThetaClosedPart01
+import PrimeFactorUnimodality.Helpers.Analytic.DusartThetaClosedPart01Tail
 
 
 set_option autoImplicit false
