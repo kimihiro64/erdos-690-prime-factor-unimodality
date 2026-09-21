@@ -275,10 +275,16 @@ def audit_architecture(root: Path) -> dict[str, object]:
     for module, source in sources.items():
         lines = len(source.splitlines())
         if is_generated_module(module, namespace):
+            if (
+                module.startswith(f"{namespace}.Helpers.Analytic.DusartLemma33MidrangeEndpoints")
+                and lines > LEAN_MAX_LINES
+            ):
+                failures.append(f"{module}: {lines} Lean lines exceeds hard limit {LEAN_MAX_LINES}")
             continue
-        if lines > LEAN_MAX_LINES:
-            failures.append(f"{module}: {lines} Lean lines exceeds hard limit {LEAN_MAX_LINES}")
-        elif lines > LEAN_RECOMMENDED_LINES:
+        limit = LEAN_MAX_LINES
+        if lines > limit:
+            failures.append(f"{module}: {lines} Lean lines exceeds hard limit {limit}")
+        elif not is_generated_module(module, namespace) and lines > LEAN_RECOMMENDED_LINES:
             warnings.append(f"{module}: {lines} Lean lines; split before {LEAN_MAX_LINES}")
     python_paths = sorted(
         root / relative

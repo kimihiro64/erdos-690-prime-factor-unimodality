@@ -82,14 +82,21 @@ def main() -> None:
     parser.add_argument("--input", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--limit", type=int)
+    parser.add_argument(
+        "--part-size",
+        type=int,
+        default=10,
+        help="number of endpoint proofs per serially imported part",
+    )
     args = parser.parse_args()
+    if args.part_size <= 0:
+        parser.error("--part-size must be positive")
     payload = json.loads(args.input.read_text())
     values = [(row["left"], row["right"]) for row in payload["rows"]]
     if args.limit is not None:
         values = values[: args.limit]
-    header = [
+    common_header = [
         "import PrimeFactorUnimodality.Helpers.Analytic.DusartFiniteRows",
-        "import PrimeFactorUnimodality.Helpers.Analytic.DusartProof",
         "import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33ThetaData",
         "import LeanCert.Tactic.IntervalAuto",
         "",
@@ -103,10 +110,31 @@ def main() -> None:
         "",
     ]
     args.output.parent.mkdir(parents=True, exist_ok=True)
+    parts = [
+        values[index : index + args.part_size] for index in range(0, len(values), args.part_size)
+    ]
+    part_paths: list[Path] = []
+    for index, part_values in enumerate(parts, start=1):
+        part_path = args.output.with_name(f"{args.output.stem}Part{index:02d}{args.output.suffix}")
+        part_paths.append(part_path)
+        header = common_header
+        if index > 1:
+            previous = part_paths[index - 2].stem
+            header = [
+                f"import PrimeFactorUnimodality.Helpers.Analytic.{previous}",
+                "",
+                *common_header[4:],
+            ]
+        part_path.write_text(
+            "\n".join(header)
+            + "\n".join(endpoint_theorem(left, right) for left, right in part_values)
+            + "\nend\n\nend PrimeFactorUnimodality\n"
+        )
+    final_module = part_paths[-1].stem
     args.output.write_text(
-        "\n".join(header)
-        + "\n".join(endpoint_theorem(left, right) for left, right in values)
-        + "\nend\n\nend PrimeFactorUnimodality\n"
+        "import "
+        f"PrimeFactorUnimodality.Helpers.Analytic.{final_module}\n\n"
+        "/-! Serial facade for the generated endpoint proof ladder. -/\n"
     )
     print(f"generated {len(values)} endpoint theorems")
 

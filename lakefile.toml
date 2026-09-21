@@ -2,10 +2,6 @@ name = "PrimeFactorUnimodality"
 version = "0.1.0"
 defaultTargets = ["PrimeFactorUnimodality", "Challenge", "Solution"]
 lintDriver = "batteries/runLinter"
-# Keep one Lean worker per process; certificate imports are serialized by their
-# explicit dependency ladders.
-weakLeanArgs = ["-j1"]
-
 [leanOptions]
 autoImplicit = false
 relaxedAutoImplicit = false
