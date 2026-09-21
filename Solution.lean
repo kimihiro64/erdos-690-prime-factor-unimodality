@@ -12,7 +12,7 @@ when `k ≤ 3`.
 
 theorem PrimeFactorUnimodality.completeClassification :
     PrimeFactorUnimodality.CompleteClassification := by
-  sorry
+  exact PrimeFactorUnimodality.completeClassification_closed
 
 /-! The public assembly with every analytic input named explicitly.  No
 provider is inferred or hidden at this boundary. -/

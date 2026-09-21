@@ -146,6 +146,15 @@ theorem completeClassification_closed_of_providers
   exact completeClassification_of_wangCrapis_paper_inputs
     (wangCrapisPaperInputs_of_providers primeCounting thetaBounds shortInterval)
 
+/-! Canonical final assembly.  The provider declarations named here are the
+actual analytic endpoints proved in the three owner modules; keeping this
+single theorem as the public consumer prevents the final theorem from
+silently falling back to a conditional package. -/
+theorem completeClassification_closed : CompleteClassification := by
+  exact completeClassification_closed_of_providers
+    wangCrapis_primeCounting wangCrapis_thetaBounds
+    wangCrapis_shortInterval
+
 theorem completeClassification_closed_of_finite_providers
     (providers : WangCrapisFiniteProviders) :
     CompleteClassification := by
