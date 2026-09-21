@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # ruff: noqa: RUF001 -- Lean source strings intentionally use blackboard-bold types.
-"""Render independently compilable tail chunks for a record-twin seed."""
+"""Render serially cacheable tail chunks for a record-twin seed."""
 
 from __future__ import annotations
 
@@ -376,7 +376,7 @@ def main() -> None:
         )
     facade = render_facade(task, len(chunks), note, groups)
     (args.output_directory.parent / f"RecordTwin{side}Seed.lean").write_text(facade)
-    print(f"wrote {len(chunks) - args.checkpoint} independent {side.lower()} chunks")
+    print(f"wrote {len(chunks) - args.checkpoint} serial {side.lower()} chunks")
 
 
 if __name__ == "__main__":

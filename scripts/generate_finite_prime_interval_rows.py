@@ -38,7 +38,7 @@ ROW_PART_SIZE = 8
 # Keep each generated module small enough that its local arithmetic proof does
 # not retain the entire lower-prefix row family during elaboration.  The
 # module count remains proportional to row chunks, rather than to witnesses.
-# Keep the row family in a small number of independently cacheable modules.
+# Keep the row family in a small number of serially cacheable modules.
 # The old 1 KiB threshold produced hundreds of nearly empty modules because
 # each module repeated the local Pocklington support.  A bounded data shard is
 # still preferable to one monolithic file, but the shard should amortize that
@@ -361,7 +361,7 @@ noncomputable section
         imports
         + "\n\nset_option autoImplicit false\nset_option maxRecDepth 1000000\n\n"
         + "/-! # Generated low finite prime interval rows\n\n"
-        + "This facade imports the independent low-range row chunks and assembles "
+        + "This facade imports the serial low-range row chunks and assembles "
         + "their shared coverage data. -/\n\n"
         + "namespace PrimeFactorUnimodality\n\nnoncomputable section\n"
         + "".join(aggregate_segments)

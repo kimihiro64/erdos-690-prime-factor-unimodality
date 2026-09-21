@@ -46,9 +46,18 @@ def test_finite_prime_interval_rows_low_generation_is_sharded(
 
     groups = sorted(tmp_path.glob("LowGroup*.lean"))
     assert groups
-    assert all(f".LowGroup{index:02d}\n" in facade for index in range(1, len(groups) + 1))
-    assert ".LowPart01\n" in groups[0].read_text()
-    assert ".LowPart02\n" in groups[0].read_text()
+    assert (
+        facade.count(
+            "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowGroup"
+        )
+        == 1
+    )
+    assert f".LowGroup{len(groups):02d}\n" in facade
+    for index, group in enumerate(groups, 1):
+        text = group.read_text()
+        if index > 1:
+            assert f".LowGroup{index - 1:02d}\n" in text
+        assert f".LowPart{min(index * 12, count):02d}\n" in text
     assert all(
         len(re.findall(r"^import .*\.LowPart\d+$", group.read_text(), re.MULTILINE)) <= 12
         for group in groups
