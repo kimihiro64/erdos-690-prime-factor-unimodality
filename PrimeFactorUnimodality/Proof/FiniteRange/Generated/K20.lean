@@ -5,6 +5,7 @@ import PrimeFactorUnimodality.Helpers.FiniteCertificates.Generated.PrimePrefixes
 import PrimeFactorUnimodality.Helpers.FiniteCertificates.Generated.Row1129
 import PrimeFactorUnimodality.Helpers.FiniteCertificates.Generated.Row1151
 import PrimeFactorUnimodality.Helpers.Unimodality.Certificate
+import PrimeFactorUnimodality.Proof.FiniteRange.Generated.K19
 
 set_option autoImplicit false
 /-! Generated exact certificate for non-unimodality at `k = 20`. -/

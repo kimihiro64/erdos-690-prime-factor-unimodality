@@ -139,8 +139,14 @@ def render_chunk(
         "PrimeFactorUnimodality.Proof.LargeRange.Generated."
         f"RecordTwin{side}SeedTail.Prefixes.Part{prefix_group:02d}"
     )
+    previous_import = (
+        ""
+        if index == checkpoint + 1
+        else "import PrimeFactorUnimodality.Proof.LargeRange.Generated."
+        f"RecordTwin{side}SeedTail.Part{previous}\n"
+    )
     return f"""import PrimeFactorUnimodality.Mathlib.Algebra.Group.PowerStep
-import {prefix_import}
+{previous_import}import {prefix_import}
 
 set_option autoImplicit false
 set_option maxRecDepth 1000000
@@ -187,18 +193,16 @@ def render_assembly_group(task: str, checkpoint: int, count: int, note: str, gro
     checkpoint_label = f"{checkpoint:03d}"
     first = checkpoint + 1 + (group - 1) * GROUP_SIZE
     last = min(checkpoint + group * GROUP_SIZE, count)
-    imports = (
-        []
-        if group == 1
-        else [
+    imports = []
+    if group > 1:
+        imports.append(
             "import PrimeFactorUnimodality.Proof.LargeRange.Generated."
             f"RecordTwin{side}SeedTail.Assembly.Part{group - 1:02d}"
-        ]
-    ) + [
+        )
+    imports.append(
         "import PrimeFactorUnimodality.Proof.LargeRange.Generated."
-        f"RecordTwin{side}SeedTail.Part{index:03d}"
-        for index in range(first, last + 1)
-    ]
+        f"RecordTwin{side}SeedTail.Part{last:03d}"
+    )
     lines = [
         *imports,
         "",

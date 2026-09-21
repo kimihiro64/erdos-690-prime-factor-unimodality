@@ -1,10 +1,11 @@
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.EndpointBoundsPart02
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.MediumLogBand05
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.MediumLogRowsBase
 
 set_option autoImplicit false
 set_option maxRecDepth 100000
 set_option maxHeartbeats 200000000 in
-/-! Compact medium log-cubed band 06. -/
+/-! # Compact medium log-cubed band 06 -/
 
 namespace PrimeFactorUnimodality
 

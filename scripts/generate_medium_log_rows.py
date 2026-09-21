@@ -52,9 +52,15 @@ def band_module(
     chain_name = f"mediumLogDataChain{index:02d}"
     row_chain_name = f"mediumLogRows{index:02d}_chain"
     end = pairs[-1][1] - 1
+    previous_import = (
+        ""
+        if index == 1
+        else f"import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.MediumLogBand{index - 1:02d}\n"
+    )
     lines = [
         "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows."
         "EndpointBoundsPart02",
+        previous_import.rstrip("\n"),
         "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.MediumLogRowsBase",
         "",
         "set_option autoImplicit false",
@@ -100,10 +106,9 @@ def band_module(
 
 
 def aggregate(bands: list[tuple[tuple[int, int, int, int, str], list[tuple[int, int]]]]) -> str:
-    imports = "\n".join(
+    imports = (
         "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.MediumLogBand"
-        f"{index:02d}"
-        for index in range(1, len(bands) + 1)
+        f"{len(bands):02d}"
     )
     end = bands[-1][1][-1][1] - 1
     lines = [
