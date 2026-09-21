@@ -370,6 +370,45 @@ theorem dusart_proposition_5_1_finite_upper_of_table66
     have hxpos : 0 ≤ x := hx.le
     nlinarith
 
+theorem dusart_proposition_5_1_finite_lower_error_of_table66
+    (prefix : ∀ x : Real, 2 < x → x ≤ (100000000 : Real) →
+      |Chebyshev.theta x - x| <
+        (12323 / 10000 : Real) * x / Real.log x)
+    (lower_one : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        x - data.a1 * x / Real.log x ≤ Chebyshev.theta x)
+    (upper_zero : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ data.b0 * x) :
+    ∀ x : Real, 2 < x → x ≤ (8e11 : Real) →
+      |Chebyshev.theta x - x| <
+        (12323 / 10000 : Real) * x / Real.log x := by
+  intro x hx hX
+  by_cases hsmall : x ≤ (100000000 : Real)
+  · exact prefix x hx hsmall
+  · obtain ⟨data, hdata, hleft, hright⟩ :=
+      dusartThetaTable6_6CoefficientData_cover_real x
+        (by linarith) hX
+    have hlower := lower_one data hdata x hleft hright
+    have hupper := upper_zero data hdata x hleft hright
+    have ha1 := (dusartThetaTable6_6CoefficientData_side_conditions data hdata).2.1
+    have hb0 := (dusartThetaTable6_6CoefficientData_row_bounds data hdata).2.2.2.2
+    have hxpos : 0 < x := by linarith
+    have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
+    have hupper_error : Chebyshev.theta x - x <
+        (12323 / 10000 : Real) * x / Real.log x := by
+      have htarget : 0 <
+          (12323 / 10000 : Real) * x / Real.log x := by positivity
+      nlinarith
+    have hlower_error : -((12323 / 10000 : Real) * x /
+        Real.log x) < Chebyshev.theta x - x := by
+      have hcoef : data.a1 * x / Real.log x <
+          (12323 / 10000 : Real) * x / Real.log x := by
+        apply (div_lt_div_iff_of_pos_right hlogpos).2
+        exact mul_lt_mul_of_pos_right ha1 hxpos
+      nlinarith
+    exact (abs_lt).2 ⟨hlower_error, hupper_error⟩
+
 /-! Paper-facing Proposition 5.1 assembler.  The three hypotheses correspond
 to Dusart's finite table, middle explicit psi estimate, and large-range theta
 estimate; none of the range-specific obligations is hidden in this glue. -/
