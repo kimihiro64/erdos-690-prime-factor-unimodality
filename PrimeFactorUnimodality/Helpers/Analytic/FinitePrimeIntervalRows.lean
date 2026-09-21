@@ -1510,6 +1510,54 @@ theorem dusartThetaTable6_6CoefficientData_correction_coefficients :
       0 ≤ row.a2 ∧ row.a2 ≤ 1 ∧ -1 ≤ row.b2 ∧ row.b2 ≤ 0 := by
   norm_num [dusartThetaTable6_6CoefficientData]
 
+theorem dusartThetaTable6_6CoefficientData_left_at_least_eight :
+    ∀ row ∈ dusartThetaTable6_6CoefficientData, 8 ≤ row.left := by
+  norm_num [dusartThetaTable6_6CoefficientData]
+
+theorem dusartThetaTable6_6CoefficientData_correction_monotonicity :
+    ∀ row ∈ dusartThetaTable6_6CoefficientData,
+      MonotoneOn
+          (fun x : Real => x - row.a1 * x / Real.log x)
+          (Set.Icc (row.left : Real) (row.right : Real)) ∧
+      MonotoneOn
+          (fun x : Real => x + row.b1 * x / Real.log x)
+          (Set.Icc (row.left : Real) (row.right : Real)) ∧
+      MonotoneOn
+          (fun x : Real => x - row.a2 * x / Real.log x ^ 2)
+          (Set.Icc (row.left : Real) (row.right : Real)) ∧
+      MonotoneOn
+          (fun x : Real => x + row.b2 * x / Real.log x ^ 2)
+          (Set.Icc (row.left : Real) (row.right : Real)) := by
+  intro row hrow
+  have hleft8 : (8 : Real) ≤ row.left := by
+    exact_mod_cast
+      (dusartThetaTable6_6CoefficientData_left_at_least_eight row hrow)
+  have hleft : (1 : Real) < row.left := by linarith
+  have hlog : (2 : Real) ≤ Real.log row.left :=
+    log_ge_two_of_eight_le hleft8
+  have hc := dusartThetaTable6_6CoefficientData_correction_coefficients
+    row hrow
+  have hlowerOne := id_sub_mul_id_div_log_monotoneOn
+    (a := (row.left : Real)) (c := row.a1) hleft hlog hc.1 hc.2.1
+  have hupperOne := id_add_mul_id_div_log_monotoneOn
+    (a := (row.left : Real)) (b := row.b1) hleft hlog
+      hc.2.2.1 hc.2.2.2
+  have hlowerTwo := id_sub_mul_id_div_log_sq_monotoneOn
+    (a := (row.left : Real)) (c := row.a2) hleft hlog
+      hc.2.2.2.2.1 hc.2.2.2.2.2.1
+  have hupperTwo := id_add_mul_id_div_log_sq_monotoneOn
+    (a := (row.left : Real)) (b := row.b2) hleft hlog
+      hc.2.2.2.2.2.2.1 hc.2.2.2.2.2.2.2
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · intro x hx y hy hxy
+    exact hlowerOne hx.1 hy.1 hxy
+  · intro x hx y hy hxy
+    exact hupperOne hx.1 hy.1 hxy
+  · intro x hx y hy hxy
+    exact hlowerTwo hx.1 hy.1 hxy
+  · intro x hx y hy hxy
+    exact hupperTwo hx.1 hy.1 hxy
+
 theorem dusartThetaTable6_6CoefficientData_row_bounds :
     ∀ row ∈ dusartThetaTable6_6CoefficientData,
       2 ≤ row.left ∧ row.left ≤ row.right ∧
