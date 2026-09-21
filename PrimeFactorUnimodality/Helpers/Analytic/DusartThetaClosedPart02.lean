@@ -546,6 +546,34 @@ theorem wangCrapis_thetaBounds_of_prefix_and_table66_formula_bounds_and_logFourt
   exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX finite
     hA_nonneg hA thetaError
 
+/-! The strict upper estimate has the same prefix/table split as the
+    symmetric estimate.  Keeping this assembler adjacent to the bundled
+    formula boundary makes the published strict prefix an explicit consumer
+    of exactly the same Table 6.6 row proofs. -/
+theorem hasStrictThetaUpperBelow_of_prefix_and_table66_formula_data
+    {x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
+    (prefix : HasStrictThetaUpperBelow x₀)
+    (cover : ∀ x : Real, x₀ ≤ x → x ≤ X →
+      ∃ data ∈ dusartThetaTable6_6CoefficientData,
+        (data.left : Real) ≤ x ∧ x ≤ data.right)
+    (formula : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      DusartThetaTable66FormulaBounds data) :
+    HasStrictThetaUpperBelow X := by
+  intro x hx hX
+  by_cases hsmall : x ≤ x₀
+  · exact prefix x hx hsmall
+  · obtain ⟨data, hdata, hleft, hright⟩ := cover x
+      (le_of_not_ge hsmall) hX
+    have hupper := (formula data hdata).upper_one x hleft hright
+    have hb1 := dusartThetaTable6_6CoefficientData_upper_one_coeff_negative
+      data hdata
+    have hx2 : (2 : Real) ≤ x := h2x₀.trans (le_of_not_ge hsmall)
+    have hxpos : 0 < x := by linarith
+    have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
+    have hcorrection : data.b1 * x / Real.log x < 0 := by
+      exact div_neg_of_neg_of_pos (mul_neg_of_neg_of_pos hb1 hxpos) hlogpos
+    nlinarith
+
 /-! The published row endpoints cover the real interval directly.  This
     specialization fixes the lower endpoint at the start of Table 6.6 and
     derives the cover from the checked natural endpoint list, leaving only
