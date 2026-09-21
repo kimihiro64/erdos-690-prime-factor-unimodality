@@ -812,6 +812,37 @@ theorem wangCrapis_thetaBounds_of_prefix_and_strict_rows_and_logFourthTail
       h2x₀ prefix cover lower)
     hA_nonneg hA thetaError
 
+theorem wangCrapis_thetaBounds_of_six_prefix_and_endpoint_rows_and_logFourthTail
+    {A X : Real} {n : Nat}
+    (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (rows : Fin n → DusartThetaEndpointRow)
+    (cover : DusartThetaEndpointIndexedCoverFrom rows (6 : Real) X)
+    (margin : ∀ i, (rows i).theta_upper < (rows i).left)
+    (lowerSuffix : ∀ x : Real, 6 ≤ x → x ≤ X →
+      |Chebyshev.theta x - x| <
+        (12323 / 10000 : Real) * x / Real.log x)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds := by
+  let strictRows : Fin n → StrictThetaUpperRow :=
+    fun i => (rows i).toStrictUpperRow (margin i)
+  have strictCover : ∀ x : Real, (6 : Real) ≤ x → x ≤ X →
+      ∃ i : Fin n, (strictRows i).left ≤ x ∧ x ≤ (strictRows i).right := by
+    intro x hx hX
+    obtain ⟨i, hleft, hright⟩ := cover x hx hX
+    refine ⟨i, ?_, ?_⟩
+    · simpa [strictRows, DusartThetaEndpointRow.toStrictUpperRow] using hleft
+    · simpa [strictRows, DusartThetaEndpointRow.toStrictUpperRow] using hright
+  apply wangCrapis_thetaBounds_of_prefix_and_strict_rows_and_logFourthTail
+    (A := A) (x₀ := (6 : Real)) (by norm_num)
+    wangCrapis_thetaBoundsBelow_6 strictRows strictCover ?_ hXpos hlogX
+    hA_nonneg hA thetaError
+  intro x hx hX
+  by_cases hsmall : x ≤ 6
+  · exact wangCrapis_theta_lower_error_below_six hx hsmall
+  · exact lowerSuffix x (by linarith) hX
+
 /-! The paper-shaped split can start with the proved `x ≤ 3` prefix and then
     consume a compact endpoint suffix.  The strict upper margin stays an
     explicit row obligation; the lower estimate remains separate. -/
