@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
-# formalization.yaml v0.4. Replace every TEMPLATE value before submitting.
+# formalization.yaml v0.4. Replace every placeholder value before submitting.
 # Replace a placeholder list with [] only when its adjacent comment permits it;
 # lists described as required must remain nonempty.
 version: "v0.4"
@@ -27,8 +27,8 @@ project:
 # exact shape:
 # repository:
 #   substantive_formalization:
-#     id: "TEMPLATE: owner/repository or https://github.com/owner/repository"
-#     revision: "TEMPLATE: full 40-character lowercase commit SHA"
+#     id: "owner/repository or https://github.com/owner/repository"
+#     revision: "full 40-character lowercase commit SHA"
 
 classification:
   # Use 1–2 official arXiv identifiers such as math.LO and 1–8 five-character
@@ -56,7 +56,7 @@ sources:
   # conversation, or other. The exact value original-proof is reserved for the
   # result-origin declaration described above.
   # Original-result example:
-  # - title: "TEMPLATE: describe the result first presented here"
+  # - title: "describe the result first presented here"
   #   type: original-proof
   #   relationship: other
   - title: "Estimates of Some Functions Over Primes without R.H."
