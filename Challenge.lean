@@ -1,57 +1,53 @@
-import PrimeFactorUnimodality
+import Mathlib.Data.Nat.PrimeFin
+import Mathlib.Data.Rat.Defs
+import Mathlib.NumberTheory.PrimeCounting
 
 set_option autoImplicit false
 
 namespace PrimeFactorUnimodality
 
-/-- The finite density recursion used in the public statement.  The challenge
-file repeats this small definition so its statement surface has no project
-imports and can be audited independently. -/
-def challengeFiniteDensity : List Nat → Nat → Rat
+/-! # All-k Erdős 690 challenge
+
+This is the exact universal statement of the Wang--Crapis classification:
+the prime-factor density sequence is unimodal precisely for `k ≤ 3`.
+The definitions are stated directly against Mathlib so this file has no
+dependency on the project being proved.
+-/
+
+def finiteDensity : List Nat → Nat → Rat
   | [], 0 => 1
   | [], _ + 1 => 0
-  | p :: primes, 0 => (((p - 1 : Nat) : Rat) / (p : Rat)) * challengeFiniteDensity primes 0
+  | p :: primes, 0 => (((p - 1 : Nat) : Rat) / (p : Rat)) * finiteDensity primes 0
   | p :: primes, r + 1 =>
-      (((p - 1 : Nat) : Rat) / (p : Rat)) * challengeFiniteDensity primes (r + 1) +
-        (1 / (p : Rat)) * challengeFiniteDensity primes r
+      (((p - 1 : Nat) : Rat) / (p : Rat)) * finiteDensity primes (r + 1) +
+        (1 / (p : Rat)) * finiteDensity primes r
 
-def challengePrescribedFactorDensity (smallerPrimes : List Nat) (k p : Nat) : Rat :=
-  challengeFiniteDensity smallerPrimes (k - 1) / (p : Rat)
+def prescribedFactorDensity (smallerPrimes : List Nat) (k p : Nat) : Rat :=
+  finiteDensity smallerPrimes (k - 1) / (p : Rat)
 
-def challengePrimesBelow (p : Nat) : List Nat :=
+def primesBelow (p : Nat) : List Nat :=
   ((Finset.range p).filter Nat.Prime).sort (fun a b => a ≤ b)
 
 noncomputable section
 
-def challengePrimeAt (i : Nat) : Nat := Nat.nth Nat.Prime i
+def primeAt (i : Nat) : Nat := Nat.nth Nat.Prime i
 
-def challengePrimeFactorDensity (k i : Nat) : Rat :=
-  challengePrescribedFactorDensity (challengePrimesBelow (challengePrimeAt i)) k
-    (challengePrimeAt i)
+def primeFactorDensity (k i : Nat) : Rat :=
+  prescribedFactorDensity (primesBelow (primeAt i)) k (primeAt i)
 
-def challengeIsUnimodal (f : Nat → Rat) : Prop :=
+def IsUnimodal (f : Nat → Rat) : Prop :=
   ∃ mode : Nat,
     (∀ i, i < mode → f i ≤ f (i + 1)) ∧
       (∀ i, mode ≤ i → f (i + 1) ≤ f i)
 
-def challengeCompleteClassification : Prop :=
+def CompleteClassification : Prop :=
   ∀ k : Nat, 1 ≤ k →
-    (challengeIsUnimodal (challengePrimeFactorDensity k) ↔ k ≤ 3)
+    (IsUnimodal (primeFactorDensity k) ↔ k ≤ 3)
 
 end
 
 end PrimeFactorUnimodality
 
-/-!
-# All-k Erdős 690 challenge
-
-This is the exact universal statement of the Wang--Crapis classification:
-the prime-factor density sequence is unimodal precisely for `k ≤ 3`.
-The definitions are repeated here so the challenge remains an auditable
-statement surface while its theorem is connected to the canonical library
-definitions and proof.
--/
-
 theorem PrimeFactorUnimodality.completeClassification :
     PrimeFactorUnimodality.CompleteClassification := by
-  exact PrimeFactorUnimodality.completeClassification_closed
+  sorry

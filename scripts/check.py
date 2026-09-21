@@ -239,6 +239,7 @@ def main(arguments: Sequence[str] | None = None) -> int:
         check_submission_link(root)
         check_lean_sources(root, public_candidate_paths(root))
         check_comparator_boundary(root)
+        run((sys.executable, "scripts/check_challenge_solution.py"), root)
         check_architecture(root)
         check_metadata(root, release=options.profile == "release")
         if options.profile in {"research", "release"}:
