@@ -2046,6 +2046,31 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_table66_formula_bounds
   refine ⟨⟨data, hdata⟩, ?_, rfl⟩
   simp [rows]
 
+/-! The bundled form is the preferred boundary for generated Table 6.6 data.
+    A caller supplies one proof object per published coefficient row; the
+    projections below are made once by this reusable assembler. -/
+theorem hasDusartSymmetricThetaBoundsBelow_of_table66_formula_data
+    {X : Real}
+    (cover : ∀ x : Real, 2 ≤ x → x ≤ X →
+      ∃ data ∈ dusartThetaTable6_6CoefficientData,
+        (data.left : Real) ≤ x ∧ x ≤ data.right)
+    (formula : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      DusartThetaTable66FormulaBounds data) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_table66_formula_bounds cover
+  · intro data hdata
+    exact (formula data hdata).lower_zero
+  · intro data hdata
+    exact (formula data hdata).upper_zero
+  · intro data hdata
+    exact (formula data hdata).lower_one
+  · intro data hdata
+    exact (formula data hdata).upper_one
+  · intro data hdata
+    exact (formula data hdata).lower_two
+  · intro data hdata
+    exact (formula data hdata).upper_two
+
 theorem hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_coefficient_bounds
     {x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
     (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
