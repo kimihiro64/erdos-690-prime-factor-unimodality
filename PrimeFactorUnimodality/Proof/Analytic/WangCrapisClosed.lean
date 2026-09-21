@@ -185,6 +185,52 @@ theorem completeClassification_closed_of_indexed_split_certificate
   exact completeClassification_closed_of_selected_finite_providers
     (wangCrapisSelectedFiniteProviders_of_indexed_split_certificate certificate)
 
+/-! The source-level provider adapters separate the common medium-PNT tail
+from each finite endpoint family.  They are useful independently when the
+three bounded computations are assembled by different generators. -/
+theorem wangCrapis_thetaBounds_of_source_level_providers
+    (finiteTheta : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasDusartSymmetricThetaBoundsBelow Y)
+    (finiteThetaError : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasThetaLogFourthErrorBelow (648 / 1000 : Real) Y) :
+    HasDusartThetaBounds := by
+  obtain ⟨Y, hXY, _, thetaTail, _, _⟩ :=
+    exists_mediumPNT_all_real_dusart_tail_inputs_with_theta_bounds
+      (X := (4e18 : Real)) (A := (648 / 1000 : Real))
+      le_rfl (by norm_num) (by norm_num) finiteThetaError
+  exact hasDusartThetaBounds_of_below_and_above
+    (finiteTheta Y hXY) thetaTail
+
+theorem wangCrapis_primeCounting_of_source_level_providers
+    (finitePrimeCounting : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasDusartRealPrimeCountingBoundsBelow Y)
+    (finiteThetaError : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasThetaLogFourthErrorBelow (648 / 1000 : Real) Y) :
+    HasDusartPrimeCountingBounds := by
+  obtain ⟨Y, hXY, primeCountingTail, _, _, _⟩ :=
+    exists_mediumPNT_all_real_dusart_tail_inputs_with_theta_bounds
+      (X := (4e18 : Real)) (A := (648 / 1000 : Real))
+      le_rfl (by norm_num) (by norm_num) finiteThetaError
+  exact hasDusartRealPrimeCountingBounds_of_below_and_above
+    (finitePrimeCounting Y hXY) primeCountingTail
+
+theorem wangCrapis_shortInterval_of_source_level_providers
+    (finiteLogCubed : ∀ Y : Real, (89693 : Real) ≤ Y →
+      HasLogCubedShortIntervalPrimeBelow Y)
+    (finiteThetaError : ∀ Y : Real, (4e18 : Real) ≤ Y →
+      HasThetaLogFourthErrorBelow (648 / 1000 : Real) Y) :
+    HasDusartShortIntervalPrime := by
+  obtain ⟨Y, hXY, _, _, _, intervalTail⟩ :=
+    exists_mediumPNT_all_real_dusart_tail_inputs_with_theta_bounds
+      (X := (4e18 : Real)) (A := (648 / 1000 : Real))
+      le_rfl (by norm_num) (by norm_num) finiteThetaError
+  have hY : (89693 : Real) ≤ Y := by linarith
+  have finite := finiteLogCubed Y hY
+  have logCubedTail : HasLogCubedShortIntervalPrime :=
+    hasLogCubedShortIntervalPrime_of_below_and_above hY finite intervalTail
+  exact hasDusartShortIntervalPrime_of_below_and_logCubed
+    wangCrapis_shortIntervalPrefix logCubedTail
+
 /-! Source-level closure with the bounded obligations named at the cutoff
 selected by the explicit medium-PNT argument.  This is the non-generated
 boundary: the arguments below are the finite theta, theta-error,
@@ -200,23 +246,13 @@ theorem wangCrapisPaperInputs_of_source_level_providers
     (finiteLogCubed : ∀ Y : Real, (89693 : Real) ≤ Y →
       HasLogCubedShortIntervalPrimeBelow Y) :
     WangCrapisPaperInputs := by
-  obtain ⟨Y, h4Y, hlogY, thetaError⟩ :=
-    exists_hasThetaLogFourthError_of_mediumPNT_at_large_cutoff
-  have hYpos : 0 < Y := by linarith
-  have hlog42 : (42 : Real) ≤ Real.log Y := by linarith
-  have hA : (648 / 1000 : Real) / Real.log Y ≤
-      12167 / 500000 := by
-    have hlogYpos : 0 < Real.log Y := by linarith
-    apply (div_le_iff₀ hlogYpos).2
-    nlinarith
   exact {
-    primeCounting := wangCrapis_primeCounting_of_finite_and_thetaTail
-      (finitePrimeCounting Y h4Y) h4Y hYpos (by linarith) le_rfl
-      (by norm_num) (by norm_num) hlog42
-      (finiteThetaError Y h4Y) thetaError
-    thetaBounds := wangCrapis_thetaBounds_of_logFourthTail
-      hYpos (by linarith) (finiteTheta Y h4Y) (by norm_num) hA thetaError
-    shortInterval := wangCrapis_shortInterval_of_mediumPNT finiteLogCubed }
+    primeCounting := wangCrapis_primeCounting_of_source_level_providers
+      finitePrimeCounting finiteThetaError
+    thetaBounds := wangCrapis_thetaBounds_of_source_level_providers
+      finiteTheta finiteThetaError
+    shortInterval := wangCrapis_shortInterval_of_source_level_providers
+      finiteLogCubed finiteThetaError }
 
 theorem completeClassification_closed_of_source_level_providers
     (finiteTheta : ∀ Y : Real, (4e18 : Real) ≤ Y →
