@@ -97,6 +97,29 @@ theorem wangCrapis_thetaBoundsBelow_3 :
   · intro x hx hx3
     exact wangCrapis_thetaBounds_lower_2_3 hx hx3
 
+/-! The same direct low-endpoint computation supplies the strict prefix used
+    by the Schoenfeld split. -/
+theorem wangCrapis_strictThetaPrefix_three :
+    HasStrictThetaUpperBelow (3 : Real) := by
+  intro x hx hx3
+  by_cases hsmall : x < 2
+  · rw [Chebyshev.theta_eq_zero_of_lt_two hsmall]
+    linarith
+  · have htheta_le : Chebyshev.theta x ≤ Chebyshev.theta 3 :=
+      Chebyshev.theta_mono hx3
+    have htheta3 : Chebyshev.theta (3 : Real) =
+        Real.log 2 + Real.log 3 := by
+      have hsum := Chebyshev.theta_eq_sum_primesLE_log 3
+      have hp : Nat.primesLE 3 = {2, 3} := by decide
+      rw [hp] at hsum
+      simpa using hsum
+    rw [htheta3] at htheta_le
+    have hlog2lt : Real.log (2 : Real) < (9 : Real) / 10 :=
+      Real.log_two_lt_d9
+    have hlog3lt : Real.log (3 : Real) < (11 : Real) / 10 :=
+      Real.log_three_lt_d9
+    linarith
+
 /-! The fixed explicit-formula input is exported at the theta boundary so the
     eventual psi/theta tail proof consumes the constructed estimate rather than
     the package's existential placeholder. -/
