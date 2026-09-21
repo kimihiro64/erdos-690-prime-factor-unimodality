@@ -1,6 +1,7 @@
 import LeanCert.Tactic.IntervalAuto
 import Mathlib.Analysis.Complex.ExponentialBounds
 import PrimeFactorUnimodality.Helpers.Analytic.DusartFiniteRows
+import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33MidrangeCover
 import PrimeFactorUnimodality.Helpers.Analytic.ElementaryChebyshevConsequences
 import PrimeFactorUnimodality.Helpers.Analytic.ElementaryLogBounds
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
@@ -2848,6 +2849,26 @@ def dusartLemma33FiniteChunk_2401 : DusartLemma33FiniteChunk :=
 
 def dusartLemma33FiniteProofChunk_2401 : DusartLemma33FiniteProofChunk :=
   dusartLemma33FiniteChunk_2401.toProofChunk
+
+/-! The proved midrange table is assembled after the direct prefix.  Keeping
+    the two pieces as proof chunks makes the boundary reusable without
+    materializing a second copy of the prefix rows. -/
+def dusartLemma33FiniteProofChunk_10m : DusartLemma33FiniteProofChunk :=
+  { cutoff := (10000000 : Real)
+    valid := by
+      intro x hx hX
+      by_cases hprefix : x ≤ (2401 : Real)
+      · exact dusartLemma33FiniteProofChunk_2401.valid x hx hprefix
+      · obtain ⟨row, hrow, hleft, hright⟩ :=
+          dusartLemma33MidrangeRowsCover x (by linarith) hX
+        exact row.valid x hx hleft hright }
+
+theorem dusart_lemma_3_3_finite_10m :
+    ∀ x : Real, 0 < x → x ≤ 10000000 →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  exact dusartLemma33FiniteProofChunk_10m.valid
 
 theorem dusart_lemma_3_3_finite_chunk_2401 :
     ∀ x : Real, 0 < x → x ≤ 2401 →
