@@ -1445,6 +1445,12 @@ theorem dusartThetaTable6_6CoefficientData_upper_one_coeff_negative :
     ∀ row ∈ dusartThetaTable6_6CoefficientData, row.b1 < 0 := by
   norm_num [dusartThetaTable6_6CoefficientData]
 
+theorem dusartThetaTable6_6CoefficientData_correction_coefficients :
+    ∀ row ∈ dusartThetaTable6_6CoefficientData,
+      0 ≤ row.a1 ∧ row.a1 ≤ 1 ∧ -1 ≤ row.b1 ∧ row.b1 ≤ 0 ∧
+      0 ≤ row.a2 ∧ row.a2 ≤ 1 ∧ -1 ≤ row.b2 ∧ row.b2 ≤ 0 := by
+  norm_num [dusartThetaTable6_6CoefficientData]
+
 theorem dusartThetaTable6_6CoefficientData_row_bounds :
     ∀ row ∈ dusartThetaTable6_6CoefficientData,
       2 ≤ row.left ∧ row.left ≤ row.right ∧
