@@ -542,3 +542,14 @@ the paper's finite Table 6.4, Proposition 3.1, and Lemma 3.3 computations,
 together with the finite prime-counting and short-interval assemblers.  Do not
 reopen the zeta/PNT source route while those rows are being constructed; keep
 the computations behind indexed reusable row interfaces.
+
+## September 21 medium-PNT axiom audit
+
+The imported `PrimeNumberTheoremAnd.MediumPNT` declaration was checked with
+Lean's axiom printer, and the local `explicitMediumPNT` wrapper was checked in
+the same way.  Both surfaces contain only `propext`, `Classical.choice`, and
+`Quot.sound`; the apparent `axiom` examples in the custom additive-combination
+tactic are inside its documentation comment and are not declarations.  The
+medium-PNT and logarithmic-decay route is therefore an admissible source
+dependency.  The remaining provider work is finite numerical verification and
+its reusable row assemblers, not a replacement proof of that PNT theorem.
