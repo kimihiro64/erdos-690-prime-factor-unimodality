@@ -1023,6 +1023,68 @@ structure DusartThetaRelativeRow where
     (1 - lower_coeff) * x <
       (12323 / 10000 : Real) * x / Real.log x
 
+theorem dusartThetaRelativeRow_provides
+    (row : DusartThetaRelativeRow) : DusartThetaBoundsRow := by
+  have hleft2 : (2 : Real) ≤ row.left := by exact_mod_cast row.left_large
+  have hright2 : (2 : Real) ≤ (row.right : Real) := by
+    exact le_trans hleft2 (by exact_mod_cast row.left_le_right)
+  refine {
+    left := row.left
+    right := row.right
+    left_large := row.left_large
+    left_le_right := row.left_le_right
+    upper := ?_
+    lower := ?_ }
+  · intro x hleft hright
+    have hxpos : 0 < x := by linarith [hleft2, hleft]
+    have hupper := row.upper_bound x hleft hright
+    have hcoeff : row.upper_coeff < 1 + (1 : Real) / 36260 := by
+      linarith [row.upper_coeff_error]
+    have hscaled : row.upper_coeff * x <
+        (1 + (1 : Real) / 36260) * x :=
+      mul_lt_mul_of_pos_right hcoeff hxpos
+    nlinarith
+  · intro x hx hleft hright
+    have hlogx : 0 < Real.log x := Real.log_pos (by linarith)
+    have hupper := row.upper_bound x hleft hright
+    have hlower := row.lower_bound x hleft hright
+    have herror := row.lower_coeff_error x hx hleft hright
+    have hxpos : 0 < x := by linarith [hleft2, hleft]
+    have hcoeff : row.upper_coeff < 1 + (1 : Real) / 36260 := by
+      linarith [row.upper_coeff_error]
+    have hscaled : row.upper_coeff * x <
+        (1 + (1 : Real) / 36260) * x :=
+      mul_lt_mul_of_pos_right hcoeff hxpos
+    have hupper_error : Chebyshev.theta x - x <
+        (12323 / 10000 : Real) * x / Real.log x := by
+      nlinarith
+    have hlower_error :
+        -(12323 / 10000 : Real) * x / Real.log x <
+          Chebyshev.theta x - x := by
+      nlinarith
+    exact (abs_lt).2 ⟨hlower_error, hupper_error⟩
+
+def DusartThetaRelativeRowsCoverUpTo
+    (rows : List DusartThetaRelativeRow) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_relative_rows
+    {X : Real} {rows : List DusartThetaRelativeRow}
+    (cover : DusartThetaRelativeRowsCoverUpTo rows X) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
+  · intro x hx hX
+    by_cases hsmall : x < 2
+    · rw [Chebyshev.theta_eq_zero_of_lt_two hsmall]
+      nlinarith
+    · obtain ⟨row, hrow, hleft, hright⟩ := cover x
+        (le_of_not_gt hsmall) hX
+      exact (dusartThetaRelativeRow_provides row).upper x hleft hright
+  · intro x hx hX
+    obtain ⟨row, hrow, hleft, hright⟩ := cover x (by linarith) hX
+    exact (dusartThetaRelativeRow_provides row).lower x hx hleft hright
+
 /-! The six coefficient columns printed in Dusart's Table 6.6.  The first
 pair gives constant-coefficient bounds; the next two pairs give the
 `1 / log x` and `1 / log^2 x` correction bounds. -/
