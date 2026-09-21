@@ -284,11 +284,12 @@ theorem zeta_explicit_fixed_parameter_le
     nlinarith
   exact pow_le_pow_left₀ (by positivity) hratio 4
 
-theorem zetaZeroFree_explicit :
-    ∃ (A : Real) (_ : A ∈ Ioc 0 (1 / 2)) (c : Real) (_ : 0 < c),
+theorem zetaZeroFree_explicit_fixed :
+    ∃ (c : Real) (_ : 0 < c),
     ∀ (σ t : Real) (_ : 3 < |t|)
-      (_ : σ ∈ Ico (1 - A / (Real.log |t|) ^ 9)
-        (1 + A / (Real.log |t|) ^ 9)),
+      (_ : σ ∈ Ico
+        (1 - ((1 / 100000 : Real) ^ (4 : Nat)) / (Real.log |t|) ^ 9)
+        (1 + ((1 / 100000 : Real) ^ (4 : Nat)) / (Real.log |t|) ^ 9)),
       c / (Real.log |t|) ^ 7 ≤ ‖riemannZeta (σ + t * Complex.I)‖ ∧
         riemannZeta (σ + t * Complex.I) ≠ 0 := by
   let C₁ : Real := 1 / (3 ^ ((3 : Real) / 4) *
@@ -319,6 +320,10 @@ theorem zetaZeroFree_explicit :
     norm_num at hpow
     have hmul := mul_le_mul_of_nonneg_right hpow
       (A.rpow_nonneg hA.1.le ((3 : Real) / 4))
+    have hAquarter : A ^ ((1 : Real) / 4) = (1 / 100000 : Real) := by
+      dsimp [A]
+      rw [← Real.rpow_natCast, ← Real.rpow_mul (by positivity)]
+      norm_num
     have hprod : A ^ ((1 : Real) / 4) * A ^ ((3 : Real) / 4) = A := by
       rw [← Real.rpow_add hA.1]
       norm_num
@@ -332,10 +337,12 @@ theorem zetaZeroFree_explicit :
                 (A ^ ((1 : Real) / 4) * A ^ ((3 : Real) / 4)) := by
               rw [hprod]
             _ = _ := by ring
-        _ ≤ C₁ * A ^ ((3 : Real) / 4) := hmul
+        _ ≤ C₁ * A ^ ((3 : Real) / 4) := by
+          rw [hAquarter] at hmul
+          exact hmul
     dsimp [c]
     nlinarith [hmul', mul_pos hC₂ hA.1]
-  refine ⟨A, hA, c, hc, ?_⟩
+  refine ⟨c, hc, ?_⟩
   intro σ t ht hσ
   let σ' : Real := 1 + A / Real.log |t| ^ (9 : Nat)
   have hlog : 1 ≤ Real.log |t| := (logt_gt_one ht.le).le
@@ -412,7 +419,7 @@ theorem zetaZeroFree_explicit :
       ‖riemannZeta (σ + t * Complex.I) -
           riemannZeta (σ' + t * Complex.I)‖ ≤
       C₂ * Real.log |t| ^ 2 * (σ' - σ) := by
-    have hlt : σ < σ' := by simpa [σ'] using hσ.2
+    have hlt : σ < σ' := by simpa [σ', A] using hσ.2
     have hdiff1 := hdiff hσlower hσ'le hlt
     convert hdiff1 using 1
     rw [show riemannZeta (σ + t * Complex.I) -
@@ -473,6 +480,20 @@ theorem zetaZeroFree_explicit :
   have : ‖riemannZeta (σ + t * Complex.I)‖ = 0 := by simp [hz]
   have hpos : 0 < c / Real.log |t| ^ 7 := by positivity
   linarith
+
+theorem zetaZeroFree_explicit :
+    ∃ (A : Real) (_ : A ∈ Ioc 0 (1 / 2)) (c : Real) (_ : 0 < c),
+    ∀ (σ t : Real) (_ : 3 < |t|)
+      (_ : σ ∈ Ico (1 - A / (Real.log |t|) ^ 9)
+        (1 + A / (Real.log |t|) ^ 9)),
+      c / (Real.log |t|) ^ 7 ≤ ‖riemannZeta (σ + t * Complex.I)‖ ∧
+        riemannZeta (σ + t * Complex.I) ≠ 0 := by
+  obtain ⟨c, hc, h⟩ := zetaZeroFree_explicit_fixed
+  refine ⟨(1 / 100000 : Real) ^ (4 : Nat), ?_, c, hc, ?_⟩
+  · constructor
+    · positivity
+    · norm_num
+  · exact h
 
 theorem zetaLowerBnd_explicit :
     ∃ (A : Real) (_ : A ∈ Ioc 0 (1 / 2)) (c : Real) (_ : 0 < c),
