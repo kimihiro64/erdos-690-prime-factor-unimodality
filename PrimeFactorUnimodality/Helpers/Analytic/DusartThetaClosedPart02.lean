@@ -418,6 +418,62 @@ theorem wangCrapis_thetaBounds_of_prefix_and_table66_coefficient_data_and_logFou
       h2x₀ prefix cover lower upper)
     hA_nonneg hA thetaError
 
+/-! The complete Table 6.6 formula interface can be attached to the same
+    finite prefix.  The six inequalities are kept as separate inputs because
+    they are the interval statements proved from the paper's explicit
+    correction terms; the assembler then supplies the common relative-row
+    bounds used by the tail theorem. -/
+theorem wangCrapis_thetaBounds_of_prefix_and_table66_formula_data_and_logFourthTail
+    {A x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
+    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (cover : ∀ x : Real, x₀ ≤ x → x ≤ X →
+      ∃ data ∈ dusartThetaTable6_6CoefficientData,
+        (data.left : Real) ≤ x ∧ x ≤ data.right)
+    (lower_zero : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        data.a0 * x ≤ Chebyshev.theta x)
+    (upper_zero : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ data.b0 * x)
+    (lower_one : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        x - data.a1 * x / Real.log x ≤ Chebyshev.theta x)
+    (upper_one : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ x + data.b1 * x / Real.log x)
+    (lower_two : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        x - data.a2 * x / Real.log x ^ 2 ≤ Chebyshev.theta x)
+    (upper_two : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ x + data.b2 * x / Real.log x ^ 2)
+    (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds := by
+  have table : HasDusartSymmetricThetaBoundsBelow X :=
+    hasDusartSymmetricThetaBoundsBelow_of_table66_formula_bounds
+      (X := X)
+      (by
+        intro x hx hX
+        obtain ⟨data, hdata, hleft, hright⟩ := cover x
+          (h2x₀.trans hx) hX
+        exact ⟨data, hdata, hleft, hright⟩)
+      lower_zero upper_zero lower_one upper_one lower_two upper_two
+  have finite : HasDusartSymmetricThetaBoundsBelow X := by
+    apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
+    · intro x hx hupper
+      by_cases hsmall : x ≤ x₀
+      · exact prefix.1 x hx hsmall
+      · exact table.1 x hx hupper
+    · intro x hx hupper
+      by_cases hsmall : x ≤ x₀
+      · exact prefix.2 x hx hsmall
+      · exact table.2 x hx hupper
+  exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX finite
+    hA_nonneg hA thetaError
+
 theorem wangCrapis_theta_upper_1000081_of_table66_chunks_and_logFourthTail
     {A : Real} (first : DusartThetaTable66Chunk)
     (rest : List DusartThetaTable66Chunk)
