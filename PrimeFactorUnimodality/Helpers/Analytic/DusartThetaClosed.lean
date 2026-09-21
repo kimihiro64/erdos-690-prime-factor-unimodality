@@ -796,6 +796,21 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_chunk
       exact (dusartThetaRelativeRow_to_bounds
         (chunk.toRelativeRows i)).lower x hx hleft hright
 
+theorem wangCrapis_thetaBounds_of_prefix_and_table66_chunk_and_logFourthTail
+    {A x₀ : Real} (h2x₀ : (2 : Real) ≤ x₀)
+    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (chunk : DusartThetaTable66Chunk)
+    (hXpos : 0 < chunk.cutoff)
+    (hlogX : (10 : Real) < Real.log chunk.cutoff)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log chunk.cutoff ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A chunk.cutoff) :
+    HasDusartThetaBounds := by
+  exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
+    (hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_chunk
+      h2x₀ prefix chunk)
+    hA_nonneg hA thetaError
+
 theorem wangCrapis_theta_upper_1000081_of_table66_chunks_and_logFourthTail
     {A : Real} (first : DusartThetaTable66Chunk)
     (rest : List DusartThetaTable66Chunk)
