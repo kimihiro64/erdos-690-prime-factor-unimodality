@@ -265,6 +265,90 @@ theorem wangCrapis_thetaBoundsBelow_6 :
         nlinarith
       nlinarith
 
+/-! The next low endpoint contains no new analytic ingredient: between `6`
+    and `7` the theta sum is still the sum over `2, 3, 5`, while the value at
+    `7` gives a convenient monotonic upper endpoint.  Keep this prefix
+    separate so later finite-row construction can start at `7`. -/
+theorem wangCrapis_thetaBoundsBelow_7 :
+    HasDusartSymmetricThetaBoundsBelow (7 : Real) := by
+  constructor
+  · intro x hx hx7
+    by_cases hx6 : x ≤ 6
+    · exact (wangCrapis_thetaBoundsBelow_6).1 x hx hx6
+    · have hx6' : (6 : Real) < x := lt_of_not_ge hx6
+      have htheta_le : Chebyshev.theta x ≤ Chebyshev.theta 7 :=
+        Chebyshev.theta_mono hx7
+      have htheta7 : Chebyshev.theta (7 : Real) =
+          Real.log 2 + Real.log 3 + Real.log 5 + Real.log 7 := by
+        have hsum := Chebyshev.theta_eq_sum_primesLE 7
+        have hp : Nat.primesLE 7 = {2, 3, 5, 7} := by decide
+        rw [hp] at hsum
+        simpa [add_assoc] using hsum
+      rw [htheta7] at htheta_le
+      have htheta7_lt : Chebyshev.theta (7 : Real) < (6 : Real) := by
+        rw [htheta7]
+        nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
+          Real.log_five_lt_d9, LogTables.log_7_lt]
+      have hright : 0 < x / 36260 := by positivity
+      nlinarith
+  · intro x hx hx7
+    by_cases hx6 : x ≤ 6
+    · exact (wangCrapis_thetaBoundsBelow_6).2 x hx hx6
+    · have hx6' : (6 : Real) < x := lt_of_not_ge hx6
+      have hx_pos : 0 < x := by linarith
+      have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
+      have hlogupper : Real.log x < (2 : Real) := by
+        have hlog7 : Real.log x ≤ Real.log 7 :=
+          Real.log_le_log hx_pos hx7
+        exact lt_of_le_of_lt hlog7 (by
+          simpa using (LogTables.log_7_lt.trans (by norm_num :
+            (1.946044 : Real) < 2)))
+      have hcoef : (3 : Real) / 5 <
+          (12323 / 10000 : Real) / Real.log x := by
+        apply (lt_div_iff₀ hlogpos).2
+        nlinarith [hlogupper]
+      have htheta6_eq : Chebyshev.theta (6 : Real) =
+          Real.log 2 + Real.log 3 + Real.log 5 := by
+        have hsum := Chebyshev.theta_eq_sum_primesLE 6
+        have hp : Nat.primesLE 6 = {2, 3, 5} := by decide
+        rw [hp] at hsum
+        simpa [add_assoc] using hsum
+      have htheta6 : Chebyshev.theta (6 : Real) > 3 := by
+        rw [htheta6_eq]
+        nlinarith [Real.log_two_gt_d9, Real.log_three_gt_d9,
+          Real.log_five_gt_d9]
+      have htheta_mono : Chebyshev.theta 6 ≤ Chebyshev.theta x :=
+        Chebyshev.theta_mono hx6'.le
+      have hbound :
+          x * (1 - (12323 / 10000 : Real) / Real.log x) <
+            (2 : Real) / 5 * x := by
+        nlinarith
+      have hupper : Chebyshev.theta x - x < x / 36260 := by
+        have htheta_nonneg : 0 ≤ Chebyshev.theta x :=
+          Chebyshev.theta_nonneg x
+        have htheta7 : Chebyshev.theta x < 6 := by
+          have htheta7' : Chebyshev.theta x ≤ Chebyshev.theta 7 :=
+            Chebyshev.theta_mono hx7
+          have hsum := Chebyshev.theta_eq_sum_primesLE 7
+          have hp : Nat.primesLE 7 = {2, 3, 5, 7} := by decide
+          rw [hp] at hsum
+          rw [← hsum] at htheta7'
+          nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
+            Real.log_five_lt_d9, LogTables.log_7_lt]
+        nlinarith
+      have hlogcoef : (1 : Real) / 36260 <
+          (12323 / 10000 : Real) / Real.log x := by
+        apply (lt_div_iff₀ hlogpos).2
+        nlinarith [hlogupper]
+      have hscaled := mul_lt_mul_of_pos_right hlogcoef hx_pos
+      have hupper_error : Chebyshev.theta x - x <
+          (12323 / 10000 : Real) * x / Real.log x := by
+        nlinarith
+      apply (abs_lt).2
+      constructor
+      · nlinarith [hbound, htheta_mono, htheta6]
+      · exact hupper_error
+
 theorem wangCrapis_theta_lower_error_below_six
     {x : Real} (hx : 2 < x) (hx6 : x ≤ 6) :
     |Chebyshev.theta x - x| <
