@@ -277,9 +277,9 @@ def split_large_row_families(body: str) -> str:
 
 LOW_HEADER = """import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Core
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.EndpointBounds
-import PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington
-import PrimeFactorUnimodality.Helpers.FiniteCertificates.PocklingtonRows
 import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod
+import PrimeFactorUnimodality.Helpers.FiniteCertificates.PocklingtonRows
+import PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington
 
 set_option autoImplicit false
 set_option maxRecDepth 1000000
@@ -450,7 +450,7 @@ noncomputable section
     result["Low.lean"] = (
         imports
         + "\n\nset_option autoImplicit false\nset_option maxRecDepth 1000000\n\n"
-        + "{-! # Generated low finite prime interval rows\n\n"
+        + "/-! # Generated low finite prime interval rows\n\n"
         + "This facade imports the independent low-range row chunks and assembles "
         + "their shared coverage data. -}\n\n"
         + "namespace PrimeFactorUnimodality\n\nnoncomputable section\n"
