@@ -1128,6 +1128,28 @@ theorem wangCrapis_thetaBounds_of_prefix_and_table66_chunks_and_logFourthTail
       h2x₀ prefix first rest)
     hA_nonneg hA thetaError
 
+theorem wangCrapis_thetaBounds_of_prefix_and_table66_coefficient_data_and_logFourthTail
+    {A x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
+    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (cover : ∀ x : Real, x₀ ≤ x → x ≤ X →
+      ∃ data ∈ dusartThetaTable6_6CoefficientData,
+        (data.left : Real) ≤ x ∧ x ≤ data.right)
+    (lower : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        data.a0 * x ≤ Chebyshev.theta x)
+    (upper : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ data.b0 * x)
+    (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds := by
+  exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
+    (hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_coefficient_bounds
+      h2x₀ prefix cover lower upper)
+    hA_nonneg hA thetaError
+
 theorem wangCrapis_theta_upper_1000081_of_table66_chunks_and_logFourthTail
     {A : Real} (first : DusartThetaTable66Chunk)
     (rest : List DusartThetaTable66Chunk)
