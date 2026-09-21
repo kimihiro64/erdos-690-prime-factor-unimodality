@@ -1,12 +1,4 @@
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordReciprocalBlocks.Part281
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordReciprocalBlocks.Part282
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordReciprocalBlocks.Part283
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordReciprocalBlocks.Part284
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordReciprocalBlocks.Part285
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordReciprocalBlocks.Part286
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordReciprocalBlocks.Part287
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordReciprocalBlocks.Part288
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordReciprocalBlocks.Part289
+import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordReciprocalBlocks.Group028
 import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordReciprocalBlocks.Part290
 
 set_option autoImplicit false

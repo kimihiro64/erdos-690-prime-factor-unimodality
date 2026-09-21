@@ -1,19 +1,8 @@
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapCoverage.Part01
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapCoverage.Part02
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapCoverage.Part03
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapCoverage.Part04
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapCoverage.Part05
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapCoverage.Part06
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapCoverage.Part07
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapCoverage.Part08
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapCoverage.Part09
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapCoverage.Part10
-import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapCoverage.Part11
 import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapCoverage.Part12
 
 set_option autoImplicit false
 
-/-! First assembly group for the record-gap composite coverage certificate. -/
+/-! Generated assembly group 01 for the record-gap coverage certificate. -/
 
 namespace PrimeFactorUnimodality
 

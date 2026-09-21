@@ -28,8 +28,15 @@ def lean_list(values: list[int]) -> str:
 def render_part(index: int, values: list[int]) -> str:
     label = f"{index:02d}"
     alternatives = " | ".join("rfl" for _ in values)
+    previous_import = (
+        "\nimport PrimeFactorUnimodality.Proof.LargeRange.Generated."
+        f"RecordPrimeWitnesses.Part{index - 1:02d}"
+        if index > 1
+        else ""
+    )
     return f"""import Mathlib.Tactic.NormNum.Prime
 import PrimeFactorUnimodality.Helpers.PrimeSequence.Basic
+{previous_import}
 
 set_option autoImplicit false
 set_option maxRecDepth 1000000
@@ -133,12 +140,10 @@ theorem recordPrimeWitnessesThrough{label}_subset :
 
 
 def render_assembly(chunks: list[list[int]], count: int) -> str:
-    imports = "\n".join(
-        sorted(
-            "import PrimeFactorUnimodality.Proof.LargeRange.Generated."
-            f"RecordPrimeWitnesses.Part{index:02d}"
-            for index in range(1, len(chunks) + 1)
-        )
+    last = f"{len(chunks):02d}"
+    imports = (
+        "import PrimeFactorUnimodality.Proof.LargeRange.Generated."
+        f"RecordPrimeWitnesses.Part{last}"
     )
     declarations = [render_first_declaration(chunks[0])]
     cumulative_count = len(chunks[0])
@@ -148,7 +153,6 @@ def render_assembly(chunks: list[list[int]], count: int) -> str:
             render_later_declaration(index, chunk, chunks[index - 2][-1], cumulative_count)
         )
     chain = "\n\n".join(declarations)
-    last = f"{len(chunks):02d}"
     return f"""{imports}
 
 set_option autoImplicit false

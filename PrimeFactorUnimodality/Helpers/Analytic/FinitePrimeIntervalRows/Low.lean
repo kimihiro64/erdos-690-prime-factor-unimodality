@@ -1,4 +1,3 @@
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowGroup01
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowGroup02
 
 set_option autoImplicit false

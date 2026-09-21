@@ -245,14 +245,7 @@ def finitePrimeIntervalRowsLowSourceRevision : String := "{SOURCE_REVISION}"
 
 
 def low_modules(body: str) -> dict[str, str]:
-    """Split row data into independent chunks and assemble it in the facade.
-
-    The generated row chunks deliberately do not import one another.  A
-    sequential import chain makes the last chunk retain every earlier chunk
-    during elaboration, defeating the purpose of sharding.  Aggregate list
-    definitions and their chain proofs are small and belong in ``Low.lean``,
-    after all row chunks have been imported.
-    """
+    """Split row data into chunks and assemble it through a serial import chain."""
     marker = re.compile(r"(?m)^set_option maxHeartbeats 20000000 in\ndef dusartPrimeRows_")
     starts = [match.start() for match in marker.finditer(body)]
     assert starts
@@ -291,7 +284,13 @@ def low_modules(body: str) -> dict[str, str]:
         offset = end_family
     for part, (offset, end_family) in enumerate(ranges, 1):
         module = f"LowPart{part:02d}"
+        previous_import = (
+            ""
+            if part == 1
+            else f"import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart{part - 1:02d}\n"
+        )
         header = f"""import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowBase
+{previous_import}
 
 set_option autoImplicit false
 set_option maxRecDepth 1000000
@@ -339,19 +338,24 @@ noncomputable section
     for group in range(group_count):
         first = group * group_size + 1
         last = min((group + 1) * group_size, len(ranges))
-        group_imports = "\n".join(
-            "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows."
-            f"LowPart{part:02d}"
-            for part in range(first, last + 1)
+        previous_group = (
+            ""
+            if group == 0
+            else "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows."
+            f"LowGroup{group:02d}\n"
+        )
+        group_imports = (
+            previous_group
+            + "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows."
+            f"LowPart{last:02d}"
         )
         result[f"LowGroup{group + 1:02d}.lean"] = (
             group_imports
             + "\n\n/-! Generated import group for lower finite Dusart row chunks. -/\n"
         )
-    imports = "\n".join(
+    imports = (
         "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows."
-        f"LowGroup{group + 1:02d}"
-        for group in range(group_count)
+        f"LowGroup{group_count:02d}"
     )
     result["Low.lean"] = (
         imports

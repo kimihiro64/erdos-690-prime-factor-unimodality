@@ -1,7 +1,3 @@
-import PrimeFactorUnimodality.Proof.LargeRange.RecordGapCoverageGroup01
-import PrimeFactorUnimodality.Proof.LargeRange.RecordGapCoverageGroup02
-import PrimeFactorUnimodality.Proof.LargeRange.RecordGapCoverageGroup03
-import PrimeFactorUnimodality.Proof.LargeRange.RecordGapCoverageGroup04
 import PrimeFactorUnimodality.Proof.LargeRange.RecordGapCoverageGroup05
 
 set_option autoImplicit false

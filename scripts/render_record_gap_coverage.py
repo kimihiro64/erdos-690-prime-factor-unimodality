@@ -97,7 +97,12 @@ theorem recordGapCoverage_part{number:02d} (d : Nat)
     first{exception_case}
 {alternatives}
 """
-    return f"""import PrimeFactorUnimodality.Proof.LargeRange.RecordGapStructure
+    previous_import = (
+        ""
+        if number == 1
+        else f"import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapCoverage.Part{number - 1:02d}\n"
+    )
+    return f"""{previous_import}import PrimeFactorUnimodality.Proof.LargeRange.RecordGapStructure
 
 set_option autoImplicit false
 set_option maxRecDepth 100000
@@ -117,10 +122,15 @@ def render_group(
     chunk_numbers: list[int],
     chunks: list[list[Assignment]],
 ) -> str:
-    imports = "\n".join(
+    previous_group = (
+        ""
+        if group_number == 1
+        else f"\nimport PrimeFactorUnimodality.Proof.LargeRange.RecordGapCoverageGroup{group_number - 1:02d}"
+    )
+    imports = (
         "import PrimeFactorUnimodality.Proof.LargeRange.Generated."
-        f"RecordGapCoverage.Part{number:02d}"
-        for number in chunk_numbers
+        f"RecordGapCoverage.Part{chunk_numbers[-1]:02d}"
+        + previous_group
     )
     ds = [-int(entry["offset"]) for number in chunk_numbers for entry in chunks[number - 1]]
     cases: list[str] = []
@@ -158,9 +168,9 @@ end PrimeFactorUnimodality
 
 
 def render_facade(group_ranges: list[tuple[int, int]]) -> str:
-    imports = "\n".join(
-        f"import PrimeFactorUnimodality.Proof.LargeRange.RecordGapCoverageGroup{number:02d}"
-        for number in range(1, len(group_ranges) + 1)
+    imports = (
+        "import PrimeFactorUnimodality.Proof.LargeRange.RecordGapCoverageGroup"
+        f"{len(group_ranges):02d}"
     )
     cases: list[str] = []
     for index, (lower, _) in enumerate(group_ranges, start=1):

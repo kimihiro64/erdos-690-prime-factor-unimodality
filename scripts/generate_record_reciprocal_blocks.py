@@ -129,7 +129,14 @@ def render_part(
     block_sum: int,
 ) -> str:
     label = f"{index:03d}"
+    previous_import = (
+        "\nimport PrimeFactorUnimodality.Proof.LargeRange.Generated."
+        f"RecordReciprocalBlocks.Part{index - 1:03d}"
+        if index > 1
+        else ""
+    )
     return f"""import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordReciprocalBlocks.Basic
+{previous_import}
 
 set_option autoImplicit false
 set_option maxRecDepth 1000000
@@ -153,10 +160,17 @@ def render_group(
     members: list[tuple[int, int, int, int]],
     group_total: int,
 ) -> str:
-    imports = "\n".join(
+    previous_group_import = (
         "import PrimeFactorUnimodality.Proof.LargeRange.Generated."
-        f"RecordReciprocalBlocks.Part{index:03d}"
-        for index, _lower, _upper, _block_sum in members
+        f"RecordReciprocalBlocks.Group{group_index - 1:03d}"
+        if group_index > 1
+        else ""
+    )
+    last_part = members[-1][0]
+    imports = f"{previous_group_import}\n" if previous_group_import else ""
+    imports += (
+        "import PrimeFactorUnimodality.Proof.LargeRange.Generated."
+        f"RecordReciprocalBlocks.Part{last_part:03d}"
     )
     group_lower = members[0][1]
     first_upper = members[0][2]
@@ -202,10 +216,10 @@ end PrimeFactorUnimodality
 
 
 def render_assembly(groups: list[tuple[int, int, int, int]], total: int) -> str:
-    imports = "\n".join(
+    last_group = groups[-1][0]
+    imports = (
         "import PrimeFactorUnimodality.Proof.LargeRange.Generated."
-        f"RecordReciprocalBlocks.Group{index:03d}"
-        for index, _lower, _upper, _sum in groups
+        f"RecordReciprocalBlocks.Group{last_group:03d}"
     )
     _first_index, first_lower, _first_upper, _first_sum = groups[0]
     block_terms = " + ".join(
