@@ -793,6 +793,25 @@ theorem wangCrapis_thetaBounds_of_strict_theta_prefix_and_logFourthTail
       upperPrefix lower)
     hA_nonneg hA thetaError
 
+theorem wangCrapis_thetaBounds_of_prefix_and_strict_rows_and_logFourthTail
+    {A X x₀ : Real} (h2x₀ : (2 : Real) ≤ x₀)
+    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    {n : Nat} (rows : Fin n → StrictThetaUpperRow)
+    (cover : ∀ x : Real, x₀ ≤ x → x ≤ X →
+      ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right)
+    (lower : ∀ x : Real, 2 < x → x ≤ X →
+      |Chebyshev.theta x - x| <
+        (12323 / 10000 : Real) * x / Real.log x)
+    (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds := by
+  exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
+    (hasDusartSymmetricThetaBoundsBelow_of_prefix_and_indexed_strict_rows_and_lower
+      h2x₀ prefix cover lower)
+    hA_nonneg hA thetaError
+
 /-! The paper-shaped split can start with the proved `x ≤ 3` prefix and then
     consume a compact endpoint suffix.  The strict upper margin stays an
     explicit row obligation; the lower estimate remains separate. -/
