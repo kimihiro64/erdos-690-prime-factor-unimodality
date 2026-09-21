@@ -1,8 +1,8 @@
 import LeanCert.Tactic.IntervalAuto
 import Mathlib.Analysis.Complex.ExponentialBounds
 import PrimeFactorUnimodality.Helpers.Analytic.DusartFiniteRows
-import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33MidrangeCover
 import PrimeFactorUnimodality.Helpers.Analytic.DusartIntermediateLemma
+import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33MidrangeCover
 import PrimeFactorUnimodality.Helpers.Analytic.ElementaryChebyshevConsequences
 import PrimeFactorUnimodality.Helpers.Analytic.ElementaryLogBounds
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
