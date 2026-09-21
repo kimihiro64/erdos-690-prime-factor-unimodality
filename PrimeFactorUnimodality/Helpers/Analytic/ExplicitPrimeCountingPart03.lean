@@ -12,11 +12,6 @@ noncomputable section
 /-- Dusart's lower comparison function
 `x / log x * (1 + 1 / log x)`. -/
 
-/-! # ExplicitPrimeCounting source part 03
-
-This module is a sequential source split of the analytic development.
--/
-
 theorem explicit_integral_core_bound_at_large_cutoff
     {A X : Real} (hX : (4e18 : Real) ≤ X)
     (hA0 : 0 ≤ A) (hA1 : A ≤ 1) :

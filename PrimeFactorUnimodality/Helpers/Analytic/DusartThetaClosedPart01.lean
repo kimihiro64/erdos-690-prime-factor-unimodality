@@ -29,11 +29,6 @@ does not claim to be the global provider.
 
 /-! Closed singleton seed for the finite theta assembler. -/
 
-/-! # DusartThetaClosed source part 01
-
-This module is a sequential source split of the analytic development.
--/
-
 theorem wangCrapis_thetaPrefix :
     HasDusartSymmetricThetaBoundsBelow (2 : Real) := by
   exact hasDusartSymmetricThetaBoundsBelow_mono (by norm_num)

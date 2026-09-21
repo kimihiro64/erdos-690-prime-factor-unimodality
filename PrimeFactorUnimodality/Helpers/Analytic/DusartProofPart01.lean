@@ -21,11 +21,6 @@ set_option maxHeartbeats 10000000
 
 /- The finite boundary in Dusart's Lemma 3.3 is exactly 10^33. -/
 
-/-! # DusartProof source part 01
-
-This module is a sequential source split of the analytic development.
--/
-
 theorem dusart_paper_lemma_3_3_finite_cutoff_eq :
     ((10 ^ 11 : Real) ^ 3) = 10 ^ 33 := by
   norm_num [pow_mul]

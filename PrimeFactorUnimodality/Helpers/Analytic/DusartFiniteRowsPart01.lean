@@ -9,11 +9,6 @@ namespace PrimeFactorUnimodality
 noncomputable section
 
 
-/-! # DusartFiniteRows source part 01
-
-This module is a sequential source split of the analytic development.
--/
-
 theorem psi_sub_theta_mono {x y : Real} (hxy : x ≤ y) :
     Chebyshev.psi x - Chebyshev.theta x ≤
       Chebyshev.psi y - Chebyshev.theta y := by

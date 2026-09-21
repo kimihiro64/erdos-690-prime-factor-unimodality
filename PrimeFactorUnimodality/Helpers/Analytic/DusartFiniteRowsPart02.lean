@@ -8,11 +8,6 @@ namespace PrimeFactorUnimodality
 noncomputable section
 
 
-/-! # DusartFiniteRows source part 02
-
-This module is a sequential source split of the analytic development.
--/
-
 theorem dusartLemma33FiniteRowsCover_five :
     DusartLemma33FiniteRowsCover
       [dusartLemma33FiniteRow_zero_one, dusartLemma33FiniteRow_two,

@@ -25,11 +25,6 @@ does not claim to be the global provider.
 
 /-! Closed singleton seed for the finite theta assembler. -/
 
-/-! # DusartThetaClosed source part 02
-
-This module is a sequential source split of the analytic development.
--/
-
 theorem wangCrapis_large_root_gap_from_strict_theta_error
     {x : Real} (hx : (4e18 : Real) ^ 2 ≤ x)
     (herror : ∀ y : Real, (4e18 : Real) ≤ y →

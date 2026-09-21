@@ -19,11 +19,6 @@ noncomputable section
 /-- Dusart's lower comparison function
 `x / log x * (1 + 1 / log x)`. -/
 
-/-! # ExplicitPrimeCounting source part 01
-
-This module is a sequential source split of the analytic development.
--/
-
 def dusartPiLower (x : Real) : Real :=
   x / Real.log x * (1 + 1 / Real.log x)
 

@@ -12,11 +12,6 @@ noncomputable section
 /-- Dusart's lower comparison function
 `x / log x * (1 + 1 / log x)`. -/
 
-/-! # ExplicitPrimeCounting source part 05
-
-This module is a sequential source split of the analytic development.
--/
-
 def HasDusartPrimeCountingAsymptoticAbove (X : Real) : Prop :=
   ∀ x : Real, X ≤ x →
     ∃ E : Real,

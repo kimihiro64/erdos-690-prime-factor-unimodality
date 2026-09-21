@@ -12,11 +12,6 @@ set_option maxHeartbeats 10000000
 
 /- The finite boundary in Dusart's Lemma 3.3 is exactly 10^33. -/
 
-/-! # DusartProof source part 03
-
-This module is a sequential source split of the analytic development.
--/
-
 theorem log_47_lt_three_point_eight_eight : Real.log 47 < (388 : Real) / 100 := by
   have h := Real.log_lt_log (by norm_num : (0 : Real) < 47)
     (by norm_num : (47 : Real) < 48)

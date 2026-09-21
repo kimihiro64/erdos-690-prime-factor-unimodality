@@ -12,11 +12,6 @@ noncomputable section
 /-- Dusart's lower comparison function
 `x / log x * (1 + 1 / log x)`. -/
 
-/-! # ExplicitPrimeCounting source part 04
-
-This module is a sequential source split of the analytic development.
--/
-
 theorem integral_remainder_abs_le_of_split_theta_error
     {A X x₀ R : Real} (h2x₀ : (2 : Real) ≤ x₀) (hx₀X : x₀ ≤ X)
     (hsmall : |∫ t in (2 : Real)..x₀,

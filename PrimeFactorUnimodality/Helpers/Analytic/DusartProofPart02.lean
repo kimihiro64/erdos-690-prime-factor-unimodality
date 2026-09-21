@@ -12,11 +12,6 @@ set_option maxHeartbeats 10000000
 
 /- The finite boundary in Dusart's Lemma 3.3 is exactly 10^33. -/
 
-/-! # DusartProof source part 02
-
-This module is a sequential source split of the analytic development.
--/
-
 def dusartLemma33FiniteRow_twohundredeightynine_threehundredfortytwo :
     DusartLemma33FiniteRow := by
   have htheta_seventeen := Chebyshev.theta_eq_sum_primesLE_log 17

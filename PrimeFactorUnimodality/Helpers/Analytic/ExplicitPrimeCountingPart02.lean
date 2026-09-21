@@ -12,11 +12,6 @@ noncomputable section
 /-- Dusart's lower comparison function
 `x / log x * (1 + 1 / log x)`. -/
 
-/-! # ExplicitPrimeCounting source part 02
-
-This module is a sequential source split of the analytic development.
--/
-
 theorem integral_inv_log_pow_succ_eq
     {n : Nat} {x : Real} (hx : 2 ≤ x) :
     ∫ t in Set.Icc 2 x, 1 / Real.log t ^ (n + 1) =
