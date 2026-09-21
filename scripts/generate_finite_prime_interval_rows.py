@@ -14,7 +14,7 @@ import re
 import subprocess
 from pathlib import Path
 
-SOURCE_REVISION = "c6200344"
+SOURCE_REVISION = "c6200344736f94e6cacc924d1aa3a6cd9531f2d5"
 SOURCE_PATH = "PrimeFactorUnimodality/Helpers/Analytic/FinitePrimeIntervalRows.lean"
 LOW_START = "def dusartUpper"
 LOW_END = "theorem dusartPrimeRows_3275_23158_chain"

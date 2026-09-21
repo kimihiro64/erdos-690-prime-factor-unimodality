@@ -112,8 +112,9 @@ gap $q-p$ and a ratio of adjacent elementary symmetric sums in the weights
 \[
 w_r=\frac1{p_r-1}\qquad(p_r<p).
 \]
-The exact criterion is `densityStep_iff_symmetricRatio_gap`; its reusable
-upper and lower bounds are in `Helpers/SymmetricBounds`. A large gap forces a
+The exact criterion is
+\texttt{densityStep\_iff\_symmetricRatio\_gap}; its reusable upper and lower
+bounds are in \texttt{Helpers/SymmetricBounds}. A large gap forces a
 descent, while a later sufficiently small consecutive-prime gap forces an
 ascent. These two strict inequalities disprove unimodality.
 
@@ -133,18 +134,18 @@ The formal proof has four layers.
   bounds give the strict ascent uniformly in $k$.
 \end{enumerate}
 The finite pieces are assembled by
-`completeClassification_through48`,
-`completeClassification_through38000_closed`, and the full record-range
+\texttt{completeClassification\_through48},
+\texttt{completeClassification\_through38000\_closed}, and the full record-range
 modules. The final all-$k$ reduction is
-`completeClassification_of_full_record_inputs`, which splits at the finite
+\texttt{completeClassification\_of\_full\_record\_inputs}, which splits at the finite
 cutoff, applies the published record-gap certificate through $7{,}430{,}000$,
 and applies the uniform-tail theorem to every larger $k$. The final provider
-adapter is `completeClassification_of_full_record_logCubed_inputs`: it accepts
+adapter is \texttt{completeClassification\_of\_full\_record\_logCubed\_inputs}: it accepts
 real-variable prime-counting bounds, symmetric theta error bounds, and a
 prime in an interval of relative width $1/\log^3 x$, and feeds them into the
 exact universal theorem. The concrete finite-range interface is a bounded
 list of verified prime rows, combined with the large-$x$ theta-error lemma by
-`completeClassification_of_full_record_rows_at_large_cutoff`. The finite
+\texttt{completeClassification\_of\_full\_record\_rows\_at\_large\_cutoff}. The finite
 cutoff and tail cutoff overlap, so the assembly has no uncovered boundary
 case.
 
@@ -155,8 +156,8 @@ prime prefixes and large integer certificates are ordinary Lean terms; their
 numerical content is checked by kernel-replayed arithmetic, not trusted as
 external numerical output.
 
-The public `Challenge.lean`/`Solution.lean` pair is a narrow theorem boundary:
-it exposes `CompleteClassification` itself, with no fixed-$k$ substitution and
+The public \texttt{Challenge.lean}/\texttt{Solution.lean} pair is a narrow theorem boundary:
+it exposes \texttt{CompleteClassification} itself, with no fixed-$k$ substitution and
 no hidden range restriction. The internal all-$k$ reduction names its
 remaining explicit analytic inputs rather than treating them as project
 axioms.
