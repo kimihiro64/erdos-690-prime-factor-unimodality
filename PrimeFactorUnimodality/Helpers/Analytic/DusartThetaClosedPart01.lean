@@ -347,6 +347,29 @@ theorem wangCrapis_theta_upper_e28_from_strict_paper_inputs
     Chebyshev.theta x - x < x / 36260 := by
   exact dusart_theta_upper_e28_step_strict hx hx_exp hpsi hgap
 
+/-! The finite upper half of Proposition 5.1 needs only the constant upper
+    column of Table 6.6.  Keeping this one-sided assembler separate avoids
+    making the finite upper estimate depend on the lower and correction
+    columns, which are used by the independent lower-error argument. -/
+theorem dusart_proposition_5_1_finite_upper_of_table66
+    (prefix : ∀ x : Real, 0 < x → x ≤ (100000000 : Real) →
+      Chebyshev.theta x - x < x / 36260)
+    (upper_zero : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ data.b0 * x) :
+    ∀ x : Real, 0 < x → x ≤ (8e11 : Real) →
+      Chebyshev.theta x - x < x / 36260 := by
+  intro x hx hX
+  by_cases hsmall : x ≤ (100000000 : Real)
+  · exact prefix x hx hsmall
+  · obtain ⟨data, hdata, hleft, hright⟩ :=
+      dusartThetaTable6_6CoefficientData_cover_real x
+        (by linarith) hX
+    have hupper := upper_zero data hdata x hleft hright
+    have hb0 := (dusartThetaTable6_6CoefficientData_row_bounds data hdata).2.2.2.2
+    have hxpos : 0 ≤ x := hx.le
+    nlinarith
+
 /-! Paper-facing Proposition 5.1 assembler.  The three hypotheses correspond
 to Dusart's finite table, middle explicit psi estimate, and large-range theta
 estimate; none of the range-specific obligations is hidden in this glue. -/
