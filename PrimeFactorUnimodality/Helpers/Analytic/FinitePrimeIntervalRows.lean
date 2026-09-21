@@ -1320,6 +1320,10 @@ theorem dusartThetaTable6_6CoefficientData_side_conditions :
       0 ≤ row.a1 ∧ row.a1 < (12323 : Real) / 10000 ∧ row.b0 ≤ 1 := by
   norm_num [dusartThetaTable6_6CoefficientData]
 
+theorem dusartThetaTable6_6CoefficientData_upper_one_coeff_negative :
+    ∀ row ∈ dusartThetaTable6_6CoefficientData, row.b1 < 0 := by
+  norm_num [dusartThetaTable6_6CoefficientData]
+
 theorem dusartThetaTable6_6CoefficientData_row_bounds :
     ∀ row ∈ dusartThetaTable6_6CoefficientData,
       2 ≤ row.left ∧ row.left ≤ row.right ∧
@@ -2070,6 +2074,32 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_table66_formula_data
     exact (formula data hdata).lower_two
   · intro data hdata
     exact (formula data hdata).upper_two
+
+/-! The negative `b1` column also supplies the strict upper estimate used by
+    Proposition 5.1.  This consumes the same bundled formula rows, so the
+    strict prefix and the symmetric theta bounds cannot diverge. -/
+theorem hasStrictThetaUpperBelow_of_table66_formula_data
+    {X : Real}
+    (cover : ∀ x : Real, 2 ≤ x → x ≤ X →
+      ∃ data ∈ dusartThetaTable6_6CoefficientData,
+        (data.left : Real) ≤ x ∧ x ≤ data.right)
+    (formula : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      DusartThetaTable66FormulaBounds data) :
+    HasStrictThetaUpperBelow X := by
+  intro x hx hX
+  by_cases hsmall : x < 2
+  · rw [Chebyshev.theta_eq_zero_of_lt_two hsmall]
+    linarith
+  · obtain ⟨data, hdata, hleft, hright⟩ := cover x
+      (le_of_not_gt hsmall) hX
+    have hupper := (formula data hdata).upper_one x hleft hright
+    have hb1 := dusartThetaTable6_6CoefficientData_upper_one_coeff_negative
+      data hdata
+    have hxpos : 0 < x := by linarith
+    have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
+    have hcorrection : data.b1 * x / Real.log x < 0 := by
+      exact div_neg_of_neg_of_pos (mul_neg_of_neg_of_pos hb1 hxpos) hlogpos
+    nlinarith
 
 theorem hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_coefficient_bounds
     {x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
