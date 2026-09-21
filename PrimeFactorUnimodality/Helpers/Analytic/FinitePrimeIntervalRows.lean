@@ -1597,6 +1597,18 @@ def DusartThetaTable66CoefficientData.toVerifiedRow
     upper_bound := by
       simpa [DusartThetaTable66CoefficientData.toCoefficientRow] using upper_bound }
 
+def DusartThetaTable66CoefficientData.toVerifiedRow_of_table_bounds
+    (data : DusartThetaTable66CoefficientData)
+    (hdata : data ∈ dusartThetaTable6_6CoefficientData)
+    (lower_bound : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      data.a0 * x ≤ Chebyshev.theta x)
+    (upper_bound : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      Chebyshev.theta x ≤ data.b0 * x) :
+    DusartThetaTableVerifiedRow := by
+  have hmeta := dusartThetaTable6_6CoefficientData_row_bounds data hdata
+  exact data.toVerifiedRow hmeta.1 hmeta.2.1 hmeta.2.2.1
+    hmeta.2.2.2.1 hmeta.2.2.2.2.1 lower_bound upper_bound
+
 def DusartThetaTableVerifiedRow.toRelativeRow
     (row : DusartThetaTableVerifiedRow) : DusartThetaRelativeRow :=
   row.data.toRelativeRow_of_table_bounds row.left_large row.left_le_right
