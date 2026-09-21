@@ -1211,7 +1211,7 @@ theorem dusartThetaTable66_constant_bounds_of_endpoints
         Chebyshev.theta data.right := Chebyshev.theta_mono hright
     have hscale : data.b0 * (data.left : Real) ≤ data.b0 * x := by
       exact mul_le_mul_of_nonneg_left hleft hb0
-      exact hright_theta.trans (upper_endpoint.trans hscale)
+    exact hright_theta.trans (upper_endpoint.trans hscale)
 
 /-! The four logarithmic columns have the same endpoint shape once their
     correction functions have been shown monotone on the row.  This keeps
