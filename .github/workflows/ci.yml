@@ -151,7 +151,10 @@ jobs:
 
   lean-foundations:
     name: Elaborate non-certificate Lean foundations
-    needs: [metadata-and-boundary, python]
+    # Keep source-policy failure from hiding the diagnostic foundation build
+    # while the public theorem is still being closed.  The complete build
+    # below remains gated by metadata-and-boundary.
+    needs: [python]
     runs-on: ubuntu-latest
     timeout-minutes: 180
     steps:
