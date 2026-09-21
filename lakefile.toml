@@ -2,6 +2,8 @@ name = "PrimeFactorUnimodality"
 version = "0.1.0"
 defaultTargets = ["PrimeFactorUnimodality", "Challenge", "Solution"]
 lintDriver = "batteries/runLinter"
+# Keep the large analytic/certificate elaborations within the CI memory budget.
+moreLeanArgs = ["-j", "1"]
 
 [leanOptions]
 autoImplicit = false
