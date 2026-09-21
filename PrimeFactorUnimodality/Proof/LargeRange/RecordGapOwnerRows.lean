@@ -42,6 +42,26 @@ def ValidAdd (owner : FullRecordGapOwner) (d : Nat) : Prop :=
       2 ≤ q ∧ q ≤ 100_000_000_000 ∧ recordGapCenter % q = r ∧
         d % q = (q - r) % q
 
+instance (owner : FullRecordGapOwner) (d : Nat) : Decidable (owner.ValidSub d) := by
+  cases owner with
+  | tail q =>
+      change Decidable (q ∈ recordGapPrimeList ∧ q ∣ d)
+      infer_instance
+  | residue q r =>
+      change Decidable (2 ≤ q ∧ q ≤ 100_000_000_000 ∧
+        recordGapCenter % q = r ∧ d % q = r)
+      infer_instance
+
+instance (owner : FullRecordGapOwner) (d : Nat) : Decidable (owner.ValidAdd d) := by
+  cases owner with
+  | tail q =>
+      change Decidable (q ∈ recordGapPrimeList ∧ q ∣ d)
+      infer_instance
+  | residue q r =>
+      change Decidable (2 ≤ q ∧ q ≤ 100_000_000_000 ∧
+        recordGapCenter % q = r ∧ d % q = (q - r) % q)
+      infer_instance
+
 theorem sub_not_prime {owner : FullRecordGapOwner} {d : Nat}
     (hd : d ≤ 4_000_000_000) (valid : owner.ValidSub d) :
     ¬(recordGapCenter - d).Prime := by
