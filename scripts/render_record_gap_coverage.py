@@ -129,8 +129,7 @@ def render_group(
     )
     imports = (
         "import PrimeFactorUnimodality.Proof.LargeRange.Generated."
-        f"RecordGapCoverage.Part{chunk_numbers[-1]:02d}"
-        + previous_group
+        f"RecordGapCoverage.Part{chunk_numbers[-1]:02d}" + previous_group
     )
     ds = [-int(entry["offset"]) for number in chunk_numbers for entry in chunks[number - 1]]
     cases: list[str] = []

@@ -142,8 +142,7 @@ theorem recordPrimeWitnessesThrough{label}_subset :
 def render_assembly(chunks: list[list[int]], count: int) -> str:
     last = f"{len(chunks):02d}"
     imports = (
-        "import PrimeFactorUnimodality.Proof.LargeRange.Generated."
-        f"RecordPrimeWitnesses.Part{last}"
+        f"import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses.Part{last}"
     )
     declarations = [render_first_declaration(chunks[0])]
     cumulative_count = len(chunks[0])
