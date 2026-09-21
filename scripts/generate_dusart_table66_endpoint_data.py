@@ -67,14 +67,50 @@ def extract(source: str) -> list[dict[str, int]]:
     return rows
 
 
+def render_lean(rows: list[dict[str, int]]) -> str:
+    lines = [
+        "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows",
+        "",
+        "set_option autoImplicit false",
+        "",
+        "namespace PrimeFactorUnimodality",
+        "",
+        "/-! Published Table 6.6 theta endpoint bounds, scaled by 10^6. "
+        "These numerals are data for a later kernel-checked endpoint proof. -/",
+        "def dusartTable66PublishedEndpointData :",
+        "    List (Nat × Nat × Nat × Nat × Nat) := [",
+    ]
+    for index, row in enumerate(rows):
+        comma = "," if index + 1 < len(rows) else ""
+        lines.append(
+            f"  ({row['left']}, {row['right']}, "
+            f"{row['theta_lower_left_scaled']}, "
+            f"{row['theta_upper_right_scaled']}, {row['scale']}){comma}"
+        )
+    lines.extend([
+        "]",
+        "",
+        "theorem dusartTable66PublishedEndpointData_length :",
+        "    dusartTable66PublishedEndpointData.length = 34 := by decide",
+        "",
+        "end PrimeFactorUnimodality",
+        "",
+    ])
+    return "\n".join(lines)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--lean-output", type=Path)
     args = parser.parse_args()
     rows = extract(args.input.read_text())
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps({"rows": rows}, indent=2) + "\n")
+    if args.lean_output is not None:
+        args.lean_output.parent.mkdir(parents=True, exist_ok=True)
+        args.lean_output.write_text(render_lean(rows))
     print(f"extracted {len(rows)} Table 6.6 endpoint rows")
 
 
