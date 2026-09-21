@@ -1705,6 +1705,39 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_verified_table_rows
   · simpa [DusartThetaTableVerifiedRow.toRelativeRow] using hleft
   · simpa [DusartThetaTableVerifiedRow.toRelativeRow] using hright
 
+/-! Assemble the published Table 6.6 coefficient data after its two analytic
+    endpoint inequalities have been proved.  The raw table remains data; only
+    rows carrying both theta bounds are admitted to the provider. -/
+theorem hasDusartSymmetricThetaBoundsBelow_of_table66_coefficient_bounds
+    {X : Real}
+    (cover : ∀ x : Real, 2 ≤ x → x ≤ X →
+      ∃ data ∈ dusartThetaTable6_6CoefficientData,
+        (data.left : Real) ≤ x ∧ x ≤ data.right)
+    (lower : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        data.a0 * x ≤ Chebyshev.theta x)
+    (upper : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ data.b0 * x) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  let rows : List DusartThetaTableVerifiedRow :=
+    dusartThetaTable6_6CoefficientData.attach.map fun entry =>
+      entry.1.toVerifiedRow_of_table_bounds entry.2
+        (lower entry.1 entry.2) (upper entry.1 entry.2)
+  apply hasDusartSymmetricThetaBoundsBelow_of_verified_table_rows
+  intro x hx hX
+  obtain ⟨data, hdata, hleft, hright⟩ := cover x hx hX
+  refine ⟨data.toVerifiedRow_of_table_bounds hdata
+      (lower data hdata) (upper data hdata), ?_, hleft, hright⟩
+  change data.toVerifiedRow_of_table_bounds hdata
+      (lower data hdata) (upper data hdata) ∈
+    dusartThetaTable6_6CoefficientData.attach.map (fun entry =>
+      entry.1.toVerifiedRow_of_table_bounds entry.2
+        (lower entry.1 entry.2) (upper entry.1 entry.2))
+  apply List.mem_map.2
+  refine ⟨⟨data, hdata⟩, ?_, rfl⟩
+  simp
+
 theorem hasDusartSymmetricThetaBoundsBelow_of_indexed_verified_table_rows
     {n : Nat} {X : Real} {rows : Fin n → DusartThetaTableVerifiedRow}
     (cover : DusartThetaTableVerifiedIndexedCoverUpTo rows X) :
