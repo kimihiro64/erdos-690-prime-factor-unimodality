@@ -199,6 +199,60 @@ theorem dusartProposition31FiniteIndexedRowsCover_append
     refine ⟨Fin.natAdd n₁ i, ?_⟩
     simpa [Fin.append_right] using And.intro hright_lower hright_upper
 
+structure DusartProposition31FiniteChunk where
+  n : Nat
+  cutoff : Real
+  rows : Fin n → DusartProposition31FiniteRow
+  cover : DusartProposition31FiniteIndexedRowsCover rows cutoff
+
+def DusartProposition31FiniteChunk.of_list
+    {rows : List DusartProposition31FiniteRow} {cutoff : Real}
+    (cover : DusartProposition31FiniteRowsCover rows cutoff) :
+    DusartProposition31FiniteChunk :=
+  { n := rows.length
+    cutoff := cutoff
+    rows := fun i => rows.get i
+    cover := dusartProposition31FiniteIndexedRowsCover_of_list cover }
+
+theorem DusartProposition31FiniteChunk.provides
+    (chunk : DusartProposition31FiniteChunk) :
+    ∀ x : Real, (121 : Real) < x → x ≤ chunk.cutoff →
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x := by
+  exact dusartProposition31Finite_of_indexed_rows chunk.cover
+
+def DusartProposition31FiniteChunk.append
+    (left right : DusartProposition31FiniteChunk) :
+    DusartProposition31FiniteChunk :=
+  { n := left.n + right.n
+    cutoff := right.cutoff
+    rows := Fin.append left.rows right.rows
+    cover := dusartProposition31FiniteIndexedRowsCover_append
+      left.cover right.cover }
+
+def DusartProposition31FiniteChunk.appendMany
+    (first : DusartProposition31FiniteChunk)
+    (rest : List DusartProposition31FiniteChunk) :
+    DusartProposition31FiniteChunk :=
+  match rest with
+  | [] => first
+  | next :: tail =>
+      DusartProposition31FiniteChunk.appendMany
+        (DusartProposition31FiniteChunk.append first next) tail
+
+theorem DusartProposition31FiniteChunk.appendMany_provides
+    (first : DusartProposition31FiniteChunk)
+    (rest : List DusartProposition31FiniteChunk) :
+    ∀ x : Real, (121 : Real) < x →
+      x ≤ (DusartProposition31FiniteChunk.appendMany first rest).cutoff →
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x := by
+  induction rest generalizing first with
+  | nil =>
+      exact first.provides
+  | cons next tail ih =>
+      exact ih (DusartProposition31FiniteChunk.append first next)
+
 /-! Compact bounded rows for the direct-computation part of Dusart's Lemma 3.3.
 
 The row validity field is the only place where a bounded numerical proof is
