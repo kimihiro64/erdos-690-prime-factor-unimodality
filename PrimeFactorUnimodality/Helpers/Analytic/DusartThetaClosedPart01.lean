@@ -349,6 +349,34 @@ theorem wangCrapis_thetaBoundsBelow_7 :
       · nlinarith [hbound, htheta_mono, htheta6]
       · exact hupper_error
 
+theorem wangCrapis_theta_lower_error_below_seven
+    {x : Real} (hx : 2 < x) (hx7 : x ≤ 7) :
+    |Chebyshev.theta x - x| <
+      (12323 / 10000 : Real) * x / Real.log x := by
+  have hprefix := wangCrapis_thetaBoundsBelow_7
+  have hupper := hprefix.1 x (by linarith) hx7
+  have hlower := hprefix.2 x hx hx7
+  have hx_pos : 0 < x := by linarith
+  have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
+  have hlogupper : Real.log x < (2 : Real) := by
+    have hlog7 : Real.log x ≤ Real.log 7 :=
+      Real.log_le_log hx_pos hx7
+    exact lt_of_le_of_lt hlog7 (by
+      simpa using (LogTables.log_7_lt.trans (by norm_num :
+        (1.946044 : Real) < 2)))
+  have hcoef : (1 : Real) / 36260 <
+      (12323 / 10000 : Real) / Real.log x := by
+    apply (lt_div_iff₀ hlogpos).2
+    nlinarith [hlogupper]
+  have hscaled := mul_lt_mul_of_pos_right hcoef hx_pos
+  have herror : x / 36260 <
+      (12323 / 10000 : Real) * x / Real.log x := by
+    nlinarith
+  apply (abs_lt).2
+  constructor
+  · nlinarith
+  · exact hupper.trans herror
+
 theorem wangCrapis_theta_lower_error_below_six
     {x : Real} (hx : 2 < x) (hx6 : x ≤ 6) :
     |Chebyshev.theta x - x| <
