@@ -1331,6 +1331,25 @@ theorem dusartThetaTable6_6CoefficientData_row_bounds :
       (99985 : Real) / 100000 ≤ row.a0 ∧ row.b0 ≤ 1 := by
   norm_num [dusartThetaTable6_6CoefficientData]
 
+theorem strictThetaUpper_of_table66_formula_data
+    (data : DusartThetaTable66CoefficientData)
+    (hdata : data ∈ dusartThetaTable6_6CoefficientData)
+    (formula : DusartThetaTable66FormulaBounds data)
+    {x : Real} (hleft : (data.left : Real) ≤ x)
+    (hright : x ≤ data.right) :
+    Chebyshev.theta x < x := by
+  have hrow := dusartThetaTable6_6CoefficientData_row_bounds data hdata
+  have hleft_large : (2 : Real) ≤ data.left := by
+    exact_mod_cast hrow.1
+  have hxpos : 0 < x := by linarith
+  have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
+  have hupper := formula.upper_one x hleft hright
+  have hb1 := dusartThetaTable6_6CoefficientData_upper_one_coeff_negative
+    data hdata
+  have hcorrection : data.b1 * x / Real.log x < 0 := by
+    exact div_neg_of_neg_of_pos (mul_neg_of_neg_of_pos hb1 hxpos) hlogpos
+  nlinarith
+
 def dusartThetaTable6_6CoefficientDataNatRanges : List (Nat × Nat) :=
   dusartThetaTable6_6CoefficientData.map fun row => (row.left, row.right)
 
@@ -2092,14 +2111,8 @@ theorem hasStrictThetaUpperBelow_of_table66_formula_data
     linarith
   · obtain ⟨data, hdata, hleft, hright⟩ := cover x
       (le_of_not_gt hsmall) hX
-    have hupper := (formula data hdata).upper_one x hleft hright
-    have hb1 := dusartThetaTable6_6CoefficientData_upper_one_coeff_negative
-      data hdata
-    have hxpos : 0 < x := by linarith
-    have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
-    have hcorrection : data.b1 * x / Real.log x < 0 := by
-      exact div_neg_of_neg_of_pos (mul_neg_of_neg_of_pos hb1 hxpos) hlogpos
-    nlinarith
+    exact strictThetaUpper_of_table66_formula_data data hdata
+      (formula data hdata) hleft hright
 
 theorem hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_coefficient_bounds
     {x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)

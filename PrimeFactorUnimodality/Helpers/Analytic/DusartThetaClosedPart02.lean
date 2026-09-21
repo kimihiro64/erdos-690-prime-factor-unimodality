@@ -564,15 +564,8 @@ theorem hasStrictThetaUpperBelow_of_prefix_and_table66_formula_data
   · exact prefix x hx hsmall
   · obtain ⟨data, hdata, hleft, hright⟩ := cover x
       (le_of_not_ge hsmall) hX
-    have hupper := (formula data hdata).upper_one x hleft hright
-    have hb1 := dusartThetaTable6_6CoefficientData_upper_one_coeff_negative
-      data hdata
-    have hx2 : (2 : Real) ≤ x := h2x₀.trans (le_of_not_ge hsmall)
-    have hxpos : 0 < x := by linarith
-    have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
-    have hcorrection : data.b1 * x / Real.log x < 0 := by
-      exact div_neg_of_neg_of_pos (mul_neg_of_neg_of_pos hb1 hxpos) hlogpos
-    nlinarith
+    exact strictThetaUpper_of_table66_formula_data data hdata
+      (formula data hdata) hleft hright
 
 /-! The published row endpoints cover the real interval directly.  This
     specialization fixes the lower endpoint at the start of Table 6.6 and
