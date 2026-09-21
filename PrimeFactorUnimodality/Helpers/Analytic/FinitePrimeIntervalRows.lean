@@ -2356,7 +2356,7 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_table66_formula_data
   · intro data hdata
     exact (formula data hdata).lower_two
   · intro data hdata
-      exact (formula data hdata).upper_two
+    exact (formula data hdata).upper_two
 
 theorem hasDusartSymmetricThetaBoundsBelow_of_table66_formula_data_with_constant_endpoints
     {X : Real}
@@ -2397,6 +2397,37 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_table66_formula_data_with_constant
       (dusartThetaTable6_6CoefficientData_coefficients_nonneg data hdata).1
       (dusartThetaTable6_6CoefficientData_coefficients_nonneg data hdata).2
       (lower_endpoint data hdata) (upper_endpoint data hdata)).2
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_table66_published_endpoints
+    {X : Real}
+    (cover : ∀ x : Real, 2 ≤ x → x ≤ X →
+      ∃ data ∈ dusartThetaTable6_6CoefficientData,
+        (data.left : Real) ≤ x ∧ x ≤ data.right)
+    (lower_zero : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        data.a0 * x ≤ Chebyshev.theta x)
+    (upper_zero : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ data.b0 * x)
+    (lower_one_endpoint : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      data.right - data.a1 * data.right / Real.log data.right ≤
+        Chebyshev.theta data.left)
+    (upper_one_endpoint : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      Chebyshev.theta data.right ≤
+        data.left + data.b1 * data.left / Real.log data.left)
+    (lower_two_endpoint : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      data.right - data.a2 * data.right / Real.log data.right ^ 2 ≤
+        Chebyshev.theta data.left)
+    (upper_two_endpoint : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      Chebyshev.theta data.right ≤
+        data.left + data.b2 * data.left / Real.log data.left ^ 2) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_table66_formula_data cover
+  intro data hdata
+  exact dusartThetaTable66_formula_bounds_of_published_endpoints hdata
+    (lower_zero data hdata) (upper_zero data hdata)
+    (lower_one_endpoint data hdata) (upper_one_endpoint data hdata)
+    (lower_two_endpoint data hdata) (upper_two_endpoint data hdata)
 
 /-! The negative `b1` column also supplies the strict upper estimate used by
     Proposition 5.1.  This consumes the same bundled formula rows, so the
