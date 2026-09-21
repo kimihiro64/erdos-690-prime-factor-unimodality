@@ -69,7 +69,7 @@ def pocklington_data(n: int) -> str:
     )
 
 
-def prime_certificates(rows: list[str], data_name: str) -> str:
+def prime_certificates(rows: list[str], data_name: str, accessor_name: str) -> str:
     witnesses = sorted({int(q) for row in rows for q in re.findall(r"\(q := (\d+)\)", row)})
     data = ",\n    ".join(pocklington_data(q) for q in witnesses)
     body = [
@@ -85,18 +85,11 @@ def prime_certificates(rows: list[str], data_name: str) -> str:
         "  apply PocklingtonRow.valid_of_decide_all",
         "  decide",
         "",
+        f"theorem {accessor_name} (i : Fin {data_name}.length) :",
+        f"    Nat.Prime ({data_name}.get i).n := by",
+        f"  exact PocklingtonRow.prime_of_mem {data_name}_valid (List.get_mem _ _)",
+        "",
     ]
-    for index, n in enumerate(witnesses):
-        body.extend(
-            [
-                f"theorem lowPrime_{n} : Nat.Prime {n} := by",
-                f"  let d := {data_name}.get ⟨{index}, by simp [{data_name}]⟩",
-                f"  have hd : d ∈ {data_name} := List.get_mem _ _",
-                f"  have hp := PocklingtonRow.prime_of_mem {data_name}_valid hd",
-                f"  simpa [d, {data_name}] using hp",
-                "",
-            ]
-        )
     return "\n".join(body)
 
 
@@ -420,10 +413,23 @@ noncomputable section
 """
         part_body = "".join(part_segments[offset:end_family])
         part_rows = re.findall(r"^    dusartPrimeRow_of_explicit[^\n]+(?:\n)?", part_body, re.M)
-        certificates = prime_certificates(part_rows, f"lowPocklingtonData{part:02d}")
+        data_name = f"lowPocklingtonData{part:02d}"
+        accessor_name = f"lowPocklingtonPrime{part:02d}"
+        certificates = prime_certificates(part_rows, data_name, accessor_name)
+        witness_indices = {
+            n: index
+            for index, n in enumerate(
+                sorted({int(q) for row in part_rows for q in re.findall(r"\(q := (\d+)\)", row)})
+            )
+        }
         part_body = re.sub(
             r"(\(q := (\d+)\)) \(by decide\)",
-            lambda match: f"{match.group(1)} (by exact lowPrime_{match.group(2)})",
+            lambda match: (
+                f"{match.group(1)} (by\n"
+                f"      have hp := {accessor_name} ⟨{witness_indices[int(match.group(2))]}, "
+                f"by simp [{data_name}]⟩\n"
+                f"      simpa [{data_name}] using hp)"
+            ),
             part_body,
             count=0,
         )

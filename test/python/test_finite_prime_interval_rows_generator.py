@@ -56,7 +56,8 @@ def test_finite_prime_interval_rows_low_generation_is_sharded(
 
     first = (tmp_path / "LowPart01.lean").read_text()
     assert "apply DusartPrimeRowsChain.cons" in first
-    assert "theorem lowPrime_3299" in first
+    assert "theorem lowPocklingtonPrime01" in first
+    assert "theorem lowPrime_3299" not in first
     for path in tmp_path.glob("LowPart*.lean"):
         text = path.read_text()
         assert "apply DusartPrimeRowsChain.cons" in text
