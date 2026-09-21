@@ -1572,6 +1572,31 @@ structure DusartThetaTableVerifiedRow where
   upper_bound : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
     Chebyshev.theta x ≤ data.upper_coeff * x
 
+def DusartThetaTable66CoefficientData.toVerifiedRow
+    (data : DusartThetaTable66CoefficientData)
+    (hleft : 2 ≤ data.left)
+    (hle : data.left ≤ data.right)
+    (hright : (data.right : Real) ≤ (8e11 : Real))
+    (hlower_min : (99985 : Real) / 100000 ≤ data.a0)
+    (hupper_le : data.b0 ≤ 1)
+    (lower_bound : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      data.a0 * x ≤ Chebyshev.theta x)
+    (upper_bound : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      Chebyshev.theta x ≤ data.b0 * x) :
+    DusartThetaTableVerifiedRow :=
+  { data := data.toCoefficientRow
+    left_large := hleft
+    left_le_right := hle
+    right_le_cutoff := hright
+    lower_coeff_min := by
+      simpa [DusartThetaTable66CoefficientData.toCoefficientRow] using hlower_min
+    upper_coeff_le_one := by
+      simpa [DusartThetaTable66CoefficientData.toCoefficientRow] using hupper_le
+    lower_bound := by
+      simpa [DusartThetaTable66CoefficientData.toCoefficientRow] using lower_bound
+    upper_bound := by
+      simpa [DusartThetaTable66CoefficientData.toCoefficientRow] using upper_bound }
+
 def DusartThetaTableVerifiedRow.toRelativeRow
     (row : DusartThetaTableVerifiedRow) : DusartThetaRelativeRow :=
   row.data.toRelativeRow_of_table_bounds row.left_large row.left_le_right
