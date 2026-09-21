@@ -329,6 +329,47 @@ structure StrictThetaUpperRow where
   theta_right_le : Chebyshev.theta right ≤ theta_upper
   upper_error : theta_upper - left < 0
 
+theorem theta_lower_of_unit_interval_endpoint
+    {n : Nat} {a x : Real}
+    (ha : 0 ≤ a)
+    (hbound : a * ((n : Real) + 1) ≤ Chebyshev.theta (n : Real))
+    (hleft : (n : Real) ≤ x)
+    (hright : x < (n : Real) + 1) :
+    a * x ≤ Chebyshev.theta x := by
+  have hx_nonneg : 0 ≤ x := by positivity
+  have hfloor : ⌊x⌋₊ = n := by
+    apply (Nat.floor_eq_iff hx_nonneg).2
+    constructor
+    · exact_mod_cast hleft
+    · simpa using hright
+  have htheta : Chebyshev.theta x = Chebyshev.theta (n : Real) := by
+    rw [Chebyshev.theta_eq_theta_coe_floor, hfloor]
+  calc
+    a * x ≤ a * ((n : Real) + 1) :=
+      mul_le_mul_of_nonneg_left (le_of_lt hright) ha
+    _ ≤ Chebyshev.theta (n : Real) := hbound
+    _ = Chebyshev.theta x := htheta.symm
+
+theorem theta_upper_of_unit_interval_endpoint
+    {n : Nat} {b x : Real}
+    (hb : 0 ≤ b)
+    (hbound : Chebyshev.theta (n : Real) ≤ b * (n : Real))
+    (hleft : (n : Real) ≤ x)
+    (hright : x < (n : Real) + 1) :
+    Chebyshev.theta x ≤ b * x := by
+  have hx_nonneg : 0 ≤ x := by positivity
+  have hfloor : ⌊x⌋₊ = n := by
+    apply (Nat.floor_eq_iff hx_nonneg).2
+    constructor
+    · exact_mod_cast hleft
+    · simpa using hright
+  have htheta : Chebyshev.theta x = Chebyshev.theta (n : Real) := by
+    rw [Chebyshev.theta_eq_theta_coe_floor, hfloor]
+  calc
+    Chebyshev.theta x = Chebyshev.theta (n : Real) := htheta
+    _ ≤ b * (n : Real) := hbound
+    _ ≤ b * x := mul_le_mul_of_nonneg_left hleft hb
+
 def DusartThetaEndpointRow.toStrictUpperRow
     (row : DusartThetaEndpointRow)
     (hstrict : row.theta_upper < row.left) : StrictThetaUpperRow :=
