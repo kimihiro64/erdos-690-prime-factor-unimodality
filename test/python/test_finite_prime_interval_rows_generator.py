@@ -32,6 +32,8 @@ def test_finite_prime_interval_rows_low_generation_is_sharded(
 
     facade = (tmp_path / "Low.lean").read_text()
     assert f"LowGroup{(count + 11) // 12:02d}" in facade
+    assert "shared coverage data. -/" in facade
+    assert "shared coverage data. -}" not in facade
 
     for part in range(1, count + 1):
         path = tmp_path / f"LowPart{part:02d}.lean"
