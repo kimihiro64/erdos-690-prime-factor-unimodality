@@ -11,8 +11,17 @@ from __future__ import annotations
 
 import argparse
 import re
-import subprocess
 from pathlib import Path
+
+try:
+    from scripts.finite_prime_interval_generator import (
+        extract,
+        normalize,
+        prime_certificates,
+        source_text,
+    )
+except ModuleNotFoundError:
+    from finite_prime_interval_generator import extract, normalize, prime_certificates, source_text
 
 SOURCE_REVISION = "c6200344736f94e6cacc924d1aa3a6cd9531f2d5"
 SOURCE_PATH = "PrimeFactorUnimodality/Helpers/Analytic/FinitePrimeIntervalRows.lean"
@@ -32,129 +41,6 @@ ROW_PART_SIZE = 8
 # the unit of composition.
 LOW_MODULE_TARGET_BYTES = 32_000
 EXPECTED_LOW_ROW_COUNT = 2_122
-
-
-def factor_nat(n: int) -> list[int]:
-    factors: list[int] = []
-    d = 2
-    while d * d <= n:
-        while n % d == 0:
-            factors.append(d)
-            n //= d
-        d += 1
-    if n > 1:
-        factors.append(n)
-    return factors
-
-
-def pocklington_data(n: int) -> str:
-    """Emit one compact Pocklington data literal for a witness.
-
-    The generated shard validates the complete data list once through the
-    reusable row assembler.  Keeping factorizations and residues as data
-    avoids repeating the Pocklington proof term at every row occurrence.
-    """
-    factors = factor_nat(n - 1)
-    base = next(
-        a
-        for a in range(2, n)
-        if pow(a, n - 1, n) == 1 and all(pow(a, (n - 1) // q, n) != 1 for q in set(factors))
-    )
-    inverses = {q: pow((pow(base, (n - 1) // q, n) - 1) % n, -1, n) for q in set(factors)}
-    residues = ", ".join(f"({q}, {inverses[q]})" for q in dict.fromkeys(factors))
-    return (
-        f"{{ n := {n}, F := {n - 1}, R := 1, a := {base}, "
-        f"factors := [{', '.join(map(str, factors))}], "
-        f"residues := [{residues}] }}"
-    )
-
-
-def prime_certificates(rows: list[str], data_name: str, accessor_name: str) -> str:
-    witnesses = sorted({int(q) for row in rows for q in re.findall(r"\(q := (\d+)\)", row)})
-    data = ",\n    ".join(pocklington_data(q) for q in witnesses)
-    body = [
-        "set_option maxRecDepth 1000000 in",
-        "set_option maxHeartbeats 20000000 in",
-        f"def {data_name} : List PocklingtonData := [",
-        f"    {data}",
-        "  ]",
-        "",
-        "set_option maxRecDepth 1000000 in",
-        "set_option maxHeartbeats 20000000 in",
-        f"theorem {data_name}_valid : PocklingtonRow.Valid {data_name} := by",
-        "  apply PocklingtonRow.valid_of_decide_all",
-        "  decide",
-        "",
-        f"theorem {accessor_name} (i : Fin {data_name}.length) :",
-        f"    Nat.Prime ({data_name}.get i).n := by",
-        f"  exact PocklingtonRow.prime_of_mem {data_name}_valid (List.get_mem _ _)",
-        "",
-    ]
-    return "\n".join(body)
-
-
-def source_text(repo: Path) -> str:
-    return subprocess.check_output(
-        ["git", "show", f"{SOURCE_REVISION}:{SOURCE_PATH}"],
-        cwd=repo,
-        text=True,
-    )
-
-
-def extract(text: str, start: str, end: str) -> str:
-    start_at = text.index(start)
-    end_at = text.index(end, start_at)
-    return text[start_at:end_at]
-
-
-def normalize(body: str) -> str:
-    """Apply the small source repairs required by the split module API."""
-    lines = []
-    for line in body.splitlines(keepends=True):
-        if "dusartPrimeRow_of_explicit_" in line and "(q := " in line:
-            count = len(re.findall(r"\(by (?:norm_num|decide|omega)\)", line))
-            if count == 4:
-                stripped = line.rstrip()
-                if stripped.endswith(","):
-                    close = line.rfind(",")
-                elif stripped.endswith(")]"):
-                    close = line.rfind("]")
-                elif stripped.endswith("))"):
-                    close = line.rfind(")")
-                else:
-                    close = len(line.rstrip("\n"))
-                line = line[:close] + " (by norm_num)" + line[close:]
-            line = re.sub(
-                r"(\(q := \d+\)) \(by norm_num\)",
-                r"\1 (by decide)",
-                line,
-                count=1,
-            )
-        lines.append(line)
-    body = "".join(lines)
-    body = body.replace(
-        """  | empty h =>
-      intro x hleft hright
-      exfalso
-      norm_num at h
-      linarith""",
-        """  | @empty a b h =>
-      intro x hleft hright
-      exfalso
-      have hab : (b : Real) + 1 ≤ a := by
-        exact_mod_cast Nat.succ_le_of_lt h
-      linarith""",
-    )
-    body = body.replace(
-        "exact DusartPrimeRowsChain.cons row (by omega) hordered ih",
-        "exact DusartPrimeRowsChain.cons row (by omega) hordered htail",
-    )
-    body = re.sub(
-        r"(?m)^(def dusartPrimeRows_|theorem dusartPrimeRows_)",
-        "set_option maxHeartbeats 20000000 in\\n\\1",
-        body,
-    )
-    return body
 
 
 def _append_chain_terms(names: list[str]) -> str:
@@ -269,7 +155,7 @@ def split_large_row_families(body: str) -> str:
 
 
 LOW_HEADER = """import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Core
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.EndpointBounds
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.EndpointBoundsPart02
 import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod
 import PrimeFactorUnimodality.Helpers.FiniteCertificates.PocklingtonRows
 import PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington
@@ -422,14 +308,17 @@ noncomputable section
                 sorted({int(q) for row in part_rows for q in re.findall(r"\(q := (\d+)\)", row)})
             )
         }
-        part_body = re.sub(
-            r"(\(q := (\d+)\)) \(by decide\)",
-            lambda match: (
+        def replace_witness(match: re.Match[str]) -> str:
+            return (
                 f"{match.group(1)} (by\n"
                 f"      have hp := {accessor_name} ⟨{witness_indices[int(match.group(2))]}, "
                 f"by simp [{data_name}]⟩\n"
                 f"      simpa [{data_name}] using hp)"
-            ),
+            )
+
+        part_body = re.sub(
+            r"(\(q := (\d+)\)) \(by decide\)",
+            replace_witness,
             part_body,
             count=0,
         )
@@ -481,7 +370,7 @@ def main() -> None:
         args.output_dir or repo / "PrimeFactorUnimodality/Helpers/Analytic/FinitePrimeIntervalRows"
     ).resolve()
     out.mkdir(parents=True, exist_ok=True)
-    text = source_text(repo)
+    text = source_text(repo, SOURCE_REVISION, SOURCE_PATH)
     low = split_large_row_families(normalize(extract(text, LOW_START, HIGH_START)))
     high = normalize(extract(text, HIGH_START, HIGH_END))
     assert low.count("def dusartUpper") == 1

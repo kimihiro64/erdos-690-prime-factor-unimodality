@@ -53,7 +53,7 @@ def band_module(
     row_chain_name = f"mediumLogRows{index:02d}_chain"
     end = pairs[-1][1] - 1
     lines = [
-        "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.EndpointBounds",
+        "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.EndpointBoundsPart02",
         "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.MediumLogRowsBase",
         "",
         "set_option autoImplicit false",

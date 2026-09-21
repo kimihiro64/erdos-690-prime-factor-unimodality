@@ -1,5 +1,5 @@
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Core
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.EndpointBounds
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.EndpointBoundsPart02
 import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod
 import PrimeFactorUnimodality.Helpers.FiniteCertificates.PocklingtonRows
 import PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington
