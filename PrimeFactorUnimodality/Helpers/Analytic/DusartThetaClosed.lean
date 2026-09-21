@@ -859,18 +859,19 @@ theorem wangCrapis_thetaBounds_of_strict_prefix_endpoint_rows_and_logFourthTail
     (hA : A / Real.log X ≤ 12167 / 500000)
     (thetaError : HasThetaLogFourthError A X) :
     HasDusartThetaBounds := by
-  apply wangCrapis_thetaBounds_of_strict_theta_prefix_and_logFourthTail
-    hXpos hlogX
-  · intro x hx hX
-    by_cases hsmall : x ≤ (3 : Real)
-    · exact wangCrapis_strictThetaPrefix_three x hx hsmall
-    · obtain ⟨i, hleft, hright⟩ := cover x (by linarith) hX
-      exact strictThetaUpperRow_provides
-        ((rows i).toStrictUpperRow (margin i)) hleft hright
-  · exact lower
-  · exact hA_nonneg
-  · exact hA
-  · exact thetaError
+  let strictRows : Fin n → StrictThetaUpperRow :=
+    fun i => (rows i).toStrictUpperRow (margin i)
+  have strictCover : ∀ x : Real, (3 : Real) ≤ x → x ≤ X →
+      ∃ i : Fin n, (strictRows i).left ≤ x ∧ x ≤ (strictRows i).right := by
+    intro x hx hX
+    obtain ⟨i, hleft, hright⟩ := cover x hx hX
+    refine ⟨i, ?_, ?_⟩
+    · simpa [strictRows, DusartThetaEndpointRow.toStrictUpperRow] using hleft
+    · simpa [strictRows, DusartThetaEndpointRow.toStrictUpperRow] using hright
+  exact wangCrapis_thetaBounds_of_prefix_and_strict_rows_and_logFourthTail
+    (A := A) (x₀ := (3 : Real)) (by norm_num)
+    wangCrapis_thetaBoundsBelow_3 strictRows strictCover lower
+    hXpos hlogX hA_nonneg hA thetaError
 
 /-! The lower finite estimate can use the same split.  The direct prefix
     calculation discharges its absolute-error clause, leaving only the
