@@ -21,7 +21,12 @@ try:
         source_text,
     )
 except ModuleNotFoundError:
-    from finite_prime_interval_generator import extract, normalize, prime_certificates, source_text
+    from finite_prime_interval_generator import (  # type: ignore[import-not-found, no-redef]
+        extract,
+        normalize,
+        prime_certificates,
+        source_text,
+    )
 
 SOURCE_REVISION = "c6200344736f94e6cacc924d1aa3a6cd9531f2d5"
 SOURCE_PATH = "PrimeFactorUnimodality/Helpers/Analytic/FinitePrimeIntervalRows.lean"
