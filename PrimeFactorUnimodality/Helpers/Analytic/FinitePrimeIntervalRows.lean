@@ -1527,7 +1527,7 @@ theorem dusartThetaTable6_6CoefficientData_error_margins
         (1 - row.a0) * x <
           (12323 / 10000 : Real) * x / Real.log x := by
   have hmeta := dusartThetaTable6_6CoefficientData_row_bounds row hrow
-  rcases hmeta with ⟨hleft, hright, hcutoff, hlower, hupper⟩
+  rcases hmeta with ⟨_, _, _, hlower, hupper⟩
   constructor
   · exact dusartThetaTable_upper_coeff_error_of_le_one hupper
   · intro x hx hxupper
