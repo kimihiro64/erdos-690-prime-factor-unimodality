@@ -1,5 +1,10 @@
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.EndpointBounds
 
+/-! # Finite prime-interval endpoint logarithm bounds, part two
+
+This module contains the remaining endpoint estimates used by the compact
+finite row assemblers. -/
+
 namespace PrimeFactorUnimodality
 
 noncomputable section
