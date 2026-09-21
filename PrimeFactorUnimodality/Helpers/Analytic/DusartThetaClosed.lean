@@ -811,6 +811,40 @@ theorem wangCrapis_thetaBounds_of_prefix_and_table66_chunk_and_logFourthTail
       h2x₀ prefix chunk)
     hA_nonneg hA thetaError
 
+/-! The same prefix boundary accepts a compact list of Table 6.6 chunks.  The
+append assembler is the only place where the chunks are joined, so the final
+provider need not duplicate a theorem or a dispatch tree for each band. -/
+theorem hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_chunks
+    {x₀ : Real} (h2x₀ : (2 : Real) ≤ x₀)
+    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (first : DusartThetaTable66Chunk)
+    (rest : List DusartThetaTable66Chunk) :
+    HasDusartSymmetricThetaBoundsBelow
+      (DusartThetaTable66Chunk.appendMany first rest).cutoff := by
+  exact hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_chunk
+    h2x₀ prefix (DusartThetaTable66Chunk.appendMany first rest)
+
+theorem wangCrapis_thetaBounds_of_prefix_and_table66_chunks_and_logFourthTail
+    {A x₀ : Real} (h2x₀ : (2 : Real) ≤ x₀)
+    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (first : DusartThetaTable66Chunk)
+    (rest : List DusartThetaTable66Chunk)
+    (hXpos : 0 <
+      (DusartThetaTable66Chunk.appendMany first rest).cutoff)
+    (hlogX : (10 : Real) < Real.log
+      (DusartThetaTable66Chunk.appendMany first rest).cutoff)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log
+      (DusartThetaTable66Chunk.appendMany first rest).cutoff ≤
+      12167 / 500000)
+    (thetaError : HasThetaLogFourthError A
+      (DusartThetaTable66Chunk.appendMany first rest).cutoff) :
+    HasDusartThetaBounds := by
+  exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
+    (hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_chunks
+      h2x₀ prefix first rest)
+    hA_nonneg hA thetaError
+
 theorem wangCrapis_theta_upper_1000081_of_table66_chunks_and_logFourthTail
     {A : Real} (first : DusartThetaTable66Chunk)
     (rest : List DusartThetaTable66Chunk)
