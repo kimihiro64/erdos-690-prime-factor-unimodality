@@ -31,7 +31,7 @@ def test_finite_prime_interval_rows_low_generation_is_sharded(
     assert count > 0
 
     facade = (tmp_path / "Low.lean").read_text()
-    assert f"LowPart{count:02d}" in facade
+    assert f"LowGroup{(count + 11) // 12:02d}" in facade
 
     for part in range(1, count + 1):
         path = tmp_path / f"LowPart{part:02d}.lean"
@@ -42,11 +42,11 @@ def test_finite_prime_interval_rows_low_generation_is_sharded(
         assert path.stat().st_size <= 80_000
         assert ".LowBase\n" in path.read_text()
 
-    assert ".LowPart01\n" in facade
-    assert ".LowPart02\n" in facade
     groups = sorted(tmp_path.glob("LowGroup*.lean"))
     assert groups
     assert all(f".LowGroup{index:02d}\n" in facade for index in range(1, len(groups) + 1))
+    assert ".LowPart01\n" in groups[0].read_text()
+    assert ".LowPart02\n" in groups[0].read_text()
     assert all(
         len(re.findall(r"^import .*\.LowPart\d+$", group.read_text(), re.MULTILINE)) <= 12
         for group in groups
