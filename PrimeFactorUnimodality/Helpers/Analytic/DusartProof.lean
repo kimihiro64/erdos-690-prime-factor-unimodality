@@ -2,6 +2,7 @@ import LeanCert.Tactic.IntervalAuto
 import Mathlib.Analysis.Complex.ExponentialBounds
 import PrimeFactorUnimodality.Helpers.Analytic.DusartFiniteRows
 import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33MidrangeCover
+import PrimeFactorUnimodality.Helpers.Analytic.DusartIntermediateLemma
 import PrimeFactorUnimodality.Helpers.Analytic.ElementaryChebyshevConsequences
 import PrimeFactorUnimodality.Helpers.Analytic.ElementaryLogBounds
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
@@ -2869,6 +2870,21 @@ theorem dusart_lemma_3_3_finite_10m :
           Chebyshev.theta (Real.sqrt x) <
         (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
   exact dusartLemma33FiniteProofChunk_10m.valid
+
+theorem dusart_lemma_3_3_of_10m_intermediate_and_theta_upper
+    (theta_upper : ∀ y : Real, 0 < y →
+      Chebyshev.theta y < (1000081 : Real) / 1000000 * y) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x -
+          Chebyshev.theta (Real.sqrt x) <
+        (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real)) := by
+  intro x hx
+  by_cases hsmall : x ≤ (10000000 : Real)
+  · exact dusartLemma33FiniteProofChunk_10m.valid x hx hsmall
+  · by_cases hmid : x ≤ (10 ^ 11 : Real) ^ 3
+    · exact dusart_lemma_3_3_intermediate (by norm_num; linarith)
+        hmid theta_upper
+    · exact dusart_lemma_3_3_large (by norm_num; linarith) theta_upper
 
 theorem dusart_lemma_3_3_finite_chunk_2401 :
     ∀ x : Real, 0 < x → x ≤ 2401 →
