@@ -452,6 +452,19 @@ theorem hasStrictThetaUpperBelow_of_indexed_rows
   · obtain ⟨i, hleft, hright⟩ := cover x (le_of_not_gt hsmall) hX
     exact strictThetaUpperRow_provides (rows i) hleft hright
 
+theorem hasStrictThetaUpperBelow_of_prefix_and_indexed_rows
+    {x₀ X : Real} (prefix : HasStrictThetaUpperBelow x₀)
+    {n : Nat} {rows : Fin n → StrictThetaUpperRow}
+    (cover : ∀ x : Real, x₀ ≤ x → x ≤ X →
+      ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right) :
+    HasStrictThetaUpperBelow X := by
+  intro x hx hX
+  by_cases hsmall : x ≤ x₀
+  · exact prefix x hx hsmall
+  · obtain ⟨i, hleft, hright⟩ := cover x
+      (le_of_not_ge hsmall) hX
+    exact strictThetaUpperRow_provides (rows i) hleft hright
+
 theorem strictThetaUpperRowsCoverUpTo_append
     {m X : Real} {left right : List StrictThetaUpperRow}
     (hleft : StrictThetaUpperRowsCoverUpTo left m)
