@@ -1,4 +1,4 @@
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Table66EndpointData
 
 set_option autoImplicit false
 
