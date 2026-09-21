@@ -241,6 +241,7 @@ def fixed_weight_sum_modules() -> dict[str, str]:
         if part_index == 1:
             imports = """import Mathlib.Tactic.NormNum
 import PrimeFactorUnimodality.Helpers.FiniteCertificates.CertifiedWeightSum
+import PrimeFactorUnimodality.Helpers.FiniteCertificates.Generated.PrimePrefixes
 """
         else:
             imports = (

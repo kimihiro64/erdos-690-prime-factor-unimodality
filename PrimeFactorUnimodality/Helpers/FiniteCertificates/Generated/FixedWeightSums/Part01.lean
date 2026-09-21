@@ -1,5 +1,6 @@
 import Mathlib.Tactic.NormNum
 import PrimeFactorUnimodality.Helpers.FiniteCertificates.CertifiedWeightSum
+import PrimeFactorUnimodality.Helpers.FiniteCertificates.Generated.PrimePrefixes
 
 
 /-! Generated fixed-point reciprocal-weight certificates, segment 1. -/
