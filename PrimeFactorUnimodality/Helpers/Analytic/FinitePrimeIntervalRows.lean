@@ -1925,6 +1925,39 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_table66_coefficient_bounds
   refine ⟨⟨data, hdata⟩, ?_, rfl⟩
   simp
 
+theorem hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_coefficient_bounds
+    {x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
+    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (cover : ∀ x : Real, x₀ ≤ x → x ≤ X →
+      ∃ data ∈ dusartThetaTable6_6CoefficientData,
+        (data.left : Real) ≤ x ∧ x ≤ data.right)
+    (lower : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        data.a0 * x ≤ Chebyshev.theta x)
+    (upper : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ data.b0 * x) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
+  · intro x hx hX
+    by_cases hsmall : x ≤ x₀
+    · exact prefix.1 x hx hsmall
+    · obtain ⟨data, hdata, hleft, hright⟩ := cover x
+        (h2x₀.trans (le_of_not_ge hsmall)) hX
+      let row := data.toVerifiedRow_of_table_bounds hdata
+        (lower data hdata) (upper data hdata)
+      exact (dusartThetaRelativeRow_provides row.toRelativeRow).upper
+        x hleft hright
+  · intro x hx hX
+    by_cases hsmall : x ≤ x₀
+    · exact prefix.2 x hx hsmall
+    · obtain ⟨data, hdata, hleft, hright⟩ := cover x
+        (h2x₀.trans (le_of_not_ge hsmall)) hX
+      let row := data.toVerifiedRow_of_table_bounds hdata
+        (lower data hdata) (upper data hdata)
+      exact (dusartThetaRelativeRow_provides row.toRelativeRow).lower
+        x hx hleft hright
+
 theorem hasDusartSymmetricThetaBoundsBelow_of_indexed_verified_table_rows
     {n : Nat} {X : Real} {rows : Fin n → DusartThetaTableVerifiedRow}
     (cover : DusartThetaTableVerifiedIndexedCoverUpTo rows X) :
