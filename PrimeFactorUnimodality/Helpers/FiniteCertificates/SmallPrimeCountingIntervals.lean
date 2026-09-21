@@ -2,8 +2,12 @@ import Mathlib.Tactic
 import PrimeFactorUnimodality.Helpers.Analytic.ExplicitPrimeCounting
 
 set_option autoImplicit false
+set_option maxRecDepth 10000
+set_option maxHeartbeats 400000
 
 namespace PrimeFactorUnimodality
+
+noncomputable section
 
 /-! First compact small-range Dusart row.  The file is intentionally organized
 as a list-row certificate surface: later rows can be appended without
@@ -36,7 +40,7 @@ def dusartSmallUpperIntervalRow23_30 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 30 = 10 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
-    (left := 23) (right := 30) (a := 0) (b := 0) (c := 2)
+    (left := 23) (right := 30) (a := 3) (b := 1) (c := 0)
   · norm_num
   · norm_num
   · norm_num
@@ -104,11 +108,11 @@ def dusartSmallUpperIntervalRow67_72 :
   · rw [hcount]
     norm_num
 
-def dusartSmallUpperIntervalRow73_82 :
+def dusartSmallUpperIntervalRow73_78 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
-  have hcount : Nat.primeCounting 82 = 22 := by decide
+  have hcount : Nat.primeCounting 78 = 21 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
-    (left := 73) (right := 82) (a := 0) (b := 1) (c := 2)
+    (left := 73) (right := 78) (a := 0) (b := 1) (c := 2)
   · norm_num
   · norm_num
   · norm_num
@@ -116,11 +120,11 @@ def dusartSmallUpperIntervalRow73_82 :
   · rw [hcount]
     norm_num
 
-def dusartSmallUpperIntervalRow83_96 :
+def dusartSmallUpperIntervalRow79_88 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
-  have hcount : Nat.primeCounting 96 = 24 := by decide
+  have hcount : Nat.primeCounting 88 = 23 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
-    (left := 83) (right := 96) (a := 5) (b := 1) (c := 0)
+    (left := 79) (right := 88) (a := 4) (b := 0) (c := 1)
   · norm_num
   · norm_num
   · norm_num
@@ -128,11 +132,11 @@ def dusartSmallUpperIntervalRow83_96 :
   · rw [hcount]
     norm_num
 
-def dusartSmallUpperIntervalRow97_106 :
+def dusartSmallUpperIntervalRow89_100 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
-  have hcount : Nat.primeCounting 106 = 27 := by decide
+  have hcount : Nat.primeCounting 100 = 25 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
-    (left := 97) (right := 106) (a := 2) (b := 0) (c := 2)
+    (left := 89) (right := 100) (a := 1) (b := 2) (c := 1)
   · norm_num
   · norm_num
   · norm_num
@@ -144,7 +148,7 @@ def dusartSmallUpperIntervalRow107_112 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 112 = 29 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
-    (left := 107) (right := 112) (a := 0) (b := 0) (c := 3)
+    (left := 107) (right := 112) (a := 2) (b := 3) (c := 0)
   · norm_num
   · norm_num
   · norm_num
@@ -152,11 +156,46 @@ def dusartSmallUpperIntervalRow107_112 :
   · rw [hcount]
     norm_num
 
-def dusartSmallUpperIntervalRow113_126 :
+def dusartSmallUpperIntervalRow101_106 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  have hcount : Nat.primeCounting 106 = 27 := by decide
+  apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth_with_seven
+    (left := 101) (right := 106) (a := 0) (b := 1) (c := 1) (d := 1)
+  · norm_num
+  · norm_num
+  · norm_num
+  · norm_num
+  · rw [hcount]
+    norm_num
+
+def dusartSmallUpperIntervalRow113 :
+    DusartPrimeCountingUpperIntegerIntervalRow := by
+  let U : Real := 4736228 / 1000000
+  have hcount : Nat.primeCounting 113 = 30 := by decide
+  refine {
+    left := 113
+    right := 113
+    left_large := by norm_num
+    left_le_right := by norm_num
+    logUpper := U
+    logUpper_pos := by norm_num [U]
+    log_bound := ?_
+    numerical := ?_ }
+  · dsimp [U]
+    have h := Real.log_lt_log (by norm_num : (0 : Real) < 113)
+      (by norm_num : (113 : Real) < 114)
+    rw [show (114 : Real) = 2 * (3 * 19) by norm_num,
+      Real.log_mul (by norm_num) (by norm_num),
+      Real.log_mul (by norm_num) (by norm_num)] at h
+    nlinarith [LogTables.log_2_lt, LogTables.log_3_lt, LogTables.log_19_lt]
+  · rw [hcount]
+    norm_num [U]
+
+def dusartSmallUpperIntervalRow114_126 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 126 = 30 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
-    (left := 113) (right := 126) (a := 0) (b := 0) (c := 3)
+    (left := 114) (right := 126) (a := 3) (b := 1) (c := 1)
   · norm_num
   · norm_num
   · norm_num
@@ -168,7 +207,7 @@ def dusartSmallUpperIntervalRow127_138 :
     DusartPrimeCountingUpperIntegerIntervalRow := by
   have hcount : Nat.primeCounting 138 = 33 := by decide
   apply dusartPrimeCountingUpperIntegerIntervalRow_of_smooth
-    (left := 127) (right := 138) (a := 0) (b := 3) (c := 1)
+    (left := 127) (right := 138) (a := 7) (b := 0) (c := 0)
   · norm_num
   · norm_num
   · norm_num
@@ -603,11 +642,13 @@ def dusartSmallUpperIntervalRows :
   , dusartSmallUpperIntervalRow47_58
   , dusartSmallUpperIntervalRow59_66
   , dusartSmallUpperIntervalRow67_72
-  , dusartSmallUpperIntervalRow73_82
-  , dusartSmallUpperIntervalRow83_96
-  , dusartSmallUpperIntervalRow97_106
+  , dusartSmallUpperIntervalRow73_78
+  , dusartSmallUpperIntervalRow79_88
+  , dusartSmallUpperIntervalRow89_100
+  , dusartSmallUpperIntervalRow101_106
   , dusartSmallUpperIntervalRow107_112
-  , dusartSmallUpperIntervalRow113_126
+  , dusartSmallUpperIntervalRow113
+  , dusartSmallUpperIntervalRow114_126
   , dusartSmallUpperIntervalRow127_138
   , dusartSmallUpperIntervalRow139_150
   , dusartSmallUpperIntervalRow151_162
