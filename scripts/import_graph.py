@@ -152,8 +152,19 @@ def proof_branch(module: str, namespace: str) -> str | None:
 
 
 def is_generated_module(module: str, namespace: str) -> bool:
-    """Return whether a module is emitted by a checked certificate generator."""
-    return module.startswith(f"{namespace}.Proof.") and ".Generated." in module
+    """Return whether a module is emitted by a checked data generator."""
+    if module.startswith(f"{namespace}.Proof.") and ".Generated." in module:
+        return True
+    generated_helper_prefixes = (
+        f"{namespace}.Helpers.Analytic.FinitePrimeIntervalRows.LowPart",
+        f"{namespace}.Helpers.Analytic.FinitePrimeIntervalRows.High",
+        f"{namespace}.Helpers.Analytic.FinitePrimeIntervalRows.MediumLogBand",
+        f"{namespace}.Helpers.Analytic.DusartIntermediateCoeffData",
+        f"{namespace}.Helpers.Analytic.DusartLemma33MidrangeEndpoints",
+        f"{namespace}.Helpers.Analytic.DusartLemma33MidrangeRows",
+        f"{namespace}.Helpers.Analytic.DusartLemma33ThetaData",
+    )
+    return module.startswith(generated_helper_prefixes)
 
 
 def transitive_dependents(graph: Mapping[str, set[str]]) -> dict[str, set[str]]:
