@@ -1110,6 +1110,40 @@ structure DusartThetaTable66Row where
   upper_two : ∀ x : Real, (left : Real) ≤ x → x ≤ right →
     Chebyshev.theta x ≤ x + b2 * x / Real.log x ^ 2
 
+def DusartThetaTable66Row.toRelativeZero
+    (row : DusartThetaTable66Row)
+    (hleft_large : 2 ≤ row.left)
+    (hleft_right : row.left ≤ row.right)
+    (hupper_error : row.b0 - 1 < (1 : Real) / 36260)
+    (hlower_error : ∀ x : Real, 2 < x → (row.left : Real) ≤ x →
+      x ≤ row.right →
+      (1 - row.a0) * x <
+        (12323 / 10000 : Real) * x / Real.log x) :
+    DusartThetaRelativeRow :=
+  { left := row.left
+    right := row.right
+    left_large := hleft_large
+    left_le_right := hleft_right
+    lower_coeff := row.a0
+    upper_coeff := row.b0
+    lower_bound := row.lower_zero
+    upper_bound := row.upper_zero
+    upper_coeff_error := hupper_error
+    lower_coeff_error := hlower_error }
+
+theorem dusartThetaTable66Row_provides_zero
+    (row : DusartThetaTable66Row)
+    (hleft_large : 2 ≤ row.left)
+    (hleft_right : row.left ≤ row.right)
+    (hupper_error : row.b0 - 1 < (1 : Real) / 36260)
+    (hlower_error : ∀ x : Real, 2 < x → (row.left : Real) ≤ x →
+      x ≤ row.right →
+      (1 - row.a0) * x <
+        (12323 / 10000 : Real) * x / Real.log x) :
+    DusartThetaBoundsRow := by
+  exact dusartThetaRelativeRow_provides
+    (row.toRelativeZero hleft_large hleft_right hupper_error hlower_error)
+
 structure DusartThetaTable66CoefficientData where
   left : Nat
   right : Nat
