@@ -23,22 +23,9 @@ def value(offset: int) -> str:
     return f"fullRecordGapCenterValue {'-' if offset < 0 else '+'} {abs(offset)}"
 
 
-def witness(index: int, offset: int, row_name: str) -> str:
-    name = label(index)
-    return (
-        f"\ntheorem fullRecordGapTerm{name}_not_prime : ¬({term(offset)}).Prime := by\n"
-        "  rw [recordGapCenter_eq_fullRecordGapCenterValue]\n"
-        "  apply not_prime_of_fastPowMod_ne_one (a := 3)\n"
-        "  · norm_num\n"
-        f"  · norm_num [{value(offset)}]\n"
-        f"  · apply {row_name}_fermat\n"
-        f"    simp [{row_name}_values]\n"
-    )
-
-
 def row(indices: list[tuple[int, int]], row_name: str | None = None) -> str:
     if row_name is None:
-        row_name = f"fullRecordGapRow{label((indices[0][0] - 1) // 256 + 1)}"
+        row_name = f"fullRecordGapRow{label((indices[0][0] - 1) // 64 + 1)}"
     values = ",\n    ".join(value(offset) for _, offset in indices)
     header = (
         "import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod\n"
@@ -53,11 +40,16 @@ def row(indices: list[tuple[int, int]], row_name: str | None = None) -> str:
         f"theorem {row_name}_fermat : ∀ n ∈ {row_name}_values,\n"
         "    fastPowMod 3 n (n - 1) ≠ 1 := by\n"
         "  decide\n"
+        f"\ntheorem {row_name}_not_prime {{n : Nat}}\n"
+        f"    (hn : n ∈ {row_name}_values) (hlt : 3 < n) : ¬n.Prime := by\n"
+        "  apply not_prime_of_fastPowMod_ne_one (a := 3)\n"
+        "  · norm_num\n"
+        "  · exact hlt\n"
+        f"  · exact {row_name}_fermat n hn\n"
     )
     return (
         header
         + row_header
-        + "".join(witness(i, d, row_name) for i, d in indices)
         + "\nend PrimeFactorUnimodality\n"
     )
 

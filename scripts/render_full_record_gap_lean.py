@@ -16,13 +16,21 @@ def label(index: int) -> str:
 
 
 def leaf_proof(
-    assignment: dict[str, Any], d: int, operation: str, fermat_indices: dict[int, int]
+    assignment: dict[str, Any],
+    d: int,
+    operation: str,
+    fermat_rows: dict[int, str],
 ) -> list[str]:
     offset = -d if operation == "sub" else d
     kind = assignment["kind"]
     if kind == "fermat":
-        index = fermat_indices[offset]
-        return [f"      exact fullRecordGapTerm{label(index)}_not_prime"]
+        row_name = fermat_rows[offset]
+        return [
+            "      rw [recordGapCenter_eq_fullRecordGapCenterValue]",
+            f"      apply {row_name}_not_prime",
+            f"      · simp [{row_name}_values]",
+            "      · norm_num [fullRecordGapCenterValue]",
+        ]
     q = int(assignment["q"])
     if kind == "tail":
         if operation == "sub":
@@ -53,18 +61,18 @@ def dispatch(
     lo: int,
     hi: int,
     operation: str,
-    fermat_indices: dict[int, int],
+    fermat_rows: dict[int, str],
     indent: str = "  ",
 ) -> list[str]:
     if lo == hi:
         lines = [f"{indent}have : d = {lo} := by omega", f"{indent}subst d"]
-        lines.extend(leaf_proof(assignments[lo], lo, operation, fermat_indices))
+        lines.extend(leaf_proof(assignments[lo], lo, operation, fermat_rows))
         return lines
     mid = (lo + hi) // 2
     lines = [f"{indent}by_cases h : {mid + 1} ≤ d", f"{indent}·"]
-    lines.extend(dispatch(assignments, mid + 1, hi, operation, fermat_indices, indent + "  "))
+    lines.extend(dispatch(assignments, mid + 1, hi, operation, fermat_rows, indent + "  "))
     lines.append(f"{indent}·")
-    lines.extend(dispatch(assignments, lo, mid, operation, fermat_indices, indent + "  "))
+    lines.extend(dispatch(assignments, lo, mid, operation, fermat_rows, indent + "  "))
     return lines
 
 
@@ -73,12 +81,12 @@ def render_part(
     lo: int,
     hi: int,
     operation: str,
-    fermat_indices: dict[int, int],
+    fermat_rows: dict[int, str],
     index: int,
 ) -> str:
     term = "recordGapCenter - d" if operation == "sub" else "recordGapCenter + d"
     theorem = f"fullRecordGap{operation.capitalize()}Block_part{index:04d}"
-    body = dispatch(assignments, lo, hi, operation, fermat_indices)
+    body = dispatch(assignments, lo, hi, operation, fermat_rows)
     return "\n".join(
         [
             "import PrimeFactorUnimodality.Proof.LargeRange.RecordGapStructure",
@@ -131,8 +139,9 @@ def main() -> None:
     payload = json.loads(args.assignments.read_text())
     assignments = {int(item["offset"]): item for item in payload["assignments"]}
     manifest = json.loads(args.manifest.read_text())
-    fermat_indices = {
-        offset: index for index, offset in enumerate(manifest["fermat_offsets"], start=1)
+    fermat_rows = {
+        offset: f"fullRecordGapRow{(index - 1) // 64 + 1:05d}"
+        for index, offset in enumerate(manifest["fermat_offsets"], start=1)
     }
     args.output_dir.mkdir(parents=True, exist_ok=True)
     imports: list[str] = []
@@ -147,7 +156,7 @@ def main() -> None:
                     lo,
                     hi,
                     operation,
-                    fermat_indices,
+                    fermat_rows,
                     part_index,
                 )
             )

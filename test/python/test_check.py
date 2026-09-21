@@ -120,8 +120,9 @@ def test_full_record_gap_fermat_rows_share_one_list_replay() -> None:
     rendered = render_fermat_row([(1, -19), (2, 15)])
     assert "fullRecordGapRow00001_values" in rendered
     assert "fullRecordGapRow00001_fermat" in rendered
-    assert "theorem fullRecordGapTerm00001_not_prime" in rendered
-    assert "theorem fullRecordGapTerm00002_not_prime" in rendered
+    assert "theorem fullRecordGapRow00001_not_prime" in rendered
+    assert "fullRecordGapTerm00001_not_prime" not in rendered
+    assert "fullRecordGapTerm00002_not_prime" not in rendered
     assert rendered.count(":= by\n  decide") == 1
 
 
