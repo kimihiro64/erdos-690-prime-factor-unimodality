@@ -1331,6 +1331,25 @@ theorem dusartThetaTable6_6CoefficientDataNatRanges_cover :
     dusartThetaTable6_6CoefficientData]
   omega
 
+theorem dusartThetaTable6_6CoefficientData_cover_real :
+    ∀ x : Real, (100000000 : Real) ≤ x → x ≤ (8e11 : Real) →
+      ∃ data ∈ dusartThetaTable6_6CoefficientData,
+        (data.left : Real) ≤ x ∧ x ≤ data.right := by
+  intro x hlow hhigh
+  have hceil_low : 100000000 ≤ ⌈x⌉₊ := by
+    exact_mod_cast hlow.trans (Nat.le_ceil x)
+  have hceil_high : ⌈x⌉₊ ≤ 800000000000 := by
+    exact Nat.ceil_le.mpr hhigh
+  obtain ⟨data, hdata, hleft, hright⟩ :
+      ∃ data ∈ dusartThetaTable6_6CoefficientData,
+        data.left ≤ ⌈x⌉₊ ∧ ⌈x⌉₊ ≤ data.right := by
+    simpa [dusartThetaTable6_6CoefficientDataNatRanges] using
+      dusartThetaTable6_6CoefficientDataNatRanges_cover
+        ⌈x⌉₊ hceil_low hceil_high
+  refine ⟨data, hdata, ?_, ?_⟩
+  · exact le_trans (by exact_mod_cast hleft) (Nat.le_ceil x)
+  · exact le_trans (Nat.le_ceil x) (by exact_mod_cast hright)
+
 def DusartThetaTable66CoefficientData.toRow
     (data : DusartThetaTable66CoefficientData)
     (lower_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
