@@ -1,5 +1,4 @@
 import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33MidrangeEndpoints
-import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
 
 set_option autoImplicit false
 set_option maxRecDepth 100000

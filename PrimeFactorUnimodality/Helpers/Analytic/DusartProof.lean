@@ -21,54 +21,6 @@ theorem dusart_paper_lemma_3_3_finite_cutoff_eq :
     ((10 ^ 11 : Real) ^ 3) = 10 ^ 33 := by
   norm_num [pow_mul]
 
-theorem psi_sub_theta_mono {x y : Real} (hxy : x ≤ y) :
-    Chebyshev.psi x - Chebyshev.theta x ≤
-      Chebyshev.psi y - Chebyshev.theta y := by
-  rw [Chebyshev.psi_sub_theta_eq_sum_not_prime,
-    Chebyshev.psi_sub_theta_eq_sum_not_prime]
-  apply Finset.sum_le_sum_of_subset_of_nonneg
-  · intro n hn
-    simp only [Finset.mem_filter, Finset.mem_Ioc] at hn ⊢
-    exact ⟨⟨hn.1.1, hn.1.2.trans (Nat.floor_mono hxy)⟩, hn.2⟩
-  · intro n hn hns
-    exact ArithmeticFunction.vonMangoldt_nonneg
-
-/- A compact interval row can consume an endpoint inequality already stated
-   at the row's left-hand power.  This avoids manufacturing singleton rows
-   or weakening the endpoint with an artificial numerical margin. -/
-def dusartLemma33FiniteRow_of_endpoint_left_power
-    (left right root : Nat) (hleft : left ≤ right)
-    (hroot : ∀ x : Real, 0 < x → (left : Real) ≤ x →
-      x < (right : Real) + 1 → (root : Real) ≤ Real.sqrt x)
-    (hend : Chebyshev.psi (right : Real) - Chebyshev.theta right -
-        Chebyshev.theta (root : Real) <
-      (1777745 : Real) / 1000000 * (left : Real) ^ (1 / (3 : Real)))
-    (hpow : ∀ x : Real, 0 < x → (left : Real) ≤ x →
-      (left : Real) ^ (1 / (3 : Real)) ≤ x ^ (1 / (3 : Real))) :
-    DusartLemma33FiniteRow :=
-  { left := left
-    right := right
-    left_le_right := hleft
-    valid := by
-      intro x hx hleft_x hright_x
-      have htransport : Chebyshev.psi x - Chebyshev.theta x =
-          Chebyshev.psi (⌊x⌋₊ : Real) - Chebyshev.theta (⌊x⌋₊ : Real) := by
-        rw [Chebyshev.psi_eq_psi_coe_floor,
-          Chebyshev.theta_eq_theta_coe_floor]
-      have hfloor : (⌊x⌋₊ : Real) ≤ right := by
-        exact_mod_cast Nat.le_of_lt_succ
-          ((Nat.floor_lt hx.le).2 (by simpa using hright_x))
-      have hpsi : Chebyshev.psi x - Chebyshev.theta x ≤
-          Chebyshev.psi (right : Real) - Chebyshev.theta right := by
-        rw [htransport]
-        exact psi_sub_theta_mono hfloor
-      have htheta : Chebyshev.theta (root : Real) ≤
-          Chebyshev.theta (Real.sqrt x) :=
-        Chebyshev.theta_mono (hroot x hx hleft_x hright_x)
-      have hpow_x := hpow x hx hleft_x
-      nlinarith
-  }
-
 def dusartLemma33FiniteRow_of_endpoint_bounds
     (left right root : Nat) (B L P : Real)
     (hleft : left ≤ right)

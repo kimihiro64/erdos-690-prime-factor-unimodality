@@ -7,6 +7,18 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 
+theorem psi_sub_theta_mono {x y : Real} (hxy : x ≤ y) :
+    Chebyshev.psi x - Chebyshev.theta x ≤
+      Chebyshev.psi y - Chebyshev.theta y := by
+  rw [Chebyshev.psi_sub_theta_eq_sum_not_prime,
+    Chebyshev.psi_sub_theta_eq_sum_not_prime]
+  apply Finset.sum_le_sum_of_subset_of_nonneg
+  · intro n hn
+    simp only [Finset.mem_filter, Finset.mem_Ioc] at hn ⊢
+    exact ⟨⟨hn.1.1, hn.1.2.trans (Nat.floor_mono hxy)⟩, hn.2⟩
+  · intro n hn hns
+    exact ArithmeticFunction.vonMangoldt_nonneg
+
 /-! Integer power certificates for the floors appearing in the finite
     Lemma 3.3 endpoint computation. -/
 theorem nat_floor_rpow_eq_of_pow_le_pow_lt
@@ -201,6 +213,41 @@ structure DusartLemma33FiniteRow where
       Chebyshev.psi x - Chebyshev.theta x -
           Chebyshev.theta (Real.sqrt x) <
       (1777745 : Real) / 1000000 * x ^ (1 / (3 : Real))
+
+/-! Transport an endpoint estimate at the left-hand power across one compact
+    row.  This constructor is part of the finite-row interface rather than
+    the global analytic proof. -/
+def dusartLemma33FiniteRow_of_endpoint_left_power
+    (left right root : Nat) (hleft : left ≤ right)
+    (hroot : ∀ x : Real, 0 < x → (left : Real) ≤ x →
+      x < (right : Real) + 1 → (root : Real) ≤ Real.sqrt x)
+    (hend : Chebyshev.psi (right : Real) - Chebyshev.theta right -
+        Chebyshev.theta (root : Real) <
+      (1777745 : Real) / 1000000 * (left : Real) ^ (1 / (3 : Real)))
+    (hpow : ∀ x : Real, 0 < x → (left : Real) ≤ x →
+      (left : Real) ^ (1 / (3 : Real)) ≤ x ^ (1 / (3 : Real))) :
+    DusartLemma33FiniteRow :=
+  { left := left
+    right := right
+    left_le_right := hleft
+    valid := by
+      intro x hx hleft_x hright_x
+      have htransport : Chebyshev.psi x - Chebyshev.theta x =
+          Chebyshev.psi (⌊x⌋₊ : Real) - Chebyshev.theta (⌊x⌋₊ : Real) := by
+        rw [Chebyshev.psi_eq_psi_coe_floor,
+          Chebyshev.theta_eq_theta_coe_floor]
+      have hfloor : (⌊x⌋₊ : Real) ≤ right := by
+        exact_mod_cast Nat.le_of_lt_succ
+          ((Nat.floor_lt hx.le).2 (by simpa using hright_x))
+      have hpsi : Chebyshev.psi x - Chebyshev.theta x ≤
+          Chebyshev.psi (right : Real) - Chebyshev.theta right := by
+        rw [htransport]
+        exact psi_sub_theta_mono hfloor
+      have htheta : Chebyshev.theta (root : Real) ≤
+          Chebyshev.theta (Real.sqrt x) :=
+        Chebyshev.theta_mono (hroot x hx hleft_x hright_x)
+      have hpow_x := hpow x hx hleft_x
+      nlinarith
 
 /-! A row chain stores only the successor boundary between neighboring rows.
     The recursive cover theorem below is shared by all bounded Lemma 3.3
