@@ -428,6 +428,49 @@ theorem wangCrapis_strictThetaPrefix_three :
       Real.log_three_lt_d9
     linarith
 
+/-! The same prime-break decomposition extends the strict upper prefix to
+    seven.  The endpoint bounds are kept local to this small source prefix;
+    later large intervals must still provide their own verified rows. -/
+theorem wangCrapis_strictThetaPrefix_seven :
+    HasStrictThetaUpperBelow (7 : Real) := by
+  intro x hx hx7
+  by_cases hthree : x ≤ 3
+  · exact wangCrapis_strictThetaPrefix_three x hx hthree
+  by_cases hfive : x < 5
+  · have htheta_le : Chebyshev.theta x ≤ Chebyshev.theta 3 := by
+      exact Chebyshev.theta_mono (by linarith)
+    have htheta3 : Chebyshev.theta (3 : Real) =
+        Real.log 2 + Real.log 3 := by
+      have hsum := Chebyshev.theta_eq_sum_primesLE 3
+      have hp : Nat.primesLE 3 = {2, 3} := by decide
+      rw [hp] at hsum
+      simpa using hsum
+    rw [htheta3] at htheta_le
+    nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9]
+  by_cases hseven : x < 7
+  · have htheta_le : Chebyshev.theta x ≤ Chebyshev.theta 5 := by
+      exact Chebyshev.theta_mono (by linarith)
+    have htheta5 : Chebyshev.theta (5 : Real) =
+        Real.log 2 + Real.log 3 + Real.log 5 := by
+      have hsum := Chebyshev.theta_eq_sum_primesLE 5
+      have hp : Nat.primesLE 5 = {2, 3, 5} := by decide
+      rw [hp] at hsum
+      simpa [add_assoc] using hsum
+    rw [htheta5] at htheta_le
+    nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
+      Real.log_five_lt_d9]
+  · have htheta_le : Chebyshev.theta x ≤ Chebyshev.theta 7 :=
+      Chebyshev.theta_mono hx7
+    have htheta7 : Chebyshev.theta (7 : Real) =
+        Real.log 2 + Real.log 3 + Real.log 5 + Real.log 7 := by
+      have hsum := Chebyshev.theta_eq_sum_primesLE 7
+      have hp : Nat.primesLE 7 = {2, 3, 5, 7} := by decide
+      rw [hp] at hsum
+      simpa [add_assoc] using hsum
+    rw [htheta7] at htheta_le
+    nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
+      Real.log_five_lt_d9, LogTables.log_7_lt]
+
 /-! The fixed explicit-formula input is exported at the theta boundary so the
     eventual psi/theta tail proof consumes the constructed estimate rather than
     the package's existential placeholder. -/
