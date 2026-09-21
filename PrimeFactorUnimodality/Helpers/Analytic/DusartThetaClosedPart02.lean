@@ -474,6 +474,44 @@ theorem wangCrapis_thetaBounds_of_prefix_and_table66_formula_data_and_logFourthT
   exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX finite
     hA_nonneg hA thetaError
 
+/-! The published row endpoints cover the real interval directly.  This
+    specialization fixes the lower endpoint at the start of Table 6.6 and
+    derives the cover from the checked natural endpoint list, leaving only
+    the six row inequalities as data for the eventual finite proof. -/
+theorem wangCrapis_thetaBounds_of_table66_formula_data_and_logFourthTail
+    {A X : Real}
+    (prefix : HasDusartSymmetricThetaBoundsBelow (100000000 : Real))
+    (hXcutoff : X ≤ (8e11 : Real))
+    (lower_zero : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        data.a0 * x ≤ Chebyshev.theta x)
+    (upper_zero : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ data.b0 * x)
+    (lower_one : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        x - data.a1 * x / Real.log x ≤ Chebyshev.theta x)
+    (upper_one : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ x + data.b1 * x / Real.log x)
+    (lower_two : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        x - data.a2 * x / Real.log x ^ 2 ≤ Chebyshev.theta x)
+    (upper_two : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ x + data.b2 * x / Real.log x ^ 2)
+    (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds := by
+  apply wangCrapis_thetaBounds_of_prefix_and_table66_formula_data_and_logFourthTail
+    (x₀ := (100000000 : Real)) (X := X) (by norm_num) prefix
+    (fun x hx hupper => dusartThetaTable6_6CoefficientData_cover_real x hx
+      (hupper.trans hXcutoff))
+    lower_zero upper_zero lower_one upper_one lower_two upper_two
+    hXpos hlogX hA_nonneg hA thetaError
+
 theorem wangCrapis_theta_upper_1000081_of_table66_chunks_and_logFourthTail
     {A : Real} (first : DusartThetaTable66Chunk)
     (rest : List DusartThetaTable66Chunk)
