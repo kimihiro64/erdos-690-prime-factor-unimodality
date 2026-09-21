@@ -599,6 +599,35 @@ theorem wangCrapis_thetaBounds_of_strict_theta_prefix_and_logFourthTail
       upperPrefix lower)
     hA_nonneg hA thetaError
 
+/-! The paper-shaped split can start with the proved `x ≤ 3` prefix and then
+    consume a compact endpoint suffix.  The strict upper margin stays an
+    explicit row obligation; the lower estimate remains separate. -/
+theorem wangCrapis_thetaBounds_of_strict_prefix_endpoint_rows_and_logFourthTail
+    {A X : Real} {n : Nat}
+    (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (rows : Fin n → DusartThetaEndpointRow)
+    (cover : DusartThetaEndpointIndexedCoverFrom rows (3 : Real) X)
+    (margin : ∀ i, (rows i).theta_upper < (rows i).left)
+    (lower : ∀ x : Real, 2 < x → x ≤ X →
+      |Chebyshev.theta x - x| <
+        (12323 / 10000 : Real) * x / Real.log x)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds := by
+  apply wangCrapis_thetaBounds_of_strict_theta_prefix_and_logFourthTail
+    hXpos hlogX
+  · intro x hx hX
+    by_cases hsmall : x ≤ (3 : Real)
+    · exact wangCrapis_strictThetaPrefix_three x hx hsmall
+    · obtain ⟨i, hleft, hright⟩ := cover x (by linarith) hX
+      exact strictThetaUpperRow_provides
+        ((rows i).toStrictUpperRow (margin i)) hleft hright
+  · exact lower
+  · exact hA_nonneg
+  · exact hA
+  · exact thetaError
+
 /-! Certificate-facing form of the paper split.  The strict Schoenfeld prefix
 is supplied as an indexed compact row cover; the lower estimate remains a
 separate analytic or finite obligation. -/
