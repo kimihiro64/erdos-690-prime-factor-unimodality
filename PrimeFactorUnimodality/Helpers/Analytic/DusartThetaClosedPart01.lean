@@ -409,6 +409,21 @@ theorem dusart_proposition_5_1_finite_lower_error_of_table66
       nlinarith
     exact (abs_lt).2 ⟨hlower_error, hupper_error⟩
 
+theorem hasDusartSymmetricThetaBoundsBelow_of_table66_one_zero
+    (prefix : HasDusartSymmetricThetaBoundsBelow (100000000 : Real))
+    (lower_one : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        x - data.a1 * x / Real.log x ≤ Chebyshev.theta x)
+    (upper_zero : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ data.b0 * x) :
+    HasDusartSymmetricThetaBoundsBelow (8e11 : Real) := by
+  constructor
+  · exact dusart_proposition_5_1_finite_upper_of_table66
+      (fun x hx hX => prefix.1 x hx hX) upper_zero
+  · exact dusart_proposition_5_1_finite_lower_error_of_table66
+      (fun x hx hX => prefix.2 x hx hX) lower_one upper_zero
+
 /-! Paper-facing Proposition 5.1 assembler.  The three hypotheses correspond
 to Dusart's finite table, middle explicit psi estimate, and large-range theta
 estimate; none of the range-specific obligations is hidden in this glue. -/
