@@ -1460,7 +1460,7 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_table66_rows
     (ha1_nonneg : ∀ row ∈ rows, 0 ≤ row.a1)
     (ha1 : ∀ row ∈ rows, row.a1 < (12323 : Real) / 10000) :
     HasDusartSymmetricThetaBoundsBelow X := by
-  apply hasDusartSymmetricThetaBoundsBelow_of_relative_rows
+  apply hasDusartSymmetricThetaBoundsBelow_of_relative_rows (rows := rows)
   intro x hx hX
   obtain ⟨row, hrow, hleftx, hrightx⟩ := cover x hx hX
   refine ⟨row.toRelativeRow (hleft row hrow) (hle row hrow)
@@ -1950,6 +1950,64 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_table66_coefficient_bounds
   apply List.mem_map.2
   refine ⟨⟨data, hdata⟩, ?_, rfl⟩
   simp
+
+/-! The full Table 6.6 interface.  A caller proving the six published
+    interval inequalities can assemble the bounded theta estimate without
+    first replacing the correction terms by constant endpoint bounds. -/
+theorem hasDusartSymmetricThetaBoundsBelow_of_table66_formula_bounds
+    {X : Real}
+    (cover : ∀ x : Real, 2 ≤ x → x ≤ X →
+      ∃ data ∈ dusartThetaTable6_6CoefficientData,
+        (data.left : Real) ≤ x ∧ x ≤ data.right)
+    (lower_zero : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        data.a0 * x ≤ Chebyshev.theta x)
+    (upper_zero : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ data.b0 * x)
+    (lower_one : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        x - data.a1 * x / Real.log x ≤ Chebyshev.theta x)
+    (upper_one : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ x + data.b1 * x / Real.log x)
+    (lower_two : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        x - data.a2 * x / Real.log x ^ 2 ≤ Chebyshev.theta x)
+    (upper_two : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ x + data.b2 * x / Real.log x ^ 2) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  let rows : List DusartThetaRelativeRow :=
+    dusartThetaTable6_6CoefficientData.attach.map fun entry =>
+      entry.1.toRelativeRow_of_formula_bounds
+        (dusartThetaTable6_6CoefficientData_row_bounds entry.1 entry.2).1
+        (dusartThetaTable6_6CoefficientData_row_bounds entry.1 entry.2).2.1
+        (dusartThetaTable_upper_coeff_error_of_le_one
+          (dusartThetaTable6_6CoefficientData_row_bounds entry.1 entry.2).2.2.2.2)
+        (dusartThetaTable6_6CoefficientData_side_conditions entry.1 entry.2).1
+        (dusartThetaTable6_6CoefficientData_side_conditions entry.1 entry.2).2.1
+        (lower_zero entry.1 entry.2) (upper_zero entry.1 entry.2)
+        (lower_one entry.1 entry.2) (upper_one entry.1 entry.2)
+        (lower_two entry.1 entry.2) (upper_two entry.1 entry.2)
+  apply hasDusartSymmetricThetaBoundsBelow_of_relative_rows (rows := rows)
+  intro x hx hX
+  obtain ⟨data, hdata, hleft, hright⟩ := cover x hx hX
+  let row := data.toRelativeRow_of_formula_bounds
+    (dusartThetaTable6_6CoefficientData_row_bounds data hdata).1
+    (dusartThetaTable6_6CoefficientData_row_bounds data hdata).2.1
+    (dusartThetaTable_upper_coeff_error_of_le_one
+      (dusartThetaTable6_6CoefficientData_row_bounds data hdata).2.2.2.2)
+    (dusartThetaTable6_6CoefficientData_side_conditions data hdata).1
+    (dusartThetaTable6_6CoefficientData_side_conditions data hdata).2.1
+    (lower_zero data hdata) (upper_zero data hdata)
+    (lower_one data hdata) (upper_one data hdata)
+    (lower_two data hdata) (upper_two data hdata)
+  refine ⟨row, ?_, hleft, hright⟩
+  change row ∈ rows
+  apply List.mem_map.2
+  refine ⟨⟨data, hdata⟩, ?_, rfl⟩
+  simp [rows]
 
 theorem hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_coefficient_bounds
     {x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
