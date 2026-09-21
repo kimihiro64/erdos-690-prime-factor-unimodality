@@ -3424,6 +3424,16 @@ theorem dusart_proposition_3_2_of_paper_lemma_and_theta_bounds
     (dusart_theta_upper_100007_of_bounds thetaBounds
       (Real.sqrt x) (Real.sqrt_pos.2 hx))
 
+theorem dusart_proposition_3_2_of_10m_lemma_and_theta_bounds
+    (thetaBounds : HasDusartThetaBounds) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x <
+        (100007 : Real) / 100000 * Real.sqrt x +
+          (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
+  apply dusart_proposition_3_2_of_paper_lemma_and_theta_bounds
+  exact dusart_lemma_3_3_of_10m_intermediate_and_theta_upper
+    (dusart_theta_upper_1000081_of_bounds thetaBounds)
+
 /-! The prime-power part of Dusart's Lemma 3.3.  For the large range the
 floor in the Chebyshev decomposition is at least two, so the square-root
 term can be split off exactly and only exponents `k ≥ 3` remain. -/
