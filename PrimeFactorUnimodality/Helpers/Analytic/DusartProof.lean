@@ -4029,6 +4029,20 @@ theorem dusart_proposition_3_2_of_proof_chunks_and_theta_error
   exact dusart_proposition_3_2_of_finite_lemma_and_theta_upper hX
     (DusartLemma33FiniteProofChunk.appendMany first rest).valid theta_error
 
+theorem dusart_proposition_3_2_of_proof_chunks_and_theta_bounds
+    (first : DusartLemma33FiniteProofChunk)
+    (rest : List DusartLemma33FiniteProofChunk)
+    (hX : (10 ^ 11 : Real) ^ 3 ≤
+      (DusartLemma33FiniteProofChunk.appendMany first rest).cutoff)
+    (thetaBounds : HasDusartThetaBounds) :
+    ∀ x : Real, 0 < x →
+      Chebyshev.psi x - Chebyshev.theta x <
+        (100007 : Real) / 100000 * Real.sqrt x +
+          (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
+  apply dusart_proposition_3_2_of_paper_lemma_and_theta_bounds
+  exact dusart_lemma_3_3_of_proof_chunks_and_theta_bounds
+    first rest hX thetaBounds
+
 theorem dusart_gap_upper_from_uniform_root_bound
     {x : Real} (hx : (64 : Real) ≤ x)
     (hroot : ∀ y : Real, 0 ≤ y →
