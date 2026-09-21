@@ -16,11 +16,12 @@ theorem id_sub_mul_id_div_log_monotoneOn
   · have hlog : ContinuousOn (fun y : Real => Real.log y) (Set.Ici a) := by
       exact continuousOn_id.log (by
         intro x hx
-        exact ne_of_gt (lt_of_lt_of_le ha hx))
+        exact ne_of_gt (by linarith [ha, hx]))
     exact continuousOn_id.sub
-      (continuousOn_const.mul (continuousOn_id.div hlog (by
+      ((continuousOn_const : ContinuousOn (fun _ : Real => c) (Set.Ici a)).mul
+        (continuousOn_id.div hlog (by
         intro x hx
-        exact ne_of_gt (Real.log_pos (lt_of_lt_of_le ha hx)))))
+        exact ne_of_gt (Real.log_pos (by linarith [ha, hx])))))
   · have hlog : DifferentiableOn ℝ (fun y : Real => Real.log y)
         (interior (Set.Ici a)) := by
       exact differentiableOn_id.log (by
@@ -29,7 +30,7 @@ theorem id_sub_mul_id_div_log_monotoneOn
           simpa only [interior_Ici, Set.mem_Ioi] using hx
         exact ne_of_gt (by linarith [ha, hx']))
     exact differentiableOn_id.sub
-      (differentiableOn_const.mul (differentiableOn_id.div hlog (by
+      ((differentiableOn_const c).mul (differentiableOn_id.div hlog (by
         intro x hx
         have hx' : a < x := by
           simpa only [interior_Ici, Set.mem_Ioi] using hx
@@ -48,7 +49,8 @@ theorem id_sub_mul_id_div_log_monotoneOn
       ((hasDerivAt_const x c).mul
         ((hasDerivAt_id x).div
           (Real.hasDerivAt_log (ne_of_gt hxpos)) hlogpos.ne'))
-    change 0 ≤ deriv (fun y : Real => y - c * y / Real.log y) x
+    change 0 ≤ deriv (id - (fun _ : Real => c) * (id / Real.log)) x
+    simp only [id_eq] at hderiv
     rw [hderiv.deriv, hquot]
     field_simp [hlogpos.ne']
     have hmul : c * (Real.log x - 1) ≤ Real.log x - 1 := by
@@ -64,7 +66,7 @@ theorem id_add_mul_id_div_log_monotoneOn
     ha hloga (by linarith) (by linarith)
   intro x hx y hy hxy
   have hxy' := h hx hy hxy
-  simpa [sub_eq_add_neg, neg_mul] using hxy'
+  convert hxy' using 1 <;> ring
 
 theorem id_sub_mul_id_div_log_sq_monotoneOn
     {a c : Real} (ha : 1 < a) (hloga : 2 ≤ Real.log a)
@@ -74,12 +76,13 @@ theorem id_sub_mul_id_div_log_sq_monotoneOn
   · have hlog : ContinuousOn (fun y : Real => Real.log y) (Set.Ici a) := by
       exact continuousOn_id.log (by
         intro x hx
-        exact ne_of_gt (lt_of_lt_of_le ha hx))
+        exact ne_of_gt (by linarith [ha, hx]))
     exact continuousOn_id.sub
-      (continuousOn_const.mul (continuousOn_id.div (hlog.pow 2) (by
+      ((continuousOn_const : ContinuousOn (fun _ : Real => c) (Set.Ici a)).mul
+        (continuousOn_id.div (hlog.pow 2) (by
         intro x hx
         exact pow_ne_zero 2
-          (ne_of_gt (Real.log_pos (lt_of_lt_of_le ha hx))))))
+          (ne_of_gt (Real.log_pos (by linarith [ha, hx]))))))
   · have hlog : DifferentiableOn ℝ (fun y : Real => Real.log y)
         (interior (Set.Ici a)) := by
       exact differentiableOn_id.log (by
@@ -88,7 +91,7 @@ theorem id_sub_mul_id_div_log_sq_monotoneOn
           simpa only [interior_Ici, Set.mem_Ioi] using hx
         exact ne_of_gt (by linarith [ha, hx']))
     exact differentiableOn_id.sub
-      (differentiableOn_const.mul (differentiableOn_id.div (hlog.pow 2) (by
+      ((differentiableOn_const c).mul (differentiableOn_id.div (hlog.pow 2) (by
         intro x hx
         have hx' : a < x := by
           simpa only [interior_Ici, Set.mem_Ioi] using hx
@@ -108,7 +111,8 @@ theorem id_sub_mul_id_div_log_sq_monotoneOn
         ((hasDerivAt_id x).div
           ((Real.hasDerivAt_log (ne_of_gt hxpos)).pow 2)
           (pow_ne_zero 2 hlogpos.ne')))
-    change 0 ≤ deriv (fun y : Real => y - c * y / Real.log y ^ 2) x
+    change 0 ≤ deriv (id - (fun _ : Real => c) * (id / Real.log ^ 2)) x
+    simp only [id_eq] at hderiv
     rw [hderiv.deriv, hquot]
     field_simp [hlogpos.ne']
     have hmul : c * (Real.log x - 2) ≤ Real.log x - 2 := by
@@ -124,7 +128,7 @@ theorem id_add_mul_id_div_log_sq_monotoneOn
     ha hloga (by linarith) (by linarith)
   intro x hx y hy hxy
   have hxy' := h hx hy hxy
-  simpa [sub_eq_add_neg, neg_mul] using hxy'
+  convert hxy' using 1 <;> ring
 
 end
 
