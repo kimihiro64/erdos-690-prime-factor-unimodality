@@ -1211,7 +1211,82 @@ theorem dusartThetaTable66_constant_bounds_of_endpoints
         Chebyshev.theta data.right := Chebyshev.theta_mono hright
     have hscale : data.b0 * (data.left : Real) ≤ data.b0 * x := by
       exact mul_le_mul_of_nonneg_left hleft hb0
-    exact hright_theta.trans (upper_endpoint.trans hscale)
+      exact hright_theta.trans (upper_endpoint.trans hscale)
+
+/-! The four logarithmic columns have the same endpoint shape once their
+    correction functions have been shown monotone on the row.  This keeps
+    the finite numerical input to one pair of endpoint inequalities per
+    column; the monotonicity proofs remain ordinary real analysis. -/
+theorem dusartThetaTable66_formula_bounds_of_monotone_corrections
+    (data : DusartThetaTable66CoefficientData)
+    (hle : data.left ≤ data.right)
+    (lower_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      data.a0 * x ≤ Chebyshev.theta x)
+    (upper_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      Chebyshev.theta x ≤ data.b0 * x)
+    (lower_one_mono : MonotoneOn
+      (fun x : Real => x - data.a1 * x / Real.log x)
+      (Set.Icc (data.left : Real) (data.right : Real)))
+    (upper_one_mono : MonotoneOn
+      (fun x : Real => x + data.b1 * x / Real.log x)
+      (Set.Icc (data.left : Real) (data.right : Real)))
+    (lower_two_mono : MonotoneOn
+      (fun x : Real => x - data.a2 * x / Real.log x ^ 2)
+      (Set.Icc (data.left : Real) (data.right : Real)))
+    (upper_two_mono : MonotoneOn
+      (fun x : Real => x + data.b2 * x / Real.log x ^ 2)
+      (Set.Icc (data.left : Real) (data.right : Real)))
+    (lower_one_endpoint :
+      data.right - data.a1 * data.right / Real.log data.right ≤
+        Chebyshev.theta data.left)
+    (upper_one_endpoint :
+      Chebyshev.theta data.right ≤
+        data.left + data.b1 * data.left / Real.log data.left)
+    (lower_two_endpoint :
+      data.right - data.a2 * data.right / Real.log data.right ^ 2 ≤
+        Chebyshev.theta data.left)
+    (upper_two_endpoint :
+      Chebyshev.theta data.right ≤
+        data.left + data.b2 * data.left / Real.log data.left ^ 2) :
+    DusartThetaTable66FormulaBounds data := by
+  refine { lower_zero := lower_zero, upper_zero := upper_zero,
+    lower_one := ?_, upper_one := ?_, lower_two := ?_, upper_two := ?_ }
+  · intro x hleft hright
+    have hxmem : x ∈ Set.Icc (data.left : Real) (data.right : Real) :=
+      ⟨hleft, hright⟩
+    have hrightmem : (data.right : Real) ∈
+        Set.Icc (data.left : Real) (data.right : Real) := by
+      exact ⟨by exact_mod_cast hle, le_rfl⟩
+    have hmono := lower_one_mono hxmem hrightmem hright
+    have htheta := Chebyshev.theta_mono hleft
+    exact hmono.trans (lower_one_endpoint.trans htheta)
+  · intro x hleft hright
+    have hxmem : x ∈ Set.Icc (data.left : Real) (data.right : Real) :=
+      ⟨hleft, hright⟩
+    have hleftmem : (data.left : Real) ∈
+        Set.Icc (data.left : Real) (data.right : Real) := by
+      exact ⟨le_rfl, by exact_mod_cast hle⟩
+    have hmono := upper_one_mono hleftmem hxmem hleft
+    have htheta := Chebyshev.theta_mono hright
+    exact htheta.trans (upper_one_endpoint.trans hmono)
+  · intro x hleft hright
+    have hxmem : x ∈ Set.Icc (data.left : Real) (data.right : Real) :=
+      ⟨hleft, hright⟩
+    have hrightmem : (data.right : Real) ∈
+        Set.Icc (data.left : Real) (data.right : Real) := by
+      exact ⟨by exact_mod_cast hle, le_rfl⟩
+    have hmono := lower_two_mono hxmem hrightmem hright
+    have htheta := Chebyshev.theta_mono hleft
+    exact hmono.trans (lower_two_endpoint.trans htheta)
+  · intro x hleft hright
+    have hxmem : x ∈ Set.Icc (data.left : Real) (data.right : Real) :=
+      ⟨hleft, hright⟩
+    have hleftmem : (data.left : Real) ∈
+        Set.Icc (data.left : Real) (data.right : Real) := by
+      exact ⟨le_rfl, by exact_mod_cast hle⟩
+    have hmono := upper_two_mono hleftmem hxmem hleft
+    have htheta := Chebyshev.theta_mono hright
+    exact htheta.trans (upper_two_endpoint.trans hmono)
 
 def dusartThetaTable6_6CoefficientData :
     List DusartThetaTable66CoefficientData := [
