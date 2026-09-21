@@ -463,6 +463,29 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_indexed_strict_rows_and_lower
   exact hasDusartSymmetricThetaBoundsBelow_of_strict_theta_prefix
     (hasStrictThetaUpperBelow_of_indexed_rows cover) lower
 
+theorem hasDusartSymmetricThetaBoundsBelow_of_prefix_and_indexed_strict_rows_and_lower
+    {x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
+    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    {n : Nat} {rows : Fin n → StrictThetaUpperRow}
+    (cover : ∀ x : Real, x₀ ≤ x → x ≤ X →
+      ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right)
+    (lower : ∀ x : Real, 2 < x → x ≤ X →
+      |Chebyshev.theta x - x| <
+        (12323 / 10000 : Real) * x / Real.log x) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
+  · intro x hx hX
+    by_cases hsmall : x ≤ x₀
+    · have hupper := prefix.1 x hx hsmall
+      nlinarith
+    · obtain ⟨i, hleft, hright⟩ := cover x
+        (h2x₀.trans (le_of_not_ge hsmall)) hX
+      exact strictThetaUpperRow_provides (rows i) hleft hright
+  · intro x hx hX
+    by_cases hsmall : x ≤ x₀
+    · exact prefix.2 x hx hsmall
+    · exact lower x hx hX
+
 theorem theta_two_eq_log_two : Chebyshev.theta (2 : Real) = Real.log 2 := by
   have hprimes : Nat.primesLE 2 = {2} := by decide
   have hsum := Chebyshev.theta_eq_sum_primesLE_log 2
