@@ -772,6 +772,30 @@ theorem wangCrapis_thetaBounds_of_table66_chunks_and_logFourthTail
     (hasDusartSymmetricThetaBoundsBelow_of_table66_chunks first rest)
     hA_nonneg hA thetaError
 
+/-! A Table 6.6 chunk may be appended after an independently proved finite
+    prefix.  This keeps the low endpoint computation separate from the
+    coefficient-table computation while preserving one bounded cutoff. -/
+theorem hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_chunk
+    {x₀ : Real} (h2x₀ : (2 : Real) ≤ x₀)
+    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (chunk : DusartThetaTable66Chunk) :
+    HasDusartSymmetricThetaBoundsBelow chunk.cutoff := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
+  · intro x hx hX
+    by_cases hsmall : x ≤ x₀
+    · exact prefix.1 x hx hsmall
+    · obtain ⟨i, hleft, hright⟩ := chunk.cover x
+        (h2x₀.trans (le_of_not_ge hsmall)) hX
+      exact (dusartThetaRelativeRow_to_bounds
+        (chunk.toRelativeRows i)).upper x hleft hright
+  · intro x hx hX
+    by_cases hsmall : x ≤ x₀
+    · exact prefix.2 x hx hsmall
+    · obtain ⟨i, hleft, hright⟩ := chunk.cover x
+        (h2x₀.trans (le_of_not_ge hsmall)) hX
+      exact (dusartThetaRelativeRow_to_bounds
+        (chunk.toRelativeRows i)).lower x hx hleft hright
+
 theorem wangCrapis_theta_upper_1000081_of_table66_chunks_and_logFourthTail
     {A : Real} (first : DusartThetaTable66Chunk)
     (rest : List DusartThetaTable66Chunk)
