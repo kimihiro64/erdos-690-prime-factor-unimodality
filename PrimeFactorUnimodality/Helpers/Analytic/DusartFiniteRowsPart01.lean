@@ -304,6 +304,7 @@ def dusartLemma33FiniteRow_of_endpoint_left_power
         Chebyshev.theta_mono (hroot x hx hleft_x hright_x)
       have hpow_x := hpow x hx hleft_x
       nlinarith
+    }
 
 /-! The bounded-row constructor for separately tabulated endpoint bounds. -/
 def dusartLemma33FiniteRow_of_endpoint_bounds
@@ -337,6 +338,7 @@ def dusartLemma33FiniteRow_of_endpoint_bounds
           (hroot x hx hleft_x hright_x))
       have hpow_bound := hpow x hx hleft_x
       nlinarith
+    }
 
 /-! A row chain stores only the successor boundary between neighboring rows.
     The recursive cover theorem below is shared by all bounded Lemma 3.3
