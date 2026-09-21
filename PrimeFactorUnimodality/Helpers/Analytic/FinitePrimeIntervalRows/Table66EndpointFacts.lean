@@ -38,6 +38,19 @@ theorem dusartThetaTable66_formula_bounds_of_endpoint_facts
     facts.lower_zero facts.upper_zero facts.lower_one_endpoint
     facts.upper_one_endpoint facts.lower_two_endpoint facts.upper_two_endpoint
 
+theorem hasDusartSymmetricThetaBoundsBelow_of_table66_endpoint_facts
+    {X : Real}
+    (cover : ∀ x : Real, 2 ≤ x → x ≤ X →
+      ∃ data ∈ dusartThetaTable6_6CoefficientData,
+        (data.left : Real) ≤ x ∧ x ≤ data.right)
+    (facts : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      DusartThetaTable66EndpointFacts data) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_table66_formula_data cover
+  intro data hdata
+  exact dusartThetaTable66_formula_bounds_of_endpoint_facts hdata
+    (facts data hdata)
+
 end
 
 end PrimeFactorUnimodality
