@@ -1516,6 +1516,24 @@ theorem dusartThetaTable_lower_coeff_error_of_minimum
     _ < ((12323 / 10000 : Real) / Real.log x) * x := hscaled
     _ = (12323 / 10000 : Real) * x / Real.log x := by ring
 
+/-! The raw Table 6.6 coefficients already satisfy the numerical error
+    margins required by the relative-row interface.  This lemma packages
+    those margins independently of the still separate theta interval bounds. -/
+theorem dusartThetaTable6_6CoefficientData_error_margins
+    (row : DusartThetaTable66CoefficientData)
+    (hrow : row ∈ dusartThetaTable6_6CoefficientData) :
+    row.b0 - 1 < (1 : Real) / 36260 ∧
+      ∀ x : Real, 2 < x → x ≤ (8e11 : Real) →
+        (1 - row.a0) * x <
+          (12323 / 10000 : Real) * x / Real.log x := by
+  have hmeta := dusartThetaTable6_6CoefficientData_row_bounds row hrow
+  rcases hmeta with ⟨hleft, hright, hcutoff, hlower, hupper⟩
+  constructor
+  · exact dusartThetaTable_upper_coeff_error_of_le_one hupper
+  · intro x hx hxupper
+    exact dusartThetaTable_lower_coeff_error_of_minimum
+      hlower hx hxupper
+
 def DusartThetaTableCoefficientRow.toRelativeRow
     (row : DusartThetaTableCoefficientRow)
     (hleft : 2 ≤ row.left) (hle : row.left ≤ row.right)
