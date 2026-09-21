@@ -42,10 +42,10 @@ def row(indices: list[tuple[int, int]], row_name: str | None = None) -> str:
         "  decide\n"
         f"\ntheorem {row_name}_not_prime {{n : Nat}}\n"
         f"    (hn : n ∈ {row_name}_values) (hlt : 3 < n) : ¬n.Prime := by\n"
-        "  apply not_prime_of_fastPowMod_ne_one (a := 3)\n"
+        "  apply not_prime_of_fastPowMod_ne_one_of_mem hn\n"
         "  · norm_num\n"
         "  · exact hlt\n"
-        f"  · exact {row_name}_fermat n hn\n"
+        f"  · exact {row_name}_fermat\n"
     )
     return header + row_header + "\nend PrimeFactorUnimodality\n"
 

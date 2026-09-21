@@ -252,4 +252,14 @@ theorem not_prime_of_fastPowMod_ne_one {n a : Nat} (a_pos : 0 < a) (a_lt_n : a <
   rw [ZMod.val_one'' (by omega)] at val_eq_one
   exact val_eq_one
 
+/-! A row-level adapter turns one list replay into a compositeness result for
+any member of that row. -/
+theorem not_prime_of_fastPowMod_ne_one_of_mem
+    {a n : Nat} {values : List Nat}
+    (hvalue : n ∈ values) (a_pos : 0 < a) (a_lt_n : a < n)
+    (certificate : ∀ m ∈ values, fastPowMod a m (m - 1) ≠ 1) :
+    ¬n.Prime := by
+  exact not_prime_of_fastPowMod_ne_one a_pos a_lt_n
+    (certificate n hvalue)
+
 end PrimeFactorUnimodality
