@@ -1340,6 +1340,13 @@ theorem dusartThetaTable66_formula_bounds_of_endpoints
   · exact lower_two_endpoint
   · exact upper_two_endpoint
 
+theorem log_ge_two_of_eight_le {x : Real} (hx : (8 : Real) ≤ x) :
+    (2 : Real) ≤ Real.log x := by
+  have hlog8 : Real.log (8 : Real) ≤ Real.log x := by
+    exact Real.log_le_log (by norm_num) hx
+  rw [show (8 : Real) = 2 ^ (3 : Nat) by norm_num, Real.log_pow] at hlog8
+  nlinarith [Real.log_two_gt_d9]
+
 def dusartThetaTable6_6CoefficientData :
     List DusartThetaTable66CoefficientData := [
   { left := 100000000, right := 200000000,
