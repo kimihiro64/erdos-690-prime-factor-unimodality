@@ -180,6 +180,14 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.MertensProvider
+      - name: Upload elaborated foundation artifacts
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: lean-foundations-build
+          path: .lake/build
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 1
 
   build:
     name: Replay certificates and build with Lean
@@ -194,6 +202,11 @@ jobs:
         with:
           build: false
           lint: false
+      - name: Restore elaborated foundation artifacts
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
+        with:
+          name: lean-foundations-build
+          path: .lake/build
       - name: Build the complete formalization
         run: lake build
       - name: Run the Lean linters
