@@ -1183,7 +1183,35 @@ structure DusartThetaTable66FormulaBounds
   lower_two : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
     x - data.a2 * x / Real.log x ^ 2 ≤ Chebyshev.theta x
   upper_two : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
-    Chebyshev.theta x ≤ x + data.b2 * x / Real.log x ^ 2
+      Chebyshev.theta x ≤ x + data.b2 * x / Real.log x ^ 2
+
+/-! The constant-coefficient columns can be transported from endpoint bounds
+    using only monotonicity of `theta`.  The logarithmic correction columns
+    retain their own interval arguments. -/
+theorem dusartThetaTable66_constant_bounds_of_endpoints
+    (data : DusartThetaTable66CoefficientData)
+    (ha0 : 0 ≤ data.a0) (hb0 : 0 ≤ data.b0)
+    (lower_endpoint : data.a0 * (data.right : Real) ≤
+      Chebyshev.theta data.left)
+    (upper_endpoint : Chebyshev.theta data.right ≤
+      data.b0 * (data.left : Real)) :
+    (∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      data.a0 * x ≤ Chebyshev.theta x) ∧
+    (∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      Chebyshev.theta x ≤ data.b0 * x) := by
+  constructor
+  · intro x hleft hright
+    have hleft_le_theta : Chebyshev.theta data.left ≤
+        Chebyshev.theta x := Chebyshev.theta_mono hleft
+    have hscale : data.a0 * x ≤ data.a0 * (data.right : Real) := by
+      exact mul_le_mul_of_nonneg_left hright ha0
+    exact hscale.trans (lower_endpoint.trans hleft_le_theta)
+  · intro x hleft hright
+    have hright_theta : Chebyshev.theta x ≤
+        Chebyshev.theta data.right := Chebyshev.theta_mono hright
+    have hscale : data.b0 * (data.left : Real) ≤ data.b0 * x := by
+      exact mul_le_mul_of_nonneg_left hleft hb0
+    exact hright_theta.trans (upper_endpoint.trans hscale)
 
 def dusartThetaTable6_6CoefficientData :
     List DusartThetaTable66CoefficientData := [
