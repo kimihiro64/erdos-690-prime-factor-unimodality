@@ -1,4 +1,4 @@
-import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
+import Mathlib.Analysis.Complex.ExponentialBounds
 
 set_option autoImplicit false
 set_option maxRecDepth 100000
@@ -62,7 +62,7 @@ theorem dusart_power_sum_of_finite_and_tail
     intro k hk
     exact htail k hk
   rw [Finset.sum_singleton]
-    calc
+  calc
     x ^ (1 / (3 : Real)) +
           ∑ x_1 ∈ Finset.Icc 4 K, x ^ (1 / (x_1 : Real)) +
           ∑ x_1 ∈ Finset.Icc (K + 1) N, x ^ (1 / (x_1 : Real)) ≤
@@ -76,10 +76,13 @@ theorem dusart_power_sum_of_finite_and_tail
         ((N - K : Nat) : Real) * q (K + 1)) *
         x ^ (1 / (3 : Real)) := by
       rw [nsmul_eq_mul, Nat.card_Icc]
-      have hsub : K + 1 ≤ N + 1 := by omega
-      rw [Nat.cast_sub hsub]
+      rw [Nat.cast_sub hKN]
       push_cast
-      rw [Finset.mul_sum]
+      rw [← Finset.sum_mul]
+      have hcast : ((N - K : Nat) : Real) =
+          (N : Real) - (K : Real) := by
+        rw [Nat.cast_sub hKN]
+      rw [hcast]
       ring
 
 end

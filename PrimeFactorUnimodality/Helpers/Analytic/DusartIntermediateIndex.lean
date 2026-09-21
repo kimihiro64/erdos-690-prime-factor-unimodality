@@ -1,4 +1,4 @@
-import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
+import Mathlib.Analysis.Complex.ExponentialBounds
 
 set_option autoImplicit false
 set_option maxRecDepth 100000
@@ -40,7 +40,7 @@ theorem dusart_intermediate_log_index_bounds
   have hupperpow : (10 : Real) ^ 33 < (2 : Real) ^ 110 := by
     norm_num
   have huplog : Real.log x < Real.log ((2 : Real) ^ 110) := by
-    exact (Real.log_le_log hxpos.le hhi).trans_lt
+    exact (Real.log_le_log hxpos hhi).trans_lt
       (Real.log_lt_log (by positivity) hupperpow)
   have huper : Real.log x / Real.log 2 < (110 : Real) := by
     apply (div_lt_iff₀ hlog2).2
@@ -49,8 +49,10 @@ theorem dusart_intermediate_log_index_bounds
     exact huplog
   constructor
   · exact Nat.le_floor hlow
-  · have hf : ⌊Real.log x / Real.log 2⌋₊ < 110 :=
-      (Nat.floor_lt hlogx).2 huper
+  · have hquot_nonneg : 0 ≤ Real.log x / Real.log 2 :=
+      div_nonneg hlogx hlog2.le
+    have hf : ⌊Real.log x / Real.log 2⌋₊ < 110 :=
+      (Nat.floor_lt hquot_nonneg).2 huper
     omega
 
 theorem dusart_floor_two_pow_le
@@ -81,4 +83,4 @@ theorem dusart_floor_two_pow_le
 
 end
 
-end PrimeFactorUnimodularity
+end PrimeFactorUnimodality
