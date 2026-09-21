@@ -193,6 +193,16 @@ theorem id_sub_mul_id_div_log_monotoneOn
         (one_mul (Real.log x - 1))
     nlinarith [sq_nonneg (Real.log x - 1), hmul]
 
+theorem id_add_mul_id_div_log_monotoneOn
+    {a b : Real} (ha : 1 < a) (hloga : 1 ≤ Real.log a)
+    (hb0 : -1 ≤ b) (hb1 : b ≤ 0) :
+    MonotoneOn (fun x : Real => x + b * x / Real.log x) (Set.Ici a) := by
+  have h := id_sub_mul_id_div_log_monotoneOn (a := a) (c := -b)
+    ha hloga (by linarith) (by linarith)
+  intro x hx y hy hxy
+  have hxy' := h hx hy hxy
+  simpa [sub_eq_add_neg, neg_mul] using hxy'
+
 theorem logCubedWidth_lower_of_endpoint
     {g x : Nat}
     (hendpoint : (g : Real) ≤ logCubedWidth 89693)
