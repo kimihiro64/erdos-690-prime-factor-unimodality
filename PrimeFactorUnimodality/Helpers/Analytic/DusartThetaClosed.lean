@@ -97,6 +97,61 @@ theorem wangCrapis_thetaBoundsBelow_3 :
   · intro x hx hx3
     exact wangCrapis_thetaBounds_lower_2_3 hx hx3
 
+theorem wangCrapis_thetaBoundsBelow_4 :
+    HasDusartSymmetricThetaBoundsBelow (4 : Real) := by
+  constructor
+  · intro x hx hx4
+    by_cases hsmall : x ≤ 3
+    · exact (wangCrapis_thetaBoundsBelow_3).1 x hx hsmall
+    · have htheta_le : Chebyshev.theta x ≤ Chebyshev.theta 4 :=
+        Chebyshev.theta_mono hx4
+      have hx3 : (3 : Real) < x := lt_of_not_ge hsmall
+      have htheta4 : Chebyshev.theta (4 : Real) =
+          Real.log 2 + Real.log 3 := by
+        have hsum := Chebyshev.theta_eq_sum_primesLE_log 4
+        have hp : Nat.primesLE 4 = {2, 3} := by decide
+        rw [hp] at hsum
+        simpa using hsum
+      rw [htheta4] at htheta_le
+      have htheta4_lt : Chebyshev.theta (4 : Real) < (9 : Real) / 5 := by
+        rw [htheta4]
+        nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9]
+      have hx_pos : 0 < x := by linarith
+      have hright : 0 < x / 36260 := by positivity
+      nlinarith
+  · intro x hx hx4
+    by_cases hsmall : x ≤ 3
+    · exact (wangCrapis_thetaBoundsBelow_3).2 x hx hsmall
+    · have hx_pos : 0 < x := by linarith
+      have hx3 : (3 : Real) < x := lt_of_not_ge hsmall
+      have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
+      have hlogupper : Real.log x < (7 : Real) / 5 := by
+        have hlog4 : Real.log x ≤ Real.log 4 :=
+          Real.log_le_log hx_pos hx4
+        rw [show (4 : Real) = 2 ^ (2 : Nat) by norm_num,
+          Real.log_pow] at hlog4
+        nlinarith [Real.log_two_lt_d9]
+      have hcoef : (3 : Real) / 5 <
+          (12323 / 10000 : Real) / Real.log x := by
+        apply (lt_div_iff₀ hlogpos).2
+        nlinarith [hlogupper]
+      have htheta3 : Chebyshev.theta (3 : Real) =
+          Real.log 2 + Real.log 3 := by
+        have hsum := Chebyshev.theta_eq_sum_primesLE_log 3
+        have hp : Nat.primesLE 3 = {2, 3} := by decide
+        rw [hp] at hsum
+        simpa using hsum
+      have htheta_lower : Chebyshev.theta 3 > (8 : Real) / 5 := by
+        rw [htheta3]
+        nlinarith [Real.log_two_gt_d9, Real.log_three_gt_d9]
+      have htheta_mono : Chebyshev.theta 3 ≤ Chebyshev.theta x :=
+        Chebyshev.theta_mono hx3.le
+      have hbound :
+          x * (1 - (12323 / 10000 : Real) / Real.log x) <
+            (2 : Real) / 5 * x := by
+        nlinarith
+      nlinarith
+
 /-! The same direct low-endpoint computation supplies the strict prefix used
     by the Schoenfeld split. -/
 theorem wangCrapis_strictThetaPrefix_three :
