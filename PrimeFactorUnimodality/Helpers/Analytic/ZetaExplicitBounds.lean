@@ -338,8 +338,7 @@ theorem zetaZeroFree_explicit_fixed :
               rw [hprod]
             _ = _ := by ring
         _ ≤ C₁ * A ^ ((3 : Real) / 4) := by
-          rw [hAquarter] at hmul
-          exact hmul
+          simpa only [hAquarter] using hmul
     dsimp [c]
     nlinarith [hmul', mul_pos hC₂ hA.1]
   refine ⟨c, hc, ?_⟩
@@ -472,7 +471,16 @@ theorem zetaZeroFree_explicit_fixed :
       dsimp [c]
       have hlower_mul := (div_le_iff₀ hL7).mp hlower'
       have hdiff_mul := (le_div_iff₀ hL7).mp hdiffsymm
-      nlinarith
+      calc
+        C₁ * A ^ ((3 : Real) / 4) - 2 * C₂ * A ≤
+            ‖riemannZeta (σ' + t * Complex.I)‖ * Real.log |t| ^ 7 -
+              ‖riemannZeta (σ' + t * Complex.I) -
+                riemannZeta (σ + t * Complex.I)‖ * Real.log |t| ^ 7 :=
+          sub_le_sub hlower_mul hdiff_mul
+        _ = (‖riemannZeta (σ' + t * Complex.I)‖ -
+            ‖riemannZeta (σ' + t * Complex.I) -
+              riemannZeta (σ + t * Complex.I)‖) * Real.log |t| ^ 7 := by
+          ring
     exact hmain.trans (by
       convert htriangle using 1 <;> ring)
   refine ⟨hnorm, ?_⟩
