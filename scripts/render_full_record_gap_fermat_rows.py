@@ -47,11 +47,7 @@ def row(indices: list[tuple[int, int]], row_name: str | None = None) -> str:
         "  · exact hlt\n"
         f"  · exact {row_name}_fermat n hn\n"
     )
-    return (
-        header
-        + row_header
-        + "\nend PrimeFactorUnimodality\n"
-    )
+    return header + row_header + "\nend PrimeFactorUnimodality\n"
 
 
 def main() -> None:
