@@ -679,6 +679,29 @@ theorem wangCrapis_thetaBounds_of_strict_prefix_endpoint_rows_and_logFourthTail_
   · exact hA
   · exact thetaError
 
+/-! Endpoint rows also carry the lower absolute-error field.  This variant
+    derives the suffix lower estimate from those fields, leaving only the
+    strict upper margin as the numerical Table 6.4 obligation. -/
+theorem wangCrapis_thetaBounds_of_strict_prefix_endpoint_rows_and_logFourthTail_from_rows
+    {A X : Real} {n : Nat}
+    (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (rows : Fin n → DusartThetaEndpointRow)
+    (cover : DusartThetaEndpointIndexedCoverFrom rows (3 : Real) X)
+    (margin : ∀ i, (rows i).theta_upper < (rows i).left)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds := by
+  apply wangCrapis_thetaBounds_of_strict_prefix_endpoint_rows_and_logFourthTail_of_suffix_lower
+    hXpos hlogX rows cover margin
+  · intro x hx hX
+    obtain ⟨i, hleft, hright⟩ := cover x (by linarith) hX
+    exact (dusartThetaEndpointRow_provides (rows i) hleft hright).lower
+      x (by linarith) hleft hright
+  · exact hA_nonneg
+  · exact hA
+  · exact thetaError
+
 /-! Certificate-facing form of the paper split.  The strict Schoenfeld prefix
 is supplied as an indexed compact row cover; the lower estimate remains a
 separate analytic or finite obligation. -/
