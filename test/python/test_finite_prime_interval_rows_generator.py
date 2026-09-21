@@ -44,6 +44,13 @@ def test_finite_prime_interval_rows_low_generation_is_sharded(
 
     assert ".LowPart01\n" in facade
     assert ".LowPart02\n" in facade
+    groups = sorted(tmp_path.glob("LowGroup*.lean"))
+    assert groups
+    assert all(f".LowGroup{index:02d}\n" in facade for index in range(1, len(groups) + 1))
+    assert all(
+        len(re.findall(r"^import .*\.LowPart\d+$", group.read_text(), re.MULTILINE)) <= 12
+        for group in groups
+    )
 
     first = (tmp_path / "LowPart01.lean").read_text()
     assert "apply DusartPrimeRowsChain.cons" in first
@@ -55,3 +62,4 @@ def test_finite_prime_interval_rows_low_generation_is_sharded(
 
     assert not list(tmp_path.glob(f"LowPart{count + 1:02d}.lean"))
     assert not (tmp_path / "LowPart99.lean").exists()
+    assert not list(tmp_path.glob("LowGroup99.lean"))

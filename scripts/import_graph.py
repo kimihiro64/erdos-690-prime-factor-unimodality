@@ -30,7 +30,13 @@ PYTHON_MAX_LINES: Final[int] = 450
 MAX_DIRECT_OWNED_IMPORTS: Final[int] = 12
 PROOF_IMPACT_WARNING: Final[int] = 12
 PROOF_ASSEMBLY_MODULES: Final[frozenset[str]] = frozenset(
-    {"ClassificationThrough48", "ClassificationThrough38000", "CompleteClassification"}
+    {
+        "ClassificationThrough48",
+        "ClassificationThrough38000",
+        "ClassificationThrough38000Closed",
+        "CompleteClassification",
+        "CompleteClassificationReduction",
+    }
 )
 LAYERS: Final[dict[str, int]] = {
     MATHLIB_CANDIDATE_COMPONENT: -1,

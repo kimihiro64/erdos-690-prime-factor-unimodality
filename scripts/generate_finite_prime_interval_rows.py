@@ -278,7 +278,7 @@ def split_large_row_families(body: str) -> str:
 LOW_HEADER = """import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Core
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.EndpointBounds
 import PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington
-import PrimeFactorUnimodality.Mathlib.NumberTheory.PocklingtonRows
+import PrimeFactorUnimodality.Helpers.FiniteCertificates.PocklingtonRows
 import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod
 
 set_option autoImplicit false
@@ -428,9 +428,24 @@ noncomputable section
             count=0,
         )
         result[f"{module}.lean"] = (header + certificates + part_body).rstrip() + "\n"
+    group_size = 12
+    group_count = (len(ranges) + group_size - 1) // group_size
+    for group in range(group_count):
+        first = group * group_size + 1
+        last = min((group + 1) * group_size, len(ranges))
+        group_imports = "\n".join(
+            "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows."
+            f"LowPart{part:02d}"
+            for part in range(first, last + 1)
+        )
+        result[f"LowGroup{group + 1:02d}.lean"] = (
+            group_imports
+            + "\n\n/-! Generated import group for lower finite Dusart row chunks. -/\n"
+        )
     imports = "\n".join(
-        f"import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart{part:02d}"
-        for part in range(1, len(ranges) + 1)
+        "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows."
+        f"LowGroup{group + 1:02d}"
+        for group in range(group_count)
     )
     result["Low.lean"] = (
         imports
@@ -485,9 +500,10 @@ def main() -> None:
     )
     assert row_count == EXPECTED_LOW_ROW_COUNT, row_count
     generated_names = set(generated_low)
-    stale_pattern = re.compile(r"LowPart\d+\.lean")
-    for stale in out.glob("LowPart*.lean"):
-        if stale_pattern.fullmatch(stale.name) and stale.name not in generated_names:
+    stale_patterns = (re.compile(r"LowPart\d+\.lean"), re.compile(r"LowGroup\d+\.lean"))
+    stale_paths = list(out.glob("LowPart*.lean")) + list(out.glob("LowGroup*.lean"))
+    for stale in stale_paths:
+        if any(pattern.fullmatch(stale.name) for pattern in stale_patterns) and stale.name not in generated_names:
             stale.unlink()
     for name, generated in generated_low.items():
         (out / name).write_text(generated)

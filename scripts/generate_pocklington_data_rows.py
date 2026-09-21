@@ -74,7 +74,7 @@ def render(name: str, certificates: list[tuple[int, int, int, int, list[int], li
         )
     return "\n".join(
         [
-            "import PrimeFactorUnimodality.Mathlib.NumberTheory.PocklingtonRows",
+            "import PrimeFactorUnimodality.Helpers.FiniteCertificates.PocklingtonRows",
             "",
             "set_option autoImplicit false",
             "set_option maxRecDepth 100000",

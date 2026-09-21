@@ -1,35 +1,12 @@
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart01
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart02
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart03
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart04
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart05
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart06
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart07
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart08
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart09
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart10
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart11
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart12
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart13
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart14
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart15
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart16
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart17
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart18
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart19
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart20
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart21
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart22
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart23
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart24
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowGroup01
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowGroup02
 
 set_option autoImplicit false
 set_option maxRecDepth 1000000
 
-/-! # Generated low finite prime interval rows
+{-! # Generated low finite prime interval rows
 
-This facade imports the independent low-range row chunks and assembles their
-shared coverage data. -/
+This facade imports the independent low-range row chunks and assembles their shared coverage data. -}
 
 namespace PrimeFactorUnimodality
 

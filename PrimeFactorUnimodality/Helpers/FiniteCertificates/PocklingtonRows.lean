@@ -99,9 +99,7 @@ theorem PocklingtonRow.prime_of_mem
     {d : PocklingtonData} (hd : d ∈ row) : d.n.Prime :=
   d.prime (hrow d hd)
 
-/-! A generated shard can validate its whole data list with one closed
-Boolean computation.  The proof-producing consumer above remains the only
-place that turns a validated datum into primality. -/
+/-! A generated shard can validate its whole data list with one closed Boolean computation. -/
 theorem PocklingtonRow.valid_of_decide_all
     {row : List PocklingtonData}
     (h : row.all (fun d => decide d.Valid) = true) :
