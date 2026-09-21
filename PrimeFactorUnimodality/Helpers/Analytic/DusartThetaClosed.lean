@@ -263,6 +263,34 @@ theorem wangCrapis_thetaBoundsBelow_6 :
         nlinarith
       nlinarith
 
+theorem wangCrapis_theta_lower_error_below_six
+    {x : Real} (hx : 2 < x) (hx6 : x ≤ 6) :
+    |Chebyshev.theta x - x| <
+      (12323 / 10000 : Real) * x / Real.log x := by
+  have hprefix := wangCrapis_thetaBoundsBelow_6
+  have hupper := hprefix.1 x (by linarith) hx6
+  have hlower := hprefix.2 x hx hx6
+  have hx_pos : 0 < x := by linarith
+  have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
+  have hlogupper : Real.log x < (9 : Real) / 5 := by
+    have hlog6 : Real.log x ≤ Real.log 6 :=
+      Real.log_le_log hx_pos hx6
+    rw [show (6 : Real) = 2 * 3 by norm_num,
+      Real.log_mul (by norm_num) (by norm_num)] at hlog6
+    nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9]
+  have hcoef : (1 : Real) / 36260 <
+      (12323 / 10000 : Real) / Real.log x := by
+    apply (lt_div_iff₀ hlogpos).2
+    nlinarith [hlogupper]
+  have hscaled := mul_lt_mul_of_pos_right hcoef hx_pos
+  have herror : x / 36260 <
+      (12323 / 10000 : Real) * x / Real.log x := by
+    nlinarith
+  apply (abs_lt).2
+  constructor
+  · nlinarith
+  · exact hupper.trans herror
+
 /-! The same direct low-endpoint computation supplies the strict prefix used
     by the Schoenfeld split. -/
 theorem wangCrapis_strictThetaPrefix_three :
