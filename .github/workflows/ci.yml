@@ -208,7 +208,43 @@ jobs:
           name: lean-foundations-build
           path: .lake/build
       - name: Build the complete formalization
-        run: lake build
+        shell: bash
+        run: |
+          set -o pipefail
+          : > lean-build.log
+          : > lean-build-processes.log
+          (
+            while :; do
+              {
+                date --iso-8601=seconds
+                free -h
+                ps -eo pid,ppid,rss,etime,args --sort=-rss | head -n 35
+                echo
+              } >> lean-build-processes.log
+              sleep 10
+            done
+          ) &
+          monitor_pid=$!
+          trap 'status=$?; kill "$monitor_pid" 2>/dev/null || true; wait "$monitor_pid" 2>/dev/null || true; echo "lake build exit status: $status"; tail -n 120 lean-build.log; echo "--- final process snapshot ---"; free -h; ps -eo pid,ppid,rss,etime,args --sort=-rss | head -n 35; exit "$status"' EXIT
+          lake -v build 2>&1 | tee lean-build.log
+          exit "${PIPESTATUS[0]}"
+      - name: Print Lean build diagnostics
+        if: always()
+        run: |
+          echo '--- last build trace lines ---'
+          tail -n 160 lean-build.log 2>/dev/null || true
+          echo '--- last process snapshots ---'
+          tail -n 160 lean-build-processes.log 2>/dev/null || true
+      - name: Upload Lean build diagnostics
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: lean-build-diagnostics
+          path: |
+            lean-build.log
+            lean-build-processes.log
+          if-no-files-found: warn
+          retention-days: 7
       - name: Run the Lean linters
         run: lake lint
       - name: Upload the completed Lean build
