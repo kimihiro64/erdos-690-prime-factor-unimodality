@@ -100,14 +100,20 @@ def module_map(root: Path, namespace: str) -> dict[str, Path]:
     return result
 
 
-def owned_graph(root: Path, namespace: str) -> tuple[dict[str, Path], dict[str, set[str]]]:
-    """Return owned paths and direct owned imports."""
+def owned_graph(
+    root: Path, namespace: str
+) -> tuple[dict[str, Path], dict[str, set[str]], dict[str, str], dict[str, str]]:
+    """Return owned paths, sources, comment-free code, and direct owned imports."""
     modules = module_map(root, namespace)
+    sources = {module: path.read_text(encoding="utf-8") for module, path in modules.items()}
+    code_by_module = {
+        module: source if is_generated_module(module, namespace) else strip_lean_comments(source)
+        for module, source in sources.items()
+    }
     graph: dict[str, set[str]] = {}
-    for module, path in modules.items():
-        code = strip_lean_comments(path.read_text(encoding="utf-8"))
+    for module, code in code_by_module.items():
         graph[module] = {name for name in lean_imports(code) if name in modules}
-    return modules, graph
+    return modules, graph, sources, code_by_module
 
 
 def detect_cycles(graph: Mapping[str, set[str]]) -> list[list[str]]:
@@ -203,7 +209,7 @@ def line_count(path: Path) -> int:
 def audit_architecture(root: Path) -> dict[str, object]:
     """Audit hard architecture rules and return a dependency report."""
     namespace = library_namespace(root)
-    modules, graph = owned_graph(root, namespace)
+    modules, graph, sources, code_by_module = owned_graph(root, namespace)
     failures: list[str] = []
     warnings: list[str] = []
     candidate_modules = sorted(
@@ -253,8 +259,8 @@ def audit_architecture(root: Path) -> dict[str, object]:
                 and importer_branch != dependency_branch
             ):
                 failures.append(f"sibling proof branch import: {importer} imports {dependency}")
-        source = modules[importer].read_text(encoding="utf-8")
-        code = strip_lean_comments(source)
+        source = sources[importer]
+        code = code_by_module[importer]
         failures.extend(
             mathlib_candidate_failures(
                 importer,
@@ -266,8 +272,8 @@ def audit_architecture(root: Path) -> dict[str, object]:
             )
         )
 
-    for module, path in modules.items():
-        lines = line_count(path)
+    for module, source in sources.items():
+        lines = len(source.splitlines())
         if is_generated_module(module, namespace):
             continue
         if lines > LEAN_MAX_LINES:

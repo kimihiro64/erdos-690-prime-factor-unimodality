@@ -18,6 +18,7 @@ DISCOVERY_LEAN: Final[re.Pattern[str]] = re.compile(
     r"(?m)^\s*#(?:check|print|eval|reduce)\b|"
     r"\b(?:exact|apply|simp|rw|aesop)\?|\blibrary_search\b"
 )
+SIMPLE_COMMENT: Final[re.Pattern[str]] = re.compile(r"/-.*?-/|--[^\n]*", re.DOTALL)
 BROAD_IMPORT: Final[re.Pattern[str]] = re.compile(r"(?m)^\s*import\s+(?:Batteries|Mathlib)\s*$")
 CHALLENGE_PROJECT_IMPORT: Final[str] = "PrimeFactorUnimodality"
 AUTO_IMPLICIT_FALSE: Final[re.Pattern[str]] = re.compile(
@@ -31,6 +32,16 @@ class LeanSourceError(RuntimeError):
 
 def strip_lean_comments(source: str) -> str:
     """Remove nested Lean comments while preserving line structure."""
+    # Generated sources contain at most one non-nested module comment and no
+    # string literals.  Let the C-backed regex engine handle those large files;
+    # retain the character scanner below for general Lean syntax.
+    if '"' not in source and source.count("/-") == 1 and source.count("-/") == 1:
+        return SIMPLE_COMMENT.sub(
+            lambda match: "".join(
+                "\n" if character == "\n" else " " for character in match.group()
+            ),
+            source,
+        )
     output: list[str] = []
     index = 0
     depth = 0

@@ -896,6 +896,5 @@ theorem log_le_99_over_10_of_18959_le
     · exact_mod_cast ha19930
   exact hmono.trans log_19930_le_99_over_10
 
-
 end
 end PrimeFactorUnimodality
