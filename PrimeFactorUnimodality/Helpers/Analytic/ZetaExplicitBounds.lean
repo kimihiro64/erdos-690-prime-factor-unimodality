@@ -221,6 +221,69 @@ theorem zetaLowerBound3_explicit :
   · positivity
   · exact zetaLowerBound3_explicit_fixed
 
+theorem zeta_explicit_fixed_parameter_le
+    : ((1 / 100000 : Real) ^ (4 : Nat)) ≤
+      ((1 / (3 ^ ((3 : Real) / 4) *
+        (2 * (Real.exp (1 / 2 : Real) * (5 + 8 * 2))) ^ ((1 : Real) / 4))) /
+        (4 * (Real.exp (1 / 2 : Real) * 59))) ^ (4 : Nat) := by
+  have hexp : Real.exp (1 / 2 : Real) ≤ 2 := by
+    rw [Real.exp_half]
+    have h₁ : Real.exp (1 : Real) ≤ 3 :=
+      Real.exp_one_lt_d9.le.trans (by norm_num)
+    have h₂ : Real.sqrt (Real.exp (1 : Real)) ≤ Real.sqrt 3 :=
+      Real.sqrt_le_sqrt h₁
+    have h₃ : Real.sqrt (3 : Real) ≤ 2 := by
+      nlinarith [Real.sq_sqrt (by norm_num : (0 : Real) ≤ 3)]
+    exact h₂.trans h₃
+  have hC2 : Real.exp (1 / 2 : Real) * 59 ≤ (118 : Real) := by
+    nlinarith
+  have hC1 :
+      (1 / 100 : Real) ≤
+        1 / (3 ^ ((3 : Real) / 4) *
+          (2 * (Real.exp (1 / 2 : Real) * (5 + 8 * 2))) ^ ((1 : Real) / 4)) := by
+    have hthree : (3 : Real) ^ ((3 : Real) / 4) ≤ 3 := by
+      simpa using Real.rpow_le_rpow_of_exponent_le
+        (by norm_num : (1 : Real) ≤ 3)
+        (by norm_num : (3 : Real) / 4 ≤ 1)
+    have hinner :
+        2 * (Real.exp (1 / 2 : Real) * (5 + 8 * 2)) ≤ (84 : Real) := by
+      nlinarith
+    have hfour :
+        (2 * (Real.exp (1 / 2 : Real) * (5 + 8 * 2))) ^ ((1 : Real) / 4) ≤ 4 := by
+      calc
+        _ ≤ (84 : Real) ^ ((1 : Real) / 4) :=
+          Real.rpow_le_rpow (by positivity) hinner (by norm_num)
+        _ ≤ 4 := by
+          have h := Real.rpow_le_rpow (by norm_num : (0 : Real) ≤ 84)
+            (by norm_num : (84 : Real) ≤ 256)
+            (by norm_num : (0 : Real) ≤ (1 : Real) / 4)
+          calc
+            _ ≤ 256 ^ ((1 : Real) / 4) := h
+            _ = 4 := by
+              rw [show (256 : Real) = 4 ^ (4 : Nat) by norm_num]
+              rw [← Real.rpow_natCast,
+                ← Real.rpow_mul (by norm_num : (0 : Real) ≤ 4)]
+              norm_num
+    have hden :
+        3 ^ ((3 : Real) / 4) *
+          (2 * (Real.exp (1 / 2 : Real) * (5 + 8 * 2))) ^ ((1 : Real) / 4) ≤ 12 := by
+      calc
+        _ ≤ 3 * (2 * (Real.exp (1 / 2 : Real) * (5 + 8 * 2))) ^ ((1 : Real) / 4) :=
+          mul_le_mul_of_nonneg_right hthree (by positivity)
+        _ ≤ 3 * 4 := mul_le_mul_of_nonneg_left hfour (by positivity)
+        _ ≤ 12 := by norm_num
+    have hinv := one_div_le_one_div_of_le (by positivity :
+      0 < 3 ^ ((3 : Real) / 4) *
+        (2 * (Real.exp (1 / 2 : Real) * (5 + 8 * 2))) ^ ((1 : Real) / 4)) hden
+    exact (by norm_num : (1 / 100 : Real) ≤ 1 / 12).trans hinv
+  have hratio : (1 / 100000 : Real) ≤
+      (1 / (3 ^ ((3 : Real) / 4) *
+        (2 * (Real.exp (1 / 2 : Real) * (5 + 8 * 2))) ^ ((1 : Real) / 4))) /
+        (4 * (Real.exp (1 / 2 : Real) * 59)) := by
+    apply (le_div_iff₀ (by positivity)).2
+    nlinarith
+  exact pow_le_pow_left₀ (by positivity) hratio 4
+
 theorem zetaZeroFree_explicit :
     ∃ (A : Real) (_ : A ∈ Ioc 0 (1 / 2)) (c : Real) (_ : 0 < c),
     ∀ (σ t : Real) (_ : 3 < |t|)
@@ -237,15 +300,18 @@ theorem zetaZeroFree_explicit :
   have hC₂ : 0 < C₂ := by
     dsimp [C₂]
     positivity
-  let A : Real := min (1 / 2 : Real) ((C₁ / (4 * C₂)) ^ (4 : Nat))
+  let A : Real := (1 / 100000 : Real) ^ (4 : Nat)
   have hA : A ∈ Ioc (0 : Real) (1 / 2) := by
     constructor
     · dsimp [A]
       positivity
-    · exact min_le_left _ _
+    · norm_num [A]
+  have hA_le : A ≤ (C₁ / (4 * C₂)) ^ (4 : Nat) := by
+    dsimp [A, C₁, C₂]
+    exact zeta_explicit_fixed_parameter_le
   let c : Real := C₁ * A ^ ((3 : Real) / 4) - 2 * C₂ * A
   have hc : 0 < c := by
-    have hpow := A.rpow_le_rpow hA.1.le (min_le_right _ _)
+    have hpow := A.rpow_le_rpow hA.1.le hA_le
       (inv_pos.mpr four_pos).le
     erw [Real.pow_rpow_inv_natCast
       (div_pos hC₁ (mul_pos four_pos hC₂)).le four_ne_zero,
