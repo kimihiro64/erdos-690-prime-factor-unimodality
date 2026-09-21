@@ -572,6 +572,23 @@ theorem wangCrapis_thetaBounds_of_table66_formula_data_and_logFourthTail
     lower_zero upper_zero lower_one upper_one lower_two upper_two
     hXpos hlogX hA_nonneg hA thetaError
 
+theorem wangCrapis_thetaBounds_of_table66_formula_bounds_and_logFourthTail
+    {A X : Real}
+    (prefix : HasDusartSymmetricThetaBoundsBelow (100000000 : Real))
+    (hXcutoff : X ≤ (8e11 : Real))
+    (formula : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      DusartThetaTable66FormulaBounds data)
+    (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds := by
+  apply wangCrapis_thetaBounds_of_prefix_and_table66_formula_bounds_and_logFourthTail
+    (x₀ := (100000000 : Real)) (X := X) (by norm_num) prefix
+    (fun x hx hupper => dusartThetaTable6_6CoefficientData_cover_real x hx
+      (hupper.trans hXcutoff))
+    formula hXpos hlogX hA_nonneg hA thetaError
+
 theorem wangCrapis_theta_upper_1000081_of_table66_chunks_and_logFourthTail
     {A : Real} (first : DusartThetaTable66Chunk)
     (rest : List DusartThetaTable66Chunk)
