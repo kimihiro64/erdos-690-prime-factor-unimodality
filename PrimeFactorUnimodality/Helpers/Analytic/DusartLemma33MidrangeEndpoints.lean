@@ -1,7 +1,6 @@
 import LeanCert.Tactic.IntervalAuto
 import PrimeFactorUnimodality.Helpers.Analytic.DusartFiniteRows
 import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33ThetaData
-import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
 
 set_option autoImplicit false
 set_option maxRecDepth 100000
