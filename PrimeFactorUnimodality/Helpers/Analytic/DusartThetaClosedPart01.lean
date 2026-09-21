@@ -424,6 +424,36 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_table66_one_zero
   · exact dusart_proposition_5_1_finite_lower_error_of_table66
       (fun x hx hX => prefix.2 x hx hX) lower_one upper_zero
 
+/-! Paper-facing assembly with the Table 6.6 finite range attached.  The
+    middle psi estimate, Proposition 3.1 gap estimate, and global lower
+    estimate remain explicit arguments because they arise from different
+    parts of the published proof. -/
+theorem wangCrapis_thetaBounds_of_table66_and_prop31_thetaError
+    (prefix : HasDusartSymmetricThetaBoundsBelow (100000000 : Real))
+    (lower_one : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        x - data.a1 * x / Real.log x ≤ Chebyshev.theta x)
+    (upper_zero : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+        Chebyshev.theta x ≤ data.b0 * x)
+    (middlePsi : ∀ x : Real, (8e11 : Real) ≤ x →
+      x ≤ Real.exp 28 →
+      |Chebyshev.psi x - x| < (2841 : Real) / 100000000 * x)
+    (finiteGap : ∀ x : Real, (121 : Real) < x →
+      x < (4e18 : Real) ^ 2 →
+      (9999 : Real) / 10000 * Real.sqrt x <
+        Chebyshev.psi x - Chebyshev.theta x)
+    (thetaError : HasThetaLogFourthErrorAbove
+      (648 / 1000 : Real) (Real.exp 28))
+    (lower : ∀ x : Real, 2 < x →
+      x * (1 - (12323 / 10000 : Real) / Real.log x) <
+        Chebyshev.theta x) :
+    HasDusartThetaBounds := by
+  have finite := hasDusartSymmetricThetaBoundsBelow_of_table66_one_zero
+    prefix lower_one upper_zero
+  exact wangCrapis_thetaBounds_of_paper_ranges_and_prop31_thetaError
+    (fun x hx hX => finite.1 x hx hX) middlePsi finiteGap thetaError lower
+
 /-! Paper-facing Proposition 5.1 assembler.  The three hypotheses correspond
 to Dusart's finite table, middle explicit psi estimate, and large-range theta
 estimate; none of the range-specific obligations is hidden in this glue. -/
