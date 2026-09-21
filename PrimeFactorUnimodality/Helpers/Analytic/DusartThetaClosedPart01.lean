@@ -471,6 +471,36 @@ theorem wangCrapis_strictThetaPrefix_seven :
     nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
       Real.log_five_lt_d9, LogTables.log_7_lt]
 
+theorem wangCrapis_strictThetaPrefix_eleven :
+    HasStrictThetaUpperBelow (11 : Real) := by
+  intro x hx hx11
+  by_cases hseven : x ≤ 7
+  · exact wangCrapis_strictThetaPrefix_seven x hx hseven
+  by_cases heleven : x < 11
+  · have htheta_le : Chebyshev.theta x ≤ Chebyshev.theta 7 := by
+      exact Chebyshev.theta_mono (by linarith)
+    have htheta7 : Chebyshev.theta (7 : Real) =
+        Real.log 2 + Real.log 3 + Real.log 5 + Real.log 7 := by
+      have hsum := Chebyshev.theta_eq_sum_primesLE_log 7
+      have hp : Nat.primesLE 7 = {2, 3, 5, 7} := by decide
+      rw [hp] at hsum
+      simpa [add_assoc] using hsum
+    rw [htheta7] at htheta_le
+    nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
+      Real.log_five_lt_d9, LogTables.log_7_lt]
+  · have htheta_le : Chebyshev.theta x ≤ Chebyshev.theta 11 :=
+      Chebyshev.theta_mono hx11
+    have htheta11 : Chebyshev.theta (11 : Real) =
+        Real.log 2 + Real.log 3 + Real.log 5 + Real.log 7 + Real.log 11 := by
+      have hsum := Chebyshev.theta_eq_sum_primesLE_log 11
+      have hp : Nat.primesLE 11 = {2, 3, 5, 7, 11} := by decide
+      rw [hp] at hsum
+      simpa [add_assoc] using hsum
+    rw [htheta11] at htheta_le
+    nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
+      Real.log_five_lt_d9, LogTables.log_7_lt,
+      ElementaryLogBounds.log_11_lt]
+
 /-! The fixed explicit-formula input is exported at the theta boundary so the
     eventual psi/theta tail proof consumes the constructed estimate rather than
     the package's existential placeholder. -/
