@@ -55,7 +55,8 @@ def band_module(
     previous_import = (
         ""
         if index == 1
-        else f"import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.MediumLogBand{index - 1:02d}\n"
+        else "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.MediumLogBand"
+        f"{index - 1:02d}\n"
     )
     lines = [
         "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows."

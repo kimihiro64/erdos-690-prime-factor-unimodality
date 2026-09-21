@@ -287,7 +287,8 @@ def low_modules(body: str) -> dict[str, str]:
         previous_import = (
             ""
             if part == 1
-            else f"import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart{part - 1:02d}\n"
+            else "import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowPart"
+            f"{part - 1:02d}\n"
         )
         header = f"""import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowBase
 {previous_import}
@@ -336,7 +337,6 @@ noncomputable section
     group_size = 12
     group_count = (len(ranges) + group_size - 1) // group_size
     for group in range(group_count):
-        first = group * group_size + 1
         last = min((group + 1) * group_size, len(ranges))
         previous_group = (
             ""

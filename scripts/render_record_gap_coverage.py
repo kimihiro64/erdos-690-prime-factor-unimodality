@@ -100,7 +100,8 @@ theorem recordGapCoverage_part{number:02d} (d : Nat)
     previous_import = (
         ""
         if number == 1
-        else f"import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapCoverage.Part{number - 1:02d}\n"
+        else "import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordGapCoverage.Part"
+        f"{number - 1:02d}\n"
     )
     return f"""{previous_import}import PrimeFactorUnimodality.Proof.LargeRange.RecordGapStructure
 
@@ -125,7 +126,8 @@ def render_group(
     previous_group = (
         ""
         if group_number == 1
-        else f"\nimport PrimeFactorUnimodality.Proof.LargeRange.RecordGapCoverageGroup{group_number - 1:02d}"
+        else "\nimport PrimeFactorUnimodality.Proof.LargeRange.RecordGapCoverageGroup"
+        f"{group_number - 1:02d}"
     )
     imports = (
         "import PrimeFactorUnimodality.Proof.LargeRange.Generated."
