@@ -20,7 +20,6 @@ DISCOVERY_LEAN: Final[re.Pattern[str]] = re.compile(
 )
 SIMPLE_COMMENT: Final[re.Pattern[str]] = re.compile(r"/-.*?-/|--[^\n]*", re.DOTALL)
 BROAD_IMPORT: Final[re.Pattern[str]] = re.compile(r"(?m)^\s*import\s+(?:Batteries|Mathlib)\s*$")
-CHALLENGE_PROJECT_IMPORT: Final[str] = "PrimeFactorUnimodality"
 AUTO_IMPLICIT_FALSE: Final[re.Pattern[str]] = re.compile(
     r"(?m)^\s*set_option\s+autoImplicit\s+false\s*$"
 )
@@ -129,7 +128,7 @@ def check_lean_sources(root: Path, candidates: Sequence[str]) -> None:
             non_mathlib = [
                 module
                 for module in imports
-                if not module.startswith("Mathlib.") and module != CHALLENGE_PROJECT_IMPORT
+                if not module.startswith("Mathlib.")
             ]
             if non_mathlib:
                 failures.append(
