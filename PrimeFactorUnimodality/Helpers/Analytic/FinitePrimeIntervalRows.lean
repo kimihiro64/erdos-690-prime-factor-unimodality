@@ -1565,6 +1565,36 @@ theorem dusartThetaTable6_6CoefficientData_row_bounds :
       (99985 : Real) / 100000 ≤ row.a0 ∧ row.b0 ≤ 1 := by
   norm_num [dusartThetaTable6_6CoefficientData]
 
+theorem dusartThetaTable66_formula_bounds_of_published_endpoints
+    {data : DusartThetaTable66CoefficientData}
+    (hdata : data ∈ dusartThetaTable6_6CoefficientData)
+    (lower_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      data.a0 * x ≤ Chebyshev.theta x)
+    (upper_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      Chebyshev.theta x ≤ data.b0 * x)
+    (lower_one_endpoint :
+      data.right - data.a1 * data.right / Real.log data.right ≤
+        Chebyshev.theta data.left)
+    (upper_one_endpoint :
+      Chebyshev.theta data.right ≤
+        data.left + data.b1 * data.left / Real.log data.left)
+    (lower_two_endpoint :
+      data.right - data.a2 * data.right / Real.log data.right ^ 2 ≤
+        Chebyshev.theta data.left)
+    (upper_two_endpoint :
+      Chebyshev.theta data.right ≤
+        data.left + data.b2 * data.left / Real.log data.left ^ 2) :
+    DusartThetaTable66FormulaBounds data := by
+  have hrow := dusartThetaTable6_6CoefficientData_row_bounds data hdata
+  have hleft8 := dusartThetaTable6_6CoefficientData_left_at_least_eight data hdata
+  have hleft : (1 : Real) < data.left := by
+    have : (8 : Real) ≤ data.left := by exact_mod_cast hleft8
+    linarith
+  exact dusartThetaTable66_formula_bounds_of_endpoints data hrow.2.1 hleft
+    (log_ge_two_of_eight_le (by exact_mod_cast hleft8)) lower_zero upper_zero
+    (dusartThetaTable6_6CoefficientData_correction_coefficients data hdata)
+    lower_one_endpoint upper_one_endpoint lower_two_endpoint upper_two_endpoint
+
 theorem strictThetaUpper_of_table66_formula_data
     (data : DusartThetaTable66CoefficientData)
     (hdata : data ∈ dusartThetaTable6_6CoefficientData)
