@@ -503,7 +503,10 @@ def main() -> None:
     stale_patterns = (re.compile(r"LowPart\d+\.lean"), re.compile(r"LowGroup\d+\.lean"))
     stale_paths = list(out.glob("LowPart*.lean")) + list(out.glob("LowGroup*.lean"))
     for stale in stale_paths:
-        if any(pattern.fullmatch(stale.name) for pattern in stale_patterns) and stale.name not in generated_names:
+        if (
+            any(pattern.fullmatch(stale.name) for pattern in stale_patterns)
+            and stale.name not in generated_names
+        ):
             stale.unlink()
     for name, generated in generated_low.items():
         (out / name).write_text(generated)
