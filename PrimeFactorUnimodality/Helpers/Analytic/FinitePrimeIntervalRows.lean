@@ -1154,6 +1154,24 @@ structure DusartThetaTable66CoefficientData where
   a2 : Real
   b2 : Real
 
+/-! All six published Table 6.6 inequalities for one coefficient row are
+    carried together.  This keeps the row certificate data independent of the
+    common finite-range assembler. -/
+structure DusartThetaTable66FormulaBounds
+    (data : DusartThetaTable66CoefficientData) : Prop where
+  lower_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+    data.a0 * x ≤ Chebyshev.theta x
+  upper_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+    Chebyshev.theta x ≤ data.b0 * x
+  lower_one : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+    x - data.a1 * x / Real.log x ≤ Chebyshev.theta x
+  upper_one : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+    Chebyshev.theta x ≤ x + data.b1 * x / Real.log x
+  lower_two : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+    x - data.a2 * x / Real.log x ^ 2 ≤ Chebyshev.theta x
+  upper_two : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+    Chebyshev.theta x ≤ x + data.b2 * x / Real.log x ^ 2
+
 def dusartThetaTable6_6CoefficientData :
     List DusartThetaTable66CoefficientData := [
   { left := 100000000, right := 200000000,

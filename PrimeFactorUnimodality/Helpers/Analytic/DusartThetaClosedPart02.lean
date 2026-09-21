@@ -508,6 +508,32 @@ theorem wangCrapis_thetaBounds_of_prefix_and_table66_formula_data_and_logFourthT
   exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX finite
     hA_nonneg hA thetaError
 
+/-! The same Table 6.6 boundary with all six inequalities bundled per row.
+    A generated certificate can therefore provide one indexed/list proof
+    object per interval without repeating the assembler's six dispatches. -/
+theorem wangCrapis_thetaBounds_of_prefix_and_table66_formula_bounds_and_logFourthTail
+    {A x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
+    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (cover : ∀ x : Real, x₀ ≤ x → x ≤ X →
+      ∃ data ∈ dusartThetaTable6_6CoefficientData,
+        (data.left : Real) ≤ x ∧ x ≤ data.right)
+    (formula : ∀ data ∈ dusartThetaTable6_6CoefficientData,
+      DusartThetaTable66FormulaBounds data)
+    (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds := by
+  exact wangCrapis_thetaBounds_of_prefix_and_table66_formula_data_and_logFourthTail
+    h2x₀ prefix cover
+    (fun data hdata => (formula data hdata).lower_zero)
+    (fun data hdata => (formula data hdata).upper_zero)
+    (fun data hdata => (formula data hdata).lower_one)
+    (fun data hdata => (formula data hdata).upper_one)
+    (fun data hdata => (formula data hdata).lower_two)
+    (fun data hdata => (formula data hdata).upper_two)
+    hXpos hlogX hA_nonneg hA thetaError
+
 /-! The published row endpoints cover the real interval directly.  This
     specialization fixes the lower endpoint at the start of Table 6.6 and
     derives the cover from the checked natural endpoint list, leaving only
