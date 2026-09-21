@@ -68,6 +68,7 @@ The strict upper prefix is kept separate because the published upper bound
 is one-sided below the logarithmic cutoff. -/
 theorem hasDusartSymmetricThetaBoundsBelow_of_strict_prefix_and_fourth_error
     {A X x₀ : Real}
+    (h2x₀ : (2 : Real) ≤ x₀)
     (upperPrefix : HasStrictThetaUpperBelow x₀)
     (lowerPrefix : ∀ x : Real, 2 < x → x ≤ x₀ →
       |Chebyshev.theta x - x| <
@@ -79,7 +80,7 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_strict_prefix_and_fourth_error
       A / (Real.log x) ^ 4 <
         (12323 / 10000 : Real) / Real.log x) :
     HasDusartSymmetricThetaBoundsBelow X := by
-  apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
+  constructor
   · intro x hx hX
     by_cases hsmall : x ≤ x₀
     · have hstrict := upperPrefix x hx hsmall
@@ -375,6 +376,25 @@ theorem forty_two_lt_log_four_e18 :
   have hlog : (42 : Real) < Real.log (4e18 : Real) := by
     exact (Real.lt_log_iff_exp_lt (by norm_num)).2 hexp
   exact hlog
+
+theorem dusart_fourth_error_scale_at_four_e18
+    {x : Real} (hx : (4e18 : Real) ≤ x) :
+    (648 / 1000 : Real) / (Real.log x) ^ 4 < (1 : Real) / 36260 ∧
+      (648 / 1000 : Real) / (Real.log x) ^ 4 <
+        (12323 / 10000 : Real) / Real.log x := by
+  have hlog : (42 : Real) < Real.log x :=
+    forty_two_lt_log_four_e18.trans_le
+      (Real.log_le_log (by norm_num) hx)
+  have hlog_pos : 0 < Real.log x := by linarith
+  have hsq : (42 : Real) ^ 2 ≤ (Real.log x) ^ 2 := by
+    nlinarith [sq_nonneg (Real.log x - 42)]
+  have hfour : (42 : Real) ^ 4 ≤ (Real.log x) ^ 4 := by
+    nlinarith [sq_nonneg ((Real.log x) ^ 2 - 42 ^ 2)]
+  constructor
+  · apply (div_lt_iff₀ (by positivity : 0 < (Real.log x) ^ 4)).2
+    nlinarith
+  · apply (div_lt_div_iff₀ (by positivity : 0 < (Real.log x) ^ 4) hlog_pos).2
+    nlinarith
 
 theorem one_div_log_four_e18_le_dusart_constant :
     1 / Real.log (4e18 : Real) ≤ (12167 / 500000 : Real) := by
