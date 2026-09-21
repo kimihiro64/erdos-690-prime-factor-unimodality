@@ -189,8 +189,8 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
-  build:
-    name: Replay certificates and build with Lean
+  certificate-prebuild:
+    name: Prebuild high-memory certificate chains
     needs: [release_version, metadata-and-boundary, python, lean-foundations]
     runs-on: ubuntu-latest
     timeout-minutes: 180
@@ -217,6 +217,35 @@ jobs:
             +PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCompact
           lake build \
             +PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses
+      - name: Upload certificate prebuild artifacts
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: lean-certificate-prebuild
+          path: |
+            .lake/build/lib/lean
+            .lake/build/ir
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
+
+  build:
+    name: Replay certificates and build with Lean
+    needs: [release_version, metadata-and-boundary, python, certificate-prebuild]
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          build: false
+          lint: false
+      - name: Restore certificate prebuild artifacts
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
+        with:
+          name: lean-certificate-prebuild
+          path: .lake/build
       - name: Build the complete formalization
         shell: bash
         run: |
