@@ -3,14 +3,10 @@
 from __future__ import annotations
 
 import re
-import sys
 from pathlib import Path
 
-
 THEOREM = "PrimeFactorUnimodality.completeClassification"
-DECLARATION = re.compile(
-    rf"(?ms)^\s*theorem\s+{re.escape(THEOREM)}\s*:\s*(.*?)\s*:=\s*by\b"
-)
+DECLARATION = re.compile(rf"(?ms)^\s*theorem\s+{re.escape(THEOREM)}\s*:\s*(.*?)\s*:=\s*by\b")
 
 
 def theorem_type(path: Path) -> str:

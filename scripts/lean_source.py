@@ -125,11 +125,7 @@ def check_lean_sources(root: Path, candidates: Sequence[str]) -> None:
         if relative in {"Challenge.lean", "Solution.lean"} and not AUTO_IMPLICIT_FALSE.search(code):
             failures.append(f"{relative}: must set_option autoImplicit false")
         if relative == "Challenge.lean":
-            non_mathlib = [
-                module
-                for module in imports
-                if not module.startswith("Mathlib.")
-            ]
+            non_mathlib = [module for module in imports if not module.startswith("Mathlib.")]
             if non_mathlib:
                 failures.append(
                     "Challenge.lean: non-Mathlib direct imports: " + ", ".join(non_mathlib)
