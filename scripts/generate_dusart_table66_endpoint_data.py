@@ -13,9 +13,8 @@ from __future__ import annotations
 import argparse
 import json
 import re
-from decimal import Decimal, ROUND_CEILING, ROUND_FLOOR, localcontext
+from decimal import ROUND_CEILING, ROUND_FLOOR, Decimal, localcontext
 from pathlib import Path
-
 
 ROW = re.compile(
     r"\$\s*([0-9]+)E\+([0-9]+)\s*\$\s*&\s*\$\s*"
@@ -49,21 +48,28 @@ def extract(source: str) -> list[dict[str, int]]:
     lefts += list(range(100_000_000_000, 800_000_000_000, 100_000_000_000))
     rows: list[dict[str, int]] = []
     for left in lefts:
-        right = left + (100_000_000 if left < 1_000_000_000 else
-                        1_000_000_000 if left < 10_000_000_000 else
-                        10_000_000_000 if left < 100_000_000_000 else
-                        100_000_000_000)
+        right = left + (
+            100_000_000
+            if left < 1_000_000_000
+            else 1_000_000_000
+            if left < 10_000_000_000
+            else 10_000_000_000
+            if left < 100_000_000_000
+            else 100_000_000_000
+        )
         if left not in values or right not in values:
             raise ValueError(f"missing theta endpoint {left} or {right}")
         lower_left, _ = scaled_bounds(values[left], 1_000_000)
         _, upper_right = scaled_bounds(values[right], 1_000_000)
-        rows.append({
-            "left": left,
-            "right": right,
-            "theta_lower_left_scaled": lower_left,
-            "theta_upper_right_scaled": upper_right,
-            "scale": 1_000_000,
-        })
+        rows.append(
+            {
+                "left": left,
+                "right": right,
+                "theta_lower_left_scaled": lower_left,
+                "theta_upper_right_scaled": upper_right,
+                "scale": 1_000_000,
+            }
+        )
     return rows
 
 
@@ -78,7 +84,7 @@ def render_lean(rows: list[dict[str, int]]) -> str:
         "/-! Published Table 6.6 theta endpoint bounds, scaled by 10^6. "
         "These numerals are data for a later kernel-checked endpoint proof. -/",
         "def dusartTable66PublishedEndpointData :",
-        "    List (Nat × Nat × Nat × Nat × Nat) := [",
+        "    List (Nat * Nat * Nat * Nat * Nat) := [",
     ]
     for index, row in enumerate(rows):
         comma = "," if index + 1 < len(rows) else ""
@@ -87,15 +93,17 @@ def render_lean(rows: list[dict[str, int]]) -> str:
             f"{row['theta_lower_left_scaled']}, "
             f"{row['theta_upper_right_scaled']}, {row['scale']}){comma}"
         )
-    lines.extend([
-        "]",
-        "",
-        "theorem dusartTable66PublishedEndpointData_length :",
-        "    dusartTable66PublishedEndpointData.length = 34 := by decide",
-        "",
-        "end PrimeFactorUnimodality",
-        "",
-    ])
+    lines.extend(
+        [
+            "]",
+            "",
+            "theorem dusartTable66PublishedEndpointData_length :",
+            "    dusartTable66PublishedEndpointData.length = 34 := by decide",
+            "",
+            "end PrimeFactorUnimodality",
+            "",
+        ]
+    )
     return "\n".join(lines)
 
 
