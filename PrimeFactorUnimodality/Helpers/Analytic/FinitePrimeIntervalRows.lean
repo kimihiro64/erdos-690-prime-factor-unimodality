@@ -1361,6 +1361,11 @@ theorem dusartThetaTable6_6CoefficientData_side_conditions :
       0 ≤ row.a1 ∧ row.a1 < (12323 : Real) / 10000 ∧ row.b0 ≤ 1 := by
   norm_num [dusartThetaTable6_6CoefficientData]
 
+theorem dusartThetaTable6_6CoefficientData_coefficients_nonneg :
+    ∀ row ∈ dusartThetaTable6_6CoefficientData,
+      0 ≤ row.a0 ∧ 0 ≤ row.b0 := by
+  norm_num [dusartThetaTable6_6CoefficientData]
+
 theorem dusartThetaTable6_6CoefficientData_upper_one_coeff_negative :
     ∀ row ∈ dusartThetaTable6_6CoefficientData, row.b1 < 0 := by
   norm_num [dusartThetaTable6_6CoefficientData]
@@ -2140,8 +2145,6 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_table66_formula_data_with_constant
     (cover : ∀ x : Real, 2 ≤ x → x ≤ X →
       ∃ data ∈ dusartThetaTable6_6CoefficientData,
         (data.left : Real) ≤ x ∧ x ≤ data.right)
-    (ha0 : ∀ data ∈ dusartThetaTable6_6CoefficientData, 0 ≤ data.a0)
-    (hb0 : ∀ data ∈ dusartThetaTable6_6CoefficientData, 0 ≤ data.b0)
     (lower_endpoint : ∀ data ∈ dusartThetaTable6_6CoefficientData,
       data.a0 * (data.right : Real) ≤ Chebyshev.theta data.left)
     (upper_endpoint : ∀ data ∈ dusartThetaTable6_6CoefficientData,
@@ -2169,10 +2172,12 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_table66_formula_data_with_constant
     lower_two := lower_two data hdata
     upper_two := upper_two data hdata }
   · exact (dusartThetaTable66_constant_bounds_of_endpoints data
-      (ha0 data hdata) (hb0 data hdata)
+      (dusartThetaTable6_6CoefficientData_coefficients_nonneg data hdata).1
+      (dusartThetaTable6_6CoefficientData_coefficients_nonneg data hdata).2
       (lower_endpoint data hdata) (upper_endpoint data hdata)).1
   · exact (dusartThetaTable66_constant_bounds_of_endpoints data
-      (ha0 data hdata) (hb0 data hdata)
+      (dusartThetaTable6_6CoefficientData_coefficients_nonneg data hdata).1
+      (dusartThetaTable6_6CoefficientData_coefficients_nonneg data hdata).2
       (lower_endpoint data hdata) (upper_endpoint data hdata)).2
 
 /-! The negative `b1` column also supplies the strict upper estimate used by
