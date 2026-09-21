@@ -207,6 +207,16 @@ jobs:
         with:
           name: lean-foundations-build
           path: .lake/build
+      - name: Prebuild high-memory generated chains serially
+        run: |
+          lake build \
+            +PrimeFactorUnimodality.Helpers.FiniteCertificates.Generated.PrimePrefixes
+          lake build \
+            +PrimeFactorUnimodality.Helpers.FiniteCertificates.Generated.FixedWeightSums
+          lake build \
+            +PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCompact
+          lake build \
+            +PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses
       - name: Build the complete formalization
         shell: bash
         run: |
