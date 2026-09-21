@@ -45,17 +45,23 @@ def ValidAdd (owner : FullRecordGapOwner) (d : Nat) : Prop :=
 theorem sub_not_prime {owner : FullRecordGapOwner} {d : Nat}
     (hd : d ≤ 4_000_000_000) (valid : owner.ValidSub d) :
     ¬(recordGapCenter - d).Prime := by
-  apply fullRecordGap_sub_not_prime hd
   cases owner with
-  | tail q => exact Or.inl valid
-  | residue q r => exact Or.inr ⟨r, valid⟩
+  | tail q =>
+      apply fullRecordGap_sub_not_prime (q := q) hd
+      exact Or.inl (by simpa [ValidSub] using valid)
+  | residue q r =>
+      apply fullRecordGap_sub_not_prime (q := q) hd
+      exact Or.inr ⟨r, by simpa [ValidSub] using valid⟩
 
 theorem add_not_prime {owner : FullRecordGapOwner} {d : Nat}
     (valid : owner.ValidAdd d) : ¬(recordGapCenter + d).Prime := by
-  apply fullRecordGap_add_not_prime
   cases owner with
-  | tail q => exact Or.inl valid
-  | residue q r => exact Or.inr ⟨r, valid⟩
+  | tail q =>
+      apply fullRecordGap_add_not_prime (q := q)
+      exact Or.inl (by simpa [ValidAdd] using valid)
+  | residue q r =>
+      apply fullRecordGap_add_not_prime (q := q)
+      exact Or.inr ⟨r, by simpa [ValidAdd] using valid⟩
 
 end FullRecordGapOwner
 
