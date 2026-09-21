@@ -47,8 +47,9 @@ end PrimeFactorUnimodality
 
 This is the exact universal statement of the Wang--Crapis classification:
 the prime-factor density sequence is unimodal precisely for `k ≤ 3`.
-The definitions are repeated here so the challenge remains an auditable,
-Mathlib-only statement surface.
+The definitions are repeated here so the challenge remains an auditable
+statement surface while its theorem is connected to the canonical library
+definitions and proof.
 -/
 
 theorem PrimeFactorUnimodality.completeClassification :
