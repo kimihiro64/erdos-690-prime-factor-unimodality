@@ -628,6 +628,57 @@ theorem wangCrapis_thetaBounds_of_strict_prefix_endpoint_rows_and_logFourthTail
   · exact hA
   · exact thetaError
 
+/-! The lower finite estimate can use the same split.  The direct prefix
+    calculation discharges its absolute-error clause, leaving only the
+    endpoint suffix as an input. -/
+theorem wangCrapis_theta_lower_error_below_three
+    {x : Real} (hx : 2 < x) (hx3 : x ≤ 3) :
+    |Chebyshev.theta x - x| <
+      (12323 / 10000 : Real) * x / Real.log x := by
+  have hprefix := wangCrapis_thetaBoundsBelow_3
+  have hupper := hprefix.1 x (by linarith) hx3
+  have hlower := hprefix.2 x hx hx3
+  have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
+  have hlog_le : Real.log x ≤ Real.log 3 :=
+    Real.log_le_log (by linarith) hx3
+  have hlog3lt : Real.log (3 : Real) < (11 : Real) / 10 :=
+    Real.log_three_lt_d9
+  have hcoef : (1 : Real) / 36260 <
+      (12323 / 10000 : Real) / Real.log x := by
+    apply (lt_div_iff₀ hlogpos).2
+    nlinarith
+  have hscaled := mul_lt_mul_of_pos_right hcoef (by linarith : 0 < x)
+  have herror : x / 36260 <
+      (12323 / 10000 : Real) * x / Real.log x := by
+    nlinarith
+  apply (abs_lt).2
+  constructor
+  · nlinarith
+  · exact hupper.trans herror
+
+theorem wangCrapis_thetaBounds_of_strict_prefix_endpoint_rows_and_logFourthTail_of_suffix_lower
+    {A X : Real} {n : Nat}
+    (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
+    (rows : Fin n → DusartThetaEndpointRow)
+    (cover : DusartThetaEndpointIndexedCoverFrom rows (3 : Real) X)
+    (margin : ∀ i, (rows i).theta_upper < (rows i).left)
+    (lowerSuffix : ∀ x : Real, 3 ≤ x → x ≤ X →
+      |Chebyshev.theta x - x| <
+        (12323 / 10000 : Real) * x / Real.log x)
+    (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    HasDusartThetaBounds := by
+  apply wangCrapis_thetaBounds_of_strict_prefix_endpoint_rows_and_logFourthTail
+    hXpos hlogX rows cover margin
+  · intro x hx hX
+    by_cases hsmall : x ≤ (3 : Real)
+    · exact wangCrapis_theta_lower_error_below_three hx hsmall
+    · exact lowerSuffix x (by linarith) hX
+  · exact hA_nonneg
+  · exact hA
+  · exact thetaError
+
 /-! Certificate-facing form of the paper split.  The strict Schoenfeld prefix
 is supplied as an indexed compact row cover; the lower estimate remains a
 separate analytic or finite obligation. -/
