@@ -1288,6 +1288,57 @@ theorem dusartThetaTable66_formula_bounds_of_monotone_corrections
     have htheta := Chebyshev.theta_mono hright
     exact htheta.trans (upper_two_endpoint.trans hmono)
 
+theorem dusartThetaTable66_formula_bounds_of_endpoints
+    (data : DusartThetaTable66CoefficientData)
+    (hle : data.left ≤ data.right)
+    (hleft : (1 : Real) < data.left)
+    (hlog_left : (2 : Real) ≤ Real.log data.left)
+    (lower_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      data.a0 * x ≤ Chebyshev.theta x)
+    (upper_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      Chebyshev.theta x ≤ data.b0 * x)
+    (hcoeff : 0 ≤ data.a1 ∧ data.a1 ≤ 1 ∧ -1 ≤ data.b1 ∧ data.b1 ≤ 0 ∧
+      0 ≤ data.a2 ∧ data.a2 ≤ 1 ∧ -1 ≤ data.b2 ∧ data.b2 ≤ 0)
+    (lower_one_endpoint :
+      data.right - data.a1 * data.right / Real.log data.right ≤
+        Chebyshev.theta data.left)
+    (upper_one_endpoint :
+      Chebyshev.theta data.right ≤
+        data.left + data.b1 * data.left / Real.log data.left)
+    (lower_two_endpoint :
+      data.right - data.a2 * data.right / Real.log data.right ^ 2 ≤
+        Chebyshev.theta data.left)
+    (upper_two_endpoint :
+      Chebyshev.theta data.right ≤
+        data.left + data.b2 * data.left / Real.log data.left ^ 2) :
+    DusartThetaTable66FormulaBounds data := by
+  have hmono_lower_one := id_sub_mul_id_div_log_monotoneOn
+    (a := (data.left : Real)) (c := data.a1) hleft hlog_left
+      hcoeff.1 hcoeff.2.1
+  have hmono_upper_one := id_add_mul_id_div_log_monotoneOn
+    (a := (data.left : Real)) (b := data.b1) hleft hlog_left
+      hcoeff.2.2.1 hcoeff.2.2.2
+  have hmono_lower_two := id_sub_mul_id_div_log_sq_monotoneOn
+    (a := (data.left : Real)) (c := data.a2) hleft hlog_left
+      hcoeff.2.2.2.2.1 hcoeff.2.2.2.2.2.1
+  have hmono_upper_two := id_add_mul_id_div_log_sq_monotoneOn
+    (a := (data.left : Real)) (b := data.b2) hleft hlog_left
+      hcoeff.2.2.2.2.2.2.1 hcoeff.2.2.2.2.2.2.2
+  apply dusartThetaTable66_formula_bounds_of_monotone_corrections data hle
+    lower_zero upper_zero
+  · intro x hx y hy hxy
+    exact hmono_lower_one hx.1 hy.1 hxy
+  · intro x hx y hy hxy
+    exact hmono_upper_one hx.1 hy.1 hxy
+  · intro x hx y hy hxy
+    exact hmono_lower_two hx.1 hy.1 hxy
+  · intro x hx y hy hxy
+    exact hmono_upper_two hx.1 hy.1 hxy
+  · exact lower_one_endpoint
+  · exact upper_one_endpoint
+  · exact lower_two_endpoint
+  · exact upper_two_endpoint
+
 def dusartThetaTable6_6CoefficientData :
     List DusartThetaTable66CoefficientData := [
   { left := 100000000, right := 200000000,
