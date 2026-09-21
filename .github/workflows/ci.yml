@@ -180,35 +180,6 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.MertensProvider
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Helpers.Analytic.DusartProof
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.LowBase
-          last_part=$(sed -nE 's/.*:= ([0-9]+).*/\1/p' \
-            PrimeFactorUnimodality/Helpers/Analytic/FinitePrimeIntervalRows/LowManifest.lean)
-          test -n "$last_part"
-          for part_number in $(seq 1 "$((10#$last_part))"); do
-            part=$(printf '%02d' "$part_number")
-            module="LowPart$part"
-            /usr/bin/time -v lake build \
-              "+PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.$module"
-          done
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Helpers.Analytic.DusartThetaClosed
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Helpers.Analytic.DusartPrimeCountingClosed
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Helpers.Analytic.DusartShortIntervalClosed
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Proof.Analytic.WangCrapisClosed
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Proof.LargeRange.UniformTail
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Proof.CompleteClassificationReduction
-          /usr/bin/time -v lake build \
-            +PrimeFactorUnimodality.Proof.LargeRange.RecordGapOwnerRows
 
   build:
     name: Replay certificates and build with Lean
