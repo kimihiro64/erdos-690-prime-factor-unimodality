@@ -164,6 +164,10 @@ def is_generated_module(module: str, namespace: str) -> bool:
         f"{namespace}.Helpers.Analytic.DusartLemma33MidrangeRows",
         f"{namespace}.Helpers.Analytic.DusartLemma33ThetaData",
     )
+    if module == f"{namespace}.Helpers.Analytic.FinitePrimeIntervalRows":
+        # This is the reproducible source snapshot consumed by the finite-row
+        # generator; its checked facade is split into the modules above.
+        return True
     return module.startswith(generated_helper_prefixes)
 
 
