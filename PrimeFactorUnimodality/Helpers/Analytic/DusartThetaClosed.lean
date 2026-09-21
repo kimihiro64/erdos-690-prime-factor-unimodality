@@ -573,6 +573,26 @@ theorem wangCrapis_thetaBounds_of_prop31_chunk_and_thetaError
     (X := chunk.cutoff) hX chunk.rows chunk.cover finite middlePsi
     thetaError lower
 
+theorem wangCrapis_thetaBounds_of_prop31_chunks_and_thetaError
+    (first : DusartProposition31FiniteChunk)
+    (rest : List DusartProposition31FiniteChunk)
+    (hX : (4e18 : Real) ^ 2 ≤
+      (DusartProposition31FiniteChunk.appendMany first rest).cutoff)
+    (finite : ∀ x : Real, 0 < x → x ≤ (8e11 : Real) →
+      Chebyshev.theta x - x < x / 36260)
+    (middlePsi : ∀ x : Real, (8e11 : Real) ≤ x →
+      x ≤ Real.exp 28 →
+      |Chebyshev.psi x - x| < (2841 : Real) / 100000000 * x)
+    (thetaError : HasThetaLogFourthErrorAbove
+      (648 / 1000 : Real) (Real.exp 28))
+    (lower : ∀ x : Real, 2 < x →
+      x * (1 - (12323 / 10000 : Real) / Real.log x) <
+        Chebyshev.theta x) :
+    HasDusartThetaBounds := by
+  exact wangCrapis_thetaBounds_of_prop31_chunk_and_thetaError
+    (DusartProposition31FiniteChunk.appendMany first rest) hX finite
+    middlePsi thetaError lower
+
 /-! Direct finite-prefix assembly for the provider interface.  The finite
 upper and lower estimates are kept as separate obligations, as in the paper;
 only the unbounded tail is converted from the explicit error estimate. -/
