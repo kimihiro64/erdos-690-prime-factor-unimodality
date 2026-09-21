@@ -1142,6 +1142,13 @@ theorem dusartThetaTable6_6CoefficientData_side_conditions :
       0 ≤ row.a1 ∧ row.a1 < (12323 : Real) / 10000 ∧ row.b0 ≤ 1 := by
   norm_num [dusartThetaTable6_6CoefficientData]
 
+theorem dusartThetaTable6_6CoefficientData_row_bounds :
+    ∀ row ∈ dusartThetaTable6_6CoefficientData,
+      2 ≤ row.left ∧ row.left ≤ row.right ∧
+      (row.right : Real) ≤ (8e11 : Real) ∧
+      (99985 : Real) / 100000 ≤ row.a0 ∧ row.b0 ≤ 1 := by
+  norm_num [dusartThetaTable6_6CoefficientData]
+
 def dusartThetaTable6_6CoefficientDataNatRanges : List (Nat × Nat) :=
   dusartThetaTable6_6CoefficientData.map fun row => (row.left, row.right)
 
