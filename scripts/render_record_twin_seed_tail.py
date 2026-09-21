@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-import gmpy2  # type: ignore[import-not-found]
+import gmpy2  # type: ignore[import-untyped]
 from render_record_twin_seed_chunks import quadratic_mul  # type: ignore[import-not-found]
 from render_record_twin_seed_lean import (  # type: ignore[import-not-found]
     source_note,
