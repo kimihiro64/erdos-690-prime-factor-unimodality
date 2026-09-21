@@ -109,556 +109,36 @@ theorem lowPocklingtonData23_valid : PocklingtonRow.Valid lowPocklingtonData23 :
   apply PocklingtonRow.valid_of_decide_all
   decide
 
-theorem lowPrime_17167 : Nat.Prime 17167 := by
-  let d := lowPocklingtonData23.get ⟨0, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17183 : Nat.Prime 17183 := by
-  let d := lowPocklingtonData23.get ⟨1, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17189 : Nat.Prime 17189 := by
-  let d := lowPocklingtonData23.get ⟨2, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17191 : Nat.Prime 17191 := by
-  let d := lowPocklingtonData23.get ⟨3, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17203 : Nat.Prime 17203 := by
-  let d := lowPocklingtonData23.get ⟨4, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17207 : Nat.Prime 17207 := by
-  let d := lowPocklingtonData23.get ⟨5, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17209 : Nat.Prime 17209 := by
-  let d := lowPocklingtonData23.get ⟨6, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17231 : Nat.Prime 17231 := by
-  let d := lowPocklingtonData23.get ⟨7, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17239 : Nat.Prime 17239 := by
-  let d := lowPocklingtonData23.get ⟨8, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17257 : Nat.Prime 17257 := by
-  let d := lowPocklingtonData23.get ⟨9, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17291 : Nat.Prime 17291 := by
-  let d := lowPocklingtonData23.get ⟨10, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17293 : Nat.Prime 17293 := by
-  let d := lowPocklingtonData23.get ⟨11, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17299 : Nat.Prime 17299 := by
-  let d := lowPocklingtonData23.get ⟨12, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17317 : Nat.Prime 17317 := by
-  let d := lowPocklingtonData23.get ⟨13, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17321 : Nat.Prime 17321 := by
-  let d := lowPocklingtonData23.get ⟨14, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17327 : Nat.Prime 17327 := by
-  let d := lowPocklingtonData23.get ⟨15, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17333 : Nat.Prime 17333 := by
-  let d := lowPocklingtonData23.get ⟨16, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17341 : Nat.Prime 17341 := by
-  let d := lowPocklingtonData23.get ⟨17, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17351 : Nat.Prime 17351 := by
-  let d := lowPocklingtonData23.get ⟨18, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17359 : Nat.Prime 17359 := by
-  let d := lowPocklingtonData23.get ⟨19, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17377 : Nat.Prime 17377 := by
-  let d := lowPocklingtonData23.get ⟨20, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17383 : Nat.Prime 17383 := by
-  let d := lowPocklingtonData23.get ⟨21, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17387 : Nat.Prime 17387 := by
-  let d := lowPocklingtonData23.get ⟨22, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17389 : Nat.Prime 17389 := by
-  let d := lowPocklingtonData23.get ⟨23, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17393 : Nat.Prime 17393 := by
-  let d := lowPocklingtonData23.get ⟨24, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17401 : Nat.Prime 17401 := by
-  let d := lowPocklingtonData23.get ⟨25, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17417 : Nat.Prime 17417 := by
-  let d := lowPocklingtonData23.get ⟨26, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17419 : Nat.Prime 17419 := by
-  let d := lowPocklingtonData23.get ⟨27, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17431 : Nat.Prime 17431 := by
-  let d := lowPocklingtonData23.get ⟨28, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17443 : Nat.Prime 17443 := by
-  let d := lowPocklingtonData23.get ⟨29, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17449 : Nat.Prime 17449 := by
-  let d := lowPocklingtonData23.get ⟨30, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17467 : Nat.Prime 17467 := by
-  let d := lowPocklingtonData23.get ⟨31, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17471 : Nat.Prime 17471 := by
-  let d := lowPocklingtonData23.get ⟨32, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17477 : Nat.Prime 17477 := by
-  let d := lowPocklingtonData23.get ⟨33, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17483 : Nat.Prime 17483 := by
-  let d := lowPocklingtonData23.get ⟨34, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17489 : Nat.Prime 17489 := by
-  let d := lowPocklingtonData23.get ⟨35, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17491 : Nat.Prime 17491 := by
-  let d := lowPocklingtonData23.get ⟨36, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17497 : Nat.Prime 17497 := by
-  let d := lowPocklingtonData23.get ⟨37, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17509 : Nat.Prime 17509 := by
-  let d := lowPocklingtonData23.get ⟨38, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17519 : Nat.Prime 17519 := by
-  let d := lowPocklingtonData23.get ⟨39, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17539 : Nat.Prime 17539 := by
-  let d := lowPocklingtonData23.get ⟨40, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17551 : Nat.Prime 17551 := by
-  let d := lowPocklingtonData23.get ⟨41, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17569 : Nat.Prime 17569 := by
-  let d := lowPocklingtonData23.get ⟨42, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17573 : Nat.Prime 17573 := by
-  let d := lowPocklingtonData23.get ⟨43, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17579 : Nat.Prime 17579 := by
-  let d := lowPocklingtonData23.get ⟨44, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17581 : Nat.Prime 17581 := by
-  let d := lowPocklingtonData23.get ⟨45, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17597 : Nat.Prime 17597 := by
-  let d := lowPocklingtonData23.get ⟨46, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17599 : Nat.Prime 17599 := by
-  let d := lowPocklingtonData23.get ⟨47, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17609 : Nat.Prime 17609 := by
-  let d := lowPocklingtonData23.get ⟨48, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17623 : Nat.Prime 17623 := by
-  let d := lowPocklingtonData23.get ⟨49, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17627 : Nat.Prime 17627 := by
-  let d := lowPocklingtonData23.get ⟨50, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17657 : Nat.Prime 17657 := by
-  let d := lowPocklingtonData23.get ⟨51, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17659 : Nat.Prime 17659 := by
-  let d := lowPocklingtonData23.get ⟨52, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17669 : Nat.Prime 17669 := by
-  let d := lowPocklingtonData23.get ⟨53, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17681 : Nat.Prime 17681 := by
-  let d := lowPocklingtonData23.get ⟨54, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17683 : Nat.Prime 17683 := by
-  let d := lowPocklingtonData23.get ⟨55, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17707 : Nat.Prime 17707 := by
-  let d := lowPocklingtonData23.get ⟨56, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17713 : Nat.Prime 17713 := by
-  let d := lowPocklingtonData23.get ⟨57, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17729 : Nat.Prime 17729 := by
-  let d := lowPocklingtonData23.get ⟨58, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17737 : Nat.Prime 17737 := by
-  let d := lowPocklingtonData23.get ⟨59, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17747 : Nat.Prime 17747 := by
-  let d := lowPocklingtonData23.get ⟨60, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17749 : Nat.Prime 17749 := by
-  let d := lowPocklingtonData23.get ⟨61, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17761 : Nat.Prime 17761 := by
-  let d := lowPocklingtonData23.get ⟨62, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17783 : Nat.Prime 17783 := by
-  let d := lowPocklingtonData23.get ⟨63, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17789 : Nat.Prime 17789 := by
-  let d := lowPocklingtonData23.get ⟨64, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17791 : Nat.Prime 17791 := by
-  let d := lowPocklingtonData23.get ⟨65, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17807 : Nat.Prime 17807 := by
-  let d := lowPocklingtonData23.get ⟨66, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17827 : Nat.Prime 17827 := by
-  let d := lowPocklingtonData23.get ⟨67, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17837 : Nat.Prime 17837 := by
-  let d := lowPocklingtonData23.get ⟨68, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17839 : Nat.Prime 17839 := by
-  let d := lowPocklingtonData23.get ⟨69, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17851 : Nat.Prime 17851 := by
-  let d := lowPocklingtonData23.get ⟨70, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17863 : Nat.Prime 17863 := by
-  let d := lowPocklingtonData23.get ⟨71, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17881 : Nat.Prime 17881 := by
-  let d := lowPocklingtonData23.get ⟨72, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17891 : Nat.Prime 17891 := by
-  let d := lowPocklingtonData23.get ⟨73, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17903 : Nat.Prime 17903 := by
-  let d := lowPocklingtonData23.get ⟨74, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17909 : Nat.Prime 17909 := by
-  let d := lowPocklingtonData23.get ⟨75, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17911 : Nat.Prime 17911 := by
-  let d := lowPocklingtonData23.get ⟨76, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17921 : Nat.Prime 17921 := by
-  let d := lowPocklingtonData23.get ⟨77, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17923 : Nat.Prime 17923 := by
-  let d := lowPocklingtonData23.get ⟨78, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_17929 : Nat.Prime 17929 := by
-  let d := lowPocklingtonData23.get ⟨79, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_18839 : Nat.Prime 18839 := by
-  let d := lowPocklingtonData23.get ⟨80, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_18859 : Nat.Prime 18859 := by
-  let d := lowPocklingtonData23.get ⟨81, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_18869 : Nat.Prime 18869 := by
-  let d := lowPocklingtonData23.get ⟨82, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_18899 : Nat.Prime 18899 := by
-  let d := lowPocklingtonData23.get ⟨83, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_18911 : Nat.Prime 18911 := by
-  let d := lowPocklingtonData23.get ⟨84, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_18913 : Nat.Prime 18913 := by
-  let d := lowPocklingtonData23.get ⟨85, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_18917 : Nat.Prime 18917 := by
-  let d := lowPocklingtonData23.get ⟨86, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_18919 : Nat.Prime 18919 := by
-  let d := lowPocklingtonData23.get ⟨87, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_18947 : Nat.Prime 18947 := by
-  let d := lowPocklingtonData23.get ⟨88, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
-
-theorem lowPrime_18959 : Nat.Prime 18959 := by
-  let d := lowPocklingtonData23.get ⟨89, by simp [lowPocklingtonData23]⟩
-  have hd : d ∈ lowPocklingtonData23 := List.get_mem _ _
-  have hp := PocklingtonRow.prime_of_mem lowPocklingtonData23_valid hd
-  simpa [d, lowPocklingtonData23] using hp
+theorem lowPocklingtonPrime23 (i : Fin lowPocklingtonData23.length) :
+    Nat.Prime (lowPocklingtonData23.get i).n := by
+  exact PocklingtonRow.prime_of_mem lowPocklingtonData23_valid (List.get_mem _ _)
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_18041_18958_part11 : List DusartPrimeRow :=
   [
-    dusartPrimeRow_of_explicit_18958 (p := 18803) (q := 18839) (by exact lowPrime_18839) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18958 (p := 18839) (q := 18859) (by exact lowPrime_18859) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18958 (p := 18859) (q := 18869) (by exact lowPrime_18869) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18958 (p := 18869) (q := 18899) (by exact lowPrime_18899) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18958 (p := 18899) (q := 18911) (by exact lowPrime_18911) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18958 (p := 18911) (q := 18913) (by exact lowPrime_18913) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18958 (p := 18913) (q := 18917) (by exact lowPrime_18917) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18958 (p := 18917) (q := 18919) (by exact lowPrime_18919) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18958 (p := 18803) (q := 18839) (by
+      have hp := lowPocklingtonPrime23 ⟨80, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18958 (p := 18839) (q := 18859) (by
+      have hp := lowPocklingtonPrime23 ⟨81, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18958 (p := 18859) (q := 18869) (by
+      have hp := lowPocklingtonPrime23 ⟨82, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18958 (p := 18869) (q := 18899) (by
+      have hp := lowPocklingtonPrime23 ⟨83, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18958 (p := 18899) (q := 18911) (by
+      have hp := lowPocklingtonPrime23 ⟨84, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18958 (p := 18911) (q := 18913) (by
+      have hp := lowPocklingtonPrime23 ⟨85, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18958 (p := 18913) (q := 18917) (by
+      have hp := lowPocklingtonPrime23 ⟨86, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18958 (p := 18917) (q := 18919) (by
+      have hp := lowPocklingtonPrime23 ⟨87, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
   ]
 
 set_option maxHeartbeats 20000000 in
@@ -694,8 +174,12 @@ theorem dusartPrimeRows_18041_18958_part11_chain :
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_18041_18958_part12 : List DusartPrimeRow :=
   [
-    dusartPrimeRow_of_explicit_18958 (p := 18919) (q := 18947) (by exact lowPrime_18947) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18958 (p := 18947) (q := 18959) (by exact lowPrime_18959) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18958 (p := 18919) (q := 18947) (by
+      have hp := lowPocklingtonPrime23 ⟨88, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18958 (p := 18947) (q := 18959) (by
+      have hp := lowPocklingtonPrime23 ⟨89, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
   ]
 
 set_option maxHeartbeats 20000000 in
@@ -713,14 +197,30 @@ theorem dusartPrimeRows_18041_18958_part12_chain :
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_17159_18040_part01 : List DusartPrimeRow :=
   [
-    dusartPrimeRow_of_explicit_18033 (p := 17159) (q := 17167) (by exact lowPrime_17167) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17167) (q := 17183) (by exact lowPrime_17183) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17183) (q := 17189) (by exact lowPrime_17189) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17189) (q := 17191) (by exact lowPrime_17191) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17191) (q := 17203) (by exact lowPrime_17203) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17203) (q := 17207) (by exact lowPrime_17207) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17207) (q := 17209) (by exact lowPrime_17209) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17209) (q := 17231) (by exact lowPrime_17231) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17159) (q := 17167) (by
+      have hp := lowPocklingtonPrime23 ⟨0, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17167) (q := 17183) (by
+      have hp := lowPocklingtonPrime23 ⟨1, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17183) (q := 17189) (by
+      have hp := lowPocklingtonPrime23 ⟨2, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17189) (q := 17191) (by
+      have hp := lowPocklingtonPrime23 ⟨3, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17191) (q := 17203) (by
+      have hp := lowPocklingtonPrime23 ⟨4, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17203) (q := 17207) (by
+      have hp := lowPocklingtonPrime23 ⟨5, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17207) (q := 17209) (by
+      have hp := lowPocklingtonPrime23 ⟨6, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17209) (q := 17231) (by
+      have hp := lowPocklingtonPrime23 ⟨7, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
   ]
 
 set_option maxHeartbeats 20000000 in
@@ -756,14 +256,30 @@ theorem dusartPrimeRows_17159_18040_part01_chain :
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_17159_18040_part02 : List DusartPrimeRow :=
   [
-    dusartPrimeRow_of_explicit_18033 (p := 17231) (q := 17239) (by exact lowPrime_17239) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17239) (q := 17257) (by exact lowPrime_17257) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17257) (q := 17291) (by exact lowPrime_17291) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17291) (q := 17293) (by exact lowPrime_17293) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17293) (q := 17299) (by exact lowPrime_17299) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17299) (q := 17317) (by exact lowPrime_17317) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17317) (q := 17321) (by exact lowPrime_17321) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17321) (q := 17327) (by exact lowPrime_17327) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17231) (q := 17239) (by
+      have hp := lowPocklingtonPrime23 ⟨8, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17239) (q := 17257) (by
+      have hp := lowPocklingtonPrime23 ⟨9, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17257) (q := 17291) (by
+      have hp := lowPocklingtonPrime23 ⟨10, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17291) (q := 17293) (by
+      have hp := lowPocklingtonPrime23 ⟨11, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17293) (q := 17299) (by
+      have hp := lowPocklingtonPrime23 ⟨12, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17299) (q := 17317) (by
+      have hp := lowPocklingtonPrime23 ⟨13, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17317) (q := 17321) (by
+      have hp := lowPocklingtonPrime23 ⟨14, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17321) (q := 17327) (by
+      have hp := lowPocklingtonPrime23 ⟨15, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
   ]
 
 set_option maxHeartbeats 20000000 in
@@ -799,14 +315,30 @@ theorem dusartPrimeRows_17159_18040_part02_chain :
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_17159_18040_part03 : List DusartPrimeRow :=
   [
-    dusartPrimeRow_of_explicit_18033 (p := 17327) (q := 17333) (by exact lowPrime_17333) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17333) (q := 17341) (by exact lowPrime_17341) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17341) (q := 17351) (by exact lowPrime_17351) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17351) (q := 17359) (by exact lowPrime_17359) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17359) (q := 17377) (by exact lowPrime_17377) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17377) (q := 17383) (by exact lowPrime_17383) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17383) (q := 17387) (by exact lowPrime_17387) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17387) (q := 17389) (by exact lowPrime_17389) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17327) (q := 17333) (by
+      have hp := lowPocklingtonPrime23 ⟨16, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17333) (q := 17341) (by
+      have hp := lowPocklingtonPrime23 ⟨17, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17341) (q := 17351) (by
+      have hp := lowPocklingtonPrime23 ⟨18, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17351) (q := 17359) (by
+      have hp := lowPocklingtonPrime23 ⟨19, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17359) (q := 17377) (by
+      have hp := lowPocklingtonPrime23 ⟨20, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17377) (q := 17383) (by
+      have hp := lowPocklingtonPrime23 ⟨21, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17383) (q := 17387) (by
+      have hp := lowPocklingtonPrime23 ⟨22, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17387) (q := 17389) (by
+      have hp := lowPocklingtonPrime23 ⟨23, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
   ]
 
 set_option maxHeartbeats 20000000 in
@@ -842,14 +374,30 @@ theorem dusartPrimeRows_17159_18040_part03_chain :
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_17159_18040_part04 : List DusartPrimeRow :=
   [
-    dusartPrimeRow_of_explicit_18033 (p := 17389) (q := 17393) (by exact lowPrime_17393) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17393) (q := 17401) (by exact lowPrime_17401) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17401) (q := 17417) (by exact lowPrime_17417) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17417) (q := 17419) (by exact lowPrime_17419) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17419) (q := 17431) (by exact lowPrime_17431) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17431) (q := 17443) (by exact lowPrime_17443) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17443) (q := 17449) (by exact lowPrime_17449) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17449) (q := 17467) (by exact lowPrime_17467) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17389) (q := 17393) (by
+      have hp := lowPocklingtonPrime23 ⟨24, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17393) (q := 17401) (by
+      have hp := lowPocklingtonPrime23 ⟨25, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17401) (q := 17417) (by
+      have hp := lowPocklingtonPrime23 ⟨26, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17417) (q := 17419) (by
+      have hp := lowPocklingtonPrime23 ⟨27, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17419) (q := 17431) (by
+      have hp := lowPocklingtonPrime23 ⟨28, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17431) (q := 17443) (by
+      have hp := lowPocklingtonPrime23 ⟨29, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17443) (q := 17449) (by
+      have hp := lowPocklingtonPrime23 ⟨30, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17449) (q := 17467) (by
+      have hp := lowPocklingtonPrime23 ⟨31, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
   ]
 
 set_option maxHeartbeats 20000000 in
@@ -885,14 +433,30 @@ theorem dusartPrimeRows_17159_18040_part04_chain :
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_17159_18040_part05 : List DusartPrimeRow :=
   [
-    dusartPrimeRow_of_explicit_18033 (p := 17467) (q := 17471) (by exact lowPrime_17471) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17471) (q := 17477) (by exact lowPrime_17477) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17477) (q := 17483) (by exact lowPrime_17483) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17483) (q := 17489) (by exact lowPrime_17489) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17489) (q := 17491) (by exact lowPrime_17491) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17491) (q := 17497) (by exact lowPrime_17497) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17497) (q := 17509) (by exact lowPrime_17509) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17509) (q := 17519) (by exact lowPrime_17519) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17467) (q := 17471) (by
+      have hp := lowPocklingtonPrime23 ⟨32, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17471) (q := 17477) (by
+      have hp := lowPocklingtonPrime23 ⟨33, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17477) (q := 17483) (by
+      have hp := lowPocklingtonPrime23 ⟨34, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17483) (q := 17489) (by
+      have hp := lowPocklingtonPrime23 ⟨35, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17489) (q := 17491) (by
+      have hp := lowPocklingtonPrime23 ⟨36, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17491) (q := 17497) (by
+      have hp := lowPocklingtonPrime23 ⟨37, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17497) (q := 17509) (by
+      have hp := lowPocklingtonPrime23 ⟨38, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17509) (q := 17519) (by
+      have hp := lowPocklingtonPrime23 ⟨39, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
   ]
 
 set_option maxHeartbeats 20000000 in
@@ -928,14 +492,30 @@ theorem dusartPrimeRows_17159_18040_part05_chain :
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_17159_18040_part06 : List DusartPrimeRow :=
   [
-    dusartPrimeRow_of_explicit_18033 (p := 17519) (q := 17539) (by exact lowPrime_17539) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17539) (q := 17551) (by exact lowPrime_17551) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17551) (q := 17569) (by exact lowPrime_17569) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17569) (q := 17573) (by exact lowPrime_17573) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17573) (q := 17579) (by exact lowPrime_17579) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17579) (q := 17581) (by exact lowPrime_17581) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17581) (q := 17597) (by exact lowPrime_17597) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17597) (q := 17599) (by exact lowPrime_17599) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17519) (q := 17539) (by
+      have hp := lowPocklingtonPrime23 ⟨40, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17539) (q := 17551) (by
+      have hp := lowPocklingtonPrime23 ⟨41, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17551) (q := 17569) (by
+      have hp := lowPocklingtonPrime23 ⟨42, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17569) (q := 17573) (by
+      have hp := lowPocklingtonPrime23 ⟨43, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17573) (q := 17579) (by
+      have hp := lowPocklingtonPrime23 ⟨44, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17579) (q := 17581) (by
+      have hp := lowPocklingtonPrime23 ⟨45, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17581) (q := 17597) (by
+      have hp := lowPocklingtonPrime23 ⟨46, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17597) (q := 17599) (by
+      have hp := lowPocklingtonPrime23 ⟨47, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
   ]
 
 set_option maxHeartbeats 20000000 in
@@ -971,14 +551,30 @@ theorem dusartPrimeRows_17159_18040_part06_chain :
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_17159_18040_part07 : List DusartPrimeRow :=
   [
-    dusartPrimeRow_of_explicit_18033 (p := 17599) (q := 17609) (by exact lowPrime_17609) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17609) (q := 17623) (by exact lowPrime_17623) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17623) (q := 17627) (by exact lowPrime_17627) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17627) (q := 17657) (by exact lowPrime_17657) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17657) (q := 17659) (by exact lowPrime_17659) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17659) (q := 17669) (by exact lowPrime_17669) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17669) (q := 17681) (by exact lowPrime_17681) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17681) (q := 17683) (by exact lowPrime_17683) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17599) (q := 17609) (by
+      have hp := lowPocklingtonPrime23 ⟨48, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17609) (q := 17623) (by
+      have hp := lowPocklingtonPrime23 ⟨49, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17623) (q := 17627) (by
+      have hp := lowPocklingtonPrime23 ⟨50, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17627) (q := 17657) (by
+      have hp := lowPocklingtonPrime23 ⟨51, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17657) (q := 17659) (by
+      have hp := lowPocklingtonPrime23 ⟨52, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17659) (q := 17669) (by
+      have hp := lowPocklingtonPrime23 ⟨53, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17669) (q := 17681) (by
+      have hp := lowPocklingtonPrime23 ⟨54, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17681) (q := 17683) (by
+      have hp := lowPocklingtonPrime23 ⟨55, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
   ]
 
 set_option maxHeartbeats 20000000 in
@@ -1014,14 +610,30 @@ theorem dusartPrimeRows_17159_18040_part07_chain :
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_17159_18040_part08 : List DusartPrimeRow :=
   [
-    dusartPrimeRow_of_explicit_18033 (p := 17683) (q := 17707) (by exact lowPrime_17707) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17707) (q := 17713) (by exact lowPrime_17713) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17713) (q := 17729) (by exact lowPrime_17729) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17729) (q := 17737) (by exact lowPrime_17737) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17737) (q := 17747) (by exact lowPrime_17747) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17747) (q := 17749) (by exact lowPrime_17749) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17749) (q := 17761) (by exact lowPrime_17761) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17761) (q := 17783) (by exact lowPrime_17783) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17683) (q := 17707) (by
+      have hp := lowPocklingtonPrime23 ⟨56, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17707) (q := 17713) (by
+      have hp := lowPocklingtonPrime23 ⟨57, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17713) (q := 17729) (by
+      have hp := lowPocklingtonPrime23 ⟨58, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17729) (q := 17737) (by
+      have hp := lowPocklingtonPrime23 ⟨59, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17737) (q := 17747) (by
+      have hp := lowPocklingtonPrime23 ⟨60, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17747) (q := 17749) (by
+      have hp := lowPocklingtonPrime23 ⟨61, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17749) (q := 17761) (by
+      have hp := lowPocklingtonPrime23 ⟨62, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17761) (q := 17783) (by
+      have hp := lowPocklingtonPrime23 ⟨63, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
   ]
 
 set_option maxHeartbeats 20000000 in
@@ -1057,14 +669,30 @@ theorem dusartPrimeRows_17159_18040_part08_chain :
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_17159_18040_part09 : List DusartPrimeRow :=
   [
-    dusartPrimeRow_of_explicit_18033 (p := 17783) (q := 17789) (by exact lowPrime_17789) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17789) (q := 17791) (by exact lowPrime_17791) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17791) (q := 17807) (by exact lowPrime_17807) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17807) (q := 17827) (by exact lowPrime_17827) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17827) (q := 17837) (by exact lowPrime_17837) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17837) (q := 17839) (by exact lowPrime_17839) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17839) (q := 17851) (by exact lowPrime_17851) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17851) (q := 17863) (by exact lowPrime_17863) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17783) (q := 17789) (by
+      have hp := lowPocklingtonPrime23 ⟨64, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17789) (q := 17791) (by
+      have hp := lowPocklingtonPrime23 ⟨65, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17791) (q := 17807) (by
+      have hp := lowPocklingtonPrime23 ⟨66, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17807) (q := 17827) (by
+      have hp := lowPocklingtonPrime23 ⟨67, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17827) (q := 17837) (by
+      have hp := lowPocklingtonPrime23 ⟨68, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17837) (q := 17839) (by
+      have hp := lowPocklingtonPrime23 ⟨69, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17839) (q := 17851) (by
+      have hp := lowPocklingtonPrime23 ⟨70, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17851) (q := 17863) (by
+      have hp := lowPocklingtonPrime23 ⟨71, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
   ]
 
 set_option maxHeartbeats 20000000 in
@@ -1100,14 +728,30 @@ theorem dusartPrimeRows_17159_18040_part09_chain :
 set_option maxHeartbeats 20000000 in
 def dusartPrimeRows_17159_18040_part10 : List DusartPrimeRow :=
   [
-    dusartPrimeRow_of_explicit_18033 (p := 17863) (q := 17881) (by exact lowPrime_17881) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17881) (q := 17891) (by exact lowPrime_17891) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17891) (q := 17903) (by exact lowPrime_17903) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17903) (q := 17909) (by exact lowPrime_17909) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17909) (q := 17911) (by exact lowPrime_17911) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17911) (q := 17921) (by exact lowPrime_17921) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17921) (q := 17923) (by exact lowPrime_17923) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
-    dusartPrimeRow_of_explicit_18033 (p := 17923) (q := 17929) (by exact lowPrime_17929) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17863) (q := 17881) (by
+      have hp := lowPocklingtonPrime23 ⟨72, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17881) (q := 17891) (by
+      have hp := lowPocklingtonPrime23 ⟨73, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17891) (q := 17903) (by
+      have hp := lowPocklingtonPrime23 ⟨74, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17903) (q := 17909) (by
+      have hp := lowPocklingtonPrime23 ⟨75, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17909) (q := 17911) (by
+      have hp := lowPocklingtonPrime23 ⟨76, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17911) (q := 17921) (by
+      have hp := lowPocklingtonPrime23 ⟨77, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17921) (q := 17923) (by
+      have hp := lowPocklingtonPrime23 ⟨78, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
+    dusartPrimeRow_of_explicit_18033 (p := 17923) (q := 17929) (by
+      have hp := lowPocklingtonPrime23 ⟨79, by simp [lowPocklingtonData23]⟩
+      simpa [lowPocklingtonData23] using hp) (by norm_num) (by norm_num) (by norm_num) (by norm_num),
   ]
 
 set_option maxHeartbeats 20000000 in
