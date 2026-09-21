@@ -308,7 +308,13 @@ noncomputable section
                 sorted({int(q) for row in part_rows for q in re.findall(r"\(q := (\d+)\)", row)})
             )
         }
-        def replace_witness(match: re.Match[str]) -> str:
+
+        def replace_witness(
+            match: re.Match[str],
+            accessor_name: str = accessor_name,
+            witness_indices: dict[int, int] = witness_indices,
+            data_name: str = data_name,
+        ) -> str:
             return (
                 f"{match.group(1)} (by\n"
                 f"      have hp := {accessor_name} ⟨{witness_indices[int(match.group(2))]}, "

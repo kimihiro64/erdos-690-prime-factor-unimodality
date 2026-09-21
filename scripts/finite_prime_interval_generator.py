@@ -26,13 +26,9 @@ def pocklington_data(n: int) -> str:
     base = next(
         a
         for a in range(2, n)
-        if pow(a, n - 1, n) == 1
-        and all(pow(a, (n - 1) // q, n) != 1 for q in set(factors))
+        if pow(a, n - 1, n) == 1 and all(pow(a, (n - 1) // q, n) != 1 for q in set(factors))
     )
-    inverses = {
-        q: pow((pow(base, (n - 1) // q, n) - 1) % n, -1, n)
-        for q in set(factors)
-    }
+    inverses = {q: pow((pow(base, (n - 1) // q, n) - 1) % n, -1, n) for q in set(factors)}
     residues = ", ".join(f"({q}, {inverses[q]})" for q in dict.fromkeys(factors))
     return (
         f"{{ n := {n}, F := {n - 1}, R := 1, a := {base}, "
