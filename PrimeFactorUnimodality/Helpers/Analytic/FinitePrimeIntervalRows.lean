@@ -1361,6 +1361,32 @@ def DusartThetaTable66CoefficientData.toRow
     lower_two := lower_two
     upper_two := upper_two }
 
+/-! The published six-column row can be lowered directly to the relative-row
+    interface after all of its interval inequalities have been proved.  This
+    keeps the `1 / log x` and `1 / log x ^ 2` estimates attached to the row
+    instead of projecting them away before verification. -/
+def DusartThetaTable66CoefficientData.toRelativeRow_of_formula_bounds
+    (data : DusartThetaTable66CoefficientData)
+    (hleft : 2 ≤ data.left) (hle : data.left ≤ data.right)
+    (hupper_error : data.b0 - 1 < (1 : Real) / 36260)
+    (ha1_nonneg : 0 ≤ data.a1)
+    (ha1 : data.a1 < (12323 : Real) / 10000)
+    (lower_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      data.a0 * x ≤ Chebyshev.theta x)
+    (upper_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      Chebyshev.theta x ≤ data.b0 * x)
+    (lower_one : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      x - data.a1 * x / Real.log x ≤ Chebyshev.theta x)
+    (upper_one : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      Chebyshev.theta x ≤ x + data.b1 * x / Real.log x)
+    (lower_two : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      x - data.a2 * x / Real.log x ^ 2 ≤ Chebyshev.theta x)
+    (upper_two : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      Chebyshev.theta x ≤ x + data.b2 * x / Real.log x ^ 2) :
+    DusartThetaRelativeRow := by
+  exact (data.toRow lower_zero upper_zero lower_one upper_one lower_two upper_two).toRelativeRow
+    hleft hle hupper_error ha1_nonneg ha1
+
 def DusartThetaTable66Row.toRelativeRow
     (row : DusartThetaTable66Row)
     (hleft : 2 ≤ row.left) (hle : row.left ≤ row.right)
