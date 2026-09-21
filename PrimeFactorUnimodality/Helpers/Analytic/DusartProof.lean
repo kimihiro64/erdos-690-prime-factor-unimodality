@@ -21,38 +21,6 @@ theorem dusart_paper_lemma_3_3_finite_cutoff_eq :
     ((10 ^ 11 : Real) ^ 3) = 10 ^ 33 := by
   norm_num [pow_mul]
 
-def dusartLemma33FiniteRow_of_endpoint_bounds
-    (left right root : Nat) (B L P : Real)
-    (hleft : left ≤ right)
-    (hroot : ∀ x : Real, 0 < x → (left : Real) ≤ x →
-      x < (right : Real) + 1 → (root : Real) ≤ Real.sqrt x)
-    (hpsi : Chebyshev.psi (right : Real) - Chebyshev.theta right < B)
-    (htheta : L < Chebyshev.theta root)
-    (hpow : ∀ x : Real, 0 < x → (left : Real) ≤ x →
-      P ≤ x ^ (1 / (3 : Real)))
-    (hmargin : B - L < (1777745 : Real) / 1000000 * P) :
-    DusartLemma33FiniteRow :=
-  { left := left
-    right := right
-    left_le_right := hleft
-    valid := by
-      intro x hx hleft_x hright_x
-      have htransport : Chebyshev.psi x - Chebyshev.theta x =
-          Chebyshev.psi (⌊x⌋₊ : Real) - Chebyshev.theta (⌊x⌋₊ : Real) := by
-        rw [Chebyshev.psi_eq_psi_coe_floor,
-          Chebyshev.theta_eq_theta_coe_floor]
-      have hfloor : (⌊x⌋₊ : Real) ≤ right := by
-        exact_mod_cast Nat.le_of_lt_succ
-          ((Nat.floor_lt hx.le).2 (by simpa using hright_x))
-      have hleft_bound : Chebyshev.psi x - Chebyshev.theta x < B := by
-        rw [htransport]
-        exact (psi_sub_theta_mono hfloor).trans_lt hpsi
-      have htheta_bound : L < Chebyshev.theta (Real.sqrt x) :=
-        lt_of_lt_of_le htheta (Chebyshev.theta_mono
-          (hroot x hx hleft_x hright_x))
-      have hpow_bound := hpow x hx hleft_x
-      nlinarith }
-
 theorem psi_sub_theta_nat_24_lt_four :
     Chebyshev.psi (24 : Real) - Chebyshev.theta 24 < 4 := by
   have hpsi := Chebyshev.psi_eq_sum_mul_log_prime 24

@@ -1,6 +1,6 @@
-import PrimeFactorUnimodality.Proof.LargeRange.RecordGapOwnerRows
 import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod
 import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCenter
+import PrimeFactorUnimodality.Proof.LargeRange.RecordGapOwnerRows
 
 set_option autoImplicit false
 set_option maxRecDepth 10000000
@@ -26046,11 +26046,11 @@ def fullRecordGapAddOwnerValidAt (d : Fin 657402) : Prop :=
 
 theorem fullRecordGapSubOwner_valid_or_fermat_all :
     ∀ d : Fin 455704, fullRecordGapSubOwnerValidAt d := by
-  native_decide
+  decide
 
 theorem fullRecordGapAddOwner_valid_or_fermat_all :
     ∀ d : Fin 657402, fullRecordGapAddOwnerValidAt d := by
-  native_decide
+  decide
 
 theorem fullRecordGapSubOwner_valid_or_fermat (d : Nat)
     (lower : 1 ≤ d) (upper : d ≤ 455703) :
@@ -26075,14 +26075,14 @@ theorem fullRecordGapSubFermatCertificate :
     fullRecordGapSubFermatOffsets.all (fun d =>
       decide (fastPowMod 3 (fullRecordGapCenterValue - d)
         (fullRecordGapCenterValue - d - 1) ≠ 1)) = true := by
-  native_decide
+  decide
 
 set_option maxHeartbeats 0 in
 theorem fullRecordGapAddFermatCertificate :
     fullRecordGapAddFermatOffsets.all (fun d =>
       decide (fastPowMod 3 (fullRecordGapCenterValue + d)
         (fullRecordGapCenterValue + d - 1) ≠ 1)) = true := by
-  native_decide
+  decide
 
 theorem fullRecordGapSubFermat (d : Nat)
     (hd : d ∈ FullRecordGapSubWitnesses.offsets) :
@@ -26092,7 +26092,7 @@ theorem fullRecordGapSubFermat (d : Nat)
   · norm_num
   · have hd_upper : d ≤ 455703 := by
       have h : ∀ d ∈ fullRecordGapSubFermatOffsets, d ≤ 455703 := by
-        native_decide
+        decide
       exact h d hd
     omega
   · have h := List.all_eq_true.mp fullRecordGapSubFermatCertificate d hd
