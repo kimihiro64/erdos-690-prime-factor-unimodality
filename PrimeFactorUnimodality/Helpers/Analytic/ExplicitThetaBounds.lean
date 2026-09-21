@@ -62,6 +62,60 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_strict_theta_prefix
     nlinarith
   · exact lower
 
+/-! A finite fourth-power error certificate can supply the same symmetric
+finite theta interface once its numerical scale is checked on the suffix.
+The strict upper prefix is kept separate because the published upper bound
+is one-sided below the logarithmic cutoff. -/
+theorem hasDusartSymmetricThetaBoundsBelow_of_strict_prefix_and_fourth_error
+    {A X x₀ : Real}
+    (upperPrefix : HasStrictThetaUpperBelow x₀)
+    (lowerPrefix : ∀ x : Real, 2 < x → x ≤ x₀ →
+      |Chebyshev.theta x - x| <
+        (12323 / 10000 : Real) * x / Real.log x)
+    (error : HasThetaLogFourthErrorBelow A X)
+    (upperScale : ∀ x : Real, x₀ ≤ x → x ≤ X →
+      A / (Real.log x) ^ 4 < (1 : Real) / 36260)
+    (lowerScale : ∀ x : Real, 2 < x → x₀ ≤ x → x ≤ X →
+      A / (Real.log x) ^ 4 <
+        (12323 / 10000 : Real) / Real.log x) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
+  · intro x hx hX
+    by_cases hsmall : x ≤ x₀
+    · have hstrict := upperPrefix x hx hsmall
+      nlinarith
+    · have hleft : x₀ ≤ x := le_of_not_ge hsmall
+      have herror := error x (by linarith) hX
+      have hscale := upperScale x hleft hX
+      have hxpos : 0 < x := by linarith
+      have herror' : |Chebyshev.theta x - x| < x / 36260 := by
+        calc
+          |Chebyshev.theta x - x| ≤
+              A * x / (Real.log x) ^ 4 := herror
+          _ = (A / (Real.log x) ^ 4) * x := by ring
+          _ < ((1 : Real) / 36260) * x :=
+            mul_lt_mul_of_pos_right hscale hxpos
+          _ = x / 36260 := by ring
+      exact (le_abs_self (Chebyshev.theta x - x)).trans_lt herror'
+  · intro x hx hX
+    by_cases hsmall : x ≤ x₀
+    · exact (hasDusartSymmetricThetaBoundsBelow_of_strict_theta_prefix
+        upperPrefix lowerPrefix).2 x hx hsmall
+    · have hleft : x₀ ≤ x := le_of_not_ge hsmall
+      have herror := error x (by linarith) hX
+      have hscale := lowerScale x hx hleft hX
+      have hxpos : 0 < x := by linarith
+      have herror' : |Chebyshev.theta x - x| <
+          (12323 / 10000 : Real) * x / Real.log x := by
+        calc
+          |Chebyshev.theta x - x| ≤
+              A * x / (Real.log x) ^ 4 := herror
+          _ = (A / (Real.log x) ^ 4) * x := by ring
+          _ < ((12323 / 10000 : Real) / Real.log x) * x :=
+            mul_lt_mul_of_pos_right hscale hxpos
+          _ = (12323 / 10000 : Real) * x / Real.log x := by ring
+      exact herror'
+
 /-! The unbounded half of the published theta estimate.  Keeping this as a
 tail-only predicate lets the source-level PNT proof discharge the analytic
 tail independently of the finite endpoint table. -/
