@@ -82,72 +82,13 @@ def lean_list(rows: list[tuple[int, int, int]]) -> str:
     return "[" + ",\n    ".join(f"({d}, {q}, {r})" for d, q, r in rows) + "]"
 
 
-def witness_list(
-    name: str, type_name: str, offsets: list[tuple[int, int]], theorem_prefix: str
-) -> str:
-    entries = ",\n    ".join(
-        f"{{ d := {d}, not_prime := {theorem_prefix}{index:05d}_not_prime }}"
-        for d, index in offsets
-    )
-    return f"def {name} : List {type_name} := [\n    {entries}\n  ]"
-
-
-def fermat_rows_text(fermat_offsets: list[tuple[int, str]]) -> str:
-    """Render all replay rows and derived facts in the compact source file."""
-    lines: list[str] = []
-    row_size = 64
-    for start in range(0, len(fermat_offsets), row_size):
-        row_number = start // row_size + 1
-        row_name = f"fullRecordGapRow{row_number:05d}"
-        entries = fermat_offsets[start : start + row_size]
-        values = ",\n    ".join(
-            f"fullRecordGapCenterValue {'-' if offset < 0 else '+'} {abs(offset)}"
-            for offset, _ in entries
-        )
-        lines.extend(
-            [
-                f"def {row_name}_values : List Nat :=\n  [{values}]\n",
-                "set_option maxHeartbeats 0 in",
-                f"theorem {row_name}_fermat : ∀ n ∈ {row_name}_values,",
-                "    fastPowMod 3 n (n - 1) ≠ 1 := by",
-                "  decide\n",
-            ]
-        )
-        for index, (offset, _) in enumerate(entries, start=start + 1):
-            label = f"{index:05d}"
-            sign = "-" if offset < 0 else "+"
-            lines.extend(
-                [
-                    f"theorem fullRecordGapTerm{label}_not_prime : "
-                    f"¬(recordGapCenter {sign} {abs(offset)}).Prime := by",
-                    "  rw [recordGapCenter_eq_fullRecordGapCenterValue]",
-                    "  apply not_prime_of_fastPowMod_ne_one (a := 3)",
-                    "  · norm_num",
-                    f"  · norm_num [fullRecordGapCenterValue {sign} {abs(offset)}]",
-                    f"  · apply {row_name}_fermat",
-                    f"    simp [{row_name}_values]\n",
-                ]
-            )
-    return "\n".join(lines)
+def lean_nat_list(values: list[int]) -> str:
+    """Render offset data without emitting one declaration per witness."""
+    return "[\n    " + ",\n    ".join(str(value) for value in values) + "\n  ]"
 
 
 def render(output: Path) -> None:
     sub_archive, add_archive, sub_fermat, add_fermat = classify()
-    fermat_offsets = sorted([(-d, "sub") for d in sub_fermat] + [(d, "add") for d in add_fermat])
-    indices = {offset: index for index, (offset, _) in enumerate(fermat_offsets, start=1)}
-    sub_entries = witness_list(
-        "fullRecordGapSubWitnesses",
-        "FullRecordGapSubWitness",
-        [(d, indices[-d]) for d in sub_fermat],
-        "fullRecordGapTerm",
-    )
-    add_entries = witness_list(
-        "fullRecordGapAddWitnesses",
-        "FullRecordGapAddWitness",
-        [(d, indices[d]) for d in add_fermat],
-        "fullRecordGapTerm",
-    )
-    fermat_rows = fermat_rows_text(fermat_offsets)
     source = f"""import PrimeFactorUnimodality.Proof.LargeRange.RecordGapOwnerRows
 import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod
 import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCenter
@@ -162,14 +103,6 @@ structure FullRecordGapArchiveRow where
   d : Nat
   q : Nat
   r : Nat
-
-structure FullRecordGapSubWitness where
-  d : Nat
-  not_prime : ¬(recordGapCenter - d).Prime
-
-structure FullRecordGapAddWitness where
-  d : Nat
-  not_prime : ¬(recordGapCenter + d).Prime
 
 def fullRecordGapSubArchive : List FullRecordGapArchiveRow :=
   {lean_list(sub_archive)}
@@ -214,17 +147,20 @@ def fullRecordGapAddOwner? (d : Nat) : Option FullRecordGapOwner :=
   fullRecordGapSmallAddOwner? d |>.orElse (fun _ =>
     fullRecordGapTailOwner? d |>.orElse (fun _ => fullRecordGapAddArchiveOwner? d))
 
-{fermat_rows}
+/-! Exceptional offsets are data.  The list-level certificates below are
+    reused for every member by the block theorems. -/
 
-{sub_entries}
+def fullRecordGapSubFermatOffsets : List Nat :=
+  {lean_nat_list(sorted(sub_fermat))}
 
-{add_entries}
+def fullRecordGapAddFermatOffsets : List Nat :=
+  {lean_nat_list(sorted(add_fermat))}
 
 def FullRecordGapSubWitnesses.offsets : List Nat :=
-  fullRecordGapSubWitnesses.map FullRecordGapSubWitness.d
+  fullRecordGapSubFermatOffsets
 
 def FullRecordGapAddWitnesses.offsets : List Nat :=
-  fullRecordGapAddWitnesses.map FullRecordGapAddWitness.d
+  fullRecordGapAddFermatOffsets
 
 def fullRecordGapSubOwnerValidAt (d : Fin 455704) : Prop :=
   d = 0 \u2228 match fullRecordGapSubOwner? d with
@@ -262,19 +198,43 @@ theorem fullRecordGapAddOwner_valid_or_fermat (d : Nat)
     (⟨d, by omega⟩ : Fin 657402)
   simpa [fullRecordGapAddOwnerValidAt, lower.ne'] using h
 
+set_option maxHeartbeats 0 in
+theorem fullRecordGapSubFermatCertificate :
+    fullRecordGapSubFermatOffsets.all (fun d =>
+      decide (fastPowMod 3 (fullRecordGapCenterValue - d)
+        (fullRecordGapCenterValue - d - 1) ≠ 1)) = true := by
+  native_decide
+
+set_option maxHeartbeats 0 in
+theorem fullRecordGapAddFermatCertificate :
+    fullRecordGapAddFermatOffsets.all (fun d =>
+      decide (fastPowMod 3 (fullRecordGapCenterValue + d)
+        (fullRecordGapCenterValue + d - 1) ≠ 1)) = true := by
+  native_decide
+
 theorem fullRecordGapSubFermat (d : Nat)
     (hd : d ∈ FullRecordGapSubWitnesses.offsets) :
     ¬(recordGapCenter - d).Prime := by
-  simp only [FullRecordGapSubWitnesses.offsets, List.mem_map] at hd
-  obtain ⟨w, _, rfl⟩ := hd
-  exact w.not_prime
+  rw [recordGapCenter_eq_fullRecordGapCenterValue]
+  apply not_prime_of_fastPowMod_ne_one (a := 3)
+  · norm_num
+  · have hd_upper : d ≤ 455703 := by
+      have h : ∀ d ∈ fullRecordGapSubFermatOffsets, d ≤ 455703 := by
+        native_decide
+      exact h d hd
+    omega
+  · have h := List.all_eq_true.mp fullRecordGapSubFermatCertificate d hd
+    exact of_decide_eq_true h
 
 theorem fullRecordGapAddFermat (d : Nat)
     (hd : d ∈ FullRecordGapAddWitnesses.offsets) :
     ¬(recordGapCenter + d).Prime := by
-  simp only [FullRecordGapAddWitnesses.offsets, List.mem_map] at hd
-  obtain ⟨w, _, rfl⟩ := hd
-  exact w.not_prime
+  rw [recordGapCenter_eq_fullRecordGapCenterValue]
+  apply not_prime_of_fastPowMod_ne_one (a := 3)
+  · norm_num
+  · omega
+  · have h := List.all_eq_true.mp fullRecordGapAddFermatCertificate d hd
+    exact of_decide_eq_true h
 
 theorem fullRecordGapSubBlock (d : Nat) (lower : 1 ≤ d)
     (upper : d ≤ 455703) : ¬(recordGapCenter - d).Prime := by
