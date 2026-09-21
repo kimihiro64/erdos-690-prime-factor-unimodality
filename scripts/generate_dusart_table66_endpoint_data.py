@@ -84,7 +84,7 @@ def render_lean(rows: list[dict[str, int]]) -> str:
         "/-! Published Table 6.6 theta endpoint bounds, scaled by 10^6. "
         "These numerals are data for a later kernel-checked endpoint proof. -/",
         "def dusartTable66PublishedEndpointData :",
-        "    List (Nat * Nat * Nat * Nat * Nat) := [",
+        "    List (Nat \u00d7 Nat \u00d7 Nat \u00d7 Nat \u00d7 Nat) := [",
     ]
     for index, row in enumerate(rows):
         comma = "," if index + 1 < len(rows) else ""
