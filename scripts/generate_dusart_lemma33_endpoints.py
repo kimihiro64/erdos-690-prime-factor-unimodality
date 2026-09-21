@@ -96,9 +96,9 @@ def main() -> None:
     if args.limit is not None:
         values = values[: args.limit]
     common_header = [
+        "import LeanCert.Tactic.IntervalAuto",
         "import PrimeFactorUnimodality.Helpers.Analytic.DusartFiniteRows",
         "import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33ThetaData",
-        "import LeanCert.Tactic.IntervalAuto",
         "",
         "set_option autoImplicit false",
         "set_option maxRecDepth 100000",
@@ -117,14 +117,18 @@ def main() -> None:
     for index, part_values in enumerate(parts, start=1):
         part_path = args.output.with_name(f"{args.output.stem}Part{index:02d}{args.output.suffix}")
         part_paths.append(part_path)
-        header = common_header
+        documentation = f"/-! Generated endpoint proof shard {index:02d} for Dusart's Lemma 3.3. -/"
         if index > 1:
             previous = part_paths[index - 2].stem
             header = [
                 f"import PrimeFactorUnimodality.Helpers.Analytic.{previous}",
                 "",
+                documentation,
+                "",
                 *common_header[4:],
             ]
+        else:
+            header = [*common_header[:4], documentation, "", *common_header[4:]]
         part_path.write_text(
             "\n".join(header)
             + "\n".join(endpoint_theorem(left, right) for left, right in part_values)

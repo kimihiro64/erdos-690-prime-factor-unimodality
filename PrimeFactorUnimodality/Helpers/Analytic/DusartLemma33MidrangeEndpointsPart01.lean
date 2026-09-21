@@ -1,6 +1,8 @@
+import LeanCert.Tactic.IntervalAuto
 import PrimeFactorUnimodality.Helpers.Analytic.DusartFiniteRows
 import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33ThetaData
-import LeanCert.Tactic.IntervalAuto
+
+/-! Generated endpoint proof shard 01 for Dusart's Lemma 3.3. -/
 
 set_option autoImplicit false
 set_option maxRecDepth 100000
