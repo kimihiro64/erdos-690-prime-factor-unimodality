@@ -1534,6 +1534,15 @@ theorem dusartThetaTable6_6CoefficientData_error_margins
     exact dusartThetaTable_lower_coeff_error_of_minimum
       hlower hx hxupper
 
+theorem dusartThetaTable6_6CoefficientData_error_margins_all :
+    ∀ row ∈ dusartThetaTable6_6CoefficientData,
+      row.b0 - 1 < (1 : Real) / 36260 ∧
+        ∀ x : Real, 2 < x → x ≤ (8e11 : Real) →
+          (1 - row.a0) * x <
+            (12323 / 10000 : Real) * x / Real.log x := by
+  intro row hrow
+  exact dusartThetaTable6_6CoefficientData_error_margins row hrow
+
 def DusartThetaTableCoefficientRow.toRelativeRow
     (row : DusartThetaTableCoefficientRow)
     (hleft : 2 ≤ row.left) (hle : row.left ≤ row.right)
