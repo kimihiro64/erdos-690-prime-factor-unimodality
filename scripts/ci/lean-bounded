@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Lake starts Lean processes asynchronously.  Keep two compiler processes in
+# flight, while making each compiler single-threaded, so large certificates do
+# not exhaust the hosted runner before Lake can finish the dependency graph.
+real_lean=$(command -v lean)
+lock_root="${RUNNER_TEMP:-${TMPDIR:-/tmp}}/prime-factor-unimodality-lean-slots"
+mkdir -p "$lock_root"
+
+while :; do
+  for slot in 0 1; do
+    exec {slot_fd}>"$lock_root/slot-$slot.lock"
+    if flock -n "$slot_fd"; then
+      exec "$real_lean" -j 1 "$@"
+    fi
+    eval "exec ${slot_fd}>&-"
+  done
+  sleep 1
+done
