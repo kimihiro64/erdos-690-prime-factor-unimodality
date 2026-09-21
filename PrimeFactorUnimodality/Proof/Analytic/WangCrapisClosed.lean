@@ -227,7 +227,11 @@ theorem wangCrapis_shortInterval_of_source_level_providers
   have hY : (89693 : Real) ≤ Y := by linarith
   have finite := finiteLogCubed Y hY
   have logCubedTail : HasLogCubedShortIntervalPrime :=
-    hasLogCubedShortIntervalPrime_of_below_and_above hY finite intervalTail
+    hasLogCubedShortIntervalPrime_of_below_and_above hY finite (by
+      intro x hx
+      obtain ⟨q, hq, hxq, hupper⟩ := intervalTail x hx
+      refine ⟨q, hq, hxq, ?_⟩
+      convert hupper using 1 <;> ring)
   exact hasDusartShortIntervalPrime_of_below_and_logCubed
     wangCrapis_shortIntervalPrefix logCubedTail
 
