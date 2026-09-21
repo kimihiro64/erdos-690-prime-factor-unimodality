@@ -584,6 +584,61 @@ theorem wangCrapis_strictThetaPrefix_nineteen :
       ElementaryLogBounds.log_11_lt, ElementaryLogBounds.log_13_lt,
       ElementaryLogBounds.log_17_lt, ElementaryLogBounds.log_19_lt]
 
+theorem wangCrapis_strictThetaPrefix_twenty_nine :
+    HasStrictThetaUpperBelow (29 : Real) := by
+  intro x hx hx29
+  by_cases hnineteen : x ≤ 19
+  · exact wangCrapis_strictThetaPrefix_nineteen x hx hnineteen
+  by_cases htwentythree : x < 23
+  · have htheta_le : Chebyshev.theta x ≤ Chebyshev.theta 19 := by
+      exact Chebyshev.theta_mono (by linarith)
+    have htheta19 : Chebyshev.theta (19 : Real) =
+        Real.log 2 + Real.log 3 + Real.log 5 + Real.log 7 +
+          Real.log 11 + Real.log 13 + Real.log 17 + Real.log 19 := by
+      have hsum := Chebyshev.theta_eq_sum_primesLE_log 19
+      have hp : Nat.primesLE 19 = {2, 3, 5, 7, 11, 13, 17, 19} := by decide
+      rw [hp] at hsum
+      simpa [add_assoc] using hsum
+    rw [htheta19] at htheta_le
+    nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
+      Real.log_five_lt_d9, LogTables.log_7_lt,
+      ElementaryLogBounds.log_11_lt, ElementaryLogBounds.log_13_lt,
+      ElementaryLogBounds.log_17_lt, ElementaryLogBounds.log_19_lt]
+  by_cases htwentynine : x < 29
+  · have htheta_le : Chebyshev.theta x ≤ Chebyshev.theta 23 := by
+      exact Chebyshev.theta_mono (by linarith)
+    have htheta23 : Chebyshev.theta (23 : Real) =
+        Real.log 2 + Real.log 3 + Real.log 5 + Real.log 7 +
+          Real.log 11 + Real.log 13 + Real.log 17 + Real.log 19 +
+          Real.log 23 := by
+      have hsum := Chebyshev.theta_eq_sum_primesLE_log 23
+      have hp : Nat.primesLE 23 = {2, 3, 5, 7, 11, 13, 17, 19, 23} := by decide
+      rw [hp] at hsum
+      simpa [add_assoc] using hsum
+    rw [htheta23] at htheta_le
+    nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
+      Real.log_five_lt_d9, LogTables.log_7_lt,
+      ElementaryLogBounds.log_11_lt, ElementaryLogBounds.log_13_lt,
+      ElementaryLogBounds.log_17_lt, ElementaryLogBounds.log_19_lt,
+      ElementaryLogBounds.log_23_lt]
+  · have htheta_le : Chebyshev.theta x ≤ Chebyshev.theta 29 :=
+      Chebyshev.theta_mono hx29
+    have htheta29 : Chebyshev.theta (29 : Real) =
+        Real.log 2 + Real.log 3 + Real.log 5 + Real.log 7 +
+          Real.log 11 + Real.log 13 + Real.log 17 + Real.log 19 +
+          Real.log 23 + Real.log 29 := by
+      have hsum := Chebyshev.theta_eq_sum_primesLE_log 29
+      have hp : Nat.primesLE 29 =
+          {2, 3, 5, 7, 11, 13, 17, 19, 23, 29} := by decide
+      rw [hp] at hsum
+      simpa [add_assoc] using hsum
+    rw [htheta29] at htheta_le
+    nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9,
+      Real.log_five_lt_d9, LogTables.log_7_lt,
+      ElementaryLogBounds.log_11_lt, ElementaryLogBounds.log_13_lt,
+      ElementaryLogBounds.log_17_lt, ElementaryLogBounds.log_19_lt,
+      ElementaryLogBounds.log_23_lt, ElementaryLogBounds.log_29_lt]
+
 /-! The fixed explicit-formula input is exported at the theta boundary so the
     eventual psi/theta tail proof consumes the constructed estimate rather than
     the package's existential placeholder. -/
