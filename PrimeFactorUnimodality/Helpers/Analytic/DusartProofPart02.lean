@@ -1,5 +1,10 @@
 import PrimeFactorUnimodality.Helpers.Analytic.DusartProofPart01
 
+/-! # Dusart Lemma 3.3 finite rows, part 2
+
+This module continues the compact finite interval assemblers used in the
+direct proof of the published Lemma 3.3 bounds.
+-/
 
 set_option autoImplicit false
 

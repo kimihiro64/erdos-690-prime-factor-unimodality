@@ -9,6 +9,11 @@ import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
 import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
 import PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
 
+/-! # Dusart Lemma 3.3 finite rows, part 1
+
+This module contains the first compact finite interval assemblers used in the
+direct proof of the published Lemma 3.3 bounds.
+-/
 
 set_option autoImplicit false
 
