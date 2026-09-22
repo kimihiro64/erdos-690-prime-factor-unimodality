@@ -45,6 +45,46 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Unconditional high counting and closed Lehman tail (newest, 2026-09-22)
+
+The numerical counting hypothesis is now discharged. `BacklundCountingHigh`
+proves `|N(T)-P(T)| <= log(T)+17` at regular heights `T>=10`, then transfers
+it to the actual closed xi count at every such height. Here `P` is exactly
+`xiZeroCountingMainTerm`, with no `7/8` offset. The new left-limit
+theorems in `XiZeroCountingEndpoints` also give the strict count's bound.
+`XiLehmanHigh` obtains `|R(T)|<=2log(T)` for every `T>=10^9`, with no
+zero-counting, RH, or circle-bound premise.
+
+The proof uses the pinned PNT Euler remainder at `N=1` and the existing Euler
+logarithm. On the unit circle centred at `11/10`, the surrogate has bounds
+`50*abs(T)^2` everywhere and `22*abs(T)` on the right semicircle. Antipodal
+averaging gives the needed logarithmic mean; using the larger bound on the
+entire circle would lose the required coefficient. Two Mathlib-only
+candidates, `Complex.JensenAverage` and `Integral.CircleAverageAntipodal`,
+provide the general interfaces. The existing horizontal argument proof is
+generalized in place; its previous Jensen export is preserved.
+
+`xiHeightTail_le_main_add_correction_high` now bounds the actual closed tail
+for `t>0`, `H>0`, `t+H>=10^9`. The exact cutoff multiplicity combines with
+the closed count to give the strict boundary count, whose left-limit bound
+removes the previously uncontrolled atom. No assumption that the cutoff
+avoids zeros is needed. The regression covers every natural harmonic
+`k>=1` at `t=k*30600000000`, `H=100000`.
+
+The new leaves and full candidate facade compile. All 32 new theorem
+closures, plus the preserved Jensen export, contain only `propext`,
+`Classical.choice`, and `Quot.sound`. The 13 new Lean examples and four
+earlier analytic regression files pass. Fast checks pass; CI builds these
+leaves serially in `lean-foundations`, without replaying certificates.
+
+Next: substitute the proved high tail into the actual weighted master,
+handle its zero harmonic using the existing low-reciprocal-mass bound,
+and prove the remaining separation and smoothed pole/gamma estimates.
+The numerical parameters giving `R=5.573412`, all three final Dusart
+providers, and full all-`k` verification remain unfinished. Do not redo
+the now-proved counting envelope or confuse the counting Gamma phase bound
+with the separate smoothed Gamma error estimates.
+
 ### Uniform Gamma phase and discharged counting contour (newest, 2026-09-22)
 
 `GammaLogBranch` reuses PNT's actual `Complex.logGammaSeq`, its Cauchy

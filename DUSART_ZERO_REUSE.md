@@ -1,5 +1,9 @@
 # Reuse audit for the Dusart zero-sum layer
 
+Current follow-up: the unconditional high counting envelope and closed
+Lehman tail are now proved; see the final section. Earlier sections record
+the obligations at each increment and are superseded where explicitly noted.
+
 This focused source review was performed on 2026-09-22 before extending the
 same-height, multiplicity-counted xi pairing. It is not a claim that no other
 useful sibling theorem exists. Check this record before repeating discovery.
@@ -279,3 +283,35 @@ estimate compile. All 26 theorem closures have only the three standard
 logical axioms. The numerical circle estimates remain open; the resulting
 counting theorem explicitly retains those hypotheses and does not yet
 establish the final numerical zero-free region or the all-`k` result.
+
+## Unconditional high counting and exact closed-cutoff tail
+
+`BacklundCircleBounds` directly reuses the pinned PNT `Zeta0EqZeta` and
+`ZetaBnd_aux1b` at `N=1`. These supply an actual Euler remainder on `Re(s)>0`;
+the leftmost circle point is `Re(s)=1/10`, so the proof does not incorrectly
+apply the other Abel continuation's strict `Re(s)>1/10` hypothesis there.
+The right semicircle reuses the already-proved Euler logarithm comparison.
+No new Euler continuation or zeta surrogate is reconstructed.
+
+The new mean-value Jensen candidate adapts Mathlib's proved divisor-mass
+comparison, with its original attribution and exact pinned revision.
+Antipodal averaging uses Mathlib's existing radius-negation invariance.
+The resulting circle estimate feeds the existing power-limit argument and
+the already-proved actual counting and Gamma contours. It proves the
+unconditional `log(T)+17` counting error for `T>=10` and hence `2log(T)`
+for `T>=10^9`, not merely an existential growth estimate.
+
+Both count conventions are controlled at arbitrary cutoffs. The new
+left-limit transfer bounds the strict count, while the previous right-limit
+transfer bounds the closed count. In the exact infinite Abel identity, the
+closed-cutoff atom and closed boundary count combine into the strict count.
+`xiHeightTail_le_main_add_correction_high` in `XiLehmanHigh` therefore has no
+residual cutoff-multiplicity term and no assumed counting envelope.
+The module's declarations are in namespace `PrimeFactorUnimodality`.
+
+All 32 new theorems and the preserved horizontal Jensen export were built
+and audited with only the three standard logical axioms. The new regression
+also checks every positive natural harmonic at the paper's high cutoff.
+The zero-harmonic finite mass, outer-zero separation, separate smoothed
+pole/Gamma errors, and final numerical zero-free parameters remain open;
+this does not finish the three Dusart providers or the all-`k` theorem.

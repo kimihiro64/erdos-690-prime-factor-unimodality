@@ -40,6 +40,8 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.JensenAverage` | `Mathlib/Analysis/Complex/JensenAverage.lean` | project-verified | Jensen divisor comparison retaining the actual circle average, extracted from Mathlib's supremum-bound proof |
+| `PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.CircleAverageAntipodal` | `Mathlib/MeasureTheory/Integral/CircleAverageAntipodal.lean` | project-verified | Antipodal invariance, integrability, and circle bounds from opposite-point pairs |
 | `PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.Trapezoid` | `Mathlib/MeasureTheory/Integral/IntervalIntegral/Trapezoid.lean` | project-verified | Exact complex trapezoid remainder and integral second-derivative norm bound |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogTrapezoid` | `Mathlib/Analysis/SpecialFunctions/Complex/LogTrapezoid.lean` | project-verified | Horizontal logarithm integral, finite-sum identity, and height-independent telescoping remainder |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogShiftLimit` | `Mathlib/Analysis/SpecialFunctions/Complex/LogShiftLimit.lean` | project-verified | Vanishing imaginary endpoint correction from Mathlib's scaled logarithm limit |

@@ -129,3 +129,12 @@ theorem deriv_riemannZetaEulerLog {s : ℂ} (hs : 1 < s.re) :
     (differentiableAt_riemannZetaEulerLog hs).hasDerivAt).congr_of_eventuallyEq he.symm
   rw [logDeriv_apply, hd.deriv, ← exp_riemannZetaEulerLog hs]
   exact (mul_div_cancel_left₀ _ (exp_ne_zero _)).symm
+
+/-- The positive real Euler majorant also bounds the modulus of zeta itself. -/
+theorem norm_riemannZeta_le_norm_real {s : ℂ} (hs : 1 < s.re) :
+    ‖riemannZeta s‖ ≤ ‖riemannZeta (s.re : ℂ)‖ := by
+  have hp : 0 < ‖riemannZeta (s.re : ℂ)‖ := by
+    rw [← exp_riemannZetaEulerLog (show 1 < (s.re : ℂ).re from hs), norm_exp]
+    exact Real.exp_pos _
+  rw [← exp_riemannZetaEulerLog hs, norm_exp, ← Real.exp_log hp]
+  exact Real.exp_le_exp.mpr ((re_le_norm _).trans (norm_riemannZetaEulerLog_le hs))

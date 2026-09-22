@@ -91,6 +91,40 @@ theorem xiZeroCount_error_le_of_strict {P B : ℝ → ℝ} {T : ℝ}
       (hP.tendsto.mono_left nhdsWithin_le_nhds)).abs
     (hB.tendsto.mono_left nhdsWithin_le_nhds) h
 
+/-- Immediately to the left, the closed labels are exactly the strict labels at the cutoff. -/
+theorem eventually_xiPositiveHeightIndices_eq_left (T : ℝ) :
+    ∀ᶠ x in 𝓝[<] T, xiPositiveHeightIndices x = xiStrictPositiveHeightIndices T := by
+  have hgap : ∀ᶠ x in 𝓝 T, ∀ p ∈ xiStrictPositiveHeightIndices T,
+      (riemannXiDivisorZeroValue p).im < x := by
+    apply (Finset.eventually_all _).mpr
+    intro p hp
+    exact eventually_gt_nhds ((mem_xiStrictPositiveHeightIndices _ _).mp hp).2
+  filter_upwards [hgap.filter_mono nhdsWithin_le_nhds, self_mem_nhdsWithin] with x hg hx
+  have hx' : x < T := hx
+  ext p
+  rw [mem_xiPositiveHeightIndices, mem_xiStrictPositiveHeightIndices]
+  constructor
+  · rintro ⟨hp, hpx⟩
+    exact ⟨hp, hpx.trans_lt hx'⟩
+  · rintro ⟨hp, hpT⟩
+    exact ⟨hp, (hg p ((mem_xiStrictPositiveHeightIndices _ _).mpr ⟨hp, hpT⟩)).le⟩
+
+/-- The strict multiplicity-counted value is the left limit of the closed count. -/
+theorem tendsto_xiZeroCount_left (T : ℝ) :
+    Tendsto (fun x => (xiZeroCount x : ℝ)) (𝓝[<] T) (𝓝 (xiStrictZeroCount T : ℝ)) := by
+  apply tendsto_const_nhds.congr'
+  filter_upwards [eventually_xiPositiveHeightIndices_eq_left T] with x hx
+  simp only [xiStrictZeroCount, xiZeroCount, hx]
+
+/-- Continuous bounds on closed counts transfer to the strict count without an extra atom. -/
+theorem xiStrictZeroCount_error_le_of_closed {P B : ℝ → ℝ} {T : ℝ}
+    (hP : ContinuousAt P T) (hB : ContinuousAt B T)
+    (h : ∀ᶠ x in 𝓝[<] T, |(xiZeroCount x : ℝ) - P x| ≤ B x) :
+    |(xiStrictZeroCount T : ℝ) - P T| ≤ B T :=
+  le_of_tendsto_of_tendsto
+    ((tendsto_xiZeroCount_left T).sub (hP.tendsto.mono_left nhdsWithin_le_nhds)).abs
+    (hB.tendsto.mono_left nhdsWithin_le_nhds) h
+
 /-- In particular, a proved strict logarithmic estimate supplies the actual Lehman premise. -/
 theorem xiZeroCountingRemainder_le_of_strict {A : ℝ} (hA : 0 < A)
     (h : ∀ x, A < x → |(xiStrictZeroCount x : ℝ) - xiZeroCountingMainTerm x| ≤

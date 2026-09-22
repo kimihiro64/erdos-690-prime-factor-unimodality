@@ -47,6 +47,32 @@ theorem backlund_log_im_sub_le_zeroCount {T σ r a b : ℝ} {n : ℕ} {L : ℝ �
   apply (le_div_iff₀ (show (0 : ℝ) < n by exact_mod_cast hn)).mpr
   simpa only [mul_comm] using hbound
 
+/-- Any frequently linear crossing bound controls the phase after taking large powers. -/
+theorem backlund_log_im_sub_le_of_frequent_zeroCount {T σ r a b B C : ℝ} {L : ℝ → ℂ}
+    (hab : a ≤ b) (hr : 0 ≤ r) (hseg : ∀ x ∈ Icc a b, |x - σ| ≤ r)
+    (hL : ContinuousOn L (Icc a b))
+    (hlog : ∀ x ∈ Icc a b, Complex.exp (L x) = Backlund.zetaSurrogate ((x : ℂ) + T * I))
+    (hf : ∃ᶠ n : ℕ in atTop, backlundAuxiliary T n σ ≠ 0 ∧
+      (backlundRealZeroCount T n σ r : ℝ) ≤ (n : ℝ) * B + C) :
+    |(L b).im - (L a).im| ≤ Real.pi * B := by
+  have hfreq : ∃ᶠ n : ℕ in atTop,
+      |(L b).im - (L a).im| ≤ Real.pi * (B + (C + 1) / n) := by
+    apply (hf.and_eventually (eventually_gt_atTop 0)).mono
+    rintro n ⟨⟨hc, hb⟩, hn⟩
+    have hnR : (0 : ℝ) < n := by exact_mod_cast hn
+    calc
+      _ ≤ (backlundRealZeroCount T n σ r + 1 : ℝ) * Real.pi / n :=
+        backlund_log_im_sub_le_zeroCount hab hr hn hseg hL hlog hc
+      _ ≤ ((n : ℝ) * B + C + 1) * Real.pi / n :=
+        div_le_div_of_nonneg_right
+          (mul_le_mul_of_nonneg_right (add_le_add hb le_rfl) Real.pi_pos.le) hnR.le
+      _ = _ := by field_simp; ring
+  have hlim : Tendsto (fun n : ℕ => Real.pi * (B + (C + 1) / n)) atTop
+      (𝓝 (Real.pi * B)) := by
+    simpa using (tendsto_const_nhds.add
+      (tendsto_const_div_atTop_nhds_zero_nat (C + 1))).const_mul Real.pi
+  exact ge_of_tendsto_of_frequently hlim hfreq
+
 /-- The infinite-power limit removes all fixed losses from the horizontal Jensen estimate. -/
 theorem backlund_log_im_sub_le_jensen {T σ r R M a b : ℝ} {L : ℝ → ℂ}
     (hσ : 1 < σ) (hr : 0 < r) (hrR : r < R) (hM : 1 ≤ M)
@@ -57,35 +83,15 @@ theorem backlund_log_im_sub_le_jensen {T σ r R M a b : ℝ} {L : ℝ → ℂ}
     (hm : ∀ z ∈ sphere (σ : ℂ) R, ‖Backlund.zetaSurrogate (z - T * I)‖ ≤ M) :
     |(L b).im - (L a).im| ≤ Real.pi *
       (Real.log (M / ‖Backlund.zetaSurrogate ((σ : ℂ) + T * I)‖) / Real.log (R / r)) := by
-  let B := Real.log (M / ‖Backlund.zetaSurrogate ((σ : ℂ) + T * I)‖) / Real.log (R / r)
-  let C := Real.log 2 / Real.log (R / r) + 1
-  have hfreq : ∃ᶠ n : ℕ in atTop,
-      |(L b).im - (L a).im| ≤ Real.pi * (B + C / n) := by
-    apply ((frequently_backlundAuxiliary_centre_lower hσ T).and_eventually
-      (eventually_gt_atTop 0)).mono
-    rintro n ⟨hc, hn⟩
-    have hnR : (0 : ℝ) < n := by exact_mod_cast hn
-    have hA : 0 < ‖Backlund.zetaSurrogate ((σ : ℂ) + T * I)‖ :=
-      norm_pos_iff.mpr (backlund_surrogate_ne_zero_of_one_lt_re (by simpa using hσ))
-    have hcne : backlundAuxiliary T n σ ≠ 0 :=
-      norm_pos_iff.mp ((div_pos (pow_pos hA n) (by norm_num)).trans_le hc)
-    have harg := backlund_log_im_sub_le_zeroCount hab hr.le hn hseg hL hlog hcne
-    have hcount := backlundRealZeroCount_le hσ hr hrR hM hc hp hm
-    have hcount' : (backlundRealZeroCount T n σ r + 1 : ℝ) ≤ (n : ℝ) * B + C := by
-      dsimp [B, C]
-      calc
-        _ ≤ (((n : ℝ) * Real.log (M / ‖Backlund.zetaSurrogate ((σ : ℂ) + T * I)‖) +
-            Real.log 2) / Real.log (R / r)) + 1 := by
-          simpa [add_comm] using add_le_add_right hcount 1
-        _ = _ := by ring
-    calc
-      _ ≤ (backlundRealZeroCount T n σ r + 1 : ℝ) * Real.pi / n := harg
-      _ ≤ ((n : ℝ) * B + C) * Real.pi / n :=
-        div_le_div_of_nonneg_right (mul_le_mul_of_nonneg_right hcount' Real.pi_pos.le) hnR.le
-      _ = Real.pi * (B + C / n) := by field_simp
-  have hlim : Tendsto (fun n : ℕ => Real.pi * (B + C / n)) atTop (𝓝 (Real.pi * B)) := by
-    simpa using (tendsto_const_nhds.add (tendsto_const_div_atTop_nhds_zero_nat C)).const_mul Real.pi
-  exact ge_of_tendsto_of_frequently hlim hfreq
+  apply backlund_log_im_sub_le_of_frequent_zeroCount hab hr.le hseg hL hlog
+    (C := Real.log 2 / Real.log (R / r))
+  apply (frequently_backlundAuxiliary_centre_lower hσ T).mono
+  intro n hc
+  have hA : 0 < ‖Backlund.zetaSurrogate ((σ : ℂ) + T * I)‖ :=
+    norm_pos_iff.mpr (backlund_surrogate_ne_zero_of_one_lt_re (by simpa using hσ))
+  refine ⟨norm_pos_iff.mp ((div_pos (pow_pos hA n) (by norm_num)).trans_le hc), ?_⟩
+  convert backlundRealZeroCount_le hσ hr hrR hM hc hp hm using 1
+  ring
 
 /-- Every nonvanishing horizontal segment has a continuous logarithm with the Jensen bound. -/
 theorem exists_backlund_log_with_argument_bound {T σ r R M a b : ℝ}

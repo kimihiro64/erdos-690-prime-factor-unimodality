@@ -5,6 +5,7 @@ Authors: Jonas Whidden
 -/
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Hadamard.Integral
+import PrimeFactorUnimodality.Mathlib.Analysis.Complex.JensenAverage
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.JensenCard
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Log.Interval
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Log.IntervalIntegral

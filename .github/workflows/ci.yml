@@ -521,6 +521,23 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.BacklundCountingMainTerm
           lake env lean test/lean/GammaCountingPhase.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.JensenAverage
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.CircleAverageAntipodal
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.BacklundCircleBounds
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.BacklundCircleMean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.BacklundAveragedJensen
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.BacklundCircleNumerics
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.BacklundCountingHigh
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiLehmanHigh
+          lake env lean test/lean/BacklundCountingHigh.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT
