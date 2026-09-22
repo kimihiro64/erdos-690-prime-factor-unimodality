@@ -102,6 +102,23 @@ def test_prime_power_helpers_precede_intermediate_consumers() -> None:
         assert "theorem dusart_lemma_3_3_prime_power_decomposition" not in code
 
 
+def test_prime_count_certificates_do_not_import_the_medium_pnt() -> None:
+    pending = [
+        "PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.PrimeCountingCertificates"
+    ]
+    visited: set[str] = set()
+    while pending:
+        module = pending.pop()
+        if module in visited:
+            continue
+        visited.add(module)
+        assert not module.endswith(".MediumPNT")
+        assert not module.endswith(".FinitePrimeIntervalRows.Core")
+        path = ROOT.joinpath(*module.split(".")).with_suffix(".lean")
+        if path.is_file():
+            pending.extend(lean_imports(strip_lean_comments(path.read_text())))
+
+
 def test_short_interval_tail_precedes_its_consumers() -> None:
     code = strip_lean_comments((ANALYTIC / "DusartShortIntervalClosed.lean").read_text())
     assert code.index("theorem wangCrapis_logCubedTail_of_thetaLogFourthError") < code.index(

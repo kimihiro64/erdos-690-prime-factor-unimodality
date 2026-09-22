@@ -1,6 +1,6 @@
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.EndpointBounds
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.PrimeCountingNumerics
 import PrimeFactorUnimodality.Helpers.FiniteCertificates.ComputablePrimePrefix
+import PrimeFactorUnimodality.Helpers.FiniteCertificates.IntervalCover
 
 set_option autoImplicit false
 set_option maxRecDepth 10000

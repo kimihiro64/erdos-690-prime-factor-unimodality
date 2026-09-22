@@ -262,6 +262,8 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartPrimeCountingAssembly
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartPrimeCountingClosed
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.PrimeCountingLogBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.FiniteCertificates.PrimePrefixCounts

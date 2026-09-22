@@ -3,6 +3,7 @@ import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
 import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
 import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 import PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
+import PrimeFactorUnimodality.Helpers.FiniteCertificates.IntervalCover
 
 set_option autoImplicit false
 set_option maxRecDepth 100000
@@ -420,52 +421,6 @@ theorem hasLogCubedShortIntervalPrimeBelow_of_two_indexed_prime_gap_certificates
   by_cases hxm : x ≤ (m : Real)
   · exact firstBound x hx hxm
   · exact secondBound x hx hX
-
-theorem indexed_interval_cover_of_list_cover
-    {α : Type} (rows : List α) (left right : α → Nat)
-    {P Q : Real → Prop}
-    (cover : ∀ x : Real, P x → Q x →
-      ∃ row ∈ rows, (left row : Real) ≤ x ∧ x ≤ right row) :
-    ∀ x : Real, P x → Q x →
-      ∃ i : Fin rows.length,
-        (left (rows.get i) : Real) ≤ x ∧ x ≤ right (rows.get i) := by
-  intro x hP hQ
-  obtain ⟨row, hrow, hleft, hright⟩ := cover x hP hQ
-  obtain ⟨i, hi, hget⟩ := List.getElem_of_mem hrow
-  refine ⟨⟨i, hi⟩, ?_⟩
-  simpa [List.get_eq_getElem, hget] using And.intro hleft hright
-
-/-! Indexed tables compose in the same way as list tables.  This is the
-compact-block interface used by the finite certificates: a block may be
-checked independently, and the kernel only has to check the two coverage
-proofs and the numerical junction. -/
-theorem indexed_interval_cover_append
-    {α : Type} {m X : Real} {n₁ n₂ : Nat}
-    (left : Fin n₁ → α) (right : Fin n₂ → α)
-    (leftEndpoint rightEndpoint : α → Nat)
-    {P Q : Real → Prop}
-    (hleft : ∀ x : Real, P x → Q x → x ≤ m →
-      ∃ i : Fin n₁,
-        (leftEndpoint (left i) : Real) ≤ x ∧
-          x ≤ rightEndpoint (left i))
-    (hright : ∀ x : Real, P x → Q x → m < x → x ≤ X →
-      ∃ i : Fin n₂,
-        (leftEndpoint (right i) : Real) ≤ x ∧
-          x ≤ rightEndpoint (right i)) :
-    ∀ x : Real, P x → Q x → x ≤ X →
-      ∃ i : Fin (n₁ + n₂),
-        (leftEndpoint (Fin.append left right i) : Real) ≤ x ∧
-          x ≤ rightEndpoint (Fin.append left right i) := by
-  intro x hP hQ hX
-  by_cases hxm : x ≤ m
-  · obtain ⟨i, hleft_lower, hleft_upper⟩ := hleft x hP hQ hxm
-    refine ⟨Fin.castAdd n₂ i, ?_⟩
-    simpa [Fin.append_left] using And.intro hleft_lower hleft_upper
-  · obtain ⟨i, hright_lower, hright_upper⟩ :=
-      hright x hP hQ (lt_of_not_ge hxm) hX
-    refine ⟨Fin.natAdd n₁ i, ?_⟩
-    simpa [Fin.append_right] using And.intro hright_lower hright_upper
-
 
 
 end

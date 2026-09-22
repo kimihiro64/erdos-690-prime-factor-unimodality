@@ -1,4 +1,5 @@
 import PrimeFactorUnimodality.Helpers.Analytic.DusartPrimeCountingAssembly
+import PrimeFactorUnimodality.Helpers.Analytic.DusartPrimeCountingClosed
 import PrimeFactorUnimodality.Helpers.Analytic.DusartThetaClosedPart02
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.PrimeCountingLogBounds
 import PrimeFactorUnimodality.Helpers.FiniteCertificates.PrimePrefixCounts
@@ -12,6 +13,21 @@ and reusable prime-count and logarithm enclosures without generated tables.
 -/
 
 namespace PrimeFactorUnimodality.Tests
+
+example : HasDusartRealPrimeCountingBoundsBelow (1000 : Real) :=
+  wangCrapis_primeCountingPrefix
+
+example : dusartPiLower (1201 / 2) ≤ (Nat.primeCounting 600 : Real) := by
+  have h := (dusartPrimeCounting_599_1000 (1201 / 2) (by norm_num) (by norm_num)).1
+  norm_num only [show ⌊(1201 / 2 : Real)⌋₊ = 600 by norm_num] at h
+  exact h
+
+example : Nat.primeCounting 271 = 58 := by
+  rw [dusart_primeCounting_eq_filtered_1000 (by decide)]
+  decide +kernel
+
+example : natClosedIntervalChain 10 15 [(10, 12), (13, 15)] = true := by decide
+example : natClosedIntervalChain 10 15 [(10, 12), (14, 15)] = false := by decide
 
 example {x b q : Real} {k : Nat}
     (hb : 1 ≤ b) (hbx : b ≤ x) (hk : 3 ≤ k) (hq : 0 ≤ q)

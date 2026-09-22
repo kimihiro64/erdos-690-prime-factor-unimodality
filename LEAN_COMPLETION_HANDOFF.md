@@ -45,6 +45,46 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Closed prime-counting prefix through 1000 (newest, 2026-09-22)
+
+`wangCrapis_primeCountingPrefix : HasDusartRealPrimeCountingBoundsBelow 1000`
+is now genuinely proved and compiled. The earlier missing 599--1000 cover
+described below is discharged, not an active gap.
+
+`PrimeCountingCertificates` supplies compact rational rows with a reusable
+kernel-checked assembler. `DusartPrimeCountingPrefix` stores one exact list of
+168 primes through 1000 and 33 endpoint rows; its whole module compiles in
+6.2 seconds. It covers every real point, including prime jumps and shared
+endpoints. `scripts/generate_dusart_pi_prefix.py` deterministically reconstructs
+the data using exact integers and fractions and records a semantic hash.
+
+The representative row (including the shared prime-list proof) took 4.7
+seconds and about 3.1 GiB peak RSS. Its earlier 4.2 GiB import footprint was
+reduced by extracting the generic interval helpers into `IntervalCover` and
+removing the unnecessary `EndpointBounds -> Core -> MediumPNT` dependency
+from `PrimeCountingRows`. The row generator does not perform one new primality
+computation per endpoint. Preserve that property.
+
+`SmallPrimeCountingIntervals` now reuses the shared prime list for all 50
+counts. The real errors were a smooth upper argument 120 < 163, the false
+claim `primeCounting 271 = 57`, an underspecified logarithm lemma, and an
+unclosed section. Corrected rows end at 270 and restart at 271 (whose count is
+58). A checked natural-interval chain replaces 589 expanded coverage branches.
+The corrected module compiles in 7.9 seconds; its former failing run took
+71 seconds. No generated family or build cache was deleted.
+
+The generated source is 92 lines. All focused Lean checks and the axiom audit
+for `wangCrapis_primeCountingPrefix` pass (only the three standard logical
+axioms). The fast gate, Ruff, mypy, 69 Python tests, deterministic regeneration,
+actionlint, and whitespace checks pass. CI now checks the actual closed prefix
+in the analytic job.
+
+The full source theorem `wangCrapis_primeCounting` is still missing: this
+prefix does not supply the fixed-constant analytic tail or the intervening
+finite range. The theta and short-interval global providers also remain open.
+Continue with those non-certificate obligations, including independently
+checking the short-interval assembly, before large certificate families.
+
 ### Checked independent Dusart analytic chain (latest, 2026-09-22)
 
 The persistent all-k goal is active again. Continue actual proof work; the

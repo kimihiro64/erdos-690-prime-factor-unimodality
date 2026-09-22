@@ -28,9 +28,13 @@ tail.
 compact small-range upper-bound rows. -/
 theorem wangCrapis_primeCountingPrefix :
     HasDusartRealPrimeCountingBoundsBelow (1000 : Real) := by
-  exact hasDusartRealPrimeCountingBoundsBelow_of_endpoint_rows
-    dusartPrimeCountingEndpointRow_1000_cover
-    dusartSmallUpperIntervalRows_provide
+  constructor
+  · intro x hx hX
+    exact (dusartPrimeCounting_599_1000 x hx hX).1
+  · intro x hx hX
+    by_cases hsmall : x < 599
+    · exact dusartSmallUpperIntervalRows_provide x hx hsmall
+    · exact (dusartPrimeCounting_599_1000 x (le_of_not_gt hsmall) hX).2
 
 
 end
