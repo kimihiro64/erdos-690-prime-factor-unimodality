@@ -45,6 +45,56 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Dusart endpoint correction (2026-09-22)
+
+`DusartThetaTable66EndpointFacts` formerly imposed incompatible conditions
+on the first published interval `[10^8, 2*10^8]`: its upper-zero field gives
+`theta(10^8) <= 99998000`, while its lower-one endpoint requires
+`200000000 - 550000/log(200000000) <= theta(10^8)`. Since the logarithm is
+greater than one, these cannot both hold. This is now proved in Lean as
+`dusartTable66_first_row_whole_endpoint_impossible`; do not try to generate
+certificates for those old obligations.
+
+The corrected package contains covering subinterval cells. Each cell stores
+one pair of rational theta enclosures, reuses them for all six column
+inequalities, and must prove its validity. A recursive boolean check and
+`dusartThetaTable66CellsChain_covers` establish closed-interval coverage.
+`Table66Bounds.lean` and `Table66Subintervals.lean` compile independently of
+generated finite rows. The latter includes the incompatibility proof, and
+`test/lean/Table66Subintervals.lean` checks coverage, gaps, ordering, and
+endpoints. CI runs them before the complete certificate build.
+
+The endpoint-facts consumer now takes an independently proved finite prefix
+and coverage starting at that prefix's cutoff. It no longer asks the published
+table, which starts at `10^8`, to cover from `2`. Two theta-tail adapters had
+the same invalid prefix-to-table conversion; they now use the existing
+prefix/table coefficient assembler. Its coverage arguments were also fixed.
+
+Elaboration errors in the extracted formula helpers were repaired: a malformed
+structure literal, a conjunction projection and `2 <= log` versus
+`1 <= log` arguments, plus a missing cast normalization. The theta source
+split also lost `wangCrapis_explicit_log_derivative_input`'s declaration
+header and added unmatched `end` commands; these are restored. Helper
+declarations now precede their consumers, including the public input-package
+constructor. The complete provider modules still need elaboration once
+their generated imports are available; the focused checks do not certify
+those whole modules.
+
+This repair does NOT supply the three missing global declarations
+`wangCrapis_primeCounting`, `wangCrapis_thetaBounds`, and
+`wangCrapis_shortInterval`. Actual theta enclosures and the fixed numerical
+analytic bounds remain mathematical obligations. The existing
+`explicitMediumPNT` concludes an existential constant and an `atTop` big-O
+estimate; it does not by itself certify a particular cutoff or the finite
+range up to that cutoff. Historical notes claiming only finite replay remains
+must not be read as a proof of the fixed Dusart estimates.
+
+For the 2016 explicit-psi route, use Dusart's corrected numerical formula,
+not the two typographical errors in the published Theorem 3.5:
+https://www.unilim.fr/pages_perso/pierre.dusart/Recherche/correctif_RJ.pdf
+The correction is numerical source material, not a Lean proof of the
+underlying zero/error bounds.
+
 1. Finish and elaborate every non-certificate module.
 2. Make the concrete analytic providers required by the all-`k` assembly.
 3. Only then regenerate and replay expensive finite certificates.

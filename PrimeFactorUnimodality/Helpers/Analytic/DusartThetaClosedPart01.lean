@@ -639,11 +639,6 @@ theorem wangCrapis_strictThetaPrefix_twenty_nine :
       ElementaryLogBounds.log_17_lt, ElementaryLogBounds.log_19_lt,
       ElementaryLogBounds.log_23_lt, ElementaryLogBounds.log_29_lt]
 
-/-! The fixed explicit-formula input is exported at the theta boundary so the
-    eventual psi/theta tail proof consumes the constructed estimate rather than
-    the package's existential placeholder. -/
-end
-
 end
 
 end PrimeFactorUnimodality

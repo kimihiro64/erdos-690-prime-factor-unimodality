@@ -1,4 +1,5 @@
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Table66EndpointData
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Table66Subintervals
 
 set_option autoImplicit false
 
@@ -6,50 +7,43 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 
-/-! A Table 6.6 endpoint certificate is one reusable fact about one published
-    coefficient row.  The later compact data generator can emit one such
-    object per interval and the existing formula assembler can project all six
-    inequalities without duplicating its row proof. -/
+/-! A published Table 6.6 row is certified by a covering list of smaller
+intervals. Each cell reuses one proved theta enclosure for all six columns.
+A pair of whole-row endpoint values cannot certify the published ranges. -/
 structure DusartThetaTable66EndpointFacts
     (data : DusartThetaTable66CoefficientData) : Prop where
-  lower_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
-    data.a0 * x ≤ Chebyshev.theta x
-  upper_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
-    Chebyshev.theta x ≤ data.b0 * x
-  lower_one_endpoint :
-    data.right - data.a1 * data.right / Real.log data.right ≤
-      Chebyshev.theta data.left
-  upper_one_endpoint :
-    Chebyshev.theta data.right ≤
-      data.left + data.b1 * data.left / Real.log data.left
-  lower_two_endpoint :
-    data.right - data.a2 * data.right / Real.log data.right ^ 2 ≤
-      Chebyshev.theta data.left
-  upper_two_endpoint :
-    Chebyshev.theta data.right ≤
-      data.left + data.b2 * data.left / Real.log data.left ^ 2
+  cells : ∃ cells : List DusartThetaTable66Cell,
+    DusartThetaTable66CellsCover data cells ∧ ∀ cell ∈ cells, cell.Valid data
 
 theorem dusartThetaTable66_formula_bounds_of_endpoint_facts
     {data : DusartThetaTable66CoefficientData}
     (hdata : data ∈ dusartThetaTable6_6CoefficientData)
     (facts : DusartThetaTable66EndpointFacts data) :
     DusartThetaTable66FormulaBounds data := by
-  exact dusartThetaTable66_formula_bounds_of_published_endpoints hdata
-    facts.lower_zero facts.upper_zero facts.lower_one_endpoint
-    facts.upper_one_endpoint facts.lower_two_endpoint facts.upper_two_endpoint
+  obtain ⟨cells, cover, valid⟩ := facts.cells
+  exact dusartThetaTable66_formula_bounds_of_cells
+    (dusartThetaTable6_6CoefficientData_left_at_least_eight data hdata)
+    (dusartThetaTable6_6CoefficientData_coefficients_nonneg data hdata)
+    (dusartThetaTable6_6CoefficientData_correction_coefficients data hdata)
+    cover valid
 
-theorem hasDusartSymmetricThetaBoundsBelow_of_table66_endpoint_facts
-    {X : Real}
-    (cover : ∀ x : Real, 2 ≤ x → x ≤ X →
+theorem hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_endpoint_facts
+    {x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
+    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (cover : ∀ x : Real, x₀ ≤ x → x ≤ X →
       ∃ data ∈ dusartThetaTable6_6CoefficientData,
         (data.left : Real) ≤ x ∧ x ≤ data.right)
     (facts : ∀ data ∈ dusartThetaTable6_6CoefficientData,
       DusartThetaTable66EndpointFacts data) :
     HasDusartSymmetricThetaBoundsBelow X := by
-  apply hasDusartSymmetricThetaBoundsBelow_of_table66_formula_data cover
-  intro data hdata
-  exact dusartThetaTable66_formula_bounds_of_endpoint_facts hdata
-    (facts data hdata)
+  apply hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_coefficient_bounds
+    h2x₀ prefix cover
+  · intro data hdata
+    exact (dusartThetaTable66_formula_bounds_of_endpoint_facts hdata
+      (facts data hdata)).lower_zero
+  · intro data hdata
+    exact (dusartThetaTable66_formula_bounds_of_endpoint_facts hdata
+      (facts data hdata)).upper_zero
 
 end
 

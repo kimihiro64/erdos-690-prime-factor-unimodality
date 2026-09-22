@@ -52,18 +52,6 @@ theorem wangCrapis_three_root_upper_gap_strict
   exact dusart_gap_upper_from_three_strict_large_theta_bounds
     hx h2cut h3cut h5cut h2theta h3theta h5theta
 
-/-! Exact assembly boundary for the theta provider.  The finite endpoint
-proof and the explicit log-fourth tail remain separate inputs until both are
-proved from their underlying arguments. -/
-theorem wangCrapis_thetaBounds_of_logFourthTail
-    {A X : Real} (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
-    (finite : HasDusartSymmetricThetaBoundsBelow X)
-    (hA_nonneg : 0 ≤ A)
-    (hA : A / Real.log X ≤ 12167 / 500000)
-    (thetaError : HasThetaLogFourthError A X) :
-    HasDusartThetaBounds := by
-  exact hasDusartThetaBounds_of_finite_and_logFourth_from
-    hXpos hlogX finite hA_nonneg hA thetaError
 
 /-! This is the independent theta upper estimate used by Dusart's Lemma 3.3.
 It is derived from the finite prefix and the explicit tail directly, rather
@@ -487,25 +475,8 @@ theorem wangCrapis_thetaBounds_of_prefix_and_table66_formula_data_and_logFourthT
     (hA : A / Real.log X ≤ 12167 / 500000)
     (thetaError : HasThetaLogFourthError A X) :
     HasDusartThetaBounds := by
-  have table : HasDusartSymmetricThetaBoundsBelow X :=
-    hasDusartSymmetricThetaBoundsBelow_of_table66_formula_bounds
-      (X := X)
-      (by
-        intro x hx hX
-        obtain ⟨data, hdata, hleft, hright⟩ := cover x
-          (h2x₀.trans hx) hX
-        exact ⟨data, hdata, hleft, hright⟩)
-      lower_zero upper_zero lower_one upper_one lower_two upper_two
-  have finite : HasDusartSymmetricThetaBoundsBelow X := by
-    apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
-    · intro x hx hupper
-      by_cases hsmall : x ≤ x₀
-      · exact prefix.1 x hx hsmall
-      · exact table.1 x hx hupper
-    · intro x hx hupper
-      by_cases hsmall : x ≤ x₀
-      · exact prefix.2 x hx hsmall
-      · exact table.2 x hx hupper
+  have finite := hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_coefficient_bounds
+    h2x₀ prefix cover lower_zero upper_zero
   exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX finite
     hA_nonneg hA thetaError
 
@@ -525,25 +496,9 @@ theorem wangCrapis_thetaBounds_of_prefix_and_table66_formula_bounds_and_logFourt
     (hA : A / Real.log X ≤ 12167 / 500000)
     (thetaError : HasThetaLogFourthError A X) :
     HasDusartThetaBounds := by
-  have table : HasDusartSymmetricThetaBoundsBelow X :=
-    hasDusartSymmetricThetaBoundsBelow_of_table66_formula_data
-      (X := X)
-      (by
-        intro x hx hX
-        obtain ⟨data, hdata, hleft, hright⟩ := cover x
-          (h2x₀.trans hx) hX
-        exact ⟨data, hdata, hleft, hright⟩)
-      formula
-  have finite : HasDusartSymmetricThetaBoundsBelow X := by
-    apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
-    · intro x hx hupper
-      by_cases hsmall : x ≤ x₀
-      · exact prefix.1 x hx hsmall
-      · exact table.1 x hx hupper
-    · intro x hx hupper
-      by_cases hsmall : x ≤ x₀
-      · exact prefix.2 x hx hsmall
-      · exact table.2 x hx hupper
+  have finite := hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_coefficient_bounds
+    h2x₀ prefix cover (fun data hdata => (formula data hdata).lower_zero)
+    (fun data hdata => (formula data hdata).upper_zero)
   exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX finite
     hA_nonneg hA thetaError
 

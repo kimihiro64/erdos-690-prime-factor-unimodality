@@ -249,6 +249,9 @@ jobs:
             +PrimeFactorUnimodality.Proof.CompleteClassificationReduction
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Proof.LargeRange.RecordPrefixBounds
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Table66Subintervals
+          lake env lean test/lean/Table66Subintervals.lean
       - name: Upload the checked analytic reduction
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
