@@ -45,6 +45,51 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Zeta positivity and the explicit pole (newest, 2026-09-22)
+
+`Mathlib/NumberTheory/LSeries/ZetaTrigonometric` proves the general
+nonnegative-cosine-polynomial inequality for real parts of `-ζ'/ζ`, including
+the classical `3 + 4 cos u + cos(2u)` instance. It also proves that the norm
+of `-ζ'/ζ` in `Re(s) > 1` is bounded by its value on the real axis. This uses
+only the absolutely convergent von Mangoldt series from Mathlib, not a
+zero-free theorem with an unproved input.
+
+`ZetaRealPole` differentiates the existing fractional-part Abel integral
+using the pinned `PrimeNumberTheoremAnd` dominated-differentiation primitive.
+The signed derivative kernel is nonpositive on the real axis. This proves,
+for every `σ > 1`, `Re ζ(σ) ≥ 1/(σ-1)` and
+`Re (-ζ'/ζ)(σ) ≤ 1/(σ-1) + 1`. The norm bound
+`‖ζ'/ζ(s)‖ ≤ 1/(Re(s)-1) + 1` follows throughout `Re(s) > 1`.
+The separate bound `‖ζ(σ)‖ ≤ 1/(σ-1) + 1` improves the existing
+`zetaNear1BndExact_explicit` witness from 3 to 2 on `(1, 2]`.
+The old constant-3 public statement is preserved as a consequence.
+
+Next analytic work: connect the Hadamard logarithmic derivative to a
+negative contribution from an individual nontrivial zero and prove the
+explicit gamma-factor bound. The pinned dependency's
+`Mathlib/NumberTheory/LSeries/RiemannZetaHadamard` and
+`IEANTN/HadamardLogDerivative` contain relevant factorization/algebra
+primitives; their quantitative zero-free conclusion is not being assumed.
+The current log-power-nine strip and eventual MediumPNT still do not give
+Dusart's numerical starting points. Bounds on the zero sums in the explicit
+formula and the finite zero/prime data remain necessary afterwards.
+
+Source investigation also found Dusart's correction to the later smoothed
+psi formula, including the corrected `B5` expression. Use the corrected
+formula if developing that route:
+https://www.unilim.fr/pages_perso/pierre.dusart/Recherche/correctif_RJ.pdf
+His 2022 HDR, Chapter 2, gives the large-range argument in detail:
+https://www.unilim.fr/pages_perso/pierre.dusart/Documents/HDR_Dusart.pdf
+The new lemmas do not claim that either full error theorem is proved.
+
+CI builds these ingredients and runs `test/lean/ZetaZeroFreeIngredients.lean`
+in the non-certificate foundations job. The candidate and `ZetaRealPole`
+compile, the regression examples pass, and the eight audited exports use
+only `propext`, `Classical.choice`, and `Quot.sound`.
+The updated `ZetaExplicitBounds` consumer also compiles. Fast source checks,
+Ruff, mypy, actionlint, and 71 Python tests pass; the local fast gate skips
+the Ruby metadata validator because Ruby is not installed.
+
 ### Anchored Dusart comparison (newest, 2026-09-22)
 
 `DusartJBounds` proves the actual Section 6.2 comparison from the 2010

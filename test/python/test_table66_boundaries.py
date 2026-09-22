@@ -50,6 +50,20 @@ def test_prime_count_assembly_does_not_require_a_false_small_theta_estimate() ->
     assert "upperAnchor : dusartJ 2 (1 / 20) x₀ x₀ ≤ dusartM (1167 / 500) x₀" in code
 
 
+def test_zeta_ingredients_are_independent_and_checked_before_consumers() -> None:
+    pole = strip_lean_comments((ANALYTIC / "ZetaRealPole.lean").read_text())
+    assert lean_imports(pole) == [
+        "PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.ZetaTrigonometric",
+        "PrimeNumberTheoremAnd.Mathlib.NumberTheory.LSeries.RiemannZetaAbelContinuation",
+    ]
+    assert "HasDusart" not in pole
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    pole_target = "+PrimeFactorUnimodality.Helpers.Analytic.ZetaRealPole"
+    consumer = "+PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds"
+    regression = "lake env lean test/lean/ZetaZeroFreeIngredients.lean"
+    assert workflow.index(pole_target) < workflow.index(regression) < workflow.index(consumer)
+
+
 def test_old_first_row_endpoints_are_incompatible() -> None:
     # Lean proves log(200000000) >= 1; even this weaker margin contradicts
     # the simultaneous theta(100000000) upper endpoint requirement.
