@@ -350,6 +350,21 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriStechkin
           lake env lean test/lean/KadiriPositivity.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Analytic.Order.Conjugation
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Topology.Algebra.InfiniteSum.Paired
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaXiDivisorConjugation
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaXiDivisorPairing
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriZeroSummability
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriZeroSums
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriOuterMaster
+          lake env lean test/lean/KadiriZeroSums.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

@@ -45,6 +45,59 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Actual multiplicity-counted zero sums (newest, 2026-09-22)
+
+The paired comparison is now integrated with the actual xi divisor.
+See `DUSART_ZERO_REUSE.md` for the focused sibling audit at exact published
+revisions. BV/PNT's local conjugation/order argument is reused as a
+Mathlib-only candidate; the existing project xi function symmetries and
+Mathlib infinite-sum API are reused rather than reproved. RH-dependent
+shifted mass estimates and `Re(s)>1` positivity were not substituted for
+the unconditional smoothed strip argument.
+
+- `ZetaXiDivisorConjugation` builds `ρ -> 1-conj(ρ)` as an involutive
+  equivalence preserving each `Fin` multiplicity label. Its fixed points
+  are exactly the critical-line labels.
+- `ZetaXiDivisorPairing` proves exact half-pair reindexing on the full
+  divisor and reflection-stable subtypes, central-pair elimination, and
+  retention of one distinguished nonfixed pair. The reusable
+  `Summable.pair_le_tsum_of_involution` uses Mathlib's finite-subsum bound
+  on the symmetrized series, not positivity of individual terms.
+- `KadiriZeroSummability` supplies actual-weight summability at EVERY
+  complex argument. `KadiriZeroSums` proves the central-strip contribution
+  nonnegative, bounds the outer sum by the full sum, and retains an
+  off-critical pair plus the entire outer contribution. All weight and
+  pair hypotheses are discharged using the previously proved symbolic
+  κ₂/κ₃ comparison.
+- `KadiriOuterMaster` inserts central-strip elimination into the actual
+  master inequality, keeping pole, outer-zero, and gamma terms explicit.
+  This master currently discards all central pairs: its retained-pair
+  refinement and the quantitative estimates are not yet implemented.
+
+All new leaf modules and `test/lean/KadiriZeroSums.lean` compile. All 28
+audited declarations use only the standard three axioms; probe/log are
+`.research/DusartXiPairingAxioms.lean` and
+`.research/dusart-xi-pairing-axioms.log`. CI builds candidates before their
+consumers, serially in `lean-foundations`. Regression examples exercise
+signed summands, infinite analytic order, fixed points, label preservation,
+and actual retained-pair sums. The fast prebuild profile (including source,
+architecture, exact Challenge/Solution, Ruff, and Ruby metadata checks),
+workflow lint, mypy, and all 93 Python tests pass. Ruby reports 16 tests,
+83 assertions, and no failures or skips. No full-project CI success or final
+Dusart proof is claimed.
+
+NEXT: retain the distinguished pair at the selected harmonic in the
+weighted master, prove its quantitative lower bound, then the outer-zero
+and gamma estimates (Kadiri §4.1 / proposition 2.5, with the exact
+Mossinghoff--Trudgian parameters). The target remains `R=5.573412`.
+Then prove the needed sharp PNT bounds and finite analytic inputs for
+`wangCrapis_primeCounting`, `wangCrapis_thetaBounds`, and
+`wangCrapis_shortInterval`. All three providers remain open. Do not redo
+conjugation, multiplicity transport, summability, or central elimination.
+For elaboration, explicitly supply `G := fun ρ => ...` and the complex
+argument when applying generic sum lemmas: leaving them as `_` caused
+unnecessary unfolding of `finiteLaplace` and heartbeat exhaustion.
+
 ### Smoothed paired-zero inequality (newest, 2026-09-22)
 
 `KadiriPairedZeros.kadiriWeight_paired_zero_nonneg` proves the actual
@@ -87,13 +140,9 @@ and submission-mode metadata validation pass with no skips. The fast gate
 now requires Ruby; regression tests prevent reinstating the skip.
 No full-project CI success is claimed.
 
-NEXT: use the comparison in the actual xi-divisor sum, retaining
-multiplicities, and prove the remaining quantitative gamma and zero-tail
-estimates. Same-height zero pairing uses `ρ -> 1-conj(ρ)`; the existing
-`ZetaXiDivisorReflection` equivalence is only `ρ -> 1-ρ`, so do not confuse
-them. Prove the needed conjugation/multiplicity bridge before reindexing.
-Then prove the sharp zero-free/PNT constants and the checked finite analytic
-inputs required by the final three Dusart providers. The numerical
+The conjugation/multiplicity bridge and central-strip sum integration
+proposed at this stage are now proved; see the newer section above.
+The numerical
 Mossinghoff--Trudgian parameter choices and final `R=5.573412` are NOT yet
 certified by this symbolic comparison. Do not weaken that target or restore
 the discarded full record-gap replay. All three providers and the all-`k`

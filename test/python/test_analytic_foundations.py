@@ -244,3 +244,25 @@ def test_paired_zero_ci_build_order() -> None:
     ]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/KadiriPairedZeros.lean")
+
+
+def test_zero_sum_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "Helpers.Analytic.KadiriStechkin",
+        "Mathlib.Analysis.Analytic.Order.Conjugation",
+        "Mathlib.Topology.Algebra.InfiniteSum.Paired",
+        "Helpers.Analytic.ZetaXiDivisorConjugation",
+        "Helpers.Analytic.ZetaXiDivisorPairing",
+        "Helpers.Analytic.KadiriZeroSummability",
+        "Helpers.Analytic.KadiriZeroSums",
+        "Helpers.Analytic.KadiriOuterMaster",
+    )
+    positions = [
+        foundations.index(f"lake build \\\n            +PrimeFactorUnimodality.{module}\n")
+        for module in modules
+    ]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index("lake env lean test/lean/KadiriZeroSums.lean")

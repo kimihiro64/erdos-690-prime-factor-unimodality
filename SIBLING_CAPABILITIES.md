@@ -31,6 +31,12 @@ Capability status in this file is local to the named declarations. An open
 headline theorem does not invalidate an independently proved leaf, and a
 complete headline theorem does not make every internal module portable.
 
+For this project's 2026-09-22 xi zero-sum follow-up, see
+[DUSART_ZERO_REUSE.md](DUSART_ZERO_REUSE.md): exact additional revisions,
+conjugation/order reuse, multiplicity transport, and the domain restrictions
+on RH-dependent mass and right-half-plane positivity estimates. That focused
+review does not replace the catalog-wide reviewed revisions below.
+
 ## Repository index
 
 | Repository | Reviewed commit | Toolchain | Headline status | Reuse posture |

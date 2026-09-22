@@ -40,6 +40,9 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.Topology.Algebra.InfiniteSum.Paired` | `Mathlib/Topology/Algebra/InfiniteSum/Paired.lean` | project-verified | Mathlib finite-subsum bound and equivalence reindexing |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Analytic.Order.Conjugation` | `Mathlib/Analysis/Analytic/Order/Conjugation.lean` | project-verified | PNT `Kadiri.analyticAt_conj_conj` / `Kadiri.analyticOrderAt_conj_conj`, revision `f6147e7572ab3abe5428101bc0b13627bcb005df`; BV `ComplexAnalysis.AnalyticAt.{conj_conj,analyticOrderAt_conj_conj,analyticOrderNatAt_conj_conj}`, revision `7a1748306e026825ed6a5555516cc2f28989b2ac`; Apache-2.0, Mathlib-only extraction, derivative helper replaced by Mathlib |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex` | `Mathlib/Analysis/Complex.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Poisson.ThreeKernelUniform` | `Mathlib/Analysis/Complex/Poisson/ThreeKernelUniform.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.PairedStrip` | `Mathlib/Analysis/Complex/FiniteLaplace/PairedStrip.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.RealSource` | `Mathlib/Analysis/Complex/FiniteLaplace/RealSource.lean` | project-verified | None |
