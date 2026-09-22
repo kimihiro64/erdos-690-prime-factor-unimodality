@@ -6,6 +6,8 @@ Authors: Jonas Whidden
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Hadamard.Integral
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.JensenCard
+import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Log.Interval
+import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Log.IntervalIntegral
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Poisson
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Powers.Recurrence
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Series.Imaginary

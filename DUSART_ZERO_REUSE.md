@@ -196,3 +196,11 @@ crossing bound at arbitrarily large powers. This does not claim that the
 coarse PNT growth estimate supplies the explicit logarithmic discrepancy:
 argument variation, the counting identity, and sharp enough magnitude and
 gamma estimates remain separate proof obligations.
+
+The horizontal comparison is now completed in `BacklundArgument` and
+`BacklundArgumentIntegral`. These reuse Mathlib's intermediate value theorem,
+integer interval cardinality, exponential covering, continuous-map lifting,
+inverse differentiation, and FTC. The new glue proves the actual endpoint
+phase bound and its logarithmic-derivative integral form; it does not rebuild
+those underlying topological and analytic tools. Its remaining explicit
+circle magnitude hypotheses are not presented as a proved sharp count bound.

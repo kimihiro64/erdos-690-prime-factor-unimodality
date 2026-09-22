@@ -472,6 +472,17 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.BacklundRealZeros
           lake env lean test/lean/BacklundAuxiliary.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Trigonometric.ZeroCount
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.Log.Interval
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.Log.IntervalIntegral
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.BacklundArgument
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.BacklundArgumentIntegral
+          lake env lean test/lean/BacklundArgument.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

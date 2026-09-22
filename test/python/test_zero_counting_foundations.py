@@ -18,3 +18,20 @@ def test_backlund_foundations_ci_build_order() -> None:
     positions = [foundations.index(f"lake build \\\n            +{module}\n") for module in modules]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/BacklundAuxiliary.lean")
+
+
+def test_backlund_argument_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Trigonometric.ZeroCount",
+        "PrimeFactorUnimodality.Mathlib.Analysis.Complex.Log.Interval",
+        "PrimeFactorUnimodality.Mathlib.Analysis.Complex.Log.IntervalIntegral",
+        "PrimeFactorUnimodality.Helpers.Analytic.BacklundArgument",
+        "PrimeFactorUnimodality.Helpers.Analytic.BacklundArgumentIntegral",
+    )
+    positions = [foundations.index(f"lake build \\\n            +{module}\n") for module in modules]
+    assert foundations.index("lake env lean test/lean/BacklundAuxiliary.lean") < positions[0]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index("lake env lean test/lean/BacklundArgument.lean")

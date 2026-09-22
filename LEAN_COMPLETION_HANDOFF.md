@@ -45,6 +45,46 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Horizontal argument integral bound (newest, 2026-09-22)
+
+The real-crossing comparison and infinite-power limit are now proved and
+connected to the actual horizontal logarithmic-derivative integral.
+
+- `Trigonometric.ZeroCount` bounds the absolute endpoint change of a
+  continuous phase by `(number of cosine zeros + 1)*pi`. The proof counts
+  integer-spaced levels and uses the intermediate value theorem; it allows
+  decreasing and nonmonotone phases. It does not assert bounded total variation.
+- `Complex.Log.Interval` uses Mathlib's exponential covering and path lifting
+  to construct a continuous logarithm on a nonvanishing closed segment with
+  prescribed initial value. It includes degenerate segments and never assumes
+  the principal argument is continuous along the path.
+- `BacklundArgument` applies the phase lemma to each positive power and uses
+  the unbounded good powers from recurrence. The limit removes the `1/n`
+  endpoint allowance and the `log(2)/n` centre loss. Its bound is exactly
+  `pi*log(M/abs(a(sigma+iT)))/log(R/r)` under the stated circle bounds.
+- `Complex.Log.IntervalIntegral` derives the derivative of a continuous
+  logarithm by the existing inverse-derivative theorem, then applies FTC.
+  `BacklundArgumentIntegral` proves integrability and the exact integral
+  increment for the entire surrogate and transfers the Jensen bound to the
+  imaginary part of its horizontal logarithmic-derivative integral.
+
+All three candidates and both project leaves compile. The 13 public results
+use only `propext`, `Classical.choice`, and `Quot.sound`. The eight-example
+`BacklundArgument` regression and the previous auxiliary regression pass;
+CI builds each leaf serially before certificates. Ruff, mypy, actionlint,
+and all 103 Python tests pass.
+
+NEXT: the actual count's argument-principle identity, followed by sufficiently
+explicit gamma/Stirling and circle-to-centre magnitude bounds. The horizontal
+comparison no longer needs a new phase or integral bridge. The existing PNT
+`RectangleArgumentPrinciple.rectangleIntegral_logDeriv_eq_sum_meromorphicOrderAt`
+(a root-level declaration despite the module path) is a promising reusable
+residue theorem; audit its closure before using it. Its companion
+`rectangle_argumentChange_eq_two_pi_sum_meromorphicOrderAt` assumes an argument
+integral identity, so it alone does not discharge that identity.
+The numerical `2log(T)` estimate, separation, numerical parameters, and all
+three final Dusart providers remain open.
+
 ### Backlund auxiliary and Jensen crossing bound (newest, 2026-09-22)
 
 The actual auxiliary function from Trudgian's equation (2.4) is now entire,

@@ -40,6 +40,9 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Log.Interval` | `Mathlib/Analysis/Complex/Log/Interval.lean` | project-verified | Continuous logarithm along a closed real interval with prescribed initial value, using the exponential covering |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Log.IntervalIntegral` | `Mathlib/Analysis/Complex/Log/IntervalIntegral.lean` | project-verified | Derivative and exact integral increment of an arbitrary continuous logarithm along a real interval |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Trigonometric.ZeroCount` | `Mathlib/Analysis/SpecialFunctions/Trigonometric/ZeroCount.lean` | project-verified | Endpoint phase change bounded by the finite cosine-zero count using the intermediate value theorem |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.JensenCard` | `Mathlib/Analysis/Complex/JensenCard.lean` | project-verified | Finite distinct zeros and their cardinality bound by the analytic divisor mass on compact connected domains |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Powers.Recurrence` | `Mathlib/Analysis/Complex/Powers/Recurrence.lean` | project-verified | Unbounded powers of a unit complex number return to one; arbitrarily large powers have quantitatively positive real parts |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Exp.Cubic` | `Mathlib/Analysis/SpecialFunctions/Exp/Cubic.lean` | project-verified | Mathlib exponential series and summable order comparison |
