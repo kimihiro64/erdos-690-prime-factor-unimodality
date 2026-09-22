@@ -15,6 +15,8 @@ def test_subinterval_assembler_has_no_generated_dependencies() -> None:
     pending = [
         "PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Table66EndpointFacts",
         "PrimeFactorUnimodality.Helpers.Analytic.DusartThetaClosedPart01",
+        "PrimeFactorUnimodality.Helpers.Analytic.DusartThetaClosedPart02",
+        "PrimeFactorUnimodality.Helpers.Analytic.DusartPrimeCountingAssembly",
     ]
     visited: set[str] = set()
     while pending:
@@ -24,6 +26,7 @@ def test_subinterval_assembler_has_no_generated_dependencies() -> None:
         visited.add(module)
         assert ".Generated." not in module
         assert module != "PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows"
+        assert not re.search(r"\.DusartProof(?:Part\d+)?$", module)
         path = ROOT.joinpath(*module.split(".")).with_suffix(".lean")
         if path.is_file():
             pending.extend(lean_imports(strip_lean_comments(path.read_text())))
@@ -82,6 +85,28 @@ def test_ci_checks_subintervals_and_lean_regressions() -> None:
         in (workflow)
     )
     assert "lake env lean test/lean/Table66Subintervals.lean" in workflow
+    assert "lake env lean test/lean/DusartAnalytic.lean" in workflow
+
+
+def test_prime_power_helpers_precede_intermediate_consumers() -> None:
+    power = strip_lean_comments((ANALYTIC / "DusartPrimePower.lean").read_text())
+    imports = lean_imports(
+        strip_lean_comments((ANALYTIC / "DusartIntermediatePower.lean").read_text())
+    )
+    assert "PrimeFactorUnimodality.Helpers.Analytic.DusartPrimePower" in imports
+    assert "theorem dusart_rpow_ratio_bound" in power
+    assert "theorem dusart_lemma_3_3_prime_power_decomposition" in power
+    for name in ("DusartProofPart05.lean", "DusartProofPart06.lean"):
+        code = strip_lean_comments((ANALYTIC / name).read_text())
+        assert "theorem dusart_rpow_ratio_bound" not in code
+        assert "theorem dusart_lemma_3_3_prime_power_decomposition" not in code
+
+
+def test_short_interval_tail_precedes_its_consumers() -> None:
+    code = strip_lean_comments((ANALYTIC / "DusartShortIntervalClosed.lean").read_text())
+    assert code.index("theorem wangCrapis_logCubedTail_of_thetaLogFourthError") < code.index(
+        "theorem wangCrapis_shortInterval_of_selected_cutoff"
+    )
 
 
 def test_finite_facade_has_no_duplicate_declarations() -> None:

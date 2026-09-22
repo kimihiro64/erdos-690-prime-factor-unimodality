@@ -1,6 +1,8 @@
-import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
+import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33Assembly
 import PrimeFactorUnimodality.Helpers.Analytic.DusartThetaClosedPart01
+import PrimeFactorUnimodality.Helpers.Analytic.DusartThetaFromPsiBounds
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Table66Assembly
+import PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
 
 set_option autoImplicit false
 
@@ -279,8 +281,8 @@ theorem wangCrapis_thetaBounds_of_paper_ranges_and_prop31_thetaError
     norm_num
   have hcut : Real.exp 28 ≤ (4e18 : Real) := by
     calc
-      Real.exp 28 < (1446257067000 : Real) :=
-        exp_twentyEight_lt_dusart_endpoint
+      Real.exp 28 ≤ (1446257067000 : Real) :=
+        exp_twentyEight_lt_dusart_endpoint.le
       _ ≤ (4e18 : Real) := by norm_num
   have thetaErrorLarge : HasThetaLogFourthErrorAbove
       (648 / 1000 : Real) (4e18 : Real) := by
@@ -294,13 +296,7 @@ theorem wangCrapis_thetaBounds_of_paper_ranges_and_prop31_thetaError
     finite
   · intro x hx hx_exp
     refine ⟨middlePsi x hx hx_exp, ?_⟩
-    apply prop31 x
-    · linarith
-    · calc
-        x ≤ Real.exp 28 := hx_exp
-        _ < (1446257067000 : Real) :=
-          exp_twentyEight_lt_dusart_endpoint
-        _ < (4e18 : Real) ^ 2 := by norm_num
+    exact prop31 x (by linarith)
   · exact dusart_proposition_5_1_tail_of_logFourthError
       (by norm_num) hA thetaError
   · exact lower

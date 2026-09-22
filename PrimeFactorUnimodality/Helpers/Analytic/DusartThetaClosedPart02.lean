@@ -50,7 +50,7 @@ theorem wangCrapis_three_root_upper_gap_strict
       (100007 : Real) / 100000 * Real.sqrt x +
         (178 : Real) / 100 * x ^ (1 / 3 : Real) := by
   exact dusart_gap_upper_from_three_strict_large_theta_bounds
-    hx h2cut h3cut h5cut h2theta h3theta h5theta
+    (by linarith) h2cut h3cut h5cut h2theta h3theta h5theta
 
 
 /-! This is the independent theta upper estimate used by Dusart's Lemma 3.3.
@@ -209,26 +209,7 @@ theorem wangCrapis_theta_lower_error_below_three
     {x : Real} (hx : 2 < x) (hx3 : x ≤ 3) :
     |Chebyshev.theta x - x| <
       (12323 / 10000 : Real) * x / Real.log x := by
-  have hprefix := wangCrapis_thetaBoundsBelow_3
-  have hupper := hprefix.1 x (by linarith) hx3
-  have hlower := hprefix.2 x hx hx3
-  have hlogpos : 0 < Real.log x := Real.log_pos (by linarith)
-  have hlog_le : Real.log x ≤ Real.log 3 :=
-    Real.log_le_log (by linarith) hx3
-  have hlog3lt : Real.log (3 : Real) < (11 : Real) / 10 :=
-    Real.log_three_lt_d9
-  have hcoef : (1 : Real) / 36260 <
-      (12323 / 10000 : Real) / Real.log x := by
-    apply (lt_div_iff₀ hlogpos).2
-    nlinarith
-  have hscaled := mul_lt_mul_of_pos_right hcoef (by linarith : 0 < x)
-  have herror : x / 36260 <
-      (12323 / 10000 : Real) * x / Real.log x := by
-    nlinarith
-  apply (abs_lt).2
-  constructor
-  · nlinarith
-  · exact hupper.trans herror
+  exact wangCrapis_thetaBoundsBelow_3.2 x hx hx3
 
 theorem wangCrapis_thetaBounds_of_strict_prefix_endpoint_rows_and_logFourthTail_of_suffix_lower
     {A X : Real} {n : Nat}
@@ -629,7 +610,7 @@ theorem wangCrapis_thetaBounds_of_rpowDecay
   obtain ⟨Y, hXY, thetaError⟩ :=
     exists_hasThetaLogFourthError_of_logRpowDecay_of_pos_coefficient
       (C := C) (D := (1 : Real)) hC (by norm_num) hc hα decay
-  have hYpos : 0 < Y := hXpos.trans hXY
+  have hYpos : 0 < Y := hXpos.trans_le hXY
   have hlogY : (10 : Real) < Real.log Y := by
     have hlog_mono : Real.log X ≤ Real.log Y :=
       Real.log_le_log hXpos hXY
@@ -637,7 +618,8 @@ theorem wangCrapis_thetaBounds_of_rpowDecay
       norm_num
     linarith
   have hA : (1 : Real) / Real.log Y ≤ 12167 / 500000 := by
-    have hlogY_pos : 0 < Real.log Y := Real.log_pos (by linarith)
+    have hlogY_pos : 0 < Real.log Y := by linarith
+    have hlog_mono := Real.log_le_log hXpos hXY
     apply (div_le_iff₀ hlogY_pos).2
     nlinarith
   exact wangCrapis_thetaBounds_of_logFourthTail
@@ -651,7 +633,7 @@ theorem wangCrapis_thetaBounds_of_mediumPNT
     (finite : ∀ Y : Real, (4e18 : Real) ≤ Y →
       HasDusartSymmetricThetaBoundsBelow Y) :
     HasDusartThetaBounds := by
-  obtain ⟨Y, hY, h4Y, hlogY, thetaError⟩ :=
+  obtain ⟨Y, h4Y, hlogY, thetaError⟩ :=
     exists_hasThetaLogFourthError_of_mediumPNT_at_large_cutoff
   have hYpos : 0 < Y := by linarith
   have hA : (648 / 1000 : Real) / Real.log Y ≤

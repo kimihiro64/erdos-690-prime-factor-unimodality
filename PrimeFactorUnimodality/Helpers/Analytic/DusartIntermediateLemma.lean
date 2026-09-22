@@ -69,4 +69,4 @@ theorem dusart_lemma_3_3_intermediate
 
 end
 
-end PrimeFactorUnimodularity
+end PrimeFactorUnimodality

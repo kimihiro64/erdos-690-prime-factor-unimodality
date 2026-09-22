@@ -1,5 +1,6 @@
 import PrimeFactorUnimodality.Helpers.Analytic.DusartIntermediateCoeffData
 import PrimeFactorUnimodality.Helpers.Analytic.DusartPowerSumAssembly
+import PrimeFactorUnimodality.Helpers.Analytic.DusartPrimePower
 
 set_option autoImplicit false
 set_option maxRecDepth 100000

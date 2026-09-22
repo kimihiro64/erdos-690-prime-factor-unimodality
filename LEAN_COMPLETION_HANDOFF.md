@@ -45,6 +45,59 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Checked independent Dusart analytic chain (latest, 2026-09-22)
+
+The persistent all-k goal is active again. Continue actual proof work; the
+three global providers are still not proved and must not be assumed.
+
+`DusartPrimePower` now owns the prime-power decomposition, integer-power
+ratio comparison, large-index bound, and large-range Lemma 3.3 argument.
+The intermediate power proof previously used these declarations before their
+definition in a file that imported it. The dependency direction is corrected,
+the ratio proof is repaired, and the new module compiles in about 8 seconds.
+`DusartIntermediateLemma` also had a misspelled closing namespace, now fixed.
+Its finite coefficient table has not been replayed as part of this repair.
+
+`DusartRootBounds`, `DusartLemma33Assembly`, and `DusartThetaFromPsiBounds`
+separate the analytic arguments from fixed endpoint computations. Both
+`DusartThetaClosedPart01Tail` and `DusartThetaClosedPart02` now compile without
+the generated endpoint chain. Repairs include cutoff transport, missing
+arguments, strict-versus-nonstrict comparisons, and the actual tuple shape of
+the medium-PNT result. A new proved strict numerical margin derives
+`theta y > .9999*y` from the non-strict log-fourth error at `y >= 4e18`;
+Proposition 3.1 can therefore use the stated non-strict error interface.
+
+`DusartPrimeCountingAssembly` compiles independently too. Its finite facade
+still needs a genuine covering prefix for 599--1000; do not restore the false
+singleton cover. `PrimePrefixCounts` now proves that one checked largest
+prime list supplies every smaller count by filtering. `PrimeCountingLogBounds`
+proves rational log enclosures from comparisons of integer powers with
+2--3--5-smooth integers. Both are compiled reusable primitives for that prefix.
+Next implement and check the compact row assembler, then its covering data.
+An exact-rational Python feasibility check found 33 overlapping-endpoint rows
+covering 599--1000 using eighth powers and 2--3--5-smooth log enclosures.
+The first endpoints are 599, 603, 610, 617, 630, 637, 644, 657, 671. These
+are candidate data, not a Lean theorem. Prove one largest prime list and
+filter it for all endpoint counts; do not repeat primality computation.
+
+`DusartShortIntervalClosed` no longer has a forward reference to its tail
+adapter and uses the existing below/above assembler name. The complete short
+interval facade still awaits its finite dependency build; this change does
+not certify the global short-interval provider. `DusartProofPart05/06` retain
+compatibility exports and fixed finite consequences; they are not analytic
+prebuild roots.
+
+CI builds the independent theta and prime-counting chains in the analytic
+job. `test/lean/DusartAnalytic.lean` exercises strict margins, prime-power
+decomposition, shared prime counts, and powered log bounds. Python regression
+checks prohibit dependencies back into `DusartProof` or the finite facade.
+The paper's fixed-constant unbounded psi/theta estimates remain a separate,
+genuine proof obligation; asymptotic existence cannot choose a verified
+numerical cutoff by itself.
+The focused Lean regression and axiom checks pass; the audited new theorems
+use only `propext`, `Classical.choice`, and `Quot.sound`. The complete fast
+gate, Ruff, mypy, 63 Python tests, actionlint, and whitespace checks pass.
+
 ### Checked theta-row repair (2026-09-22, later override)
 
 The finite facade is now a small importer. Certificate-independent modules

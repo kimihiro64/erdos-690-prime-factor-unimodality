@@ -54,6 +54,28 @@ theorem wangCrapis_shortIntervalPrefix_89890 :
     (by norm_num) wangCrapis_shortIntervalPrefix
     finitePrimeGapLogRows_89693_89890_cover
 
+/-! Closed analytic tail adapter.  The remaining fixed-cutoff work is to
+construct its `HasThetaLogFourthError` input and the explicit endpoint
+coverage; this theorem records the exact conversion without importing
+Dusart's proposition. -/
+theorem wangCrapis_logCubedTail_of_thetaLogFourthError
+    {A X : Real} (hXpos : 0 < X) (h2X : 2 ≤ X)
+    (hlogX : (10 : Real) < Real.log X) (hA_nonneg : 0 ≤ A)
+    (hA : A / Real.log X ≤ 12167 / 500000)
+    (thetaError : HasThetaLogFourthError A X) :
+    ∀ x : Real, X ≤ x →
+      ∃ q : Nat, q.Prime ∧ x < q ∧
+        (q : Real) ≤ x + x / (Real.log x) ^ 3 := by
+  intro x hx
+  obtain ⟨q, hq, hxq, hupper⟩ :=
+    dusartPrimeInInterval_of_logFourthError_from
+      hXpos h2X hlogX hA_nonneg hA thetaError x hx
+  refine ⟨q, hq, hxq, ?_⟩
+  calc
+    (q : Real) ≤ x * (1 + 1 / (Real.log x) ^ 3) := hupper
+    _ = x + x / (Real.log x) ^ 3 := by ring
+
+
 /-! Once the log-cubed tail is proved directly, this is the exact final
 short-interval assembly.  Keeping the tail as an explicit argument makes the
 remaining analytic obligation visible rather than smuggling it in through a
@@ -100,7 +122,7 @@ theorem wangCrapis_shortInterval_of_indexed_gap_rows_and_thetaTail
     (thetaError : HasThetaLogFourthError A X) :
     HasDusartShortIntervalPrime := by
   apply wangCrapis_shortInterval_of_logCubedTail
-  apply hasLogCubedShortIntervalPrime_of_below_and_logCubed
+  apply hasLogCubedShortIntervalPrime_of_below_and_above
     hXcutoff
     (hasLogCubedShortIntervalPrimeBelow_of_indexed_gap_rows
       hXcutoff hXb cover width)
@@ -121,26 +143,6 @@ theorem wangCrapis_shortInterval_of_mediumPNT
   exact hasLogCubedShortIntervalPrime_of_finite_and_mediumPNT
     (X₀ := (89693 : Real)) (by norm_num) finite
 
-/-! Closed analytic tail adapter.  The remaining fixed-cutoff work is to
-construct its `HasThetaLogFourthError` input and the explicit endpoint
-coverage; this theorem records the exact conversion without importing
-Dusart's proposition. -/
-theorem wangCrapis_logCubedTail_of_thetaLogFourthError
-    {A X : Real} (hXpos : 0 < X) (h2X : 2 ≤ X)
-    (hlogX : (10 : Real) < Real.log X) (hA_nonneg : 0 ≤ A)
-    (hA : A / Real.log X ≤ 12167 / 500000)
-    (thetaError : HasThetaLogFourthError A X) :
-    ∀ x : Real, X ≤ x →
-      ∃ q : Nat, q.Prime ∧ x < q ∧
-        (q : Real) ≤ x + x / (Real.log x) ^ 3 := by
-  intro x hx
-  obtain ⟨q, hq, hxq, hupper⟩ :=
-    dusartPrimeInInterval_of_logFourthError_from
-      hXpos h2X hlogX hA_nonneg hA thetaError x hx
-  refine ⟨q, hq, hxq, ?_⟩
-  calc
-    (q : Real) ≤ x * (1 + 1 / (Real.log x) ^ 3) := hupper
-    _ = x + x / (Real.log x) ^ 3 := by ring
 
 end
 
