@@ -1,4 +1,4 @@
-import PrimeFactorUnimodality.Helpers.Analytic.KadiriWeight
+import PrimeFactorUnimodality.Helpers.Analytic.KadiriDerivativeBound
 import PrimeFactorUnimodality.Helpers.Analytic.SmoothedRealExplicitFormula
 
 /-! # The proved explicit formula instantiated with the actual paper weight
@@ -27,10 +27,11 @@ theorem kadiriWeight_explicitFormula {θ η : ℝ}
         (-(1 / 2 : ℝ) * Real.log Real.pi + (1 / 2 : ℝ) * (digamma (s / 2 + 1)).re) +
       (smoothedGammaRemainder (fun u => (kadiriWeight₂ θ η u : ℂ))
         (kadiriWeightSupport θ η) s).re := by
-  obtain ⟨M, hM, hbound⟩ := exists_bound_kadiriWeight₂ θ η
   apply re_smoothedVonMangoldt_explicitFormula
-    (g := fun u => (kadiriWeight₁ θ η u : ℂ)) (M := M)
-    (kadiriWeightSupport_pos hθ hη).le hM (continuousOn_kadiriWeight θ η)
+    (g := fun u => (kadiriWeight₁ θ η u : ℂ)) (M := η ^ 3 * (-kadiriKernel₂ θ 0))
+    (kadiriWeightSupport_pos hθ hη).le
+    (mul_nonneg (pow_nonneg hη.le 3) (neg_kadiriKernel₂_zero_nonneg hθ))
+    (continuousOn_kadiriWeight θ η)
     (Complex.continuous_ofReal.comp (continuous_kadiriWeight₁ θ η)).continuousOn
     (Complex.continuous_ofReal.comp (continuous_kadiriWeight₂ θ η)).continuousOn
     (fun u hu => (hasDerivAt_kadiriWeight hu).ofReal_comp)
@@ -38,7 +39,7 @@ theorem kadiriWeight_explicitFormula {θ η : ℝ}
     (kadiriWeight_support hθ hη)
     (by rw [kadiriWeight₁_zero hθ, ofReal_zero])
     (by rw [kadiriWeight₁_support hθ hη, ofReal_zero])
-    hbound (kadiriWeight_tail θ η) hs
+    (fun _ hu => norm_kadiriWeight₂_le hθ hη hu) (kadiriWeight_tail θ η) hs
 
 end
 

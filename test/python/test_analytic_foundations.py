@@ -178,8 +178,13 @@ def test_kadiri_weight_ci_build_order() -> None:
         "SmoothedStechkinFormula",
         "KadiriWeightKernel",
         "KadiriWeightEndpoints",
+        "KadiriCorrelation",
         "KadiriWeight",
+        "KadiriWeightPositivity",
+        "KadiriDerivativeBound",
+        "KadiriLaplaceBounds",
         "KadiriWeightExplicitFormula",
+        "KadiriStechkin",
     )
     positions = [
         foundations.index(
@@ -189,4 +194,11 @@ def test_kadiri_weight_ci_build_order() -> None:
     ]
     assert positions == sorted(positions)
     assert positions[1] < foundations.index("lake env lean test/lean/SmoothedInversion.lean")
-    assert positions[-1] < foundations.index("lake env lean test/lean/KadiriWeight.lean")
+    assert positions[-2] < foundations.index("lake env lean test/lean/KadiriWeight.lean")
+    assert positions[-1] < foundations.index("lake env lean test/lean/KadiriPositivity.lean")
+    for candidate in ("CosineCorrelation", "CorrelationBound"):
+        candidate_build = foundations.index(
+            "lake build \\\n            +PrimeFactorUnimodality.Mathlib."
+            f"Analysis.SpecialFunctions.Integrals.{candidate}\n"
+        )
+        assert candidate_build < positions[2]

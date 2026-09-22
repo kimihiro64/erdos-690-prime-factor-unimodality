@@ -4,6 +4,7 @@ import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Hadamard.Integral
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Poisson.Stechkin
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.DigammaConjugation
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrability.LogCauchy
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.Deriv
 import PrimeFactorUnimodality.Mathlib.Data.Nat.CoprimePeriodicCount
 import PrimeFactorUnimodality.Mathlib.NumberTheory.BLSPrimality

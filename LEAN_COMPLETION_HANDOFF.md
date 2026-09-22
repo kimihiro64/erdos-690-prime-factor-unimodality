@@ -45,6 +45,51 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Weight positivity and sharp derivative/transform bounds (newest, 2026-09-22)
+
+`KadiriCorrelation` proves the actual kernel's cosine-overlap integral
+identity by exact integration, then nonnegativity throughout its support
+for EVERY `pi/2<theta<pi`. `KadiriWeightPositivity.kadiriWeight_nonneg`
+extends this to every real argument of the scaled compact weight, for
+every positive scale. Neither result uses sampled numerical values.
+
+`KadiriDerivativeBound` proves the sine-correlation identity for the
+second derivative and the sharp bound
+`|h_theta''(u)| <= -h_theta''(0)` on the ENTIRE support. The maximum is
+formally attained at zero (`isGreatest_abs_kadiriKernel₂`). Its closed
+value is `tan(theta)^2/cos(theta)^4 * (-theta/tan(theta)+cos(theta)^2)`.
+The scaled bound is exactly `eta^3*(-h_theta''(0))`.
+
+Mathlib-only `Integrals.CosineCorrelation` evaluates both overlap integrals;
+`Integrals.CorrelationBound` proves the general finite-overlap square bound
+using `2*|xy|<=x^2+y^2`, interval monotonicity, and translation. These
+candidates are exported through the new `Integrals` facade and were
+built independently before their consumers.
+
+`KadiriLaplaceBounds` proves the complex pole-subtracted transform bound,
+and the real error bound `eta^3*m(theta)/(x*(x^2+y^2))` for EVERY `x>0`.
+`KadiriStechkin.kadiriWeight_master_nonneg` now discharges ALL weight-side
+hypotheses in the master inequality. It and `kadiriWeight_explicitFormula`
+use the sharp derivative constant, not an existential compactness bound.
+
+Targeted builds and both actual-weight Lean regressions pass. The new
+regression retains arbitrary admissible angles, positive scales, full
+support points, complex evaluation points, and polynomial parameters.
+All 19 new or modified proof exports pass axiom audits with only `propext`,
+`Classical.choice`, and `Quot.sound`. All 87 Python tests pass, including
+the extended serial CI build-order check. Logs are under
+`.research/dusart-{correlation-*,cosine-correlation,kadiri-*}.log`.
+
+NEXT: prove nonnegative real Laplace transform for `Re(s)>=0` (the paper's
+H2), then the sharp zero-contribution and gamma bounds. Weight positivity
+does NOT alone imply H2. A possible direct route is a Volterra energy
+identity: if `Q'=q-s*Q` and `Q(a)=0`, then
+`Re integral q*Q = |Q(b)|^2/2 + Re(s)*integral |Q|^2 >=0`.
+Triangular Fubini must identify this with the kernel transform; neither
+step is proved yet. The sharp zero-free/PNT estimates and finite analytic
+inputs for all three global Dusart providers remain open. Do not repeat
+the now completed correlation, derivative-maximum, or cubic-error work.
+
 ### Smoothed master inequality and actual paper weight (newest, 2026-09-22)
 
 `SmoothedStechkinFormula` now proves the shifted explicit formula and
