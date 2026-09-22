@@ -5,4 +5,11 @@ repo_root="$(git rev-parse --show-toplevel)"
 cd "$repo_root"
 
 echo "Running the fast pre-commit checks..."
-python3 scripts/check.py --profile fast
+python="python3"
+if [[ -x .research/ruff-venv/bin/python ]]; then
+  python=".research/ruff-venv/bin/python"
+fi
+
+"$python" scripts/check.py --profile fast
+"$python" -m ruff format --check scripts test/python
+"$python" -m ruff check scripts test/python

@@ -9,6 +9,7 @@ import re
 import sys
 import zipfile
 from pathlib import Path
+
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -76,15 +77,17 @@ def classify() -> tuple[
         else:
             add_fermat.append(offset)
     return sub_archive, add_archive, sub_fermat, add_fermat
+
+
 def lean_list(rows: list[tuple[int, int, int]]) -> str:
-    return "[" + ",\n    ".join(
-        f"{{d := {d}, q := {q}, r := {r}}}" for d, q, r in rows
-    ) + "]"
+    return "[" + ",\n    ".join(f"{{d := {d}, q := {q}, r := {r}}}" for d, q, r in rows) + "]"
 
 
 def lean_nat_list(values: list[int]) -> str:
     """Render offset data without emitting one declaration per witness."""
     return "[\n    " + ",\n    ".join(str(value) for value in values) + "\n  ]"
+
+
 def lean_archive_lookup(prefix: str, rows: list[tuple[int, int, int]]) -> str:
     """Render compact rows with a logarithmic executable lookup."""
     return f"""def {prefix}Rows : List FullRecordGapArchiveRow :=
@@ -94,6 +97,8 @@ def {prefix} (d : Nat) : Option FullRecordGapOwner :=
   match {prefix}Rows.find? (fun row => row.d == d) with
   | some row => some (.residue row.q row.r)
   | none => none"""
+
+
 def owner_certificates() -> str:
     """Assemble bounded owner proofs from small, independently reducible rows."""
     chunk_size = 128
@@ -138,6 +143,8 @@ def owner_certificates() -> str:
                 )
         lines.append("")
     return "\n".join(lines)
+
+
 def render(output: Path) -> None:
     sub_archive, add_archive, sub_fermat, add_fermat = classify()
     source = f"""import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod
@@ -243,7 +250,6 @@ theorem fullRecordGapSubOwnerValidAt_of_bool {{d : Fin 455704}}
         have hb : decide (owner.ValidSub d) = true := by
           simpa [fullRecordGapSubOwnerValidAtBool, hz, ho] using h
         simpa [ho] using of_decide_eq_true hb
-
 theorem fullRecordGapAddOwnerValidAt_of_bool {{d : Fin 657402}}
     (h : fullRecordGapAddOwnerValidAtBool d = true) :
     fullRecordGapAddOwnerValidAt d := by
@@ -259,9 +265,7 @@ theorem fullRecordGapAddOwnerValidAt_of_bool {{d : Fin 657402}}
         have hb : decide (owner.ValidAdd d) = true := by
           simpa [fullRecordGapAddOwnerValidAtBool, hz, ho] using h
         simpa [ho] using of_decide_eq_true hb
-
 {owner_certificates()}
-
 theorem fullRecordGapSubOwner_valid_or_fermat (d : Nat)
     (lower : 1 ≤ d) (upper : d ≤ 455703) :
     match fullRecordGapSubOwner? d with
@@ -270,7 +274,6 @@ theorem fullRecordGapSubOwner_valid_or_fermat (d : Nat)
   have h := fullRecordGapSubOwner_valid_or_fermat_all
     (⟨d, by omega⟩ : Fin 455704)
   simpa [fullRecordGapSubOwnerValidAt, lower.ne'] using h
-
 theorem fullRecordGapAddOwner_valid_or_fermat (d : Nat)
     (lower : 1 ≤ d) (upper : d ≤ 657401) :
     match fullRecordGapAddOwner? d with
@@ -279,21 +282,18 @@ theorem fullRecordGapAddOwner_valid_or_fermat (d : Nat)
   have h := fullRecordGapAddOwner_valid_or_fermat_all
     (⟨d, by omega⟩ : Fin 657402)
   simpa [fullRecordGapAddOwnerValidAt, lower.ne'] using h
-
 set_option maxHeartbeats 0 in
 theorem fullRecordGapSubFermatCertificate :
     fullRecordGapSubFermatOffsets.all (fun d =>
       decide (fastPowMod 3 (fullRecordGapCenterValue - d)
         (fullRecordGapCenterValue - d - 1) ≠ 1)) = true := by
   decide
-
 set_option maxHeartbeats 0 in
 theorem fullRecordGapAddFermatCertificate :
     fullRecordGapAddFermatOffsets.all (fun d =>
       decide (fastPowMod 3 (fullRecordGapCenterValue + d)
         (fullRecordGapCenterValue + d - 1) ≠ 1)) = true := by
   decide
-
 theorem fullRecordGapSubFermat (d : Nat)
     (hd : d ∈ FullRecordGapSubWitnesses.offsets) :
     ¬(recordGapCenter - d).Prime := by
@@ -342,8 +342,7 @@ end PrimeFactorUnimodality
         add_lookup_marker = "def fullRecordGapAddArchiveOwner? (d"
         small_owner_marker = "def fullRecordGapSmallSubOwner? (d"
         chunk_marker = (
-            "set_option maxHeartbeats 0 in\n"
-            "theorem fullRecordGapSubOwner_valid_chunk_0000"
+            "set_option maxHeartbeats 0 in\ntheorem fullRecordGapSubOwner_valid_chunk_0000"
         )
         assembly_marker = "theorem fullRecordGapSubOwner_valid_or_fermat_all"
         data_header, remainder = source.split(sub_rows_marker, 1)
@@ -355,13 +354,18 @@ end PrimeFactorUnimodality
         sub_rows = sub_rows_marker + sub_rows
         add_rows = add_rows_marker + add_rows
         owner_body = (
-            sub_lookup_marker + sub_lookup + add_lookup_marker + add_lookup
-            + small_owner_marker + small_owner_body
+            sub_lookup_marker
+            + sub_lookup
+            + add_lookup_marker
+            + add_lookup
+            + small_owner_marker
+            + small_owner_body
         )
         prefix = (
             "import PrimeFactorUnimodality.Helpers.Arithmetic.FastPowMod\n"
             "import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCenter\n"
-            "import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCompactAddData\n\n"
+            "import PrimeFactorUnimodality.Proof.LargeRange.Generated."
+            "FullRecordGapCompactAddData\n\n"
             "set_option autoImplicit false\n"
             "set_option maxRecDepth 10000000\n"
             "set_option linter.style.longLine false\n\n"
@@ -393,18 +397,14 @@ end PrimeFactorUnimodality
             "import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCompactData\n"
             "set_option maxRecDepth 10000000\n\n"
             "/-! Generated subtraction archive rows. -/\n\n"
-            "namespace PrimeFactorUnimodality\n\n"
-            + sub_rows
-            + "\nend PrimeFactorUnimodality\n"
+            "namespace PrimeFactorUnimodality\n\n" + sub_rows + "\nend PrimeFactorUnimodality\n"
         )
         add_data = output.with_name("FullRecordGapCompactAddData.lean")
         add_data.write_text(
             "import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCompactSubData\n"
             "set_option maxRecDepth 10000000\n\n"
             "/-! Generated addition archive rows. -/\n\n"
-            "namespace PrimeFactorUnimodality\n\n"
-            + add_rows
-            + "\nend PrimeFactorUnimodality\n"
+            "namespace PrimeFactorUnimodality\n\n" + add_rows + "\nend PrimeFactorUnimodality\n"
         )
         base = output.with_name("FullRecordGapCompactBase.lean")
         base.write_text(prefix + owner_body + "end PrimeFactorUnimodality\n")
@@ -413,9 +413,7 @@ end PrimeFactorUnimodality
         for group_start in range(0, len(chunk_matches), group_size):
             group = chunk_matches[group_start : group_start + group_size]
             part_number = group_start // group_size + 1
-            part = output.with_name(
-                f"FullRecordGapCompactOwnerPart{part_number:02d}.lean"
-            )
+            part = output.with_name(f"FullRecordGapCompactOwnerPart{part_number:02d}.lean")
             part.write_text(
                 f"import PrimeFactorUnimodality.Proof.LargeRange.Generated.{previous}\n\n"
                 "set_option maxRecDepth 10000000\n\n"
@@ -428,9 +426,7 @@ end PrimeFactorUnimodality
         output.write_text(
             f"import PrimeFactorUnimodality.Proof.LargeRange.Generated.{previous}\n\n"
             "/-! Compact full-record certificate assembly. -/\n\n"
-            "namespace PrimeFactorUnimodality\n\n"
-            + assembly
-            + "\nend PrimeFactorUnimodality\n"
+            "namespace PrimeFactorUnimodality\n\n" + assembly + "\nend PrimeFactorUnimodality\n"
         )
     else:
         output.write_text(source)
@@ -439,6 +435,8 @@ end PrimeFactorUnimodality
         f"sub={len(sub_archive)}, add={len(add_archive)}, "
         f"sub-fermat={len(sub_fermat)}, add-fermat={len(add_fermat)})"
     )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
