@@ -45,6 +45,66 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Explicit Laplace remainders and convergent smoothed zero sums (newest, 2026-09-22)
+
+Three independent Mathlib candidates under `Analysis/Complex/FiniteLaplace`
+now provide the finite Laplace integral, the two integration-by-parts
+identities with all endpoint terms, explicit remainder bounds, and indexed
+summability. They compile using only Mathlib.
+
+For a weight `f` on `[0,d]` with derivative `g`, second derivative `h`,
+`f(d)=g(0)=g(d)=0`, and `|h| <= M`, the proved identity is
+`F(s) = f(0)/s + F_h(s)/s^2` for every `s != 0`. The proved norm bounds are
+
+- `|F(s)-f(0)/s| <= M*d*exp(max(0,-Re(s))*d)/|s|^2` on every line;
+- `|F(s)-f(0)/s| <= M/(Re(s)*|s|^2)` when `Re(s)>0`;
+- at `s-rho`, with `Re(rho)<=B` and `|rho|>2|s|`, the explicit majorant
+  is `4*M*d*exp(max(0,B-Re(s))*d)/|rho|^2`.
+
+Only continuity on the closed interval and derivatives in its interior
+are required. Do NOT impose global continuity of the zero extension at
+zero, which would force `f(0)=0`. Nor require `tsupport f` to lie in
+`[0,d)`: that excludes weights nonzero arbitrarily close to `d`, despite
+their value vanishing at `d`. The interval formulation allows the actual
+paper's endpoint behavior.
+
+`SmoothedXiRemainder` specializes the indexed comparison to the actual xi
+divisor with multiplicity. For EVERY complex `s`, it proves summability of
+the shifted inverse-square weights, the real resolvents, and the complex
+pole-subtracted Laplace terms. If `f(0)` is real, it additionally proves
+absolute convergence of `sum_rho Re(F(s-rho))`. No RH assumption, real-part
+restriction on `s`, simplicity assumption, or supplied zero enumeration is
+used. This does not claim absolute convergence of the unregularized COMPLEX
+sum, which is not generally available.
+
+Primary source: [Kadiri, section 3.1 and the bounds following it](https://www.cs.uleth.ca/~kadiri/articles/zeta-acta-04-09-07.pdf).
+The IBP and far-zero comparison patterns were checked in the pinned PNT
+`Kadiri.laplaceTransform_ibp` and
+`Hadamard.summable_logDerivTerms_divisorZeroIndex₀_of_summable_inv_sq`.
+The candidate documentation records that provenance. The parent `Kadiri`
+module is NOT imported: its full explicit formula still has unproved
+inputs. Robin's reviewed weighted explicit formula assumes RH and cannot
+be substituted for the unconditional identity needed here. The sibling
+catalog and the Robin/BV/WIP transform interfaces have been checked for this
+step; do not repeat a broad search for an existing complete Dusart theorem.
+
+The next non-certificate obligation is still the **smoothed explicit
+formula**, relating `smoothedVonMangoldt` to the Laplace pole term, this
+now-convergent real zero sum, the gamma term, and the second-derivative
+gamma integral. Prove its contour/inversion identity and exchanges, then
+its quantitative errors and the actual compact test-function estimates.
+Do not treat convergence alone as proving the explicit formula. The
+three global Dusart providers and full all-`k` theorem remain unfinished.
+
+Logs: `.research/dusart-laplace-{basic,bounds,summability,regressions,axioms,fast}.log`
+and `.research/dusart-smoothed-xi.log`. The 16-export axiom audit lists only
+`propext`, `Classical.choice`, and `Quot.sound`. The polynomial regression
+uses the nonzero weight `1-3t^2+2t^3` on `[0,1]`, checks both half-plane
+bounds, and instantiates convergence over actual xi zeros. CI builds the
+three candidates before the consumer and runs that regression. Python
+checks now include 80 passing tests; no certificate or dependency cache
+rebuild was needed for this work.
+
 ### Stechkin pairs, the full xi sum, and compact smoothing (newest, 2026-09-22)
 
 `Mathlib/Analysis/Complex/Poisson/Stechkin` proves the paired-kernel

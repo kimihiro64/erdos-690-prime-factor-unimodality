@@ -202,6 +202,15 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaXiStechkinZero
           lake env lean test/lean/Stechkin.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.Basic
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.Bounds
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.Summability
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SmoothedXiRemainder
+          lake env lean test/lean/SmoothedLaplace.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

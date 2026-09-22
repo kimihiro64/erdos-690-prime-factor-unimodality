@@ -20,3 +20,21 @@ def test_stechkin_ci_build_order() -> None:
     ]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/Stechkin.lean")
+
+
+def test_smoothed_laplace_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "Mathlib.Analysis.Complex.FiniteLaplace.Basic",
+        "Mathlib.Analysis.Complex.FiniteLaplace.Bounds",
+        "Mathlib.Analysis.Complex.FiniteLaplace.Summability",
+        "Helpers.Analytic.SmoothedXiRemainder",
+    )
+    positions = [
+        foundations.index(f"lake build \\\n            +PrimeFactorUnimodality.{module}")
+        for module in modules
+    ]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index("lake env lean test/lean/SmoothedLaplace.lean")
