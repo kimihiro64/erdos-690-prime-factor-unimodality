@@ -629,9 +629,14 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriUniformBootstrap
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriScaleCoverBootstrap
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriSplitBootstrap
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriGridBootstrap
           lake env lean test/lean/KadiriPolynomialParameters.lean
           lake env lean test/lean/KadiriSplitBootstrap.lean
+          lake env lean test/lean/KadiriGridBootstrap.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \

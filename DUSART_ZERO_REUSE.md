@@ -556,3 +556,21 @@ Both new leaves and the complete explicit, uniform, and split bootstrap
 consumers compile. All 110 examples in the eight affected analytic
 regression modules pass. The 14 audited exports, including the actual
 region theorems, use only `propext`, `Classical.choice`, and `Quot.sound`.
+
+## Arbitrary scale covers and grid specialization
+
+`KadiriScaleCoverBootstrap` factors out the actual zero argument from the
+two-regime theorem. The previous theorem now specializes that proof to a
+Boolean-indexed family. The general theorem accepts any covering family,
+retaining both the improved height and the negative correction per band.
+
+For a uniform grid, `KadiriGridBootstrap` directly reuses Mathlib's
+`Monotone.biUnion_Ico_Ioc_map_succ` from `Order/SuccPred/IntervalSucc`.
+No floor, ceiling, or interval-union infrastructure is reconstructed.
+Every positive band count is allowed, and the normalized correction weight
+is exactly `j/m`. Numerical margins and low-height zero inputs remain
+explicit hypotheses; the grid assembler alone is not a numerical region.
+
+The cover, grid, and preserved two-band theorem compile with only the
+three standard logical axioms. The thirteen existing transform regressions
+and the new sixteen-band actual-region interface regression pass.

@@ -1,27 +1,23 @@
-import PrimeFactorUnimodality.Helpers.Analytic.KadiriScaleCoverBootstrap
+import PrimeFactorUnimodality.Helpers.Analytic.KadiriGridBootstrap
 
-/-! # The two-scale actual zero-free-region bootstrap
+/-! # The sixteen-band bootstrap interface
 
-For small actual zero gaps the prior region forces a higher ordinate, which
-improves the transform interval. For larger gaps the band estimate retains
-a fixed negative correction. Single-crossing endpoint minima preserve
-the cancellation in both transform bounds. All numerical endpoint inputs
-and low-height information remain explicit obligations.
+Check that sixteen endpoint budgets imply the actual all-height zero gap,
+with no remaining real-scale coverage hypothesis. Numerical inputs remain
+hypotheses in this regression; no concrete zero-free region is claimed.
 -/
 
-namespace PrimeFactorUnimodality
+namespace PrimeFactorUnimodality.Tests
 
 noncomputable section
 
 open Real
 
-/-- Two fixed scale regimes improve the actual region at every positive or negative ordinate. -/
-theorem xi_zero_gap_of_split_moment_budget
-    {θ R r T T₁ H η₀ η₁ σ₀ δ κ y B₀ B₁ B₂ B₃ : ℝ} {n : ℕ}
+example
+    {θ R r T H η₀ σ₀ δ κ y B₀ B₁ B₂ B₃ : ℝ} {n : ℕ}
     (hR : 0 < R) (hr : 0 < r) (hT : 10 ^ 9 ≤ T) (hH : 4 ≤ H) (hn : 1 ≤ n)
     (hθ : π / 2 < θ ∧ θ < π)
     (hηdef : η₀ = 1 / (r * log T)) (hηhalf : η₀ ≤ 1 / 2)
-    (_hη₁ : 0 < η₁) (hT₁ : 1 < T₁) (hthreshold : T₁ ≤ exp (1 / (R * η₁)))
     (hσdef : σ₀ = kadiriBootstrapSigma R n H T) (hσ₀ : 1 / 2 < σ₀)
     (hδ : 1 / 2 ≤ δ) (hκ : 0 ≤ κ) (hκ₁ : κ < 1)
     (hκ₂ : κ ≤ kadiriKappa₂ θ η₀ (2 * σ₀ - 1) δ)
@@ -45,41 +41,23 @@ theorem xi_zero_gap_of_split_moment_budget
           1 - (riemannXiDivisorZeroValue p).re)
     (hbudget : kadiriMomentCorrectionPolynomial θ η₀ η₀ σ₀ κ δ (-1) H T
       B₀ B₁ B₂ B₃ (1 / r) (Finset.range (n + 1)) a ≤ 0)
-    (hsmallMargin : kadiriBootstrapLogCoefficient θ κ (Finset.range (n + 1)) a / r ≤
-      min (kadiriTransformGap θ (a 0) (a 1) (kadiriBootstrapLowerArgument R r n H T₁))
-        (kadiriTransformGap θ (a 0) (a 1) 1))
-    (hlargeMargin : kadiriBootstrapLogCoefficient θ κ (Finset.range (n + 1)) a / r ≤
-      min (kadiriTransformGap θ (a 0) (a 1) (kadiriBootstrapLowerArgument R r n H T))
-        (kadiriTransformGap θ (a 0) (a 1) 1) - (η₁ / η₀) *
+    (height : Fin 16 → ℝ)
+    (hheight : ∀ j, 1 < height j)
+    (hthreshold : ∀ j, height j ≤ T ∨ height j ≤ exp (1 / (R * (η₀ * ((j : ℝ) + 1) / 16))))
+    (hmargin : ∀ j, kadiriBootstrapLogCoefficient θ κ (Finset.range (n + 1)) a / r ≤
+      min (kadiriTransformGap θ (a 0) (a 1)
+        (kadiriBootstrapLowerArgument R r n H (height j)))
+        (kadiriTransformGap θ (a 0) (a 1) 1) - ((j : ℝ) / 16) *
           kadiriMomentCorrectionPolynomial θ η₀ η₀ σ₀ κ δ (-1) H T
             B₀ B₁ B₂ B₃ (1 / r) (Finset.range (n + 1)) a)
     (p : RiemannXiDivisorZeroIndex) (hp : T ≤ |(riemannXiDivisorZeroValue p).im|) :
     1 / (r * log |(riemannXiDivisorZeroValue p).im|) ≤
       1 - (riemannXiDivisorZeroValue p).re := by
-  refine xi_zero_gap_of_scale_cover_moment_budget hR hr hT hH hn hθ hηdef hηhalf
+  exact xi_zero_gap_of_grid_moment_budget hR hr hT hH hn hθ hηdef hηhalf
     hσdef hσ₀ hδ hκ hκ₁ hκ₂ hκ₃ hc hgap hcut hy hdy hend hB₀ hB₁ hB₂ hB₃
-    a ha ha₀ ha₁ hpoly hlow hhigh hbudget
-    (fun b : Bool => if b then η₁ else 0)
-    (fun b : Bool => if b then η₀ else η₁)
-    (fun b : Bool => if b then T else T₁) ?_ ?_ ?_ ?_ p hp
-  · intro η hη hscale
-    by_cases hsmall : η ≤ η₁
-    · exact ⟨false, hη.le, hsmall⟩
-    · exact ⟨true, (lt_of_not_ge hsmall).le, hscale⟩
-  · intro b
-    cases b
-    · exact hT₁
-    · dsimp
-      linarith
-  · intro b
-    cases b
-    · exact Or.inr hthreshold
-    · exact Or.inl le_rfl
-  · intro b
-    cases b
-    · simpa using hsmallMargin
-    · simpa using hlargeMargin
+    a ha ha₀ ha₁ hpoly hlow hhigh hbudget 16 (by norm_num) height hheight
+    hthreshold hmargin p hp
 
 end
 
-end PrimeFactorUnimodality
+end PrimeFactorUnimodality.Tests

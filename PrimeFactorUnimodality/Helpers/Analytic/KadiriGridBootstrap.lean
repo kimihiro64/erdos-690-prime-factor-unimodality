@@ -1,12 +1,12 @@
+import Mathlib.Order.SuccPred.IntervalSucc
 import PrimeFactorUnimodality.Helpers.Analytic.KadiriScaleCoverBootstrap
 
-/-! # The two-scale actual zero-free-region bootstrap
+/-! # Uniform scale grids for the zero-free bootstrap
 
-For small actual zero gaps the prior region forces a higher ordinate, which
-improves the transform interval. For larger gaps the band estimate retains
-a fixed negative correction. Single-crossing endpoint minima preserve
-the cancellation in both transform bounds. All numerical endpoint inputs
-and low-height information remain explicit obligations.
+Mathlib's monotone adjacent-interval union theorem covers every scale in
+`(0,eta0]`, including grid endpoints, with no enumeration of real inputs.
+Only the chosen height and numerical margin for each grid interval remain.
+The correction multiplier simplifies exactly to the rational index `j/m`.
 -/
 
 namespace PrimeFactorUnimodality
@@ -15,13 +15,12 @@ noncomputable section
 
 open Real
 
-/-- Two fixed scale regimes improve the actual region at every positive or negative ordinate. -/
-theorem xi_zero_gap_of_split_moment_budget
-    {θ R r T T₁ H η₀ η₁ σ₀ δ κ y B₀ B₁ B₂ B₃ : ℝ} {n : ℕ}
+/-- Any positive number of uniform scale bands suffices when its endpoint budgets hold. -/
+theorem xi_zero_gap_of_grid_moment_budget
+    {θ R r T H η₀ σ₀ δ κ y B₀ B₁ B₂ B₃ : ℝ} {n : ℕ}
     (hR : 0 < R) (hr : 0 < r) (hT : 10 ^ 9 ≤ T) (hH : 4 ≤ H) (hn : 1 ≤ n)
     (hθ : π / 2 < θ ∧ θ < π)
     (hηdef : η₀ = 1 / (r * log T)) (hηhalf : η₀ ≤ 1 / 2)
-    (_hη₁ : 0 < η₁) (hT₁ : 1 < T₁) (hthreshold : T₁ ≤ exp (1 / (R * η₁)))
     (hσdef : σ₀ = kadiriBootstrapSigma R n H T) (hσ₀ : 1 / 2 < σ₀)
     (hδ : 1 / 2 ≤ δ) (hκ : 0 ≤ κ) (hκ₁ : κ < 1)
     (hκ₂ : κ ≤ kadiriKappa₂ θ η₀ (2 * σ₀ - 1) δ)
@@ -45,40 +44,43 @@ theorem xi_zero_gap_of_split_moment_budget
           1 - (riemannXiDivisorZeroValue p).re)
     (hbudget : kadiriMomentCorrectionPolynomial θ η₀ η₀ σ₀ κ δ (-1) H T
       B₀ B₁ B₂ B₃ (1 / r) (Finset.range (n + 1)) a ≤ 0)
-    (hsmallMargin : kadiriBootstrapLogCoefficient θ κ (Finset.range (n + 1)) a / r ≤
-      min (kadiriTransformGap θ (a 0) (a 1) (kadiriBootstrapLowerArgument R r n H T₁))
-        (kadiriTransformGap θ (a 0) (a 1) 1))
-    (hlargeMargin : kadiriBootstrapLogCoefficient θ κ (Finset.range (n + 1)) a / r ≤
-      min (kadiriTransformGap θ (a 0) (a 1) (kadiriBootstrapLowerArgument R r n H T))
-        (kadiriTransformGap θ (a 0) (a 1) 1) - (η₁ / η₀) *
+    (m : ℕ) (hm : 0 < m) (height : Fin m → ℝ)
+    (hheight : ∀ j, 1 < height j)
+    (hthreshold : ∀ j, height j ≤ T ∨ height j ≤ exp (1 / (R * (η₀ * ((j : ℝ) + 1) / m))))
+    (hmargin : ∀ j, kadiriBootstrapLogCoefficient θ κ (Finset.range (n + 1)) a / r ≤
+      min (kadiriTransformGap θ (a 0) (a 1)
+        (kadiriBootstrapLowerArgument R r n H (height j)))
+        (kadiriTransformGap θ (a 0) (a 1) 1) - ((j : ℝ) / m) *
           kadiriMomentCorrectionPolynomial θ η₀ η₀ σ₀ κ δ (-1) H T
             B₀ B₁ B₂ B₃ (1 / r) (Finset.range (n + 1)) a)
     (p : RiemannXiDivisorZeroIndex) (hp : T ≤ |(riemannXiDivisorZeroValue p).im|) :
     1 / (r * log |(riemannXiDivisorZeroValue p).im|) ≤
       1 - (riemannXiDivisorZeroValue p).re := by
+  have hη₀ : 0 < η₀ := by
+    rw [hηdef]
+    exact one_div_pos.mpr (mul_pos hr (log_pos (by linarith)))
+  have hmpos : (0 : ℝ) < m := Nat.cast_pos.mpr hm
   refine xi_zero_gap_of_scale_cover_moment_budget hR hr hT hH hn hθ hηdef hηhalf
     hσdef hσ₀ hδ hκ hκ₁ hκ₂ hκ₃ hc hgap hcut hy hdy hend hB₀ hB₁ hB₂ hB₃
     a ha ha₀ ha₁ hpoly hlow hhigh hbudget
-    (fun b : Bool => if b then η₁ else 0)
-    (fun b : Bool => if b then η₀ else η₁)
-    (fun b : Bool => if b then T else T₁) ?_ ?_ ?_ ?_ p hp
+    (fun j : Fin m => η₀ * (j : ℝ) / m)
+    (fun j : Fin m => η₀ * ((j : ℝ) + 1) / m) height ?_ hheight hthreshold ?_ p hp
   · intro η hη hscale
-    by_cases hsmall : η ≤ η₁
-    · exact ⟨false, hη.le, hsmall⟩
-    · exact ⟨true, (lt_of_not_ge hsmall).le, hscale⟩
-  · intro b
-    cases b
-    · exact hT₁
-    · dsimp
-      linarith
-  · intro b
-    cases b
-    · exact Or.inr hthreshold
-    · exact Or.inl le_rfl
-  · intro b
-    cases b
-    · simpa using hsmallMargin
-    · simpa using hlargeMargin
+    have hmono : Monotone (fun j : ℕ => η₀ * (j : ℝ) / m) := by
+      intro i j hij
+      exact div_le_div_of_nonneg_right
+        (mul_le_mul_of_nonneg_left (Nat.cast_le.mpr hij) hη₀.le) hmpos.le
+    have hmem : η ∈ Set.Ioc (η₀ * (0 : ℕ) / m) (η₀ * (m : ℕ) / m) := by
+      simpa only [Nat.cast_zero, mul_zero, zero_div, mul_div_cancel_right₀ _ hmpos.ne']
+        using (show η ∈ Set.Ioc 0 η₀ from ⟨hη, hscale⟩)
+    rw [← hmono.biUnion_Ico_Ioc_map_succ 0 m] at hmem
+    obtain ⟨j, hj, hjη⟩ := Set.mem_iUnion₂.mp hmem
+    refine ⟨⟨j, hj.2⟩, hjη.1.le, ?_⟩
+    simpa only [Order.succ_eq_add_one, Nat.cast_add, Nat.cast_one] using hjη.2
+  · intro j
+    have he : (η₀ * (j : ℝ) / m) / η₀ = (j : ℝ) / m := by
+      field_simp
+    simpa only [he] using hmargin j
 
 end
 

@@ -45,6 +45,37 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Arbitrary covers and uniform scale grids (newest, 2026-09-22)
+
+The scale-cover assembly requested below is now implemented.
+`KadiriScaleCoverBootstrap` applies the actual sharp band theorem on any
+cover of `(0,eta0]`. Each interval supplies its lower scale, upper scale,
+and height threshold; the threshold may be bounded either by the base
+height or by the exponential forced by the previous region. The proof
+covers the full critical strip and both signs of the ordinate.
+
+`KadiriGridBootstrap` supplies the cover for every positive band count
+`m`, directly reusing Mathlib's `Monotone.biUnion_Ico_Ioc_map_succ`.
+Its intervals are `(eta0*j/m, eta0*(j+1)/m]`; exact grid boundaries and
+the final endpoint are included. The correction multiplier simplifies to
+`j/m`. There is no remaining real-scale coverage obligation in this API.
+The original `KadiriSplitBootstrap` is now a two-member specialization of
+the same proof, preserving its mathematical statement.
+
+The new grid API supports the positive sixteen-band trial margins recorded
+below, but those trials remain uncertified. It does not supply the numerical
+moment bounds, coefficient signs, static admissibility, low-height zero
+information, or the final Dusart provider proofs. Those obligations must
+not be replaced by the sampled numerical evidence.
+
+One further analytic substitution is needed before certifying those trial
+budgets: the probe drops the nonnegative `xiLowReciprocalMass H`, while
+`kadiriTailAffineConstant` still retains its exact subtraction. Prove the
+resulting upper bound through the quadratic and cubic correction terms,
+using `re_xi_divisor_reciprocal_nonneg` and the already-proved nonnegative
+derivative mass and kernel constants. This can avoid a separate numerical
+low-zero mass sum; it does not remove the low-height location hypothesis.
+
 ### Sharper zero-harmonic Gamma estimate (newest, 2026-09-22)
 
 `DigammaRealBounds.re_digamma_ofReal_le_log` proves `Re(digamma(x))<=log(x)`
@@ -65,10 +96,9 @@ gives positive trial margins along the chain
 `56 -> 8 -> 6.5 -> 6 -> 5.7 -> 5.59 -> 5.58 -> 5.575 -> 5.573412`
 at `T=3.06e10`; the last tested margin is approximately `0.02035`.
 These numbers are not rigorous certificates and do not establish a region.
-The next analytic assembly should allow an arbitrary covering family of
-scale bands, reusing the actual sharp band theorem rather than duplicating
-the zero argument. Numerical admissibility, moments, low-height zero data,
-and the final Dusart providers remain open.
+The arbitrary-cover assembly is now supplied by the newer section above.
+Numerical admissibility, moments, low-height zero data, and the final Dusart
+providers remain open.
 
 ### Single-crossing minimum and two-scale bootstrap (newest, 2026-09-22)
 
