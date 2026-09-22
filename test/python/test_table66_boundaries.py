@@ -64,6 +64,21 @@ def test_zeta_ingredients_are_independent_and_checked_before_consumers() -> None
     assert workflow.index(pole_target) < workflow.index(regression) < workflow.index(consumer)
 
 
+def test_explicit_gamma_bound_is_checked_before_its_xi_consumer() -> None:
+    gamma = strip_lean_comments((ANALYTIC / "DigammaExplicitBounds.lean").read_text())
+    assert lean_imports(gamma) == [
+        "PrimeNumberTheoremAnd.Mathlib.Analysis.SpecialFunctions.Gamma.DigammaSeries"
+    ]
+    xi = strip_lean_comments((ANALYTIC / "ZetaXiLogDerivative.lean").read_text())
+    assert "HadamardLogDerivative" not in xi
+    assert "HasDusart" not in gamma + xi
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    gamma_target = "+PrimeFactorUnimodality.Helpers.Analytic.DigammaExplicitBounds"
+    xi_target = "+PrimeFactorUnimodality.Helpers.Analytic.ZetaXiLogDerivative"
+    regression = "lake env lean test/lean/ZetaZeroFreeIngredients.lean"
+    assert workflow.index(gamma_target) < workflow.index(xi_target) < workflow.index(regression)
+
+
 def test_old_first_row_endpoints_are_incompatible() -> None:
     # Lean proves log(200000000) >= 1; even this weaker margin contradicts
     # the simultaneous theta(100000000) upper endpoint requirement.

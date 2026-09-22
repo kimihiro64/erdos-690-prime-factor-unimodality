@@ -176,6 +176,10 @@ jobs:
             +PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.ZetaTrigonometric
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaRealPole
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DigammaExplicitBounds
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaXiLogDerivative
           lake env lean test/lean/ZetaZeroFreeIngredients.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds

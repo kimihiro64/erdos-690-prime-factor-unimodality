@@ -45,6 +45,54 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Explicit gamma term and the xi bridge (newest, 2026-09-22)
+
+`DigammaExplicitBounds` proves the explicit bound
+`Re digamma(z) ≤ log(N+1) + ‖z-1‖/N` whenever `Re(z) ≥ 1` and `N ≥ 1`.
+It uses the convergent series from the pinned dependency, estimates the head
+by a harmonic number, cancels Euler's constant, and bounds the tail by its
+inverse-square majorant. The explicit choice `N = max 1 ⌈‖z-1‖⌉` gives
+`Re digamma(z) ≤ log(‖z-1‖+2) + 1`.
+
+For `0 ≤ Re(s) ≤ 2`, the zeta gamma term is consequently bounded by
+`(1/2) log(|Im(s)|/2+3) + 1/2 - (1/2) log(pi)`.
+The coefficient, additive constant, and domain are explicit; this does not
+use an existential big-O estimate.
+
+`ZetaXiLogDerivative` proves the shifted-gamma product representation for
+the actual entire `Complex.riemannXi`, then differentiates it on `Re(s)>1`.
+Its final inequality bounds `Re(-ζ'/ζ)(s)` by the pole contribution plus the
+gamma bound minus `Re(logDeriv riemannXi s)`. No supplied Hadamard identity
+is required by these declarations. The new modules compile independently
+(3.7 and 4.4 seconds respectively), and CI builds them before the expanded
+`ZetaZeroFreeIngredients` regression.
+
+The pinned sibling's `IEANTN/HadamardLogDerivative` fails to elaborate at
+lines 130 and 210 because the current Mathlib distinguishes pointwise-product
+and lambda-product rewrites. It is NOT imported by the new bridge. The
+small required algebra is ported using `logDeriv_fun_mul`; the source and
+revision are attributed in the module. No dependency checkout was edited.
+The independently checked `DigammaSeries` and `CompletedXi` primitives are
+the only new sibling imports.
+
+Verification: the expanded Lean regression passes. All eight new exported
+theorems and the three audited dependency primitives use only `propext`,
+`Classical.choice`, and `Quot.sound`. Fast source checks, Ruff, mypy,
+actionlint, and 72 Python tests pass. The Ruby metadata validator is skipped
+locally because Ruby is absent. Diagnostic logs are
+`.research/dusart-digamma-{build,regressions,axioms,fast}.log` and
+`.research/dusart-xi-build.log`.
+
+Next: prove the individual zero's negative contribution from the xi
+Hadamard sum. `RiemannXiDivisorZeros.neg_two_mul_logDeriv_riemannXi_zero_eq`
+already gives the exact Hadamard constant through xi at zero; its containing
+module and Hadamard dependencies still need an elaboration/axiom audit
+before reuse. This may avoid a separate derivation of that constant.
+The classical trigonometric inequality, unit pole bound, and explicit gamma
+bound are now available, but a quantitative zero-free region with constants
+sufficient for Dusart's prescribed cutoffs is NOT yet proved. Neither are
+the required zero sums, finite zero data, and three global Dusart providers.
+
 ### Zeta positivity and the explicit pole (newest, 2026-09-22)
 
 `Mathlib/NumberTheory/LSeries/ZetaTrigonometric` proves the general
@@ -65,8 +113,8 @@ The separate bound `‖ζ(σ)‖ ≤ 1/(σ-1) + 1` improves the existing
 The old constant-3 public statement is preserved as a consequence.
 
 Next analytic work: connect the Hadamard logarithmic derivative to a
-negative contribution from an individual nontrivial zero and prove the
-explicit gamma-factor bound. The pinned dependency's
+negative contribution from an individual nontrivial zero. The explicit
+gamma-factor bound has now been proved as described above. The pinned dependency's
 `Mathlib/NumberTheory/LSeries/RiemannZetaHadamard` and
 `IEANTN/HadamardLogDerivative` contain relevant factorization/algebra
 primitives; their quantitative zero-free conclusion is not being assumed.

@@ -1,4 +1,5 @@
 import PrimeFactorUnimodality.Helpers.Analytic.ZetaRealPole
+import PrimeFactorUnimodality.Helpers.Analytic.ZetaXiLogDerivative
 
 set_option autoImplicit false
 
@@ -42,5 +43,24 @@ example {σ : ℝ} (hσ : 1 < σ) (t : ℝ) :
 example (σ : ℝ) (hσ : 0 < σ) :
     (∫ u in Set.Ioi (1 : ℝ), -(Real.log u : ℂ) * zetaAbelFractKernel (σ : ℂ) u).re ≤ 0 :=
   re_zetaAbelIntegral_derivative_nonpos hσ
+
+example (z : ℂ) (hz : 1 ≤ z.re) (N : ℕ) (hN : 1 ≤ N) :
+    (digamma z).re ≤ Real.log ((N : ℝ) + 1) + ‖z - 1‖ / N :=
+  re_digamma_le_log_add_tail hz hN
+
+example (t : ℝ) : (digamma ((1 : ℂ) + t * I)).re ≤ Real.log (|t| + 2) + 1 := by
+  have h := re_digamma_le_log_norm_sub_one_add_two
+    (z := (1 : ℂ) + t * I) (by simp)
+  simpa [norm_mul, norm_real, Real.norm_eq_abs, add_sub_cancel_left] using h
+
+example (t : ℝ) :
+    (-deriv riemannZeta ((3 / 2 : ℂ) + t * I) /
+      riemannZeta ((3 / 2 : ℂ) + t * I)).re ≤
+      -(logDeriv riemannXi ((3 / 2 : ℂ) + t * I)).re +
+        (1 / ((3 / 2 : ℂ) + t * I - 1)).re +
+        ((1 / 2 : ℝ) * Real.log (|t| / 2 + 3) + 1 / 2 -
+          (1 / 2 : ℝ) * Real.log Real.pi) := by
+  simpa using re_neg_logDeriv_riemannZeta_le_xi
+    (s := (3 / 2 : ℂ) + t * I) (by norm_num) (by norm_num)
 
 end PrimeFactorUnimodality.Tests
