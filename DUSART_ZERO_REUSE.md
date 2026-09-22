@@ -1,7 +1,8 @@
 # Reuse audit for the Dusart zero-sum layer
 
-Current follow-up: the unconditional high counting envelope and closed
-Lehman tail are now proved; see the final section. Earlier sections record
+Current follow-up: the unconditional high counting envelope, closed
+Lehman tail, pole estimates, and explicit smoothed Gamma bounds are proved
+and connected to the master inequality; see the final sections. Earlier sections record
 the obligations at each increment and are superseded where explicitly noted.
 
 This focused source review was performed on 2026-09-22 before extending the
@@ -338,3 +339,34 @@ combined master replaces both the pole terms and infinite zero tails.
 The separate smoothed Gamma estimates are not implied by the counting
 Gamma-phase theorem. They, the separation argument, finite low-zero
 numerics, and final numerical zero-free parameters remain required.
+
+## Explicit smoothed Gamma follow-up
+
+`DigammaEulerBounds` directly applies the pinned PNT declarations
+`sum_eq_integral_add_integral_deriv` and `abs_B1_le_half`, with
+`f(x)=1/(z+x)`. Its derivative integral telescopes, giving the uniform
+finite bound `1/Re(z)`. `DigammaLogBounds` then uses PNT's actual
+`hasSum_digamma_of_re_pos`, Mathlib's harmonic-minus-log limit, and the
+extended Mathlib-only `LogShiftLimit` candidate. The result is the
+two-sided complex estimate `norm(digamma(z)-log(z))<=1/Re(z)`.
+
+The inspected BV Gamma-growth leaves and PNT norm-growth estimates use
+existential constants; they do not supply this explicit two-sided error.
+The new proof nevertheless reuses their underlying proved PNT digamma
+series rather than reconstructing Gamma or its convergence. The positive
+real shift increases the norm and decreases the reciprocal error, so the
+shifted Gamma bound retains the required leading coefficient `1-kappa`.
+
+For the separate smoothed remainder, `SmoothedGammaBounds` reuses
+`smoothedGammaRemainder_eq_neg_trivialZeroSum` and the existing twofold
+integration-by-parts estimate. PNT's inverse-square summability and tail
+bound sum the resulting majorant. The actual Kadiri derivative bound
+supplies its cubic constant. There is no new contour interchange,
+summability premise, or Gamma convergence assumption.
+
+`KadiriExplicitMaster` inserts both estimates into the actual weighted
+inequality, including the zero harmonic and arbitrary finite degree.
+All 13 new theorem closures and both reused Euler--Maclaurin inputs were
+audited with only `propext`, `Classical.choice`, and `Quot.sound`.
+Outer-zero separation, finite low-zero numerics, the remaining parameter
+budget, and the final Dusart providers are not discharged by this step.

@@ -545,6 +545,19 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriLehmanMaster
           lake env lean test/lean/XiLehmanBudget.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SmoothedGammaBounds
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriGammaRemainderBounds
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DigammaEulerBounds
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DigammaLogBounds
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SmoothedGammaFactorBounds
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriExplicitMaster
+          lake env lean test/lean/KadiriGammaBounds.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

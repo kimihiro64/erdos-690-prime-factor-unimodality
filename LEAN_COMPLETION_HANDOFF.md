@@ -45,6 +45,45 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Explicit smoothed Gamma terms connected to the master (newest, 2026-09-22)
+
+`KadiriExplicitMaster.kadiriWeight_explicit_master_nonneg` replaces the
+remaining Gamma terms in the actual pole/Lehman master by explicit bounds.
+The declaration is in namespace `PrimeFactorUnimodality`. Its conclusion
+no longer contains digamma or the smoothed Gamma boundary integral.
+The outer-zero separation and numerical parameter hypotheses are retained,
+not claimed as proved by this substitution.
+
+`DigammaEulerBounds` directly applies pinned PNT Euler--Maclaurin and the
+Bernoulli half-bound to reciprocal partial sums. `DigammaLogBounds` passes
+to the actual digamma series limit, proving
+`norm(digamma(z)-log(z)) <= 1/Re(z)` for every `Re(z)>0`. Both sides of this
+estimate are necessary: `SmoothedGammaFactorBounds` preserves `1-kappa`
+in the leading logarithm of the shifted difference. Its elementary height
+majorant covers all signed and zero heights in `0<=Re(s)<=2`.
+
+`SmoothedGammaBounds` sums the existing actual trivial-pole expansion,
+giving `norm(remainder)<=M/4` from the second-derivative bound `M`.
+`KadiriGammaRemainderBounds` supplies the actual weight's constant
+`M=eta^3*(-kernel2(theta,0))`. The shifted error is at most `(1+kappa)*M/4`;
+nonnegative polynomial coefficients may have any finite degree.
+
+All six new analytic modules and the candidate facade compile. The 12 new
+Lean examples and both earlier Gamma-phase and harmonic-tail regressions
+pass. The 13 new theorem closures and two reused PNT inputs audit with only
+`propext`, `Classical.choice`, and `Quot.sound`. CI builds the new modules
+serially in `lean-foundations`, before certificates.
+
+Next: prove the outer-zero separation for the paper's actual parameters,
+evaluate the weighted derivative mass and retained real transform, and
+verify the complete numerical budget giving `R=5.573412`. The finite low-zero
+mass still needs its numerical lower bound. These Gamma estimates are
+explicit symbolic bounds, not a verification that their constants suffice
+for that numerical budget; refine them if the budget requires it.
+The three Dusart providers and full all-`k` verification remain unfinished.
+Do not redo the counting envelope, closed Lehman tail, pole estimates,
+Gamma phase, or these smoothed Gamma bounds.
+
 ### Pole and high-tail bounds connected to the master (newest, 2026-09-22)
 
 `kadiriWeight_lehman_pole_master_nonneg` in `KadiriLehmanMaster` now inserts both proved estimates into

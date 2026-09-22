@@ -68,4 +68,28 @@ theorem tendsto_im_log_shift_correction (z : ℂ) :
   simp only [Function.comp_apply, sub_im, mul_im, add_im, natCast_im, div_ofNat_im,
     one_im, ofReal_im, zero_div, mul_zero, zero_mul, zero_add, add_zero, sub_zero]
 
+/-- A fixed complex shift does not change the logarithmic normalization at infinity. -/
+theorem tendsto_log_add_nat_sub_log_nat_add_one (z : ℂ) :
+    Tendsto (fun n : ℕ => log (z + n) - (Real.log ((n : ℝ) + 1) : ℂ)) atTop (𝓝 0) := by
+  have hi : Tendsto (fun n : ℕ => ((n : ℂ) + 1)⁻¹) atTop (𝓝 0) := by
+    simpa only [Function.comp_apply, ofReal_inv, ofReal_add, ofReal_natCast, ofReal_one,
+      ofReal_zero] using!
+      (tendsto_inv_atTop_zero.comp
+        (tendsto_atTop_add_const_right atTop (1 : ℝ) tendsto_natCast_atTop_atTop)).ofReal
+  have h1 : Tendsto (fun n : ℕ => 1 + (z - 1) / ((n : ℂ) + 1)) atTop (𝓝 1) := by
+    simpa [div_eq_mul_inv] using tendsto_const_nhds.add (tendsto_const_nhds.mul hi)
+  have hl : Tendsto (fun n : ℕ => log (1 + (z - 1) / ((n : ℂ) + 1))) atTop (𝓝 0) := by
+    simpa only [log_one] using!
+      (continuousAt_clog (by simp : (1 : ℂ) ∈ slitPlane)).tendsto.comp h1
+  apply hl.congr'
+  filter_upwards [h1.eventually_ne (by simp : (1 : ℂ) ≠ 0)] with n hn
+  have hnp : (0 : ℝ) < n + 1 := by positivity
+  have hnc : (n : ℂ) + 1 ≠ 0 := by exact_mod_cast hnp.ne'
+  have he : z + n = (((n : ℝ) + 1 : ℝ) : ℂ) * (1 + (z - 1) / ((n : ℂ) + 1)) := by
+    push_cast
+    field_simp
+    ring
+  rw [he, log_ofReal_mul hnp hn]
+  ring
+
 end Complex
