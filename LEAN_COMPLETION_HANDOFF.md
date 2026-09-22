@@ -80,6 +80,23 @@ constructor. The complete provider modules still need elaboration once
 their generated imports are available; the focused checks do not certify
 those whole modules.
 
+The facade's duplicated relative-row cover/assembler declarations were removed.
+Indexed relative coverage now uses the generic upper/lower assembler directly,
+not the nonexistent `hasDusartSymmetricThetaBoundsBelow_of_indexed_rows`.
+Endpoint, strict-upper, and prime-counting helpers precede their consumers;
+row-valued declarations use `def`, since their result is a data structure.
+
+Further mathematical repair is needed inside the legacy relative-row adapters:
+`dusartThetaRelativeRow_provides` attempts to deduce the upper half of the
+logarithmic absolute error from a constant relative upper error with no bound
+on `log x`. The published `b0 <= 1` conditions can instead give `theta x <= x`.
+Also, `DusartThetaTable66Row.toRelativeRow` tries to strengthen a lower bound
+by replacing `log x` with `log right`, which reverses the needed comparison.
+Use the published constant-column bounds (already inputs) or prove the required
+endpoint ratio margins; do not regard these existing tactic bodies as proofs.
+Neither flaw is present in the independently checked `Table66Bounds` and
+`Table66Subintervals` modules.
+
 This repair does NOT supply the three missing global declarations
 `wangCrapis_primeCounting`, `wangCrapis_thetaBounds`, and
 `wangCrapis_shortInterval`. Actual theta enclosures and the fixed numerical

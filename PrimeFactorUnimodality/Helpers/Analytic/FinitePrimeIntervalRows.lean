@@ -390,6 +390,15 @@ def DusartThetaEndpointRowsStrictUpperCoverUpTo
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right ∧
       row.theta_upper < row.left
 
+theorem strictThetaUpperRow_provides
+    (row : StrictThetaUpperRow) {x : Real}
+    (hleft : (row.left : Real) ≤ x) (hright : x ≤ row.right) :
+    Chebyshev.theta x < x := by
+  have htheta : Chebyshev.theta x ≤ row.theta_upper :=
+    (Chebyshev.theta_mono hright).trans row.theta_right_le
+  have hleft_pos : 0 ≤ (row.left : Real) := by positivity
+  linarith
+
 theorem hasStrictThetaUpperBelow_of_endpoint_rows
     {X : Real} {rows : List DusartThetaEndpointRow}
     (cover : DusartThetaEndpointRowsStrictUpperCoverUpTo rows X) :
@@ -417,15 +426,6 @@ def StrictThetaUpperRowsCoverUpTo
     (rows : List StrictThetaUpperRow) (X : Real) : Prop :=
   ∀ x : Real, 2 ≤ x → x ≤ X →
     ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
-
-theorem strictThetaUpperRow_provides
-    (row : StrictThetaUpperRow) {x : Real}
-    (hleft : (row.left : Real) ≤ x) (hright : x ≤ row.right) :
-    Chebyshev.theta x < x := by
-  have htheta : Chebyshev.theta x ≤ row.theta_upper :=
-    (Chebyshev.theta_mono hright).trans row.theta_right_le
-  have hleft_pos : 0 ≤ (row.left : Real) := by positivity
-  linarith
 
 theorem hasStrictThetaUpperBelow_of_rows
     {X : Real} {rows : List StrictThetaUpperRow}
@@ -634,6 +634,11 @@ def dusartThetaEndpointRow_three : DusartThetaEndpointRow := by
       lower_upper_error := hlower_upper
       lower_lower_error := hlower_lower }
 
+def DusartThetaEndpointRowsCoverUpTo
+    (rows : List DusartThetaEndpointRow) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
+
 theorem dusartThetaEndpointRow_three_cover :
     DusartThetaEndpointRowsCoverUpTo
       [dusartThetaEndpointRow_two, dusartThetaEndpointRow_three] 3 := by
@@ -665,11 +670,6 @@ def dusartThetaEndpointRow_singleton (n : Nat) (hn : 2 ≤ n)
     upper_error := hupper
     lower_upper_error := hlower_upper
     lower_lower_error := hlower_lower }
-
-def DusartThetaEndpointRowsCoverUpTo
-    (rows : List DusartThetaEndpointRow) (X : Real) : Prop :=
-  ∀ x : Real, 2 ≤ x → x ≤ X →
-    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
 
 /-! Endpoint rows are only used after the finite theta prefix.  Requiring
 them to cover from `2` would be false: the endpoint error budgets are the
@@ -757,51 +757,7 @@ theorem dusartThetaEndpointIndexedCoverFrom_append
     refine ⟨Fin.natAdd n₁ i, ?_⟩
     simpa [Fin.append_right] using And.intro hright_lower hright_upper
 
-theorem hasDusartSymmetricThetaBoundsBelow_of_indexed_endpoint_rows
-    {n : Nat} {X : Real}
-    {rows : Fin n → DusartThetaEndpointRow}
-    (cover : DusartThetaEndpointIndexedCoverUpTo rows X) :
-    HasDusartSymmetricThetaBoundsBelow X := by
-  apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
-  · intro x hx hX
-    by_cases hsmall : x < 2
-    · rw [Chebyshev.theta_eq_zero_of_lt_two hsmall]
-      nlinarith
-    · obtain ⟨i, hleft, hright⟩ := cover x
-        (le_of_not_gt hsmall) hX
-      exact (dusartThetaEndpointRow_provides (rows i) hleft hright).upper
-        x hleft hright
-  · intro x hx hX
-    obtain ⟨i, hleft, hright⟩ := cover x (by linarith) hX
-    exact (dusartThetaEndpointRow_provides (rows i) hleft hright).lower
-      x hx hleft hright
-
-theorem dusartThetaEndpointRowsCoverUpTo_append
-    {m X : Real} {left right : List DusartThetaEndpointRow}
-    (hleft : DusartThetaEndpointRowsCoverUpTo left m)
-    (hright : DusartThetaEndpointRowsCoverUpTo right X) :
-    DusartThetaEndpointRowsCoverUpTo (left ++ right) X := by
-  intro x hx hX
-  by_cases hxm : x ≤ m
-  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
-    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
-  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
-    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
-
-theorem dusartThetaEndpointRowsCoverFrom_append
-    {x₀ m X : Real} {left right : List DusartThetaEndpointRow}
-    (hleft : DusartThetaEndpointRowsCoverFrom left x₀ m)
-    (hright : DusartThetaEndpointRowsCoverFrom right m X) :
-    DusartThetaEndpointRowsCoverFrom (left ++ right) x₀ X := by
-  intro x hx hX
-  by_cases hxm : x ≤ m
-  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
-    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
-  · obtain ⟨row, hrow, hleft_row, hright_row⟩ :=
-      hright x (le_of_not_ge hxm) hX
-    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
-
-theorem dusartThetaEndpointRow_provides
+def dusartThetaEndpointRow_provides
     (row : DusartThetaEndpointRow) {x : Real}
     (hleft : (row.left : Real) ≤ x) (hright : x ≤ row.right) :
     DusartThetaBoundsRow := by
@@ -878,6 +834,50 @@ theorem dusartThetaEndpointRow_provides
             exact mul_le_mul_of_nonneg_left hratio_y (by norm_num)
       linarith
     exact (abs_lt).2 ⟨hlower, hupper⟩
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_indexed_endpoint_rows
+    {n : Nat} {X : Real}
+    {rows : Fin n → DusartThetaEndpointRow}
+    (cover : DusartThetaEndpointIndexedCoverUpTo rows X) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
+  · intro x hx hX
+    by_cases hsmall : x < 2
+    · rw [Chebyshev.theta_eq_zero_of_lt_two hsmall]
+      nlinarith
+    · obtain ⟨i, hleft, hright⟩ := cover x
+        (le_of_not_gt hsmall) hX
+      exact (dusartThetaEndpointRow_provides (rows i) hleft hright).upper
+        x hleft hright
+  · intro x hx hX
+    obtain ⟨i, hleft, hright⟩ := cover x (by linarith) hX
+    exact (dusartThetaEndpointRow_provides (rows i) hleft hright).lower
+      x hx hleft hright
+
+theorem dusartThetaEndpointRowsCoverUpTo_append
+    {m X : Real} {left right : List DusartThetaEndpointRow}
+    (hleft : DusartThetaEndpointRowsCoverUpTo left m)
+    (hright : DusartThetaEndpointRowsCoverUpTo right X) :
+    DusartThetaEndpointRowsCoverUpTo (left ++ right) X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+
+theorem dusartThetaEndpointRowsCoverFrom_append
+    {x₀ m X : Real} {left right : List DusartThetaEndpointRow}
+    (hleft : DusartThetaEndpointRowsCoverFrom left x₀ m)
+    (hright : DusartThetaEndpointRowsCoverFrom right m X) :
+    DusartThetaEndpointRowsCoverFrom (left ++ right) x₀ X := by
+  intro x hx hX
+  by_cases hxm : x ≤ m
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hleft x hx hxm
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
+  · obtain ⟨row, hrow, hleft_row, hright_row⟩ :=
+      hright x (le_of_not_ge hxm) hX
+    exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
 
 theorem hasDusartSymmetricThetaBoundsBelow_of_endpoint_rows
     {X : Real} {rows : List DusartThetaEndpointRow}
@@ -1037,7 +1037,7 @@ structure DusartThetaRelativeRow where
     (1 - lower_coeff) * x <
       (12323 / 10000 : Real) * x / Real.log x
 
-theorem dusartThetaRelativeRow_provides
+def dusartThetaRelativeRow_provides
     (row : DusartThetaRelativeRow) : DusartThetaBoundsRow := by
   have hleft2 : (2 : Real) ≤ row.left := by exact_mod_cast row.left_large
   have hright2 : (2 : Real) ≤ (row.right : Real) := by
@@ -1099,6 +1099,30 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_relative_rows
     obtain ⟨row, hrow, hleft, hright⟩ := cover x (by linarith) hX
     exact (dusartThetaRelativeRow_provides row).lower x hx hleft hright
 
+def dusartThetaRelativeRow_to_bounds
+    (row : DusartThetaRelativeRow) : DusartThetaBoundsRow :=
+  dusartThetaRelativeRow_provides row
+
+def DusartThetaRelativeIndexedCoverUpTo {n : Nat}
+    (rows : Fin n → DusartThetaRelativeRow) (X : Real) : Prop :=
+  ∀ x : Real, 2 ≤ x → x ≤ X →
+    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
+
+theorem hasDusartSymmetricThetaBoundsBelow_of_indexed_relative_rows
+    {n : Nat} {X : Real} {rows : Fin n → DusartThetaRelativeRow}
+    (cover : DusartThetaRelativeIndexedCoverUpTo rows X) :
+    HasDusartSymmetricThetaBoundsBelow X := by
+  apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
+  · intro x hx hX
+    by_cases hsmall : x < 2
+    · rw [Chebyshev.theta_eq_zero_of_lt_two hsmall]
+      nlinarith
+    · obtain ⟨i, hleft, hright⟩ := cover x (le_of_not_gt hsmall) hX
+      exact (dusartThetaRelativeRow_provides (rows i)).upper x hleft hright
+  · intro x hx hX
+    obtain ⟨i, hleft, hright⟩ := cover x (by linarith) hX
+    exact (dusartThetaRelativeRow_provides (rows i)).lower x hx hleft hright
+
 /-! The six coefficient columns printed in Dusart's Table 6.6.  The first
 pair gives constant-coefficient bounds; the next two pairs give the
 `1 / log x` and `1 / log^2 x` correction bounds. -/
@@ -1145,7 +1169,7 @@ def DusartThetaTable66Row.toRelativeZero
     upper_coeff_error := hupper_error
     lower_coeff_error := hlower_error }
 
-theorem dusartThetaTable66Row_provides_zero
+def dusartThetaTable66Row_provides_zero
     (row : DusartThetaTable66Row)
     (hleft_large : 2 ≤ row.left)
     (hleft_right : row.left ≤ row.right)
@@ -1501,28 +1525,6 @@ def DusartThetaTable66CoefficientData.toRow
     interface after all of its interval inequalities have been proved.  This
     keeps the `1 / log x` and `1 / log x ^ 2` estimates attached to the row
     instead of projecting them away before verification. -/
-def DusartThetaTable66CoefficientData.toRelativeRow_of_formula_bounds
-    (data : DusartThetaTable66CoefficientData)
-    (hleft : 2 ≤ data.left) (hle : data.left ≤ data.right)
-    (hupper_error : data.b0 - 1 < (1 : Real) / 36260)
-    (ha1_nonneg : 0 ≤ data.a1)
-    (ha1 : data.a1 < (12323 : Real) / 10000)
-    (lower_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
-      data.a0 * x ≤ Chebyshev.theta x)
-    (upper_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
-      Chebyshev.theta x ≤ data.b0 * x)
-    (lower_one : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
-      x - data.a1 * x / Real.log x ≤ Chebyshev.theta x)
-    (upper_one : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
-      Chebyshev.theta x ≤ x + data.b1 * x / Real.log x)
-    (lower_two : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
-      x - data.a2 * x / Real.log x ^ 2 ≤ Chebyshev.theta x)
-    (upper_two : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
-      Chebyshev.theta x ≤ x + data.b2 * x / Real.log x ^ 2) :
-    DusartThetaRelativeRow := by
-  exact (data.toRow lower_zero upper_zero lower_one upper_one lower_two upper_two).toRelativeRow
-    hleft hle hupper_error ha1_nonneg ha1
-
 def DusartThetaTable66Row.toRelativeRow
     (row : DusartThetaTable66Row)
     (hleft : 2 ≤ row.left) (hle : row.left ≤ row.right)
@@ -1580,6 +1582,28 @@ def DusartThetaTable66Row.toRelativeRow
         exact mul_lt_mul_of_pos_right ha1 hxpos
       nlinarith
   }
+
+def DusartThetaTable66CoefficientData.toRelativeRow_of_formula_bounds
+    (data : DusartThetaTable66CoefficientData)
+    (hleft : 2 ≤ data.left) (hle : data.left ≤ data.right)
+    (hupper_error : data.b0 - 1 < (1 : Real) / 36260)
+    (ha1_nonneg : 0 ≤ data.a1)
+    (ha1 : data.a1 < (12323 : Real) / 10000)
+    (lower_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      data.a0 * x ≤ Chebyshev.theta x)
+    (upper_zero : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      Chebyshev.theta x ≤ data.b0 * x)
+    (lower_one : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      x - data.a1 * x / Real.log x ≤ Chebyshev.theta x)
+    (upper_one : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      Chebyshev.theta x ≤ x + data.b1 * x / Real.log x)
+    (lower_two : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      x - data.a2 * x / Real.log x ^ 2 ≤ Chebyshev.theta x)
+    (upper_two : ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
+      Chebyshev.theta x ≤ x + data.b2 * x / Real.log x ^ 2) :
+    DusartThetaRelativeRow := by
+  exact (data.toRow lower_zero upper_zero lower_one upper_one lower_two upper_two).toRelativeRow
+    hleft hle hupper_error ha1_nonneg ha1
 
 def DusartThetaTable66RowsCoverUpTo
     (rows : List DusartThetaTable66Row) (X : Real) : Prop :=
@@ -2407,56 +2431,6 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_verified_chunks
   | cons next tail ih =>
       exact ih (DusartThetaTableVerifiedChunk.append first next)
 
-def dusartThetaRelativeRow_to_bounds
-    (row : DusartThetaRelativeRow) : DusartThetaBoundsRow := by
-  refine {
-    left := row.left
-    right := row.right
-    left_large := row.left_large
-    left_le_right := row.left_le_right
-    upper := ?_
-    lower := ?_ }
-  · intro x hleft hright
-    have hleft_nonneg : (0 : Real) ≤ (row.left : Real) := by positivity
-    have hx : 0 ≤ x := hleft_nonneg.trans hleft
-    have htheta := row.upper_bound x hleft hright
-    have hcoeff := row.upper_coeff_error
-    nlinarith
-  · intro x hx hleft hright
-    have htheta_upper := row.upper_bound x hleft hright
-    have htheta_lower := row.lower_bound x hleft hright
-    have herror := row.lower_coeff_error x hx hleft hright
-    apply (abs_lt).2
-    constructor <;> nlinarith
-
-def DusartThetaRelativeRowsCoverUpTo
-    (rows : List DusartThetaRelativeRow) (X : Real) : Prop :=
-  ∀ x : Real, 2 ≤ x → x ≤ X →
-    ∃ row ∈ rows, (row.left : Real) ≤ x ∧ x ≤ row.right
-
-def DusartThetaRelativeIndexedCoverUpTo {n : Nat}
-    (rows : Fin n → DusartThetaRelativeRow) (X : Real) : Prop :=
-  ∀ x : Real, 2 ≤ x → x ≤ X →
-    ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right
-
-theorem hasDusartSymmetricThetaBoundsBelow_of_relative_rows
-    {X : Real} {rows : List DusartThetaRelativeRow}
-    (cover : DusartThetaRelativeRowsCoverUpTo rows X) :
-    HasDusartSymmetricThetaBoundsBelow X := by
-  apply hasDusartSymmetricThetaBoundsBelow_of_rows
-  intro x hx hX
-  obtain ⟨row, hrow, hleft, hright⟩ := cover x hx hX
-  exact ⟨dusartThetaRelativeRow_to_bounds row, by simp [hrow], hleft, hright⟩
-
-theorem hasDusartSymmetricThetaBoundsBelow_of_indexed_relative_rows
-    {n : Nat} {X : Real} {rows : Fin n → DusartThetaRelativeRow}
-    (cover : DusartThetaRelativeIndexedCoverUpTo rows X) :
-    HasDusartSymmetricThetaBoundsBelow X := by
-  apply hasDusartSymmetricThetaBoundsBelow_of_indexed_rows
-  intro x hx hX
-  obtain ⟨i, hleft, hright⟩ := cover x hx hX
-  exact ⟨dusartThetaRelativeRow_to_bounds (rows i), hleft, hright⟩
-
 /-! Closed regression seed for the coefficient-row adapter.  The published
 table starts much later; this singleton only checks that the coefficient
 representation composes with the existing low-endpoint seed. -/
@@ -2663,6 +2637,32 @@ def DusartPrimeCountingEndpointChunk.appendMany
       DusartPrimeCountingEndpointChunk.appendMany
         (DusartPrimeCountingEndpointChunk.append first next) tail
 
+theorem dusartPrimeCountingEndpointRow_provides
+    (row : DusartPrimeCountingEndpointRow) {x : Real}
+    (hleft : (row.left : Real) ≤ x) (hright : x ≤ row.right) :
+    dusartPiLower x ≤ (Nat.primeCounting ⌊x⌋₊ : Real) ∧
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x := by
+  have hleft599 : (599 : Real) ≤ row.left := by exact_mod_cast row.left_large
+  have hright599 : (599 : Real) ≤ (row.right : Real) :=
+    hleft599.trans (by exact_mod_cast row.left_le_right)
+  have hfloor_left : row.left ≤ ⌊x⌋₊ := Nat.le_floor hleft
+  have hfloor_right : ⌊x⌋₊ ≤ row.right := Nat.floor_le_of_le hright
+  have hpi_left : (Nat.primeCounting row.left : Real) ≤
+      (Nat.primeCounting ⌊x⌋₊ : Real) := by
+    exact_mod_cast Nat.monotone_primeCounting hfloor_left
+  have hpi_right : (Nat.primeCounting ⌊x⌋₊ : Real) ≤
+      (Nat.primeCounting row.right : Real) := by
+    exact_mod_cast Nat.monotone_primeCounting hfloor_right
+  have hlower : dusartPiLower x ≤ dusartPiLower (row.right : Real) :=
+    dusartPiLower_monotoneOn (by exact hleft599)
+      (by exact hright599) hright
+  have hupper : dusartPiUpper (row.left : Real) ≤ dusartPiUpper x :=
+    dusartPiUpper_monotoneOn (by norm_num at hleft599 ⊢; linarith)
+      (by norm_num at hleft599 hright599 ⊢; linarith) hleft
+  constructor
+  · exact hlower.trans (row.lower_endpoint.trans hpi_left)
+  · exact hpi_right.trans (row.upper_endpoint.trans hupper)
+
 theorem hasDusartRealPrimeCountingBoundsBelow_of_indexed_endpoint_rows
     {n : Nat} {X : Real}
     {rows : Fin n → DusartPrimeCountingEndpointRow}
@@ -2714,32 +2714,6 @@ theorem dusartPrimeCountingEndpointRowsCoverFrom599_append
     exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
   · obtain ⟨row, hrow, hleft_row, hright_row⟩ := hright x hx hX
     exact ⟨row, by simp [hrow], hleft_row, hright_row⟩
-
-theorem dusartPrimeCountingEndpointRow_provides
-    (row : DusartPrimeCountingEndpointRow) {x : Real}
-    (hleft : (row.left : Real) ≤ x) (hright : x ≤ row.right) :
-    dusartPiLower x ≤ (Nat.primeCounting ⌊x⌋₊ : Real) ∧
-      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartPiUpper x := by
-  have hleft599 : (599 : Real) ≤ row.left := by exact_mod_cast row.left_large
-  have hright599 : (599 : Real) ≤ (row.right : Real) :=
-    hleft599.trans (by exact_mod_cast row.left_le_right)
-  have hfloor_left : row.left ≤ ⌊x⌋₊ := Nat.le_floor hleft
-  have hfloor_right : ⌊x⌋₊ ≤ row.right := Nat.floor_le_of_le hright
-  have hpi_left : (Nat.primeCounting row.left : Real) ≤
-      (Nat.primeCounting ⌊x⌋₊ : Real) := by
-    exact_mod_cast Nat.monotone_primeCounting hfloor_left
-  have hpi_right : (Nat.primeCounting ⌊x⌋₊ : Real) ≤
-      (Nat.primeCounting row.right : Real) := by
-    exact_mod_cast Nat.monotone_primeCounting hfloor_right
-  have hlower : dusartPiLower x ≤ dusartPiLower (row.right : Real) :=
-    dusartPiLower_monotoneOn (by exact hleft599)
-      (by exact hright599) hright
-  have hupper : dusartPiUpper (row.left : Real) ≤ dusartPiUpper x :=
-    dusartPiUpper_monotoneOn (by norm_num at hleft599 ⊢; linarith)
-      (by norm_num at hleft599 hright599 ⊢; linarith) hleft
-  constructor
-  · exact hlower.trans (row.lower_endpoint.trans hpi_left)
-  · exact hpi_right.trans (row.upper_endpoint.trans hupper)
 
 theorem hasDusartRealPrimeCountingBoundsBelow_of_endpoint_rows
     {X : Real} {rows : List DusartPrimeCountingEndpointRow}

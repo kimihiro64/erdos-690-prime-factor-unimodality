@@ -81,3 +81,31 @@ def test_ci_checks_subintervals_and_lean_regressions() -> None:
         in (workflow)
     )
     assert "lake env lean test/lean/Table66Subintervals.lean" in workflow
+
+
+def test_finite_facade_has_no_duplicate_declarations() -> None:
+    code = strip_lean_comments((ANALYTIC / "FinitePrimeIntervalRows.lean").read_text())
+    names = re.findall(r"(?m)^(?:theorem|def|structure) ([A-Za-z0-9_.]+)", code)
+    assert len(names) == len(set(names))
+
+
+def test_finite_facade_declares_helpers_before_consumers() -> None:
+    code = strip_lean_comments((ANALYTIC / "FinitePrimeIntervalRows.lean").read_text())
+    for name in (
+        "strictThetaUpperRow_provides",
+        "DusartThetaEndpointRowsCoverUpTo",
+        "dusartThetaEndpointRow_provides",
+        "dusartPrimeCountingEndpointRow_provides",
+        "DusartThetaRelativeIndexedCoverUpTo",
+        "hasDusartSymmetricThetaBoundsBelow_of_indexed_relative_rows",
+    ):
+        declaration = re.search(rf"(?m)^(?:theorem|def) ({name})\b", code)
+        assert declaration is not None
+        assert code.index(name) == declaration.start(1)
+    for name in (
+        "dusartThetaEndpointRow_provides",
+        "dusartThetaRelativeRow_provides",
+        "dusartThetaTable66Row_provides_zero",
+    ):
+        assert f"def {name}\n" in code
+        assert f"theorem {name}\n" not in code
