@@ -113,8 +113,12 @@ jobs:
           MATHLIB_NO_CACHE_ON_UPDATE: "1"
         run: lake update
       - name: Exercise producer and release-consumer packaging
+        # Both dependency updates above share the project package directory.
         shell: pwsh
-        run: ./test/release_licensing_test.ps1
+        run: |
+          python3 scripts/patch_pnt_compat.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          ./test/release_licensing_test.ps1
 
   python:
     name: Python format, lint, types, and tests
@@ -168,6 +172,7 @@ jobs:
       - name: Elaborate analytic foundations one target at a time
         run: |
           set -euo pipefail
+          python3 scripts/patch_pnt_compat.py
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitPrimeCounting
           /usr/bin/time -v lake build \
@@ -180,6 +185,10 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.DigammaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaXiLogDerivative
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaXiZeroContribution
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaZeroFreeInequality
           lake env lean test/lean/ZetaZeroFreeIngredients.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
@@ -218,6 +227,7 @@ jobs:
           path: .lake/build
       - name: Prebuild high-memory generated chains serially
         run: |
+          python3 scripts/patch_pnt_compat.py
           lake build \
             +PrimeFactorUnimodality.Helpers.FiniteCertificates.Generated.PrimePrefixes
           lake build \
@@ -253,6 +263,7 @@ jobs:
           path: .lake/build
       - name: Verify the finite Abel shell and all-k assembly
         run: |
+          python3 scripts/patch_pnt_compat.py
           python3 scripts/check_tail_replacement.py
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Proof.CompleteClassificationReduction
@@ -318,6 +329,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
+          python3 scripts/patch_pnt_compat.py
           python3 scripts/check_tail_replacement.py
           : > lean-build.log
           : > lean-build-processes.log
@@ -394,7 +406,9 @@ jobs:
           MATHLIB_NO_CACHE_ON_UPDATE: "1"
           DISABLE_EQUATIONS: "1"
           DOCGEN_SRC: github
-        run: lake build PrimeFactorUnimodality:docs
+        run: |
+          python3 ../scripts/patch_pnt_compat.py
+          lake build PrimeFactorUnimodality:docs
       - name: Prepare the offline documentation and licensing bundle
         shell: pwsh
         run: ./scripts/prepare-api-docs.ps1 -DocumentationRoot docbuild/.lake/build/doc
@@ -419,6 +433,8 @@ jobs:
           lint: false
       - name: Fetch dependencies
         run: lake update
+      - name: Apply the reviewed Lean compatibility ports
+        run: python3 scripts/patch_pnt_compat.py
       - name: Restore the completed Lean build
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
         with:

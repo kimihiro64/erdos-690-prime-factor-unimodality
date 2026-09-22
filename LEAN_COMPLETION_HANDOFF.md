@@ -45,6 +45,56 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Actual zero contributions and the explicit classical constraint (newest, 2026-09-22)
+
+`ZetaXiZeros` proves that every actual xi zero lies in `0 ≤ Re(ρ) ≤ 1`.
+The shifted-gamma product now also covers `Re(s)>0`, `s≠1`, so xi/zeta
+zero equivalence on that domain is available without a supplied hypothesis.
+
+`ZetaXiZeroContribution` proves:
+
+- every actual xi zero occurs in the multiplicity-carrying divisor index;
+- the Hadamard sum has constant `logDeriv riemannXi 0`, identified by
+  evaluating the degree-one factorization at zero;
+- all real summands are nonnegative to the right of the critical strip;
+- retaining a zero `β+iγ` gives the negative term `-1/(σ-β)` in `Re(-ζ'/ζ)`;
+- the constant is exactly `(log(4*pi) - EulerGamma - 2)/2`.
+
+`ZetaZeroFreeInequality` combines these results with the proved pole, gamma,
+and `3,4,1` positivity estimates. `xi_zero_three_four_one_constraint` is an
+unconditional explicit necessary inequality for every actual xi zero;
+`riemannXi_ne_zero_of_three_four_one` excludes a proposed zero when its
+elementary reverse inequality holds. This is NOT yet a numerical zero-free
+region meeting Dusart's constants. Do not treat a weaker classical region
+as establishing the published fixed-cutoff theta estimates. Sharper
+polynomial/Stechkin estimates and the zero-sum error argument remain needed.
+
+The full required PNT Hadamard dependency now compiles. Its only blocking
+errors were five Lean 4.34 API edits in four files: `logDeriv_fun_mul`, two
+uses of `Finset.prod_le_prod₀`, and two explicit `-1 ≤` premises for positive
+logarithms. `scripts/patch_pnt_compat.py` records these edits, verifies the
+exact locked revision and original Git objects, validates every target
+before writing any, refuses unrelated edits, and is idempotent. CI applies
+it before Lean builds; `CONTRIBUTING.md` gives the local command. The four
+modified files in `.lake/packages/PrimeNumberTheoremAnd` are intentional,
+reproducible compatibility ports, not unrelated work to discard. No cache
+was deleted and no theorem statement was changed.
+
+The root `lakefile.toml` revision now matches BOTH existing lockfiles and
+the tested checkout (`f6147e7572ab3abe5428101bc0b13627bcb005df`). The old
+configuration alone had a different revision, making later `lake update`
+select a different source tree. No dependency update or new revision was
+introduced by aligning it.
+
+The three new modules, expanded Lean regression, and twelve-export axiom
+audit pass. This includes the imported Hadamard factorization, summability,
+and exact constant; every audited declaration uses only `propext`,
+`Classical.choice`, and `Quot.sound`. Fast checks, Ruff, mypy, actionlint,
+and 78 Python tests pass (Ruby metadata validation is skipped locally). Logs are
+`.research/dusart-xi-{zeros,contribution,zero-axioms,zero-regressions,zero-fast}.log`
+and `.research/dusart-zero-free-inequality.log`. The three global Dusart
+providers and final all-`k` theorem remain unfinished.
+
 ### Explicit gamma term and the xi bridge (newest, 2026-09-22)
 
 `DigammaExplicitBounds` proves the explicit bound
@@ -83,11 +133,9 @@ locally because Ruby is absent. Diagnostic logs are
 `.research/dusart-digamma-{build,regressions,axioms,fast}.log` and
 `.research/dusart-xi-build.log`.
 
-Next: prove the individual zero's negative contribution from the xi
-Hadamard sum. `RiemannXiDivisorZeros.neg_two_mul_logDeriv_riemannXi_zero_eq`
-already gives the exact Hadamard constant through xi at zero; its containing
-module and Hadamard dependencies still need an elaboration/axiom audit
-before reuse. This may avoid a separate derivation of that constant.
+The individual zero's negative contribution and the exact constant have
+now been connected and audited, as described above. The remaining task is
+to derive the quantitative region and error estimates needed by the paper.
 The classical trigonometric inequality, unit pole bound, and explicit gamma
 bound are now available, but a quantitative zero-free region with constants
 sufficient for Dusart's prescribed cutoffs is NOT yet proved. Neither are

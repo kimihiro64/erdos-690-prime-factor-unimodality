@@ -38,21 +38,28 @@ private theorem xiPiFactor_eq (s : ℂ) :
   congr 1
   ring
 
-/-- Product representation using the pole-cancelling shifted gamma function. -/
-theorem riemannXi_eq_shifted_gamma_product {s : ℂ} (hs : 1 < s.re) :
+/-- Product representation away from the pole on the right half-plane. -/
+theorem riemannXi_eq_shifted_gamma_product_of_re_pos {s : ℂ}
+    (hs : 0 < s.re) (hs1 : s ≠ 1) :
     riemannXi s = (s - 1) * Complex.exp (-(s / 2) * (Real.log Real.pi : ℂ)) *
       Gamma (s / 2 + 1) * riemannZeta s := by
   have hs0 : s ≠ 0 := by intro h; norm_num [h] at hs
-  have hs1 : s ≠ 1 := by intro h; simp [h] at hs
   have hcomp : completedRiemannZeta s = Gammaℝ s * riemannZeta s := by
     rw [riemannZeta_def_of_ne_zero hs0, mul_div_cancel₀ _
-      (Gammaℝ_ne_zero_of_re_pos (zero_lt_one.trans hs))]
+      (Gammaℝ_ne_zero_of_re_pos hs)]
   rw [riemannXi_eq_mul_completedRiemannZeta hs0 hs1, hcomp, Gammaℝ_def,
     Gamma_add_one _ (div_ne_zero hs0 (by norm_num))]
   change s * (s - 1) * (_ * _ * _) / 2 =
     (s - 1) * xiPiFactor s * (s / 2 * _) * _
   rw [xiPiFactor_eq]
   ring
+
+/-- The shifted-gamma product on the half-plane of absolute convergence. -/
+theorem riemannXi_eq_shifted_gamma_product {s : ℂ} (hs : 1 < s.re) :
+    riemannXi s = (s - 1) * Complex.exp (-(s / 2) * (Real.log Real.pi : ℂ)) *
+      Gamma (s / 2 + 1) * riemannZeta s :=
+  riemannXi_eq_shifted_gamma_product_of_re_pos (zero_lt_one.trans hs)
+    (by intro h; simp [h] at hs)
 
 /-- Exact logarithmic-derivative identity, before estimating the xi zero contribution. -/
 theorem neg_logDeriv_riemannZeta_eq_xi {s : ℂ} (hs : 1 < s.re) :

@@ -1,5 +1,4 @@
-import PrimeFactorUnimodality.Helpers.Analytic.ZetaRealPole
-import PrimeFactorUnimodality.Helpers.Analytic.ZetaXiLogDerivative
+import PrimeFactorUnimodality.Helpers.Analytic.ZetaZeroFreeInequality
 
 set_option autoImplicit false
 
@@ -62,5 +61,23 @@ example (t : ℝ) :
           (1 / 2 : ℝ) * Real.log Real.pi) := by
   simpa using re_neg_logDeriv_riemannZeta_le_xi
     (s := (3 / 2 : ℂ) + t * I) (by norm_num) (by norm_num)
+
+example (ρ : ℂ) (hρ : riemannXi ρ = 0) : 0 ≤ ρ.re ∧ ρ.re ≤ 1 :=
+  riemannXi_zero_mem_critical_strip hρ
+
+example (ρ : ℂ) (hρ : riemannXi ρ = 0) :
+    ∃ p : RiemannXiDivisorZeroIndex, riemannXiDivisorZeroValue p = ρ :=
+  exists_xi_divisor_index_of_zero hρ
+
+example : (logDeriv riemannXi 0).re =
+    (Real.log (4 * Real.pi) - Real.eulerMascheroniConstant - 2) / 2 :=
+  re_logDeriv_riemannXi_zero_eq
+
+example (ρ : ℂ) (hρ : riemannXi ρ = 0) :
+    4 / ((3 / 2 : ℝ) - ρ.re) ≤ 3 / ((3 / 2 : ℝ) - 1) + 3 -
+      (5 / 2 : ℝ) * (Real.log (4 * Real.pi) - Real.eulerMascheroniConstant - 2) +
+      4 * zeroFreePoleTerm (3 / 2) ρ.im + zeroFreePoleTerm (3 / 2) (2 * ρ.im) +
+      4 * zeroFreeGammaTerm ρ.im + zeroFreeGammaTerm (2 * ρ.im) :=
+  xi_zero_three_four_one_constraint hρ (by norm_num) (by norm_num)
 
 end PrimeFactorUnimodality.Tests

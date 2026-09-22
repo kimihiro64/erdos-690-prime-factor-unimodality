@@ -58,6 +58,18 @@ commit. The prohibited roots include `.agents/`, `.research/`, `.codex/`,
 
 ## Verification
 
+After fetching the locked Lean dependencies (and the Mathlib cache), run:
+
+```bash
+python3 scripts/patch_pnt_compat.py
+```
+
+This applies the reviewed Lean 4.34 API ports to four pinned PNT dependency
+files. It validates the exact Git revision and every target's full source,
+refuses unrelated edits, is idempotent, and preserves all build caches.
+CI applies the same ports before building. `--check` verifies without writing.
+The locked PNT revision and its original Apache-2.0 notices are unchanged.
+
 Run the research profile before opening a pull request. Release work additionally
 requires the full Palomar profile, paper, Comparator, NanoDa, clean Git state,
 and exact public commit audit.
