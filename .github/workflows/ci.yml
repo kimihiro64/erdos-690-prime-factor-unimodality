@@ -450,6 +450,15 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.XiLehmanRemainder
           lake env lean test/lean/XiLehmanRemainder.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiZeroCountingEndpoints
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaXiMultiplicity
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiZetaCountingBridge
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiZetaCountingBounds
+          lake env lean test/lean/XiZetaCountingBridge.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

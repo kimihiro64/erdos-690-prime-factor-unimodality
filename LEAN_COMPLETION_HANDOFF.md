@@ -45,6 +45,46 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Exact xi/zeta counting bridge (newest, 2026-09-22)
+
+The counting-convention bridge is now proved, including analytic multiplicity
+and every upper-cutoff zero. It introduces no RH premise.
+
+- `XiZeroCountingEndpoints` defines the strict xi count and proves that
+  the closed count is the strict count plus the full ordinate multiplicity
+  at positive cutoffs. Local finiteness proves that strict counts tend to
+  the closed count from the right. Continuous error envelopes therefore
+  transfer at zero heights without discarding the endpoint atom.
+- `ZetaXiMultiplicity` proves equality of the xi and zeta analytic orders
+  on the right half-plane away from one, hence equality of xi's integer
+  divisor with PNT's `riemannZeta.order`. It also places xi zeros in the
+  open critical strip and sends every nonreal zeta zero to an xi zero.
+- `XiZetaCountingBridge` groups finite xi labels by complex value using
+  PNT's already-proved divisor-fiber cardinality. It proves, for all real
+  `T`, `(xiStrictZeroCount T : Real)=riemannZeta.N T`. For `T>0`, the closed
+  count is `N(T)+m(T)`. This uses only PNT's definitions and divisor API,
+  not its much larger `KadiriZeroCounting` import or an assumed count bound.
+- `XiZetaCountingBounds` transfers any stated Riemann-von Mangoldt bound
+  to the closed count, with the exact `7/8` offset. Its elementary comparison
+  shows that constants `0.137,0.443,6.1` imply the needed `2log(T)` envelope
+  when `T>=2` and `log(T)>=5`. The resulting actual Lehman tail estimate
+  still requires that RvM hypothesis and retains the boundary atom.
+
+All four leaves and `test/lean/XiZetaCountingBridge.lean` compile. The 21
+audited exports use only `propext`, `Classical.choice`, and `Quot.sound`.
+CI builds the leaves serially before certificate work; the Python ordering
+regression is included. No sharp count theorem has been imported as proved.
+
+NEXT: the actual quantitative counting theorem, not another counting bridge.
+One may prove the required `2log(T)` estimate directly at the relevant high
+cutoff; proving the stronger conventional constants is not obligatory.
+The source route is the argument-principle identity, explicit gamma/Stirling
+error, and a Jensen bound for the horizontal argument variation; see
+[Trudgian, sections 2--3](https://arxiv.org/pdf/1208.5846).
+The integral reduction, multiplicity match, cutoff transfer, and offset
+conversion are now complete. Separation, pole/gamma bounds, numerical
+inputs, and all three final Dusart providers remain open.
+
 ### Exact infinite discrepancy and conditional Lehman estimate (newest, 2026-09-22)
 
 The smooth main term has now been subtracted from the unconditional infinite

@@ -163,3 +163,19 @@ at the pinned revision, `IEANTN/ZetaDefinitions.lean` defines
 uses `0<gamma<=T`. A bridge requires the full cutoff multiplicity or an
 explicit right-limit argument, as well as conversion of the `7/8` offset.
 No equality of these two counting functions at zero heights is claimed.
+
+The endpoint bridge is now implemented in `XiZeroCountingEndpoints` and
+`XiZetaCountingBridge`: strict xi counts equal PNT's `N(T)`; closed counts
+add the entire cutoff multiplicity and are right-hand limits of `N`.
+`ZetaXiMultiplicity` proves that the xi divisor weight equals PNT's integer
+zeta order. The finite grouping reuses
+`Complex.Hadamard.divisorZeroIndex₀_fiberFinset_card_eq_analyticOrderNatAt`
+from the pinned `Mathlib/Analysis/Complex/DivisorFiber` module. Its original
+authorship and licence remain in the dependency. The bridge needs neither
+the RH-dependent mass formulas nor the `KadiriZeroCounting` import.
+
+`XiZetaCountingBounds` now also converts the `7/8` offset explicitly.
+Under the stated RvM hypothesis, its constants give the `2log(T)` envelope
+for `T>=2, log(T)>=5`, and then the actual Lehman bound. The hypothesis is
+still open. All 21 public results in this increment build and have only
+`propext`, `Classical.choice`, and `Quot.sound` in their axiom closures.
