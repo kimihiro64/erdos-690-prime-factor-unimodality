@@ -260,6 +260,10 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartThetaClosedPart02
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.Deriv
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartJComparison
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartPrimeCountingAssembly
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartPrimeCountingClosed

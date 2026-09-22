@@ -6,6 +6,7 @@ import PrimeFactorUnimodality.Helpers.Analytic.RelativePsiTheta
 import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 import PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
 import PrimeFactorUnimodality.Helpers.PrimeSequence.AverageGap
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.Deriv
 
 
 set_option autoImplicit false
@@ -727,21 +728,7 @@ theorem deriv_log_power_kernel
     deriv (fun y : Real => y / (Real.log y) ^ (n + 1)) t =
       1 / (Real.log t) ^ (n + 1) -
         (n + 1 : Real) * (1 / (Real.log t) ^ (n + 2)) := by
-  have htpos : 0 < t := by linarith
-  have hlogpos : 0 < Real.log t := Real.log_pos ht
-  have hlogne : Real.log t ≠ 0 := ne_of_gt hlogpos
-  have hderiv := (hasDerivAt_id t).div
-    ((Real.hasDerivAt_log (ne_of_gt htpos)).pow (n + 1))
-    (pow_ne_zero _ hlogne)
-  convert hderiv.deriv using 1
-  · rfl
-  · simp only [id_eq, Pi.pow_apply]
-    rw [show n + 1 - 1 = n by omega]
-    field_simp [hlogne]
-    rw [pow_succ]
-    ring_nf
-    norm_num [Nat.cast_add, Nat.cast_one]
-    ring
+  simpa only [mul_one_div] using (Real.hasDerivAt_id_div_log_pow_succ ht).deriv
 
 end
 

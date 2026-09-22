@@ -45,6 +45,46 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Anchored Dusart comparison (newest, 2026-09-22)
+
+`DusartJBounds` proves the actual Section 6.2 comparison from the 2010
+Dusart paper: `J(x; -η) ≤ π(x) ≤ J(x; η)`, using the theta estimate only
+on `[x₀, x]`. The anchor is exactly `π(x₀) - θ(x₀) / log(x₀)`.
+`dusartJ_self` reduces the anchor check to prime counting and logarithms,
+with no integral. `DusartJComparison` proves both printed derivatives and
+the upper/lower differential comparisons. The generic logarithmic-power
+derivative is now in the Mathlib candidate layer and also used by the
+older Abel implementation.
+
+`wangCrapis_primeCounting_of_paper_theta_estimates` wires this argument to
+the unchanged natural prime-counting interface. Its remaining inputs are:
+
+- a bounded prime-counting prefix through a chosen `x₀`, with `log x₀ ≥ 25`;
+- the upper/lower theta errors `.05*x/log²x` and `x/log³x` above `x₀`;
+- the two exact `J`/`M` comparisons at `x₀`.
+
+These inputs are NOT proved by this adapter. The paper uses `x₀ = 10^11`;
+the current checked prime-counting prefix is only 1000. The three global
+declarations `wangCrapis_primeCounting`, `wangCrapis_thetaBounds`, and
+`wangCrapis_shortInterval` remain missing. Next work must prove the paper's
+theta estimates and anchor data, not treat the adapter as a closed provider.
+
+The prime-counting assembly no longer accepts a log-fourth error coefficient
+at most 1 starting at 2. A Lean regression disproves that input at `x = 4`.
+Other legacy conditional interfaces in `MediumPNT`, `CompleteClassification*`,
+and `WangCrapisClosed` still mention that impossible input; do not use them
+as completion routes. The uniform `∀ Y` inputs in the eventual-cutoff
+adapters are global obligations, not single finite computations.
+
+The new analytic modules have no certificate imports; CI explicitly builds
+the comparison and its candidate derivative before their consumers.
+The candidate, both `J` modules, `DusartPrimeCountingAssembly`, and
+`DusartPrimeCountingClosed` compile. `test/lean/DusartAnalytic.lean` passes,
+including the `x = 4` counterexample and the published comparison constants.
+All seven audited new exports use only `propext`, `Classical.choice`, and
+`Quot.sound`. Fast source checks, Ruff, mypy, actionlint, and 70 Python tests
+pass. Diagnostic logs are `.research/dusart-j-{build,final-build,regressions,axioms,fast}.log`.
+
 ### Closed prime-counting prefix through 1000 (newest, 2026-09-22)
 
 `wangCrapis_primeCountingPrefix : HasDusartRealPrimeCountingBoundsBelow 1000`

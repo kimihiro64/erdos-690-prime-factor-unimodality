@@ -14,6 +14,47 @@ and reusable prime-count and logarithm enclosures without generated tables.
 
 namespace PrimeFactorUnimodality.Tests
 
+example {n : Nat} {x : Real} (hx : 1 < x) :
+    HasDerivAt (fun y : Real => y / Real.log y ^ (n + 1))
+      (1 / Real.log x ^ (n + 1) - (n + 1 : Real) / Real.log x ^ (n + 2)) x :=
+  Real.hasDerivAt_id_div_log_pow_succ hx
+
+example {k : Nat} {η x₀ x : Real} (h₀ : 2 ≤ x₀) (hx : x₀ ≤ x)
+    (hθ : ∀ t ∈ Set.Icc x₀ x,
+      |Chebyshev.theta t - t| ≤ η * t / Real.log t ^ k) :
+    dusartJ k (-η) x₀ x ≤ (Nat.primeCounting ⌊x⌋₊ : Real) ∧
+      (Nat.primeCounting ⌊x⌋₊ : Real) ≤ dusartJ k η x₀ x :=
+  dusartJ_sandwich h₀ hx hθ
+
+example {x₀ x : Real} (h₀ : 1 < x₀) (hx : x₀ ≤ x)
+    (hlog : 25 ≤ Real.log x₀)
+    (ha : dusartJ 2 (1 / 20) x₀ x₀ ≤ dusartM (1167 / 500) x₀) :
+    dusartJ 2 (1 / 20) x₀ x ≤ dusartM (1167 / 500) x :=
+  dusartJ_two_le_dusartM h₀ hx (by norm_num) (by nlinarith) ha
+
+-- A sharp large-range theta remainder cannot be required from 2 onwards.
+example {A X : Real} (hA : A ≤ 1) (hX : 4 ≤ X) :
+    ¬ HasThetaLogFourthErrorBelow A X := by
+  intro h
+  have hθ := Chebyshev.theta_eq_sum_primesLE_log 4
+  norm_num [Nat.primesLE, Nat.primesBelow, Finset.sum_filter,
+    Finset.sum_range_succ] at hθ
+  have hθ2 : Chebyshev.theta 4 < 2 := by
+    nlinarith [LogTables.log_2_lt, LogTables.log_3_lt]
+  have hlog : (4 / 3 : Real) < Real.log 4 := by
+    have heq : Real.log 4 = 2 * Real.log 2 := by
+      rw [show (4 : Real) = 2 ^ 2 by norm_num, Real.log_pow]
+      norm_num
+    linarith [LogTables.log_2_gt]
+  have hpow : (2 : Real) < Real.log 4 ^ 4 := by
+    have hp := pow_lt_pow_left₀ hlog (by norm_num : (0 : Real) ≤ 4 / 3) (by decide : 4 ≠ 0)
+    norm_num at hp
+    linarith
+  have hbound := (le_div_iff₀ (by linarith : (0 : Real) < Real.log 4 ^ 4)).mp
+    (h 4 (by norm_num) hX)
+  rw [abs_of_neg (by linarith : Chebyshev.theta 4 - 4 < 0)] at hbound
+  nlinarith
+
 example : HasDusartRealPrimeCountingBoundsBelow (1000 : Real) :=
   wangCrapis_primeCountingPrefix
 

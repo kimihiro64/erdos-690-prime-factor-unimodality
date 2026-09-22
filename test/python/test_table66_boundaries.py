@@ -42,6 +42,14 @@ def test_endpoint_facts_require_covering_cells() -> None:
     assert "upper_one_endpoint" not in code
 
 
+def test_prime_count_assembly_does_not_require_a_false_small_theta_estimate() -> None:
+    code = strip_lean_comments((ANALYTIC / "DusartPrimeCountingAssembly.lean").read_text())
+    assert "HasThetaLogFourthErrorBelow" not in code
+    assert "wangCrapis_primeCounting_of_paper_theta_estimates" in code
+    assert "lowerAnchor : dusartM 2 x₀ ≤ dusartJ 3 (-1) x₀ x₀" in code
+    assert "upperAnchor : dusartJ 2 (1 / 20) x₀ x₀ ≤ dusartM (1167 / 500) x₀" in code
+
+
 def test_old_first_row_endpoints_are_incompatible() -> None:
     # Lean proves log(200000000) >= 1; even this weaker margin contradicts
     # the simultaneous theta(100000000) upper endpoint requirement.

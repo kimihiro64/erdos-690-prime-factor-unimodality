@@ -1,5 +1,6 @@
 import PrimeFactorUnimodality.Mathlib.Algebra.Group.PowerChunk
 import PrimeFactorUnimodality.Mathlib.Algebra.Group.PowerStep
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.Deriv
 import PrimeFactorUnimodality.Mathlib.Data.Nat.CoprimePeriodicCount
 import PrimeFactorUnimodality.Mathlib.Data.Nat.Periodic
 import PrimeFactorUnimodality.Mathlib.NumberTheory.BLSPrimality
