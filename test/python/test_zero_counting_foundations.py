@@ -186,3 +186,11 @@ def test_bootstrap_budget_ci_build_order() -> None:
     assert foundations.index("lake env lean test/lean/KadiriInitialRegion.lean") < positions[0]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/KadiriBootstrap.lean")
+
+
+def test_main_ci_preserves_running_proof_build() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    concurrency = workflow.split("concurrency:\n", 1)[1].split("\njobs:\n", 1)[0]
+    assert "group: ${{ github.workflow }}-${{ github.ref }}" in concurrency
+    assert "cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}" in concurrency
