@@ -40,6 +40,12 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Poisson.ThreeKernelUniform` | `Mathlib/Analysis/Complex/Poisson/ThreeKernelUniform.lean` | project-verified | None |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.PairedStrip` | `Mathlib/Analysis/Complex/FiniteLaplace/PairedStrip.lean` | project-verified | None |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.RealSource` | `Mathlib/Analysis/Complex/FiniteLaplace/RealSource.lean` | project-verified | None |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.PhragmenLindelof.RealPart` | `Mathlib/Analysis/Complex/PhragmenLindelof/RealPart.lean` | project-verified | None |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Poisson` | `Mathlib/Analysis/Complex/Poisson.lean` | project-verified | None |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Poisson.ThreeKernel` | `Mathlib/Analysis/Complex/Poisson/ThreeKernel.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Algebra.Group.PowerChunk` | `Mathlib/Algebra/Group/PowerChunk.lean` | extracting | None |
 | `PrimeFactorUnimodality.Mathlib.Algebra.Group.PowerStep` | `Mathlib/Algebra/Group/PowerStep.lean` | extracting | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace` | `Mathlib/Analysis/Complex/FiniteLaplace.lean` | project-verified | None |

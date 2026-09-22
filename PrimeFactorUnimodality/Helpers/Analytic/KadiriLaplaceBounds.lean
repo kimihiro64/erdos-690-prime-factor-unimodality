@@ -46,6 +46,19 @@ theorem abs_re_kadiriWeight_laplace_sub_pole_le {θ η : ℝ}
   simpa only [sub_re, div_re, ofReal_re, ofReal_im, zero_mul, zero_div, add_zero,
     normSq_apply, ← sq, ← normSq_eq_norm_sq] using h
 
+/-- The cubic error gives lower and upper rational kernels with the same quadratic denominator. -/
+theorem re_kadiriWeight_laplace_bounds {θ η : ℝ}
+    (hθ : π / 2 < θ ∧ θ < π) (hη : 0 < η) {s : ℂ} (hs : 0 < s.re) :
+    (kadiriWeight θ η 0 * s.re - η ^ 3 * (-kadiriKernel₂ θ 0) / s.re) /
+        (s.re ^ 2 + s.im ^ 2) ≤
+      (finiteLaplace (fun u => (kadiriWeight θ η u : ℂ)) (kadiriWeightSupport θ η) s).re ∧
+    (finiteLaplace (fun u => (kadiriWeight θ η u : ℂ)) (kadiriWeightSupport θ η) s).re ≤
+      (kadiriWeight θ η 0 * s.re + η ^ 3 * (-kadiriKernel₂ θ 0) / s.re) /
+        (s.re ^ 2 + s.im ^ 2) := by
+  have h := abs_le.mp (abs_re_kadiriWeight_laplace_sub_pole_le hθ hη hs)
+  simp only [sub_div, add_div, div_div]
+  constructor <;> linarith
+
 end
 
 end PrimeFactorUnimodality

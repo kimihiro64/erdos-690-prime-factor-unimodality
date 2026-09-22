@@ -221,3 +221,26 @@ def test_laplace_positivity_ci_build_order() -> None:
     ]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/KadiriLaplacePositivity.lean")
+
+
+def test_paired_zero_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "Helpers.Analytic.KadiriLaplacePositivity",
+        "Mathlib.Analysis.Complex.PhragmenLindelof.RealPart",
+        "Mathlib.Analysis.Complex.FiniteLaplace.RealSource",
+        "Mathlib.Analysis.Complex.FiniteLaplace.PairedStrip",
+        "Mathlib.Analysis.Complex.Poisson.ThreeKernel",
+        "Mathlib.Analysis.Complex.Poisson.ThreeKernelUniform",
+        "Helpers.Analytic.KadiriPairedStrip",
+        "Helpers.Analytic.KadiriPairParameters",
+        "Helpers.Analytic.KadiriPairedZeros",
+    )
+    positions = [
+        foundations.index(f"lake build \\\n            +PrimeFactorUnimodality.{module}\n")
+        for module in modules
+    ]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index("lake env lean test/lean/KadiriPairedZeros.lean")

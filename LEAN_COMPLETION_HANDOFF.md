@@ -45,6 +45,57 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Smoothed paired-zero inequality (newest, 2026-09-22)
+
+`KadiriPairedZeros.kadiriWeight_paired_zero_nonneg` proves the actual
+paper-weight comparison
+`D(σ-β+iy) + D(σ-1+β+iy) >= 0` for EVERY real `y`, including zero,
+EVERY `1-σ <= β <= σ`, `1/2 < σ₀ <= σ <= 1`, and `0 < η <= η₀`.
+Its parameter assumptions are `δ>0`, `κ>=0`, and the exact symbolic
+`κ <= κ₂, κ <= κ₃` from the paper. `KadiriPairParameters` defines those
+two quotients with `r₀=2*σ₀-1` and the actual `g₁` and sharp `m`.
+There is no boundary-positivity premise, height cutoff, sampled numerical
+check, or polynomial-coefficient premise at this theorem's boundary.
+
+The proof chain is complete for this comparison:
+
+- `Poisson.ThreeKernel` proves that two nonnegative endpoint coefficients
+  force the full rational comparison at every height.
+- `Poisson.ThreeKernelUniform` proves those coefficients uniformly for
+  `r₀<=r<=1` and a bounded nonnegative error coefficient. It retains the
+  exact denominators in the paper's κ₂/κ₃, not rounded replacements.
+- `PhragmenLindelof.RealPart` applies the analytic strip principle to
+  `exp(-F)`. `FiniteLaplace.RealSource` supplies conjugation and the compact
+  source's uniform half-plane bound; `FiniteLaplace.PairedStrip` transfers
+  a reflected comparison from the imaginary edge to the whole strip.
+- `KadiriPairedStrip` combines the proved H2 and cubic error on that edge.
+  `KadiriPairParameters` discharges its coefficients using κ₂/κ₃ and exact
+  scaling. Conjugation gives the final same-height comparison.
+
+The tests cover arbitrary parameters/heights, both strip edges, and a
+rational nonzero-error example over an interval of scales. CI builds the
+new candidates and consumers serially before certificates, then runs
+`test/lean/KadiriPairedZeros.lean`. Axiom audit source:
+`.research/DusartPairedZerosAxioms.lean`; logs:
+`.research/dusart-{pair*,three-kernel-uniform,kadiri-paired-*}.log`.
+All 14 new theorem exports audit only `propext`, `Classical.choice`, and
+`Quot.sound`; the leaf chain and the new Lean regression compile.
+The fast source/architecture profile, Ruff format/lint, mypy, workflow
+lint, and all 89 Python tests pass. Ruby metadata validation is skipped
+because Ruby is not installed; no full-project CI success is claimed.
+
+NEXT: use the comparison in the actual xi-divisor sum, retaining
+multiplicities, and prove the remaining quantitative gamma and zero-tail
+estimates. Same-height zero pairing uses `ρ -> 1-conj(ρ)`; the existing
+`ZetaXiDivisorReflection` equivalence is only `ρ -> 1-ρ`, so do not confuse
+them. Prove the needed conjugation/multiplicity bridge before reindexing.
+Then prove the sharp zero-free/PNT constants and the checked finite analytic
+inputs required by the final three Dusart providers. The numerical
+Mossinghoff--Trudgian parameter choices and final `R=5.573412` are NOT yet
+certified by this symbolic comparison. Do not weaken that target or restore
+the discarded full record-gap replay. All three providers and the all-`k`
+completion remain open. The older NEXT paragraph below is superseded.
+
 ### Full H2 and strict transform positivity (newest, 2026-09-22)
 
 `KadiriLaplacePositivity.re_kadiriWeight_laplace_nonneg` now proves H2:

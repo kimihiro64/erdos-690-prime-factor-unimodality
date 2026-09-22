@@ -327,6 +327,23 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriLaplacePositivity
           lake env lean test/lean/KadiriLaplacePositivity.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.PhragmenLindelof.RealPart
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.RealSource
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.PairedStrip
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.Poisson.ThreeKernel
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.Poisson.ThreeKernelUniform
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriPairedStrip
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriPairParameters
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriPairedZeros
+          lake env lean test/lean/KadiriPairedZeros.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriWeightExplicitFormula
           lake env lean test/lean/KadiriWeight.lean
           /usr/bin/time -v lake build \
