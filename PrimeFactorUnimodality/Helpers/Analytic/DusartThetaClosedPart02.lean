@@ -90,7 +90,7 @@ theorem wangCrapis_thetaBounds_of_strict_theta_prefix_and_logFourthTail
 
 theorem wangCrapis_thetaBounds_of_prefix_and_strict_rows_and_logFourthTail
     {A X x₀ : Real} (h2x₀ : (2 : Real) ≤ x₀)
-    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (hprefix : HasDusartSymmetricThetaBoundsBelow x₀)
     {n : Nat} (rows : Fin n → StrictThetaUpperRow)
     (cover : ∀ x : Real, x₀ ≤ x → x ≤ X →
       ∃ i : Fin n, (rows i).left ≤ x ∧ x ≤ (rows i).right)
@@ -104,7 +104,7 @@ theorem wangCrapis_thetaBounds_of_prefix_and_strict_rows_and_logFourthTail
     HasDusartThetaBounds := by
   exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
     (hasDusartSymmetricThetaBoundsBelow_of_prefix_and_indexed_strict_rows_and_lower
-      h2x₀ prefix cover lower)
+      h2x₀ hprefix cover lower)
     hA_nonneg hA thetaError
 
 theorem wangCrapis_thetaBounds_of_six_prefix_and_endpoint_rows_and_logFourthTail
@@ -351,20 +351,20 @@ theorem wangCrapis_thetaBounds_of_table66_chunks_and_logFourthTail
     coefficient-table computation while preserving one bounded cutoff. -/
 theorem hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_chunk
     {x₀ : Real} (h2x₀ : (2 : Real) ≤ x₀)
-    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (hprefix : HasDusartSymmetricThetaBoundsBelow x₀)
     (chunk : DusartThetaTable66Chunk) :
     HasDusartSymmetricThetaBoundsBelow chunk.cutoff := by
   apply hasDusartSymmetricThetaBoundsBelow_of_upper_lower
   · intro x hx hX
     by_cases hsmall : x ≤ x₀
-    · exact prefix.1 x hx hsmall
+    · exact hprefix.1 x (by linarith) hsmall
     · obtain ⟨i, hleft, hright⟩ := chunk.cover x
         (h2x₀.trans (le_of_not_ge hsmall)) hX
       exact (dusartThetaRelativeRow_to_bounds
         (chunk.toRelativeRows i)).upper x hleft hright
   · intro x hx hX
     by_cases hsmall : x ≤ x₀
-    · exact prefix.2 x hx hsmall
+    · exact hprefix.2 x hx hsmall
     · obtain ⟨i, hleft, hright⟩ := chunk.cover x
         (h2x₀.trans (le_of_not_ge hsmall)) hX
       exact (dusartThetaRelativeRow_to_bounds
@@ -372,7 +372,7 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_chunk
 
 theorem wangCrapis_thetaBounds_of_prefix_and_table66_chunk_and_logFourthTail
     {A x₀ : Real} (h2x₀ : (2 : Real) ≤ x₀)
-    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (hprefix : HasDusartSymmetricThetaBoundsBelow x₀)
     (chunk : DusartThetaTable66Chunk)
     (hXpos : 0 < chunk.cutoff)
     (hlogX : (10 : Real) < Real.log chunk.cutoff)
@@ -382,7 +382,7 @@ theorem wangCrapis_thetaBounds_of_prefix_and_table66_chunk_and_logFourthTail
     HasDusartThetaBounds := by
   exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
     (hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_chunk
-      h2x₀ prefix chunk)
+      h2x₀ hprefix chunk)
     hA_nonneg hA thetaError
 
 /-! The same prefix boundary accepts a compact list of Table 6.6 chunks.  The
@@ -390,17 +390,17 @@ append assembler is the only place where the chunks are joined, so the final
 provider need not duplicate a theorem or a dispatch tree for each band. -/
 theorem hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_chunks
     {x₀ : Real} (h2x₀ : (2 : Real) ≤ x₀)
-    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (hprefix : HasDusartSymmetricThetaBoundsBelow x₀)
     (first : DusartThetaTable66Chunk)
     (rest : List DusartThetaTable66Chunk) :
     HasDusartSymmetricThetaBoundsBelow
       (DusartThetaTable66Chunk.appendMany first rest).cutoff := by
   exact hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_chunk
-    h2x₀ prefix (DusartThetaTable66Chunk.appendMany first rest)
+    h2x₀ hprefix (DusartThetaTable66Chunk.appendMany first rest)
 
 theorem wangCrapis_thetaBounds_of_prefix_and_table66_chunks_and_logFourthTail
     {A x₀ : Real} (h2x₀ : (2 : Real) ≤ x₀)
-    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (hprefix : HasDusartSymmetricThetaBoundsBelow x₀)
     (first : DusartThetaTable66Chunk)
     (rest : List DusartThetaTable66Chunk)
     (hXpos : 0 <
@@ -416,12 +416,12 @@ theorem wangCrapis_thetaBounds_of_prefix_and_table66_chunks_and_logFourthTail
     HasDusartThetaBounds := by
   exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
     (hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_chunks
-      h2x₀ prefix first rest)
+      h2x₀ hprefix first rest)
     hA_nonneg hA thetaError
 
 theorem wangCrapis_thetaBounds_of_prefix_and_table66_coefficient_data_and_logFourthTail
     {A x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
-    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (hprefix : HasDusartSymmetricThetaBoundsBelow x₀)
     (cover : ∀ x : Real, x₀ ≤ x → x ≤ X →
       ∃ data ∈ dusartThetaTable6_6CoefficientData,
         (data.left : Real) ≤ x ∧ x ≤ data.right)
@@ -438,7 +438,7 @@ theorem wangCrapis_thetaBounds_of_prefix_and_table66_coefficient_data_and_logFou
     HasDusartThetaBounds := by
   exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
     (hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_coefficient_bounds
-      h2x₀ prefix cover lower upper)
+      h2x₀ hprefix cover lower upper)
     hA_nonneg hA thetaError
 
 /-! The complete Table 6.6 formula interface can be attached to the same
@@ -448,7 +448,7 @@ theorem wangCrapis_thetaBounds_of_prefix_and_table66_coefficient_data_and_logFou
     bounds used by the tail theorem. -/
 theorem wangCrapis_thetaBounds_of_prefix_and_table66_formula_data_and_logFourthTail
     {A x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
-    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (hprefix : HasDusartSymmetricThetaBoundsBelow x₀)
     (cover : ∀ x : Real, x₀ ≤ x → x ≤ X →
       ∃ data ∈ dusartThetaTable6_6CoefficientData,
         (data.left : Real) ≤ x ∧ x ≤ data.right)
@@ -476,7 +476,7 @@ theorem wangCrapis_thetaBounds_of_prefix_and_table66_formula_data_and_logFourthT
     (thetaError : HasThetaLogFourthError A X) :
     HasDusartThetaBounds := by
   have finite := hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_coefficient_bounds
-    h2x₀ prefix cover lower_zero upper_zero
+    h2x₀ hprefix cover lower_zero upper_zero
   exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX finite
     hA_nonneg hA thetaError
 
@@ -485,7 +485,7 @@ theorem wangCrapis_thetaBounds_of_prefix_and_table66_formula_data_and_logFourthT
     object per interval without repeating the assembler's six dispatches. -/
 theorem wangCrapis_thetaBounds_of_prefix_and_table66_formula_bounds_and_logFourthTail
     {A x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
-    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (hprefix : HasDusartSymmetricThetaBoundsBelow x₀)
     (cover : ∀ x : Real, x₀ ≤ x → x ≤ X →
       ∃ data ∈ dusartThetaTable6_6CoefficientData,
         (data.left : Real) ≤ x ∧ x ≤ data.right)
@@ -497,7 +497,7 @@ theorem wangCrapis_thetaBounds_of_prefix_and_table66_formula_bounds_and_logFourt
     (thetaError : HasThetaLogFourthError A X) :
     HasDusartThetaBounds := by
   have finite := hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_coefficient_bounds
-    h2x₀ prefix cover (fun data hdata => (formula data hdata).lower_zero)
+    h2x₀ hprefix cover (fun data hdata => (formula data hdata).lower_zero)
     (fun data hdata => (formula data hdata).upper_zero)
   exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX finite
     hA_nonneg hA thetaError
@@ -508,7 +508,7 @@ theorem wangCrapis_thetaBounds_of_prefix_and_table66_formula_bounds_and_logFourt
     of exactly the same Table 6.6 row proofs. -/
 theorem hasStrictThetaUpperBelow_of_prefix_and_table66_formula_data
     {x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
-    (prefix : HasStrictThetaUpperBelow x₀)
+    (hprefix : HasStrictThetaUpperBelow x₀)
     (cover : ∀ x : Real, x₀ ≤ x → x ≤ X →
       ∃ data ∈ dusartThetaTable6_6CoefficientData,
         (data.left : Real) ≤ x ∧ x ≤ data.right)
@@ -517,7 +517,7 @@ theorem hasStrictThetaUpperBelow_of_prefix_and_table66_formula_data
     HasStrictThetaUpperBelow X := by
   intro x hx hX
   by_cases hsmall : x ≤ x₀
-  · exact prefix x hx hsmall
+  · exact hprefix x hx hsmall
   · obtain ⟨data, hdata, hleft, hright⟩ := cover x
       (le_of_not_ge hsmall) hX
     exact strictThetaUpper_of_table66_formula_data data hdata
@@ -529,7 +529,7 @@ theorem hasStrictThetaUpperBelow_of_prefix_and_table66_formula_data
     the six row inequalities as data for the eventual finite proof. -/
 theorem wangCrapis_thetaBounds_of_table66_formula_data_and_logFourthTail
     {A X : Real}
-    (prefix : HasDusartSymmetricThetaBoundsBelow (100000000 : Real))
+    (hprefix : HasDusartSymmetricThetaBoundsBelow (100000000 : Real))
     (hXcutoff : X ≤ (8e11 : Real))
     (lower_zero : ∀ data ∈ dusartThetaTable6_6CoefficientData,
       ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
@@ -555,7 +555,7 @@ theorem wangCrapis_thetaBounds_of_table66_formula_data_and_logFourthTail
     (thetaError : HasThetaLogFourthError A X) :
     HasDusartThetaBounds := by
   apply wangCrapis_thetaBounds_of_prefix_and_table66_formula_data_and_logFourthTail
-    (x₀ := (100000000 : Real)) (X := X) (by norm_num) prefix
+    (x₀ := (100000000 : Real)) (X := X) (by norm_num) hprefix
     (fun x hx hupper => dusartThetaTable6_6CoefficientData_cover_real x hx
       (hupper.trans hXcutoff))
     lower_zero upper_zero lower_one upper_one lower_two upper_two
@@ -563,7 +563,7 @@ theorem wangCrapis_thetaBounds_of_table66_formula_data_and_logFourthTail
 
 theorem wangCrapis_thetaBounds_of_table66_formula_bounds_and_logFourthTail
     {A X : Real}
-    (prefix : HasDusartSymmetricThetaBoundsBelow (100000000 : Real))
+    (hprefix : HasDusartSymmetricThetaBoundsBelow (100000000 : Real))
     (hXcutoff : X ≤ (8e11 : Real))
     (formula : ∀ data ∈ dusartThetaTable6_6CoefficientData,
       DusartThetaTable66FormulaBounds data)
@@ -573,7 +573,7 @@ theorem wangCrapis_thetaBounds_of_table66_formula_bounds_and_logFourthTail
     (thetaError : HasThetaLogFourthError A X) :
     HasDusartThetaBounds := by
   apply wangCrapis_thetaBounds_of_prefix_and_table66_formula_bounds_and_logFourthTail
-    (x₀ := (100000000 : Real)) (X := X) (by norm_num) prefix
+    (x₀ := (100000000 : Real)) (X := X) (by norm_num) hprefix
     (fun x hx hupper => dusartThetaTable6_6CoefficientData_cover_real x hx
       (hupper.trans hXcutoff))
     formula hXpos hlogX hA_nonneg hA thetaError

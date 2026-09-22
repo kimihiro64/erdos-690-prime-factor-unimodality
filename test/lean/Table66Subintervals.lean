@@ -1,4 +1,5 @@
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Table66Subintervals
+import PrimeFactorUnimodality.Helpers.Analytic.DusartThetaClosedPart01
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Table66EndpointFacts
 
 set_option autoImplicit false
 
@@ -31,5 +32,20 @@ example :
       (200000000 : Real) - (275 / 100000 : Real) * 200000000 /
         Real.log 200000000 ≤ Chebyshev.theta (100000000 : Real)) :=
   dusartTable66_first_row_whole_endpoint_impossible
+
+example : |Chebyshev.theta (5 / 2) - 5 / 2| <
+    (12323 / 10000 : Real) * (5 / 2) / Real.log (5 / 2) :=
+  dusartThetaBoundsBelow_three.2 _ (by norm_num) (by norm_num)
+
+example {x : Real} (hx : 0 < x) (hX : x ≤ 29) : Chebyshev.theta x < x :=
+  wangCrapis_strictThetaPrefix_twenty_nine x hx hX
+
+example {x : Real} (hx : 2 < x) (hX : x ≤ 7) :
+    |Chebyshev.theta x - x| < (12323 / 10000 : Real) * x / Real.log x :=
+  wangCrapis_thetaBoundsBelow_7.2 x hx hX
+
+example : ∃ data ∈ dusartThetaTable6_6CoefficientData,
+    (data.left : Real) ≤ 399999999 / 2 ∧ (399999999 / 2 : Real) ≤ data.right :=
+  dusartThetaTable6_6CoefficientData_cover_real _ (by norm_num) (by norm_num)
 
 end PrimeFactorUnimodality.Tests

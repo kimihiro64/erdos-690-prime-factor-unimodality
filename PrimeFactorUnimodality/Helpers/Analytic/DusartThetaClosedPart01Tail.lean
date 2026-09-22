@@ -1,4 +1,6 @@
+import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
 import PrimeFactorUnimodality.Helpers.Analytic.DusartThetaClosedPart01
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Table66Assembly
 
 set_option autoImplicit false
 
@@ -54,7 +56,7 @@ theorem wangCrapis_theta_upper_e28_from_strict_paper_inputs
     making the finite upper estimate depend on the lower and correction
     columns, which are used by the independent lower-error argument. -/
 theorem dusart_proposition_5_1_finite_upper_of_table66
-    (prefix : ∀ x : Real, 0 < x → x ≤ (100000000 : Real) →
+    (hprefix : ∀ x : Real, 0 < x → x ≤ (100000000 : Real) →
       Chebyshev.theta x - x < x / 36260)
     (upper_zero : ∀ data ∈ dusartThetaTable6_6CoefficientData,
       ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
@@ -63,7 +65,7 @@ theorem dusart_proposition_5_1_finite_upper_of_table66
       Chebyshev.theta x - x < x / 36260 := by
   intro x hx hX
   by_cases hsmall : x ≤ (100000000 : Real)
-  · exact prefix x hx hsmall
+  · exact hprefix x hx hsmall
   · obtain ⟨data, hdata, hleft, hright⟩ :=
       dusartThetaTable6_6CoefficientData_cover_real x
         (by linarith) hX
@@ -72,7 +74,7 @@ theorem dusart_proposition_5_1_finite_upper_of_table66
     have hxpos : 0 ≤ x := hx.le
     nlinarith
 theorem dusart_proposition_5_1_finite_lower_error_of_table66
-    (prefix : ∀ x : Real, 2 < x → x ≤ (100000000 : Real) →
+    (hprefix : ∀ x : Real, 2 < x → x ≤ (100000000 : Real) →
       |Chebyshev.theta x - x| <
         (12323 / 10000 : Real) * x / Real.log x)
     (lower_one : ∀ data ∈ dusartThetaTable6_6CoefficientData,
@@ -86,7 +88,7 @@ theorem dusart_proposition_5_1_finite_lower_error_of_table66
         (12323 / 10000 : Real) * x / Real.log x := by
   intro x hx hX
   by_cases hsmall : x ≤ (100000000 : Real)
-  · exact prefix x hx hsmall
+  · exact hprefix x hx hsmall
   · obtain ⟨data, hdata, hleft, hright⟩ :=
       dusartThetaTable6_6CoefficientData_cover_real x
         (by linarith) hX
@@ -110,7 +112,7 @@ theorem dusart_proposition_5_1_finite_lower_error_of_table66
       nlinarith
     exact (abs_lt).2 ⟨hlower_error, hupper_error⟩
 theorem hasDusartSymmetricThetaBoundsBelow_of_table66_one_zero
-    (prefix : HasDusartSymmetricThetaBoundsBelow (100000000 : Real))
+    (hprefix : HasDusartSymmetricThetaBoundsBelow (100000000 : Real))
     (lower_one : ∀ data ∈ dusartThetaTable6_6CoefficientData,
       ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
         x - data.a1 * x / Real.log x ≤ Chebyshev.theta x)
@@ -120,9 +122,9 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_table66_one_zero
     HasDusartSymmetricThetaBoundsBelow (8e11 : Real) := by
   constructor
   · exact dusart_proposition_5_1_finite_upper_of_table66
-      (fun x hx hX => prefix.1 x hx hX) upper_zero
+      (fun x hx hX => hprefix.1 x hx hX) upper_zero
   · exact dusart_proposition_5_1_finite_lower_error_of_table66
-      (fun x hx hX => prefix.2 x hx hX) lower_one upper_zero
+      (fun x hx hX => hprefix.2 x hx hX) lower_one upper_zero
 /-! Paper-facing Proposition 5.1 assembler.  The three hypotheses correspond
 to Dusart's finite table, middle explicit psi estimate, and large-range theta
 estimate; none of the range-specific obligations is hidden in this glue. -/
@@ -475,7 +477,7 @@ theorem wangCrapis_thetaBounds_of_endpoint_chunks_and_tail
     hA_nonneg hA thetaError
 theorem wangCrapis_thetaBounds_of_prefix_and_endpoint_chunks_and_tail
     {A x₀ : Real} (hx₀ : (2 : Real) ≤ x₀)
-    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (hprefix : HasDusartSymmetricThetaBoundsBelow x₀)
     (first : DusartThetaEndpointChunk)
     (rest : List DusartThetaEndpointChunk)
     (hcutoff : x₀ ≤
@@ -493,7 +495,7 @@ theorem wangCrapis_thetaBounds_of_prefix_and_endpoint_chunks_and_tail
     HasDusartThetaBounds := by
   exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
     (hasDusartSymmetricThetaBoundsBelow_of_indexed_prefix_and_endpoint_rows
-      hx₀ prefix
+      hx₀ hprefix
       (by
         intro x hx hX
         obtain ⟨i, hleft, hright⟩ :=
@@ -507,7 +509,7 @@ theorem wangCrapis_thetaBounds_of_indexed_prefix_endpoint_rows_and_tail
     {A X x₀ : Real} {n : Nat}
     (hXpos : 0 < X) (hlogX : (10 : Real) < Real.log X)
     (hx₀ : (2 : Real) ≤ x₀)
-    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (hprefix : HasDusartSymmetricThetaBoundsBelow x₀)
     (rows : Fin n → DusartThetaEndpointRow)
     (cover : DusartThetaEndpointIndexedCoverFrom rows x₀ X)
     (hA_nonneg : 0 ≤ A)
@@ -516,14 +518,14 @@ theorem wangCrapis_thetaBounds_of_indexed_prefix_endpoint_rows_and_tail
     HasDusartThetaBounds := by
   exact wangCrapis_thetaBounds_of_logFourthTail hXpos hlogX
     (hasDusartSymmetricThetaBoundsBelow_of_indexed_prefix_and_endpoint_rows
-      hx₀ prefix cover)
+      hx₀ hprefix cover)
     hA_nonneg hA thetaError
 /-! Paper-facing assembly with the Table 6.6 finite range attached.  The
     middle psi estimate, Proposition 3.1 gap estimate, and global lower
     estimate remain explicit arguments because they arise from different
     parts of the published proof. -/
 theorem wangCrapis_thetaBounds_of_table66_and_prop31_thetaError
-    (prefix : HasDusartSymmetricThetaBoundsBelow (100000000 : Real))
+    (hprefix : HasDusartSymmetricThetaBoundsBelow (100000000 : Real))
     (lower_one : ∀ data ∈ dusartThetaTable6_6CoefficientData,
       ∀ x : Real, (data.left : Real) ≤ x → x ≤ data.right →
         x - data.a1 * x / Real.log x ≤ Chebyshev.theta x)
@@ -544,7 +546,7 @@ theorem wangCrapis_thetaBounds_of_table66_and_prop31_thetaError
         Chebyshev.theta x) :
     HasDusartThetaBounds := by
   have finite := hasDusartSymmetricThetaBoundsBelow_of_table66_one_zero
-    prefix lower_one upper_zero
+    hprefix lower_one upper_zero
   exact wangCrapis_thetaBounds_of_paper_ranges_and_prop31_thetaError
     (fun x hx hX => finite.1 x hx hX) middlePsi finiteGap thetaError lower
 

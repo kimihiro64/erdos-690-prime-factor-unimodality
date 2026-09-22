@@ -1,5 +1,5 @@
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Table66Assembly
 import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Table66EndpointData
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Table66Subintervals
 
 set_option autoImplicit false
 
@@ -29,7 +29,7 @@ theorem dusartThetaTable66_formula_bounds_of_endpoint_facts
 
 theorem hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_endpoint_facts
     {x₀ X : Real} (h2x₀ : (2 : Real) ≤ x₀)
-    (prefix : HasDusartSymmetricThetaBoundsBelow x₀)
+    (hprefix : HasDusartSymmetricThetaBoundsBelow x₀)
     (cover : ∀ x : Real, x₀ ≤ x → x ≤ X →
       ∃ data ∈ dusartThetaTable6_6CoefficientData,
         (data.left : Real) ≤ x ∧ x ≤ data.right)
@@ -37,7 +37,7 @@ theorem hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_endpoint_facts
       DusartThetaTable66EndpointFacts data) :
     HasDusartSymmetricThetaBoundsBelow X := by
   apply hasDusartSymmetricThetaBoundsBelow_of_prefix_and_table66_coefficient_bounds
-    h2x₀ prefix cover
+    h2x₀ hprefix cover
   · intro data hdata
     exact (dusartThetaTable66_formula_bounds_of_endpoint_facts hdata
       (facts data hdata)).lower_zero

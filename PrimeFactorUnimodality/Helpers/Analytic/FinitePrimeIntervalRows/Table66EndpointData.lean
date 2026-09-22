@@ -1,10 +1,11 @@
-import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows
+import PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Table66Data
 
 set_option autoImplicit false
 
 namespace PrimeFactorUnimodality
 
-/-! Published Table 6.6 theta endpoint bounds, scaled by 10^6. These numerals are data for a later kernel-checked endpoint proof. -/
+/-! Published Table 6.6 theta endpoint bounds, scaled by 10^6.
+These numerals are data for a later kernel-checked endpoint proof. -/
 def dusartTable66PublishedEndpointData :
     List (Nat × Nat × Nat × Nat × Nat) := [
   (100000000, 200000000, 99987730018021, 199982302435784, 1000000),

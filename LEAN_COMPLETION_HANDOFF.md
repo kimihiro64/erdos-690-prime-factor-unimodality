@@ -45,6 +45,48 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Checked theta-row repair (2026-09-22, later override)
+
+The finite facade is now a small importer. Certificate-independent modules
+`ThetaRows`, `ThetaEndpointRows`, `Table66Data`, `Table66Rows`,
+`Table66Assembly`, `Table66EndpointFacts`, `PrimeCountingNumerics`, and
+`PrimeCountingRows` were elaborated directly. CI builds the endpoint-facts,
+small-theta, and prime-row targets in the analytic job before full replay.
+
+`DusartThetaRelativeRow` now records the published `upper_coeff <= 1` and
+the actual pointwise logarithmic lower error. Its assembler proves the
+symmetric bound using `theta x <= x`. `Table66FormulaBounds.toRelativeRow`
+uses the first logarithmic lower column at `x`; it does not replace that
+logarithm with `log right`. Both previously invalid arguments described
+below have been replaced and checked. The related chunk constructors now
+require the table's actual `b0 <= 1` condition, not just a constant error.
+
+The table's real coverage uses `dusartThetaTable66CellsChain_covers` rather
+than the incorrect implication `left <= ceil x` implies `left <= x`.
+Its 34 endpoints and all coefficient side conditions compile independently
+of prime enumeration.
+
+`DusartThetaClosedPart01` is rewritten and compiled. Exact small prime sums
+prove the strict theta prefix through 29; monotonicity and rational log
+enclosures prove the symmetric prefix through seven. All former exported
+prefix declarations are retained. The invalid claim that singleton rows at
+two and three cover their real interval is removed. Tests include `x=5/2`
+and a nonintegral point immediately before a published table boundary.
+
+The singleton prime-counting seed at 1000 is checked using the existing
+`computablePrimesBelow_succ_length` theorem. Its old direct primality-decider
+reduction reached roughly 9 GB and was terminated; the revised endpoint
+module compiles in 5 seconds. Its coverage theorem now correctly covers only
+the singleton, not the interval 599--1000. **Consequently the consumer
+`wangCrapis_primeCountingPrefix` still needs actual covering rows for that
+interval; its old use of the singleton theorem must be replaced.**
+
+The three global Dusart declarations remain open. None of the above finite
+results supplies the paper's fixed-constant unbounded psi/theta error.
+The tail modules' reserved `prefix` identifiers were renamed and their
+imports updated, but their complete elaboration still awaits the existing
+Dusart proof/certificate dependency chain.
+
 ### Dusart endpoint correction (2026-09-22)
 
 `DusartThetaTable66EndpointFacts` formerly imposed incompatible conditions

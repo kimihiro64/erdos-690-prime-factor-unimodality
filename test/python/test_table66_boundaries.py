@@ -13,7 +13,8 @@ ANALYTIC = ROOT / "PrimeFactorUnimodality/Helpers/Analytic"
 
 def test_subinterval_assembler_has_no_generated_dependencies() -> None:
     pending = [
-        "PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Table66Subintervals"
+        "PrimeFactorUnimodality.Helpers.Analytic.FinitePrimeIntervalRows.Table66EndpointFacts",
+        "PrimeFactorUnimodality.Helpers.Analytic.DusartThetaClosedPart01",
     ]
     visited: set[str] = set()
     while pending:
@@ -48,7 +49,7 @@ def test_table_adapter_keeps_finite_prefix_separate() -> None:
     facts = strip_lean_comments(
         (ANALYTIC / "FinitePrimeIntervalRows/Table66EndpointFacts.lean").read_text()
     )
-    assert "(prefix : HasDusartSymmetricThetaBoundsBelow x₀)" in facts
+    assert "(hprefix : HasDusartSymmetricThetaBoundsBelow x₀)" in facts
     assert "(cover : ∀ x : Real, x₀ ≤ x → x ≤ X →" in facts
     tail = strip_lean_comments((ANALYTIC / "DusartThetaClosedPart02.lean").read_text())
     assert "(h2x₀.trans hx)" not in tail
@@ -90,7 +91,16 @@ def test_finite_facade_has_no_duplicate_declarations() -> None:
 
 
 def test_finite_facade_declares_helpers_before_consumers() -> None:
-    code = strip_lean_comments((ANALYTIC / "FinitePrimeIntervalRows.lean").read_text())
+    code = "\n".join(
+        strip_lean_comments((ANALYTIC / path).read_text())
+        for path in (
+            "FinitePrimeIntervalRows/ThetaRows.lean",
+            "FinitePrimeIntervalRows/ThetaEndpointRows.lean",
+            "FinitePrimeIntervalRows/PrimeCountingRows.lean",
+            "FinitePrimeIntervalRows/Table66Rows.lean",
+            "FinitePrimeIntervalRows/Table66Assembly.lean",
+        )
+    )
     for name in (
         "strictThetaUpperRow_provides",
         "DusartThetaEndpointRowsCoverUpTo",
@@ -109,3 +119,22 @@ def test_finite_facade_declares_helpers_before_consumers() -> None:
     ):
         assert f"def {name}\n" in code
         assert f"theorem {name}\n" not in code
+
+
+def test_relative_rows_keep_pointwise_logarithmic_lower_bound() -> None:
+    code = strip_lean_comments((ANALYTIC / "FinitePrimeIntervalRows/ThetaRows.lean").read_text())
+    assert "upper_coeff_le_one : upper_coeff ≤ 1" in code
+    assert "lower_error : ∀ x : Real" in code
+    assert "formula.lower_one x hleft hright" in code
+    assert "Real.log (row.right" not in code
+
+
+def test_singleton_is_not_used_as_real_prefix_coverage() -> None:
+    code = strip_lean_comments((ANALYTIC / "DusartThetaClosedPart01.lean").read_text())
+    assert "dusartThetaEndpointRow_three_cover" not in code
+    assert "theta_nat_lt_id_small" in code
+    prime_rows = strip_lean_comments(
+        (ANALYTIC / "FinitePrimeIntervalRows/PrimeCountingRows.lean").read_text()
+    )
+    assert "∀ x : Real, (1000 : Real) ≤ x → x ≤ 1000 →" in prime_rows
+    assert "rw [← computablePrimesBelow_succ_length]" in prime_rows
