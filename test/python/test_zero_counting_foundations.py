@@ -144,8 +144,11 @@ def test_explicit_gamma_master_ci_build_order() -> None:
     modules = (
         "PrimeFactorUnimodality.Helpers.Analytic.SmoothedGammaBounds",
         "PrimeFactorUnimodality.Helpers.Analytic.KadiriGammaRemainderBounds",
+        "PrimeFactorUnimodality.Helpers.Analytic.DigammaEulerIdentity",
         "PrimeFactorUnimodality.Helpers.Analytic.DigammaEulerBounds",
         "PrimeFactorUnimodality.Helpers.Analytic.DigammaLogBounds",
+        "PrimeFactorUnimodality.Helpers.Analytic.DigammaHeightBounds",
+        "PrimeFactorUnimodality.Helpers.Analytic.SmoothedGammaNormBounds",
         "PrimeFactorUnimodality.Helpers.Analytic.SmoothedGammaFactorBounds",
         "PrimeFactorUnimodality.Helpers.Analytic.KadiriExplicitMaster",
     )
@@ -153,6 +156,7 @@ def test_explicit_gamma_master_ci_build_order() -> None:
     assert foundations.index("lake env lean test/lean/XiLehmanBudget.lean") < positions[0]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/KadiriGammaBounds.lean")
+    assert positions[-1] < foundations.index("lake env lean test/lean/KadiriGammaHeightBounds.lean")
 
 
 def test_initial_zero_free_master_ci_build_order() -> None:

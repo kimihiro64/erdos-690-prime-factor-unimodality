@@ -426,3 +426,25 @@ nonpositivity of the entire correction is asserted without proof.
 All 14 new exports and the preserved initial master compile and were
 audited with only `propext`, `Classical.choice`, and `Quot.sound`.
 The 12 regression examples include the zero-only set and arbitrary degree.
+
+## Height-decaying Gamma follow-up
+
+`DigammaEulerIdentity` factors the existing exact application of PNT's
+`sum_eq_integral_add_integral_deriv`; both error bounds now share it.
+`DigammaHeightBounds` bounds its derivative integral using
+`norm(z+x)^2 >= (norm(z)+x)^2/2` on the right half-plane, then applies
+the already-proved digamma limit. This gives the explicit error
+`2/norm(z)`, reusing the same actual Gamma series and Bernoulli bound.
+The prior `1/Re(z)` estimate remains available unchanged.
+
+The actual shifted Gamma majorant now takes the better error at nonzero
+height, with `2*(1+kappa)/abs(t)` as an explicit height bound. The zero
+harmonic keeps its previous bound. `KadiriGammaBudget` carries these
+individual errors through its exact logarithmic decomposition, residual
+monotonicity, and the existing normalized actual bootstrap. No assumed
+numerical zero-free region or new Gamma series is introduced by this step.
+
+The new leaves and actual bootstrap compile; 24 audited exports use only
+the three standard logical axioms. The height-error, updated bootstrap,
+and preserved Gamma and initial-region regressions pass. This does not
+verify the target numerical margins or finish the final Dusart providers.

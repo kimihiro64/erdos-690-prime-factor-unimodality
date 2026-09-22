@@ -34,23 +34,27 @@ theorem tendsto_sum_inv_add_sub_log {z : ℂ} (hz : 0 < z.re) :
   · congr 1
     ring
 
-/-- Uniform approximation on the full open right half-plane, with an explicit constant. -/
-theorem norm_digamma_sub_log_le_inv_re {z : ℂ} (hz : 0 < z.re) :
-    ‖digamma z - Complex.log z‖ ≤ 1 / z.re := by
-  have h := ((tendsto_sum_inv_add_sub_log hz).sub
-    (Complex.tendsto_log_add_nat_sub_log_nat_add_one z)).add_const (Complex.log z)
-  have hl : Tendsto (fun N : ℕ =>
+/-- The finite Euler errors converge in norm, independently of the chosen error bound. -/
+theorem tendsto_norm_sum_inv_add_sub_log {z : ℂ} (hz : 0 < z.re) :
+    Tendsto (fun N : ℕ =>
       ‖(∑ k ∈ Finset.range (N + 1), (z + (k : ℂ))⁻¹) -
         (Complex.log (z + (N : ℂ)) - Complex.log z)‖)
-      atTop (𝓝 ‖Complex.log z - digamma z‖) := by
-    convert! h.norm using 1
-    · funext N
-      congr 1
-      abel
-    · congr 2
-      ring
-  have hb := le_of_tendsto hl (Filter.Eventually.of_forall (norm_sum_inv_add_sub_log_le hz))
-  rwa [norm_sub_rev] at hb
+      atTop (𝓝 ‖digamma z - Complex.log z‖) := by
+  have h := ((tendsto_sum_inv_add_sub_log hz).sub
+    (Complex.tendsto_log_add_nat_sub_log_nat_add_one z)).add_const (Complex.log z)
+  rw [norm_sub_rev (digamma z)]
+  convert! h.norm using 1
+  · funext N
+    congr 1
+    abel
+  · congr 2
+    ring
+
+/-- Uniform approximation on the full open right half-plane, with an explicit constant. -/
+theorem norm_digamma_sub_log_le_inv_re {z : ℂ} (hz : 0 < z.re) :
+    ‖digamma z - Complex.log z‖ ≤ 1 / z.re :=
+  le_of_tendsto (tendsto_norm_sum_inv_add_sub_log hz)
+    (Filter.Eventually.of_forall (norm_sum_inv_add_sub_log_le hz))
 
 /-- Both real-part inequalities follow from the same actual complex estimate. -/
 theorem abs_re_digamma_sub_log_norm_le {z : ℂ} (hz : 0 < z.re) :

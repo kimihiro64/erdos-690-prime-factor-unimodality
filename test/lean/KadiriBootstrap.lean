@@ -55,10 +55,22 @@ example (κ σ : ℝ) {t : ℝ} (ht : 0 < t) (n : ℕ) (a : ℕ → ℝ) :
         kadiriGammaResidual κ σ t (Finset.range (n + 1)) a :=
   sum_smoothedGammaFactorMajorant_eq κ σ ht _ (by simp) a
 
-example {κ T t : ℝ} (hκ : κ ≤ 1) (σ : ℝ) (S : Finset ℕ) (a : ℕ → ℝ)
+example {κ T t : ℝ} (hκ₀ : 0 ≤ κ) (hκ : κ ≤ 1) (σ : ℝ) (S : Finset ℕ) (a : ℕ → ℝ)
     (ha : ∀ i ∈ S, 0 ≤ a i) (hT : 0 < T) (hTt : T ≤ t) :
     kadiriGammaResidual κ σ t S a ≤ kadiriGammaResidual κ σ T S a :=
-  antitoneOn_kadiriGammaResidual hκ σ S a ha hT (hT.trans_le hTt) hTt
+  antitoneOn_kadiriGammaResidual hκ₀ hκ σ S a ha hT (hT.trans_le hTt) hTt
+
+example {κ σ t : ℝ} (ht : 0 < t) (n : ℕ) (a : ℕ → ℝ)
+    (ha : ∀ i ∈ Finset.range (n + 1), 0 ≤ a i) :
+    (∑ i ∈ Finset.range (n + 1), a i * smoothedGammaFactorError κ σ ((i : ℝ) * t)) ≤
+      a 0 * ((1 + κ) / (σ + 2)) + (2 * (1 + κ) / t) *
+        (∑ i ∈ (Finset.range (n + 1)).erase 0, a i / (i : ℝ)) :=
+  sum_smoothedGammaFactorError_le ht _ (by simp) a ha
+
+example (κ σ t : ℝ) (a : ℕ → ℝ) :
+    kadiriGammaResidual κ σ t {0} a =
+      (1 - κ) / 2 * (a 0 * (Real.log 2 - Real.log π)) + a 0 * ((1 + κ) / (σ + 2)) := by
+  simp [kadiriGammaResidual]
 
 example {θ η η₀ σ₀ σ κ δ z H t : ℝ}
     (hθ : π / 2 < θ ∧ θ < π) (hη : 0 < η) (ht : 0 < t) (n : ℕ) (a : ℕ → ℝ) :

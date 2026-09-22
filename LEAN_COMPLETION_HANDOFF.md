@@ -45,6 +45,42 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Height-decaying Gamma error (newest, 2026-09-22)
+
+The old height-independent Gamma error has been sharpened in the actual
+master and bootstrap. `DigammaEulerIdentity` factors the already-proved
+finite Euler--Maclaurin identity, including both endpoints; the original
+`DigammaEulerBounds` now applies its real-part majorant to that identity.
+`DigammaLogBounds` exposes the common norm limit of the finite errors.
+`DigammaHeightBounds` uses `norm(z+x)^2 >= (norm(z)+x)^2/2` to prove
+`norm(digamma(z)-log(z)) <= 2/norm(z)` for every `Re(z)>0`.
+Neither Gamma convergence nor the Euler--Maclaurin formula is reconstructed.
+
+`SmoothedGammaNormBounds` preserves the previous real-part estimate and
+adds norm- and height-decaying estimates with the same `1-kappa` leading
+coefficient. `smoothedGammaFactorError` keeps `(1+kappa)/(sigma+2)` at
+zero and takes the minimum with `2*(1+kappa)/abs(t)` elsewhere. The
+existing `smoothedGammaFactorMajorant` uses this error, so every master
+and the final bootstrap consume the improvement without a parallel chain.
+
+`KadiriGammaBudget` now sums the individual harmonic errors in its exact
+residual. Its monotonicity theorem requires `0<=kappa` as well as
+`kappa<=1`, both already required by the actual master. A separate bound
+extracts `2*(1+kappa)/t` times the reciprocal-weight sum over nonzero
+harmonics, retaining the zero term exactly. The logarithmic coefficient
+and the exact cubic-scale correction identity are unchanged in form.
+
+The new leaves, actual bootstrap, and preserved initial master compile.
+The 12 height-error examples, 14 bootstrap examples, and the earlier
+Gamma and initial-region regressions pass. All 24 audited theorem closures,
+including the actual bootstrap, use only `propext`, `Classical.choice`,
+and `Quot.sound`. CI builds the new leaves serially before their consumers.
+
+Next: usable uniform bounds for `K`, the derivative-moment substitution,
+and admissible numerical bootstrap iterations. A sharper zero-harmonic
+Gamma bound may still be useful; it has not been silently discarded.
+The finite low-height inputs and three final Dusart providers remain open.
+
 ### Exact transform gap and normalized bootstrap (newest, 2026-09-22)
 
 `KadiriTransformGap` identifies the retained transform minus the

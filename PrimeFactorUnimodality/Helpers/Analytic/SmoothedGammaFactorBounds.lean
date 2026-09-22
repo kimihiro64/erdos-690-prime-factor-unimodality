@@ -1,12 +1,11 @@
-import PrimeFactorUnimodality.Helpers.Analytic.DigammaLogBounds
-import PrimeFactorUnimodality.Helpers.Analytic.SmoothedStechkinFormula
+import PrimeFactorUnimodality.Helpers.Analytic.SmoothedGammaNormBounds
 
 /-! # Explicit shifted Gamma-factor bounds with the correct leading coefficient
 
-Both sides of the digamma logarithmic approximation are used. A positive
-real shift increases the norm and decreases the reciprocal-real-part error,
-so subtraction retains the factor `1-kappa` on the leading logarithm.
-No logarithmic lower bound or unspecified asymptotic constant is assumed.
+Take the better of the two proved Gamma errors at nonzero height, keeping
+the real-part bound at zero. Subtraction retains `1-kappa` on the leading
+logarithm. The height-decaying improvement is used by the actual master,
+not merely supplied as a separate estimate.
 -/
 
 namespace PrimeFactorUnimodality
@@ -15,53 +14,64 @@ noncomputable section
 
 open Complex Real
 
-/-- The shifted difference preserves its logarithmic coefficient on the right half-plane. -/
-theorem smoothedGammaFactorDifference_le_log_norm {κ δ : ℝ} (hκ : 0 ≤ κ) (hδ : 0 ≤ δ)
-    {s : ℂ} (hs : 0 ≤ s.re) :
-    smoothedGammaFactorDifference κ δ s ≤
-      (1 - κ) / 2 * (Real.log ‖s / 2 + 1‖ - Real.log π) + (1 + κ) / (s.re + 2) := by
-  let z := s / 2 + 1
-  let w := (s + (δ : ℂ)) / 2 + 1
-  have hz : 0 < z.re := by
-    simp only [z, add_re, div_ofNat_re, one_re]
-    linarith
-  have hwz : z.re ≤ w.re := by
-    simp only [z, w, add_re, div_ofNat_re, one_re, ofReal_re]
-    linarith
-  have hw : 0 < w.re := hz.trans_le hwz
-  have him : z.im = w.im := by simp [z, w]
-  have hnorm : ‖z‖ ≤ ‖w‖ := by
-    apply (sq_le_sq₀ (norm_nonneg z) (norm_nonneg w)).mp
-    rw [Complex.sq_norm, Complex.sq_norm, normSq_apply, normSq_apply, him]
-    nlinarith
-  have hlog := Real.log_le_log (norm_pos_iff.mpr (by
-    intro he
-    simp [he] at hz : z ≠ 0)) hnorm
-  have hupper := (abs_le.mp (abs_re_digamma_sub_log_norm_le hz)).2
-  have hlower := (abs_le.mp (abs_re_digamma_sub_log_norm_le hw)).1
-  have hi : 1 / w.re ≤ 1 / z.re := one_div_le_one_div_of_le hz hwz
-  have hlower' : Real.log ‖z‖ - 1 / z.re ≤ (digamma w).re := by linarith
-  have hscaled := mul_le_mul_of_nonneg_left hlower' hκ
-  have herr : (1 + κ) / (s.re + 2) = (1 + κ) / 2 * (1 / z.re) := by
-    simp only [z, add_re, div_ofNat_re, one_re]
-    field_simp
-  rw [herr]
-  change _ ≤ (1 - κ) / 2 * (Real.log ‖z‖ - Real.log π) + _
-  unfold smoothedGammaFactorDifference
-  change (-(1 / 2 : ℝ) * Real.log π + (1 / 2 : ℝ) * (digamma z).re) -
-    κ * (-(1 / 2 : ℝ) * Real.log π + (1 / 2 : ℝ) * (digamma w).re) ≤ _
-  nlinarith only [hupper, hscaled]
+/-- The old bound at zero and the smaller of the two proved errors elsewhere. -/
+def smoothedGammaFactorError (κ σ t : ℝ) : ℝ :=
+  if t = 0 then (1 + κ) / (σ + 2)
+  else min ((1 + κ) / (σ + 2)) (2 * (1 + κ) / |t|)
+
+/-- Zero height never uses the reciprocal-height estimate. -/
+@[simp] theorem smoothedGammaFactorError_zero (κ σ : ℝ) :
+    smoothedGammaFactorError κ σ 0 = (1 + κ) / (σ + 2) := by
+  simp [smoothedGammaFactorError]
+
+/-- The improved error never exceeds the previous real-part bound. -/
+theorem smoothedGammaFactorError_le_re (κ σ t : ℝ) :
+    smoothedGammaFactorError κ σ t ≤ (1 + κ) / (σ + 2) := by
+  unfold smoothedGammaFactorError
+  split_ifs
+  · exact le_rfl
+  · exact min_le_left _ _
+
+/-- At every nonzero signed height the error has explicit reciprocal decay. -/
+theorem smoothedGammaFactorError_le_height (κ σ : ℝ) {t : ℝ} (ht : t ≠ 0) :
+    smoothedGammaFactorError κ σ t ≤ 2 * (1 + κ) / |t| := by
+  simp only [smoothedGammaFactorError, ht, ↓reduceIte]
+  exact min_le_right _ _
+
+/-- The error at each natural harmonic decreases with positive base height. -/
+theorem antitoneOn_smoothedGammaFactorError_nat {κ : ℝ} (hκ : 0 ≤ κ)
+    (σ : ℝ) (i : ℕ) :
+    AntitoneOn (fun t => smoothedGammaFactorError κ σ ((i : ℝ) * t)) (Set.Ioi 0) := by
+  intro t ht u hu htu
+  by_cases hi : i = 0
+  · simp [hi]
+  have hi₀ : (0 : ℝ) < i := Nat.cast_pos.mpr (Nat.pos_of_ne_zero hi)
+  have ht₀ : 0 < (i : ℝ) * t := mul_pos hi₀ ht
+  have hu₀ : 0 < (i : ℝ) * u := mul_pos hi₀ hu
+  simp only [smoothedGammaFactorError, ht₀.ne', hu₀.ne', ↓reduceIte,
+    abs_of_pos ht₀, abs_of_pos hu₀]
+  exact min_le_min le_rfl (div_le_div_of_nonneg_left (by positivity) ht₀
+    (mul_le_mul_of_nonneg_left htu hi₀.le))
 
 /-- An elementary height majorant for the actual Gamma factor in the working strip. -/
 def smoothedGammaFactorMajorant (κ σ t : ℝ) : ℝ :=
-  (1 - κ) / 2 * (Real.log (|t| / 2 + 2) - Real.log π) + (1 + κ) / (σ + 2)
+  (1 - κ) / 2 * (Real.log (|t| / 2 + 2) - Real.log π) + smoothedGammaFactorError κ σ t
 
 /-- The vertical strip bound includes all signed and zero heights. -/
 theorem smoothedGammaFactorDifference_le_majorant {κ δ : ℝ}
     (hκ : 0 ≤ κ) (hκ₁ : κ ≤ 1) (hδ : 0 ≤ δ) {s : ℂ}
     (hs : 0 ≤ s.re) (hs₂ : s.re ≤ 2) :
     smoothedGammaFactorDifference κ δ s ≤ smoothedGammaFactorMajorant κ s.re s.im := by
-  apply (smoothedGammaFactorDifference_le_log_norm hκ hδ hs).trans
+  have hbound : smoothedGammaFactorDifference κ δ s ≤
+      (1 - κ) / 2 * (Real.log ‖s / 2 + 1‖ - Real.log π) +
+        smoothedGammaFactorError κ s.re s.im := by
+    have hr := smoothedGammaFactorDifference_le_log_norm hκ hδ hs
+    by_cases ht : s.im = 0
+    · simpa only [ht, smoothedGammaFactorError_zero] using hr
+    · have hh := smoothedGammaFactorDifference_le_log_norm_height hκ hδ hs ht
+      simp only [smoothedGammaFactorError, ht, ↓reduceIte, add_min]
+      exact le_min hr hh
+  apply hbound.trans
   have hz : 0 < (s / 2 + 1).re := by simp only [add_re, div_ofNat_re, one_re]; linarith
   have hn := norm_le_abs_re_add_abs_im (s / 2 + 1)
   rw [abs_of_pos hz] at hn
