@@ -181,6 +181,11 @@ def test_bootstrap_budget_ci_build_order() -> None:
     foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
     modules = (
         "PrimeFactorUnimodality.Helpers.Analytic.KadiriTransformGap",
+        "PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ExpLinear",
+        "PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ExpTrig",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriKernelNormalForm",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriTransformClosedForm",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriTransformBounds",
         "PrimeFactorUnimodality.Helpers.Analytic.KadiriBootstrapBudget",
         "PrimeFactorUnimodality.Helpers.Analytic.KadiriGammaBudget",
         "PrimeFactorUnimodality.Helpers.Analytic.KadiriBootstrapCorrection",
@@ -190,6 +195,9 @@ def test_bootstrap_budget_ci_build_order() -> None:
     assert foundations.index("lake env lean test/lean/KadiriInitialRegion.lean") < positions[0]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/KadiriBootstrap.lean")
+    assert positions[-1] < foundations.index(
+        "lake env lean test/lean/KadiriTransformClosedForm.lean"
+    )
 
 
 def test_main_ci_preserves_running_proof_build() -> None:

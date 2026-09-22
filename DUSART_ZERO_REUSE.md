@@ -448,3 +448,25 @@ The new leaves and actual bootstrap compile; 24 audited exports use only
 the three standard logical axioms. The height-error, updated bootstrap,
 and preserved Gamma and initial-region regressions pass. This does not
 verify the target numerical margins or finish the final Dusart providers.
+
+## Exact transform evaluation and interval margins
+
+The finite transform does not require a new integration theory. The
+Mathlib-only `ExpLinear` candidate directly uses Mathlib's existing
+`integral_exp_mul_complex` for the unweighted term. An explicit primitive
+and the existing FTC handle the linear weight, including its zero-exponent
+case. `ExpTrig` takes real and imaginary parts using Mathlib's integral
+projections and complex arithmetic to obtain purely real endpoint formulas.
+
+`KadiriKernelNormalForm` applies the existing sine addition formulas to
+the actual kernel. `KadiriTransformClosedForm` integrates that identity
+term by term, producing the exact signed `K`, not a new assumed or
+approximate transform. `KadiriTransformBounds` then uses the already-proved
+`kadiriKernel_nonneg` and integral comparison to obtain uniform endpoint
+bounds. It does not reprove correlation positivity or assert monotonicity
+of the signed difference. The actual bootstrap consumes these bounds via
+`xi_zero_gap_of_endpoint_bootstrap_margin`; numerical margins remain open.
+
+The independent candidates and actual bootstrap compile, with all 24
+audited exports using only the three standard logical axioms. The 20 new
+endpoint/transform examples and 14 preserved bootstrap examples pass.

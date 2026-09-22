@@ -45,6 +45,47 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Exact elementary transform and interval margins (newest, 2026-09-22)
+
+`KadiriTransformClosedForm` now proves the actual `K(w,theta)` equals a
+closed expression in real arithmetic, exponentials, sine, and cosine.
+The two purely exponential terms include their removable zero-exponent
+values, so both `w=0` and `w=1` are covered. The oscillatory denominators
+are nonzero throughout the actual theta domain. No numerical integration
+or transform identity is left as a hypothesis.
+
+The Mathlib-only candidates `Integrals.ExpLinear` and `Integrals.ExpTrig`
+reuse Mathlib's `integral_exp_mul_complex`, the FTC, and real/imaginary-part
+integration. The new work is the linear endpoint weight and the real
+elementary formulas. `KadiriKernelNormalForm` expands the actual kernel's
+shifted sines into a common-frequency combination; its definition is not
+replaced by a numerically similar surrogate.
+
+`KadiriTransformBounds` uses the already-proved kernel nonnegativity to
+bound its increasing exponential transform. For `l<=w<=r`, nonnegative
+coefficients give the uniform lower bound
+`a1*H(l-1)-a0*H(r) <= K(w)` and the corresponding upper bound with endpoints
+reversed. This does NOT assume the signed gap itself is monotone. Both
+endpoint values use the exact closed expression.
+
+`KadiriBootstrapMaster` now exports the actual closed-form constraint and
+`xi_zero_gap_of_endpoint_bootstrap_margin`. The latter connects an interval
+endpoint margin to the actual divisor zero, retaining every low-height,
+previous-region, and admissibility hypothesis of the original bootstrap.
+
+The candidates were built independently before their project consumers;
+the kernel identity, interval bounds, and actual bootstrap compile. All
+24 audited exports use only `propext`, `Classical.choice`, and `Quot.sound`.
+The 20 new regression examples and 14 existing bootstrap examples pass.
+CI builds the new modules serially and runs the new regression file.
+
+Next: substitute the existing derivative-moment bounds into the correction,
+obtain uniform complete error budgets, and prove the admissible numerical
+iterations starting from the established constant `56`. The improved
+nonzero Gamma error and the closed `K` formula are now available; do not
+reconstruct them. Finite low-height information and the final three Dusart
+providers remain open, as does the exact all-`k` theorem.
+
 ### Height-decaying Gamma error (newest, 2026-09-22)
 
 The old height-independent Gamma error has been sharpened in the actual

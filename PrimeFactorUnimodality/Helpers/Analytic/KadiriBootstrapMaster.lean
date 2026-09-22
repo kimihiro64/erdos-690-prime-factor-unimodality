@@ -1,5 +1,6 @@
 import PrimeFactorUnimodality.Helpers.Analytic.KadiriBootstrapCorrection
 import PrimeFactorUnimodality.Helpers.Analytic.KadiriRegionMaster
+import PrimeFactorUnimodality.Helpers.Analytic.KadiriTransformBounds
 
 /-! # The numerical-bootstrap inequality for the actual xi divisor
 
@@ -80,6 +81,32 @@ theorem xi_zero_gap_of_bootstrap_margin {Rnext : ℝ} (hRnext : 0 < Rnext)
   have hcpos := kadiriBootstrapLogCoefficient_pos hθ hκstrict S h₁ a ha ha₁
   simpa only [hηρ] using
     kadiri_gap_of_bootstrap_margin S a hcpos hRnext (by linarith) hm hmargin
+
+/-- The actual divisor constraint can be evaluated using only the closed real transform formula. -/
+theorem kadiri_actual_bootstrap_closed_constraint :
+    kadiriTransformGapClosedForm θ (a 0) (a 1) ((1 - σ) / η) ≤
+      kadiriBootstrapLogCoefficient θ κ S a * η * Real.log (riemannXiDivisorZeroValue p).im +
+      kadiriBootstrapCorrection θ η η₀ σ₀ σ κ δ z H
+        (riemannXiDivisorZeroValue p).im S a := by
+  rw [← kadiriTransformGap_eq_closedForm hθ]
+  exact kadiri_actual_bootstrap_constraint hR hT hθ hη hη₀ hσ₀ hσ hσ₁ hδ
+    hκ hκ₁ hκ₂ hκ₃ hc hz hH hgap hcut
+    S h₀ h₁ a ha p hβ hηρ hpoly hσA hlow hhigh hharm ht
+
+/-- An endpoint margin gives the actual improved zero gap uniformly on a parameter interval. -/
+theorem xi_zero_gap_of_endpoint_bootstrap_margin {Rnext l r : ℝ} (hRnext : 0 < Rnext)
+    (hκstrict : κ < 1) (ha₁ : 0 < a 1) (hw : (1 - σ) / η ∈ Set.Icc l r)
+    (hmargin : kadiriBootstrapLogCoefficient θ κ S a / Rnext ≤
+      a 1 * kadiriKernelExpIntegral θ (l - 1) - a 0 * kadiriKernelExpIntegral θ r -
+        kadiriBootstrapCorrection θ η η₀ σ₀ σ κ δ z H
+          (riemannXiDivisorZeroValue p).im S a) :
+    1 / (Rnext * Real.log (riemannXiDivisorZeroValue p).im) ≤
+      1 - (riemannXiDivisorZeroValue p).re := by
+  apply xi_zero_gap_of_bootstrap_margin hR hT hθ hη hη₀ hσ₀ hσ hσ₁ hδ
+    hκ hκ₁ hκ₂ hκ₃ hc hz hH hgap hcut
+    S h₀ h₁ a ha p hβ hηρ hpoly hσA hlow hhigh hharm ht hRnext hκstrict ha₁
+  exact hmargin.trans (sub_le_sub_right
+    (kadiriTransformGap_lower_of_mem_Icc hθ (ha 0 h₀) (ha 1 h₁) hw) _)
 
 end
 

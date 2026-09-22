@@ -6,6 +6,7 @@ Authors: Jonas Whidden
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.CorrelationBound
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.CosineCorrelation
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ExpMoments
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ExpTrig
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogReciprocalSquarePair
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ReciprocalSquarePair
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ReciprocalSquarePairDeriv
@@ -17,5 +18,7 @@ This facade exports explicit trigonometric correlation evaluations and
 the general finite-interval square-integral bound. It also exports cubic
 majorants for weighted exponential integrals in terms of four moments.
 The reciprocal-pair modules add explicit improper tail integral bounds
-and an exact logarithmic integral evaluation.
+and an exact logarithmic integral evaluation. The exponential modules also
+give exact linear-weight and trigonometric endpoint formulas, with zero
+exponents handled explicitly.
 -/
