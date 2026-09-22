@@ -8,6 +8,7 @@ import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.Cosine
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ExpMoments
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogReciprocalSquarePair
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ReciprocalSquarePair
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ReciprocalSquarePairDeriv
 
 /-! # Finite correlation integrals and exponential moments
 

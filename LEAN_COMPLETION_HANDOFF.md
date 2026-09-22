@@ -45,6 +45,46 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Unconditional infinite counting integral (newest, 2026-09-22)
+
+The finite-to-infinite passage is now proved for the actual reciprocal-square
+xi tail. It does not need a sharp zero-counting estimate: the previously
+proved summability and monotonicity suffice to kill the upper boundary.
+
+- `InfiniteSum.Sublevel` reuses Mathlib's cofinal finite-sum limit and
+  dominated convergence for series. It proves sublevel exhaustion and
+  `card{sublevel T}*f(T) -> 0` for nonnegative decreasing weights tending
+  to zero whose values at the indexed locations are summable. Repeated
+  locations retain separate indices.
+- `XiZeroCountingLimits` applies those results to actual strict-positive
+  xi tails. In particular, `N(T)*f(T) -> 0` follows after adding the finite
+  low-count contribution. No Backlund constant is assumed for this limit.
+- `XiZeroCountingImproper` proves absolute integrability of `N(x)*f'(x)`
+  from the finite Abel identity, summability, the vanishing upper boundary,
+  and `f'<=0`. The norm integrals converge, so this is not an identity
+  involving an unverified improper integral.
+- `Integrals.ReciprocalSquarePairDeriv` supplies the pair's explicit
+  derivative and its zero limit at infinity. `XiLehmanAbel` discharges all
+  the preceding hypotheses for `t>=0,H>0`. With `A=t+H`,
+  `phi_t(x)=1/(x-t)^2+1/(x+t)^2`, and `w_t=-phi_t'`, it proves
+  `sum_(gamma>A) phi_t(gamma) = integral_A^infinity N(x)*w_t(x) dx-N(A)*phi_t(A)`.
+  The closed `xiHeightTail` adds exactly `m(A)*phi_t(A)`.
+
+Both candidate leaves and all three project leaves compile. The 12 theorem
+exports in `.research/DusartInfiniteCountingAxioms.lean` use only `propext`,
+`Classical.choice`, and `Quot.sound`. The CI serial build and regression
+`test/lean/XiZeroCountingTail.lean` check exhaustion at repeated heights,
+the zero-height counting boundary, integrability, and the cutoff atom.
+
+NEXT: subtract the smooth main term from this unconditional infinite
+identity, using the exact main integral already proved. Prove the actual
+explicit counting discrepancy bound, rather than substituting the crude
+existential count or an RH hypothesis. A bridge to the sibling zeta-order
+count may help that quantitative proof, but is no longer needed merely to
+justify convergence or the upper-boundary limit. Separation, pole/gamma
+estimates, numerical inputs, and the three final Dusart providers remain
+open. Do not repeat the completed finite/infinite Abel work.
+
 ### Exact logarithmic integral and finite xi counting identity (newest, 2026-09-22)
 
 The main Lehman integral now has a proved closed form. The finite

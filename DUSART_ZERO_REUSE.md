@@ -141,3 +141,12 @@ it to the already-established actual divisor and local finiteness, not to
 a newly assumed enumeration. `XiZeroCountingRemainder` subtracts the smooth
 main term exactly. These are analytic identities, not a replacement claim
 that the quantitative counting error has been proved.
+
+For the subsequent infinite passage, no new zero-count growth theorem is
+needed. `InfiniteSum.Sublevel` uses Mathlib's dominated convergence for
+series to derive the vanishing counting boundary directly from the
+already-proved summability and decreasing kernel. `XiZeroCountingImproper`
+then proves genuine improper integrability from the finite identity.
+`XiLehmanAbel` specializes this unconditionally to the actual xi pair,
+including the closed-cutoff atom. The explicit counting discrepancy bound
+is still required for numerical control, not for this convergence step.
