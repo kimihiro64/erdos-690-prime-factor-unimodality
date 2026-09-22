@@ -1,5 +1,49 @@
 # Reuse audit for the Dusart zero-sum layer
 
+Newest follow-up (2026-09-22): BV's generic power-decay leaf has now been
+adapted and connected to the actual Dusart box atoms and finite xi sums.
+The exact averaged-power identity and absolute summability also reuse the
+existing paired explicit-formula infrastructure. Details follow here;
+older sections retain the obligations as they stood at each increment.
+
+## Complex-power bound and actual box-transform follow-up
+
+The reviewed BV file `Helpers/ComplexAnalysis/CpowDecayBound.lean`, at
+`7a1748306e026825ed6a5555516cc2f28989b2ac`, proves
+`BombieriVinogradov.ComplexAnalysis.norm_real_cpow_div_le_exp_gap_mul_reciprocal`
+using only Mathlib. Its hypotheses are `1<=y` and `Re(s)<=1-delta`;
+there is no RH, character, or assumed zero-free-region theorem in this
+leaf. The proof is adapted under namespace `Complex` in the new
+`Mathlib/Analysis/SpecialFunctions/Pow/ComplexDecay.lean` candidate.
+Its exact source, licence, original name, and renaming are recorded there.
+
+`DusartBoxZeroBounds` now applies that inequality to every point in the
+actual averaging support. `DusartBoxSpectralFormula` sums it over arbitrary
+finite selections of the actual xi divisor, preserving multiplicities.
+The coefficient is `(x+(m+3)*h)*exp(-delta*log(x))`, with the reciprocal
+norm sum kept explicit. This adapts BV's finite-sum assembly without
+importing its nonprincipal-character or existential-constant interfaces.
+
+The new primitive-transform identities use Mathlib's Fubini, substitution,
+FTC, and complex-power derivative directly. They prove
+`F_w(-s)+1/s=average(t^s/s)` and its exact exponent-one main term.
+The existing `summable_smoothedXiPaired` proves absolute convergence of
+these actual averaged powers. The new full psi spectral formula therefore
+does not rebuild contour integration, Hadamard factorization, or zero
+enumeration, and never splits a divergent unpaired reciprocal series.
+
+Still needed: quantitative high-height decay and tails, the negative-even
+correction estimate, actual low-height zero information, and fixed-cutoff
+scalar certification. The RH-dependent Robin/WIP mass evaluations remain
+inapplicable as unconditional numerical bounds. This increment does not
+finish the three Dusart providers or the all-`k` classification.
+
+The ten new modules compile in the pinned Lean 4.34 environment. Nineteen
+new regression examples and five preserved explicit-formula examples pass.
+All twenty-six audited new exports have only `propext`, `Classical.choice`,
+and `Quot.sound` in their closures. No RH-dependent mass evaluation is in
+the new theorem statements or axiom closures.
+
 Current follow-up: the unconditional high counting envelope, closed
 Lehman tail, pole estimates, and explicit smoothed Gamma bounds are proved
 and connected to the master inequality; see the final sections. Earlier sections record

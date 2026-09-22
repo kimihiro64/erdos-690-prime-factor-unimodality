@@ -45,6 +45,44 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Exact averaged powers and zero-free damping (newest, 2026-09-22)
+
+The box-transform evaluation from the preceding section is now proved.
+`DusartBoxDistributionIntegral` proves the weighted-step Fubini identity
+for every averaging order, including the discontinuous order-zero case.
+The real and complex primitive-transform modules perform the exact
+exponential substitution using only regularity on the positive interval.
+
+`DusartBoxPowerTransform` proves, for every nonzero complex `s`,
+`F_w(-s)+1/s = average(t^s/s)`. `DusartBoxMainTerm` specializes this to
+`F_w(-1)=x+(m+3)*h/2-1`. The new spectral formula substitutes both identities
+into the actual averaged psi error and retains the complete xi series,
+negative-even series, endpoint constant, and lower-endpoint correction.
+The averaged xi powers are absolutely summable by the existing paired
+series theorem; no divergent reciprocal series is separated out.
+
+BV's Mathlib-only `norm_real_cpow_div_le_exp_gap_mul_reciprocal` is now
+adapted in `Mathlib/Analysis/SpecialFunctions/Pow/ComplexDecay.lean`, with
+the reviewed SHA and attribution. `DusartBoxZeroBounds` applies it on the
+entire box support. `DusartBoxSpectralFormula` assembles the bound for any
+finite selection of the actual multiplicity-counted xi zeros. This is a
+conditional quantitative bound given a real-part gap, not an assertion
+that the required low-height gap or RH has been established.
+
+Next analytic obligations: the stronger height decay from repeated
+averaging (finite differences), the explicit high-zero tail estimates,
+the negative-even correction budget, and the required low-height input.
+Then certify the scalar budgets at the fixed cutoff. Mere summability
+or the finite-selection bound is not a numerical bound on the whole
+zero series. The three final Dusart providers and all-`k` conclusion
+remain unfinished. Do not reconstruct the contour or explicit formula,
+repeat the sibling audit, or restart any legacy full-gap certificate replay.
+
+Verification: all ten new modules compile; nineteen new Lean examples
+and five preserved explicit-formula examples pass. All twenty-six audited
+exports use only `propext`, `Classical.choice`, and `Quot.sound`.
+CI builds the candidate leaves and consumers serially before their tests.
+
 ### Actual box cutoff and averaged explicit formula (newest, 2026-09-22)
 
 The cutoff and arithmetic-identification obligations in the previous

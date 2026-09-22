@@ -10,6 +10,7 @@ import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrability.Lo
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.AffineRatio
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.Deriv
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Pow.ComplexDecay
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Trigonometric.Autocorrelation
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Trigonometric.ZeroCount
 
