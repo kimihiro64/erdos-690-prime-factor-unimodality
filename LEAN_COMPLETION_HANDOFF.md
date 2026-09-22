@@ -45,6 +45,38 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Actual box cutoff and averaged explicit formula (newest, 2026-09-22)
+
+The cutoff and arithmetic-identification obligations in the previous
+smoothing section are now proved. The new Mathlib-only regularity leaf
+shows that `m+1` interval averages of any monotone function are `C^m`,
+using the continuous primitive and FTC. Separate support and finite-sum
+identities preserve locality, translations, and arithmetic finite sums.
+
+`DusartBoxCutoff` averages the unit step `m+3` times for arbitrary natural
+`m`, then composes with `x-exp(u)`. The weight is globally `C^2`, lies in
+`[0,1]`, equals one at zero for `x>=1`, and is zero at and beyond the
+exact endpoint `log(x+(m+3)*h)`. Continuity includes the precise lower
+distribution boundary; no zero-measure corner is silently discarded.
+
+`DusartBoxPrimeSum` identifies the actual Chebyshev average with a fixed
+finite von Mangoldt sum and hence with `smoothedVonMangoldt weight 0`.
+`DusartBoxExplicitFormula` discharges every regularity, endpoint, and
+bounded-derivative premise of the already-proved entire explicit formula.
+The endpoint derivatives vanish by Mathlib's local-extremum theorem.
+`DusartBoxAverageFormula` combines these proofs into the exact unconditional
+identity for `dusartPsiAverageError (m+3) h x`, retaining all xi, negative-even,
+and constant terms. There is no RH, zero-location, or assumed formula input.
+All seven new modules compile. The 23 new regression examples and eight
+preserved smoothing examples pass; all 27 audited exports use only
+`propext`, `Classical.choice`, and `Quot.sound`.
+
+Still needed for the quantitative Dusart estimate: evaluate or bound the
+box weight's finite Laplace transform (including its main term), bound the
+resulting actual zero contributions, prove the required low-height input,
+and certify scalar parameters at the fixed cutoff. The exact identity does
+not by itself prove the numerical error theorem or the final three providers.
+
 ### Pointwise recovery from iterated psi averages (newest, 2026-09-22)
 
 The monotone smoothing step of Dusart's HDR (2022), section 2.2,

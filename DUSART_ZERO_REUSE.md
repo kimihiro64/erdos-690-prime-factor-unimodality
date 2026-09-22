@@ -617,3 +617,30 @@ averaged explicit formula and its quantitative zero contributions remain
 open; the new smoothing layer supplies only the pointwise recovery step.
 Both modules compile, the eight regression examples pass, and all eight
 audited exports have only the three standard logical axioms.
+
+## Concrete box weight and actual averaged explicit formula
+
+No replacement contour or zero-enumeration proof is necessary.
+`DusartBoxExplicitFormula` applies the existing
+`smoothedVonMangoldt_entire_explicitFormula` to the actual additive box
+cutoff, discharging every hypothesis. The generic regularity candidate uses
+Mathlib's `continuous_primitive`, `integral_interval_sub_left`, and FTC;
+the exact derivative is the difference of the two endpoint values divided
+by the interval width. Successive averaging therefore gives the required
+two continuous derivatives without an assumed smooth cutoff.
+
+The support candidate uses interval-integral congruence and continuity on
+the closure to include the exact cutoff boundary. Endpoint derivatives
+vanish by Mathlib's `IsLocalMax.deriv_eq_zero` and `IsLocalMin.deriv_eq_zero`.
+A compactness bound on the second derivative is used only for convergence,
+not as an unspecified constant in a claimed numerical estimate.
+
+The arithmetic identification directly reuses `Chebyshev.psi_eq_sum_Icc`,
+the natural floor/ceiling order equivalences, finite-sum integration, and
+`tsum_eq_sum`. The resulting `DusartBoxAverageFormula` is an unconditional
+identity for the actual averaged psi error, not a conditional replacement
+formula. The xi index, multiplicities, and paired summability are unchanged.
+Numerical bounds on its transforms and zero sums remain separate obligations.
+All seven modules compile, 23 new and eight preserved regression examples
+pass, and all 27 audited theorem closures use only the three standard
+logical axioms. CI builds the candidate leaves and their consumers serially.
