@@ -45,6 +45,47 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Full H2 and strict transform positivity (newest, 2026-09-22)
+
+`KadiriLaplacePositivity.re_kadiriWeight_laplace_nonneg` now proves H2:
+the actual scaled weight's transform has nonnegative real part for EVERY
+`Re(s)>=0`, EVERY `pi/2<theta<pi`, and EVERY positive scale `eta`.
+The imaginary axis is included. The stronger
+`re_kadiriWeight_laplace_pos` proves strict positivity for `Re(s)>0`;
+no small-scale bound or transform-positivity assumption is needed.
+
+This is a direct energy proof, not an imported headline result:
+
+- Mathlib-only `FiniteLaplace.VolterraEnergy` constructs the exponential
+  primitive, proves its differential equation, and integrates the
+  derivative of its squared norm.
+- `IntervalIntegral.Triangle` proves triangular Fubini with a measurable
+  indicator on a compact rectangle. `FiniteLaplace.Correlation` then
+  identifies the actual overlap transform with a backward Volterra
+  quadratic form. Its real part is exactly an endpoint square plus
+  `Re(s)` times a square integral.
+- The generic source may change sign. Strict positivity follows when
+  it is nonzero at an interior point, using the differential equation.
+  The actual cosine bump satisfies this at zero.
+- `FiniteLaplace.Scaling` proves exact congruence, scalar multiplication,
+  and oriented nonzero-real rescaling. The consumer applies these to
+  the proved cosine-correlation identity and the actual clipped weight.
+
+All 20 new exports pass axiom audits with only `propext`,
+`Classical.choice`, and `Quot.sound`. Candidate and consumer builds,
+the new arbitrary-parameter/boundary regressions, the earlier
+`KadiriPositivity` regression, and all 88 Python tests pass.
+CI builds the candidates and consumer serially and runs the new regression.
+Logs: `.research/dusart-{volterra-*,triangle,laplace-*,correlation-scaling}.log`.
+
+NEXT: prove the smoothed paired-zero inequality of Kadiri proposition 4.2
+and the sharp gamma/zero-contribution estimates. The old `sigma>1`
+Poisson-kernel Stechkin theorem is not this smoothed result. H2 and strict
+positivity now discharge the transform-sign/denominator obligations.
+A boundary rational-kernel comparison and a bounded analytic strip
+minimum principle are the next non-certificate steps. All three global
+Dusart providers and the all-`k` theorem remain open; do not redo H2.
+
 ### Weight positivity and sharp derivative/transform bounds (newest, 2026-09-22)
 
 `KadiriCorrelation` proves the actual kernel's cosine-overlap integral
