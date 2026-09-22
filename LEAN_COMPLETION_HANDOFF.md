@@ -45,7 +45,58 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
-### Weighted outer-pair remainder (newest, 2026-09-22)
+### Outer height-tail master (newest, 2026-09-22)
+
+The rational outer-strip comparison, both reflected pair errors, and their
+actual multiplicity-counted series assembly are now proved. The cutoff and
+separation conditions remain visible; this does not prove a numerical
+zero-free region or finish the Dusart providers.
+
+- `Poisson.OuterStrip` allows `1/2<σ₀<=σ<=β<=1`, retaining the negative
+  numerator `σ-β`. It bounds both rational pairs and proves their difference
+  nonnegative for every `y²>=H²`, provided the explicit gap and endpoint
+  inequalities hold. No `σ>1` lemma is used inside the strip.
+- `KadiriOuterPairs` sets `a=σ₀-1/2`, proves the three positive-real-part
+  bounds from `δ>=1/2`, and removes the nonnegative rational term. Reflection
+  extends the error to both outer strips. The uniform coefficient is
+  `E=η² M(z,θ)+(1+2κ)η³m/(σ₀-1/2)`, with `z<=(σ-1)/η`.
+- `Series.Imaginary` transfers inverse-square norm summability to imaginary
+  denominators on separated bounded strips. `XiHeightTail` applies the
+  existing unconditional shifted xi summability theorem. Its actual tail is
+  `Σ(t,H)=sum_{|γ|>=|t|+H} 1/(t-γ)²`, preserving multiplicities. For `t>=0`
+  this is exactly Mossinghoff--Trudgian (4.1), not the larger set of all
+  zeros with `|t-γ|>=H`. The norm comparison proves convergence only.
+- `KadiriOuterTail` proves `-E/2*Σ(t,H) <= sum_outer D(s-ρ)` when every
+  outer zero has `|γ|>=|t|+H`. The half factor is the proved exact pairing
+  identity, not a dropped multiplicity. Nonnegative harmonic weights are
+  handled by `kadiriWeight_weighted_outer_zero_sum_lower_bound`.
+- `KadiriTailMaster.kadiriWeight_tail_master_nonneg` inserts that inequality
+  into the actual distinguished-zero master, retaining the pole/gamma terms
+  and the already-proved distinguished-pair polynomial error explicitly.
+
+The two candidates, four project leaves, and complex facade compile.
+All 17 theorem exports audited by `.research/DusartOuterTailAxioms.lean`
+depend only on `propext`, `Classical.choice`, and `Quot.sound`.
+CI builds this chain serially in `lean-foundations`, then runs the regression
+`test/lean/KadiriOuterTail.lean`. It covers signed heights, cutoff equality,
+unrestricted negative first numerators, norm-to-height summability, and the
+exact paper tail domain. Its toy rational parameters are not numerical
+certificates for `R=5.573412`.
+
+NEXT: prove the absolute-height separation from the underlying zero-free
+and low-zero inputs, then the actual quantitative `Σ(t,H)` bound. For
+positive height, use conjugation with multiplicities to rewrite `Σ` as the
+positive-height sum of `1/(γ-t)²+1/(γ+t)²`, then prove the required Lehman
+estimate from its counting/integration argument. Preserve the cutoff's
+closed endpoint; a strict-tail theorem needs a checked endpoint correction.
+At height zero, the paper uses the unconditional inverse-square total bound
+minus a verified low-zero contribution; an RH-dependent xi mass theorem
+does not discharge it. Pole/gamma bounds, the exact parameter and moment
+checks, and the three final Dusart providers are also still open. Continue
+non-certificate source work first. Earlier NEXT instructions to construct
+the rational comparison or outer-series assembly are superseded.
+
+### Weighted outer-pair remainder (2026-09-22)
 
 The exact derivative-mass remainder and its four-moment majorant are now
 proved, and the four error terms in Kadiri (49) are assembled pointwise.
@@ -89,11 +140,8 @@ Fast prebuild, Ruff, mypy, workflow lint, all 95 Python tests, and the
 16 Ruby tests (83 assertions) pass. CI builds the new leaves serially in
 `lean-foundations` and runs `test/lean/KadiriWeightedRemainder.lean`.
 
-NEXT: prove the rational four-kernel comparison inside the strip at large
-height, then apply the pointwise error to the actual outer divisor sum.
-A concrete sufficient comparison is recorded in the private quantitative
-handoff; it keeps the MT parameters, rather than using the invalid `σ>1`
-Stechkin lemma. Then prove the needed zero-tail count/integral estimates,
+The rational comparison and outer-series assembly have since been proved
+in the newer section above. Remaining work includes the zero-tail count/integral estimates,
 pole and gamma bounds. The exact `R=5.573412` numerical inputs and all
 three final Dusart providers remain open. Non-certificate source still
 comes before numerical replay; do not redo the weighted-mass/moment work.

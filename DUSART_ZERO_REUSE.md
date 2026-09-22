@@ -91,6 +91,16 @@ do not certify the remaining numerical zero-free-region constants.
 
 ## Verification and remaining boundary
 
+The later `XiHeightTail` layer also reuses
+`SmoothedXiRemainder.summable_xi_divisor_shift_inv_sq`, ultimately the
+unconditional PNT xi inverse-square theorem, rather than the RH-dependent
+mass evaluations. A bounded-strip comparison proves summability of the
+actual Mossinghoff--Trudgian absolute-height tail. `KadiriOuterPairs`,
+`KadiriOuterTail`, and `KadiriTailMaster` then assemble the weighted error
+with the existing reflection and retained-zero machinery. The numerical
+tail estimate and the proof of absolute-height separation remain open;
+neither follows merely from this reuse of summability.
+
 Both general candidates, their xi consumers, actual-weight summability,
 zero sums, and outer master compile against the pinned project environment.
 The 28 declarations audited by `.research/DusartXiPairingAxioms.lean` use

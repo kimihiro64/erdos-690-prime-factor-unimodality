@@ -310,3 +310,25 @@ def test_weighted_remainder_ci_build_order() -> None:
     ]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/KadiriWeightedRemainder.lean")
+
+
+def test_outer_tail_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "Helpers.Analytic.KadiriDistinguishedZero",
+        "Helpers.Analytic.KadiriOuterPairRemainder",
+        "Mathlib.Analysis.Complex.Poisson.OuterStrip",
+        "Mathlib.Analysis.Complex.Series.Imaginary",
+        "Helpers.Analytic.KadiriOuterPairs",
+        "Helpers.Analytic.XiHeightTail",
+        "Helpers.Analytic.KadiriOuterTail",
+        "Helpers.Analytic.KadiriTailMaster",
+    )
+    positions = [
+        foundations.index(f"lake build \\\n            +PrimeFactorUnimodality.{module}\n")
+        for module in modules
+    ]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index("lake env lean test/lean/KadiriOuterTail.lean")
