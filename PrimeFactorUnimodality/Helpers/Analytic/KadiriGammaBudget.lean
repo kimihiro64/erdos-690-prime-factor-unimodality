@@ -110,6 +110,17 @@ theorem antitoneOn_kadiriGammaResidual {κ : ℝ} (hκ₀ : 0 ≤ κ) (hκ : κ 
       mul_le_mul_of_nonneg_left
         (antitoneOn_smoothedGammaFactorError_nat hκ₀ σ i ht hu htu) (ha i hi)))
 
+/-- The residual also decreases with the real coordinate, so the strip's lower edge suffices. -/
+theorem antitoneOn_kadiriGammaResidual_sigma {κ : ℝ} (hκ : 0 ≤ κ)
+    (t : ℝ) (S : Finset ℕ) (a : ℕ → ℝ) (ha : ∀ i ∈ S, 0 ≤ a i) :
+    AntitoneOn (fun σ => kadiriGammaResidual κ σ t S a) (Set.Ioi (-2)) := by
+  intro σ hσ τ hτ hστ
+  apply add_le_add le_rfl
+  apply Finset.sum_le_sum
+  intro i hi
+  exact mul_le_mul_of_nonneg_left
+    (antitoneOn_smoothedGammaFactorError_sigma hκ ((i : ℝ) * t) hσ hτ hστ) (ha i hi)
+
 end
 
 end PrimeFactorUnimodality

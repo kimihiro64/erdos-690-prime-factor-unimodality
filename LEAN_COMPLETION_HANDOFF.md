@@ -45,6 +45,47 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Uniform correction envelope and target-gap bootstrap (newest, 2026-09-22)
+
+`XiLehmanAffine` bounds the actual positive-height majorant by
+`A*log(t)+B` for `t>=T>=2`, `H>=4`. The explicit coefficients are
+`A=1/(pi*H)+1/(2*pi*T)+8/H^2` and
+`B=(H/T)*(1/(pi*H)+8/H^2)+4/(T*H)`. It does not assert that the tail
+decreases with height. `KadiriTailEnvelope` sums this bound at arbitrary
+natural harmonics, keeping the exact zero-height low-mass subtraction.
+It also proves pole monotonicity and the needed nonnegative tail signs.
+
+The Gamma residual now has proved monotonicity in the real coordinate as
+well as in positive height. `KadiriMomentEnvelope` consequently uses the
+fixed lower corner `(sigma0,T)`, independent of the moving `sigma`.
+Its derivative-mass substitution directly invokes the existing four-moment
+theorem. `KadiriCorrectionEnvelope` absorbs logarithmic terms using a stated
+upper bound `eta*log(t)<=q`, yielding the full cubic correction bound with
+the signed linear term intact.
+
+`KadiriCorrectionSign` proves the quadratic and cubic coefficients are
+nonnegative under the actual hypotheses. Factoring out the positive scale
+reduces nonpositivity of the whole correction to its maximum-scale budget.
+`xi_zero_gap_of_moment_budget` in `KadiriBootstrapMaster` connects this to
+the actual xi zero. If the target gap already holds it returns it; otherwise
+its failure supplies `eta*log(t)<=1/Rnext`. Thus this crucial upper bound
+is not inferred incorrectly from the previous region's lower bound.
+
+The resulting theorem still requires verified four-moment bounds, the
+exponential endpoint inequality, a nonpositive explicit endpoint budget,
+the closed-transform endpoint margin, and the existing polynomial,
+admissibility, and low-height inputs. Their numerical feasibility has NOT
+been certified. All three final Dusart providers remain open. Next, choose
+and justify the paper's polynomial and admissible parameter ranges, bound
+the remaining fixed inputs, and verify the iterations from the proved
+starting constant `56`, not an assumed `5.7`.
+
+All five new modules and the actual bootstrap compile. The 20 new moment
+examples and 65 preserved bootstrap, transform, Gamma, and initial-region
+examples pass. All 20 audited theorem closures use only `propext`,
+`Classical.choice`, and `Quot.sound`. The fast source checks pass; no
+certificate replay or numerical-region verification is claimed.
+
 ### Exact elementary transform and interval margins (newest, 2026-09-22)
 
 `KadiriTransformClosedForm` now proves the actual `K(w,theta)` equals a

@@ -470,3 +470,25 @@ of the signed difference. The actual bootstrap consumes these bounds via
 The independent candidates and actual bootstrap compile, with all 24
 audited exports using only the three standard logical axioms. The 20 new
 endpoint/transform examples and 14 preserved bootstrap examples pass.
+
+## Uniform complete correction follow-up
+
+The new affine tail bound uses the already-proved `xiLehmanHighBound` and
+elementary logarithm and reciprocal comparisons. It retains logarithmic
+growth at nonzero heights and exact finite low-mass subtraction at zero.
+Nonnegativity of the latter comes from `xiHeightTail_nonneg` and the
+existing actual Lehman bound, not an RH-dependent mass formula.
+
+The complete correction now directly applies
+`kadiriDerivativeMass_le_majorant` and
+`kadiriDerivativeMassMajorant_le_of_moment_bounds`; the moments and their
+underlying analytic comparison are not reconstructed. Proved pole and
+Gamma monotonicity replace their moving parameters by a fixed corner.
+The signed linear term remains in the cubic envelope. The actual bootstrap
+derives the upper scale-log bound from failure of its target gap and then
+uses a verified maximum-scale budget, rather than assuming global
+correction nonpositivity. The numerical inputs remain explicit obligations.
+
+The actual bootstrap and all five envelope modules compile. The 20 new
+examples and 65 preserved analytic examples pass; all 20 audited theorem
+closures use only the three standard logical axioms.

@@ -57,6 +57,19 @@ theorem antitoneOn_smoothedGammaFactorError_nat {κ : ℝ} (hκ : 0 ≤ κ)
 def smoothedGammaFactorMajorant (κ σ t : ℝ) : ℝ :=
   (1 - κ) / 2 * (Real.log (|t| / 2 + 2) - Real.log π) + smoothedGammaFactorError κ σ t
 
+/-- The error decreases with the real coordinate wherever its real-part denominator is positive. -/
+theorem antitoneOn_smoothedGammaFactorError_sigma {κ : ℝ} (hκ : 0 ≤ κ) (t : ℝ) :
+    AntitoneOn (fun σ => smoothedGammaFactorError κ σ t) (Set.Ioi (-2)) := by
+  intro σ hσ τ hτ hστ
+  have hσpos : -2 < σ := hσ
+  have he : (1 + κ) / (τ + 2) ≤ (1 + κ) / (σ + 2) :=
+    div_le_div_of_nonneg_left (by linarith) (by linarith : 0 < σ + 2)
+      (by linarith)
+  unfold smoothedGammaFactorError
+  split_ifs
+  · exact he
+  · exact min_le_min he le_rfl
+
 /-- The vertical strip bound includes all signed and zero heights. -/
 theorem smoothedGammaFactorDifference_le_majorant {κ δ : ℝ}
     (hκ : 0 ≤ κ) (hκ₁ : κ ≤ 1) (hδ : 0 ≤ δ) {s : ℂ}

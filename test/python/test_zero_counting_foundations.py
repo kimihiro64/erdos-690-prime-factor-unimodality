@@ -189,12 +189,18 @@ def test_bootstrap_budget_ci_build_order() -> None:
         "PrimeFactorUnimodality.Helpers.Analytic.KadiriBootstrapBudget",
         "PrimeFactorUnimodality.Helpers.Analytic.KadiriGammaBudget",
         "PrimeFactorUnimodality.Helpers.Analytic.KadiriBootstrapCorrection",
+        "PrimeFactorUnimodality.Helpers.Analytic.XiLehmanAffine",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriTailEnvelope",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriCorrectionEnvelope",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriMomentEnvelope",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriCorrectionSign",
         "PrimeFactorUnimodality.Helpers.Analytic.KadiriBootstrapMaster",
     )
     positions = [foundations.index(f"lake build \\\n            +{module}\n") for module in modules]
     assert foundations.index("lake env lean test/lean/KadiriInitialRegion.lean") < positions[0]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/KadiriBootstrap.lean")
+    assert positions[-1] < foundations.index("lake env lean test/lean/KadiriMomentEnvelope.lean")
     assert positions[-1] < foundations.index(
         "lake env lean test/lean/KadiriTransformClosedForm.lean"
     )

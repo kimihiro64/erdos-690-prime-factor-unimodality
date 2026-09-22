@@ -1,4 +1,4 @@
-import PrimeFactorUnimodality.Helpers.Analytic.KadiriBootstrapCorrection
+import PrimeFactorUnimodality.Helpers.Analytic.KadiriCorrectionSign
 import PrimeFactorUnimodality.Helpers.Analytic.KadiriRegionMaster
 import PrimeFactorUnimodality.Helpers.Analytic.KadiriTransformBounds
 
@@ -107,6 +107,50 @@ theorem xi_zero_gap_of_endpoint_bootstrap_margin {Rnext l r : ℝ} (hRnext : 0 <
     S h₀ h₁ a ha p hβ hηρ hpoly hσA hlow hhigh hharm ht hRnext hκstrict ha₁
   exact hmargin.trans (sub_le_sub_right
     (kadiriTransformGap_lower_of_mem_Icc hθ (ha 0 h₀) (ha 1 h₁) hw) _)
+
+/-- A scale-endpoint moment budget and a transform margin imply the actual improved region. -/
+theorem xi_zero_gap_of_moment_budget {Rnext T₀ y B₀ B₁ B₂ B₃ l r : ℝ}
+    (hRnext : 0 < Rnext) (hκstrict : κ < 1) (ha₁ : 0 < a 1)
+    (hT₀ : 2 ≤ T₀) (hT₀t : T₀ ≤ (riemannXiDivisorZeroValue p).im) (hH₄ : 4 ≤ H)
+    (hy : 0 < y) (hzy : -z * kadiriSupport θ ≤ y)
+    (hend : Real.exp y ≤ 1 + y + y ^ 2 / 2 + y ^ 3 / (345 / 100))
+    (hB₀ : kadiriDerivativeMoment θ 0 ≤ B₀) (hB₁ : kadiriDerivativeMoment θ 1 ≤ B₁)
+    (hB₂ : kadiriDerivativeMoment θ 2 ≤ B₂) (hB₃ : kadiriDerivativeMoment θ 3 ≤ B₃)
+    (hw : (1 - σ) / η ∈ Set.Icc l r)
+    (hbudget : kadiriMomentCorrectionPolynomial θ η₀ η₀ σ₀ κ δ z H T₀
+      B₀ B₁ B₂ B₃ (1 / Rnext) S a ≤ 0)
+    (hmargin : kadiriBootstrapLogCoefficient θ κ S a / Rnext ≤
+      a 1 * kadiriKernelExpIntegral θ (l - 1) - a 0 * kadiriKernelExpIntegral θ r) :
+    1 / (Rnext * Real.log (riemannXiDivisorZeroValue p).im) ≤
+      1 - (riemannXiDivisorZeroValue p).re := by
+  by_cases hdone : 1 / (Rnext * Real.log (riemannXiDivisorZeroValue p).im) ≤
+      1 - (riemannXiDivisorZeroValue p).re
+  · exact hdone
+  have hlog : 0 < Real.log (riemannXiDivisorZeroValue p).im := Real.log_pos (by linarith)
+  have hsmall : η < (1 / Rnext) / Real.log (riemannXiDivisorZeroValue p).im := by
+    rw [div_div, hηρ]
+    exact lt_of_not_ge hdone
+  have hq := ((lt_div_iff₀ hlog).mp hsmall).le
+  have hz₀ : z ≤ 0 := hz.trans
+    (div_nonpos_of_nonpos_of_nonneg (sub_nonpos.mpr hσ₁) hη.le)
+  have hTpos : 0 < T₀ := by linarith
+  have hM := kadiriDerivativeMass_le_momentMassBound hθ hz₀ hy hzy hend hB₀ hB₁ hB₂ hB₃
+  have hM₀ := (kadiriDerivativeMass_nonneg hθ z).trans hM
+  have hL₀ := kadiriTailAffineConstant_nonneg hTpos hH S h₀ a ha
+  have hL₁ := kadiriTailLogCoefficient_nonneg hTpos hH S a ha
+  have hquadratic := kadiriCorrectionQuadratic_nonneg hθ hσ₀ hκ hM₀
+    (kadiriPoleCoefficient_nonneg S a ha T₀) hL₀ hL₁ (one_div_nonneg.mpr hRnext.le)
+  have hcubic := kadiriCorrectionCubic_nonneg hθ hσ₀ hκ (by linarith) hc hL₀ S h₁ a ha
+  have hpolybound : kadiriMomentCorrectionPolynomial θ η η₀ σ₀ κ δ z H T₀
+      B₀ B₁ B₂ B₃ (1 / Rnext) S a ≤ 0 :=
+    kadiriCorrectionPolynomial_nonpos_of_endpoint hη.le (hη.trans_le hη₀) hη₀
+      hquadratic hcubic hbudget
+  have hcorrection := (kadiriBootstrapCorrection_le_momentPolynomial hθ hη.le hσ₀ hσ hκ hκ₁
+    hT₀ hT₀t ht hH₄ hz₀ hy hzy hend hB₀ hB₁ hB₂ hB₃ S h₀ a ha hq).trans hpolybound
+  apply xi_zero_gap_of_endpoint_bootstrap_margin hR hT hθ hη hη₀ hσ₀ hσ hσ₁ hδ
+    hκ hκ₁ hκ₂ hκ₃ hc hz hH hgap hcut
+    S h₀ h₁ a ha p hβ hηρ hpoly hσA hlow hhigh hharm ht hRnext hκstrict ha₁ hw
+  linarith only [hmargin, hcorrection]
 
 end
 
