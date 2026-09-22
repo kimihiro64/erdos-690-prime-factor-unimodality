@@ -518,3 +518,21 @@ region. No monotonicity of the signed transform or the unnormalized
 correction is silently assumed. The 20 polynomial/parameter examples and
 34 preserved moment/bootstrap examples pass; all 26 audited new exports
 have only the three standard logical axioms in their theorem closures.
+
+## Single-crossing and split-bootstrap follow-up
+
+`FiniteLaplace.SingleCrossing` directly applies the existing
+`hasDerivAt_finiteLaplace`, `HasDerivAt.real_of_complex`, and
+`re_finiteLaplace_ofReal`; no parametric integration proof is reconstructed.
+Exponential reweighting of a source with one positive-to-negative crossing
+shows that derivative nonpositivity persists. The small generic endpoint
+lemma uses Mathlib's proved mean-value monotonicity theorems. Focused
+Mathlib and sibling candidate searches did not supply this exact signed
+transform endpoint-minimum interface.
+
+The actual Kadiri source crosses at `log(a1/a0)`, so its interval lower
+bound is the smaller of two whole-transform values. The actual split
+bootstrap reuses the existing scale, higher-height, negative-correction,
+and divisor-conjugation proofs. The 13 audited theorem closures contain
+only the standard logical axioms; 13 new and 74 preserved analytic examples
+pass. Numerical iteration and low-height inputs remain unproved here.

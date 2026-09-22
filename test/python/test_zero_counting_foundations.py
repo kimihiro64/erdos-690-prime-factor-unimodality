@@ -225,6 +225,23 @@ def test_uniform_bootstrap_ci_build_order() -> None:
     )
 
 
+def test_split_bootstrap_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "PrimeFactorUnimodality.Mathlib.Analysis.Calculus.Deriv.EndpointMinimum",
+        "PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.SingleCrossing",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriTransformMinimum",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriBootstrapMaster",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriUniformBootstrap",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriSplitBootstrap",
+    )
+    positions = [foundations.index(f"lake build \\\n            +{module}\n") for module in modules]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index("lake env lean test/lean/KadiriSplitBootstrap.lean")
+
+
 def test_main_ci_preserves_running_proof_build() -> None:
     root = Path(__file__).resolve().parents[2]
     workflow = (root / ".github/workflows/ci.yml").read_text()

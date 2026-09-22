@@ -603,6 +603,12 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriCorrectionSign
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Calculus.Deriv.EndpointMinimum
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.SingleCrossing
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriTransformMinimum
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriBootstrapMaster
           lake env lean test/lean/KadiriBootstrap.lean
           lake env lean test/lean/KadiriTransformClosedForm.lean
@@ -617,7 +623,10 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriBootstrapParameters
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriUniformBootstrap
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriSplitBootstrap
           lake env lean test/lean/KadiriPolynomialParameters.lean
+          lake env lean test/lean/KadiriSplitBootstrap.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \

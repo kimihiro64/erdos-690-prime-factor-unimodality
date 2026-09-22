@@ -1,6 +1,6 @@
 import PrimeFactorUnimodality.Helpers.Analytic.KadiriCorrectionSign
 import PrimeFactorUnimodality.Helpers.Analytic.KadiriRegionMaster
-import PrimeFactorUnimodality.Helpers.Analytic.KadiriTransformBounds
+import PrimeFactorUnimodality.Helpers.Analytic.KadiriTransformMinimum
 
 /-! # The numerical-bootstrap inequality for the actual xi divisor
 
@@ -108,20 +108,19 @@ theorem xi_zero_gap_of_endpoint_bootstrap_margin {Rnext l r : ℝ} (hRnext : 0 <
   exact hmargin.trans (sub_le_sub_right
     (kadiriTransformGap_lower_of_mem_Icc hθ (ha 0 h₀) (ha 1 h₁) hw) _)
 
-/-- A scale-band budget retains the negative correction in the actual improved region. -/
-theorem xi_zero_gap_of_moment_band_budget {Rnext T₀ y B₀ B₁ B₂ B₃ l r η₁ : ℝ}
+/-- A scale-band budget retains the negative correction with the actual transform value. -/
+theorem xi_zero_gap_of_moment_transform_budget {Rnext T₀ y B₀ B₁ B₂ B₃ η₁ : ℝ}
     (hRnext : 0 < Rnext) (hκstrict : κ < 1) (ha₁ : 0 < a 1)
     (hT₀ : 2 ≤ T₀) (hT₀t : T₀ ≤ (riemannXiDivisorZeroValue p).im) (hH₄ : 4 ≤ H)
     (hy : 0 < y) (hzy : -z * kadiriSupport θ ≤ y)
     (hend : Real.exp y ≤ 1 + y + y ^ 2 / 2 + y ^ 3 / (345 / 100))
     (hB₀ : kadiriDerivativeMoment θ 0 ≤ B₀) (hB₁ : kadiriDerivativeMoment θ 1 ≤ B₁)
     (hB₂ : kadiriDerivativeMoment θ 2 ≤ B₂) (hB₃ : kadiriDerivativeMoment θ 3 ≤ B₃)
-    (hw : (1 - σ) / η ∈ Set.Icc l r)
     (hη₁ : η₁ ≤ η)
     (hbudget : kadiriMomentCorrectionPolynomial θ η₀ η₀ σ₀ κ δ z H T₀
       B₀ B₁ B₂ B₃ (1 / Rnext) S a ≤ 0)
     (hmargin : kadiriBootstrapLogCoefficient θ κ S a / Rnext ≤
-      a 1 * kadiriKernelExpIntegral θ (l - 1) - a 0 * kadiriKernelExpIntegral θ r -
+      kadiriTransformGap θ (a 0) (a 1) ((1 - σ) / η) -
         (η₁ / η₀) * kadiriMomentCorrectionPolynomial θ η₀ η₀ σ₀ κ δ z H T₀
           B₀ B₁ B₂ B₃ (1 / Rnext) S a) :
     1 / (Rnext * Real.log (riemannXiDivisorZeroValue p).im) ≤
@@ -152,10 +151,57 @@ theorem xi_zero_gap_of_moment_band_budget {Rnext T₀ y B₀ B₁ B₂ B₃ l r 
       hquadratic hcubic hbudget
   have hcorrection := (kadiriBootstrapCorrection_le_momentPolynomial hθ hη.le hσ₀ hσ hκ hκ₁
     hT₀ hT₀t ht hH₄ hz₀ hy hzy hend hB₀ hB₁ hB₂ hB₃ S h₀ a ha hq).trans hpolybound
-  apply xi_zero_gap_of_endpoint_bootstrap_margin hR hT hθ hη hη₀ hσ₀ hσ hσ₁ hδ
+  apply xi_zero_gap_of_bootstrap_margin hR hT hθ hη hη₀ hσ₀ hσ hσ₁ hδ
     hκ hκ₁ hκ₂ hκ₃ hc hz hH hgap hcut
-    S h₀ h₁ a ha p hβ hηρ hpoly hσA hlow hhigh hharm ht hRnext hκstrict ha₁ hw
+    S h₀ h₁ a ha p hβ hηρ hpoly hσA hlow hhigh hharm ht hRnext hκstrict ha₁
   linarith only [hmargin, hcorrection]
+
+/-- Separate transform endpoints give the original scale-band interface. -/
+theorem xi_zero_gap_of_moment_band_budget {Rnext T₀ y B₀ B₁ B₂ B₃ l r η₁ : ℝ}
+    (hRnext : 0 < Rnext) (hκstrict : κ < 1) (ha₁ : 0 < a 1)
+    (hT₀ : 2 ≤ T₀) (hT₀t : T₀ ≤ (riemannXiDivisorZeroValue p).im) (hH₄ : 4 ≤ H)
+    (hy : 0 < y) (hzy : -z * kadiriSupport θ ≤ y)
+    (hend : Real.exp y ≤ 1 + y + y ^ 2 / 2 + y ^ 3 / (345 / 100))
+    (hB₀ : kadiriDerivativeMoment θ 0 ≤ B₀) (hB₁ : kadiriDerivativeMoment θ 1 ≤ B₁)
+    (hB₂ : kadiriDerivativeMoment θ 2 ≤ B₂) (hB₃ : kadiriDerivativeMoment θ 3 ≤ B₃)
+    (hw : (1 - σ) / η ∈ Set.Icc l r) (hη₁ : η₁ ≤ η)
+    (hbudget : kadiriMomentCorrectionPolynomial θ η₀ η₀ σ₀ κ δ z H T₀
+      B₀ B₁ B₂ B₃ (1 / Rnext) S a ≤ 0)
+    (hmargin : kadiriBootstrapLogCoefficient θ κ S a / Rnext ≤
+      a 1 * kadiriKernelExpIntegral θ (l - 1) - a 0 * kadiriKernelExpIntegral θ r -
+        (η₁ / η₀) * kadiriMomentCorrectionPolynomial θ η₀ η₀ σ₀ κ δ z H T₀
+          B₀ B₁ B₂ B₃ (1 / Rnext) S a) :
+    1 / (Rnext * Real.log (riemannXiDivisorZeroValue p).im) ≤
+      1 - (riemannXiDivisorZeroValue p).re := by
+  apply xi_zero_gap_of_moment_transform_budget hR hT hθ hη hη₀ hσ₀ hσ hσ₁ hδ
+    hκ hκ₁ hκ₂ hκ₃ hc hz hH hgap hcut S h₀ h₁ a ha p hβ hηρ hpoly
+    hσA hlow hhigh hharm ht hRnext hκstrict ha₁ hT₀ hT₀t hH₄ hy hzy hend
+    hB₀ hB₁ hB₂ hB₃ hη₁ hbudget
+  exact hmargin.trans (sub_le_sub_right
+    (kadiriTransformGap_lower_of_mem_Icc hθ (ha 0 h₀) (ha 1 h₁) hw) _)
+
+/-- Single-crossing endpoint minima retain cancellation in the scale-band bootstrap. -/
+theorem xi_zero_gap_of_sharp_moment_band_budget {Rnext T₀ y B₀ B₁ B₂ B₃ l r η₁ : ℝ}
+    (hRnext : 0 < Rnext) (hκstrict : κ < 1) (ha₀ : 0 < a 0) (ha₁ : 0 < a 1)
+    (hT₀ : 2 ≤ T₀) (hT₀t : T₀ ≤ (riemannXiDivisorZeroValue p).im) (hH₄ : 4 ≤ H)
+    (hy : 0 < y) (hzy : -z * kadiriSupport θ ≤ y)
+    (hend : Real.exp y ≤ 1 + y + y ^ 2 / 2 + y ^ 3 / (345 / 100))
+    (hB₀ : kadiriDerivativeMoment θ 0 ≤ B₀) (hB₁ : kadiriDerivativeMoment θ 1 ≤ B₁)
+    (hB₂ : kadiriDerivativeMoment θ 2 ≤ B₂) (hB₃ : kadiriDerivativeMoment θ 3 ≤ B₃)
+    (hw : (1 - σ) / η ∈ Set.Icc l r) (hη₁ : η₁ ≤ η)
+    (hbudget : kadiriMomentCorrectionPolynomial θ η₀ η₀ σ₀ κ δ z H T₀
+      B₀ B₁ B₂ B₃ (1 / Rnext) S a ≤ 0)
+    (hmargin : kadiriBootstrapLogCoefficient θ κ S a / Rnext ≤
+      min (kadiriTransformGap θ (a 0) (a 1) l) (kadiriTransformGap θ (a 0) (a 1) r) -
+        (η₁ / η₀) * kadiriMomentCorrectionPolynomial θ η₀ η₀ σ₀ κ δ z H T₀
+          B₀ B₁ B₂ B₃ (1 / Rnext) S a) :
+    1 / (Rnext * Real.log (riemannXiDivisorZeroValue p).im) ≤
+      1 - (riemannXiDivisorZeroValue p).re := by
+  apply xi_zero_gap_of_moment_transform_budget hR hT hθ hη hη₀ hσ₀ hσ hσ₁ hδ
+    hκ hκ₁ hκ₂ hκ₃ hc hz hH hgap hcut S h₀ h₁ a ha p hβ hηρ hpoly
+    hσA hlow hhigh hharm ht hRnext hκstrict ha₁ hT₀ hT₀t hH₄ hy hzy hend
+    hB₀ hB₁ hB₂ hB₃ hη₁ hbudget
+  exact hmargin.trans (sub_le_sub_right (min_kadiriTransformGap_endpoints_le hθ ha₀ ha₁ hw) _)
 
 /-- A nonpositive scale-endpoint budget is the zero-lower-scale case of the band bound. -/
 theorem xi_zero_gap_of_moment_budget {Rnext T₀ y B₀ B₁ B₂ B₃ l r : ℝ}

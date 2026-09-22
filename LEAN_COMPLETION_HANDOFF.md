@@ -45,6 +45,48 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Single-crossing minimum and two-scale bootstrap (newest, 2026-09-22)
+
+The loose separated-transform bound is no longer necessary.
+`KadiriTransformMinimum` proves, for positive `a0,a1`, that `K(w)` on
+`[l,r]` is bounded below by `min(K(l),K(r))`. The actual source has one
+sign change at `log(a1/a0)`. Its derivative transform can never become
+positive after becoming nonpositive, so an interior minimum is excluded.
+This is NOT a claim that `K` is monotone; both exact endpoint values remain.
+
+The independent candidates `Deriv.EndpointMinimum` and
+`FiniteLaplace.SingleCrossing` prove the general facts. Differentiation
+directly reuses `hasDerivAt_finiteLaplace` and its real-part interface.
+No new differentiation-under-integral argument or moment quadrature is needed.
+
+`KadiriBootstrapMaster` now has a shared actual-transform band theorem,
+with the old interface preserved and a new sharp endpoint-minimum variant.
+`KadiriSplitBootstrap` connects that sharp variant to two scale regimes:
+small `eta<=eta1` uses a higher threshold `T1<=exp(1/(R*eta1))`; the
+other regime retains `(eta1/eta0)*C(eta0)`. Both signs of the ordinate,
+the entire critical strip, and the equality case at the split are covered.
+It retains the conservative `z=-1` mass parameter and all actual low-height,
+previous-region, admissibility, and moment/endpoint budget hypotheses.
+
+The new candidates and actual split theorem compile. The 13 new regression
+examples and 74 preserved transform, bootstrap, polynomial, and moment
+examples pass. All 13 audited new/compatibility exports use only `propext`,
+`Classical.choice`, and `Quot.sound`. CI builds the candidates before the
+master and split consumer serially, and runs the new tests.
+
+Numerical feasibility is still an obligation. An exploratory quadrature
+probe of the existing envelopes, even replacing the finite reciprocal-mass
+subtraction by zero, suggests a feasible `56 -> 50` warm-up. A direct
+`5.7 -> 5.573412` jump fails the tested margins. More importantly, the
+tested `5.5735 -> 5.573412` step also has negative margin (about `-0.046`)
+with the current conservative Gamma envelope, so merely adding iterations
+is not a demonstrated solution. The zero-harmonic Gamma error remains
+coarse; a one-sided real digamma upper bound is a concrete next analytic
+improvement to investigate using the already-proved series and limits.
+Do not present these probes as verified numerical iterations.
+Low-height inputs, final Dusart providers, and all-`k`
+completion remain open. No certificate replay was performed here.
+
 ### Exact polynomial and uniform height-ray bootstrap (newest, 2026-09-22)
 
 `MossinghoffTrudgianPolynomial` now defines the degree-sixteen generating
