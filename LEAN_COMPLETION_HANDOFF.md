@@ -45,6 +45,74 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Stechkin pairs, the full xi sum, and compact smoothing (newest, 2026-09-22)
+
+`Mathlib/Analysis/Complex/Poisson/Stechkin` proves the paired-kernel
+inequality with coefficient `1/sqrt(5)` and the canonical shifted line
+`tau = (1 + sqrt(1 + 4*sigma^2))/2`. It also proves that at a zero's height
+the paired difference retains `1/(sigma-beta)`. The statements cover the
+whole closed strip `0 <= beta <= 1`, for every `sigma > 1` and every height.
+The proof clears positive denominators and factors their difference into
+nonnegative polynomials; it contains no numerical replay.
+
+`Mathlib/NumberTheory/LSeries/ZetaTrigonometricShift` proves positivity
+for an arbitrary nonnegative cosine polynomial with nonnegative weights,
+subtracting `kappa <= 1` times the series at a right-shifted line. The
+weighted theorem assumes summability, NOT `sigma > 1`. Its finite-support
+and logarithmic-cutoff lemmas discharge summability for compact smoothing
+at every complex point. The separate unweighted zeta logarithmic-derivative
+specialization does correctly require `sigma > 1`.
+
+`StechkinBasic` connects the real kernels to actual xi zeros and exports
+`smoothedVonMangoldt` and compactly smoothed positivity. `ZetaXiStechkin`
+then proves the FULL multiplicity-carrying sum inequality
+`Re(logDeriv xi(sigma+it)) - Re(logDeriv xi(tau+it))/sqrt(5) >= 0`.
+It does not assume a zero-pairing bijection. Instead it subtracts the
+Hadamard expansions at `s` and `1-conj(s)`. The constant cancels, xi's
+symmetries give twice its real logarithmic derivative, and the absolutely
+convergent difference is exactly the paired kernel. The old Hadamard
+identity is generalized to every nonzero xi value; its old right-half-plane
+API remains available unchanged.
+
+`ZetaXiStechkinZero` retains the FULL pole `1/(sigma-beta)` for an actual
+zero with `beta > 1/2`. It uses global xi conjugation symmetry to obtain
+the reflected zero and proves that the two divisor indices are distinct.
+Keeping both equal paired terms cancels the factor two in the Hadamard
+identity. Neither zero is assumed simple. The condition `beta > 1/2` is
+intentional: a zero on the midline is its own reflection and cannot be
+silently counted twice by this argument.
+
+Primary references checked for this step:
+
+- [Kadiri, Lemma 2.1](https://www.cs.uleth.ca/~kadiri/articles/zero-free-region-Dedekind-June07-2011.pdf)
+  states the paired and aligned kernel inequalities proved here.
+- [Mossinghoff--Trudgian, sections 2--4](https://arxiv.org/pdf/1410.3926)
+  uses COMPACT SMOOTHING inside the critical strip and explicit error
+  estimates to obtain the sharper region. The classical unweighted
+  Stechkin argument alone does NOT establish its constant `R = 5.573412`.
+
+Next obligations: derive the smoothed Laplace explicit formula and its
+quantitative gamma/zero-sum errors, construct and bound the paper's compact
+test function, and establish the numerical zero-height inputs. No separate
+multiplicity reindexing is needed for the full-sum nonnegativity theorem.
+The three global Dusart providers are still unfinished.
+
+Both candidates build independently before the project consumers. The new
+`test/lean/Stechkin.lean` tests the closed-strip boundary, aligned pole,
+full-sum identity/positivity, the full single-zero coefficient for `beta > 1/2`,
+and a nonzero compact weight at `sigma = 1/2`.
+CI builds these analytic targets serially before the regression. Logs are
+`.research/dusart-stechkin-{candidates,basic,regressions,axioms,fast}.log`
+and `.research/dusart-xi-stechkin.log`. No certificate was replayed, no
+dependency revision changed, and no cached build files were removed.
+
+Verification: all new analytic modules and both Lean regression files pass.
+The 24-export axiom audit lists only `propext`, `Classical.choice`, and
+`Quot.sound`, including the whole zero sum and its full single-zero pole.
+Ruff formatting/lint, mypy, actionlint, and 79 Python tests pass. The fast
+source checks pass; Ruby metadata validation remains skipped locally.
+The additional single-zero build log is `.research/dusart-stechkin-zero.log`.
+
 ### Actual zero contributions and the explicit classical constraint (newest, 2026-09-22)
 
 `ZetaXiZeros` proves that every actual xi zero lies in `0 ≤ Re(ρ) ≤ 1`.

@@ -42,10 +42,12 @@ Replace the scaffold row when the first real candidate module is created.
 | --- | --- | --- | --- |
 | `PrimeFactorUnimodality.Mathlib.Algebra.Group.PowerChunk` | `Mathlib/Algebra/Group/PowerChunk.lean` | extracting | None |
 | `PrimeFactorUnimodality.Mathlib.Algebra.Group.PowerStep` | `Mathlib/Algebra/Group/PowerStep.lean` | extracting | None |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Poisson.Stechkin` | `Mathlib/Analysis/Complex/Poisson/Stechkin.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.Deriv` | `Mathlib/Analysis/SpecialFunctions/Log/Deriv.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Data.Nat.Periodic` | `Mathlib/Data/Nat/Periodic.lean` | extracting | None |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.BLSPrimality` | `Mathlib/NumberTheory/BLSPrimality.lean` | extracting | None |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.ZetaTrigonometric` | `Mathlib/NumberTheory/LSeries/ZetaTrigonometric.lean` | project-verified | None |
+| `PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.ZetaTrigonometricShift` | `Mathlib/NumberTheory/LSeries/ZetaTrigonometricShift.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington` | `Mathlib/NumberTheory/Pocklington.lean` | extracting | None |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.PrimalityCongruence` | `Mathlib/NumberTheory/PrimalityCongruence.lean` | extracting | None |
 | `PrimeFactorUnimodality.Mathlib.Data.Nat.CoprimePeriodicCount` | `Mathlib/Data/Nat/CoprimePeriodicCount.lean` | extracting | None |

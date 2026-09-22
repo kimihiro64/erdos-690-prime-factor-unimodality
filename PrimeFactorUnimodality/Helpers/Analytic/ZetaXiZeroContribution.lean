@@ -50,7 +50,7 @@ theorem exists_xi_divisor_index_of_zero {ρ : ℂ} (hρ : riemannXi ρ = 0) :
   exact ⟨p, (Hadamard.mem_divisorZeroIndex₀_fiberFinset (f := riemannXi) (z₀ := ρ) p).mp hp⟩
 
 /-- The Hadamard constant equals the logarithmic derivative at the origin. -/
-theorem logDeriv_riemannXi_eq_zero_add_tsum {s : ℂ} (hs : 1 < s.re) :
+theorem logDeriv_riemannXi_eq_zero_add_tsum_of_ne_zero {s : ℂ} (hs : riemannXi s ≠ 0) :
     logDeriv riemannXi s = logDeriv riemannXi 0 +
       ∑' p : RiemannXiDivisorZeroIndex,
         (1 / (s - riemannXiDivisorZeroValue p) + 1 / riemannXiDivisorZeroValue p) := by
@@ -62,8 +62,15 @@ theorem logDeriv_riemannXi_eq_zero_add_tsum {s : ℂ} (hs : 1 < s.re) :
     simp
   have h0' : logDeriv riemannXi 0 = Polynomial.eval 0 P.derivative := by
     simpa only [zero_sub, one_div, inv_neg, neg_add_cancel, tsum_zero, add_zero] using h0
-  rw [logDeriv_riemannXi_eq_polynomial_derivative_add_tsum hfac
-    (xi_point_ne_divisor_zero hs), hc, ← h0']
+  rw [logDeriv_riemannXi_eq_polynomial_derivative_add_tsum (z := s) hfac
+    (fun p h => hs (h ▸ riemannXiDivisorZeroValue_eq_zero p)), hc, ← h0']
+
+/-- The constant-normalized Hadamard identity to the right of the critical strip. -/
+theorem logDeriv_riemannXi_eq_zero_add_tsum {s : ℂ} (hs : 1 < s.re) :
+    logDeriv riemannXi s = logDeriv riemannXi 0 +
+      ∑' p : RiemannXiDivisorZeroIndex,
+        (1 / (s - riemannXiDivisorZeroValue p) + 1 / riemannXiDivisorZeroValue p) :=
+  logDeriv_riemannXi_eq_zero_add_tsum_of_ne_zero (riemannXi_ne_zero_of_one_lt_re hs)
 
 private theorem re_xi_zero_term_nonneg {s : ℂ} (hs : 1 < s.re)
     (p : RiemannXiDivisorZeroIndex) :

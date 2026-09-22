@@ -180,6 +180,10 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.ZetaTrigonometric
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.Poisson.Stechkin
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.ZetaTrigonometricShift
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaRealPole
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DigammaExplicitBounds
@@ -190,6 +194,13 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaZeroFreeInequality
           lake env lean test/lean/ZetaZeroFreeIngredients.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.StechkinBasic
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaXiStechkin
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaXiStechkinZero
+          lake env lean test/lean/Stechkin.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
