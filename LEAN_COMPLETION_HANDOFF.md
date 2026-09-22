@@ -7,6 +7,14 @@ or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
 ## Current override: analytic replacement (2026-09-22)
 
+The subsequent prime-prefix refactor also removes `RecordPrimeWitnesses`
+from the required import graph and CI. `RecordPrefixBounds` derives its
+38,000-prime count from `HasDusartPrimeCountingBounds`, now passed through
+the finite-range lemmas. The final finite export is
+`completeClassification_through38000_of_primeCounting`. This is not a new
+assumption at the all-`k` boundary. The 380 generated parts are preserved but
+not required. Historical prime-witness obligations below are superseded.
+
 The full record-gap certificate is no longer required by `Solution`. The
 instructions below about extending the full gap through `8600001` are
 historical, not active obligations. Do not restore that dependency or its

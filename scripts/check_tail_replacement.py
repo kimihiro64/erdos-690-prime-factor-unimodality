@@ -1,4 +1,4 @@
-"""Reject any return of the full record-gap replay to the solution import chain."""
+"""Reject retired full-gap and prime-witness replays in the solution import chain."""
 
 from __future__ import annotations
 
@@ -12,7 +12,11 @@ if __package__ in {None, ""}:
 from scripts.lean_source import lean_imports, strip_lean_comments  # noqa: E402
 
 PREFIX = "PrimeFactorUnimodality.Proof.LargeRange."
-FORBIDDEN = (PREFIX + "FullRecordRange", PREFIX + "Generated.FullRecordGapCompact")
+FORBIDDEN = (
+    PREFIX + "FullRecordRange",
+    PREFIX + "Generated.FullRecordGapCompact",
+    PREFIX + "Generated.RecordPrimeWitnesses",
+)
 REQUIRED = PREFIX + "UniformTailClosedMertens"
 
 
@@ -37,10 +41,12 @@ def check_tail_replacement(root: Path) -> None:
     closure = solution_closure(root)
     forbidden = sorted(module for module in closure if module.startswith(FORBIDDEN))
     if forbidden:
-        raise ValueError("full record-gap replay reached from Solution: " + ", ".join(forbidden))
+        raise ValueError(
+            "retired certificate replay reached from Solution: " + ", ".join(forbidden)
+        )
     if REQUIRED not in closure:
         raise ValueError("Solution does not reach the uniform CRT replacement")
-    print("uniform tail boundary: analytic replacement present; full record-gap replay excluded")
+    print("analytic boundary: uniform tail present; full-gap and prime-witness replays excluded")
 
 
 if __name__ == "__main__":

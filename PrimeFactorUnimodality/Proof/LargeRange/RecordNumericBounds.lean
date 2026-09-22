@@ -67,6 +67,7 @@ theorem record_halfLower_ge_10372 :
   omega
 
 theorem record_descentNumeric
+    (bounds : HasDusartPrimeCountingBounds)
     {k : Nat} (hkLower : 10372 ≤ k) (hkUpper : k ≤ 38000) :
     ((k - 1 : Nat) : Real) < 4753 *
       (Real.log (Real.log (((recordGapCenter - 86399) / 2 : Nat) : Real)) -
@@ -76,7 +77,7 @@ theorem record_descentNumeric
         dusartReciprocalError (((primeAt (k - 2) - 1 : Nat) : Real))) := by
   have kBound : ((k - 1 : Nat) : Real) ≤ 37999 := by
     exact_mod_cast (show k - 1 ≤ 37999 by omega)
-  have prefixLog := record_prefix_log_log_lt
+  have prefixLog := record_prefix_log_log_lt bounds
     (show 49 ≤ k by omega) hkUpper
   have yError := dusartReciprocalError_lt_one_div_100_of_ge_10372
     record_halfLower_ge_10372
@@ -144,6 +145,7 @@ theorem record_prefix_mertensError_lt_101_div_100
   nlinarith [mertensErrorConstant_lt_901_div_100]
 
 theorem record_coarse_descentNumeric
+    (bounds : HasDusartPrimeCountingBounds)
     {k : Nat} (hkLower : 49 ≤ k) (hkUpper : k ≤ 10372) :
     ((k - 1 : Nat) : Real) < 4753 *
       (Real.log (Real.log (((recordGapCenter - 86399) / 2 : Nat) : Real)) -
@@ -154,7 +156,7 @@ theorem record_coarse_descentNumeric
           Real.log ((primeAt (k - 2) - 1 : Nat) : Real)) := by
   have kBound : ((k - 1 : Nat) : Real) ≤ 10371 := by
     exact_mod_cast (show k - 1 ≤ 10371 by omega)
-  have prefixLog := record_prefix_log_log_lt hkLower
+  have prefixLog := record_prefix_log_log_lt bounds hkLower
     (hkUpper.trans (by norm_num))
   nlinarith [log_log_recordGapHalfLower_gt,
     record_halfLower_mertensError_lt,
@@ -163,6 +165,7 @@ theorem record_coarse_descentNumeric
 /-- The sharper elementary lower bound on the prime prefix extends the proved
 Mertens estimate through most of the record range. -/
 theorem record_coarse_descentNumeric_mid
+    (bounds : HasDusartPrimeCountingBounds)
     {k : Nat} (hkLower : 10372 ≤ k) (hkUpper : k ≤ 33314) :
     ((k - 1 : Nat) : Real) < 4753 *
       (Real.log (Real.log (((recordGapCenter - 86399) / 2 : Nat) : Real)) -
@@ -173,7 +176,7 @@ theorem record_coarse_descentNumeric_mid
           Real.log ((primeAt (k - 2) - 1 : Nat) : Real)) := by
   have kBound : ((k - 1 : Nat) : Real) ≤ 33313 := by
     exact_mod_cast (show k - 1 ≤ 33313 by omega)
-  have prefixLog := record_prefix_log_log_lt
+  have prefixLog := record_prefix_log_log_lt bounds
     (show 49 ≤ k by omega) (hkUpper.trans (by norm_num))
   nlinarith [log_log_recordGapHalfLower_gt,
     record_halfLower_mertensError_lt,

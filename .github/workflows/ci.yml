@@ -213,8 +213,6 @@ jobs:
             +PrimeFactorUnimodality.Helpers.FiniteCertificates.Generated.PrimePrefixes
           lake build \
             +PrimeFactorUnimodality.Helpers.FiniteCertificates.Generated.FixedWeightSums
-          lake build \
-            +PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses
       - name: Upload certificate prebuild artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
@@ -249,6 +247,8 @@ jobs:
           python3 scripts/check_tail_replacement.py
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Proof.CompleteClassificationReduction
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Proof.LargeRange.RecordPrefixBounds
       - name: Upload the checked analytic reduction
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:

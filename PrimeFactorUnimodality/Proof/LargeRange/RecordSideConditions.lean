@@ -12,16 +12,18 @@ namespace PrimeFactorUnimodality
 noncomputable section
 
 private theorem record_nextPrime_le_500000
+    (bounds : HasDusartPrimeCountingBounds)
     {k : Nat} (hkLower : 49 ≤ k) (hkUpper : k ≤ 38000) :
     primeAt (k - 1) ≤ 500000 := by
-  have shifted := record_prefix_primeAt_le_500000
+  have shifted := record_prefix_primeAt_le_500000 bounds
     (k := k + 1) (by omega)
   simpa [show k + 1 - 2 = k - 1 by omega] using shifted
 
 theorem record_descentDefined
+    (bounds : HasDusartPrimeCountingBounds)
     {k : Nat} (hkLower : 49 ≤ k) (hkUpper : k ≤ 38000) :
     k - 1 ≤ Nat.primeCounting' (recordGapCenter - 86399) - 1 := by
-  have nextLe := record_nextPrime_le_500000 hkLower hkUpper
+  have nextLe := record_nextPrime_le_500000 bounds hkLower hkUpper
   have cutoffLarge : 500000 < recordGapCenter - 86399 := by
     have := recordGapCenter_large
     omega
@@ -37,9 +39,10 @@ theorem record_descentDefined
   exact Nat.sub_le_sub_right countGe 1
 
 theorem record_ascentDefined
+    (bounds : HasDusartPrimeCountingBounds)
     {k : Nat} (hkLower : 49 ≤ k) (hkUpper : k ≤ 38000) :
     k - 1 ≤ Nat.primeCounting' recordLower := by
-  have nextLe := record_nextPrime_le_500000 hkLower hkUpper
+  have nextLe := record_nextPrime_le_500000 bounds hkLower hkUpper
   have cutoffLarge : 500000 < recordLower := by
     exact (show 500000 < recordGapCenter by
       have := recordGapCenter_large
@@ -55,9 +58,10 @@ theorem record_ascentDefined
   exact (Nat.sub_le k 1).trans countGe
 
 theorem record_prefix_le_half
+    (bounds : HasDusartPrimeCountingBounds)
     {k : Nat} (hk : k ≤ 38000) :
     primeAt (k - 2) - 1 ≤ (recordGapCenter - 86399) / 2 := by
-  have prefixLe := record_prefix_primeAt_le_500000
+  have prefixLe := record_prefix_primeAt_le_500000 bounds
     (k := k) (by omega)
   have halfLarge : 500000 ≤ (recordGapCenter - 86399) / 2 := by
     have := recordGapCenter_large

@@ -17,8 +17,18 @@ def test_solution_excludes_full_record_gap() -> None:
 def test_transitive_full_record_import_is_rejected(tmp_path: Path) -> None:
     (tmp_path / "Solution.lean").write_text("import Middle\n")
     (tmp_path / "Middle.lean").write_text(f"public import {FORBIDDEN[1]}Rows.Replay001\n")
-    with pytest.raises(ValueError, match="full record-gap replay reached"):
+    with pytest.raises(ValueError, match="retired certificate replay reached"):
         check_tail_replacement(tmp_path)
+
+
+def test_prime_witness_import_is_rejected(tmp_path: Path) -> None:
+    (tmp_path / "Solution.lean").write_text(f"import {REQUIRED}\nimport {FORBIDDEN[2]}\n")
+    with pytest.raises(ValueError, match="retired certificate replay reached"):
+        check_tail_replacement(tmp_path)
+
+
+def test_analytic_prime_prefix_margin() -> None:
+    assert Q(500000) / Q(1313, 100) > 38000
 
 
 def test_comment_does_not_supply_the_replacement(tmp_path: Path) -> None:
@@ -50,3 +60,5 @@ def test_required_ci_does_not_schedule_full_record_replays() -> None:
     assert "+PrimeFactorUnimodality.Proof.CompleteClassificationReduction" in workflow
     assert "scripts/record_gap_ci.py" not in workflow
     assert "record-gap-replay" not in workflow
+    assert "Generated.RecordPrimeWitnesses" not in workflow
+    assert "+PrimeFactorUnimodality.Proof.LargeRange.RecordPrefixBounds" in workflow

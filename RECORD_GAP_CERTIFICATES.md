@@ -5,6 +5,16 @@ its 10,918 large Fermat tests. A uniform CRT proof now starts at `k = 38001`
 and joins the existing finite classification through `38000`. The exact
 all-`k` statements in `Challenge.lean` and `Solution.lean` are unchanged.
 
+The 380 `RecordPrimeWitnesses` parts are also outside the required import
+chain. They previously established only `38000 <= pi(500000)`. The existing
+Dusart prime-counting input gives this immediately from
+`500000 / log(500000) > 500000 / 13.13 > 38000`. `RecordPrefixBounds.lean`
+proves this inequality, and the finite-range lemmas now receive the same
+prime-counting input as the tail. Their finite numerical domain is unchanged;
+the certificate-discharged finite theorem is named
+`completeClassification_through38000_of_primeCounting` to expose its input.
+No additional assumption is introduced at the all-`k` boundary.
+
 ## Analytic replacement
 
 Write `S(X)` for the sum of `1/p` over primes at most `X`. For natural numbers
@@ -55,14 +65,15 @@ python scripts/check.py --profile fast
 CI's `analytic-tail` job checks the certificate-independent reduction and
 passes its artifacts to the complete build. The old full-gap owner/replay
 matrix is not scheduled. The fast boundary check traverses imports from
-`Solution`, requires the analytic tail, and rejects the full-gap family.
+`Solution`, requires the analytic tail, and rejects the full-gap and
+prime-witness families. The analytic job also checks `RecordPrefixBounds`.
 Regression tests check this boundary, the rational margin, and the workflow.
 The pre-commit hook also runs Ruff formatting and lint, mypy, and pytest.
 
 ## Preserved legacy sources
 
-The full-gap generated rows, archive audit, replay scripts, and existing
-caches are retained. No cached build files are deleted. The legacy consumers
+The full-gap and prime-witness generated rows, archive audit, replay scripts,
+and existing caches are retained. No cached build files are deleted. The legacy consumers
 `fullRecordGapSubBlock` (1–455703) and `fullRecordGapAddBlock` (1–657401) retain
 their statements but are outside the required classification import chain.
 

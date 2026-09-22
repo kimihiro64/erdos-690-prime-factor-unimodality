@@ -29,7 +29,7 @@ theorem completeClassification_with_explicit_inputs
     (k : Nat) (hk : 1 ≤ k) :
     IsUnimodal (primeFactorDensity k) ↔ k ≤ 3 := by
   by_cases hkFinite : k ≤ 38000
-  · exact completeClassification_through38000_closed k hk hkFinite
+  · exact completeClassification_through38000_of_primeCounting primeCountingBounds k hk hkFinite
   · constructor
     · intro unimodal
       exact (uniformTail_not_isUnimodal primeCountingBounds reciprocalEstimate
@@ -60,7 +60,8 @@ theorem completeClassification_of_explicit_mertens_inputs
     (tailPair : HasUniformTailPrimePair) :
     CompleteClassification := by
   exact completeClassification_of_finite_prefix_and_primeCounting
-    completeClassification_through38000_closed primeCountingBounds thetaBounds tailPair
+    (completeClassification_through38000_of_primeCounting primeCountingBounds)
+    primeCountingBounds thetaBounds tailPair
 
 theorem completeClassification_of_explicit_dusart_inputs
     (primeCountingBounds : HasDusartPrimeCountingBounds)
