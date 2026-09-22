@@ -3,8 +3,7 @@ import PrimeFactorUnimodality.Mathlib.Analysis.Analytic.Order.Conjugation
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions
 import PrimeFactorUnimodality.Mathlib.Data.Nat.CoprimePeriodicCount
-import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.FinsetAbel
-import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IoiTranslation
+import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral
 import PrimeFactorUnimodality.Mathlib.NumberTheory.BLSPrimality
 import PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries
 import PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington

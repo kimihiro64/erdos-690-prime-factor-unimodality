@@ -45,6 +45,53 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Uniform Gamma phase and discharged counting contour (newest, 2026-09-22)
+
+`GammaLogBranch` reuses PNT's actual `Complex.logGammaSeq`, its Cauchy
+convergence, and its digamma series. It exports the canonical limit's
+derivative and exponential identity; positive real inputs have imaginary
+part zero. The local uniform-derivative proof is adapted from the interior
+of Robby Sneiderman's `hasSum_digamma_of_re_pos`, with attribution and the
+same pinned revision. No Gamma branch or phase identity is assumed.
+
+The Mathlib-only `IntervalIntegral.Trapezoid` candidate proves the exact
+second-derivative integral remainder. `Complex.LogTrapezoid` specializes it
+to horizontal logarithms, sums the reciprocal bounds, and proves the finite
+sum identity. `Complex.LogShiftLimit` uses Mathlib's existing scaled-log
+limit to remove the far endpoint. These give the actual theorem
+`abs_gammaRightLog_im_sub_stirling_le`: the phase differs from
+`Im ((z-1/2)*log z-z)` by at most `1/(8*Re z)` for every `Re z>0`.
+The bound is uniform in imaginary height, not an integrated `O(T)` error.
+
+`XiGammaContour` connects that branch to the actual separated integrand,
+cancels the corner exactly, and obtains error at most `1/10` at
+`z=5/4+iT/2`. Both contour identities cover zero and negative heights.
+For `T>0`, the difference from `T/2*log(T/(2*pi))-T/2` is bounded by
+`3*pi/8+27/20`.
+
+`BacklundCountingMainTerm.abs_zeta_N_sub_mainTerm_le_circle` now bounds
+the actual `|N(T)-xiZeroCountingMainTerm T|` by
+`7/8+27/(20*pi)+log(1/(sigma-1)+1)/pi`
+plus `log(M*(1/(sigma-1)+1)/T)/log(R/r)`.
+Only the explicit circle bounds and regular-height hypotheses remain in
+this estimate. The existing regular-height transfer handles closed cutoff
+multiplicities; the numerical circle bound and constants must still be
+proved before claiming `2log(T)`.
+
+All seven new proof leaves and the candidate facade compile. The 26 new
+theorem axiom closures contain only `propext`, `Classical.choice`, and
+`Quot.sound`. The new 13-example `GammaCountingPhase` regression and the
+previous vertical-argument regression pass. CI builds the new leaves
+serially in `lean-foundations`, before certificate jobs. The candidate
+facades and inventory are updated. No certificate replay was run.
+
+Next: prove the explicit circle magnitude estimate, choose and verify the
+parameters for the required counting envelope, and apply the already-proved
+regular-height/closed-count transfer. Gamma and vertical-argument bounds
+are now proved inputs, not hypotheses to reconstruct. The numerical
+zero-free parameters, separation input, three final Dusart providers, and
+the full all-`k` verification remain unfinished.
+
 ### Vertical argument and explicit Jensen centre (newest, 2026-09-22)
 
 The vertical surrogate integral and centre lower bound are now proved.

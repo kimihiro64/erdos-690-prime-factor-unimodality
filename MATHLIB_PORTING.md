@@ -40,6 +40,10 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.Trapezoid` | `Mathlib/MeasureTheory/Integral/IntervalIntegral/Trapezoid.lean` | project-verified | Exact complex trapezoid remainder and integral second-derivative norm bound |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogTrapezoid` | `Mathlib/Analysis/SpecialFunctions/Complex/LogTrapezoid.lean` | project-verified | Horizontal logarithm integral, finite-sum identity, and height-independent telescoping remainder |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogShiftLimit` | `Mathlib/Analysis/SpecialFunctions/Complex/LogShiftLimit.lean` | project-verified | Vanishing imaginary endpoint correction from Mathlib's scaled logarithm limit |
+| `PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral` | `Mathlib/MeasureTheory/Integral.lean` | project-verified | Facade grouping reusable integral candidates |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaEulerLog` | `Mathlib/NumberTheory/LSeries/RiemannZetaEulerLog.lean` | project-verified | Analytic Euler logarithm from Mathlib's Euler product, real-axis norm majorant, and lower zeta modulus bound |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries` | `Mathlib/NumberTheory/LSeries.lean` | project-verified | Facade grouping the independently reusable Dirichlet-series modules |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Log.Interval` | `Mathlib/Analysis/Complex/Log/Interval.lean` | project-verified | Continuous logarithm along a closed real interval with prescribed initial value, using the exponential covering |

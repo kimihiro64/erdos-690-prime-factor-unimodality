@@ -81,3 +81,22 @@ def test_backlund_vertical_argument_ci_build_order() -> None:
     assert positions[-1] < foundations.index(
         "lake env lean test/lean/BacklundVerticalArgument.lean"
     )
+
+
+def test_gamma_phase_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.Trapezoid",
+        "PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogTrapezoid",
+        "PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogShiftLimit",
+        "PrimeFactorUnimodality.Helpers.Analytic.GammaLogBranch",
+        "PrimeFactorUnimodality.Helpers.Analytic.GammaStirlingPhase",
+        "PrimeFactorUnimodality.Helpers.Analytic.XiGammaContour",
+        "PrimeFactorUnimodality.Helpers.Analytic.BacklundCountingMainTerm",
+    )
+    positions = [foundations.index(f"lake build \\\n            +{module}\n") for module in modules]
+    assert foundations.index("lake env lean test/lean/BacklundVerticalArgument.lean") < positions[0]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index("lake env lean test/lean/GammaCountingPhase.lean")

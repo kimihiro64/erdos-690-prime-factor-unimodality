@@ -251,3 +251,31 @@ previous actual contour, Jensen bound, and real-axis Abel estimate.
 The 21 new theorems compile and have only the three standard logical axioms.
 Sharp integrated gamma and explicit circle bounds are still needed for the
 numerical counting error; the all-`k` theorem is not yet established.
+
+## Gamma branch and uniform phase follow-up
+
+The sharp gamma contribution is now proved. `GammaLogBranch` directly
+imports the pinned PNT `DigammaSeries` module and reuses its `logGammaSeq`,
+`cauchySeq_logGammaSeq`, `exp_logGammaSeq`, packet norm majorant, summable
+majorant, and `hasSum_digamma_of_re_pos`. The derivative-of-limit argument
+was previously local to the last theorem. Only that portion is adapted
+and exported here; Robby Sneiderman's copyright and Apache-2.0 attribution
+are preserved alongside the exact revision. The exponential identity and
+positive-real phase fix the branch used in the contour, rather than
+identifying it with a potentially discontinuous principal Gamma logarithm.
+
+The required quantitative remainder is new: the generic complex trapezoid
+identity follows from Mathlib's FTC, and its logarithm specialization has
+telescoping norm bound `1/(8*Re z)`. Mathlib's existing
+`Complex.tendsto_nat_mul_log_one_add_of_tendsto` supplies the far-endpoint
+limit. No real Stirling constant or new Gamma convergence theorem is needed.
+Robin's real `robin_log_step_trapezoid` and BV's Fourier trapezoid cutoff
+do not state this complex second-derivative remainder. The PNT theorem
+`stirling_bound_re_ge_zero` controls Gamma's norm with an existential
+growth constant, not the branch's uniformly bounded phase error.
+
+The new branch, phase, exact gamma contours, and actual main-term counting
+estimate compile. All 26 theorem closures have only the three standard
+logical axioms. The numerical circle estimates remain open; the resulting
+counting theorem explicitly retains those hypotheses and does not yet
+establish the final numerical zero-free region or the all-`k` result.
