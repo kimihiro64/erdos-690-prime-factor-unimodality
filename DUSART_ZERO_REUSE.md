@@ -399,3 +399,30 @@ before its numerical iterations. Its final iterations start at `5.7`.
 Our proved starting constant `56` is not that input and is not the desired
 `5.573412`: the intervening improvements and complete numerical budget
 must still be proved. No RH verification or final provider is claimed here.
+
+## Exact transform gap and bootstrap normalization
+
+`KadiriTransformGap` directly reuses the project's existing
+`kadiriWeight_laplace_eq_rescale` and `re_finiteLaplace_ofReal`. The result
+is the paper's exact integral `K(w,theta)`, not a newly assumed transform
+identity. Mathlib's finite-sum erase identity extracts the unique zero
+natural frequency without dropping its pole contribution.
+
+`KadiriGammaBudget` separates the nonzero frequencies' leading logarithm
+from the explicit residual, whose height monotonicity follows from the
+existing logarithm and reciprocal comparisons. The complete budget is
+then normalized into its leading term and a cubic-scale correction by
+exact algebra, retaining the actual derivative mass and low-zero subtraction.
+
+The general region master reuses `kadiri_outer_separation_of_region` for
+successive established constants. The preserved constant-56 specialization
+supplies its high-height premise from `xi_zero_gap_initial`. The new actual
+bootstrap theorem invokes this master before applying the transform and
+budget identities; it does not assume the master inequality. Numerical
+margin verification, low-height inputs, and final provider construction
+are still required. No global monotonicity of the signed `K` integrand or
+nonpositivity of the entire correction is asserted without proof.
+
+All 14 new exports and the preserved initial master compile and were
+audited with only `propext`, `Classical.choice`, and `Quot.sound`.
+The 12 regression examples include the zero-only set and arbitrary degree.

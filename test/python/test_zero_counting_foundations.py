@@ -162,9 +162,27 @@ def test_initial_zero_free_master_ci_build_order() -> None:
     modules = (
         "PrimeFactorUnimodality.Helpers.Analytic.ZetaZeroFreeInitial",
         "PrimeFactorUnimodality.Helpers.Analytic.KadiriOuterSeparation",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriRegionMaster",
         "PrimeFactorUnimodality.Helpers.Analytic.KadiriInitialMaster",
     )
     positions = [foundations.index(f"lake build \\\n            +{module}\n") for module in modules]
     assert foundations.index("lake env lean test/lean/KadiriGammaBounds.lean") < positions[0]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/KadiriInitialRegion.lean")
+
+
+def test_bootstrap_budget_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriTransformGap",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriBootstrapBudget",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriGammaBudget",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriBootstrapCorrection",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriBootstrapMaster",
+    )
+    positions = [foundations.index(f"lake build \\\n            +{module}\n") for module in modules]
+    assert foundations.index("lake env lean test/lean/KadiriInitialRegion.lean") < positions[0]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index("lake env lean test/lean/KadiriBootstrap.lean")

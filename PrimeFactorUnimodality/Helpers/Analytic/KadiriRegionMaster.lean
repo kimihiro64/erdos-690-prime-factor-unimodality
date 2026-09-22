@@ -1,11 +1,12 @@
-import PrimeFactorUnimodality.Helpers.Analytic.KadiriRegionMaster
+import PrimeFactorUnimodality.Helpers.Analytic.KadiriExplicitMaster
+import PrimeFactorUnimodality.Helpers.Analytic.KadiriOuterSeparation
 
-/-! # The actual smoothed master with proved high-height separation
+/-! # The smoothed master for successive proved zero-free regions
 
-Use the initial numerical region and the explicit low-height input to
-discharge the former outer-zero separation hypothesis at every harmonic.
-No high-height zero-free-region or zero-counting hypothesis remains.
-The low-height data and the final numerical improvement are not asserted.
+The high-region parameter is arbitrary and must be supplied by a proved
+previous stage. Low-height data is kept separate. The existing separation
+argument discharges both the outer cutoff and the distinguished zero's
+upper strip bound; no numerical region is asserted by this generalization.
 -/
 
 namespace PrimeFactorUnimodality
@@ -14,8 +15,9 @@ noncomputable section
 
 open Complex Real
 
-/-- The proved initial region supplies the separation in the actual explicit master. -/
-theorem kadiriWeight_initial_region_master_nonneg {θ η η₀ σ₀ σ δ κ z H A : ℝ}
+/-- Any established region supplies the two separation inputs to the explicit master. -/
+theorem kadiriWeight_region_master_nonneg {θ η η₀ σ₀ σ δ κ z H A R T : ℝ}
+    (hR : 0 < R) (hT : 1 < T)
     (hθ : π / 2 < θ ∧ θ < π) (hη : 0 < η) (hη₀ : η ≤ η₀)
     (hσ₀ : 1 / 2 < σ₀) (hσ : σ₀ ≤ σ) (hσ₁ : σ ≤ 1) (hδ : 1 / 2 ≤ δ)
     (hκ : 0 ≤ κ) (hκ₁ : κ ≤ 1)
@@ -30,9 +32,13 @@ theorem kadiriWeight_initial_region_master_nonneg {θ η η₀ σ₀ σ δ κ z 
     (hβ : 1 / 2 < (riemannXiDivisorZeroValue p).re)
     (hηρ : η = 1 - (riemannXiDivisorZeroValue p).re)
     (hpoly : ∀ u : ℝ, 0 ≤ ∑ i ∈ S, a i * Real.cos (k i * u))
-    (hσA : 1 - 1 / (56 * Real.log A) ≤ σ)
+    (hσA : 1 - 1 / (R * Real.log A) ≤ σ)
     (hlow : ∀ q : RiemannXiDivisorZeroIndex,
-      |(riemannXiDivisorZeroValue q).im| < 10 ^ 9 → (riemannXiDivisorZeroValue q).re ≤ σ)
+      |(riemannXiDivisorZeroValue q).im| < T → (riemannXiDivisorZeroValue q).re ≤ σ)
+    (hhigh : ∀ q : RiemannXiDivisorZeroIndex,
+      T ≤ |(riemannXiDivisorZeroValue q).im| →
+        1 / (R * Real.log |(riemannXiDivisorZeroValue q).im|) ≤
+          1 - (riemannXiDivisorZeroValue q).re)
     (hharm : ∀ i ∈ S, |k i * (riemannXiDivisorZeroValue p).im| + H ≤ A)
     (hA : ∀ i ∈ S, k i * (riemannXiDivisorZeroValue p).im ≠ 0 →
       10 ^ 9 ≤ |k i * (riemannXiDivisorZeroValue p).im| + H) :
@@ -46,10 +52,16 @@ theorem kadiriWeight_initial_region_master_nonneg {θ η η₀ σ₀ σ δ κ z 
       kadiriWeight θ η 0 * (∑ i ∈ S, a i * smoothedGammaFactorMajorant κ σ
         (k i * (riemannXiDivisorZeroValue p).im)) +
       (∑ i ∈ S, a i) * ((1 + κ) * η ^ 3 * (-kadiriKernel₂ θ 0) / 4) := by
-  exact kadiriWeight_region_master_nonneg (by norm_num) (by norm_num)
-    hθ hη hη₀ hσ₀ hσ hσ₁ hδ hκ hκ₁ hκ₂ hκ₃
-    hc hz hH hgap hcut S a k ha j hj hk p hβ hηρ hpoly hσA hlow
-    (fun q hq => xi_zero_gap_initial (riemannXiDivisorZeroValue_eq_zero q) hq) hharm hA
+  have hsep := kadiri_outer_separation_of_region hR hT hσA hlow hhigh
+  have hβσ : (riemannXiDivisorZeroValue p).re ≤ σ := by
+    have hh := hharm j hj
+    rw [hk, one_mul] at hh
+    by_contra hn
+    have hhsep := hsep p (fun hp => hn hp.2)
+    linarith
+  exact kadiriWeight_explicit_master_nonneg hθ hη hη₀ hσ₀ hσ hσ₁ hδ hκ hκ₁ hκ₂ hκ₃
+    hc hz hH hgap hcut S a k ha j hj hk p hβ hβσ hηρ hpoly
+    (fun i hi q hq => (hharm i hi).trans (hsep q hq)) hA
 
 end
 

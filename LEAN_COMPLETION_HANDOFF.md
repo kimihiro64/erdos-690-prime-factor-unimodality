@@ -45,6 +45,41 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Exact transform gap and normalized bootstrap (newest, 2026-09-22)
+
+`KadiriTransformGap` identifies the retained transform minus the
+zero-harmonic pole exactly with the paper's `K(w,theta)` integral, using
+the existing positive-rescaling theorem. The actual working strip gives
+`0<=w<=1`; no unjustified global monotonicity of this signed integral is used.
+
+`KadiriBootstrapBudget` extracts the zero harmonic for arbitrary finite
+sets of natural frequencies. `KadiriGammaBudget` isolates the leading
+`log(t)` with coefficient sum excluding zero and proves that its explicit
+residual decreases with positive base height. `KadiriBootstrapCorrection`
+then rewrites the complete budget as `B*eta*log(t)+C`, preserving every
+linear, quadratic, and cubic contribution, including signed linear terms.
+
+`KadiriRegionMaster` accepts any previously established region, retaining
+the separate low-height input. The old constant-56 master is now its
+specialization with the same public statement. `KadiriBootstrapMaster`
+derives `K<=B*eta*log(t)+C` for the actual xi divisor. A proved numerical
+margin `B/Rnext<=K-C` would give the improved gap
+`1/(Rnext*log(t))<=1-beta`; positivity of `B` is derived from the positive
+distinguished coefficient, kernel, and `kappa<1`.
+
+The six new leaves and preserved initial master compile. The 12 new Lean
+examples and both previous initial-region and Gamma regressions pass.
+All 14 new exports and the preserved initial master audit with only
+`propext`, `Classical.choice`, and `Quot.sound`. CI builds the leaves
+serially before certificate jobs.
+
+That margin has NOT yet been proved for the target constants. Next:
+derive usable uniform bounds for `K` and the correction, substitute the
+existing four-moment bound, refine the coarse Gamma errors if needed, and
+verify admissible parameter ranges for the actual iterations. Finite
+low-height information and the three Dusart providers remain open. The
+conditional margin theorem is not the final numerical zero-free theorem.
+
 ### Proved initial numerical region and outer separation (newest, 2026-09-22)
 
 `ZetaZeroFreeInitial.xi_zero_gap_initial`, in namespace
