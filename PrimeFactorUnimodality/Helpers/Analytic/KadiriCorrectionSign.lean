@@ -64,6 +64,39 @@ theorem kadiriCorrectionPolynomial_nonpos_of_endpoint
   dsimp only [c₁, c₂, c₃, kadiriCorrectionPolynomial]
   ring
 
+/-- Preserve the endpoint's signed saving rather than merely bounding the correction by zero. -/
+theorem kadiriCorrectionPolynomial_le_scaled_endpoint
+    {θ η η₀ σ₀ κ δ M P L₀ L₁ G q : ℝ} {S : Finset ℕ} {a : ℕ → ℝ}
+    (hη : 0 ≤ η) (hη₀ : 0 < η₀) (hηη₀ : η ≤ η₀)
+    (h₂ : 0 ≤ kadiriCorrectionQuadratic θ σ₀ κ M P L₀ L₁ q)
+    (h₃ : 0 ≤ kadiriCorrectionCubic θ η₀ σ₀ κ δ L₀ S a) :
+    kadiriCorrectionPolynomial θ η η₀ σ₀ κ δ M P L₀ L₁ G q S a ≤
+      (η / η₀) * kadiriCorrectionPolynomial θ η₀ η₀ σ₀ κ δ M P L₀ L₁ G q S a := by
+  let c₁ := kadiriCorrectionLinear θ η₀ σ₀ κ δ G M L₁ q (a 1)
+  let c₂ := kadiriCorrectionQuadratic θ σ₀ κ M P L₀ L₁ q
+  let c₃ := kadiriCorrectionCubic θ η₀ σ₀ κ δ L₀ S a
+  have hmono : c₁ + c₂ * η + c₃ * η ^ 2 ≤ c₁ + c₂ * η₀ + c₃ * η₀ ^ 2 :=
+    add_le_add (add_le_add le_rfl (mul_le_mul_of_nonneg_left hηη₀ h₂))
+      (mul_le_mul_of_nonneg_left ((sq_le_sq₀ hη hη₀.le).mpr hηη₀) h₃)
+  have h := mul_le_mul_of_nonneg_left hmono hη
+  convert! h using 1
+  · dsimp only [c₁, c₂, c₃, kadiriCorrectionPolynomial]
+    ring
+  · dsimp only [c₁, c₂, c₃, kadiriCorrectionPolynomial]
+    field_simp
+
+/-- On a scale band bounded away from zero, a negative endpoint gives a uniform negative saving. -/
+theorem kadiriCorrectionPolynomial_le_band_endpoint
+    {θ η η₁ η₀ σ₀ κ δ M P L₀ L₁ G q : ℝ} {S : Finset ℕ} {a : ℕ → ℝ}
+    (hη : 0 ≤ η) (hη₀ : 0 < η₀) (hηη₀ : η ≤ η₀) (hη₁η : η₁ ≤ η)
+    (h₂ : 0 ≤ kadiriCorrectionQuadratic θ σ₀ κ M P L₀ L₁ q)
+    (h₃ : 0 ≤ kadiriCorrectionCubic θ η₀ σ₀ κ δ L₀ S a)
+    (hend : kadiriCorrectionPolynomial θ η₀ η₀ σ₀ κ δ M P L₀ L₁ G q S a ≤ 0) :
+    kadiriCorrectionPolynomial θ η η₀ σ₀ κ δ M P L₀ L₁ G q S a ≤
+      (η₁ / η₀) * kadiriCorrectionPolynomial θ η₀ η₀ σ₀ κ δ M P L₀ L₁ G q S a :=
+  (kadiriCorrectionPolynomial_le_scaled_endpoint hη hη₀ hηη₀ h₂ h₃).trans
+    (mul_le_mul_of_nonpos_right (div_le_div_of_nonneg_right hη₁η hη₀.le) hend)
+
 end
 
 end PrimeFactorUnimodality

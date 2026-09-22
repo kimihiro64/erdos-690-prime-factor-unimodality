@@ -40,6 +40,8 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Trigonometric.Autocorrelation` | `Mathlib/Analysis/SpecialFunctions/Trigonometric/Autocorrelation.lean` | project-verified | Exact cosine sum-of-squares identity; global phase nonnegativity and linear-size correlation formulas |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.AffineRatio` | `Mathlib/Analysis/SpecialFunctions/Log/AffineRatio.lean` | project-verified | Monotonicity and endpoint bounds for `log t / log (a*t+b)` on `t>1`, for `a>=1`, `b>=0` |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.JensenAverage` | `Mathlib/Analysis/Complex/JensenAverage.lean` | project-verified | Jensen divisor comparison retaining the actual circle average, extracted from Mathlib's supremum-bound proof |
 | `PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.CircleAverageAntipodal` | `Mathlib/MeasureTheory/Integral/CircleAverageAntipodal.lean` | project-verified | Antipodal invariance, integrability, and circle bounds from opposite-point pairs |
 | `PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.Trapezoid` | `Mathlib/MeasureTheory/Integral/IntervalIntegral/Trapezoid.lean` | project-verified | Exact complex trapezoid remainder and integral second-derivative norm bound |

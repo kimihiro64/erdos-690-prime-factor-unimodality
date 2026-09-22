@@ -45,6 +45,60 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Exact polynomial and uniform height-ray bootstrap (newest, 2026-09-22)
+
+`MossinghoffTrudgianPolynomial` now defines the degree-sixteen generating
+sequence from table 5 of arXiv:1410.3926 as exact rationals and recomputes
+its normalized autocorrelations. It does not equate these coefficients
+with the paper's separately rounded cosine column. The zero coefficient
+is exactly one, the normalization is positive, and global nonnegativity
+at every real phase follows from a proved sum-of-squares identity.
+Coefficient signs, `a1>a0`, and numerical bounds on their total remain
+to be verified. Do not infer coefficient signs from phase nonnegativity.
+
+The Mathlib-only `Trigonometric.Autocorrelation` candidate supplies the
+general identity and the efficient positive-frequency formula
+`2 * sum_{j<n-k} c[j]*c[j+k]`. The finite arithmetic can therefore use
+one short row per frequency, not expand the defining double sums.
+`Log.AffineRatio` proves the paper's needed monotonicity of
+`log(t)/log(n*t+H)` for `n>=1`, `H>=0`, and `t>1`.
+
+`KadiriBootstrapParameters` chooses `sigma(t)=1-1/(R*log(n*t+H))` and
+derives the harmonic cutoff, increasing real coordinate, endpoint scale,
+and fixed transform interval. `KadiriUniformBootstrap` applies these to
+the actual moment-budget theorem. Its conclusion covers every divisor
+zero with `abs(imaginary part)>=T`, both signs and the entire critical
+strip. Conjugation reuses the existing multiplicity-preserving equivalence.
+It uses the conservative mass parameter `z=-1` and the transform interval
+`[(r/R)*log(T)/log(n*T+H), 1]`; sufficient numerical margins for this
+box have NOT been demonstrated. An exploratory, non-certified quadrature
+check finds this box insufficient near the target constant. The sharper
+`xi_zero_gap_of_moment_band_budget` now retains the negative endpoint
+correction on a scale band: `C(eta) <= (eta1/eta0)*C(eta0)` when
+`eta1<=eta<=eta0`. This follows by monotonicity of `C(eta)/eta`, not an
+unproved assertion that `C` decreases. Its zero-lower-scale specialization
+preserves `xi_zero_gap_of_moment_budget` unchanged.
+
+For the small-scale branch, `kadiriBootstrapHeightLower_of_small_scale`
+derives `t>=exp(1/(R*eta1))` from the PRIOR region when `eta<=eta1`.
+Here `eta` is the actual zero gap; do not replace `R` by the target
+constant `r` without another argument. Combine this higher threshold with
+the proved transform interval bounds, refining intervals or proving the
+needed signed-transform monotonicity before final numerical verification.
+
+The remaining inputs are explicit: admissible static parameters, four
+moment bounds and exponential endpoint, actual low-height locations,
+the previous region, and the correction/transform endpoint budgets.
+The proved initial region is still `R=56`, not `5.7`. The three final
+Dusart providers and the exact all-`k` conclusion are still unfinished.
+
+Both independent candidates, their consumers, the uniform actual bootstrap,
+and the candidate facade compile. The 20 new regression examples pass,
+as do the 20 moment and 14 bootstrap regressions. All 26 audited new
+theorem closures use only `propext`, `Classical.choice`,
+and `Quot.sound`. CI builds these modules serially in `lean-foundations`,
+before certificate jobs, and runs the new regression file.
+
 ### Uniform correction envelope and target-gap bootstrap (newest, 2026-09-22)
 
 `XiLehmanAffine` bounds the actual positive-height majorant by

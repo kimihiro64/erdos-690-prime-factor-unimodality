@@ -492,3 +492,29 @@ correction nonpositivity. The numerical inputs remain explicit obligations.
 The actual bootstrap and all five envelope modules compile. The 20 new
 examples and 65 preserved analytic examples pass; all 20 audited theorem
 closures use only the three standard logical axioms.
+
+## Exact polynomial and uniform parameter follow-up
+
+The source of the polynomial construction is Mossinghoff--Trudgian,
+[arXiv:1410.3926](https://arxiv.org/pdf/1410.3926), section 5 and table 5.
+The new `Trigonometric.Autocorrelation` candidate uses Mathlib's finite
+sum multiplication, trigonometric subtraction, and frequency regrouping;
+the focused sibling checks did not supply this exact cosine-coefficient
+identity. The published generating decimals are treated as exact rationals,
+and their cosine coefficients are recomputed, not identified with another
+rounded column. The proof covers every phase, with signed input sequences.
+
+`Log.AffineRatio` uses logarithmic monotonicity and elementary reciprocal
+comparison. Its uniform parameter consumer and the actual region theorem
+reuse the existing bootstrap and divisor conjugation; no zero indexing,
+reflection, or numerical region is reconstructed or silently assumed.
+The final numerical admissibility and low-height obligations remain open.
+
+Both Mathlib-only candidates and the actual uniform bootstrap compile.
+The actual band-budget variant also retains the negative correction,
+using monotonicity of the normalized cubic and the existing moment bound.
+Its small-scale companion derives the higher height from the previous
+region. No monotonicity of the signed transform or the unnormalized
+correction is silently assumed. The 20 polynomial/parameter examples and
+34 preserved moment/bootstrap examples pass; all 26 audited new exports
+have only the three standard logical axioms in their theorem closures.

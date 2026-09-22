@@ -206,6 +206,25 @@ def test_bootstrap_budget_ci_build_order() -> None:
     )
 
 
+def test_uniform_bootstrap_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Trigonometric.Autocorrelation",
+        "PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.AffineRatio",
+        "PrimeFactorUnimodality.Helpers.Analytic.MossinghoffTrudgianPolynomial",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriBootstrapParameters",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriUniformBootstrap",
+    )
+    positions = [foundations.index(f"lake build \\\n            +{module}\n") for module in modules]
+    assert foundations.index("lake env lean test/lean/KadiriMomentEnvelope.lean") < positions[0]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index(
+        "lake env lean test/lean/KadiriPolynomialParameters.lean"
+    )
+
+
 def test_main_ci_preserves_running_proof_build() -> None:
     root = Path(__file__).resolve().parents[2]
     workflow = (root / ".github/workflows/ci.yml").read_text()

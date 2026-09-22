@@ -608,6 +608,17 @@ jobs:
           lake env lean test/lean/KadiriTransformClosedForm.lean
           lake env lean test/lean/KadiriMomentEnvelope.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Trigonometric.Autocorrelation
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.AffineRatio
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.MossinghoffTrudgianPolynomial
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriBootstrapParameters
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriUniformBootstrap
+          lake env lean test/lean/KadiriPolynomialParameters.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

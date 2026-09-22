@@ -8,7 +8,9 @@ import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogTrape
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.DigammaConjugation
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrability.LogCauchy
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.AffineRatio
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.Deriv
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Trigonometric.Autocorrelation
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Trigonometric.ZeroCount
 
 /-! # Reusable special-function candidates
