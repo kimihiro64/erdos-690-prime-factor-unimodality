@@ -69,6 +69,18 @@ theorem tsum_integral_mul_xi_hadamardAtoms
     (fun p => (riemannXi_zero_mem_critical_strip (riemannXiDivisorZeroValue_eq_zero p)).2)
     (summable_riemannXiDivisorZero_norm_inv_rpow (by norm_num)) hH hBound
 
+/-- Absolute integrability of the weighted xi logarithmic derivative itself. -/
+theorem integrable_mul_logDeriv_riemannXi
+    {c C : ℝ} (hc : 1 < c) (hC : 0 ≤ C) {H : ℝ → ℂ} (hH : Integrable H)
+    (hBound : ∀ t, ‖H t‖ ≤ C / ‖(c : ℂ) + (t : ℂ) * I‖ ^ 2) :
+    Integrable (fun t : ℝ => H t * logDeriv riemannXi ((c : ℂ) + (t : ℂ) * I)) := by
+  apply ((hH.mul_const (logDeriv riemannXi 0)).add
+    (integrable_mul_tsum_xi_hadamardAtoms hc hC hH hBound)).congr
+  filter_upwards with t
+  rw [logDeriv_riemannXi_eq_zero_add_tsum
+    (s := (c : ℂ) + (t : ℂ) * I) (by simpa using hc)]
+  simp only [Pi.add_apply, mul_add]
+
 /-- The integrated xi logarithmic derivative equals the integrated regularized zero series. -/
 theorem integral_mul_logDeriv_riemannXi_eq_tsum
     {c C : ℝ} (hc : 1 < c) (hC : 0 ≤ C) {H : ℝ → ℂ} (hH : Integrable H)

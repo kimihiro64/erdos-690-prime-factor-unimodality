@@ -28,6 +28,18 @@ variable {f g h : ℝ → ℂ} {d M : ℝ}
 
 include hd hM hf hg hh hfg hgh hfd hg₀ hgd hbound hc hcs
 
+/-- The actual smoothed xi logarithmic derivative is absolutely integrable. -/
+theorem integrable_finiteLaplace_mul_logDeriv_riemannXi :
+    Integrable (fun t : ℝ => (finiteLaplace f d (s - ((c : ℂ) + (t : ℂ) * I)) -
+        f 0 / (s - ((c : ℂ) + (t : ℂ) * I))) *
+      logDeriv riemannXi ((c : ℂ) + (t : ℂ) * I)) := by
+  have hC : 0 ≤ M / (s.re - c) * (1 + ‖s‖ / (s.re - c)) ^ 2 :=
+    mul_nonneg (div_nonneg hM (sub_pos.mpr hcs).le) (sq_nonneg _)
+  exact integrable_mul_logDeriv_riemannXi hc hC
+    (integrable_finiteLaplace_sub_pole_contour hd hM hf hg hh hfg hgh hfd hg₀ hgd hbound hcs)
+    (norm_finiteLaplace_sub_pole_contour_le hd hM hf hg hh hfg hgh hfd hg₀ hgd hbound
+      (by linarith) hcs)
+
 /-- The actual pole-subtracted Laplace weight satisfies absolute xi-series Fubini. -/
 theorem summable_integral_norm_finiteLaplace_xi_atoms :
     Summable (fun p : RiemannXiDivisorZeroIndex => ∫ t : ℝ,

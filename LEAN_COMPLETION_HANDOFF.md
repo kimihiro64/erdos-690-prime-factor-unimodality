@@ -45,6 +45,50 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Gamma pairing and the right-half-plane explicit formula (newest, 2026-09-22)
+
+`SmoothedExplicitFormula.smoothedVonMangoldt_explicitFormula_of_one_lt_re`
+now proves, for EVERY `Re(s)>1`,
+
+`V_f(s)-f(0)*L(s) = R(s-1)-sum_rho R(s-rho)-sum_{n>=1} R(s+2n)`,
+
+where `R(w)=finiteLaplace f d w-f(0)/w` and `L=-zeta'/zeta`. The nontrivial
+zero sum uses the actual xi divisor with multiplicities. Inputs are the
+existing interval regularity/endpoint conditions, a second-derivative bound,
+and `f(u)=0` for `u>d`. The intermediate contour is chosen internally as
+`c=(1+Re(s))/2`; no contour identity or explicit formula is assumed.
+
+`DigammaHadamard` rewrites the checked PNT digamma expansion into genus-one
+atoms at `shiftedGammaPole n=-2*(n+1)`, and proves their three-halves moment
+from Mathlib's real p-series test. `DigammaHadamardIntegral` proves weighted
+integrability and absolute interchange with cancellation of Euler's constant.
+`SmoothedDigammaIntegral` then evaluates the actual smoothing weight against
+each pole, giving exactly `-2*sum_n R(s+2*(n+1))`, and proves summability of
+that remainder series. These gamma results hold on EVERY `0<c<Re(s)`.
+`ZetaContourDecomposition` justifies splitting the actual zeta logarithmic
+derivative into four integrable terms; the `log pi` constant cancels.
+The xi modules also now expose integrability of the weighted logarithmic
+derivative itself, as needed by this decomposition.
+
+All 14 new exported theorems and the original
+`Complex.hasSum_digamma_of_re_pos` pass axiom audits using only `propext`,
+`Classical.choice`, and `Quot.sound`. The digamma source is Robby Sneiderman's
+Apache-2.0 PNT module at locked revision
+`f6147e7572ab3abe5428101bc0b13627bcb005df`; no headline explicit formula
+is imported. The nonzero cubic regression tests the gamma identity at
+`s=3/4+iy`, `c=1/4` for every height, and the assembled formula at every
+symbolic `s` with `Re(s)>1`. CI builds these leaves and consumers serially
+before `test/lean/SmoothedInversion.lean`.
+Logs: `.research/dusart-{digamma*,smoothed-digamma,zeta-decomposition,explicit-formula,formula-*}`.
+
+Next establish the paper's **half-line gamma remainder representation**
+in terms of `SmoothedGammaIntegrand`, and the **continuation below one**
+needed for `Re(s)>1/2`. The gamma identity above is an evaluated shifted
+digamma contour, not yet that real-digamma boundary representation.
+Then prove the sharp estimates and finite analytic inputs needed by the
+three Dusart providers. This does not finish those providers or the all-`k`
+theorem; do not substitute the proved `Re(s)>1` domain for the required one.
+
 ### Evaluated xi contour identity (newest, 2026-09-22)
 
 `SmoothedXiInterchange.integral_finiteLaplace_mul_logDeriv_riemannXi_eq_remainders`
@@ -91,11 +135,11 @@ CI builds the candidates and consumers serially and runs
 `test/lean/HadamardIntegral.lean` and `test/lean/SmoothedInversion.lean`.
 Logs: `.research/dusart-{xi,smoothed-xi-interchange,laplace-resolvent,hadamard-regression}*`.
 
-Next prove the **gamma pairing and full smoothed explicit formula**, then
-its continuation to `Re(s)>1/2` and the sharp estimates needed by Dusart.
-The prime-side inversion and whole xi zero pairing are now proved and must
-not be redone. Gamma-integral convergence alone is not its evaluation.
-The three global Dusart providers and the final all-`k` theorem remain open.
+The next section added above completes the shifted gamma pairing and the
+regularized explicit formula on `Re(s)>1`. Its continuation to `Re(s)>1/2`,
+the half-line gamma boundary representation, and the sharp estimates needed
+by Dusart remain. The prime-side inversion and whole xi zero pairing must
+not be redone. The three global Dusart providers and all-`k` theorem remain open.
 
 ### Absolute inversion and the actual prime contour identity (newest, 2026-09-22)
 

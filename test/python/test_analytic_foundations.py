@@ -100,3 +100,24 @@ def test_smoothed_xi_ci_build_order() -> None:
     assert positions == sorted(positions)
     assert positions[4] < foundations.index("lake env lean test/lean/HadamardIntegral.lean")
     assert positions[-1] < foundations.index("lake env lean test/lean/SmoothedInversion.lean")
+
+
+def test_smoothed_explicit_formula_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "Helpers.Analytic.SmoothedPrimeIntegral",
+        "Helpers.Analytic.SmoothedXiInterchange",
+        "Helpers.Analytic.DigammaHadamard",
+        "Helpers.Analytic.DigammaHadamardIntegral",
+        "Helpers.Analytic.SmoothedDigammaIntegral",
+        "Helpers.Analytic.ZetaContourDecomposition",
+        "Helpers.Analytic.SmoothedExplicitFormula",
+    )
+    positions = [
+        foundations.index(f"lake build \\\n            +PrimeFactorUnimodality.{module}")
+        for module in modules
+    ]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index("lake env lean test/lean/SmoothedInversion.lean")

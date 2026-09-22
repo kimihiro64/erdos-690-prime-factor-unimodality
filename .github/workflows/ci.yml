@@ -250,6 +250,16 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.XiHadamardIntegral
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.SmoothedXiInterchange
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DigammaHadamard
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DigammaHadamardIntegral
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SmoothedDigammaIntegral
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaContourDecomposition
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SmoothedExplicitFormula
           lake env lean test/lean/SmoothedInversion.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds

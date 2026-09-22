@@ -9,8 +9,9 @@ Absolute Laplace inversion and a proved interchange identify the weighted
 von Mangoldt series with its right-hand contour integral. The original
 series at `s` is subtracted with coefficient `f(0)`, leaving precisely the
 pole-subtracted transform used in the contour shift. This proves the
-inversion and prime-series exchange step of Kadiri section 3.1; the zero
-and gamma contributions after contour displacement remain separate work.
+inversion and prime-series exchange step of Kadiri section 3.1. The zero
+and gamma pairings are assembled in `SmoothedExplicitFormula` on the right
+half-plane; extension to the larger domain remains a separate obligation.
 -/
 
 namespace PrimeFactorUnimodality
