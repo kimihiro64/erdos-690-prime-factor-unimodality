@@ -15,30 +15,22 @@
   `LEAN_COMPLETION_HANDOFF.md`.  In particular, split the finite interval
   monolith before replay and replace the 2,175-file record-gap owner forest
   with compact owner rows using `RecordGapOwnerRows.lean`.
-- [ ] Extend the record-gap certificate to the full published block and raise
-  the finite record range to the source proof's cutoff `k = 8,600,001`.
-  The closed finite descent range is currently `k ≤ 7,430,000`; it overlaps
-  the independently proved tail starting at `k ≥ 7,300,001`.
-  The archive leaves 10,918 interior terms without a listed factor; closing
-  this item requires kernel replay of their published Fermat tests or new
-  divisor certificates, not merely trusting the 64-bit residue log.  The
-  replay has been rendered as 171 shared Lean row modules (64 witnesses per
-  row), preserving the original witness theorem names without one source file
-  per witness.  The row modules are the reusable unit; the 10,918 witness
-  theorems remain individually addressable inside them.
-  `scripts/audit_full_record_gap.py` now independently accounts for every one
-  of the 1,113,105 interior offsets: 1,087,142 have cheap primorial owners,
-  15,045 use listed factors, and exactly 10,918 remain in the replay queue
-  (manifest semantic SHA-256 `aa4dbd835d585be69cbc8d4529cfef5e72f19b13f21dfdafcc5359e4e0d403fd`).
+- [x] Replace the full-record-gap branch with the uniform CRT tail from
+  `k = 38001`. Finite Abel summation supplies the descent and the ordinary
+  Mertens estimate supplies the ascent, retaining the existing prime-counting,
+  theta, and short-interval assumptions. The tail and generic all-`k`
+  reduction compile; their axiom audits contain only Lean's standard logical
+  axioms. The 10,918-test full-gap replay is no longer a classification or CI
+  dependency. Its sources, archive audit, and caches remain preserved.
 - [ ] Discharge the explicit theta, prime-counting, and short-interval
   analytic interfaces from kernel-checked theorems.
   The prime-counting tail is now reduced by a proved adapter from Dusart's
   explicit asymptotic formula (with remainder `7.32 / log^3 x`); the remaining
   obligation is the asymptotic provider itself together with the finite
   cutoff providers.
-  The reciprocal-prime interface is now discharged by the proved Mertens
-  estimate throughout the uniform tail `k ≥ 8,600,002`; the focused closed
-  reduction and tail theorem both compile without that hypothesis.
+  The reciprocal-prime interface is now discharged throughout the uniform
+  tail `k ≥ 38,001` by the finite prime-counting shell and ordinary Mertens
+  upper bound; the focused reduction and tail compile without that hypothesis.
   The proved elementary Chebyshev core from `PrimeNumberTheoremAnd` is now
   ported through `psi_upper`, without its `native_decide`-based later check.
   Its compiled consequences give `0.86 x ≤ theta x ≤ 1.11 x` from `250000`

@@ -5,6 +5,36 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
+## Current override: analytic replacement (2026-09-22)
+
+The full record-gap certificate is no longer required by `Solution`. The
+instructions below about extending the full gap through `8600001` are
+historical, not active obligations. Do not restore that dependency or its
+181-job replay matrix. The existing smaller gap and twin certificates remain.
+
+`PrimeReciprocalAbel.lean` and `PrimeCountingReciprocalShell.lean` prove the
+finite reciprocal-prime shell directly from natural prime-counting bounds,
+including the floor correction. `TailShellNumerics.lean` supplies the uniform
+descent margin. `UniformTailClosedMertens.lean` now covers every `k >= 38001`,
+using the existing ordinary Mertens estimate only for ascent. Its assumptions
+are still prime counting, theta, and the uniform prime pair; it introduces no
+sharp reciprocal-prime assumption. The tail and certificate-independent
+`completeClassification_of_finite_prefix_and_primeCounting` both elaborate,
+with axiom audits listing only `propext`, `Classical.choice`, and `Quot.sound`.
+
+`CompleteClassificationCore.lean` applies this reduction to the existing
+prefix through `38000`. Compatibility declarations named `full_record`
+delegate to it without importing `FullRecordRange`. Challenge and Solution
+are unchanged. CI checks the reduction in `analytic-tail`, then checks the
+actual finite/provider assembly in the complete build. The three Dusart
+providers below still require independent verification; the replacement
+does not establish those inputs or certify the whole public theorem.
+
+`scripts/check_tail_replacement.py` rejects full-gap imports transitively from
+`Solution`; it runs in the fast pre-commit checks and CI. See
+`RECORD_GAP_CERTIFICATES.md` for the proof boundary and verification command.
+Legacy generated sources and caches are preserved, not scheduled for replay.
+
 ## Priority order
 
 1. Finish and elaborate every non-certificate module.

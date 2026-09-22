@@ -5,10 +5,9 @@ set_option autoImplicit false
 
 /-! # Uniform-tail bounds from the proved Mertens estimate
 
-Beyond the record range, the coarser but fully proved `O(1 / log x)`
-reciprocal-prime estimate is already strong enough for the descent.  This file
-keeps that numerical argument separate from the sharper conditional Dusart
-interface.
+The ordinary `O(1 / log x)` reciprocal-prime estimate supplies the ascent
+from `r = 38000`. The older descent estimate remains available at its higher
+cutoff; the active tail instead uses the finite Abel shell for descent.
 -/
 
 namespace PrimeFactorUnimodality
@@ -187,20 +186,19 @@ theorem tail_descent_numeric_closed_mertens
   push_cast at raised ⊢
   nlinarith
 
-private theorem log_log_nat_gt_27_div_10 {r : Nat} (hr : 7300000 ≤ r) :
-    (27 : Real) / 10 < Real.log (Real.log r) := by
-  have logRLower := log_nat_gt_31_div_2 hr
-  have fifteenLt : (15 : Real) < Real.log r := by linarith
-  have logFifteen : (27 : Real) / 10 < Real.log 15 := by
-    rw [show (15 : Real) = 3 * 5 by norm_num,
-      Real.log_mul (by norm_num) (by norm_num)]
-    nlinarith [Real.log_three_gt_d9, Real.log_five_gt_d9]
-  exact logFifteen.trans_le
-    (Real.log_le_log (by norm_num) fifteenLt.le)
+private theorem log_log_nat_gt_two_closed_mertens {r : Nat} (hr : 38000 ≤ r) :
+    (2 : Real) < Real.log (Real.log r) := by
+  have logRLower := log_nat_gt_1054_div_100 hr
+  have nineLt : (9 : Real) < Real.log r := by linarith
+  have logNine : (2 : Real) < Real.log 9 := by
+    rw [show (9 : Real) = 3 ^ 2 by norm_num, Real.log_pow]
+    norm_num
+    nlinarith [Real.log_three_gt_d9]
+  exact logNine.trans_le (Real.log_le_log (by norm_num) nineLt.le)
 
 private theorem tail_closed_mertens_ascent_error_small
     (thetaBounds : HasDusartThetaBounds)
-    {r q : Nat} (hr : 7300000 ≤ r)
+    {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q) :
     mertensErrorConstant /
         Real.log ((9 * primorial q : Nat) : Real) < (1 : Real) / 300 := by
@@ -225,7 +223,7 @@ private theorem tail_closed_mertens_ascent_error_small
 
 theorem tail_ascent_bracket_lt_log_closed_mertens
     (thetaBounds : HasDusartThetaBounds)
-    {r q : Nat} (hr : 7300000 ≤ r)
+    {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q)
     (qUpper : (q : Real) < (2519 / 2500 : Real) *
       ((491 / 500 : Real) * r / Real.log r)) :
@@ -235,14 +233,14 @@ theorem tail_ascent_bracket_lt_log_closed_mertens
       Real.log r := by
   have ratio := tail_loglog_nine_primorial_lt_log_ratio
     thetaBounds (show 38000 ≤ r by omega) scaleLtQ qUpper
-  have logLogLarge := log_log_nat_gt_27_div_10 hr
+  have logLogLarge := log_log_nat_gt_two_closed_mertens hr
   have errorSmall := tail_closed_mertens_ascent_error_small
     thetaBounds hr scaleLtQ
   nlinarith
 
 theorem tail_ascent_numeric_closed_mertens
     (thetaBounds : HasDusartThetaBounds)
-    {r q : Nat} (hr : 7300000 ≤ r)
+    {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q)
     (qUpper : (q : Real) < (2519 / 2500 : Real) *
       ((491 / 500 : Real) * r / Real.log r)) :

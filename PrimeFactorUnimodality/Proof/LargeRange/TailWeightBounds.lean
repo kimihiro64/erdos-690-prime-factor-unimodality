@@ -83,17 +83,19 @@ theorem tail_log_primeUpper_lt {r : Nat} (hr : 38000 ≤ r) :
   linarith
 
 private theorem log_primorial_ratio_constant :
-    (-5 / 12 : Real) < Real.log ((208 : Real) / 315) := by
-  have ratioPos : (0 : Real) < (208 : Real) / 315 := by norm_num
-  have inversePower : ((315 : Real) / 208) ^ 5 < 2 ^ 3 := by norm_num
+    (-2076 / 5000 : Real) < Real.log ((208 : Real) / 315) := by
+  have inversePower : ((315 : Real) / 208) ^ 26 < 2 ^ 3 * 3 ^ 5 * 5 ^ 2 := by norm_num
   have logged := Real.log_lt_log (by positivity) inversePower
-  rw [Real.log_pow, Real.log_pow] at logged
+  rw [Real.log_pow, Real.log_mul (by positivity) (by positivity),
+    Real.log_mul (by positivity) (by positivity), Real.log_pow,
+    Real.log_pow, Real.log_pow] at logged
   have inverseLog : Real.log ((315 : Real) / 208) =
       -Real.log ((208 : Real) / 315) := by
     rw [show (315 : Real) / 208 = ((208 : Real) / 315)⁻¹ by norm_num,
       Real.log_inv]
   rw [inverseLog] at logged
-  nlinarith [Real.log_two_lt_d9]
+  norm_num at logged
+  nlinarith [Real.log_two_lt_d9, Real.log_three_lt_d9, Real.log_five_lt_d9]
 
 private theorem log_527_div_50_lt :
     Real.log ((527 : Real) / 50) < (23559 : Real) / 10000 := by
@@ -147,12 +149,12 @@ private theorem log_10372_gt_nine : (9 : Real) < Real.log 10372 := by
 sharp Dusart reciprocal error or the coarser proved Mertens error.  Keeping
 this estimate separate lets both analytic providers share the same prime and
 primorial argument. -/
-theorem tail_descent_loglog_shell_lower
+theorem tail_descent_loglog_shell_lower_sharp
     (thetaBounds : HasDusartThetaBounds)
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q) :
-    Real.log r - 2 * Real.log (Real.log r) - 5 / 12 <
+    Real.log r - 2 * Real.log (Real.log r) - 2076 / 5000 <
       Real.log (Real.log ((primorial q : Nat) : Real)) -
         Real.log (Real.log ((primeAt (r - 1) - 1 : Nat) : Real)) := by
   let P : Nat := primorial q
@@ -225,6 +227,17 @@ theorem tail_descent_loglog_shell_lower
   have constantLower := log_primorial_ratio_constant
   dsimp only [P, X] at lowerLogLog upperLogLog ⊢
   nlinarith
+
+theorem tail_descent_loglog_shell_lower
+    (thetaBounds : HasDusartThetaBounds)
+    (primeCountingBounds : HasDusartPrimeCountingBounds)
+    {r q : Nat} (hr : 38000 ≤ r)
+    (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q) :
+    Real.log r - 2 * Real.log (Real.log r) - 5 / 12 <
+      Real.log (Real.log ((primorial q : Nat) : Real)) -
+        Real.log (Real.log ((primeAt (r - 1) - 1 : Nat) : Real)) := by
+  have h := tail_descent_loglog_shell_lower_sharp thetaBounds primeCountingBounds hr scaleLtQ
+  linarith
 
 theorem dusartReciprocalError_lt_one_div_500 {x : Nat}
     (hx : 10372 ≤ x) :

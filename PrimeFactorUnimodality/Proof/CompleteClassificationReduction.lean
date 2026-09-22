@@ -4,10 +4,9 @@ set_option autoImplicit false
 
 /-! # Final classification reduction across the optimized finite/tail overlap
 
-This focused assembly theorem keeps the expensive finite certificates out of
-the dependency graph.  Once their range reaches the source cutoff, the proved
-Mertens estimate means that only the three prime-distribution inputs remain in
-the infinite tail.
+This focused assembly keeps the finite certificates out of its dependency
+graph. Finite Abel summation and the Mertens upper bound leave only the three
+prime-distribution inputs in the infinite tail, starting at `38001`.
 -/
 
 namespace PrimeFactorUnimodality
@@ -45,6 +44,19 @@ theorem completeClassification_of_finite_record_range
       uniformTail_not_isUnimodal_closed_mertens primeCountingBounds thetaBounds
         tailPair (k := k) (by omega))
   exact classification k hk
+
+/-- Classification from the existing prefix through `38000` and the uniform
+CRT tail. The full megagap is not an input to this assembly. -/
+theorem completeClassification_of_finite_prefix_and_primeCounting
+    (finiteRange : ∀ k : Nat, 1 ≤ k → k ≤ 38000 →
+      (IsUnimodal (primeFactorDensity k) ↔ k ≤ 3))
+    (primeCountingBounds : HasDusartPrimeCountingBounds)
+    (thetaBounds : HasDusartThetaBounds)
+    (tailPair : HasUniformTailPrimePair) : CompleteClassification := by
+  exact completeClassification_of_finite_range_and_tail
+    38000 (by omega) finiteRange (fun k hkTail =>
+      uniformTail_not_isUnimodal_closed_mertens primeCountingBounds thetaBounds
+        tailPair (k := k) (by omega))
 
 end
 

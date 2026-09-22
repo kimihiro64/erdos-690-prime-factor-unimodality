@@ -6,9 +6,9 @@ import PrimeFactorUnimodality.Helpers.Analytic.ShortIntervalPrime
 import PrimeFactorUnimodality.Helpers.FiniteCertificates.SmallPrimeCountingIntervals
 import PrimeFactorUnimodality.Proof.ClassificationThrough38000Closed
 import PrimeFactorUnimodality.Proof.CompleteClassificationReduction
-import PrimeFactorUnimodality.Proof.LargeRange.FullRecordRange
 import PrimeFactorUnimodality.Proof.LargeRange.TailErrorBounds
 import PrimeFactorUnimodality.Proof.LargeRange.UniformTail
+import PrimeFactorUnimodality.Proof.LargeRange.UniformTailClosedMertens
 
 set_option autoImplicit false
 
@@ -51,17 +51,16 @@ theorem completeClassification_of_explicit_inputs
   exact completeClassification_with_explicit_inputs primeCountingBounds reciprocalEstimate
     thetaBounds tailPair k hk
 
-/-! The reciprocal-prime estimate is a proved Mertens consequence in this
-project, so the public all-`k` boundary need not expose it as an analytic
-input.  Only the Dusart prime-counting/theta providers and the short-interval
-provider remain at this layer. -/
+/-! The descent uses finite Abel summation from prime counting; the ascent
+uses the proved ordinary Mertens bound. Only the prime-counting/theta and
+short-interval providers remain at this layer. -/
 theorem completeClassification_of_explicit_mertens_inputs
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     (thetaBounds : HasDusartThetaBounds)
     (tailPair : HasUniformTailPrimePair) :
     CompleteClassification := by
-  exact completeClassification_of_explicit_inputs primeCountingBounds
-    hasMertensReciprocalPrimeEstimate thetaBounds tailPair
+  exact completeClassification_of_finite_prefix_and_primeCounting
+    completeClassification_through38000_closed primeCountingBounds thetaBounds tailPair
 
 theorem completeClassification_of_explicit_dusart_inputs
     (primeCountingBounds : HasDusartPrimeCountingBounds)
@@ -71,29 +70,15 @@ theorem completeClassification_of_explicit_dusart_inputs
   exact completeClassification_of_explicit_mertens_inputs primeCountingBounds
     thetaBounds (hasUniformTailPrimePair_of_shortInterval shortInterval)
 
-/-! The exact all-`k` reduction after the full published record-gap range is
-available.  This is the final finite/tail assembly; only the analytic tail
-providers remain parameters here. -/
+/-! Compatibility name for downstream analytic provider adapters. The proof
+now uses the uniform CRT argument from `38001`, not the full record gap. -/
 
 theorem completeClassification_of_full_record_inputs
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     (thetaBounds : HasDusartThetaBounds)
     (tailPair : HasUniformTailPrimePair) :
     CompleteClassification := by
-  exact completeClassification_of_finite_range_and_tail
-    8600001 (by omega)
-    (fun k hk hkRecord => by
-      by_cases hkSmall : k ≤ 38000
-      · exact completeClassification_through38000_closed k hk hkSmall
-      · constructor
-        · intro unimodal
-          exact ((fullRecordRange_not_isUnimodal_closed_through8600001
-            primeCountingBounds thetaBounds tailPair k (by omega) hkRecord)
-            unimodal).elim
-        · intro hkThree
-          omega)
-    (fun k hkTail => uniformTail_not_isUnimodal_closed_mertens
-      primeCountingBounds thetaBounds tailPair (k := k) (by omega))
+  exact completeClassification_of_explicit_mertens_inputs primeCountingBounds thetaBounds tailPair
 
 /-! This is the public all-`k` assembly in the analytic forms used by the
 published estimates: real-variable prime counting, symmetric theta error,
