@@ -83,6 +83,12 @@ and five preserved explicit-formula examples pass. All twenty-six audited
 exports use only `propext`, `Classical.choice`, and `Quot.sound`.
 CI builds the candidate leaves and consumers serially before their tests.
 
+The preceding CI run `35795818995` failed because the real Gamma regression
+ran before `KadiriGammaBudget` had been built. The workflow now runs that
+test immediately after its dependency. A fast Python check walks the owned
+transitive imports for every foundation test and rejects missing preceding
+builds; its negative regression reproduces the reported missing artifact.
+
 ### Actual box cutoff and averaged explicit formula (newest, 2026-09-22)
 
 The cutoff and arithmetic-identification obligations in the previous
