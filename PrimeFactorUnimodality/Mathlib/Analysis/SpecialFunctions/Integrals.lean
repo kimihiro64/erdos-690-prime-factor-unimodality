@@ -5,9 +5,11 @@ Authors: Jonas Whidden
 -/
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.CorrelationBound
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.CosineCorrelation
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ExpMoments
 
-/-! # Finite correlation integrals
+/-! # Finite correlation integrals and exponential moments
 
 This facade exports explicit trigonometric correlation evaluations and
-the general finite-interval square-integral bound.
+the general finite-interval square-integral bound. It also exports cubic
+majorants for weighted exponential integrals in terms of four moments.
 -/

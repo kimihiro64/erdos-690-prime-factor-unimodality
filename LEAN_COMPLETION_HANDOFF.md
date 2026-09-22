@@ -45,6 +45,59 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Weighted outer-pair remainder (newest, 2026-09-22)
+
+The exact derivative-mass remainder and its four-moment majorant are now
+proved, and the four error terms in Kadiri (49) are assembled pointwise.
+No coarse supremum or right-half-plane-only theorem replaces the paper's
+negative-line estimate.
+
+- `FiniteLaplace.WeightedBounds` retains the exact Laplace transform of
+  the source norm. `KadiriDerivativeMass` defines the actual integral
+  `M(z,θ)=∫|hθ''(u)|exp(-zu)du`, proves nonnegativity and antitonicity,
+  the positive-axis bound `M(x)<=m/x`, and exact second-derivative scaling.
+- `KadiriWeightedRemainder` proves the pole-subtracted identity and
+  `|Re F(s)-f(0)Re(1/s)| <= η² M(Re(s)/η,θ)/|s|²` at every nonzero `s`,
+  with NO sign restriction on `Re(s)`. A lower bound `z<=Re(s)/η` gives
+  the uniform `η² M(z,θ)/Im(s)²` bound; the positive-axis terms have the
+  separate uniform cubic bound `η³m/(a Im(s)²)` for `0<a<=Re(s)`.
+- `Exp.Cubic` uses Mathlib's exponential series to prove that a cubic
+  majorant checked at one positive endpoint holds on the entire interval.
+  `Integrals.ExpMoments` integrates it against any continuous nonnegative
+  source. `KadiriDerivativeMoments` specializes this to the actual four
+  moments and the paper's exact denominator `3.45`, then feeds it into
+  the transform remainder. The exponential endpoint and numerical moment
+  values are explicit remaining finite inputs, not certified by this step.
+- `KadiriOuterPairRemainder.kadiriWeight_outer_pair_remainder_lower_bound`
+  proves the actual smoothed pair is at least its rational four-kernel
+  contribution times `f(0)`, minus
+  `[η² M(z,θ)+(1+2κ)η³m/a]/y²`. The rational term remains explicit;
+  its inside-strip large-height sign is NOT assumed proved.
+
+For `z<=0`, all four coefficients of `M*` are nonnegative, including the
+odd moments: `kadiriDerivativeMassMajorant_le_of_moment_bounds` proves
+the upper-bound substitution directions for ALL four moments. Use that
+theorem when assembling numerical bounds; do not infer a rounding direction
+from the minus signs without accounting for the sign of `z`.
+
+All three new candidates, four project leaves, and both affected facades
+compile. All 23 exports in `.research/DusartWeightedRemainderAxioms.lean`
+audit only the standard three axioms. The new regression covers complex
+sources, negative rescaling, the imaginary axis, a discharged cubic
+endpoint, moment-bound directions, and the assembled pair error.
+Fast prebuild, Ruff, mypy, workflow lint, all 95 Python tests, and the
+16 Ruby tests (83 assertions) pass. CI builds the new leaves serially in
+`lean-foundations` and runs `test/lean/KadiriWeightedRemainder.lean`.
+
+NEXT: prove the rational four-kernel comparison inside the strip at large
+height, then apply the pointwise error to the actual outer divisor sum.
+A concrete sufficient comparison is recorded in the private quantitative
+handoff; it keeps the MT parameters, rather than using the invalid `σ>1`
+Stechkin lemma. Then prove the needed zero-tail count/integral estimates,
+pole and gamma bounds. The exact `R=5.573412` numerical inputs and all
+three final Dusart providers remain open. Non-certificate source still
+comes before numerical replay; do not redo the weighted-mass/moment work.
+
 ### Quantitative distinguished zero (newest, 2026-09-22)
 
 `KadiriDistinguishedZero.kadiriWeight_distinguished_master_nonneg` now
@@ -81,12 +134,9 @@ Fast prebuild checks, workflow lint, Ruff, mypy, all 94 Python tests, and
 all 16 Ruby metadata tests (83 assertions) pass. No full-project build or
 CI success is claimed for the still-missing Dusart providers.
 
-NEXT: the outer-strip remainder in Kadiri proposition 4.4 / (49)--(50),
-then pole and gamma bounds. Prove the transform remainder with the exact
-weighted second-derivative integral `M(z,θ)` and its scaling; keep the
-Mossinghoff--Trudgian cubic moment majorant from section 4, not a coarse
-supremum bound that would spoil the target constants. For the rational
-four-kernel term, the existing `stechkinZeroPair_sub_nonneg` assumes
+The exact weighted transform remainder, scaling, and symbolic cubic moment
+majorant proposed at this stage are now proved above. For the remaining
+rational four-kernel term, `stechkinZeroPair_sub_nonneg` assumes
 `σ>1` and cannot justify positivity here: this needs its inside-strip,
 large-height comparison proved with explicit parameter bounds.
 
