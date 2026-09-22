@@ -232,3 +232,22 @@ then reuses it to connect the actual counting integrand to the surrogate.
 to justify integrability, splits both contour segments, and applies the
 earlier horizontal Jensen estimate to the actual count. The sharp integrated
 gamma, vertical surrogate, and circle magnitude estimates are still required.
+
+## Euler logarithm and vertical-argument follow-up
+
+The vertical argument no longer needs an estimate. The Mathlib-only
+`RiemannZetaEulerLog` candidate directly uses
+`riemannZeta_eulerProduct_exp_log`,
+`DirichletCharacter.eulerProduct_log_eq_LSeries`, and `LSeries_hasDerivAt`.
+The required coefficient comparison is just `vonMangoldt_le_log`.
+No Euler product or Dirichlet-series differentiation is reconstructed.
+The positive-coefficient norm comparison follows the same Mathlib-series
+argument already used by the project's `ZetaTrigonometric` candidate.
+
+`BacklundVerticalArgument` uses this analytic logarithm to obtain the exact
+vertical integral and its height-independent argument bound, as well as
+the centre lower bound. `BacklundCountingEstimate` combines them with the
+previous actual contour, Jensen bound, and real-axis Abel estimate.
+The 21 new theorems compile and have only the three standard logical axioms.
+Sharp integrated gamma and explicit circle bounds are still needed for the
+numerical counting error; the all-`k` theorem is not yet established.

@@ -45,6 +45,44 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Vertical argument and explicit Jensen centre (newest, 2026-09-22)
+
+The vertical surrogate integral and centre lower bound are now proved.
+
+- The Mathlib-only `LSeries.RiemannZetaEulerLog` candidate represents an
+  analytic logarithm by the Dirichlet series with coefficients `Lambda/log`.
+  It directly reuses Mathlib's Euler-product exponential identity and
+  L-series differentiation. Nonnegative coefficients give the sharp bound
+  `norm(EulerLog(s)) <= log(norm(zeta(Re(s))))`; the logarithm is real on
+  the real axis. This also gives the lower bound
+  `1/norm(zeta(Re(s))) <= norm(zeta(s))`.
+- `BacklundVerticalArgument` adds `log(s-1)` to this Euler logarithm,
+  differentiates to the actual surrogate logarithmic derivative, and
+  integrates it exactly. The vertical imaginary part is bounded by
+  `pi/2 + log(norm(zeta(sigma)))` for every real height, including negative
+  and zero heights. There is no uncontrolled principal-log branch change.
+- The same module proves the centre bound
+  `abs(T)/norm(zeta(sigma)) <= norm(a(sigma+i*T))`.
+- `BacklundCountingEstimate` inserts both estimates into the proved
+  actual counting contour and Jensen inequality. Finally the existing
+  real-axis Abel bound replaces `norm(zeta(sigma))` by
+  `1/(sigma-1)+1`. Only the gamma contribution and circle magnitude bounds
+  remain unestimated in this counting inequality; the circle and
+  regular-height hypotheses are explicit, not presumed discharged.
+
+The candidate, its facade, and both project leaves compile. All 21 public
+theorems have only `propext`, `Classical.choice`, and `Quot.sound` in their
+axiom closures. The new 12-example Lean regression and the preceding
+counting-decomposition regression pass. CI builds candidate then consumers
+serially before certificates. The root candidate facade retains 12 imports.
+Fast checks, Ruff format/lint, mypy, actionlint, and 106 Python tests pass.
+
+NEXT: sharp integrated gamma/Stirling and explicit circle magnitude bounds
+sufficient for the actual `2log(T)` error at the required cutoff. Do not
+repeat the vertical argument or introduce a counting-error assumption as a
+replacement. Separation, numerical zero-free parameters, and all three
+final Dusart providers remain open.
+
 ### Actual counting contour and half-contour identity (newest, 2026-09-22)
 
 The argument-principle identity for the actual multiplicity-weighted count

@@ -40,6 +40,8 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaEulerLog` | `Mathlib/NumberTheory/LSeries/RiemannZetaEulerLog.lean` | project-verified | Analytic Euler logarithm from Mathlib's Euler product, real-axis norm majorant, and lower zeta modulus bound |
+| `PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries` | `Mathlib/NumberTheory/LSeries.lean` | project-verified | Facade grouping the independently reusable Dirichlet-series modules |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Log.Interval` | `Mathlib/Analysis/Complex/Log/Interval.lean` | project-verified | Continuous logarithm along a closed real interval with prescribed initial value, using the exponential covering |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Log.IntervalIntegral` | `Mathlib/Analysis/Complex/Log/IntervalIntegral.lean` | project-verified | Derivative and exact integral increment of an arbitrary continuous logarithm along a real interval |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Trigonometric.ZeroCount` | `Mathlib/Analysis/SpecialFunctions/Trigonometric/ZeroCount.lean` | project-verified | Endpoint phase change bounded by the finite cosine-zero count using the intermediate value theorem |

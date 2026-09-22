@@ -499,6 +499,13 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.XiCountingDecomposition
           lake env lean test/lean/XiCountingDecomposition.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaEulerLog
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.BacklundVerticalArgument
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.BacklundCountingEstimate
+          lake env lean test/lean/BacklundVerticalArgument.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

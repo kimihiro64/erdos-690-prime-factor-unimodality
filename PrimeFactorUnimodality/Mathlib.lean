@@ -6,7 +6,7 @@ import PrimeFactorUnimodality.Mathlib.Data.Nat.CoprimePeriodicCount
 import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.FinsetAbel
 import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IoiTranslation
 import PrimeFactorUnimodality.Mathlib.NumberTheory.BLSPrimality
-import PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.ZetaTrigonometricShift
+import PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries
 import PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington
 import PrimeFactorUnimodality.Mathlib.Topology.Algebra.InfiniteSum.Paired
 import PrimeFactorUnimodality.Mathlib.Topology.Algebra.InfiniteSum.Sublevel
