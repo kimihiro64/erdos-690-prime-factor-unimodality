@@ -214,8 +214,6 @@ jobs:
           lake build \
             +PrimeFactorUnimodality.Helpers.FiniteCertificates.Generated.FixedWeightSums
           lake build \
-            +PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCompact
-          lake build \
             +PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses
       - name: Upload certificate prebuild artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
@@ -228,9 +226,108 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+  record-gap-plan:
+    name: Plan bounded record-gap replays
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      source_key: ${{ steps.plan.outputs.source_key }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - id: plan
+        run: |
+          echo "matrix=$(python3 scripts/record_gap_ci.py --matrix)" >> "$GITHUB_OUTPUT"
+          echo "source_key=$(python3 scripts/record_gap_ci.py --source-key)" >> "$GITHUB_OUTPUT"
+
+  record-gap-owners:
+    name: Check compact record-gap factor rows
+    needs: [record-gap-plan, python, metadata-and-boundary]
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          build: false
+          lint: false
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: .lake/build
+          key: gap-owners-${{ needs.record-gap-plan.outputs.source_key }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: gap-owners-${{ needs.record-gap-plan.outputs.source_key }}-
+      - name: Build shared checker, then the serial factor-row chain
+        run: |
+          lake build +PrimeFactorUnimodality.Proof.LargeRange.CompactGapReplay
+          python3 scripts/record_gap_ci.py --owners
+      - name: Preserve completed factor rows even if a later row fails
+        if: always()
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: .lake/build
+          key: gap-owners-${{ needs.record-gap-plan.outputs.source_key }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: record-gap-owners
+          path: .lake/build
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
+
+  record-gap-replay:
+    name: Record-gap replay ${{ matrix.shard }}
+    needs: [record-gap-plan, record-gap-owners]
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(needs.record-gap-plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          build: false
+          lint: false
+      - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
+        with:
+          name: record-gap-owners
+          path: .lake/build
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            .lake/build/lib/lean/PrimeFactorUnimodality/Proof/LargeRange/Generated/FullRecordGapCompactRows/Replay*
+            .lake/build/ir/PrimeFactorUnimodality/Proof/LargeRange/Generated/FullRecordGapCompactRows/Replay*
+          key: gap-replay-${{ matrix.shard }}-${{ needs.record-gap-plan.outputs.source_key }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: gap-replay-${{ matrix.shard }}-${{ needs.record-gap-plan.outputs.source_key }}-
+      - name: Replay bounded rows sequentially with checkpoint progress
+        run: python3 scripts/record_gap_ci.py --shard '${{ matrix.shard }}'
+      - name: Preserve completed rows even if another certificate fails
+        if: always()
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            .lake/build/lib/lean/PrimeFactorUnimodality/Proof/LargeRange/Generated/FullRecordGapCompactRows/Replay*
+            .lake/build/ir/PrimeFactorUnimodality/Proof/LargeRange/Generated/FullRecordGapCompactRows/Replay*
+          key: gap-replay-${{ matrix.shard }}-${{ needs.record-gap-plan.outputs.source_key }}-${{ github.run_id }}-${{ github.run_attempt }}
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: record-gap-replay-${{ matrix.shard }}
+          path: |
+            .lake/build/lib/lean/PrimeFactorUnimodality/Proof/LargeRange/Generated/FullRecordGapCompactRows/Replay*
+            .lake/build/ir/PrimeFactorUnimodality/Proof/LargeRange/Generated/FullRecordGapCompactRows/Replay*
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
+
   build:
     name: Replay certificates and build with Lean
-    needs: [release_version, metadata-and-boundary, python, certificate-prebuild]
+    needs: [release_version, metadata-and-boundary, python, certificate-prebuild, record-gap-replay]
     runs-on: ubuntu-latest
     timeout-minutes: 180
     steps:
@@ -246,10 +343,22 @@ jobs:
         with:
           name: lean-certificate-prebuild
           path: .lake/build
+      - name: Restore checked record-gap factor rows
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
+        with:
+          name: record-gap-owners
+          path: .lake/build
+      - name: Restore all checked exception shards
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
+        with:
+          pattern: record-gap-replay-*
+          merge-multiple: true
+          path: .lake/build
       - name: Build the complete formalization
         shell: bash
         run: |
           set -o pipefail
+          python3 scripts/record_gap_ci.py --require-artifacts
           : > lean-build.log
           : > lean-build-processes.log
           (

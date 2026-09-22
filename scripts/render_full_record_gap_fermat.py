@@ -41,8 +41,28 @@ def record_center() -> int:
     return value
 
 
+def render_center_value(center: int) -> str:
+    return f"""module
+public import Mathlib.Data.Nat.Basic
+
+/-! Literal value of the published record-gap center. -/
+
+set_option autoImplicit false
+set_option linter.style.longLine false
+
+public section
+namespace PrimeFactorUnimodality
+
+@[expose] def fullRecordGapCenterValue : Nat := {center}
+
+end PrimeFactorUnimodality
+"""
+
+
 def render_center(center: int) -> str:
-    return f"""import PrimeFactorUnimodality.Proof.LargeRange.RecordGapStructure
+    del center
+    return """import PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCenterValue
+import PrimeFactorUnimodality.Proof.LargeRange.RecordGapStructure
 
 set_option autoImplicit false
 set_option maxRecDepth 10000000
@@ -52,8 +72,6 @@ set_option linter.style.longLine false
 /-! Literal bridge for the published full record-gap center. -/
 
 namespace PrimeFactorUnimodality
-
-def fullRecordGapCenterValue : Nat := {center}
 
 set_option maxHeartbeats 0 in
 -- Exact reduction of the 4,499-factor center is intentionally unbounded.
@@ -145,6 +163,7 @@ def main() -> None:
     args.output_dir.mkdir(parents=True, exist_ok=True)
     center_target = args.output_dir.parent / "FullRecordGapCenter.lean"
     center_target.write_text(render_center(center))
+    center_target.with_name("FullRecordGapCenterValue.lean").write_text(render_center_value(center))
 
     for index, offset in enumerate(selected, start=args.start):
         modulus = center + offset

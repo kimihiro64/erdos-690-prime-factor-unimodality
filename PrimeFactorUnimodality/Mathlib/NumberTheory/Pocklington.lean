@@ -5,8 +5,8 @@ Authors: Jonas Whidden
 -/
 module
 
-public import PrimeFactorUnimodality.Mathlib.NumberTheory.PrimalityCongruence
 public import Mathlib.FieldTheory.Finite.Basic
+public import PrimeFactorUnimodality.Mathlib.NumberTheory.PrimalityCongruence
 
 /-!
 # A proof-producing partial-factorization Pocklington criterion

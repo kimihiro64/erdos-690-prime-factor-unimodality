@@ -13,3 +13,5 @@ fi
 "$python" scripts/check.py --profile fast
 "$python" -m ruff format --check scripts test/python
 "$python" -m ruff check scripts test/python
+"$python" -m mypy scripts test/python
+"$python" -m pytest

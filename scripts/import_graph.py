@@ -276,7 +276,12 @@ def audit_architecture(root: Path) -> dict[str, object]:
         lines = len(source.splitlines())
         if is_generated_module(module, namespace):
             if (
-                module.startswith(f"{namespace}.Helpers.Analytic.DusartLemma33MidrangeEndpoints")
+                module.startswith(
+                    (
+                        f"{namespace}.Helpers.Analytic.DusartLemma33MidrangeEndpoints",
+                        f"{namespace}.Proof.LargeRange.Generated.FullRecordGapCompact",
+                    )
+                )
                 and lines > LEAN_MAX_LINES
             ):
                 failures.append(f"{module}: {lines} Lean lines exceeds hard limit {LEAN_MAX_LINES}")

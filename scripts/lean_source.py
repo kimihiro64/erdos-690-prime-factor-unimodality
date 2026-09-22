@@ -19,7 +19,9 @@ DISCOVERY_LEAN: Final[re.Pattern[str]] = re.compile(
     r"\b(?:exact|apply|simp|rw|aesop)\?|\blibrary_search\b"
 )
 SIMPLE_COMMENT: Final[re.Pattern[str]] = re.compile(r"/-.*?-/|--[^\n]*", re.DOTALL)
-BROAD_IMPORT: Final[re.Pattern[str]] = re.compile(r"(?m)^\s*import\s+(?:Batteries|Mathlib)\s*$")
+BROAD_IMPORT: Final[re.Pattern[str]] = re.compile(
+    r"(?m)^\s*(?:public\s+)?(?:meta\s+)?import\s+(?:Batteries|Mathlib)\s*$"
+)
 AUTO_IMPLICIT_FALSE: Final[re.Pattern[str]] = re.compile(
     r"(?m)^\s*set_option\s+autoImplicit\s+false\s*$"
 )
@@ -91,7 +93,7 @@ def strip_lean_comments(source: str) -> str:
 
 def lean_imports(code: str) -> list[str]:
     """Return direct import names from a Lean source."""
-    return re.findall(r"(?m)^\s*import\s+([A-Za-z0-9_'.]+)\s*$", code)
+    return re.findall(r"(?m)^\s*(?:public\s+)?(?:meta\s+)?import\s+([A-Za-z0-9_'.]+)\s*$", code)
 
 
 def check_lean_sources(root: Path, candidates: Sequence[str]) -> None:
