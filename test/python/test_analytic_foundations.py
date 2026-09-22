@@ -76,3 +76,27 @@ def test_smoothed_inversion_ci_build_order() -> None:
     ]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/SmoothedInversion.lean")
+
+
+def test_smoothed_xi_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "Mathlib.Analysis.SpecialFunctions.Pow.ThreeHalves",
+        "Mathlib.MeasureTheory.Integral.Bochner.Series",
+        "Mathlib.Analysis.Complex.Integrability.Resolvent",
+        "Mathlib.Analysis.Complex.Hadamard.IntegralBounds",
+        "Mathlib.Analysis.Complex.Hadamard.Integral",
+        "Mathlib.Analysis.Complex.FiniteLaplace.ContourBounds",
+        "Mathlib.Analysis.Complex.FiniteLaplace.ResolventIntegral",
+        "Helpers.Analytic.XiHadamardIntegral",
+        "Helpers.Analytic.SmoothedXiInterchange",
+    )
+    positions = [
+        foundations.index(f"lake build \\\n            +PrimeFactorUnimodality.{module}")
+        for module in modules
+    ]
+    assert positions == sorted(positions)
+    assert positions[4] < foundations.index("lake env lean test/lean/HadamardIntegral.lean")
+    assert positions[-1] < foundations.index("lake env lean test/lean/SmoothedInversion.lean")

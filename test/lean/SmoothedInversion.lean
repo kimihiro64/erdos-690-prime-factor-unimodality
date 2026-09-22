@@ -1,4 +1,5 @@
 import PrimeFactorUnimodality.Helpers.Analytic.SmoothedPrimeIntegral
+import PrimeFactorUnimodality.Helpers.Analytic.SmoothedXiInterchange
 
 set_option autoImplicit false
 
@@ -7,7 +8,8 @@ set_option autoImplicit false
 The cubic weight equals one at zero and vanishes at one. Its second
 derivative at zero is nonzero; it therefore tests that the formalization
 does not require a twice continuously differentiable zero extension.
-The contour identity is tested at every height on real part two.
+The prime and evaluated xi contour identities are tested at every height
+on real part two, together with poles off the critical line.
 -/
 
 namespace PrimeFactorUnimodality.Tests
@@ -102,6 +104,49 @@ example (y : ℝ) :
   simpa only [weight, ite_true, show (0 : ℝ) ≤ 1 by norm_num, zero_pow (by norm_num : 2 ≠ 0),
     zero_pow (by norm_num : 3 ≠ 0), mul_zero, sub_zero, add_zero, ofReal_one, one_mul,
     ofReal_div, ofReal_ofNat] using h
+
+example (y v : ℝ) :
+    (1 / (2 * (Real.pi : ℂ))) * (∫ t : ℝ,
+      (finiteLaplace (fun u => (weight u : ℂ)) 1
+          (((2 : ℂ) + y * I) - ((3 / 2 : ℂ) + (t : ℂ) * I)) -
+        1 / (((2 : ℂ) + y * I) - ((3 / 2 : ℂ) + (t : ℂ) * I))) /
+      (((3 / 2 : ℂ) + (t : ℂ) * I) - ((3 / 4 : ℂ) + v * I))) =
+      finiteLaplace (fun u => (weight u : ℂ)) 1
+          (((2 : ℂ) + y * I) - ((3 / 4 : ℂ) + v * I)) -
+        1 / (((2 : ℂ) + y * I) - ((3 / 4 : ℂ) + v * I)) := by
+  have h := integral_finiteLaplace_sub_pole_div_vertical
+    (f := fun u => (weight u : ℂ)) (g := weight₁) (h := weight₂) (d := 1) (M := 6)
+    (s := (2 : ℂ) + y * I) (c := 3 / 2) (ρ := (3 / 4 : ℂ) + v * I)
+    (by norm_num) (by norm_num)
+    (Complex.continuous_ofReal.comp weight_continuous).continuousOn
+    (by unfold weight₁; fun_prop) (by unfold weight₂; fun_prop) weight_deriv
+    (fun u _ => weight₁_deriv u)
+    (by norm_num [weight]) (by norm_num [weight₁]) (by norm_num [weight₁])
+    weight₂_bound (by norm_num) (by norm_num)
+  have hzero : (weight 0 : ℂ) = 1 := by norm_num [weight]
+  simpa only [hzero, ofReal_div, ofReal_ofNat] using h
+
+example (y : ℝ) :
+    (1 / (2 * (Real.pi : ℂ))) * (∫ t : ℝ,
+      (finiteLaplace (fun u => (weight u : ℂ)) 1
+          (((2 : ℂ) + y * I) - ((3 / 2 : ℂ) + (t : ℂ) * I)) -
+        1 / (((2 : ℂ) + y * I) - ((3 / 2 : ℂ) + (t : ℂ) * I))) *
+        logDeriv riemannXi ((3 / 2 : ℂ) + (t : ℂ) * I)) =
+      ∑' p : RiemannXiDivisorZeroIndex,
+        (finiteLaplace (fun u => (weight u : ℂ)) 1
+            (((2 : ℂ) + y * I) - riemannXiDivisorZeroValue p) -
+          1 / (((2 : ℂ) + y * I) - riemannXiDivisorZeroValue p)) := by
+  have h := integral_finiteLaplace_mul_logDeriv_riemannXi_eq_remainders
+    (f := fun u => (weight u : ℂ)) (g := weight₁) (h := weight₂) (d := 1) (M := 6)
+    (s := (2 : ℂ) + y * I) (c := 3 / 2)
+    (by norm_num) (by norm_num)
+    (Complex.continuous_ofReal.comp weight_continuous).continuousOn
+    (by unfold weight₁; fun_prop) (by unfold weight₂; fun_prop) weight_deriv
+    (fun u _ => weight₁_deriv u)
+    (by norm_num [weight]) (by norm_num [weight₁]) (by norm_num [weight₁])
+    weight₂_bound (by norm_num) (by norm_num)
+  have hzero : (weight 0 : ℂ) = 1 := by norm_num [weight]
+  simpa only [hzero, ofReal_div, ofReal_ofNat] using h
 
 end
 

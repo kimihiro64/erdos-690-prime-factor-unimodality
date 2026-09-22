@@ -45,6 +45,58 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Evaluated xi contour identity (newest, 2026-09-22)
+
+`SmoothedXiInterchange.integral_finiteLaplace_mul_logDeriv_riemannXi_eq_remainders`
+now proves, for EVERY `1<c<Re(s)`,
+
+`(1/(2*pi))*integral_t R(s-c-it)*logDeriv(xi)(c+it) = sum_rho R(s-rho)`,
+
+where `R(w)=finiteLaplace f d w-f(0)/w` and the sum uses the actual xi
+divisor index, retaining multiplicity. Inputs are only the existing
+interval continuity/derivative/endpoint conditions and a bound on `f''`.
+No zero-line, interchange, contour-shift, or resolvent-pairing assumption
+is supplied to this theorem.
+
+The completed route is:
+
+- `ThreeHalves`, `Integrability.Cauchy`, and `Hadamard.IntegralBounds`
+  give the explicit fractional majorant. It allows different zero real
+  parts bounded above by `B<c`, any positive `c`, and repeated indices.
+- `Bochner.Series` and `Hadamard.Integral` give integrability of the
+  entire weighted series and summability of its integrated norms. The
+  relevant scalar/interchange patterns are adapted from the named Robin
+  leaves at published Apache-2.0 revision
+  `bfa72aec0c25c8ee29cefe4449d778ff30412bee`, with exact provenance in each
+  candidate. The original line-location assumption is not imported.
+- `XiHadamardIntegral` uses the actual critical-strip theorem and PNT's
+  `IEANTN.RobinXiZeroSummability` at locked revision
+  `f6147e7572ab3abe5428101bc0b13627bcb005df`. That 27-line fractional-moment
+  theorem follows from order-one entire growth without RH.
+- `FiniteLaplace.ContourBounds` converts the actual remainder bound to
+  `C/|c+it|^2`, with explicit `C`, and cancels the Hadamard constant by
+  inversion at zero.
+- `Integrability.Resolvent` proves absolute two-variable Fubini via the
+  exponentially decaying half-line representation of a pole.
+  `FiniteLaplace.ResolventIntegral` then evaluates each regularized atom
+  exactly as `R(s-rho)`, using inversion and the existing remainder-source
+  Laplace transform. This does not require horizontal contour estimates.
+
+All 28 new exported theorems and the PNT fractional moment pass the axiom
+audit with only `propext`, `Classical.choice`, and `Quot.sound`. Regression
+tests cover a positive contour below one, unequal and repeated zero real
+parts, and the nonzero cubic smoothing weight: off-midline poles and the
+actual evaluated xi identity hold for every tested symbolic height.
+CI builds the candidates and consumers serially and runs
+`test/lean/HadamardIntegral.lean` and `test/lean/SmoothedInversion.lean`.
+Logs: `.research/dusart-{xi,smoothed-xi-interchange,laplace-resolvent,hadamard-regression}*`.
+
+Next prove the **gamma pairing and full smoothed explicit formula**, then
+its continuation to `Re(s)>1/2` and the sharp estimates needed by Dusart.
+The prime-side inversion and whole xi zero pairing are now proved and must
+not be redone. Gamma-integral convergence alone is not its evaluation.
+The three global Dusart providers and the final all-`k` theorem remain open.
+
 ### Absolute inversion and the actual prime contour identity (newest, 2026-09-22)
 
 The right-hand contour identity is now proved, not supplied as a hypothesis.
@@ -89,14 +141,12 @@ before its consumer and runs `test/lean/SmoothedInversion.lean` serially.
 Logs: `.research/dusart-inversion-{source,build,fubini,dirichlet,regressions,axioms,fast,commit}.log`
 and `.research/dusart-prime-integral.log`.
 
-Next prove the **contour displacement / zero-and-gamma identity**, including
-residues with actual multiplicities and justified limits, then continuation
-from `Re(s)>1` to the needed `Re(s)>1/2`. Both the eventual real zero sum and
-gamma integral already have absolute convergence; the prime-side inversion
-and interchange are now finished. This still does not establish the full
-smoothed explicit formula, its sharp numerical estimates, the three global
-Dusart providers, or the all-`k` theorem. Do not re-import the unproved
-explicit-formula headline or redo the completed inversion work.
+The subsequent evaluated xi contour identity above completes the zero-side
+pairing with actual multiplicities and justified interchange. Gamma pairing
+and continuation from `Re(s)>1` to the needed `Re(s)>1/2` remain. This still
+does not establish the full smoothed explicit formula, its sharp numerical
+estimates, the three global Dusart providers, or the all-`k` theorem. Do not
+re-import the unproved explicit-formula headline or redo completed inversion.
 
 ### Gamma-integral convergence on the required half-plane (newest, 2026-09-22)
 
