@@ -91,6 +91,32 @@ theorem xiHeightTail_eq_positive_pair {H : ℝ} (hH : 0 < H) (t : ℝ) :
   dsimp [f]
   ring
 
+/-- Conjugation makes the complete height tail even in its evaluation height. -/
+theorem xiHeightTail_neg {H : ℝ} (hH : 0 < H) (t : ℝ) :
+    xiHeightTail (-t) H = xiHeightTail t H := by
+  rw [xiHeightTail_eq_positive_pair hH (-t), xiHeightTail_eq_positive_pair hH t]
+  let e : {p : RiemannXiDivisorZeroIndex // |(-t)| + H ≤ (riemannXiDivisorZeroValue p).im} ≃
+      {p : RiemannXiDivisorZeroIndex // |t| + H ≤ (riemannXiDivisorZeroValue p).im} :=
+    Equiv.subtypeEquivRight (fun _ => by rw [abs_neg])
+  calc
+    _ = ∑' p : {p : RiemannXiDivisorZeroIndex //
+        |(-t)| + H ≤ (riemannXiDivisorZeroValue p).im},
+        (1 / ((riemannXiDivisorZeroValue p.1).im - t) ^ 2 +
+          1 / ((riemannXiDivisorZeroValue p.1).im + t) ^ 2) := by
+      apply tsum_congr
+      intro p
+      simp only [sub_eq_add_neg, neg_neg, add_comm]
+    _ = _ := e.tsum_eq (fun p =>
+      1 / ((riemannXiDivisorZeroValue p.1).im - t) ^ 2 +
+        1 / ((riemannXiDivisorZeroValue p.1).im + t) ^ 2)
+
+/-- Passing to the absolute evaluation height preserves every zero contribution. -/
+theorem xiHeightTail_abs {H : ℝ} (hH : 0 < H) (t : ℝ) :
+    xiHeightTail |t| H = xiHeightTail t H := by
+  rcases le_total 0 t with ht | ht
+  · rw [abs_of_nonneg ht]
+  · rw [abs_of_nonpos ht, xiHeightTail_neg hH]
+
 end
 
 end PrimeFactorUnimodality

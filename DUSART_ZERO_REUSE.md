@@ -315,3 +315,26 @@ also checks every positive natural harmonic at the paper's high cutoff.
 The zero-harmonic finite mass, outer-zero separation, separate smoothed
 pole/Gamma errors, and final numerical zero-free parameters remain open;
 this does not finish the three Dusart providers or the all-`k` theorem.
+
+## Weighted master and pole-bound follow-up
+
+The same actual conjugation pairing now proves evenness of `xiHeightTail`,
+including transport between the two subtype predicates; no new zero
+symmetry is proved from scratch. `XiLehmanBudget` uses the existing exact
+integral evaluation and correction bound for nonzero heights, and the
+existing unconditional low-reciprocal-mass subtraction at height zero.
+Every natural harmonic is covered, not only a fixed finite list.
+
+`KadiriPoleBounds` directly uses
+`abs_re_kadiriWeight_laplace_sub_pole_le_mass_im` and the existing
+`KadiriLaplacePositivity.re_kadiriWeight_laplace_nonneg`. The latter applies
+at complex points throughout the closed right half-plane: it removes the
+entire shifted transform, giving the sharper error `eta^2*M(z,theta)/y^2`
+without a shifted cubic loss. The new work is the unshifted rational pole's
+sign comparison and weighted assembly. It does not rederive integration by
+parts, correlation positivity, or the kernel's derivative bound. The
+combined master replaces both the pole terms and infinite zero tails.
+
+The separate smoothed Gamma estimates are not implied by the counting
+Gamma-phase theorem. They, the separation argument, finite low-zero
+numerics, and final numerical zero-free parameters remain required.

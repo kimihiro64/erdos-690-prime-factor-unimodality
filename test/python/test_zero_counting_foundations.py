@@ -120,3 +120,18 @@ def test_unconditional_high_counting_ci_build_order() -> None:
     assert foundations.index("lake env lean test/lean/GammaCountingPhase.lean") < positions[0]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/BacklundCountingHigh.lean")
+
+
+def test_lehman_master_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "PrimeFactorUnimodality.Helpers.Analytic.XiLehmanBudget",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriPoleBounds",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriLehmanMaster",
+    )
+    positions = [foundations.index(f"lake build \\\n            +{module}\n") for module in modules]
+    assert foundations.index("lake env lean test/lean/BacklundCountingHigh.lean") < positions[0]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index("lake env lean test/lean/XiLehmanBudget.lean")

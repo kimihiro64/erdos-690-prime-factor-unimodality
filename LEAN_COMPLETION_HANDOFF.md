@@ -45,6 +45,41 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Pole and high-tail bounds connected to the master (newest, 2026-09-22)
+
+`kadiriWeight_lehman_pole_master_nonneg` in `KadiriLehmanMaster` now inserts both proved estimates into
+the actual distinguished-zero inequality. It has no assumed counting
+envelope or infinite zero-tail majorant. The separation and analytic
+parameter hypotheses are unchanged and remain to be discharged.
+
+`XiLehmanBudget` evaluates the positive-height bound into elementary
+logarithms. Conjugation proves that `xiHeightTail` is even, preserving every
+multiplicity label. Its combined majorant handles signed nonzero heights
+and uses the existing unconditional finite low-reciprocal-mass subtraction
+at zero. Every natural harmonic, including zero, is covered for any finite
+polynomial once the base height is at least `10^9`. The finite low mass is
+not yet replaced by a certified numerical lower bound.
+
+`KadiriPoleBounds` reuses the existing weighted transform remainder and
+the previously proved correlation positivity on the closed right half-plane.
+For nonzero height the unshifted rational pole is nonpositive when
+`sigma<=1`, and the entire subtracted shifted transform is nonnegative.
+This gives the sharper error `eta^2*M(z,theta)/y^2`, with no shifted cubic
+loss. At zero the unshifted real transform is retained exactly. The master
+proves `0<=sigma-1+delta` from its existing hypotheses. Do not reconstruct
+`KadiriLaplacePositivity.re_kadiriWeight_laplace_nonneg`.
+
+All new modules build; 11 new theorems and the reused correlation-positivity
+theorem audit with only `propext`, `Classical.choice`, and `Quot.sound`.
+The 11-example harmonic/pole regression and the previous 13-example counting
+regression pass. CI builds the new leaves serially before certificates.
+
+Next: the separate smoothed Gamma factor/remainder estimates, outer-zero
+separation, finite low-zero numerical mass, and all remaining numerical
+parameters giving `R=5.573412`. Pole bounds now exist, but their numerical
+budget and the final zero-harmonic transform still require evaluation.
+The three final Dusart providers and full all-`k` theorem are unfinished.
+
 ### Unconditional high counting and closed Lehman tail (newest, 2026-09-22)
 
 The numerical counting hypothesis is now discharged. `BacklundCountingHigh`
