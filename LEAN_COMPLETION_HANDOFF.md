@@ -45,6 +45,42 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Exact infinite discrepancy and conditional Lehman estimate (newest, 2026-09-22)
+
+The smooth main term has now been subtracted from the unconditional infinite
+counting identity. This completes that analytic reduction, not the explicit
+zero-counting theorem needed to apply its quantitative bound.
+
+- `MeasureTheory.Integral.IoiTranslation` proves translation of half-line
+  integrability and integrals, including vector-valued integrands.
+- `Integrals.ReciprocalSquarePairWeighted` proves the necessary weighted
+  integrability and vanishing boundaries, allowing signed logarithmic
+  factors. It also proves
+  `integral_A^infinity log(x)*w_t(x) dx = log(A)*phi_t(A)+integral_A^infinity phi_t(x)/x dx`.
+- `XiLehmanSmoothTerm` proves integrability of `P*w_t`, the vanishing
+  boundary `P(T)*phi_t(T)`, and its exact main-integral identity.
+- `XiLehmanRemainder` proves genuine integrability of `R*w_t` and the
+  unconditional identity
+  `sum_(gamma>A) phi_t(gamma)-Main = -R(A)*phi_t(A)+integral_A^infinity R(x)*w_t(x) dx`.
+  Its quantitative theorem assumes the actual bound `|R(x)|<=2log(x)` for
+  every `x>=A`. Under that hypothesis it derives the existing Lehman
+  correction. The closed tail retains exactly `m(A)*phi_t(A)`.
+
+All four new leaves compile. The 21 audited exports use only `propext`,
+`Classical.choice`, and `Quot.sound`. The regression
+`test/lean/XiLehmanRemainder.lean` checks signed weights, complex translation,
+the unconditional identity, and the explicit hypotheses of the estimate.
+CI builds the new leaves serially before certificate jobs.
+
+NEXT: prove the actual explicit counting discrepancy bound and the remaining
+separation, pole/gamma, and numerical inputs. The three final Dusart providers
+remain open. Do not repeat the now-completed improper-integral reduction.
+If reusing PNT counting machinery, its pinned `riemannZeta.N` counts
+`0<gamma<T`, whereas `xiZeroCount` counts `0<gamma<=T`. They cannot simply be
+equated at a zero height: account for the endpoint multiplicity or prove a
+right-limit transfer using local finiteness. Its Riemann-von Mangoldt main
+term also includes `7/8`, while this project's `P` does not.
+
 ### Unconditional infinite counting integral (newest, 2026-09-22)
 
 The finite-to-infinite passage is now proved for the actual reciprocal-square

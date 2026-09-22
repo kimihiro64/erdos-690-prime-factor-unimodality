@@ -394,3 +394,22 @@ def test_xi_counting_tail_ci_build_order() -> None:
     ]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/XiZeroCountingTail.lean")
+
+
+def test_xi_lehman_remainder_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "Helpers.Analytic.XiLehmanAbel",
+        "Mathlib.MeasureTheory.Integral.IoiTranslation",
+        "Mathlib.Analysis.SpecialFunctions.Integrals.ReciprocalSquarePairWeighted",
+        "Helpers.Analytic.XiLehmanSmoothTerm",
+        "Helpers.Analytic.XiLehmanRemainder",
+    )
+    positions = [
+        foundations.index(f"lake build \\\n            +PrimeFactorUnimodality.{module}\n")
+        for module in modules
+    ]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index("lake env lean test/lean/XiLehmanRemainder.lean")

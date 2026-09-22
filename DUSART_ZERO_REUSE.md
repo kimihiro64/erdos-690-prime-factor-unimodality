@@ -150,3 +150,16 @@ then proves genuine improper integrability from the finite identity.
 `XiLehmanAbel` specializes this unconditionally to the actual xi pair,
 including the closed-cutoff atom. The explicit counting discrepancy bound
 is still required for numerical control, not for this convergence step.
+
+`XiLehmanSmoothTerm` and `XiLehmanRemainder` now complete smooth subtraction
+and the infinite discrepancy identity. Their quantitative tail estimate
+explicitly requires the actual bound `|R(x)|<=2log(x)`; this is not supplied
+by the inspected sibling counting results. The 21 exports in this increment
+were built and audited with only the three standard logical axioms.
+
+There is a further endpoint distinction when reusing PNT's counting API:
+at the pinned revision, `IEANTN/ZetaDefinitions.lean` defines
+`riemannZeta.N T` using `Set.Ioo 0 T`, while this project's `xiZeroCount T`
+uses `0<gamma<=T`. A bridge requires the full cutoff multiplicity or an
+explicit right-limit argument, as well as conversion of the `7/8` offset.
+No equality of these two counting functions at zero heights is claimed.
