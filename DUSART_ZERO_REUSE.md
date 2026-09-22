@@ -574,3 +574,25 @@ explicit hypotheses; the grid assembler alone is not a numerical region.
 The cover, grid, and preserved two-band theorem compile with only the
 three standard logical axioms. The thirteen existing transform regressions
 and the new sixteen-band actual-region interface regression pass.
+
+## Elementary budget and derivative-moment substitution
+
+`KadiriConservativeBudget` directly uses Mathlib's proved
+`Real.eulerMascheroniConstant_lt_two_thirds` and the project's existing
+`re_xi_divisor_reciprocal_nonneg`. No new Euler-constant series or numerical
+zero-mass evaluation is needed. Monotonicity of the quadratic and cubic
+tail terms propagates this upper bound through the complete correction.
+The conservative grid theorem then invokes the actual grid bootstrap;
+it retains the low-height zero-location hypothesis unchanged.
+
+`KadiriElementaryMoments` reuses `abs_kadiriKernel₂_le_neg_zero`, proved
+earlier using autocorrelation, and Mathlib's `integral_pow`. This yields
+the full-support monomial upper bound at every natural degree. Its actual
+bootstrap consumer supplies all four required moment bounds directly,
+eliminating separate quadrature obligations without a sampled maximum.
+
+All four modules compile. Eleven audited declarations, including the
+Mathlib Euler bound and the actual elementary region theorem, have only
+`propext`, `Classical.choice`, and `Quot.sound` in their closures. The
+numerical zero-free region, low-height locations, and fixed-cutoff
+Chebyshev-error theorem are still required for the final Dusart providers.

@@ -248,6 +248,31 @@ def test_split_bootstrap_ci_build_order() -> None:
     assert positions[-1] < foundations.index("lake env lean test/lean/KadiriGridBootstrap.lean")
 
 
+def test_conservative_bootstrap_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriGridBootstrap",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriConservativeBudget",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriConservativeBootstrap",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriElementaryMoments",
+        "PrimeFactorUnimodality.Helpers.Analytic.KadiriElementaryBootstrap",
+    )
+    positions = [foundations.index(f"lake build \\\n            +{module}\n") for module in modules]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index(
+        "lake env lean test/lean/KadiriConservativeBudget.lean"
+    )
+    assert positions[-1] < foundations.index(
+        "lake env lean test/lean/KadiriConservativeBootstrap.lean"
+    )
+    assert positions[-1] < foundations.index("lake env lean test/lean/KadiriElementaryMoments.lean")
+    assert positions[-1] < foundations.index(
+        "lake env lean test/lean/KadiriElementaryBootstrap.lean"
+    )
+
+
 def test_main_ci_preserves_running_proof_build() -> None:
     root = Path(__file__).resolve().parents[2]
     workflow = (root / ".github/workflows/ci.yml").read_text()

@@ -45,6 +45,41 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Elementary correction budget and all-degree moments (newest, 2026-09-22)
+
+The mass-substitution obligation in the older grid section is now closed.
+`KadiriConservativeBudget` drops the nonnegative finite reciprocal mass,
+uses Mathlib's proved `eulerMascheroniConstant_lt_two_thirds`, and proves
+monotonicity of the complete correction in the resulting tail constant.
+`KadiriConservativeBootstrap` transports both its sign and every grid
+margin into the actual region theorem with the correct inequality direction.
+
+`KadiriElementaryMoments` reuses the already-proved full-support bound
+`abs_kadiriKernel₂_le_neg_zero` and Mathlib's monomial integral. For every
+natural degree `j` the actual absolute derivative moment is bounded by
+`(-kadiriKernel₂ theta 0) * support^(j+1)/(j+1)`. No quadrature is required.
+`KadiriElementaryBootstrap` substitutes these proved bounds for all four
+moment inputs. Thus no finite zero-mass sum, Euler-constant evaluation, or
+absolute-derivative integration remains in its numerical endpoint budget.
+
+All four new modules and their actual bootstrap consumers compile. The
+eleven audited declarations, including Mathlib's Euler bound and the actual
+elementary region theorem, use only the three standard logical axioms.
+CI builds the new leaves and consumers serially before their regressions.
+
+Exploratory floating-point calculations retain positive sixteen-band trial
+margins along the recorded chain even with the looser elementary moment
+envelope (about `2316.89`, versus the sampled mass `768.53`). This is only
+feasibility evidence, not a numerical certificate or a verified region.
+
+Still open: scalar admissibility and margin certificates, coefficient signs,
+the actual low-height zero-location input, and the explicit zero-free-region
+to Chebyshev-error proof at the required cutoff. The latter is genuine
+non-certificate analysis, not supplied by the existing existential medium-PNT
+bound. The three final Dusart providers and the all-`k` result are not closed.
+Preserve the non-certificate-first priority; do not repeat the broad sibling
+audit or restore any full record-gap replay dependency.
+
 ### Arbitrary covers and uniform scale grids (newest, 2026-09-22)
 
 The scale-cover assembly requested below is now implemented.
