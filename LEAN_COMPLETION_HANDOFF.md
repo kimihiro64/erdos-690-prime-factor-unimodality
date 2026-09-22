@@ -81,8 +81,11 @@ new candidates and consumers serially before certificates, then runs
 All 14 new theorem exports audit only `propext`, `Classical.choice`, and
 `Quot.sound`; the leaf chain and the new Lean regression compile.
 The fast source/architecture profile, Ruff format/lint, mypy, workflow
-lint, and all 89 Python tests pass. Ruby metadata validation is skipped
-because Ruby is not installed; no full-project CI success is claimed.
+lint, and all 89 Python tests passed for the proof increment. Ruby and
+minitest are now installed locally: all 16 metadata tests (83 assertions)
+and submission-mode metadata validation pass with no skips. The fast gate
+now requires Ruby; regression tests prevent reinstating the skip.
+No full-project CI success is claimed.
 
 NEXT: use the comparison in the actual xi-divisor sum, retaining
 multiplicities, and prove the remaining quantitative gamma and zero-tail

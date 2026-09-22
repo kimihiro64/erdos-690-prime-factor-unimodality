@@ -58,6 +58,11 @@ commit. The prohibited roots include `.agents/`, `.research/`, `.codex/`,
 
 ## Verification
 
+Install Ruby and its `minitest` library before running any check profile.
+For Ubuntu, `sudo apt-get install ruby ruby-minitest` supplies the metadata
+validator and its tests. Missing Ruby is an error, including in the fast
+pre-commit gate; metadata validation is never skipped.
+
 After fetching the locked Lean dependencies (and the Mathlib cache), run:
 
 ```bash
