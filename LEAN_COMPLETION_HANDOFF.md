@@ -45,6 +45,26 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Pointwise recovery from iterated psi averages (newest, 2026-09-22)
+
+The monotone smoothing step of Dusart's HDR (2022), section 2.2,
+Theorem 35, is now formalized for every natural averaging order.
+`IntervalIntegral.IteratedAverage` proves the support enclosure for any
+monotone function, without assuming continuity at its jumps, and the exact
+identity subtracting the linear main term. `DusartPsiSmoothing` applies
+Mathlib's `Chebyshev.psi_mono` to obtain the two-sided pointwise error and
+the normalized loss `m*delta/2` at smoothing width `x*delta`.
+The independent candidate and its actual psi consumer compile; eight
+regression examples pass and all eight audited exports have only the
+three standard logical axioms.
+
+This interface averages `psi(t)-t` directly. It does not discard the
+logarithmic/trivial-zero terms: a later explicit-formula evaluation must
+include them in the bounds on both adjacent averages. The next analytic
+obligations are that actual averaged explicit formula, its zero-sum
+estimates, and the fixed-cutoff numerical error bound. The smoothing
+theorem alone is not a Dusart provider or a numerical PNT estimate.
+
 ### Elementary correction budget and all-degree moments (newest, 2026-09-22)
 
 The mass-substitution obligation in the older grid section is now closed.

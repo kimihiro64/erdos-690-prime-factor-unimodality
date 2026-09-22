@@ -106,6 +106,7 @@ Replace the scaffold row when the first real candidate module is created.
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.Scaling` | `Mathlib/Analysis/Complex/FiniteLaplace/Scaling.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.VolterraEnergy` | `Mathlib/Analysis/Complex/FiniteLaplace/VolterraEnergy.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.Triangle` | `Mathlib/MeasureTheory/Integral/IntervalIntegral/Triangle.lean` | project-verified | None |
+| `PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.IteratedAverage` | `Mathlib/MeasureTheory/Integral/IntervalIntegral/IteratedAverage.lean` | project-verified | Arbitrary iterated averages of discontinuous monotone functions; exact half-width error correction |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Hadamard.Integral` | `Mathlib/Analysis/Complex/Hadamard/Integral.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Hadamard.IntegralBounds` | `Mathlib/Analysis/Complex/Hadamard/IntegralBounds.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Integrability.Cauchy` | `Mathlib/Analysis/Complex/Integrability/Cauchy.lean` | project-verified | None |

@@ -650,6 +650,11 @@ jobs:
           lake env lean test/lean/KadiriElementaryMoments.lean
           lake env lean test/lean/KadiriElementaryBootstrap.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.IteratedAverage
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartPsiSmoothing
+          lake env lean test/lean/DusartPsiSmoothing.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

@@ -273,6 +273,22 @@ def test_conservative_bootstrap_ci_build_order() -> None:
     )
 
 
+def test_psi_smoothing_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.IteratedAverage",
+        "PrimeFactorUnimodality.Helpers.Analytic.DusartPsiSmoothing",
+    )
+    positions = [foundations.index(f"lake build \\\n            +{module}\n") for module in modules]
+    assert positions == sorted(positions)
+    assert (
+        foundations.index("lake env lean test/lean/KadiriElementaryBootstrap.lean") < positions[0]
+    )
+    assert positions[-1] < foundations.index("lake env lean test/lean/DusartPsiSmoothing.lean")
+
+
 def test_main_ci_preserves_running_proof_build() -> None:
     root = Path(__file__).resolve().parents[2]
     workflow = (root / ".github/workflows/ci.yml").read_text()

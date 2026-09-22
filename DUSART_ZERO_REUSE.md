@@ -596,3 +596,24 @@ Mathlib Euler bound and the actual elementary region theorem, have only
 `propext`, `Classical.choice`, and `Quot.sound` in their closures. The
 numerical zero-free region, low-height locations, and fixed-cutoff
 Chebyshev-error theorem are still required for the final Dusart providers.
+
+## Iterated Chebyshev smoothing
+
+The next non-certificate step follows Dusart's HDR (2022), section 2.2,
+Theorem 35. The Mathlib-only `IntervalIntegral.IteratedAverage` candidate
+uses the existing `Monotone.intervalIntegrable`, interval integral
+comparison, linearity, and the exact integral of the identity function.
+Induction gives the support enclosure and exact mean shift at every
+natural averaging order. `DusartPsiSmoothing` then directly applies
+Mathlib's `Chebyshev.psi_mono`, retaining discontinuities and both sides
+of the pointwise error estimate.
+
+The inspected sibling `CharacterChebyshevDecay` applies BV's primitive
+nonprincipal-character formula with existential constants; it does not
+provide these fixed-constant zeta averages. Robin's inspected
+`robinPrimePowerSum_eq_weighted_explicit_series` explicitly assumes RH.
+Neither is treated as an unconditional numerical Dusart theorem. The
+averaged explicit formula and its quantitative zero contributions remain
+open; the new smoothing layer supplies only the pointwise recovery step.
+Both modules compile, the eight regression examples pass, and all eight
+audited exports have only the three standard logical axioms.

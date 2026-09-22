@@ -5,6 +5,7 @@ Authors: Jonas Whidden
 -/
 import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.CircleAverageAntipodal
 import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.FinsetAbel
+import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.IteratedAverage
 import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.Trapezoid
 import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IoiTranslation
 
