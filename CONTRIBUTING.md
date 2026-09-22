@@ -62,6 +62,18 @@ Run the research profile before opening a pull request. Release work additionall
 requires the full Palomar profile, paper, Comparator, NanoDa, clean Git state,
 and exact public commit audit.
 
+Before committing, install the repository hook once with:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+The hook runs `python3 scripts/check.py --profile fast` and must pass before a
+commit is created. The fast profile includes the source-policy, architecture,
+Challenge/Solution, formatting, and lint checks. The hook intentionally uses
+the repository's canonical checker so local commits and CI exercise the same
+gate.
+
 ## Licence
 
 Contributions are accepted under the repository's Apache-2.0 licence unless
