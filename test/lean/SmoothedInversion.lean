@@ -1,4 +1,4 @@
-import PrimeFactorUnimodality.Helpers.Analytic.SmoothedRealExplicitFormula
+import PrimeFactorUnimodality.Helpers.Analytic.SmoothedStechkinFormula
 
 set_option autoImplicit false
 
@@ -15,6 +15,8 @@ gamma boundary identity is tested throughout `Re(s)>1/2`, together with
 vanishing of right-hand poles at arbitrary heights. The continued paired
 formula is tested at every complex point and the actual real explicit
 formula at every `Re(s)>1/2`, without a nonvanishing hypothesis on xi.
+The shifted master inequality is tested with a nonconstant nonnegative
+cosine polynomial, every admissible real part, and every nonnegative shift.
 -/
 
 namespace PrimeFactorUnimodality.Tests
@@ -37,6 +39,13 @@ private theorem weight_continuous : Continuous weight := by
 
 private theorem weight_tail (u : ℝ) (hu : 1 < u) : weight u = 0 := by
   simp [weight, not_le.mpr hu]
+
+private theorem weight_nonneg (u : ℝ) (hu : 0 ≤ u) : 0 ≤ weight u := by
+  unfold weight
+  split_ifs
+  · have h := mul_nonneg (sq_nonneg (1 - u)) (show 0 ≤ 1 + 2 * u by linarith)
+    nlinarith
+  · rfl
 
 private theorem weight_deriv (u : ℝ) (hu : u ∈ Ioo 0 1) :
     HasDerivAt (fun u => (weight u : ℂ)) (weight₁ u) u := by
@@ -272,6 +281,30 @@ example (s : ℂ) (hs : 1 / 2 < s.re) :
     weight₂_bound weight_tail hs
   have hzero : weight 0 = 1 := by norm_num [weight]
   simpa only [hzero, one_mul, smoothedGammaRemainder] using h
+
+example {σ κ δ : ℝ} (hσ : 1 / 2 < σ) (hδ : 0 ≤ δ) (hκ : κ ≤ 1) (t : ℝ) :
+    0 ≤ (∑ i : Fin 2, smoothedLaplaceDifference weight 1 κ δ
+        (((σ : ℂ) + ((i : ℕ) * t : ℝ) * I) - 1)) -
+      (∑' p : RiemannXiDivisorZeroIndex, ∑ i : Fin 2, smoothedLaplaceDifference weight 1 κ δ
+        (((σ : ℂ) + ((i : ℕ) * t : ℝ) * I) - riemannXiDivisorZeroValue p)) +
+      (∑ i : Fin 2, smoothedGammaFactorDifference κ δ ((σ : ℂ) + ((i : ℕ) * t : ℝ) * I)) +
+      ∑ i : Fin 2, smoothedGammaRemainderDifference weight₂ 1 κ δ
+        ((σ : ℂ) + ((i : ℕ) * t : ℝ) * I) := by
+  have hp : ∀ u : ℝ, 0 ≤ ∑ i : Fin 2, (1 : ℝ) * Real.cos ((i : ℕ) * u) := by
+    intro u
+    simp only [Fin.sum_univ_two]
+    norm_num
+    linarith [Real.neg_one_le_cos u]
+  have h := smoothedStechkin_master_nonneg
+    (f := weight) (g := weight₁) (h := weight₂) (d := 1) (M := 6)
+    (by norm_num) (by norm_num) weight_continuous.continuousOn
+    (by unfold weight₁; fun_prop) (by unfold weight₂; fun_prop) weight_deriv
+    (fun u _ => weight₁_deriv u)
+    (by norm_num [weight]) (by norm_num [weight₁]) (by norm_num [weight₁])
+    weight₂_bound Finset.univ (fun _ : Fin 2 => 1) (fun i => (i : ℕ))
+    weight_tail weight_nonneg hσ hδ hκ t hp
+  have hzero : weight 0 = 1 := by norm_num [weight]
+  simpa only [one_mul, hzero] using h
 
 end
 

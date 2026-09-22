@@ -45,6 +45,51 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Smoothed master inequality and actual paper weight (newest, 2026-09-22)
+
+`SmoothedStechkinFormula` now proves the shifted explicit formula and
+`smoothedStechkin_master_nonneg`, with the finite trigonometric sum moved
+inside the actual xi divisor sum. Absolute summability is proved at every
+complex point; multiplicities are retained. The master inequality applies
+for every `sigma>1/2`, `delta>=0`, `kappa<=1` and nonnegative polynomial,
+with the previously stated regularity and nonnegative-weight conditions.
+It retains the exact gamma factor and boundary remainder, without assuming
+an explicit formula or any of the subsequent sharp estimates.
+
+The four `KadiriWeight*` modules construct the actual trigonometric kernel
+from Kadiri section 2.2 and Mossinghoff--Trudgian section 2. They prove its
+first two derivatives, continuity, positive support and value at zero,
+and all required endpoint identities for EVERY `pi/2<theta<pi`.
+The exact parameter `theta=185573/100000` is proved admissible. The compact
+scaled weight is `eta*h_theta(eta*u)`, supported on `[0,d(theta)/eta]`.
+Its regularity and an existential bound on the second derivative follow
+from proved formulas and compactness. This existential bound is NOT the
+sharp numerical bound still required below.
+
+`kadiriWeight_explicitFormula` instantiates the complete real explicit
+formula with this actual weight. Its ONLY hypotheses are the angle range,
+`eta>0`, and `Re(s)>1/2`; every derivative, endpoint, support, and boundedness
+obligation is discharged. The cubic test weight is not substituted for
+the paper's weight.
+
+Targeted builds and both Lean regressions pass. The tests exercise the
+master inequality with a nonzero weight and polynomial, and the actual
+paper weight at every positive scale and every point in the required
+half-plane. All 32 new exports pass axiom audits with only `propext`,
+`Classical.choice`, and `Quot.sound`; all 87 Python tests pass.
+CI builds these leaves and consumers serially before the corresponding
+regressions. Logs: `.research/dusart-{kadiri-*,stechkin-regression}.log`.
+
+NEXT: prove nonnegativity of the actual weight on its full support and
+the nonnegative real Laplace transform required by the zero estimates,
+then sharp gamma/zero-contribution bounds. The autocorrelation of the
+compact cosine bump is a promising route to both positivity and a sharp
+second-derivative bound; that representation is NOT proved yet. The
+sharp zero-free/PNT estimates and finite analytic inputs for the three
+global Dusart providers still remain. Do not redo the now completed
+explicit formula, master inequality, or weight regularity, and do not
+confuse a compactness bound with the required explicit constants.
+
 ### Continued explicit formula on the required half-plane (newest, 2026-09-22)
 
 `SmoothedRealExplicitFormula.re_smoothedVonMangoldt_explicitFormula` now

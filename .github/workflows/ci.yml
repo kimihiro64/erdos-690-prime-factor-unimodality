@@ -294,7 +294,18 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.SmoothedEntireFormula
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.SmoothedRealExplicitFormula
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SmoothedStechkinFormula
           lake env lean test/lean/SmoothedInversion.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriWeightKernel
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriWeightEndpoints
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriWeight
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriWeightExplicitFormula
+          lake env lean test/lean/KadiriWeight.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \

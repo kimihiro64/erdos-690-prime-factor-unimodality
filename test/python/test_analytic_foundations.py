@@ -167,3 +167,26 @@ def test_smoothed_continuation_ci_build_order() -> None:
     ]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/SmoothedInversion.lean")
+
+
+def test_kadiri_weight_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "SmoothedRealExplicitFormula",
+        "SmoothedStechkinFormula",
+        "KadiriWeightKernel",
+        "KadiriWeightEndpoints",
+        "KadiriWeight",
+        "KadiriWeightExplicitFormula",
+    )
+    positions = [
+        foundations.index(
+            f"lake build \\\n            +PrimeFactorUnimodality.Helpers.Analytic.{module}\n"
+        )
+        for module in modules
+    ]
+    assert positions == sorted(positions)
+    assert positions[1] < foundations.index("lake env lean test/lean/SmoothedInversion.lean")
+    assert positions[-1] < foundations.index("lake env lean test/lean/KadiriWeight.lean")
