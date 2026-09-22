@@ -45,6 +45,59 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Quantitative distinguished zero (newest, 2026-09-22)
+
+`KadiriDistinguishedZero.kadiriWeight_distinguished_master_nonneg` now
+retains the actual distinguished transform in the master, with the exact
+linear/cubic pair error and the complete outer-strip remainder. Its scale
+is `η=1-Re(ρ)`, its selected harmonic has frequency one, and its divisor
+label is genuinely off the critical line. There is no assumed pair bound
+at the consumer boundary; it is proved in the new chain:
+
+- `KadiriRetainedZeros` retains one pair at any selected harmonic by
+  applying Mathlib's finite-subsum bound to the nonnegative differences
+  between the full and outer contributions.
+- `KadiriRetainedMaster` combines that bound with the actual master.
+- The Mathlib-only `FiniteLaplace.Monotonicity` proves the real integral
+  identity and antitonicity for nonnegative compact sources on the ENTIRE
+  real axis, including negative arguments.
+- `KadiriRetainedBounds` proves Kadiri equation (34), section 4.1.1.
+  Monotonicity bounds the three regular transform terms at `1`, `δ`, and
+  `σ₀-η₀+δ`; the existing cubic error gives their explicit constants.
+  `kadiriRetainedPairError` is exactly
+  `[(κ(1/δ+1/c)-1)g₁]η + [(1+κ(1/δ³+1/c³))m]η³`,
+  where `c=σ₀-η₀+δ`, `g₁=kadiriKernel θ 0`, and `m=-kadiriKernel₂ θ 0`.
+  The main transform is not divided by `σ-β`; the case `σ=β` is covered.
+- `KadiriDistinguishedZero` applies this to the actual xi zero and obtains
+  both the weighted zero-sum lower bound and the quantitative master.
+
+The new candidate, four project leaves, and `test/lean/KadiriRetainedZero.lean`
+compile. Ten theorem exports audit to `propext`, `Classical.choice`, and
+`Quot.sound` only (`.research/DusartRetainedZeroAxioms.lean`). The regression
+checks negative-axis monotonicity, the exact error signs, `σ=β`, and the
+frequency-one term in a degree-16 sum. CI builds the candidate before its
+facade/consumers and the four leaves serially before the regression.
+Fast prebuild checks, workflow lint, Ruff, mypy, all 94 Python tests, and
+all 16 Ruby metadata tests (83 assertions) pass. No full-project build or
+CI success is claimed for the still-missing Dusart providers.
+
+NEXT: the outer-strip remainder in Kadiri proposition 4.4 / (49)--(50),
+then pole and gamma bounds. Prove the transform remainder with the exact
+weighted second-derivative integral `M(z,θ)` and its scaling; keep the
+Mossinghoff--Trudgian cubic moment majorant from section 4, not a coarse
+supremum bound that would spoil the target constants. For the rational
+four-kernel term, the existing `stechkinZeroPair_sub_nonneg` assumes
+`σ>1` and cannot justify positivity here: this needs its inside-strip,
+large-height comparison proved with explicit parameter bounds.
+
+For the zero-tail sum, use Mossinghoff--Trudgian section 4 / (4.1): their
+`c₃₀` uses Lehman's integral estimate for positive heights and checked
+low-zero subtraction at height zero, not Kadiri's older counting estimate.
+The required exact `R=5.573412`, degree-16 polynomial, and numerical inputs
+are still unproved. All three final Dusart providers and the all-`k`
+completion remain open. No certificate replay is needed for the next
+analytic source work. Do not redo the distinguished-zero integration.
+
 ### Actual multiplicity-counted zero sums (newest, 2026-09-22)
 
 The paired comparison is now integrated with the actual xi divisor.
@@ -71,8 +124,9 @@ the unconditional smoothed strip argument.
   κ₂/κ₃ comparison.
 - `KadiriOuterMaster` inserts central-strip elimination into the actual
   master inequality, keeping pole, outer-zero, and gamma terms explicit.
-  This master currently discards all central pairs: its retained-pair
-  refinement and the quantitative estimates are not yet implemented.
+  This particular master discards all central pairs; its retained-pair
+  refinement and distinguished-pair estimate are now supplied by the newer
+  chain above. The remaining outer-zero/pole/gamma estimates are still open.
 
 All new leaf modules and `test/lean/KadiriZeroSums.lean` compile. All 28
 audited declarations use only the standard three axioms; probe/log are
@@ -86,10 +140,10 @@ workflow lint, mypy, and all 93 Python tests pass. Ruby reports 16 tests,
 83 assertions, and no failures or skips. No full-project CI success or final
 Dusart proof is claimed.
 
-NEXT: retain the distinguished pair at the selected harmonic in the
-weighted master, prove its quantitative lower bound, then the outer-zero
-and gamma estimates (Kadiri §4.1 / proposition 2.5, with the exact
-Mossinghoff--Trudgian parameters). The target remains `R=5.573412`.
+The distinguished-pair weighted integration and quantitative lower bound
+proposed at this stage are now proved in the newer section above. The
+remaining outer-zero and gamma estimates must use the exact
+Mossinghoff--Trudgian parameters. The target remains `R=5.573412`.
 Then prove the needed sharp PNT bounds and finite analytic inputs for
 `wangCrapis_primeCounting`, `wangCrapis_thetaBounds`, and
 `wangCrapis_shortInterval`. All three providers remain open. Do not redo

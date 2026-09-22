@@ -82,9 +82,12 @@ summands may be negative. The nonfixed-orbit hypothesis prevents counting a
 critical-line zero twice. `ZetaXiDivisorPairing` and `KadiriZeroSums` apply
 this to the actual divisor, retaining the complete outer-strip remainder.
 `KadiriOuterMaster` also integrates central-strip elimination into the
-paper-weight master inequality. Its current master theorem discards all
-central pairs; combining the distinguished-pair bound with that weighted
-master is the next assembly step, not an already-proved numerical estimate.
+paper-weight master inequality. The later `KadiriRetainedZeros` and
+`KadiriRetainedMaster` retain one pair at the selected harmonic.
+`KadiriRetainedBounds` proves equation (34) directly using monotonicity and
+the existing cubic transform bound, and `KadiriDistinguishedZero` inserts
+that quantitative estimate into the actual master. These symbolic results
+do not certify the remaining numerical zero-free-region constants.
 
 ## Verification and remaining boundary
 
@@ -97,8 +100,7 @@ summands, infinite analytic order, fixed critical-line labels, preserved
 multiplicity labels, and the actual retained-pair sum. CI builds these
 modules serially in `lean-foundations`, before certificate jobs.
 
-Still required: the distinguished zero's quantitative lower bound,
-outer-zero and gamma estimates, the numerical parameters giving
+Still required: outer-zero, pole, and gamma estimates, the numerical parameters giving
 `R=5.573412`, and the remaining unconditional PNT/finite analytic inputs.
 This reuse increment does not finish the three final Dusart providers or
 the all-`k` theorem.

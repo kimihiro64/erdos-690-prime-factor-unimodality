@@ -271,6 +271,8 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.PairedSeries
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.Monotonicity
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.DigammaConjugation
@@ -364,6 +366,15 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriOuterMaster
           lake env lean test/lean/KadiriZeroSums.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriRetainedZeros
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriRetainedMaster
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriRetainedBounds
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriDistinguishedZero
+          lake env lean test/lean/KadiriRetainedZero.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \

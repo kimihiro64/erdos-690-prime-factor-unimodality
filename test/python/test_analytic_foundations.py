@@ -266,3 +266,24 @@ def test_zero_sum_ci_build_order() -> None:
     ]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/KadiriZeroSums.lean")
+
+
+def test_retained_zero_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "Mathlib.Analysis.Complex.FiniteLaplace.Monotonicity",
+        "Mathlib.Analysis.Complex.FiniteLaplace",
+        "Helpers.Analytic.KadiriZeroSums",
+        "Helpers.Analytic.KadiriRetainedZeros",
+        "Helpers.Analytic.KadiriRetainedMaster",
+        "Helpers.Analytic.KadiriRetainedBounds",
+        "Helpers.Analytic.KadiriDistinguishedZero",
+    )
+    positions = [
+        foundations.index(f"lake build \\\n            +PrimeFactorUnimodality.{module}\n")
+        for module in modules
+    ]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index("lake env lean test/lean/KadiriRetainedZero.lean")
