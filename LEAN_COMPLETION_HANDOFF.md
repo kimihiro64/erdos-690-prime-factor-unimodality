@@ -45,6 +45,60 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Gamma-integral convergence on the required half-plane (newest, 2026-09-22)
+
+`DigammaLowerBound` proves `Re(psi(z)) >= -gamma` for `Re(z)>=1` directly
+from the nonnegative real terms of the checked digamma series. Recurrence
+gives `Re(psi(z)) >= -gamma-1/Re(z)` throughout `Re(z)>0`. Together with
+the preceding explicit upper bound, this yields
+`|Re(psi(1/4+it/2))| <= log(|t|+3)+|gamma|+5` for every real height.
+It imports only `DigammaExplicitBounds` and the already-audited series leaf.
+
+Two new Mathlib-only candidates compile independently:
+
+- `FiniteLaplace.Continuity`: continuity of `F(s-it)` for a source continuous
+  on `[0,d]`, with no global extension hypothesis or restriction on `Re(s)`;
+- `Integrability.LogCauchy`: explicit domination of
+  `log(|t|+c)/(a^2+(t-b)^2)` by a multiple of `(1+|t|)^(-3/2)`, and absolute
+  integrability for all `a>0`, `c>=1`, and real `b`.
+
+`SmoothedGammaRemainder` defines the actual second-derivative integrand of
+Kadiri's `T2` term (before the `1/(2*pi)` factor), proves it continuous,
+gives its explicit pointwise majorant, and proves it absolutely integrable
+for **every `Re(s)>1/2`**. The source `h` need only be continuous and bounded
+on `[0,d]`; later consumers instantiate it as the weight's second derivative.
+This includes the below-one line required by the paper. The quantitative
+bound retains the positive separation `a=Re(s)-1/2` and denominator
+`a^2+(t-Im(s))^2`. It does not assume the explicit formula or any zero-free
+region.
+
+All 11 new exported theorems pass the axiom audit with only `propext`,
+`Classical.choice`, and `Quot.sound`. `test/lean/SmoothedGamma.lean` checks
+the nonzero cubic weight's second derivative `-6+12u`, convergence at
+`s=3/4+it` for every height, the `c=1` logarithmic-kernel boundary case,
+and the digamma bound at one. CI builds the candidates, then the consumers,
+then this regression in serial order. Logs are
+`.research/dusart-gamma-{build,regressions,axioms,fast,commit}.log`.
+
+The remaining non-certificate obligation is still the **smoothed explicit
+formula's contour/inversion identity and the justified exchanges**. Its
+real zero sum and gamma integral now both have proved absolute convergence.
+Next prove the identity, then the compact test-function estimates and sharp
+numerical errors. The coarse gamma majorant here establishes convergence;
+do not claim it establishes the sharp zero-free constant. The three global
+Dusart providers and full all-`k` theorem remain unfinished.
+
+Source route for the next identity: Kadiri section 3.1 first applies inversion
+and a rectangular contour to `phi(y)=(f(0)-f(y))*exp(-s*y)` for `y>=0`,
+zero for `y<0`, on `Re(s)>1`. Its transform is the negative of the already
+proved pole-subtracted remainder. Then use the functional equation and
+Hadamard cancellation, and justify continuation to `Re(s)>1/2`. Pointwise
+convergence does not itself justify continuation or exchanging integrals.
+Check the gluing hypotheses directly: `f'(0)=0` gives a continuous first
+derivative for this `phi`, but arbitrary `f''(0)` does NOT give a globally
+continuous second derivative. The paper's theorem 3.1 allows piecewise
+regularity. Do not introduce `f''(0)=0` merely to use a stronger interface.
+
 ### Explicit Laplace remainders and convergent smoothed zero sums (newest, 2026-09-22)
 
 Three independent Mathlib candidates under `Analysis/Complex/FiniteLaplace`
