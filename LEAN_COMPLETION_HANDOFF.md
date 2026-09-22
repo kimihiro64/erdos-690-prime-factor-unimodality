@@ -45,6 +45,42 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Actual gamma boundary identity (newest, 2026-09-22)
+
+`SmoothedGammaBoundary.smoothedGammaRemainder_eq_neg_trivialZeroSum`
+now proves, for EVERY `Re(s)>1/2`, the paper's exact complex boundary term:
+
+`(1/(2*pi))*integral_t smoothedGammaIntegrand h d s t + F_h(s)/s^2`
+`= -sum_{n>=1} (F_f(s+2*n)-f(0)/(s+2*n))`.
+
+Its real part is Kadiri's `T_2`. The hypotheses are the existing interval
+regularity, endpoint conditions, and bound on `f''`; no gamma identity,
+contour shift, or finite truncation is assumed. `SmoothedGammaRemainder`
+names this exact expression. `SmoothedRealDigammaIntegral` proves the
+real-digamma contour evaluation, and `SmoothedDigammaReflection` kills
+the reflected term by absolute interchange and inverse-Laplace support.
+Mathlib-only candidates `Integrability.RightResolvent` and
+`FiniteLaplace.RightResolventIntegral` prove the right-pole vanishing;
+`Gamma.DigammaConjugation` proves the totalized conjugation identities.
+The new `FiniteLaplace` facade exports its candidate subtree.
+
+All 13 new exports pass axiom audits with only `propext`, `Classical.choice`,
+and `Quot.sound`. Targeted builds and the nonzero cubic regression pass,
+including the full boundary identity at EVERY symbolic `Re(s)>1/2` and
+right-pole vanishing at `s=3/4+iy`, `rho=1+iv` for arbitrary heights.
+CI builds the new candidates and consumers serially before this regression.
+Logs: `.research/dusart-gamma-boundary{,-regression,-axioms,-fast}.log`.
+
+Next prove continuation of the complete explicit formula below one.
+The entire paired zero series needs compact-uniform convergence and
+holomorphy; the already proved pointwise summability does not suffice.
+The real Hadamard constant cancellation also still needs a proof: the
+numeric value at zero and the symmetrized resolvent identity do not by
+themselves identify the constant with the real reciprocal-zero sum.
+Then prove the sharp estimates and finite analytic inputs needed by the
+three global Dusart providers. Those providers and the all-`k` theorem
+remain open. Do not repeat the now completed gamma-boundary work.
+
 ### Gamma pairing and the right-half-plane explicit formula (newest, 2026-09-22)
 
 `SmoothedExplicitFormula.smoothedVonMangoldt_explicitFormula_of_one_lt_re`
@@ -81,13 +117,11 @@ symbolic `s` with `Re(s)>1`. CI builds these leaves and consumers serially
 before `test/lean/SmoothedInversion.lean`.
 Logs: `.research/dusart-{digamma*,smoothed-digamma,zeta-decomposition,explicit-formula,formula-*}`.
 
-Next establish the paper's **half-line gamma remainder representation**
-in terms of `SmoothedGammaIntegrand`, and the **continuation below one**
-needed for `Re(s)>1/2`. The gamma identity above is an evaluated shifted
-digamma contour, not yet that real-digamma boundary representation.
-Then prove the sharp estimates and finite analytic inputs needed by the
-three Dusart providers. This does not finish those providers or the all-`k`
-theorem; do not substitute the proved `Re(s)>1` domain for the required one.
+The newer section above completes the paper's half-line gamma remainder
+representation. Continuation of the entire explicit formula below one,
+the sharp estimates, and finite analytic inputs for the three Dusart
+providers remain. Do not substitute the proved `Re(s)>1` domain of this
+explicit formula for the required one.
 
 ### Evaluated xi contour identity (newest, 2026-09-22)
 
@@ -136,9 +170,9 @@ CI builds the candidates and consumers serially and runs
 Logs: `.research/dusart-{xi,smoothed-xi-interchange,laplace-resolvent,hadamard-regression}*`.
 
 The next section added above completes the shifted gamma pairing and the
-regularized explicit formula on `Re(s)>1`. Its continuation to `Re(s)>1/2`,
-the half-line gamma boundary representation, and the sharp estimates needed
-by Dusart remain. The prime-side inversion and whole xi zero pairing must
+regularized explicit formula on `Re(s)>1`, followed by the half-line gamma
+boundary identity on `Re(s)>1/2`. Continuation of the whole formula and the
+sharp estimates needed by Dusart remain. The prime-side inversion and whole xi zero pairing must
 not be redone. The three global Dusart providers and all-`k` theorem remain open.
 
 ### Absolute inversion and the actual prime contour identity (newest, 2026-09-22)

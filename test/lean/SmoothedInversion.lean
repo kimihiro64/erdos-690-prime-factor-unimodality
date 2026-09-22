@@ -1,4 +1,5 @@
 import PrimeFactorUnimodality.Helpers.Analytic.SmoothedExplicitFormula
+import PrimeFactorUnimodality.Helpers.Analytic.SmoothedGammaBoundary
 
 set_option autoImplicit false
 
@@ -10,7 +11,9 @@ does not require a twice continuously differentiable zero extension.
 The prime and evaluated xi contour identities are tested at every height
 on real part two, together with poles off the critical line. The gamma
 pairing is tested below real part one, and the assembled explicit formula
-is tested at every point of its proved right-half-plane domain.
+is tested at every point of its proved right-half-plane domain. The full
+gamma boundary identity is tested throughout `Re(s)>1/2`, together with
+vanishing of right-hand poles at arbitrary heights.
 -/
 
 namespace PrimeFactorUnimodality.Tests
@@ -187,6 +190,39 @@ example (s : ℂ) (hs : 1 < s.re) :
     weight₂_bound weight_tail hs
   have hzero : (weight 0 : ℂ) = 1 := by norm_num [weight]
   simpa only [hzero, one_mul, shiftedGammaPole, sub_neg_eq_add] using h
+
+example (y v : ℝ) :
+    (∫ t : ℝ, (finiteLaplace (fun u => (weight u : ℂ)) 1
+        (((3 / 4 : ℂ) + y * I) - ((1 / 2 : ℂ) + (t : ℂ) * I)) -
+      1 / (((3 / 4 : ℂ) + y * I) - ((1 / 2 : ℂ) + (t : ℂ) * I))) /
+      (((1 / 2 : ℂ) + (t : ℂ) * I) - ((1 : ℂ) + v * I))) = 0 := by
+  have h := integral_finiteLaplace_sub_pole_div_vertical_of_right
+    (f := fun u => (weight u : ℂ)) (g := weight₁) (h := weight₂) (d := 1) (M := 6)
+    (s := (3 / 4 : ℂ) + y * I) (c := 1 / 2) (ρ := (1 : ℂ) + v * I)
+    (by norm_num) (by norm_num)
+    (Complex.continuous_ofReal.comp weight_continuous).continuousOn
+    (by unfold weight₁; fun_prop) (by unfold weight₂; fun_prop) weight_deriv
+    (fun u _ => weight₁_deriv u)
+    (by norm_num [weight]) (by norm_num [weight₁]) (by norm_num [weight₁])
+    weight₂_bound (by norm_num) (by norm_num)
+  have hzero : (weight 0 : ℂ) = 1 := by norm_num [weight]
+  simpa only [hzero, ofReal_div, ofReal_one, ofReal_ofNat] using h
+
+example (s : ℂ) (hs : 1 / 2 < s.re) :
+    (1 / (2 * (Real.pi : ℂ))) * (∫ t : ℝ, smoothedGammaIntegrand weight₂ 1 s t) +
+      finiteLaplace weight₂ 1 s / s ^ 2 =
+      -(∑' n : ℕ, (finiteLaplace (fun u => (weight u : ℂ)) 1 (s + 2 * ((n : ℂ) + 1)) -
+        1 / (s + 2 * ((n : ℂ) + 1)))) := by
+  have h := smoothedGammaRemainder_eq_neg_trivialZeroSum
+    (f := fun u => (weight u : ℂ)) (g := weight₁) (h := weight₂) (d := 1) (M := 6)
+    (by norm_num) (by norm_num)
+    (Complex.continuous_ofReal.comp weight_continuous).continuousOn
+    (by unfold weight₁; fun_prop) (by unfold weight₂; fun_prop) weight_deriv
+    (fun u _ => weight₁_deriv u)
+    (by norm_num [weight]) (by norm_num [weight₁]) (by norm_num [weight₁])
+    weight₂_bound hs
+  have hzero : (weight 0 : ℂ) = 1 := by norm_num [weight]
+  simpa only [smoothedGammaRemainder, hzero, shiftedGammaPole, sub_neg_eq_add] using h
 
 end
 

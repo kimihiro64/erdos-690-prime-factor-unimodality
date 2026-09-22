@@ -19,6 +19,21 @@ noncomputable section
 
 open MeasureTheory Set
 
+/-- Continuity of the pole-subtracted weight along a contour left of the transform parameter. -/
+theorem continuous_finiteLaplace_sub_pole_contour {f : ℝ → ℂ} {d : ℝ}
+    (hd : 0 ≤ d) (hf : ContinuousOn f (Icc 0 d)) {s : ℂ} {c : ℝ} (hcs : c < s.re) :
+    Continuous (fun t : ℝ => finiteLaplace f d (s - ((c : ℂ) + (t : ℂ) * I)) -
+      f 0 / (s - ((c : ℂ) + (t : ℂ) * I))) := by
+  have hne (t : ℝ) : s - ((c : ℂ) + (t : ℂ) * I) ≠ 0 := by
+    intro heq
+    have hre := congrArg Complex.re heq
+    simp only [sub_re, add_re, mul_re, ofReal_re, I_re, I_im, ofReal_im,
+      mul_zero, zero_mul, sub_zero, add_zero, zero_re] at hre
+    linarith
+  have hF : Continuous (fun t : ℝ => finiteLaplace f d (s - ((c : ℂ) + (t : ℂ) * I))) := by
+    simpa only [sub_add_eq_sub_sub] using continuous_finiteLaplace_vertical hd hf (s - c)
+  exact hF.sub (continuous_const.div (by fun_prop) hne)
+
 /-- Transfer inverse-square decay between complementary arguments separated from zero. -/
 theorem div_sq_norm_sub_le {s z : ℂ} {a M : ℝ} (ha : 0 < a) (hM : 0 ≤ M)
     (hz : z ≠ 0) (hv : a ≤ ‖s - z‖) :

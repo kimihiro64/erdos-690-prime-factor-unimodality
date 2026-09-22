@@ -58,16 +58,7 @@ theorem integral_finiteLaplace_sub_pole_div_vertical {ρ : ℂ} (hρ : ρ.re < c
     f 0 / (s - ((c : ℂ) + (t : ℂ) * I))
   have hH : Integrable H := integrable_finiteLaplace_sub_pole_contour hd hM hf hg hh hfg hgh
     hfd hg₀ hgd hbound hcs
-  have hcont : Continuous H := by
-    have hne (t : ℝ) : s - ((c : ℂ) + (t : ℂ) * I) ≠ 0 := by
-      intro heq
-      have hre := congrArg Complex.re heq
-      simp only [sub_re, add_re, mul_re, ofReal_re, I_re, I_im, ofReal_im,
-        mul_zero, zero_mul, sub_zero, add_zero, zero_re] at hre
-      linarith
-    have hF : Continuous (fun t : ℝ => finiteLaplace f d (s - ((c : ℂ) + (t : ℂ) * I))) := by
-      simpa only [sub_add_eq_sub_sub] using continuous_finiteLaplace_vertical hd hf (s - c)
-    exact hF.sub (continuous_const.div (by fun_prop) hne)
+  have hcont : Continuous H := continuous_finiteLaplace_sub_pole_contour hd hf hcs
   change (1 / (2 * (Real.pi : ℂ))) * (∫ t : ℝ, H t / _) = _
   rw [integral_div_vertical_eq_integral_exp hH hcont hρ, ← integral_const_mul]
   calc

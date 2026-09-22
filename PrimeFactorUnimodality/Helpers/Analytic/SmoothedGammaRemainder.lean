@@ -30,6 +30,11 @@ def smoothedGammaIntegrand (h : ℝ → ℂ) (d : ℝ) (s : ℂ) (t : ℝ) : ℂ
     finiteLaplace h d (s - ((1 / 2 : ℂ) + (t : ℂ) * I)) /
       (s - ((1 / 2 : ℂ) + (t : ℂ) * I)) ^ 2
 
+/-- The complex gamma remainder whose real part is the paper's `T₂` term. -/
+def smoothedGammaRemainder (h : ℝ → ℂ) (d : ℝ) (s : ℂ) : ℂ :=
+  (1 / (2 * (Real.pi : ℂ))) * (∫ t : ℝ, smoothedGammaIntegrand h d s t) +
+    finiteLaplace h d s / s ^ 2
+
 private theorem gamma_displacement_ne_zero {s : ℂ} (hs : 1 / 2 < s.re) (t : ℝ) :
     s - ((1 / 2 : ℂ) + (t : ℂ) * I) ≠ 0 := by
   intro heq
