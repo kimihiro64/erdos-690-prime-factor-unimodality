@@ -101,6 +101,14 @@ with the existing reflection and retained-zero machinery. The numerical
 tail estimate and the proof of absolute-height separation remain open;
 neither follows merely from this reuse of summability.
 
+The subsequent `XiHeightTailPairing` reuses the same actual conjugation
+equivalence to obtain the positive-ordinate formula. `XiLowReciprocalMass`
+and `XiHeightTailZero` instead use the project's independently established
+unconditional real Hadamard constant and the locally finite divisor to
+bound the height-zero tail by a finite reciprocal-mass subtraction. This
+does not use the RH-dependent sibling evaluations. The finite low-zero
+lower sum and the numerical tail budget still require verification.
+
 Both general candidates, their xi consumers, actual-weight summability,
 zero sums, and outer master compile against the pinned project environment.
 The 28 declarations audited by `.research/DusartXiPairingAxioms.lean` use

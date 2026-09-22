@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonas Whidden
 -/
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Poisson.OuterStrip
+import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Poisson.Reciprocal
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Poisson.ThreeKernelUniform
 
 /-! # Rational Poisson-kernel comparisons

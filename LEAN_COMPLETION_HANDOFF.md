@@ -45,7 +45,62 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
-### Outer height-tail master (newest, 2026-09-22)
+### Positive tail, endpoint correction, and unconditional low-mass subtraction (newest, 2026-09-22)
+
+The actual height tail now has its positive-ordinate decomposition, its
+closed-cutoff correction, and a new unconditional finite-mass bound at
+height zero. The elementary integral in the positive-height Lehman error
+is also proved. The zero-counting theorem underlying Lehman's estimate is
+NOT supplied by these steps.
+
+- `XiHeightTailPairing` uses the existing actual divisor conjugation
+  equivalence. Every multiplicity label is preserved. It proves absolute
+  convergence and
+  `Σ(t,H)=sum_{γ>=|t|+H} [1/(γ-t)²+1/(γ+t)²]`, including the cutoff.
+- `XiLowReciprocalMass` proves finiteness of bounded-ordinate divisor
+  sets, defines the actual finite sum `L(H)=sum_{|γ|<H} Re(1/ρ)`, and proves
+  the exact closed-tail reciprocal mass is
+  `(2+EulerConstant-log(4π))/2-L(H)`. This reuses the already-proved
+  unconditional real Hadamard constant, not an RH-dependent mass identity.
+- The Mathlib-only `Poisson.Reciprocal` controls `1/γ²` by the reflected
+  reciprocal pair with factor `1+1/H²` on the whole closed critical strip.
+  `XiHeightTailZero.xiHeightTail_zero_le_reciprocal_mass` consequently proves
+  `Σ(0,H) <= 2(1+1/H²)*[(2+EulerConstant-log(4π))/2-L(H)]` for every `H>0`.
+  Its finite-subset corollary needs only a verified lower sum over distinct
+  actual divisor labels below `H`, not an exhaustive enumeration of all
+  low zeros. No such numerical zero certificates are claimed implemented.
+  This is an alternative to the paper's separate `0.023105` inverse-height
+  total bound; whether a chosen finite input meets the final numerical
+  budget must still be checked.
+- `XiHeightTailEndpoint` proves that each ordinate fiber is finite and
+  `Σ(t,H)=sum_{γ>|t|+H} φ_t(γ)+m(|t|+H)*φ_t(|t|+H)`, where `m` counts all
+  divisor labels on the boundary and `φ_t(x)=1/(x-t)²+1/(x+t)²`.
+  A strict-tail bound therefore transfers only with this atom correction
+  or a proved zero boundary multiplicity. No endpoints are silently lost.
+- `Integrals.ReciprocalSquarePair` proves positivity, continuity,
+  antitonicity, actual improper integrability, and
+  `integral_H^infinity φ_t(x+t)/(x+t) dx <= 2/(tH)` for `t,H>0`.
+  `XiLehmanIntegral` obtains the exact elementary correction
+  `4 log(t+H) [1/H²+1/(H+2t)²]+4/(tH)`. It does not assert that a zero
+  sum already satisfies the unproved Lehman counting estimate.
+
+The two candidates and five project leaves compile. The 29 audited theorem
+exports use only `propext`, `Classical.choice`, and `Quot.sound`.
+The regression `test/lean/XiHeightTail.lean` checks label preservation,
+cutoff atoms, the strict finite subtraction, the empty finite-subset case,
+the inverse-square integral, and the divided-pair correction. CI builds
+the new chain serially in `lean-foundations` before running it.
+
+NEXT: prove the zero-counting/integration argument for the positive-height
+Lehman estimate, the source's absolute-height separation, and the remaining
+pole/gamma estimates. A useful analytic simplification for the main Lehman
+integral is recorded privately for proof next; it is not yet a theorem.
+Then prove the actual numerical low-zero/moment/parameter inputs and all
+three final Dusart providers. Do not repeat the completed conjugation,
+pairing, summability, rational comparison, or low-mass algebra. Non-certificate
+work remains and continues to take priority over finite replay.
+
+### Outer height-tail master (2026-09-22)
 
 The rational outer-strip comparison, both reflected pair errors, and their
 actual multiplicity-counted series assembly are now proved. The cutoff and
@@ -83,15 +138,10 @@ unrestricted negative first numerators, norm-to-height summability, and the
 exact paper tail domain. Its toy rational parameters are not numerical
 certificates for `R=5.573412`.
 
-NEXT: prove the absolute-height separation from the underlying zero-free
-and low-zero inputs, then the actual quantitative `Σ(t,H)` bound. For
-positive height, use conjugation with multiplicities to rewrite `Σ` as the
-positive-height sum of `1/(γ-t)²+1/(γ+t)²`, then prove the required Lehman
-estimate from its counting/integration argument. Preserve the cutoff's
-closed endpoint; a strict-tail theorem needs a checked endpoint correction.
-At height zero, the paper uses the unconditional inverse-square total bound
-minus a verified low-zero contribution; an RH-dependent xi mass theorem
-does not discharge it. Pole/gamma bounds, the exact parameter and moment
+The newer section supplies positive-height reindexing, cutoff correction,
+and an unconditional alternative to the height-zero inverse-square total
+bound. Absolute-height separation and the quantitative positive-height
+counting estimate remain. Pole/gamma bounds, the exact parameter and moment
 checks, and the three final Dusart providers are also still open. Continue
 non-certificate source work first. Earlier NEXT instructions to construct
 the rational comparison or outer-series assembly are superseded.
