@@ -45,6 +45,67 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Continued explicit formula on the required half-plane (newest, 2026-09-22)
+
+`SmoothedRealExplicitFormula.re_smoothedVonMangoldt_explicitFormula` now
+proves the complete real smoothed formula for EVERY `Re(s)>1/2`:
+
+`Re V_f(s) = Re F_f(s-1) - sum_rho Re F_f(s-rho)`
+`+ f(0)*(-log(pi)/2 + Re digamma(s/2+1)/2) + Re smoothedGammaRemainder(h,d,s)`.
+
+The sum is over the actual xi divisor with multiplicities, and the gamma
+remainder is exactly the boundary integral defined and evaluated below.
+The theorem has NO xi-nonvanishing hypothesis and includes `s=1` and any
+xi zeros in its domain. Its assumptions are only the interval regularity,
+endpoint conditions, second-derivative bound, and compact support of the
+weight used throughout this development. No explicit formula, contour
+shift, or continuation premise is assumed.
+
+The stronger complex theorem
+`SmoothedEntireFormula.smoothedVonMangoldt_entire_explicitFormula`
+holds at EVERY complex `s`, in terms of entire paired sums
+`E_xi(s)=sum_rho (F_f(s-rho)+f(0)/rho)` and the analogous negative-even
+pole sum `E_gamma(s)`. Its constant is
+`f(0)*(logDeriv(xi)(0)+(log(pi)+EulerGamma)/2)`.
+
+The proof closes the previous continuation and constant-cancellation gaps:
+
+- Mathlib-only `FiniteLaplace.Differentiability` differentiates the finite
+  integral under an explicit majorant, requiring only interval continuity.
+  `PairedBounds` proves a uniform inverse-square bound on each parameter
+  ball. `PairedSeries` constructs summable majorants including the finitely
+  many near terms, then proves both absolute convergence and holomorphy.
+  This is genuinely local-uniform convergence, not pointwise summability.
+- `SmoothedPairedSums` specializes those results to both zero families.
+  `SmoothedPrimeEntire` proves the prime side entire using its fixed finite
+  support. `SmoothedPairedEvaluation` converts the original resolvent sums
+  to paired sums. The identity theorem extends the proved right-half-plane
+  identity to the entire complex plane.
+- `ZetaXiDivisorReflection` constructs the equivalence `rho -> 1-rho`
+  preserving each multiplicity index via analytic-order invariance.
+  `ZetaXiHadamardConstant` uses this equivalence at `s=1` to prove
+  `Re logDeriv(xi)(0) = -sum_rho Re(1/rho)` and hence the real resolvent
+  formula wherever xi is nonzero. Taking real parts of the ENTIRE paired
+  identity then removes the constant without excluding any xi zeros.
+
+All 22 new exported proof/continuation declarations pass axiom audits
+using only `propext`, `Classical.choice`, and `Quot.sound`. Targeted builds,
+the expanded nonzero cubic regressions, and all 86 Python tests pass.
+The regressions cover the entire complex identity at arbitrary `s`, the
+actual real formula for arbitrary `Re(s)>1/2`, reflected multiplicities,
+and differentiation for arbitrary finite interval endpoints.
+CI builds the new candidates and consumers serially before these tests.
+Logs: `.research/dusart-{continuation-*,smoothed-entire-formula,real-explicit-formula,laplace-*}.log`.
+
+Next prove the quantitative compact-weight gamma and zero-contribution
+estimates, then the sharp zero-free/PNT estimates and the finite analytic
+inputs required by the three Dusart providers. The complete explicit
+formula, its continuation, and the real Hadamard constant are now DONE;
+older descriptions of them as missing below are historical. Do not redo
+those steps or search for an assumed replacement. The global declarations
+`wangCrapis_primeCounting`, `wangCrapis_thetaBounds`, and
+`wangCrapis_shortInterval`, and therefore the all-`k` theorem, remain open.
+
 ### Actual gamma boundary identity (newest, 2026-09-22)
 
 `SmoothedGammaBoundary.smoothedGammaRemainder_eq_neg_trivialZeroSum`
@@ -71,15 +132,10 @@ right-pole vanishing at `s=3/4+iy`, `rho=1+iv` for arbitrary heights.
 CI builds the new candidates and consumers serially before this regression.
 Logs: `.research/dusart-gamma-boundary{,-regression,-axioms,-fast}.log`.
 
-Next prove continuation of the complete explicit formula below one.
-The entire paired zero series needs compact-uniform convergence and
-holomorphy; the already proved pointwise summability does not suffice.
-The real Hadamard constant cancellation also still needs a proof: the
-numeric value at zero and the symmetrized resolvent identity do not by
-themselves identify the constant with the real reciprocal-zero sum.
-Then prove the sharp estimates and finite analytic inputs needed by the
-three global Dusart providers. Those providers and the all-`k` theorem
-remain open. Do not repeat the now completed gamma-boundary work.
+The newer section above completes continuation of the explicit formula
+below one and real Hadamard constant cancellation. Sharp estimates and
+finite analytic inputs for the three global Dusart providers remain.
+Do not repeat the now completed gamma-boundary or continuation work.
 
 ### Gamma pairing and the right-half-plane explicit formula (newest, 2026-09-22)
 

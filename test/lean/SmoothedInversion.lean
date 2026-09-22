@@ -1,5 +1,4 @@
-import PrimeFactorUnimodality.Helpers.Analytic.SmoothedExplicitFormula
-import PrimeFactorUnimodality.Helpers.Analytic.SmoothedGammaBoundary
+import PrimeFactorUnimodality.Helpers.Analytic.SmoothedRealExplicitFormula
 
 set_option autoImplicit false
 
@@ -13,7 +12,9 @@ on real part two, together with poles off the critical line. The gamma
 pairing is tested below real part one, and the assembled explicit formula
 is tested at every point of its proved right-half-plane domain. The full
 gamma boundary identity is tested throughout `Re(s)>1/2`, together with
-vanishing of right-hand poles at arbitrary heights.
+vanishing of right-hand poles at arbitrary heights. The continued paired
+formula is tested at every complex point and the actual real explicit
+formula at every `Re(s)>1/2`, without a nonvanishing hypothesis on xi.
 -/
 
 namespace PrimeFactorUnimodality.Tests
@@ -223,6 +224,54 @@ example (s : ℂ) (hs : 1 / 2 < s.re) :
     weight₂_bound hs
   have hzero : (weight 0 : ℂ) = 1 := by norm_num [weight]
   simpa only [smoothedGammaRemainder, hzero, shiftedGammaPole, sub_neg_eq_add] using h
+
+example (d : ℝ) (s : ℂ) :
+    HasDerivAt (finiteLaplace (fun _ => (1 : ℂ)) d)
+      (finiteLaplace (fun t => -(t : ℂ) * 1) d s) s :=
+  hasDerivAt_finiteLaplace continuousOn_const s
+
+example (p : RiemannXiDivisorZeroIndex) :
+    analyticOrderNatAt riemannXi (riemannXiDivisorZeroValue (riemannXiDivisorReflection p)) =
+      analyticOrderNatAt riemannXi (riemannXiDivisorZeroValue p) := by
+  rw [riemannXiDivisorZeroValue_reflection, analyticOrderNatAt_riemannXi_one_sub]
+
+example (s : ℂ) (hs : riemannXi s ≠ 0) :
+    (logDeriv riemannXi s).re =
+      ∑' p : RiemannXiDivisorZeroIndex, (1 / (s - riemannXiDivisorZeroValue p)).re :=
+  re_logDeriv_riemannXi_eq_tsum_resolvent hs
+
+example (s : ℂ) :
+    smoothedVonMangoldt weight s = finiteLaplace (fun u => (weight u : ℂ)) 1 (s - 1) -
+      smoothedXiPairedSum (fun u => (weight u : ℂ)) 1 s -
+      smoothedGammaPairedSum (fun u => (weight u : ℂ)) 1 s -
+        (logDeriv riemannXi 0 + ((Real.log Real.pi : ℂ) + Real.eulerMascheroniConstant) / 2) := by
+  have h := smoothedVonMangoldt_entire_explicitFormula
+    (f := weight) (g := weight₁) (h := weight₂) (d := 1) (M := 6)
+    (by norm_num) (by norm_num) weight_continuous.continuousOn
+    (by unfold weight₁; fun_prop) (by unfold weight₂; fun_prop) weight_deriv
+    (fun u _ => weight₁_deriv u)
+    (by norm_num [weight]) (by norm_num [weight₁]) (by norm_num [weight₁])
+    weight₂_bound weight_tail s
+  have hzero : (weight 0 : ℂ) = 1 := by norm_num [weight]
+  simpa only [hzero, one_mul] using h
+
+example (s : ℂ) (hs : 1 / 2 < s.re) :
+    (smoothedVonMangoldt weight s).re =
+      (finiteLaplace (fun u => (weight u : ℂ)) 1 (s - 1)).re -
+      (∑' p : RiemannXiDivisorZeroIndex,
+        (finiteLaplace (fun u => (weight u : ℂ)) 1 (s - riemannXiDivisorZeroValue p)).re) +
+      (-(1 / 2 : ℝ) * Real.log Real.pi + (1 / 2 : ℝ) * (digamma (s / 2 + 1)).re) +
+      ((1 / (2 * (Real.pi : ℂ))) * (∫ t : ℝ, smoothedGammaIntegrand weight₂ 1 s t) +
+        finiteLaplace weight₂ 1 s / s ^ 2).re := by
+  have h := re_smoothedVonMangoldt_explicitFormula
+    (f := weight) (g := weight₁) (h := weight₂) (d := 1) (M := 6)
+    (by norm_num) (by norm_num) weight_continuous.continuousOn
+    (by unfold weight₁; fun_prop) (by unfold weight₂; fun_prop) weight_deriv
+    (fun u _ => weight₁_deriv u)
+    (by norm_num [weight]) (by norm_num [weight₁]) (by norm_num [weight₁])
+    weight₂_bound weight_tail hs
+  have hzero : weight 0 = 1 := by norm_num [weight]
+  simpa only [hzero, one_mul, smoothedGammaRemainder] using h
 
 end
 

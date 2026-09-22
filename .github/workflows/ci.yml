@@ -265,6 +265,12 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.RightResolventIntegral
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.Differentiability
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.PairedBounds
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.PairedSeries
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.DigammaConjugation
@@ -274,6 +280,20 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.SmoothedRealDigammaIntegral
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.SmoothedGammaBoundary
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaXiDivisorReflection
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaXiHadamardConstant
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SmoothedPairedSums
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SmoothedPairedEvaluation
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SmoothedPrimeEntire
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SmoothedEntireFormula
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SmoothedRealExplicitFormula
           lake env lean test/lean/SmoothedInversion.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds

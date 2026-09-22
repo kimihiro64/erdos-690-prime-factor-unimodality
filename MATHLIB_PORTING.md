@@ -47,8 +47,11 @@ Replace the scaffold row when the first real candidate module is created.
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.Bounds` | `Mathlib/Analysis/Complex/FiniteLaplace/Bounds.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.Continuity` | `Mathlib/Analysis/Complex/FiniteLaplace/Continuity.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.ContourBounds` | `Mathlib/Analysis/Complex/FiniteLaplace/ContourBounds.lean` | project-verified | None |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.Differentiability` | `Mathlib/Analysis/Complex/FiniteLaplace/Differentiability.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.DirichletIntegral` | `Mathlib/Analysis/Complex/FiniteLaplace/DirichletIntegral.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.Inversion` | `Mathlib/Analysis/Complex/FiniteLaplace/Inversion.lean` | project-verified | None |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.PairedBounds` | `Mathlib/Analysis/Complex/FiniteLaplace/PairedBounds.lean` | project-verified | None |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.PairedSeries` | `Mathlib/Analysis/Complex/FiniteLaplace/PairedSeries.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.RemainderSource` | `Mathlib/Analysis/Complex/FiniteLaplace/RemainderSource.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.ResolventIntegral` | `Mathlib/Analysis/Complex/FiniteLaplace/ResolventIntegral.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.RightResolventIntegral` | `Mathlib/Analysis/Complex/FiniteLaplace/RightResolventIntegral.lean` | project-verified | None |

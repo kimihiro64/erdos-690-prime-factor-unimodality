@@ -66,6 +66,16 @@ theorem digamma_term_eq_shiftedGamma_atom {z : ℂ} (hz : 0 < z.re) (n : ℕ) :
   field_simp
   ring
 
+/-- The regularized shifted-gamma atoms are absolutely summable on the right half-plane. -/
+theorem summable_shiftedGamma_atoms {z : ℂ} (hz : 0 < z.re) :
+    Summable (fun n : ℕ => 1 / (z - shiftedGammaPole n) + 1 / shiftedGammaPole n) := by
+  have hs := (Complex.hasSum_digamma_of_re_pos
+    (z₀ := z / 2 + 1) (by simp only [add_re, div_ofNat_re, one_re]; linarith)).summable
+  simp_rw [digamma_term_eq_shiftedGamma_atom hz] at hs
+  apply (hs.mul_left (-1 / 2 : ℂ)).congr
+  intro n
+  ring
+
 /-- The shifted digamma expansion with the same regularization as the xi divisor. -/
 theorem digamma_half_add_one_eq_shiftedGamma_tsum {z : ℂ} (hz : 0 < z.re) :
     digamma (z / 2 + 1) = -(Real.eulerMascheroniConstant : ℂ) -
