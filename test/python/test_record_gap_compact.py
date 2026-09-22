@@ -100,8 +100,8 @@ def test_committed_rows_match_generator_and_semantic_digest() -> None:
     assert [sides[side].count(0) for side in ("Sub", "Add")] == [3815, 7103]
     encoded = json.dumps([sides["Sub"], sides["Add"]], separators=(",", ":")).encode()
     assert hashlib.sha256(encoded).hexdigest() == data["row_sha256"]
-    # At the measured 81s/witness, leave substantial headroom under 180 minutes.
-    assert max_exceptions <= 120
+    # At the measured 81s/witness, leave headroom under the 150-minute step limit.
+    assert max_exceptions <= 100
     for number, start in enumerate(range(0, len(rows), 32), 1):
         assert (directory / f"Assembly{number:03d}.lean").read_text() == render_assembly(
             rows[start : start + 32], number

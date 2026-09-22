@@ -36,7 +36,9 @@ not a completed full-family benchmark.
 There are 273 data rows and 273 replay rows, plus nine small assemblers.
 CI uses 181 independent runner jobs, each with at most two sequential rows
 and at most 100 Fermat exceptions. At the measured rate that is at most
-135 minutes per job, within the 180-minute budget; runner performance varies.
+135 minutes per job; runner performance varies. Replay steps stop at 150 minutes,
+leaving 30 minutes of the 180-minute job budget to save completed artifacts even
+after a step times out.
 The entire computation is still approximately 200–250 serial runner-hours
 (roughly 380 CPU-hours at the measured CPU utilization). Splitting
 does not eliminate that work: it bounds each job and permits reuse.

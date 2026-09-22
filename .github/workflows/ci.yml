@@ -260,6 +260,7 @@ jobs:
           key: gap-owners-${{ needs.record-gap-plan.outputs.source_key }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: gap-owners-${{ needs.record-gap-plan.outputs.source_key }}-
       - name: Build shared checker, then the serial factor-row chain
+        timeout-minutes: 150
         run: |
           lake build +PrimeFactorUnimodality.Proof.LargeRange.CompactGapReplay
           python3 scripts/record_gap_ci.py --owners
@@ -306,6 +307,7 @@ jobs:
           key: gap-replay-${{ matrix.shard }}-${{ needs.record-gap-plan.outputs.source_key }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: gap-replay-${{ matrix.shard }}-${{ needs.record-gap-plan.outputs.source_key }}-
       - name: Replay bounded rows sequentially with checkpoint progress
+        timeout-minutes: 150
         run: python3 scripts/record_gap_ci.py --shard '${{ matrix.shard }}'
       - name: Preserve completed rows even if another certificate fails
         if: always()
