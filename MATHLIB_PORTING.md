@@ -40,6 +40,8 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.JensenCard` | `Mathlib/Analysis/Complex/JensenCard.lean` | project-verified | Finite distinct zeros and their cardinality bound by the analytic divisor mass on compact connected domains |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Powers.Recurrence` | `Mathlib/Analysis/Complex/Powers/Recurrence.lean` | project-verified | Unbounded powers of a unit complex number return to one; arbitrarily large powers have quantitatively positive real parts |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Exp.Cubic` | `Mathlib/Analysis/SpecialFunctions/Exp/Cubic.lean` | project-verified | Mathlib exponential series and summable order comparison |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ExpMoments` | `Mathlib/Analysis/SpecialFunctions/Integrals/ExpMoments.lean` | project-verified | Mathlib finite-interval comparison and linearity |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ReciprocalSquarePair` | `Mathlib/Analysis/SpecialFunctions/Integrals/ReciprocalSquarePair.lean` | project-verified | Continuity, monotonicity, and explicit divided-pair improper integral bounds |

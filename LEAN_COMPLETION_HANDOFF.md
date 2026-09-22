@@ -45,6 +45,37 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Backlund auxiliary and Jensen crossing bound (newest, 2026-09-22)
+
+The actual auxiliary function from Trudgian's equation (2.4) is now entire,
+and its real zeros satisfy Jensen's bound at arbitrarily large powers.
+
+- `BacklundAuxiliary` directly reuses PNT's residue-patched entire surrogate
+  `a(s)=(s-1)zeta(s)` and its differentiability proof. It proves conjugation,
+  the real-axis identity, and norm bounds for the symmetrized powers.
+- `Complex.Powers.Recurrence` proves recurrence of unit complex powers by
+  compactness, including torsion points. It supplies unbounded powers with
+  real part at least half the norm power, hence a nonzero auxiliary centre.
+- `BacklundJensen` applies Mathlib's proved `sum_divisor_le` to obtain the
+  explicit disk-divisor bound in terms of the boundary magnitude and centre.
+- `Complex.JensenCard` proves that distinct zeros contribute at least their
+  cardinality to the analytic divisor on a compact connected domain.
+  `BacklundRealZeros` applies this to the actual horizontal real-part zeros,
+  proves their finiteness, and transfers the explicit Jensen estimate.
+
+Both candidates, all three project leaves, and the Lean regression compile.
+The 21 new public theorems and PNT's surrogate differentiability use only
+`propext`, `Classical.choice`, and `Quot.sound`. Fast checks, 102 Python tests,
+Ruff, mypy, and actionlint pass. CI builds these leaves serially before
+certificates. No certificate replay is needed for this increment.
+
+NEXT: prove the argument-variation bound from real crossings, the argument
+principle identity for the actual count, and adequate explicit gamma/Stirling
+and boundary magnitude estimates. The current Jensen theorem retains its
+boundary norm hypotheses; it does not yet prove the required `2log(T)` bound.
+The remaining separation and numerical inputs and three Dusart providers
+are still open. Do not repeat the completed counting and integral bridges.
+
 ### Exact xi/zeta counting bridge (newest, 2026-09-22)
 
 The counting-convention bridge is now proved, including analytic multiplicity

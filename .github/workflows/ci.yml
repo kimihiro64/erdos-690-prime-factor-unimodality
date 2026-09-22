@@ -459,6 +459,19 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.XiZetaCountingBounds
           lake env lean test/lean/XiZetaCountingBridge.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.Powers.Recurrence
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.JensenCard
+          /usr/bin/time -v lake build \
+            +PrimeNumberTheoremAnd.Backlund.ZeroCountCrude
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.BacklundAuxiliary
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.BacklundJensen
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.BacklundRealZeros
+          lake env lean test/lean/BacklundAuxiliary.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

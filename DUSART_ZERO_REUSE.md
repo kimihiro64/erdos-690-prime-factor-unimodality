@@ -179,3 +179,20 @@ Under the stated RvM hypothesis, its constants give the `2log(T)` envelope
 for `T>=2, log(T)>=5`, and then the actual Lehman bound. The hypothesis is
 still open. All 21 public results in this increment build and have only
 `propext`, `Classical.choice`, and `Quot.sound` in their axiom closures.
+
+## Backlund auxiliary reuse
+
+`BacklundAuxiliary` now imports the pinned `Backlund/ZeroCountCrude` directly
+and uses its `zetaSurrogate` and `zetaSurrogate_differentiable`, including the
+residue patch at one. The attribution to Robby Sneiderman and the full pinned
+revision are in the consumer. Its differentiability axiom audit has only the
+three standard logical axioms. The new symmetrized-power real-part identities
+therefore extend an existing entire-function proof rather than reconstruct it.
+
+`BacklundJensen` likewise applies Mathlib's existing `sum_divisor_le`; the new
+compactness recurrence and finite-cardinality comparison supply the missing
+interfaces for the real crossings. `BacklundRealZeros` proves the actual
+crossing bound at arbitrarily large powers. This does not claim that the
+coarse PNT growth estimate supplies the explicit logarithmic discrepancy:
+argument variation, the counting identity, and sharp enough magnitude and
+gamma estimates remain separate proof obligations.
