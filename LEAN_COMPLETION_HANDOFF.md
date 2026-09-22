@@ -45,6 +45,41 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Proved initial numerical region and outer separation (newest, 2026-09-22)
+
+`ZetaZeroFreeInitial.xi_zero_gap_initial`, in namespace
+`PrimeFactorUnimodality`, proves unconditionally that every actual xi zero
+with `abs(Im rho)>=10^9` has
+`1/(56*log(abs(Im rho))) <= 1-Re(rho)`. It optimizes the already-proved
+`3,4,1` constraint at `sigma=1+1/(8*log(abs(Im rho)))`; the remaining terms
+are bounded explicitly by `4*log(abs(Im rho))`. No external numerical
+zero-free theorem, RH premise, or finite verification is used in this result.
+
+`KadiriOuterSeparation` supplies the general logarithmic cutoff argument
+and its specialization to the proved initial region. The actual
+same-height divisor reflection gives the left side of the central strip.
+The specialization retains precisely a low-height upper bound
+`Re(rho)<=sigma` for zeros below `10^9`. It does not assume these zeros
+lie on the critical line, although that would suffice to provide the bound.
+
+`KadiriInitialMaster.kadiriWeight_initial_region_master_nonneg` connects
+this separation to the actual explicit smoothed inequality for any finite
+harmonic set. Both the former `hfar` premise and the distinguished zero's
+upper strip premise are discharged. The remaining low-height input and
+numerical parameter constraints are explicit.
+
+All three new modules and seven regression examples compile. All eight
+public theorem closures contain only `propext`, `Classical.choice`, and
+`Quot.sound`. CI builds these leaves serially after the Gamma master.
+
+Next: the quantitative bootstrap from the proved initial constant `56`
+to the required `5.573412`, including evaluation of the retained transform,
+weighted derivative mass, and the complete error budget. The paper starts
+its final iterations at `5.7`; that starting constant is not yet available
+here and must not be assumed. The low-height upper bound, low-zero mass,
+and all three final Dusart providers remain open. Do not confuse the proved
+initial region or conditional low-height assembly with the final theorem.
+
 ### Explicit smoothed Gamma terms connected to the master (newest, 2026-09-22)
 
 `KadiriExplicitMaster.kadiriWeight_explicit_master_nonneg` replaces the

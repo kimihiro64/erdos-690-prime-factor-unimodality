@@ -1,0 +1,62 @@
+import PrimeFactorUnimodality.Helpers.Analytic.KadiriExplicitMaster
+import PrimeFactorUnimodality.Helpers.Analytic.KadiriOuterSeparation
+
+/-! # The actual smoothed master with proved high-height separation
+
+Use the initial numerical region and the explicit low-height input to
+discharge the former outer-zero separation hypothesis at every harmonic.
+No high-height zero-free-region or zero-counting hypothesis remains.
+The low-height data and the final numerical improvement are not asserted.
+-/
+
+namespace PrimeFactorUnimodality
+
+noncomputable section
+
+open Complex Real
+
+/-- The proved initial region supplies the separation in the actual explicit master. -/
+theorem kadiriWeight_initial_region_master_nonneg {θ η η₀ σ₀ σ δ κ z H A : ℝ}
+    (hθ : π / 2 < θ ∧ θ < π) (hη : 0 < η) (hη₀ : η ≤ η₀)
+    (hσ₀ : 1 / 2 < σ₀) (hσ : σ₀ ≤ σ) (hσ₁ : σ ≤ 1) (hδ : 1 / 2 ≤ δ)
+    (hκ : 0 ≤ κ) (hκ₁ : κ ≤ 1)
+    (hκ₂ : κ ≤ kadiriKappa₂ θ η₀ (2 * σ₀ - 1) δ)
+    (hκ₃ : κ ≤ kadiriKappa₃ θ η₀ (2 * σ₀ - 1) δ)
+    (hc : 0 < σ₀ - η₀ + δ) (hz : z ≤ (σ - 1) / η) (hH : 0 < H)
+    (hgap : 0 ≤ 2 * σ₀ - 1 - κ * (1 + 2 * δ))
+    (hcut : κ * (1 + 2 * δ) + 1 - σ₀ ≤
+      (2 * σ₀ - 1 - κ * (1 + 2 * δ)) * H ^ 2)
+    {ι : Type*} (S : Finset ι) (a k : ι → ℝ) (ha : ∀ i ∈ S, 0 ≤ a i)
+    (j : ι) (hj : j ∈ S) (hk : k j = 1) (p : RiemannXiDivisorZeroIndex)
+    (hβ : 1 / 2 < (riemannXiDivisorZeroValue p).re)
+    (hηρ : η = 1 - (riemannXiDivisorZeroValue p).re)
+    (hpoly : ∀ u : ℝ, 0 ≤ ∑ i ∈ S, a i * Real.cos (k i * u))
+    (hσA : 1 - 1 / (56 * Real.log A) ≤ σ)
+    (hlow : ∀ q : RiemannXiDivisorZeroIndex,
+      |(riemannXiDivisorZeroValue q).im| < 10 ^ 9 → (riemannXiDivisorZeroValue q).re ≤ σ)
+    (hharm : ∀ i ∈ S, |k i * (riemannXiDivisorZeroValue p).im| + H ≤ A)
+    (hA : ∀ i ∈ S, k i * (riemannXiDivisorZeroValue p).im ≠ 0 →
+      10 ^ 9 ≤ |k i * (riemannXiDivisorZeroValue p).im| + H) :
+    0 ≤ (∑ i ∈ S, a i * kadiriPoleMajorant θ η z σ
+        (k i * (riemannXiDivisorZeroValue p).im)) -
+      a j * ((finiteLaplace (fun u => (kadiriWeight θ η u : ℂ)) (kadiriWeightSupport θ η)
+          ((σ - (riemannXiDivisorZeroValue p).re : ℝ) : ℂ)).re -
+        kadiriRetainedPairError θ η η₀ σ₀ κ δ) +
+      kadiriOuterError θ η κ σ₀ z / 2 *
+        (∑ i ∈ S, a i * xiLehmanTailMajorant (k i * (riemannXiDivisorZeroValue p).im) H) +
+      kadiriWeight θ η 0 * (∑ i ∈ S, a i * smoothedGammaFactorMajorant κ σ
+        (k i * (riemannXiDivisorZeroValue p).im)) +
+      (∑ i ∈ S, a i) * ((1 + κ) * η ^ 3 * (-kadiriKernel₂ θ 0) / 4) := by
+  have hβσ : (riemannXiDivisorZeroValue p).re ≤ σ := by
+    have hh := hharm j hj
+    rw [hk, one_mul] at hh
+    by_contra hn
+    have hsep := kadiri_outer_separation_initial hσA hlow p (fun hp => hn hp.2)
+    linarith
+  exact kadiriWeight_explicit_master_nonneg hθ hη hη₀ hσ₀ hσ hσ₁ hδ hκ hκ₁ hκ₂ hκ₃
+    hc hz hH hgap hcut S a k ha j hj hk p hβ hβσ hηρ hpoly
+    (kadiri_outer_separation_initial_harmonics hσA hlow S k hharm) hA
+
+end
+
+end PrimeFactorUnimodality

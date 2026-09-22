@@ -558,6 +558,13 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriExplicitMaster
           lake env lean test/lean/KadiriGammaBounds.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaZeroFreeInitial
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriOuterSeparation
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriInitialMaster
+          lake env lean test/lean/KadiriInitialRegion.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

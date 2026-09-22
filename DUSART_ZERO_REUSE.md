@@ -370,3 +370,32 @@ All 13 new theorem closures and both reused Euler--Maclaurin inputs were
 audited with only `propext`, `Classical.choice`, and `Quot.sound`.
 Outer-zero separation, finite low-zero numerics, the remaining parameter
 budget, and the final Dusart providers are not discharged by this step.
+
+## Initial numerical region and separation
+
+The existing `xi_zero_three_four_one_constraint` now yields an actual
+initial numerical region, not merely an inequality awaiting optimization.
+`ZetaZeroFreeInitial` uses Mathlib's Euler-constant and logarithm bounds to
+bound its remainder by `4*log(abs(t))` for `abs(t)>=10^9`. Substituting
+`sigma=1+1/(8*log(abs(t)))` proves the gap `1/(56*log(abs(t)))`.
+The inspected sibling results with unspecified constants are not imported
+as a substitute for this numerical starting bound.
+
+`KadiriOuterSeparation` reuses the actual same-height divisor reflection
+and logarithmic monotonicity to derive the cutoff condition for every
+finite set of harmonics. `KadiriInitialMaster` connects it to the actual
+smoothed inequality, also deriving the distinguished zero's upper strip
+bound. Only the low-height upper bound below `10^9` remains as a separate
+zero-location premise. The general separation lemma supports replacing
+the initial constant by subsequent proved improvements.
+
+All eight exports compile and their axiom closures contain only
+`propext`, `Classical.choice`, and `Quot.sound`. The seven regression
+examples include both signs, the exact high cutoff, and arbitrary degree.
+
+The [Mossinghoff--Trudgian paper](https://arxiv.org/pdf/1410.3926),
+sections 2--3, requires an established region and low-height information
+before its numerical iterations. Its final iterations start at `5.7`.
+Our proved starting constant `56` is not that input and is not the desired
+`5.573412`: the intervening improvements and complete numerical budget
+must still be proved. No RH verification or final provider is claimed here.
