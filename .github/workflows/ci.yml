@@ -483,6 +483,22 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.BacklundArgumentIntegral
           lake env lean test/lean/BacklundArgument.lean
           /usr/bin/time -v lake build \
+            +PrimeNumberTheoremAnd.RectangleArgumentPrinciple
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaXiRealNonvanishing
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiCountingRectangle
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiHalfContour
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiRegularHeights
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.BacklundXiLogDerivative
+          lake env lean test/lean/XiCountingContour.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiCountingDecomposition
+          lake env lean test/lean/XiCountingDecomposition.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

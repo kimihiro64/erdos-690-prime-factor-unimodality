@@ -45,6 +45,57 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Actual counting contour and half-contour identity (newest, 2026-09-22)
+
+The argument-principle identity for the actual multiplicity-weighted count
+is now proved, rather than supplied as a hypothesis.
+
+- `ZetaXiRealNonvanishing` applies the pinned Abel continuation to prove
+  zeta's strict negativity for `1/2<=sigma<1`, then uses the gamma product
+  and xi reflection to exclude every real xi zero. The Abel domain is only
+  used where its actual `Re(s)>1/10` hypothesis holds.
+- `XiCountingRectangle` identifies the xi divisor support on the rectangle
+  with vertical sides `1-sigma,sigma` and heights `0,T` with PNT's strict
+  positive-height zeta zero set. Existing multiplicity equality supplies its
+  weights. The audited PNT rectangle residue theorem gives exactly
+  `RectangleIntegral'(logDeriv xi)=N(T)` when `sigma>=1,T>=0` and the top
+  avoids zeros. No separate argument-count identity is assumed.
+- `XiHalfContour` uses global logarithmic-derivative conjugation and the
+  existing reflection identity to prove
+  `pi*N(T)=Im(VIntegral(logDeriv xi,sigma,0,T))-Im(HIntegral(logDeriv xi,1/2,sigma,T))`.
+  It proves the necessary top-line continuity and preserves contour signs.
+- `XiRegularHeights` proves that all heights sufficiently close above any
+  nonnegative cutoff avoid xi zeros. Continuous count-error bounds established
+  at such regular heights transfer to the closed count at every cutoff,
+  including the full multiplicity at a zero ordinate.
+- `ZetaXiLogDerivative` now exposes its existing product differentiation on
+  `Re(s)>0` away from one and at zeta nonzeros. The former `Re(s)>1` theorem
+  is retained as a wrapper with exactly its previous statement.
+  `BacklundXiLogDerivative` separates the xi integrand into the entire
+  surrogate integrand, `-log(pi)/2`, and `digamma(s/2+1)/2`. This makes the
+  preceding horizontal Backlund bound applicable inside the critical strip.
+- `XiCountingDecomposition` proves integrability and splits both actual
+  half-contour integrals into surrogate and gamma terms. The horizontal
+  Jensen theorem now bounds the actual count minus the gamma contribution,
+  leaving the vertical surrogate integral and explicit circle bounds visible.
+  Its gamma continuity comes directly from PNT's proved `DigammaSeries`.
+
+All six new leaves and the generalized logarithmic-derivative module compile.
+The 31 new theorems and two retained exports have only `propext`,
+`Classical.choice`, and `Quot.sound` in their audited closures. Both new Lean
+regressions pass (17 examples), as do the existing counting-bridge and
+horizontal-argument regressions. CI builds these modules serially before
+certificates. Fast checks, Ruff, mypy, actionlint, and 105 Python tests pass.
+
+NEXT: prove sufficiently sharp explicit gamma/Stirling, vertical surrogate,
+and circle-to-centre surrogate estimates. The existing `DigammaExplicitBounds`
+upper bound has
+an additive constant; integrating it directly gives an error proportional
+to `T`, not the required logarithmic discrepancy. A sharper integrated
+gamma remainder is needed. The numerical `2log(T)` count bound, separation,
+numerical zero-free parameters, and all three Dusart providers remain open.
+Do not repeat the completed contour, integral splitting, or regular-height arguments.
+
 ### Horizontal argument integral bound (newest, 2026-09-22)
 
 The real-crossing comparison and infinite-power limit are now proved and

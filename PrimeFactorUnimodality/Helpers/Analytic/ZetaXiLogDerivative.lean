@@ -6,8 +6,9 @@ set_option autoImplicit false
 
 /-! # The xi logarithmic derivative with an explicit gamma term
 
-Identify the entire xi function with its gamma product on `Re(s) > 1` and
-differentiate there. Combining the identity with the explicit digamma bound
+Identify the entire xi function with its gamma product on `Re(s) > 0` away
+from one and differentiate at nonzeros. The original `Re(s) > 1` identity
+follows using unconditional zeta nonvanishing. Combining it with the explicit digamma bound
 leaves exactly the xi logarithmic derivative to be estimated by its zeros.
 
 The xi normalization is Matteo Cipollina's Apache-2.0 `CompletedXi` module
@@ -61,16 +62,17 @@ theorem riemannXi_eq_shifted_gamma_product {s : ℂ} (hs : 1 < s.re) :
   riemannXi_eq_shifted_gamma_product_of_re_pos (zero_lt_one.trans hs)
     (by intro h; simp [h] at hs)
 
-/-- Exact logarithmic-derivative identity, before estimating the xi zero contribution. -/
-theorem neg_logDeriv_riemannZeta_eq_xi {s : ℂ} (hs : 1 < s.re) :
+/-- Exact logarithmic-derivative identity on the zero-free portion of the right half-plane. -/
+theorem neg_logDeriv_riemannZeta_eq_xi_of_re_pos {s : ℂ} (hs : 0 < s.re)
+    (hs1 : s ≠ 1) (hζ : riemannZeta s ≠ 0) :
     -deriv riemannZeta s / riemannZeta s =
       -logDeriv riemannXi s + 1 / (s - 1) - (1 / 2 : ℂ) * Real.log Real.pi +
         (1 / 2 : ℂ) * digamma (s / 2 + 1) := by
   let F : ℂ → ℂ := fun z => (z - 1) * xiPiFactor z * Gamma (z / 2 + 1) * riemannZeta z
   have heq : riemannXi =ᶠ[𝓝 s] F := by
-    filter_upwards [(isOpen_lt continuous_const continuous_re).mem_nhds hs] with z hz
-    exact riemannXi_eq_shifted_gamma_product hz
-  have hs1 : s ≠ 1 := by intro h; simp [h] at hs
+    filter_upwards [(isOpen_lt continuous_const continuous_re).mem_nhds hs,
+      isOpen_compl_singleton.mem_nhds hs1] with z hz hz1
+    exact riemannXi_eq_shifted_gamma_product_of_re_pos hz hz1
   have hΓpos : 0 < (s / 2 + 1).re := by
     simp only [add_re, div_ofNat_re, one_re]
     linarith
@@ -80,7 +82,6 @@ theorem neg_logDeriv_riemannZeta_eq_xi {s : ℂ} (hs : 1 < s.re) :
     simp only [neg_re, natCast_re] at h
     linarith [Nat.cast_nonneg (α := ℝ) n]
   have hΓ := Gamma_ne_zero_of_re_pos hΓpos
-  have hζ := riemannZeta_ne_zero_of_one_le_re hs.le
   have hπ : xiPiFactor s ≠ 0 := exp_ne_zero _
   have hdπ : DifferentiableAt ℂ xiPiFactor s := by unfold xiPiFactor; fun_prop
   have hdΓ : DifferentiableAt ℂ (fun z : ℂ => Gamma (z / 2 + 1)) s :=
@@ -118,6 +119,14 @@ theorem neg_logDeriv_riemannZeta_eq_xi {s : ℂ} (hs : 1 < s.re) :
   have hxi := (logDeriv_congr_nhds heq).eq_of_nhds
   rw [hxi, hF]
   ring
+
+/-- The original half-plane identity follows from unconditional zeta nonvanishing. -/
+theorem neg_logDeriv_riemannZeta_eq_xi {s : ℂ} (hs : 1 < s.re) :
+    -deriv riemannZeta s / riemannZeta s =
+      -logDeriv riemannXi s + 1 / (s - 1) - (1 / 2 : ℂ) * Real.log Real.pi +
+        (1 / 2 : ℂ) * digamma (s / 2 + 1) :=
+  neg_logDeriv_riemannZeta_eq_xi_of_re_pos (zero_lt_one.trans hs)
+    (by intro h; simp [h] at hs) (riemannZeta_ne_zero_of_one_le_re hs.le)
 
 /-- The remaining analytic task is now a lower bound on the xi logarithmic derivative. -/
 theorem re_neg_logDeriv_riemannZeta_le_xi {s : ℂ} (hs : 1 < s.re) (hs₂ : s.re ≤ 2) :

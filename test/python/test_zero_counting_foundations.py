@@ -35,3 +35,32 @@ def test_backlund_argument_ci_build_order() -> None:
     assert foundations.index("lake env lean test/lean/BacklundAuxiliary.lean") < positions[0]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/BacklundArgument.lean")
+
+
+def test_xi_counting_contour_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "PrimeNumberTheoremAnd.RectangleArgumentPrinciple",
+        "PrimeFactorUnimodality.Helpers.Analytic.ZetaXiRealNonvanishing",
+        "PrimeFactorUnimodality.Helpers.Analytic.XiCountingRectangle",
+        "PrimeFactorUnimodality.Helpers.Analytic.XiHalfContour",
+        "PrimeFactorUnimodality.Helpers.Analytic.XiRegularHeights",
+        "PrimeFactorUnimodality.Helpers.Analytic.BacklundXiLogDerivative",
+    )
+    positions = [foundations.index(f"lake build \\\n            +{module}\n") for module in modules]
+    assert foundations.index("lake env lean test/lean/BacklundArgument.lean") < positions[0]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index("lake env lean test/lean/XiCountingContour.lean")
+
+
+def test_xi_counting_decomposition_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    contour = foundations.index("lake env lean test/lean/XiCountingContour.lean")
+    module = "PrimeFactorUnimodality.Helpers.Analytic.XiCountingDecomposition"
+    decomposition = foundations.index(f"lake build \\\n            +{module}\n")
+    regression = foundations.index("lake env lean test/lean/XiCountingDecomposition.lean")
+    assert contour < decomposition < regression

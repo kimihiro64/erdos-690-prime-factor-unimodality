@@ -204,3 +204,31 @@ inverse differentiation, and FTC. The new glue proves the actual endpoint
 phase bound and its logarithmic-derivative integral form; it does not rebuild
 those underlying topological and analytic tools. Its remaining explicit
 circle magnitude hypotheses are not presented as a proved sharp count bound.
+
+## Actual rectangle counting and gamma separation
+
+The pinned PNT `RectangleArgumentPrinciple` now supplies the actual residue
+calculation. Its `rectangleIntegral_logDeriv_eq_sum_meromorphicOrderAt`,
+companion argument-change theorem, and logarithmic-derivative residue
+theorem compile and have only the three standard logical axioms. The
+project uses the integral theorem directly: `XiCountingRectangle` identifies
+its support and weights with the existing zeta count. It does not assume
+the companion theorem's separate `hargumentChange` premise.
+
+For the real boundary, Robin's published
+`Robin1984.Mathlib.NumberTheory.LSeries.RiemannZetaReal` proves nonvanishing
+on the whole positive real axis through its Euler remainder and moment
+generating continuation. This project's already-pinned Abel continuation
+gives the needed negativity on `[1/2,1)` directly; xi reflection supplies
+the rest. `ZetaXiRealNonvanishing` therefore reuses that existing continuation
+instead of extracting Robin's much larger independent continuation closure.
+
+`XiHalfContour` reuses the existing xi functional and conjugation identities
+and Mathlib's exact interval substitution/conjugation theorems. The existing
+gamma-product differentiation is generalized in place to the nonvanishing
+right half-plane, retaining its old export unchanged; `BacklundXiLogDerivative`
+then reuses it to connect the actual counting integrand to the surrogate.
+`XiCountingDecomposition` uses PNT's existing `continuousAt_digamma_of_re_pos`
+to justify integrability, splits both contour segments, and applies the
+earlier horizontal Jensen estimate to the actual count. The sharp integrated
+gamma, vertical surrogate, and circle magnitude estimates are still required.
