@@ -1,11 +1,9 @@
 import PrimeFactorUnimodality.Mathlib.Algebra.Group.PowerStep
 import PrimeFactorUnimodality.Mathlib.Analysis.Analytic.Order.Conjugation
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex
-import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.DigammaConjugation
-import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrability.LogCauchy
-import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals
-import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.Deriv
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions
 import PrimeFactorUnimodality.Mathlib.Data.Nat.CoprimePeriodicCount
+import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.FinsetAbel
 import PrimeFactorUnimodality.Mathlib.NumberTheory.BLSPrimality
 import PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.ZetaTrigonometricShift
 import PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington

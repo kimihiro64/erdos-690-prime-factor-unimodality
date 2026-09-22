@@ -1,5 +1,5 @@
 import PrimeFactorUnimodality.Helpers.Analytic.XiHeightTailZero
-import PrimeFactorUnimodality.Helpers.Analytic.XiLehmanIntegral
+import PrimeFactorUnimodality.Helpers.Analytic.XiLehmanMainIntegral
 
 /-! # Height-tail pairing, finite mass, and endpoint regressions
 
@@ -62,6 +62,22 @@ example {t H : ℝ} (ht : 0 < t) (hH : 0 < H) :
     xiLehmanIntegralCorrection t H ≤
       4 * Real.log (t + H) * (1 / H ^ 2 + 1 / (H + 2 * t) ^ 2) + 4 / (t * H) :=
   xiLehmanIntegralCorrection_le ht hH
+
+example {t H a : ℝ} (ht : 0 < t) (hH : 0 < H) (ha : 0 < a) :
+    IntegrableOn (fun x => Real.log ((x + t) / a) * Real.reciprocalSquarePair t (x + t))
+      (Ioi H) :=
+  Real.integrableOn_log_div_reciprocalSquarePair_add ht hH ha
+
+-- This scale makes the logarithm negative at the lower endpoint.
+example : IntegrableOn (fun x : ℝ =>
+    Real.log ((x + 1) / 100) * Real.reciprocalSquarePair 1 (x + 1)) (Ioi 1) :=
+  Real.integrableOn_log_div_reciprocalSquarePair_add (by norm_num) (by norm_num) (by norm_num)
+
+example {t H : ℝ} (ht : 0 < t) (hH : 0 < H) :
+    xiLehmanMainIntegral t H =
+      (1 / (2 * π)) * (Real.log ((H + t) / (2 * π)) * (1 / H + 1 / (H + 2 * t)) +
+        Real.log ((H + 2 * t) / H) / t) :=
+  xiLehmanMainIntegral_eq ht hH
 
 end
 

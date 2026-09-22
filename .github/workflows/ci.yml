@@ -417,7 +417,18 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.XiHeightTailEndpoint
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.XiLehmanIntegral
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogReciprocalSquarePair
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiLehmanMainIntegral
           lake env lean test/lean/XiHeightTail.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.FinsetAbel
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiZeroCountingAbel
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiZeroCountingRemainder
+          lake env lean test/lean/XiZeroCounting.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \

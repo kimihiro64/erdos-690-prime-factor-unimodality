@@ -45,6 +45,57 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Exact logarithmic integral and finite xi counting identity (newest, 2026-09-22)
+
+The main Lehman integral now has a proved closed form. The finite
+counting-to-integral step is also implemented for the actual xi divisor,
+with multiplicity and both boundary terms. These results do not prove the
+remaining numerical zero-counting bound.
+
+- `Integrals.LogReciprocalSquarePair` proves genuine improper integrability
+  for every positive `t,H,a`, including sign changes near the lower cutoff,
+  and the exact identity
+  `integral_H^infinity log((x+t)/a)*phi_t(x+t) dx =
+  log((H+t)/a)*(1/H+1/(H+2t))+log((H+2t)/H)/t`.
+  The primitive and its limit at infinity are proved, not assumed.
+- `XiLehmanMainIntegral` specializes `a=2π`, supplies the actual main
+  integral's integrability, and combines its exact value with the previously
+  proved elementary correction. This expression needs no numerical quadrature.
+- The Mathlib-only `MeasureTheory.Integral.FinsetAbel` proves weighted
+  summation by parts for arbitrary real locations. Different labels may
+  have the same location, and weights need not be nonnegative. Its proof
+  integrates finite indicator functions and uses Mathlib's FTC.
+- `XiZeroCountingAbel` defines `xiZeroCount(T)` by the finite set of actual
+  divisor labels with `0<gamma<=T`. Its half-open window `(a,b]` counts
+  `N(b)-N(a)`, and its exact Abel identity is
+  `sum_(a<gamma<=b) f(gamma) = N(b)f(b)-N(a)f(a)-integral_a^b N(x)g(x) dx`
+  for `f'=g` and integrable `g`.
+- `XiZeroCountingRemainder` defines
+  `P(T)=T/(2π)*log(T/(2π))-T/(2π)` and the actual error `R(T)=N(T)-P(T)`.
+  It proves `P'=log(T/(2π))/(2π)` and the exact finite identity
+  `sum f(gamma)-integral P'(x)f(x) dx =
+  R(b)f(b)-R(a)f(a)-integral R(x)g(x) dx`.
+  The absence of a `7/8` constant is deliberate; any external counting
+  estimate using that offset must be converted explicitly.
+
+The two candidate leaves and three project leaves compile. The 25 exported
+theorems audited in `.research/DusartCountingIntegralAxioms.lean` use only
+`propext`, `Classical.choice`, and `Quot.sound`. Lean regressions cover repeated
+heights, signed weights, lower/upper endpoints, the empty window, and the
+constant-function discrepancy signs. CI builds the new leaves serially and
+runs both `test/lean/XiHeightTail.lean` and `test/lean/XiZeroCounting.lean`.
+
+NEXT: pass the finite counting-error identity to the infinite tail and
+prove the explicit bound for the actual `R(T)`. The sibling PNT's crude
+unconditional count suffices for convergence, not the required numerical
+error; its sharper Riemann-von Mangoldt route retains that bound as a
+hypothesis. Relate its zeta-order count to the xi divisor count if using its
+proved lower-level counting machinery. Preserve the closed-cutoff atom
+from `XiHeightTailEndpoint`. Absolute-height separation, pole/gamma bounds,
+actual numerical inputs, and all three final Dusart providers remain open.
+Do not redo the exact integral or finite Abel proofs. Non-certificate work
+continues to take priority over replays.
+
 ### Positive tail, endpoint correction, and unconditional low-mass subtraction (newest, 2026-09-22)
 
 The actual height tail now has its positive-ordinate decomposition, its

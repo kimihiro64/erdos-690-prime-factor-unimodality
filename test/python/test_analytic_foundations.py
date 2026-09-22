@@ -347,6 +347,8 @@ def test_height_tail_mass_ci_build_order() -> None:
         "Helpers.Analytic.XiHeightTailZero",
         "Helpers.Analytic.XiHeightTailEndpoint",
         "Helpers.Analytic.XiLehmanIntegral",
+        "Mathlib.Analysis.SpecialFunctions.Integrals.LogReciprocalSquarePair",
+        "Helpers.Analytic.XiLehmanMainIntegral",
     )
     positions = [
         foundations.index(f"lake build \\\n            +PrimeFactorUnimodality.{module}\n")
@@ -354,3 +356,21 @@ def test_height_tail_mass_ci_build_order() -> None:
     ]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/XiHeightTail.lean")
+
+
+def test_xi_counting_abel_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "Helpers.Analytic.XiLehmanMainIntegral",
+        "Mathlib.MeasureTheory.Integral.FinsetAbel",
+        "Helpers.Analytic.XiZeroCountingAbel",
+        "Helpers.Analytic.XiZeroCountingRemainder",
+    )
+    positions = [
+        foundations.index(f"lake build \\\n            +PrimeFactorUnimodality.{module}\n")
+        for module in modules
+    ]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index("lake env lean test/lean/XiZeroCounting.lean")

@@ -122,3 +122,22 @@ Still required: outer-zero, pole, and gamma estimates, the numerical parameters 
 `R=5.573412`, and the remaining unconditional PNT/finite analytic inputs.
 This reuse increment does not finish the three final Dusart providers or
 the all-`k` theorem.
+
+## Counting-to-integral follow-up
+
+The additional BV leaf `ExplicitFormula/Horizontal/ZeroHeightWindowCountBound`
+proves a logarithmic window bound, but for nonprincipal primitive characters
+and with an existential constant. It is not the numerical zeta counting
+estimate required here. PNT's `Backlund/ZeroCountCrude` proves an
+unconditional `|N(T)| <= A*T^(3/2)` bound with existential `A`, which supports
+convergence. `IEANTN/KadiriZeroCounting` explicitly distinguishes that route
+from its conditional, sharper Backlund-constant route.
+
+Mathlib's existing Abel formula and Robin's prime-log application use
+natural locations. The new Mathlib-only `MeasureTheory.Integral.FinsetAbel`
+instead integrates each atom's indicator using the existing FTC to obtain
+the finite identity at arbitrary real heights. `XiZeroCountingAbel` applies
+it to the already-established actual divisor and local finiteness, not to
+a newly assumed enumeration. `XiZeroCountingRemainder` subtracts the smooth
+main term exactly. These are analytic identities, not a replacement claim
+that the quantitative counting error has been proved.
