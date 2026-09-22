@@ -536,3 +536,23 @@ bootstrap reuses the existing scale, higher-height, negative-correction,
 and divisor-conjugation proofs. The 13 audited theorem closures contain
 only the standard logical axioms; 13 new and 74 preserved analytic examples
 pass. Numerical iteration and low-height inputs remain unproved here.
+
+## Real-axis Gamma improvement
+
+The sharper `Re(digamma(x))<=log(x)` bound does not require another Gamma
+series proof. `DigammaRealBounds` applies Mathlib's
+`AntitoneOn.integral_le_sum` and `integral_inv_of_pos`, then the existing
+`tendsto_sum_inv_add_sub_log` and fixed-shift logarithm limit. The PNT
+series at the pinned revision remains the analytic foundation.
+
+`SmoothedGammaRealBounds` combines this upper bound with the existing
+lower logarithmic error at the shifted argument. Only the coefficient
+`kappa` remains in the zero-height error. `SmoothedGammaFactorBounds`
+uses that theorem in its actual majorant; `KadiriGammaBudget` and the
+complete moment correction inherit the improvement. No zero-counting,
+conjugation, summability, or assumed zero-free-region input is reintroduced.
+
+Both new leaves and the complete explicit, uniform, and split bootstrap
+consumers compile. All 110 examples in the eight affected analytic
+regression modules pass. The 14 audited exports, including the actual
+region theorems, use only `propext`, `Classical.choice`, and `Quot.sound`.

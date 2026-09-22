@@ -45,6 +45,31 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Sharper zero-harmonic Gamma estimate (newest, 2026-09-22)
+
+`DigammaRealBounds.re_digamma_ofReal_le_log` proves `Re(digamma(x))<=log(x)`
+for every positive real `x`, using Mathlib's decreasing sum--integral
+comparison and the existing actual PNT digamma-series limit. Its consumer
+`SmoothedGammaRealBounds` removes the first upper error from the shifted
+Gamma factor at zero height. The actual `smoothedGammaFactorError` now has
+zero branch `kappa/(sigma+2)`, instead of `(1+kappa)/(sigma+2)`. Nonzero
+heights retain the two-error minimum. The residual, correction polynomial,
+and actual region bootstrap consume this changed definition directly.
+Comparison to the previous error now explicitly requires `sigma>=-2`;
+the working region already satisfies the stronger `sigma>1/2`.
+
+Exploratory, non-certified quadrature still finds a negative near-final
+margin with only two scale regimes. A uniform cover by 16 scale bands,
+using both the improved height and the retained correction on each band,
+gives positive trial margins along the chain
+`56 -> 8 -> 6.5 -> 6 -> 5.7 -> 5.59 -> 5.58 -> 5.575 -> 5.573412`
+at `T=3.06e10`; the last tested margin is approximately `0.02035`.
+These numbers are not rigorous certificates and do not establish a region.
+The next analytic assembly should allow an arbitrary covering family of
+scale bands, reusing the actual sharp band theorem rather than duplicating
+the zero argument. Numerical admissibility, moments, low-height zero data,
+and the final Dusart providers remain open.
+
 ### Single-crossing minimum and two-scale bootstrap (newest, 2026-09-22)
 
 The loose separated-transform bound is no longer necessary.

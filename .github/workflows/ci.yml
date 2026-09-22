@@ -556,15 +556,20 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DigammaLogBounds
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DigammaRealBounds
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DigammaHeightBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.SmoothedGammaNormBounds
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SmoothedGammaRealBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.SmoothedGammaFactorBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriExplicitMaster
           lake env lean test/lean/KadiriGammaBounds.lean
           lake env lean test/lean/KadiriGammaHeightBounds.lean
+          lake env lean test/lean/KadiriGammaRealBounds.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaZeroFreeInitial
           /usr/bin/time -v lake build \

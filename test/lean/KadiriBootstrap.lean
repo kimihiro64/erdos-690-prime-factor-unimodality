@@ -63,13 +63,13 @@ example {κ T t : ℝ} (hκ₀ : 0 ≤ κ) (hκ : κ ≤ 1) (σ : ℝ) (S : Fins
 example {κ σ t : ℝ} (ht : 0 < t) (n : ℕ) (a : ℕ → ℝ)
     (ha : ∀ i ∈ Finset.range (n + 1), 0 ≤ a i) :
     (∑ i ∈ Finset.range (n + 1), a i * smoothedGammaFactorError κ σ ((i : ℝ) * t)) ≤
-      a 0 * ((1 + κ) / (σ + 2)) + (2 * (1 + κ) / t) *
+      a 0 * (κ / (σ + 2)) + (2 * (1 + κ) / t) *
         (∑ i ∈ (Finset.range (n + 1)).erase 0, a i / (i : ℝ)) :=
   sum_smoothedGammaFactorError_le ht _ (by simp) a ha
 
 example (κ σ t : ℝ) (a : ℕ → ℝ) :
     kadiriGammaResidual κ σ t {0} a =
-      (1 - κ) / 2 * (a 0 * (Real.log 2 - Real.log π)) + a 0 * ((1 + κ) / (σ + 2)) := by
+      (1 - κ) / 2 * (a 0 * (Real.log 2 - Real.log π)) + a 0 * (κ / (σ + 2)) := by
   simp [kadiriGammaResidual]
 
 example {θ η η₀ σ₀ σ κ δ z H t : ℝ}

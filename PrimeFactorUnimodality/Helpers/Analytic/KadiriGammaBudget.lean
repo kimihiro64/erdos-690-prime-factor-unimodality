@@ -6,7 +6,7 @@ For positive base height, isolate `log(t)` from each nonzero natural
 harmonic. Its coefficient uses the sum excluding the zero harmonic, as
 required in the zero-free improvement. The residual is an explicit sum
 of logarithms and the smaller proved error at each harmonic. The zero
-harmonic keeps its real-part error; every nonzero error decays with height.
+harmonic uses its sharper one-sided error; every nonzero error decays with height.
 -/
 
 namespace PrimeFactorUnimodality
@@ -64,7 +64,7 @@ theorem sum_smoothedGammaFactorMajorant_eq (κ σ : ℝ) {t : ℝ} (ht : 0 < t)
 theorem sum_smoothedGammaFactorError_le {κ σ t : ℝ} (ht : 0 < t)
     (S : Finset ℕ) (h₀ : 0 ∈ S) (a : ℕ → ℝ) (ha : ∀ i ∈ S, 0 ≤ a i) :
     (∑ i ∈ S, a i * smoothedGammaFactorError κ σ ((i : ℝ) * t)) ≤
-      a 0 * ((1 + κ) / (σ + 2)) +
+      a 0 * (κ / (σ + 2)) +
         (2 * (1 + κ) / t) * (∑ i ∈ S.erase 0, a i / (i : ℝ)) := by
   rw [← Finset.add_sum_erase S _ h₀, Finset.mul_sum]
   simp only [Nat.cast_zero, zero_mul, smoothedGammaFactorError_zero]
@@ -86,7 +86,7 @@ theorem kadiriGammaResidual_le_height {κ σ t : ℝ} (ht : 0 < t)
     kadiriGammaResidual κ σ t S a ≤
       (1 - κ) / 2 * (a 0 * (Real.log 2 - Real.log π) +
         ∑ i ∈ S.erase 0, a i * (Real.log ((i : ℝ) / 2 + 2 / t) - Real.log π)) +
-      (a 0 * ((1 + κ) / (σ + 2)) +
+      (a 0 * (κ / (σ + 2)) +
         (2 * (1 + κ) / t) * (∑ i ∈ S.erase 0, a i / (i : ℝ))) :=
   add_le_add le_rfl (sum_smoothedGammaFactorError_le ht S h₀ a ha)
 

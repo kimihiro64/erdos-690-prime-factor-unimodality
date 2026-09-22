@@ -3,7 +3,7 @@ import PrimeFactorUnimodality.Helpers.Analytic.KadiriExplicitMaster
 /-! # Height-decaying Gamma error regressions
 
 Check finite and limiting reciprocal errors, the zero truncation, signed
-heights, zero-height preservation, the minimum with the previous bound,
+heights, the improved zero-height error, the minimum with the previous bound,
 and monotonicity at arbitrary natural harmonics.
 -/
 
@@ -40,11 +40,12 @@ example {δ : ℝ} (hδ : 0 ≤ δ) {s : ℂ} (hs : 0 ≤ s.re) (ht : s.im ≠ 0
   convert! smoothedGammaFactorDifference_le_log_norm_height (κ := 1) (by norm_num) hδ hs ht using 1
   norm_num
 
-example (κ σ : ℝ) : smoothedGammaFactorError κ σ 0 = (1 + κ) / (σ + 2) :=
+example (κ σ : ℝ) : smoothedGammaFactorError κ σ 0 = κ / (σ + 2) :=
   smoothedGammaFactorError_zero κ σ
 
-example (κ σ t : ℝ) : smoothedGammaFactorError κ σ t ≤ (1 + κ) / (σ + 2) :=
-  smoothedGammaFactorError_le_re κ σ t
+example (κ σ t : ℝ) (hσ : -2 ≤ σ) :
+    smoothedGammaFactorError κ σ t ≤ (1 + κ) / (σ + 2) :=
+  smoothedGammaFactorError_le_re κ σ t hσ
 
 example (κ σ : ℝ) {t : ℝ} (ht : t ≠ 0) :
     smoothedGammaFactorError κ σ t ≤ 2 * (1 + κ) / |t| :=
@@ -53,9 +54,9 @@ example (κ σ : ℝ) {t : ℝ} (ht : t ≠ 0) :
 example (κ σ t : ℝ) : smoothedGammaFactorError κ σ (-t) =
     smoothedGammaFactorError κ σ t := by simp [smoothedGammaFactorError]
 
-example (κ σ t : ℝ) : smoothedGammaFactorMajorant κ σ t ≤
+example (κ σ t : ℝ) (hσ : -2 ≤ σ) : smoothedGammaFactorMajorant κ σ t ≤
     (1 - κ) / 2 * (Real.log (|t| / 2 + 2) - Real.log π) + (1 + κ) / (σ + 2) :=
-  add_le_add le_rfl (smoothedGammaFactorError_le_re κ σ t)
+  add_le_add le_rfl (smoothedGammaFactorError_le_re κ σ t hσ)
 
 example {κ T t : ℝ} (hκ : 0 ≤ κ) (σ : ℝ) (i : ℕ) (hT : 0 < T) (hTt : T ≤ t) :
     smoothedGammaFactorError κ σ ((i : ℝ) * t) ≤

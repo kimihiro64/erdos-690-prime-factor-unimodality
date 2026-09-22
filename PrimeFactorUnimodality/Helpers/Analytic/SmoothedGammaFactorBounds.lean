@@ -1,9 +1,10 @@
 import PrimeFactorUnimodality.Helpers.Analytic.SmoothedGammaNormBounds
+import PrimeFactorUnimodality.Helpers.Analytic.SmoothedGammaRealBounds
 
 /-! # Explicit shifted Gamma-factor bounds with the correct leading coefficient
 
-Take the better of the two proved Gamma errors at nonzero height, keeping
-the real-part bound at zero. Subtraction retains `1-kappa` on the leading
+Take the better of the two proved Gamma errors at nonzero height and the
+one-sided real digamma bound at zero. Subtraction retains `1-kappa` on the leading
 logarithm. The height-decaying improvement is used by the actual master,
 not merely supplied as a separate estimate.
 -/
@@ -14,22 +15,22 @@ noncomputable section
 
 open Complex Real
 
-/-- The old bound at zero and the smaller of the two proved errors elsewhere. -/
+/-- The one-sided bound at zero and the smaller of the two norm errors elsewhere. -/
 def smoothedGammaFactorError (κ σ t : ℝ) : ℝ :=
-  if t = 0 then (1 + κ) / (σ + 2)
+  if t = 0 then κ / (σ + 2)
   else min ((1 + κ) / (σ + 2)) (2 * (1 + κ) / |t|)
 
 /-- Zero height never uses the reciprocal-height estimate. -/
 @[simp] theorem smoothedGammaFactorError_zero (κ σ : ℝ) :
-    smoothedGammaFactorError κ σ 0 = (1 + κ) / (σ + 2) := by
+    smoothedGammaFactorError κ σ 0 = κ / (σ + 2) := by
   simp [smoothedGammaFactorError]
 
 /-- The improved error never exceeds the previous real-part bound. -/
-theorem smoothedGammaFactorError_le_re (κ σ t : ℝ) :
+theorem smoothedGammaFactorError_le_re (κ σ t : ℝ) (hσ : -2 ≤ σ) :
     smoothedGammaFactorError κ σ t ≤ (1 + κ) / (σ + 2) := by
   unfold smoothedGammaFactorError
   split_ifs
-  · exact le_rfl
+  · exact div_le_div_of_nonneg_right (by linarith) (by linarith)
   · exact min_le_left _ _
 
 /-- At every nonzero signed height the error has explicit reciprocal decay. -/
@@ -67,7 +68,7 @@ theorem antitoneOn_smoothedGammaFactorError_sigma {κ : ℝ} (hκ : 0 ≤ κ) (t
       (by linarith)
   unfold smoothedGammaFactorError
   split_ifs
-  · exact he
+  · exact div_le_div_of_nonneg_left hκ (by linarith : 0 < σ + 2) (by linarith)
   · exact min_le_min he le_rfl
 
 /-- The vertical strip bound includes all signed and zero heights. -/
@@ -80,7 +81,12 @@ theorem smoothedGammaFactorDifference_le_majorant {κ δ : ℝ}
         smoothedGammaFactorError κ s.re s.im := by
     have hr := smoothedGammaFactorDifference_le_log_norm hκ hδ hs
     by_cases ht : s.im = 0
-    · simpa only [ht, smoothedGammaFactorError_zero] using hr
+    · have hsreal : s = (s.re : ℂ) := Complex.ext (by simp) (by simpa using ht)
+      have hb := smoothedGammaFactorDifference_ofReal_le hκ hδ hs
+      rw [hsreal]
+      simpa only [ofReal_re, ofReal_im, smoothedGammaFactorError_zero,
+        ← ofReal_ofNat, ← ofReal_div, ← ofReal_one, ← ofReal_add, norm_real,
+        Real.norm_eq_abs, abs_of_pos (by linarith : 0 < s.re / 2 + 1)] using hb
     · have hh := smoothedGammaFactorDifference_le_log_norm_height hκ hδ hs ht
       simp only [smoothedGammaFactorError, ht, ↓reduceIte, add_min]
       exact le_min hr hh
