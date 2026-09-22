@@ -1,5 +1,5 @@
 import PrimeFactorUnimodality.Mathlib.Algebra.Group.PowerStep
-import PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.Continuity
+import PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.DirichletIntegral
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.Summability
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Poisson.Stechkin
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrability.LogCauchy

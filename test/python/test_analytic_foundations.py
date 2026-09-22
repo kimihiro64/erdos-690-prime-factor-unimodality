@@ -56,3 +56,23 @@ def test_smoothed_gamma_ci_build_order() -> None:
     ]
     assert positions == sorted(positions)
     assert positions[-1] < foundations.index("lake env lean test/lean/SmoothedGamma.lean")
+
+
+def test_smoothed_inversion_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    modules = (
+        "Mathlib.Analysis.Complex.FiniteLaplace.RemainderSource",
+        "Mathlib.Analysis.Complex.Integrability.Cauchy",
+        "Mathlib.Analysis.Complex.FiniteLaplace.Inversion",
+        "Mathlib.NumberTheory.LSeries.VerticalIntegral",
+        "Mathlib.Analysis.Complex.FiniteLaplace.DirichletIntegral",
+        "Helpers.Analytic.SmoothedPrimeIntegral",
+    )
+    positions = [
+        foundations.index(f"lake build \\\n            +PrimeFactorUnimodality.{module}")
+        for module in modules
+    ]
+    assert positions == sorted(positions)
+    assert positions[-1] < foundations.index("lake env lean test/lean/SmoothedInversion.lean")

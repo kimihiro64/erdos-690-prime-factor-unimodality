@@ -45,6 +45,59 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Absolute inversion and the actual prime contour identity (newest, 2026-09-22)
+
+The right-hand contour identity is now proved, not supplied as a hypothesis.
+`SmoothedPrimeIntegral.smoothedVonMangoldt_sub_logDeriv_eq_integral` gives
+
+`V_f(s)-f(0)*L(s) = (1/(2*pi))*integral_t L(c+it)*(F(s-c-it)-f(0)/(s-c-it))`,
+
+where `L=-zeta'/zeta`, `V_f` is the existing `smoothedVonMangoldt`, and
+`1<c<Re(s)`. Its inputs are the interval continuity/derivative/endpoint
+conditions already used for the Laplace remainders, a bound on the second
+derivative, and vanishing of the actual weight beyond `d`. No inversion,
+interchange, zero-free, or explicit-formula identity is assumed.
+
+The Mathlib-only route consists of five candidates:
+
+- `FiniteLaplace.RemainderSource`: the continuous source
+  `f(max(0,min(d,u)))-f(0)`. It is zero for `u<=0`, equals `f(u)-f(0)`
+  inside the interval, and equals `-f(0)` after `d` when `f(d)=0`.
+  Its damped bilateral integral is exactly `F(s)-f(0)/s` for `Re(s)>0`.
+- `Integrability.Cauchy`: integrability of `1/|s+it|^2` when `Re(s)!=0`.
+  The scaling argument is ported from the named Robin leaf at published
+  revision `bfa72aec0c25c8ee29cefe4449d778ff30412bee`; only Mathlib is imported.
+- `FiniteLaplace.Inversion`: the exact Fourier transform, its absolute
+  integrability, and inverse Laplace integral with the full `1/(2*pi)`
+  normalization, for every positive line and every real evaluation point.
+  Mathlib Fourier inversion requires only continuity of the source. No
+  global first or second derivative of a zero extension is imposed.
+- `LSeries.VerticalIntegral`: actual summability of integrated absolute
+  Dirichlet-term norms and the resulting whole-line interchange. The term
+  norms depend only on the real part of the contour.
+- `FiniteLaplace.DirichletIntegral`: inversion at every `log n` and the
+  resulting smoothing identity for any absolutely convergent Dirichlet
+  series, including the zero-term convention. The project consumer
+  specializes it to von Mangoldt and subtracts the original zeta series.
+
+All 22 exported theorems pass the axiom audit with only `propext`,
+`Classical.choice`, and `Quot.sound`. The regression uses the cubic weight
+`1-3u^2+2u^3` through one, zero afterwards. It tests a nonzero inverse at
+`u=2`, nonzero second derivative at zero, and the actual prime contour
+identity at `s=2+iy`, `c=3/2`, for EVERY height `y`. CI builds each candidate
+before its consumer and runs `test/lean/SmoothedInversion.lean` serially.
+Logs: `.research/dusart-inversion-{source,build,fubini,dirichlet,regressions,axioms,fast,commit}.log`
+and `.research/dusart-prime-integral.log`.
+
+Next prove the **contour displacement / zero-and-gamma identity**, including
+residues with actual multiplicities and justified limits, then continuation
+from `Re(s)>1` to the needed `Re(s)>1/2`. Both the eventual real zero sum and
+gamma integral already have absolute convergence; the prime-side inversion
+and interchange are now finished. This still does not establish the full
+smoothed explicit formula, its sharp numerical estimates, the three global
+Dusart providers, or the all-`k` theorem. Do not re-import the unproved
+explicit-formula headline or redo the completed inversion work.
+
 ### Gamma-integral convergence on the required half-plane (newest, 2026-09-22)
 
 `DigammaLowerBound` proves `Re(psi(z)) >= -gamma` for `Re(z)>=1` directly

@@ -220,6 +220,19 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.SmoothedGammaRemainder
           lake env lean test/lean/SmoothedGamma.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.RemainderSource
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.Integrability.Cauchy
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.Inversion
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.VerticalIntegral
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.FiniteLaplace.DirichletIntegral
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SmoothedPrimeIntegral
+          lake env lean test/lean/SmoothedInversion.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT
