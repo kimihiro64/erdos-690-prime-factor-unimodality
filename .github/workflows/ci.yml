@@ -1449,6 +1449,21 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.DusartCheckpointVerification
           lake env lean test/lean/DusartCheckpointVerification.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.Chebyshev.Intervals
+          lake env lean test/lean/ChebyshevIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ThetaPrimeCheckpoints
+          lake env lean test/lean/ThetaPrimeCheckpoints.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.CheckedThetaPrimeTrace
+          lake env lean test/lean/CheckedThetaPrimeTrace.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ThetaSquaredChecks
+          lake env lean test/lean/ThetaSquaredChecks.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartCheckedThetaTrace
+          lake env lean test/lean/DusartCheckedThetaTrace.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

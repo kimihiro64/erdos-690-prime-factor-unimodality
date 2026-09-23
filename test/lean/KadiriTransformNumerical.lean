@@ -11,7 +11,7 @@ noncomputable section
 open LeanCert.Core
 
 example : KadiriSixTransformBounds := by
-  exact PrimeFactorUnimodality.kadiriSix_transform_bounds 
+  exact PrimeFactorUnimodality.kadiriSix_transform_bounds
 
 example {T R : ℝ}
     (hT : 25000000 ≤ T) (hR₀ : 8 ≤ R) (hR₁ : R ≤ 69) :
@@ -20,11 +20,11 @@ example {T R : ℝ}
 
 example :
     KadiriEndpointChain 16 mossinghoffTrudgianCoefficient 1000000000 56 6 := by
-  exact PrimeFactorUnimodality.kadiriSix_endpoint_chain 
+  exact PrimeFactorUnimodality.kadiriSix_endpoint_chain
 
 example :
     KadiriEndpointChain 16 mossinghoffTrudgianCoefficient 25000000 69 6 := by
-  exact PrimeFactorUnimodality.kadiriSix_reduced_endpoint_chain 
+  exact PrimeFactorUnimodality.kadiriSix_reduced_endpoint_chain
 
 example : (18 : ℝ) ≤ kadiriTransformGapClosedForm (185573 / 100000) 1
     (1741 / 1000) (9 / 100) := by

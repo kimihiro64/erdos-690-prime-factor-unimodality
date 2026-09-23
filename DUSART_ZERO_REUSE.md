@@ -1,6 +1,35 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: all four R6 transform bounds certified (2026-09-23)
+## Newest follow-up: compact prime-count transport for the lower theta band (2026-09-23)
+
+The new candidate `Chebyshev.Intervals` derives the exact theta increment
+and number of summands from Mathlib's prime-set difference, then bounds all
+new logarithmic weights by the interval endpoint logs. This is a direct
+reuse of pinned Mathlib finite sums and monotonicity, not a new prime-counting
+estimate or a sibling theorem import.
+
+`ThetaPrimeCheckpoints` retains each count and theta/log enclosure once.
+Adjacent rational checks transport the accumulated theta enclosure with
+outward rounding at every checkpoint. `CheckedThetaPrimeTrace` checks each
+new endpoint logarithm using the prepared shared evaluator and composes
+traces at their shared state. No per-prime logarithm certificates are needed.
+
+`ThetaSquaredChecks` checks every adjacent margin and all fields of the
+final endpoint. `DusartCheckedThetaTrace` feeds those checks into the actual
+published lower-band theorem on `[3594641, 1441000000000]`. Exact prime counts
+remain explicit inputs. This closes the transport and coverage interfaces,
+not the numerical count tables or their large-range feasibility gate.
+
+Five new modules and both candidate facades compile. The regression suite
+includes actual count/log transitions through primes two and three,
+zero/reversed endpoints, empty traces, malformed final endpoints and
+rejected insufficient margins. The R6 scalar obligation is already closed
+by the preceding increment. Actual high-height zero data, lower-band count
+data and finite prime-counting/anchor providers remain outstanding.
+All fifteen new theorem closures use only the standard three axioms;
+all 170 Python tests and the fast/workflow gates pass. CI builds stay paused.
+
+## Previous follow-up: all four R6 transform bounds certified (2026-09-23)
 
 `ExpIntegralExpressions` preserves the exact five elementary integral
 formulas, including the removable zero-exponent branches.
