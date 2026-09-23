@@ -5,7 +5,53 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: finite critical-line verification logic (2026-09-23)
+## Latest increment: integrated count-completeness proof (2026-09-23)
+
+`XiMissingCount` subtracts a fixed finite witness family from the actual
+closed positive-height divisor. Its cardinality is monotone, retains every
+multiplicity label, and is integrable. An omitted lower-cutoff label would
+contribute at least the entire interval width. A strictly smaller integral
+therefore proves completeness, including labels exactly at the cutoff.
+Existing conjugation and real-axis nonvanishing give the required absolute
+strict low-height conclusion. No zero enumeration is reconstructed.
+
+`XiCompletedRows` lower-bounds the witnessed count by completed rational
+rows. The extended Mathlib-only `FinsetAbel` candidate proves its exact
+integral as a sum of clipped upper endpoints. Locations before the lower
+cutoff contribute the full width; locations at the upper cutoff contribute
+zero. `completedAreaRat_append` composes independently checked row blocks
+without repeating their sign proofs. The rational sum casts exactly to
+the real integral budget.
+
+`XiCountingIntegral` evaluates the integral of the existing smooth model:
+its primitive is `T^2/(4*pi)*log(T/(2*pi))-3*T^2/(8*pi)`. The model has no
+`7/8` offset. `XiIntegralVerification` combines this identity with the
+missing-count argument. Its final interface is
+`XiSignRows.Valid.low_criticalLine_of_remainder_integral`. The three new
+`*_integral_rows` consumers in `DusartZeroVerification` connect it to the
+actual region at six and both theta estimates, while preserving the old
+exact-count interfaces.
+
+**Still required:** prove the quantitative integral estimate for the actual
+`xiZeroCountingRemainder`, and construct a feasible endpoint-sign evaluator.
+The analytic error bound is an explicit theorem premise, not a supplied
+certificate. Trudgian, [Improvements to Turing's Method](https://arxiv.org/abs/0903.1885),
+Section 1.1 explains completeness; Lemmas 2.4 and 2.8--2.11 describe the
+remaining horizontal-log-integral route. Do not substitute a pointwise
+Rosser bound for the required averaged discrepancy bound or identify our
+unshifted remainder with `S(t)` without proving the gamma/constant correction.
+No full zero table or replay has been generated. The four transform margins,
+lower theta band, finite prime prefixes and anchors also remain open.
+
+The candidate and actual consumers compile, with exact-interface and
+boundary regressions. Unique names on local decidable-equality instances
+avoid collisions with the existing `XiHeightBand` import. CI builds the
+four new non-certificate modules sequentially before `DusartZeroVerification`;
+the Python import-closure guard excludes numerical replay from that chain.
+All 76 examples in eleven regression files pass. The 26 audited theorem
+closures contain only `propext`, `Classical.choice`, and `Quot.sound`.
+
+## Previous increment: finite critical-line verification logic (2026-09-23)
 
 `XiCriticalLine` proves that the actual entire xi function is real and
 continuous on `1/2+i*t`. A strict endpoint sign change gives an interior

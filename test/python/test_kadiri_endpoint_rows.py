@@ -21,6 +21,10 @@ MODULES = (
     "XiCriticalLine",
     "XiSignRows",
     "XiZeroExhaustion",
+    "XiMissingCount",
+    "XiCompletedRows",
+    "XiCountingIntegral",
+    "XiIntegralVerification",
     "DusartZeroVerification",
 )
 
@@ -34,6 +38,13 @@ def test_endpoint_assemblers_build_serially_before_scalar_replay() -> None:
         test = foundations.index(f"lake env lean test/lean/{module}.lean")
         assert previous < build < test
         previous = test
+    assert previous < foundations.index(
+        "lake env lean test/lean/DusartZeroIntegralVerification.lean"
+    )
+    candidate = foundations.index(
+        "+PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.FinsetAbel"
+    )
+    assert candidate < foundations.index("lake env lean test/lean/FinsetAbel.lean")
     certificates = workflow.split("  certificate-prebuild:", 1)[1].split("  analytic-tail:", 1)[0]
     assert "KadiriKernelNumerical" not in foundations
     assert certificates.index(

@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonas Whidden
 -/
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.FundThmCalculus
+import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.Ring
 
 /-! # Abel summation for finitely many real locations
@@ -75,5 +76,37 @@ theorem sum_mul_eq_sum_mul_sub_integral_count (s : Finset ι) (r c : ι → ℝ)
     (fun i _ => (hg.const_mul (c i)).indicator measurableSet_Ici), Finset.sum_congr rfl he]
   simp only [mul_sub, Finset.sum_sub_distrib, Finset.sum_mul]
   ring
+
+/-- The finite cumulative count is integrable on every compact interval. -/
+theorem integrableOn_count_le (s : Finset ι) (r : ι → ℝ) :
+    IntegrableOn (fun x => ((s.filter (fun i => r i ≤ x)).card : ℝ)) (Set.Icc a b) := by
+  have h := integrableOn_sum_filter_mul s r (fun _ => (1 : ℝ))
+    (continuous_const.integrableOn_Icc :
+      IntegrableOn (fun _ : ℝ => (1 : ℝ)) (Set.Icc a b))
+  simpa using h
+
+/-- Integrate a finite count, clipping early locations and retaining repeated labels. -/
+theorem integral_count_le_eq_sum_sub_max (s : Finset ι) (r : ι → ℝ) (hab : a ≤ b)
+    (hr : ∀ i ∈ s, r i ≤ b) :
+    (∫ x in Set.Icc a b, ((s.filter (fun i => r i ≤ x)).card : ℝ)) =
+      ∑ i ∈ s, (b - max a (r i)) := by
+  classical
+  have h := sum_mul_eq_sum_mul_sub_integral_count s (fun i => max a (r i)) (fun _ => (1 : ℝ))
+    (fun i hi => ⟨le_max_left _ _, max_le hab (hr i hi)⟩)
+    (fun x _ => hasDerivAt_id x)
+    (continuous_const.integrableOn_Icc :
+      IntegrableOn (fun _ : ℝ => (1 : ℝ)) (Set.Icc a b))
+  simp only [one_mul, sum_const, nsmul_eq_mul, mul_one, id_eq] at h
+  have hi : (∫ x in Set.Icc a b,
+      ((s.filter (fun i => max a (r i) ≤ x)).card : ℝ)) =
+      ∫ x in Set.Icc a b, ((s.filter (fun i => r i ≤ x)).card : ℝ) := by
+    apply setIntegral_congr_fun measurableSet_Icc
+    intro x hx
+    have he : s.filter (fun i => max a (r i) ≤ x) = s.filter (fun i => r i ≤ x) :=
+      filter_congr (fun _ _ => max_le_iff.trans (and_iff_right hx.1))
+    exact congrArg (fun v : Finset ι => (v.card : ℝ)) he
+  rw [hi] at h
+  rw [sum_sub_distrib, sum_const, nsmul_eq_mul]
+  linarith only [h]
 
 end Finset

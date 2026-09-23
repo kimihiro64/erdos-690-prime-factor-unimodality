@@ -1,6 +1,32 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: finite critical-line exhaustion (2026-09-23)
+## Newest follow-up: integrated missing-count verification (2026-09-23)
+
+The completeness argument reuses the actual positive-height finsets,
+their monotonicity, the existing critical-line row witnesses, and the
+proved conjugation/real-axis reduction. Mathlib's monotone integrability
+and integral comparison show that an omitted lower label contributes at
+least the interval width. No new divisor index or zero-location assumption
+is introduced.
+
+The already compiled `FinsetAbel` candidate supplies the clipped row-count
+integral after specialization to the identity function. Rational block sums
+compose with `Fin.sum_univ_add`, and the existing counting model is integrated
+by elementary differentiation and FTC. Actual region and theta consumers
+now accept the resulting integral budget as an alternative to an exact count.
+
+This proves the verification implication, not its analytic discrepancy bound
+or the endpoint signs. The Turing bound from Trudgian's arXiv:0903.1885 is not
+imported as an assumption-free theorem. Our count model omits `7/8`, so its
+remainder must not be equated with the paper's argument term without proof.
+No RH-dependent sibling mass evaluation or new sibling dependency is used.
+The published sibling revisions are unchanged from the preceding audit.
+
+The candidate and actual consumers compile; 76 regression examples and
+26 complete standard-axiom closure checks pass. These are non-certificate
+builds and do not claim the missing numerical verification.
+
+## Previous follow-up: finite critical-line exhaustion (2026-09-23)
 
 The new sign/count verifier reuses `exists_xi_divisor_index_of_zero`, the
 actual strict positive-height count, multiplicity-preserving conjugation,
