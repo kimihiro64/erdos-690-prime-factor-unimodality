@@ -1092,6 +1092,27 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.TuringXiLogBudget
           lake env lean test/lean/TuringXiLogBudget.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiCanonicalLog
+          lake env lean test/lean/XiCanonicalLog.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiLogRatio
+          lake env lean test/lean/XiLogRatio.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringXiLogInterchange
+          lake env lean test/lean/TuringXiLogInterchange.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringXiLogIntegral
+          lake env lean test/lean/TuringXiLogIntegral.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringGammaLower
+          lake env lean test/lean/TuringGammaLower.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringZetaLogStep
+          lake env lean test/lean/TuringZetaLogStep.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringHorizontalLower
+          lake env lean test/lean/TuringHorizontalLower.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

@@ -30,6 +30,13 @@ MODULES = (
     "TuringHorizontalShift",
     "TuringXiLogStep",
     "TuringXiLogBudget",
+    "XiCanonicalLog",
+    "XiLogRatio",
+    "TuringXiLogInterchange",
+    "TuringXiLogIntegral",
+    "TuringGammaLower",
+    "TuringZetaLogStep",
+    "TuringHorizontalLower",
 )
 
 

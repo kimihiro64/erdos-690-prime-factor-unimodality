@@ -1,6 +1,34 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: logarithmic kernel and complete spectral budget (2026-09-23)
+## Newest follow-up: actual log-ratio and full horizontal lower bound (2026-09-23)
+
+No new sibling audit or dependency is needed for this step. The xi product
+and divisor finiteness are already available. The pinned PNT
+`Complex.norm_weierstrassFactor_div_sub_one_le_pow_div` supplies the factor
+bound; its `Hadamard.DivisorConvergence` finite-exception argument works
+directly with the actual multiplicity labels. The exact source revision is
+`f6147e7572ab3abe5428101bc0b13627bcb005df`. No bijection with the natural
+numbers or unproved infinitude of zeros is introduced merely to use the
+sequence-indexed summability theorem.
+
+Mathlib's `Summable.summable_log_norm_one_add`,
+`Real.rexp_tsum_eq_tprod`, and `Multipliable.norm_tprod` identify the full
+product logarithm. The existing unconditional real Hadamard constant
+cancels the regularization. Existing actual-divisor countability and the
+Bochner-series candidate justify integral interchange; endpoint zeros are
+excluded almost everywhere using `exists_xi_divisor_index_of_zero`.
+
+The already proved `DigammaHeightBounds` and `XiGammaContour` control the
+Gamma increment. The nonnegative pole gain reuses `Complex.logNormStep`.
+Together with both existing infinite-tail budgets, these prove the actual
+horizontal lower bound `J(T) >= -8*log(abs(T)/2+3)-94` for `T != 0`.
+All seven modules compile; 65 regression examples and 27 complete axiom
+closure checks pass. Only the three standard logical axioms occur.
+There is no finite replay, RH input or new numerical boundary assumption.
+The Littlewood/Turing count identity and numerical zero verification still
+remain; the horizontal bounds alone do not establish finite RH or Dusart.
+
+## Previous follow-up: logarithmic kernel and complete spectral budget (2026-09-23)
 
 The public Robin, BV and WIP heads were rechecked. The current WIP counting
 and region modules retain existential constants, and its inspected exact

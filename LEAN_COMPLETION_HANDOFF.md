@@ -5,7 +5,45 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: explicit full xi logarithmic-step budget (2026-09-23)
+## Latest increment: actual xi log-ratio identity and horizontal lower bound (2026-09-23)
+
+`XiCanonicalLog` obtains absolute summability of actual genus-one factor
+logarithms from PNT's existing factor bound and Mathlib's logarithmic-product
+API. `XiLogRatio` cancels the real Hadamard constant exactly and proves the
+unit-step log-modulus identity with the actual multiplicity-counted divisor.
+It assumes only nonzero endpoints, not a zero-free intervening segment.
+
+`TuringXiLogInterchange` uses the existing divisor countability and the
+nonnegative kernel to justify absolute integral/series interchange.
+`TuringXiLogIntegral` excludes endpoint zeros only on a null set, so the
+actual integrated xi log ratio equals the full spectral budget at every
+real height, including heights containing zeros.
+
+`TuringGammaLower` reuses the existing digamma estimate and Gamma primitive
+to bound a unit Gamma/pi increment from below by `-2`.
+`TuringZetaLogStep` retains the nonnegative pole gain and transfers that
+bound to the actual zeta decrement. Finally `TuringHorizontalLower` proves
+
+`-(8*log(abs(T)/2+3)+94) <= turingHorizontalIntegral T` for every `T != 0`.
+
+This includes both complete right-hand tails. It is a coarse proved bound,
+not the paper's optimized constants, and needs no finite zero data or RH.
+All seven modules compile and are in the sequential non-certificate CI
+chain. All 65 examples in eleven new/preserved regression files pass.
+The 27 audited closures contain only `propext`, `Classical.choice`, and
+`Quot.sound`. Fast checks, Ruff, mypy, 144 Python tests, Ruby metadata
+validation and actionlint pass. No finite replay was started.
+
+**Next:** prove [Trudgian's Lemma 2.4](https://arxiv.org/pdf/0903.1885), the
+Littlewood/Turing identity connecting the actual
+counting discrepancy with the now-bounded horizontal integrals. Keep the
+counting model's missing `7/8` offset explicit. That count-integral theorem,
+the low-zero signs, four transform margins, lower theta band, finite prime
+prefixes, anchors and final unconditional Dusart providers remain open.
+The log-ratio, interchange and horizontal lower-bound obligations above
+are now closed and must not be reimplemented.
+
+## Previous increment: explicit full xi logarithmic-step budget (2026-09-23)
 
 Five Mathlib-only candidates prove the logarithmic kernel estimate needed
 for the horizontal lower bound. `Integrals.LogShift` evaluates the real
