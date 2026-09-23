@@ -40,6 +40,11 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Fourier` | `Mathlib/Analysis/Fourier.lean` | project-verified | Facade for shared transforms and rational checking, within the direct-import limit. |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RationalAlias` | `Mathlib/Analysis/Fourier/RationalAlias.lean` | project-verified | Exact sparse rational coordinate assembly and equality with the existing complex alias input. |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RationalTrace` | `Mathlib/Analysis/Fourier/RationalTrace.lean` | project-verified | Executable rational trace checks, one shared twiddle table per depth and full semantic soundness. |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.RationalPoint` | `Mathlib/Analysis/Complex/RationalPoint.lean` | project-verified | Exact Gaussian rational arithmetic and a complete Boolean squared-norm comparison. |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RadixRoot` | `Mathlib/Analysis/Fourier/RadixRoot.lean` | project-verified | Shared canonical roots, bounded twiddle phases and exact parent/child compatibility. |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.GroupedGrid` | `Mathlib/Analysis/Fourier/GroupedGrid.lean` | project-verified | Sparse alias-array identity and complete shared-trace errors for moment polynomials on signed grids. |
 | `PrimeFactorUnimodality.Mathlib.Data.Vector.ScatterAdd` | `Mathlib/Data/Vector/ScatterAdd.lean` | project-verified | Sparse shared-array accumulation, repeated-index sums and append composition. |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RadixError` | `Mathlib/Analysis/Fourier/RadixError.lean` | project-verified | Shared recursive trace validity and complete input, twiddle and arithmetic error assembly. |

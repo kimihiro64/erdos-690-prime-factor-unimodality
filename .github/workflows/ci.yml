@@ -1287,6 +1287,24 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.XiGridEvaluation
           lake env lean test/lean/XiGridEvaluation.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.RationalPoint
+          lake env lean test/lean/RationalPoint.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RadixRoot
+          lake env lean test/lean/RadixRoot.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RationalTrace
+          lake env lean test/lean/RationalTrace.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RationalAlias
+          lake env lean test/lean/RationalAlias.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.RadixTwiddleChecks
+          lake env lean test/lean/RadixTwiddleChecks.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.CheckedZetaGrid
+          lake env lean test/lean/CheckedZetaGrid.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ThetaSquaredCheckpoints
           lake env lean test/lean/ThetaSquaredCheckpoints.lean
           /usr/bin/time -v lake build \

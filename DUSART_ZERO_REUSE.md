@@ -1,5 +1,53 @@
 # Reuse audit for the Dusart zero-sum layer
 
+## Newest follow-up: executable rational Fourier checks (2026-09-23)
+
+The shared radix interface now has executable rational arithmetic checks.
+`Complex.RationalPoint` supplies exact Gaussian arithmetic and an equivalent
+Boolean squared-norm test, with nonnegative error budgets enforced. A
+`RationalTrace` checks every leaf, right-output cap and arithmetic merge.
+One twiddle table per depth is shared across every node and Taylor column;
+the canonical root-square identity discharges parent/child compatibility.
+
+`RationalAlias` uses explicit frequency lists and two sparse rational
+coordinate passes. This matters for executability: the earlier mathematical
+alias definition uses noncomputable `Finset.toList`. The new list-based
+assembler proves equality with that exact complex alias array. Duplicate
+frequency rows are rejected, while distinct frequencies colliding modulo
+the transform size are added and retained.
+
+The optional twiddle checker reuses LeanCert's proved direct sine/cosine
+Taylor enclosures, together with Mathlib's twenty-digit pi bounds. It checks
+the full Euclidean error using endpoint radii, without the coarse fixed-pi
+large-angle reduction. `CheckedZetaGrid` verifies list uniqueness, shared
+twiddles and every required rational transform column, then derives the
+existing `ZetaGridBlock.Valid` and actual zeta error theorem. No semantic
+Fourier-input equality or phase enclosure remains an unexplained input to
+that checked adapter. Shared moment enclosures and the short per-sample
+correction still have to be supplied and proved.
+
+The original unbounded analytic import closure remains independent of
+LeanCert. The optional rational checker bridge directly imports only
+`LeanCert.Core.IntervalRat.Taylor`, not its tactics or project certificate
+replays. Tiny regression checks use `decide +kernel`: ordinary elaborator
+reduction stops at Lean's deliberately irreducible rational operations.
+The source checker and its soundness proof introduce no native-evaluation
+shortcut. No large numerical family has been generated or replayed.
+
+Still needed are actual moment enclosures, rounded trace data, sample
+corrections/signs, completeness margins and representative high-height
+resource projections. The fixed twenty-digit pi enclosure is explicit;
+this increment does not claim that it suffices for every numerical margin
+or that a high-height kernel replay has been benchmarked. The other
+unconditional Dusart and all-k obligations remain unchanged.
+
+All six proof modules and both affected facades compile. The 72 examples
+across eleven new/preserved files pass, including successful and rejected
+kernel checks and a complete checked unit grid. All 23 public theorem
+closures contain only the standard three logical axioms, including the
+transitive LeanCert trigonometric proofs. Fast source checks, Ruff, mypy,
+all 155 Python tests, Ruby metadata and workflow checks pass.
+
 ## Newest follow-up: shared radix-two grid evaluator (2026-09-23)
 
 `Fourier.radixTwo` now implements the finite transform with materialized

@@ -299,6 +299,8 @@ def test_xi_evaluator_does_not_assume_a_zero_or_rh() -> None:
         "ZetaGridData",
         "ZetaGridEvaluation",
         "XiGridEvaluation",
+        "RadixTwiddleChecks",
+        "CheckedZetaGrid",
     ):
         path = ROOT.joinpath(*(ANALYTIC + module).split(".")).with_suffix(".lean")
         source = strip_lean_comments(path.read_text())
@@ -369,6 +371,56 @@ def test_radix_grid_has_shared_arrays_and_sequential_checked_consumers() -> None
     signs = strip_lean_comments((root / "Helpers/Analytic/XiGridEvaluation.lean").read_text())
     assert "XiSignRow.valid_of_grid_endpoints" in signs
     assert "hp.norm_zeta_sub_value_le hd" in signs
+
+
+def test_rational_grid_checks_discharge_actual_fourier_premises() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    previous = workflow.index("lake env lean test/lean/XiGridEvaluation.lean")
+    for module, regression in (
+        ("Mathlib.Analysis.Complex.RationalPoint", "RationalPoint"),
+        ("Mathlib.Analysis.Fourier.RadixRoot", "RadixRoot"),
+        ("Mathlib.Analysis.Fourier.RationalTrace", "RationalTrace"),
+        ("Mathlib.Analysis.Fourier.RationalAlias", "RationalAlias"),
+        ("Helpers.Analytic.RadixTwiddleChecks", "RadixTwiddleChecks"),
+        ("Helpers.Analytic.CheckedZetaGrid", "CheckedZetaGrid"),
+    ):
+        build = workflow.index(f"+PrimeFactorUnimodality.{module}\n")
+        test = workflow.index(f"lake env lean test/lean/{regression}.lean")
+        assert previous < build < test
+        previous = test
+    root = ROOT / "PrimeFactorUnimodality"
+    alias = strip_lean_comments((root / "Mathlib/Analysis/Fourier/RationalAlias.lean").read_text())
+    assert "rows.map" in alias
+    assert ".toList" not in alias
+    phase = strip_lean_comments((root / "Helpers/Analytic/RadixTwiddleChecks.lean").read_text())
+    assert "mem_cosComputable" in phase
+    assert "mem_sinComputable" in phase
+    assert "ComputableReduced" not in phase
+    consumer = strip_lean_comments((root / "Helpers/Analytic/CheckedZetaGrid.lean").read_text())
+    assert "r.groups.Nodup" in consumer
+    assert "checkTwiddleTables_sound" in consumer
+    assert "rationalAliasVector_map" in consumer
+    assert "hp.norm_zeta_sub_value_le (r.valid_of_check" in consumer
+
+
+def test_optional_rational_checkers_do_not_import_replay_or_tactic_modules() -> None:
+    pending = [ANALYTIC + name for name in ("RadixTwiddleChecks", "CheckedZetaGrid")]
+    visited: set[str] = set()
+    while pending:
+        module = pending.pop()
+        if module in visited:
+            continue
+        visited.add(module)
+        assert ".Generated." not in module
+        assert ".FiniteCertificates." not in module
+        if module.startswith("LeanCert."):
+            assert module == "LeanCert.Core.IntervalRat.Taylor"
+            continue
+        if not module.startswith("PrimeFactorUnimodality."):
+            continue
+        path = ROOT.joinpath(*module.split(".")).with_suffix(".lean")
+        source = strip_lean_comments(path.read_text())
+        pending.extend(lean_imports(source))
 
 
 def test_theta_checkpoint_consumers_derive_band_and_anchor_obligations() -> None:

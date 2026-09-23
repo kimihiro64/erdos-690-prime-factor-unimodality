@@ -1,7 +1,8 @@
 import PrimeFactorUnimodality.Mathlib.Algebra.Group.PowerStep
 import PrimeFactorUnimodality.Mathlib.Analysis.Analytic.Order.Conjugation
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex
-import PrimeFactorUnimodality.Mathlib.Analysis.Fourier.GroupedGrid
+import PrimeFactorUnimodality.Mathlib.Analysis.Complex.RationalPoint
+import PrimeFactorUnimodality.Mathlib.Analysis.Fourier
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions
 import PrimeFactorUnimodality.Mathlib.Data.Nat.CoprimePeriodicCount
 import PrimeFactorUnimodality.Mathlib.Data.Vector.ScatterAdd
