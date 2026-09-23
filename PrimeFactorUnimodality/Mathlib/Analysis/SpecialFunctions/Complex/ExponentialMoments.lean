@@ -23,6 +23,14 @@ open Finset
 
 variable {ι : Type*}
 
+/-- Successive Taylor atoms reuse the previous power and factorial quotient. -/
+theorem taylorMoment_succ (w z : ℂ) (j : ℕ) :
+    w * z ^ (j + 1) / ((j + 1).factorial : ℂ) =
+      (w * z ^ j / (j.factorial : ℂ)) * z / (j + 1 : ℂ) := by
+  rw [Nat.factorial_succ, Nat.cast_mul, Nat.cast_add, Nat.cast_one, pow_succ]
+  simp only [div_eq_mul_inv, mul_inv_rev]
+  ring
+
 /-- One reusable coefficient of a weighted imaginary exponential sum. -/
 def expSumMoment (S : Finset ι) (w : ι → ℂ) (r : ι → ℝ) (j : ℕ) : ℂ :=
   ∑ n ∈ S, w n * (I * (r n : ℂ)) ^ j / (j.factorial : ℂ)

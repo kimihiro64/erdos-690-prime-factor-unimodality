@@ -404,7 +404,9 @@ def test_rational_grid_checks_discharge_actual_fourier_premises() -> None:
 
 
 def test_optional_rational_checkers_do_not_import_replay_or_tactic_modules() -> None:
-    pending = [ANALYTIC + name for name in ("RadixTwiddleChecks", "CheckedZetaGrid")]
+    pending = [
+        ANALYTIC + name for name in ("RadixTwiddleChecks", "CheckedZetaGrid", "CheckedZetaMoments")
+    ]
     visited: set[str] = set()
     while pending:
         module = pending.pop()
@@ -414,13 +416,60 @@ def test_optional_rational_checkers_do_not_import_replay_or_tactic_modules() -> 
         assert ".Generated." not in module
         assert ".FiniteCertificates." not in module
         if module.startswith("LeanCert."):
-            assert module == "LeanCert.Core.IntervalRat.Taylor"
+            assert module in {
+                "LeanCert.Core.IntervalRat.Basic",
+                "LeanCert.Core.IntervalRat.Taylor",
+            }
             continue
         if not module.startswith("PrimeFactorUnimodality."):
             continue
         path = ROOT.joinpath(*module.split(".")).with_suffix(".lean")
         source = strip_lean_comments(path.read_text())
         pending.extend(lean_imports(source))
+
+
+def test_checked_moments_reuse_atoms_and_prove_full_partition_coverage() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    previous = workflow.index("lake env lean test/lean/CheckedZetaGrid.lean")
+    modules = (
+        "ComplexInterval",
+        "SharedTaylorIntervals",
+        "DirichletAtomIntervals",
+        "MomentIntervalRecurrence",
+        "MomentIntervalColumns",
+        "MomentChunkIntervals",
+        "DirichletMomentBlocks",
+        "MomentBlockPartition",
+        "CheckedZetaMoments",
+    )
+    for module in modules:
+        build = workflow.index(f"+{ANALYTIC}{module}\n")
+        test = workflow.index(f"lake env lean test/lean/{module}.lean")
+        assert previous < build < test
+        previous = test
+    root = ROOT / "PrimeFactorUnimodality/Helpers/Analytic"
+    chunk = strip_lean_comments((root / "MomentChunkIntervals.lean").read_text())
+    assert "let atoms :=" in chunk
+    assert "ComplexInterval.momentVector a.weight a.residual degree" in chunk
+    assert "List.sum_toFinset" in chunk
+    assert ".toList" not in chunk
+    phase = strip_lean_comments((root / "DirichletAtomIntervals.lean").read_text())
+    assert "Real.cos_sub_int_mul_two_pi" in phase
+    assert "Real.sin_sub_int_mul_two_pi" in phase
+    assert "ComputableReduced" not in phase
+    blocks = strip_lean_comments((root / "DirichletMomentBlocks.lean").read_text())
+    assert "theorem Valid.append" in blocks
+    assert "theorem Valid.rounded" in blocks
+    partition = strip_lean_comments((root / "MomentBlockPartition.lean").read_text())
+    assert "theorem Chain.filter_eq" in partition
+    assert "List.inj_on_of_nodup_map" in partition
+    assert "def checkGroups" in partition
+    assert ".IsChain (fun a b => b < a)" in partition
+    assert "theorem checkPartition_sound" in partition
+    consumer = strip_lean_comments((root / "CheckedZetaMoments.lean").read_text())
+    assert "hchain.filter_eq" in consumer
+    assert "ZetaGroupedBlock.valid_of_moment_blocks" in consumer
+    assert "apply r.valid_of_check" in consumer
 
 
 def test_theta_checkpoint_consumers_derive_band_and_anchor_obligations() -> None:

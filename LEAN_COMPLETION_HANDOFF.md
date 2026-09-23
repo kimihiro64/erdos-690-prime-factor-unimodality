@@ -5,6 +5,40 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
+## Latest increment: executable shared-moment enclosures (2026-09-23)
+
+`CheckedZetaMoments` now derives the shared grouped-block and Fourier-grid
+validity from checked consecutive moment chunks and an ordered partition.
+The scalar builders reuse LeanCert's proved logarithm/exponential/trigonometric
+intervals with prepared shared coefficients. Integer phase reduction retains
+the supplied pi enclosure explicitly. Exact finite-sum and Taylor recurrences
+retain every index and moment order. Merged blocks need only their retained
+rounded coefficients/errors, and rounding itself has an executable norm test.
+Endpoint and adjacent-label checks supply full coverage and uniqueness.
+
+All ten modules and affected facades compile. The 121 examples across eighteen
+new/preserved regression files pass, including the complete checked unit
+moment-to-grid adapter. All 41 public theorem closures use only the standard
+three logical axioms. Ruff, mypy, all 159 Python tests and workflow validation
+pass. These small tests are not a high-height performance measurement.
+
+The new layer is optional numerical infrastructure: the unbounded analytic
+import closure still does not depend on LeanCert. The numerical data is not
+yet supplied and high-height runtime is not yet benchmarked. Do not regenerate
+existing analytic identities, moment assemblers or coverage arguments.
+
+Next non-certificate work: rigorously enclose the short Euler correction and
+connect actual sample checks to the existing xi sign/Turing consumers. The
+correction can factor out one critical-line Dirichlet atom; its remaining
+factor is rational complex arithmetic at a rational sample height. Preserve
+all Bernoulli terms and the existing full Euler remainder. Then validate a
+representative high-height row and project costs before a large family.
+
+Actual zero signs/completeness, four transform margins, lower theta data,
+prime prefixes/anchors and closed unconditional providers remain open.
+The existing middle/far-ray zero cutoff remains one billion. CI build jobs
+are intentionally disabled until Dusart is complete; keep fast checks active.
+
 ## Latest increment: shared lower-theta checkpoints and rational anchors (2026-09-23)
 
 `ThetaSquaredCheckpoints` stores a natural endpoint and rational lower/upper

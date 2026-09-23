@@ -1305,11 +1305,41 @@ jobs:
             +PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RationalAlias
           lake env lean test/lean/RationalAlias.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.RationalIntervalBounds
+          lake env lean test/lean/RationalIntervalBounds.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.RadixTwiddleChecks
           lake env lean test/lean/RadixTwiddleChecks.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.CheckedZetaGrid
           lake env lean test/lean/CheckedZetaGrid.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ComplexInterval
+          lake env lean test/lean/ComplexInterval.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SharedTaylorIntervals
+          lake env lean test/lean/SharedTaylorIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DirichletAtomIntervals
+          lake env lean test/lean/DirichletAtomIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.MomentIntervalRecurrence
+          lake env lean test/lean/MomentIntervalRecurrence.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.MomentIntervalColumns
+          lake env lean test/lean/MomentIntervalColumns.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.MomentChunkIntervals
+          lake env lean test/lean/MomentChunkIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DirichletMomentBlocks
+          lake env lean test/lean/DirichletMomentBlocks.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.MomentBlockPartition
+          lake env lean test/lean/MomentBlockPartition.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.CheckedZetaMoments
+          lake env lean test/lean/CheckedZetaMoments.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ThetaSquaredCheckpoints
           lake env lean test/lean/ThetaSquaredCheckpoints.lean

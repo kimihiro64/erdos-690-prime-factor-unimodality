@@ -1,5 +1,45 @@
 # Reuse audit for the Dusart zero-sum layer
 
+## Newest follow-up: checked shared Dirichlet moments (2026-09-23)
+
+The optional numerical layer now constructs actual shared-moment enclosures.
+`SharedTaylorIntervals` prepares the scalar Taylor lists and logarithm-of-two
+interval once. `DirichletAtomIntervals` computes each positive integer's
+logarithm once and reuses it for amplitude, residual frequency and phase.
+Integer-period reduction uses an explicit proved pi enclosure and Mathlib's
+exact sine/cosine periodicity. The integer shift need not be trusted as a
+rounded transcendental value. No coarse fixed-pi reduction is used.
+
+`ComplexInterval` reuses LeanCert's real interval arithmetic for complex
+rectangles and complete Euclidean error tests. The generic Taylor-atom
+recurrence is independently proved in the Mathlib candidate layer.
+`MomentIntervalColumns` materializes the successive orders as one array;
+`MomentChunkIntervals` shares each atom across every requested column and
+proves the exact finite Dirichlet-moment error from rational comparisons.
+
+`DirichletMomentBlock.Valid.append` merges adjacent same-bin chunks using
+only retained coefficients and errors. Checked outward rounding can shorten
+those retained rationals without replaying atoms. `MomentBlockPartition`
+checks endpoint coverage, with adjacent decreasing-label checks supplying
+global uniqueness without quadratic duplicate scanning. Its fiber theorem
+identifies every complete-prefix frequency group with the corresponding
+block. `CheckedZetaMoments` feeds these bounds into the actual grouped-block
+validity and the existing rational Fourier checker.
+
+All ten modules and affected facades compile; 121 examples across eighteen
+new/preserved files and all 41 public theorem closure audits pass. Only the
+standard three logical axioms occur. Ruff, mypy, all 159 Python tests and
+workflow validation pass. The checked unit grid exercises the full adapter,
+but does not stand in for a representative high-height runtime benchmark.
+
+This supplies the non-generated checker and composition proofs, not the
+large numerical moment/trace family. Short per-sample Euler corrections,
+actual signs/completeness margins, numerical R6 bounds, lower theta data,
+finite prime prefixes/anchors and the unconditional providers still remain.
+Representative nontrivial high-height runtime and precision projections are
+still required before generating a large family. CI builds remain paused;
+the new build/test steps are ordered for their eventual re-enablement.
+
 ## Newest follow-up: executable rational Fourier checks (2026-09-23)
 
 The shared radix interface now has executable rational arithmetic checks.

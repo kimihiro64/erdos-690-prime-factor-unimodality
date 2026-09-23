@@ -1,4 +1,5 @@
 import LeanCert.Core.IntervalRat.Taylor
+import PrimeFactorUnimodality.Helpers.Analytic.RationalIntervalBounds
 import PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RationalTrace
 
 /-! # Computable shared twiddle checks from proved sine and cosine intervals
@@ -35,21 +36,6 @@ theorem angle_mem_twiddleAngle (n k : ℕ) :
       2 * Real.pi * k / (2 ^ n) := by push_cast; ring
   rw [he] at h
   exact h
-
-/-- Maximum distance from a rational point to either interval endpoint. -/
-def intervalPointRadius (I : IntervalRat) (q : ℚ) : ℚ := max |I.lo - q| |I.hi - q|
-
-/-- Every interval member lies within the computable endpoint radius. -/
-theorem abs_sub_le_intervalPointRadius {x : ℝ} {I : IntervalRat} (hx : x ∈ I) (q : ℚ) :
-    |x - (q : ℝ)| ≤ (intervalPointRadius I q : ℝ) := by
-  have hlo : |(I.lo : ℝ) - q| ≤ (intervalPointRadius I q : ℝ) := by
-    exact_mod_cast le_max_left |I.lo - q| |I.hi - q|
-  have hhi : |(I.hi : ℝ) - q| ≤ (intervalPointRadius I q : ℝ) := by
-    exact_mod_cast le_max_right |I.lo - q| |I.hi - q|
-  obtain ⟨hxlo, hxhi⟩ := hx
-  obtain ⟨hl, _⟩ := abs_le.mp hlo
-  obtain ⟨_, hh⟩ := abs_le.mp hhi
-  exact abs_le.mpr ⟨by linarith, by linarith⟩
 
 /-- Only rational comparisons remain after the proved trigonometric enclosures. -/
 def checkTwiddle (n k order : ℕ) (q : RationalPoint) (e : ℚ) : Bool :=
