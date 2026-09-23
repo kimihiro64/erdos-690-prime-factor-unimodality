@@ -1496,6 +1496,21 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.SievedThetaPrimeTrace
           lake env lean test/lean/SievedThetaPrimeTrace.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.PartialSieve
+          lake env lean test/lean/PartialSieve.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.PartialSievePrimeLeaves
+          lake env lean test/lean/PartialSievePrimeLeaves.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.PrimeCountingMeissel
+          lake env lean test/lean/PrimeCountingMeissel.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Arithmetic.PartialSieveRows
+          lake env lean test/lean/PartialSieveRows.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Arithmetic.MeisselRows
+          lake env lean test/lean/MeisselRows.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

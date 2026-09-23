@@ -40,6 +40,9 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.NumberTheory.PartialSieve` | `Mathlib/NumberTheory/PartialSieve.lean` | project-verified | Exact coprime-interval counts, prime removal, executable list/indexed recurrence, and prefix congruence; Mathlib-only proof. |
+| `PrimeFactorUnimodality.Mathlib.NumberTheory.PartialSievePrimeLeaves` | `Mathlib/NumberTheory/PartialSievePrimeLeaves.lean` | project-verified | Complete primorial sieve stopping rule with strict square boundary; actual prime counts from checked recurrence values. |
+| `PrimeFactorUnimodality.Mathlib.NumberTheory.PrimeCountingMeissel` | `Mathlib/NumberTheory/PrimeCountingMeissel.lean` | project-verified | Complete canonical prime prefix and exact Meissel identity by telescoping removal; explicit cube/square cutoff guards. |
 | `PrimeFactorUnimodality.Mathlib.Data` | `Mathlib/Data.lean` | project-verified | Facade for finite-data candidates within the import limit. |
 | `PrimeFactorUnimodality.Mathlib.Data.Nat.BitCount` | `Mathlib/Data/Nat/BitCount.lean` | project-verified | Balanced bitset counting, exact clipped/offset block semantics, and adjacent-block composition. |
 | `PrimeFactorUnimodality.Mathlib.Algebra` | `Mathlib/Algebra.lean` | project-verified | Facade for algebraic candidates within the direct-import limit. |

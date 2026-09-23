@@ -9,5 +9,6 @@ import PrimeFactorUnimodality.Mathlib.NumberTheory.Chebyshev.Intervals
 import PrimeFactorUnimodality.Mathlib.NumberTheory.Harmonic.EulerMascheroniBounds
 import PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries
 import PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington
+import PrimeFactorUnimodality.Mathlib.NumberTheory.PrimeCountingMeissel
 
 /-! # Reusable number-theoretic candidates -/

@@ -1,6 +1,46 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: analytic takeover at ten billion (2026-09-23)
+## Newest follow-up: exact Meissel counting and external dependency rows (2026-09-23)
+
+The new Mathlib candidates `PartialSieve`, `PartialSievePrimeLeaves`, and
+`PrimeCountingMeissel` prove the exact combinatorial counting identity, not
+an assumption that an external prime-counting program is correct. They
+identify partial-sieve values with positive coprime-interval cardinalities,
+prove one-prime removal and completeness of the canonical prime prefix,
+and telescope removal between the cube-root and square-root cutoffs.
+After the cube cutoff, the removed counts are prime counts at smaller
+quotient endpoints. Both cutoff inequalities have their strict boundaries.
+The argument is the classical Meissel decomposition described in
+[Oliveira e Silva's combinatorial-method account](https://sweet.ua.pt/tos/bib/5.4.pdf),
+proved here directly using Mathlib finite sets, coprimality and prime enumeration.
+
+`PartialSieveRows` verifies external values and backward dependency indices
+using local integer relations. It never recomputes the recursive partial
+sieve in its Boolean checker. Previously certified leaves can be shared,
+and independently checked index blocks can be joined. Every imported leaf
+retains an actual validity proof. `MeisselRows` checks externally supplied
+correction subtotals one addition at a time, and derives `Nat.primeCounting`
+from these checks, a verified prime prefix, a verified partial-sieve claim,
+and verified small quotient counts. Sparse primality evidence alone still
+does not satisfy these complete-count premises.
+
+These are non-certificate foundations, not a completed numerical provider.
+The row feasibility probe remains below the required full-range throughput;
+no large family is generated or claimed to run in minutes. The next
+engineering gate is substantial batching/compression of the local checks
+and certification of their shared small tables. The finite theta coverage,
+high-height zero data, anchors, and unconditional all-k providers remain
+open. CI builds remain paused. The new foundations and their small
+regressions are configured as sequential CI targets for when builds resume.
+
+All five new modules and both affected facades compile. Five Lean regression
+files include an end-to-end Meissel proof of `primeCounting 100 = 25` and
+rejection checks for false values, forward/cyclic dependencies, missing
+leaves, and invalid cutoffs. All 20 audited theorem closures use only the
+standard `propext`, `Classical.choice`, and `Quot.sound` axioms. The 183
+Python tests, canonical fast gate, Ruff format/lint, mypy, and actionlint pass.
+
+## Previous follow-up: analytic takeover at ten billion (2026-09-23)
 
 `DusartEarlierCutoffScalars`, `DusartEarlierCutoffBudget`, and
 `DusartEarlierCutoffTheta` prove two complete analytic intervals:
