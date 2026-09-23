@@ -1,6 +1,34 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: actual horizontal logarithmic integrals (2026-09-23)
+## Newest follow-up: logarithmic kernel and complete spectral budget (2026-09-23)
+
+The public Robin, BV and WIP heads were rechecked. The current WIP counting
+and region modules retain existential constants, and its inspected exact
+shifted norm-mass identities retain RH. No existing numerical Turing bound
+was identified in those sources. Their unconditional infrastructure remains
+usable; no blanket claim about missing or incomplete sibling proofs is made.
+
+The new kernel proof applies Mathlib's meromorphic log-integrability,
+exact real logarithm primitive, `self_sub_one_le_mul_log`, and
+`log_le_sub_one_of_pos`. An almost-everywhere comparison excludes the real
+singleton singularity. Low- and high-imaginary-part bounds prove a uniform
+constant sixteen in the paired resolvent inequality, without the computed
+rectangle boundary used for Booker's optimized constant.
+
+The actual xi consumer reuses `riemannXiDivisorSameHeightReflection`,
+`summable_re_xi_divisor_resolvent`, and the unconditional real Hadamard
+constant cancellation. It neither reconstructs the divisor nor assumes
+all zeros have real part one half. Existing `ZetaRealPole` and
+`DigammaExplicitBounds` then give the complete integrated-step budget
+`8*log(abs(T)/2+3)+88`. No new sibling dependency or finite replay is added.
+
+The seven modules compile, all 54 regression examples pass, and all 22
+audited closures contain only `propext`, `Classical.choice`, and `Quot.sound`.
+The log-ratio identity, integral interchange and actual counting discrepancy
+estimate still require proof; the spectral budget alone is not a Turing
+verification or an unconditional Dusart provider.
+
+## Previous follow-up: actual horizontal logarithmic integrals (2026-09-23)
 
 The finite-segment logarithmic singularities require no new general proof:
 Mathlib's `MeromorphicOn.intervalIntegrable_log_norm` handles them directly.

@@ -5,7 +5,41 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: complete horizontal logarithmic upper bound (2026-09-23)
+## Latest increment: explicit full xi logarithmic-step budget (2026-09-23)
+
+Five Mathlib-only candidates prove the logarithmic kernel estimate needed
+for the horizontal lower bound. `Integrals.LogShift` evaluates the real
+singularity exactly and bounds its integral from below. `Complex.LogStep`
+provides integrability, nonnegativity, conjugation invariance, the low-height
+bound four, and inverse-square decay at every nonzero imaginary part.
+Its paired integral is at most sixteen times the paired resolvent throughout
+the closed half-unit strip. This is a proved, coarser alternative to Booker's
+optimized constant, not an assertion of his computational boundary check.
+
+`TuringXiLogStep` applies that bound to the actual xi divisor, using the
+existing same-height reflection equivalence and resolvent summability.
+It proves absolute convergence of the whole nonnegative integrated-step
+family and bounds its sum by `16*Re(xi'/xi(3/2+i*T))`. Multiplicities,
+negative heights and critical-line fixed labels are retained.
+`TuringXiLogBudget` reuses the existing pole and Gamma estimates to give
+the explicit bound `8*log(abs(T)/2+3)+88`, at every real height, without RH.
+
+All seven modules compile. The 54 examples in nine new/preserved regression
+files pass; all 22 audited theorem closures use only the three standard
+logical axioms. The candidate architecture audit passed before the actual
+consumers. CI builds and tests this analytic chain sequentially, before
+certificates, with a source regression enforcing that separation.
+
+**Next:** identify the integrated xi log ratio with this complete zero sum
+and justify the integral/series interchange. Include the Gamma and pole
+terms to obtain the lower bound for the actual shifted zeta integral.
+Then prove the Littlewood/Turing counting identity, retaining the counting
+model's missing `7/8` offset. The quantitative count discrepancy, actual
+low-zero signs, four transform margins, lower theta band, finite prime
+prefixes, anchors and final unconditional Dusart providers remain open.
+This increment supplies the explicit spectral budget, not finite RH verification.
+
+## Previous increment: complete horizontal logarithmic upper bound (2026-09-23)
 
 The Turing argument's actual horizontal integral is now absolutely
 integrable at every nonzero height. Mathlib's

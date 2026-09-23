@@ -28,6 +28,8 @@ MODULES = (
     "DusartZeroVerification",
     "TuringHorizontalLog",
     "TuringHorizontalShift",
+    "TuringXiLogStep",
+    "TuringXiLogBudget",
 )
 
 
@@ -51,6 +53,20 @@ def test_endpoint_assemblers_build_serially_before_scalar_replay() -> None:
         assert previous_candidate < candidate_build < candidate_test
         previous_candidate = candidate_test
     assert previous_candidate < foundations.index(f"+{ANALYTIC}TuringHorizontalLog")
+    previous_candidate = foundations.index("lake env lean test/lean/TuringHorizontalShift.lean")
+    log_candidates = (
+        ("SpecialFunctions.Integrals.LogShift", "LogShiftIntegral"),
+        ("Complex.LogStep.Basic", "LogStepBasic"),
+        ("Complex.LogStep.SmallHeight", "LogStepSmallHeight"),
+        ("Complex.LogStep.LargeHeight", "LogStepLargeHeight"),
+        ("Complex.LogStep.PairBound", "LogStepPairBound"),
+    )
+    for leaf, regression in log_candidates:
+        candidate_build = foundations.index(f"+PrimeFactorUnimodality.Mathlib.Analysis.{leaf}")
+        candidate_test = foundations.index(f"lake env lean test/lean/{regression}.lean")
+        assert previous_candidate < candidate_build < candidate_test
+        previous_candidate = candidate_test
+    assert previous_candidate < foundations.index(f"+{ANALYTIC}TuringXiLogStep")
     candidate = foundations.index(
         "+PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.FinsetAbel"
     )

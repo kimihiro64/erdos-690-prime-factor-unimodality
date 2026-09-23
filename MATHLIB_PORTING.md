@@ -40,6 +40,11 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogShift` | `Mathlib/Analysis/SpecialFunctions/Integrals/LogShift.lean` | project-verified | Exact shifted logarithmic integral and a uniform lower bound, including real-axis singularities |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.LogStep.Basic` | `Mathlib/Analysis/Complex/LogStep/Basic.lean` | project-verified | Integrability, nonnegativity and conjugation invariance of unit logarithmic-modulus steps |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.LogStep.SmallHeight` | `Mathlib/Analysis/Complex/LogStep/SmallHeight.lean` | project-verified | Uniform low-height integral bound using almost-everywhere comparison at the real singularity |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.LogStep.LargeHeight` | `Mathlib/Analysis/Complex/LogStep/LargeHeight.lean` | project-verified | Pointwise and integrated inverse-square height decay of the logarithmic step |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Complex.LogStep.PairBound` | `Mathlib/Analysis/Complex/LogStep/PairBound.lean` | project-verified | Entirely analytic constant-sixteen paired-resolvent bound in the closed half-unit strip |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.Harmonic.EulerMascheroniBounds` | `Mathlib/NumberTheory/Harmonic/EulerMascheroniBounds.lean` | project-verified | Rational upper bound `gamma < 0.59` from Mathlib's harmonic upper sequence and logarithm bounds |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.PiBounds` | `Mathlib/Analysis/SpecialFunctions/Log/PiBounds.lean` | project-verified | Lower bounds for `log(4*pi)`, `log(2*pi)` and `log(pi)` using existing pi/log bounds and a rational logarithm inequality |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Calculus.Deriv.ForwardDiff` | `Mathlib/Analysis/Calculus/Deriv/ForwardDiff.lean` | project-verified | Existing Mathlib forward differences: half-line continuity, derivative commutation, finite-support norm bound at every order |
