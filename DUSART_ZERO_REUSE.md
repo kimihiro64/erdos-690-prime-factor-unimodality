@@ -643,6 +643,39 @@ validation pass. The new CI build and regression steps remain sequential.
 
 ## Published sibling update inspected (2026-09-23)
 
+### Cancellation-preserving local connection
+
+The existing box explicit formula and generic grouped Fourier evaluator now
+meet directly in `DusartBoxOscillation`, `DusartBoxPhaseBudget`,
+`DusartBoxPhaseEvaluation` and `DusartBoxPhaseGrid`. Relative-step homogeneity
+expresses each critical-line low atom as a fixed coefficient times
+`exp(i*gamma*log x)` and the positive square-root amplitude. The exact finite
+sum retains every divisor label and both ordinate signs; it does not replace
+the low sum by its reciprocal-norm mass.
+
+The new candidate leaves `IteratedAverageScaling` and `ExponentialStability`
+prove homogeneity, coefficient/frequency perturbation, and sample interpolation.
+The complete psi consumer keeps the established high-zero power tail, gamma
+correction, endpoint constant, and both adjacent averages. The left average
+uses relative width `s/(1-(m+3)*s)`, not the right average's width.
+One existing radix trace per Taylor order supplies every grid output, with
+grouping, moment-rounding and transform errors all retained.
+
+The newer WIP logarithmic-phase estimates concern Dirichlet frequencies,
+whereas this connection uses zero ordinates. Its moment and Cauchy-smoothing
+leaves remain available if numerical bounds justify those refinements; this
+increment reuses the already ported local machinery without a new dependency.
+Complete zero enclosures, checked numerical moments, interval margins and
+representative end-to-end timings remain required. No new numerical cutoff
+or completed unconditional Dusart provider is asserted by these identities.
+
+All six modules, four candidate facades, six new regression files and four
+existing regressions compile. The 18 new public theorem closures contain
+only `propext`, `Classical.choice` and `Quot.sound`. Fast source checks,
+190 Python tests, Ruff formatting/lint, mypy and workflow validation pass.
+The six additional CI build/test pairs are serial foundation steps; the
+existing Dusart build pause is unchanged.
+
 The public WIPResearch head is now
 `10607f234b2e5a64345bd49c7f21f80a419bc818`, following the previously reviewed
 `bdc46941c4f2e13fb84e0a338b905bb10e711357`. Robin and BV heads are unchanged.

@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonas Whidden
 -/
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.ExponentialMoments
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.ExponentialStability
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.GroupedExponential
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.GroupedRounding
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogHeightBounds

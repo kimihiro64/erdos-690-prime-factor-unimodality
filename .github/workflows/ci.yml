@@ -1317,6 +1317,24 @@ jobs:
             +PrimeFactorUnimodality.Mathlib.Analysis.Fourier.GroupedGrid
           lake env lean test/lean/GroupedGrid.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.IteratedAverageScaling
+          lake env lean test/lean/IteratedAverageScaling.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.ExponentialStability
+          lake env lean test/lean/ExponentialStability.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxOscillation
+          lake env lean test/lean/DusartBoxOscillation.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxPhaseBudget
+          lake env lean test/lean/DusartBoxPhaseBudget.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxPhaseEvaluation
+          lake env lean test/lean/DusartBoxPhaseEvaluation.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxPhaseGrid
+          lake env lean test/lean/DusartBoxPhaseGrid.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaGridData
           lake env lean test/lean/ZetaGridData.lean
           /usr/bin/time -v lake build \
