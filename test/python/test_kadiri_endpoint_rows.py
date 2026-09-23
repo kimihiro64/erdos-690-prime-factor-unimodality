@@ -37,6 +37,10 @@ MODULES = (
     "TuringGammaLower",
     "TuringZetaLogStep",
     "TuringHorizontalLower",
+    "TuringPoleContour",
+    "TuringCountPhase",
+    "TuringCountIntegral",
+    "TuringFiniteLogDerivative",
 )
 
 
@@ -74,6 +78,16 @@ def test_endpoint_assemblers_build_serially_before_scalar_replay() -> None:
         assert previous_candidate < candidate_build < candidate_test
         previous_candidate = candidate_test
     assert previous_candidate < foundations.index(f"+{ANALYTIC}TuringXiLogStep")
+    previous_candidate = foundations.index("lake env lean test/lean/TuringHorizontalLower.lean")
+    for leaf, regression in (
+        ("SpecialFunctions.Complex.LogNormDeriv", "LogNormDeriv"),
+        ("Calculus.ParametricIntervalIntegral", "ParametricRectangle"),
+    ):
+        candidate_build = foundations.index(f"+PrimeFactorUnimodality.Mathlib.Analysis.{leaf}")
+        candidate_test = foundations.index(f"lake env lean test/lean/{regression}.lean")
+        assert previous_candidate < candidate_build < candidate_test
+        previous_candidate = candidate_test
+    assert previous_candidate < foundations.index(f"+{ANALYTIC}TuringPoleContour")
     candidate = foundations.index(
         "+PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.FinsetAbel"
     )

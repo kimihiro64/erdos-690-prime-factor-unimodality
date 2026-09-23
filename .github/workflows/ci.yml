@@ -1113,6 +1113,24 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.TuringHorizontalLower
           lake env lean test/lean/TuringHorizontalLower.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogNormDeriv
+          lake env lean test/lean/LogNormDeriv.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Calculus.ParametricIntervalIntegral
+          lake env lean test/lean/ParametricRectangle.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringPoleContour
+          lake env lean test/lean/TuringPoleContour.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringCountPhase
+          lake env lean test/lean/TuringCountPhase.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringCountIntegral
+          lake env lean test/lean/TuringCountIntegral.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringFiniteLogDerivative
+          lake env lean test/lean/TuringFiniteLogDerivative.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

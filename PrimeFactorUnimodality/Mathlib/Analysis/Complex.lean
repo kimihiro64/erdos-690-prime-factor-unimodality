@@ -13,6 +13,7 @@ import PrimeFactorUnimodality.Mathlib.Analysis.Complex.LogStep.PairBound
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Poisson
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Powers.Recurrence
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.Series.Imaginary
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogNormDeriv
 
 /-! # Complex-analytic candidate facade
 

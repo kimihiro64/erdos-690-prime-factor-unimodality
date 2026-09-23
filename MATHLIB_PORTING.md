@@ -40,6 +40,8 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Calculus.ParametricIntervalIntegral` | `Mathlib/Analysis/Calculus/ParametricIntervalIntegral.lean` | project-verified | Compact-rectangle continuous derivatives supply Mathlib's dominated parameter-integral derivative hypotheses |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogNormDeriv` | `Mathlib/Analysis/SpecialFunctions/Complex/LogNormDeriv.lean` | project-verified | Branch-independent real, horizontal and vertical log-modulus derivatives from Mathlib's squared-norm derivative |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogShift` | `Mathlib/Analysis/SpecialFunctions/Integrals/LogShift.lean` | project-verified | Exact shifted logarithmic integral and a uniform lower bound, including real-axis singularities |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.LogStep.Basic` | `Mathlib/Analysis/Complex/LogStep/Basic.lean` | project-verified | Integrability, nonnegativity and conjugation invariance of unit logarithmic-modulus steps |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.LogStep.SmallHeight` | `Mathlib/Analysis/Complex/LogStep/SmallHeight.lean` | project-verified | Uniform low-height integral bound using almost-everywhere comparison at the real singularity |

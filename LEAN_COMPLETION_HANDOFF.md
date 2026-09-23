@@ -5,7 +5,43 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: actual xi log-ratio identity and horizontal lower bound (2026-09-23)
+## Latest increment: exact count normalization and finite log derivative (2026-09-23)
+
+`TuringPoleContour` integrates the pole reciprocal with its actual principal
+log branch at positive height and separates the surrogate horizontal contour.
+`TuringCountPhase` proves `pi*N(T) = turingZetaArgument sigma T + phase(T)`
+at every regular positive height. The argument is Euler-normalized and
+independent of the anchor `sigma>1`; the phase is
+`Im(xiGammaLog(1/2+iT)) + arg(-1/2+iT)`.
+
+`TuringCountIntegral` proves that almost every height is regular, identifies
+strict and closed counts there, and integrates the exact normalization across
+zero ordinates. `pi_mul_integral_xiZeroCountingRemainder` retains the exact
+phase correction to the already implemented counting main term.
+
+`LogNormDeriv` derives the real log-modulus derivative from Mathlib's squared
+norm, without a principal-log branch assumption. The compact-rectangle
+adapter to Mathlib dominated differentiation is in `ParametricIntervalIntegral`.
+Both candidates compile independently before their consumer.
+`TuringFiniteLogDerivative` constructs a uniformly nonvanishing compact
+rectangle from a regular height and proves that the finite horizontal
+log-modulus integral has derivative minus the imaginary zeta contour integral.
+
+All six modules and the affected candidate facades compile. All 58 examples
+in nine new/preserved regression files pass; the 23 audited closures contain
+only `propext`, `Classical.choice` and `Quot.sound`. Fast checks, Ruff, mypy,
+144 Python tests, Ruby metadata validation and actionlint pass. The new
+modules and tests are in the sequential non-certificate CI chain.
+
+**Next:** prove that the complete right-hand logarithmic tail has height
+derivative equal to the Euler argument at its left endpoint. Combine with
+the new finite-segment derivative, then justify FTC across the exceptional
+zero heights (or prove the equivalent Littlewood rectangle identity).
+Do not infer FTC merely from an almost-everywhere derivative. This remains
+the genuine analytic gap; no low-zero verification or final Dusart provider
+is claimed complete. All other open obligations listed below persist.
+
+## Previous increment: actual xi log-ratio identity and horizontal lower bound (2026-09-23)
 
 `XiCanonicalLog` obtains absolute summability of actual genus-one factor
 logarithms from PNT's existing factor bound and Mathlib's logarithmic-product

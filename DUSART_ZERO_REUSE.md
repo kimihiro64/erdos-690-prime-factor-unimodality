@@ -1,5 +1,36 @@
 # Reuse audit for the Dusart zero-sum layer
 
+## Newest follow-up: actual counting phase and finite log derivative (2026-09-23)
+
+The existing surrogate counting contour, Euler logarithm, Gamma primitive,
+actual divisor countability and strict/closed count bridge give the exact
+normalization `pi*N = argument + phase`. The pole's principal logarithm
+is used only on positive-height horizontal lines, where it avoids its cut;
+zeta's argument is its Euler-normalized contour variation, not its principal
+logarithm. The phase is `Im(xiGammaLog(1/2+iT)) + arg(-1/2+iT)`.
+
+Countable zero ordinates are a null set, so the normalization integrates
+across zero heights and gives the actual closed-count discrepancy with its
+exact smooth-phase correction. The existing main term still has no `7/8`.
+
+For the derivative of the finite horizontal log-modulus integral, Mathlib's
+squared-norm derivative supplies the branch-independent pointwise formula.
+Its compactness and dominated differentiation theorems supply the uniform
+majorant on a rectangle constructed from regularity of a single height.
+The two general adapters are isolated in the Mathlib candidate layer and
+built before the consumer. No additional sibling import, RH premise, or
+finite replay is introduced. This reuses the previously audited analytic
+infrastructure rather than constructing another zero enumeration.
+
+All six modules and the affected candidate facades compile; 58 regression
+examples and 23 complete standard-axiom closure audits pass. The fast,
+Python, Ruby and workflow checks pass, without finite replay.
+
+Still required for Littlewood's identity: the derivative of the complete
+infinite right tail and the passage through exceptional heights. The finite
+derivative and integrated count normalization alone do not prove that identity
+or complete low-zero verification.
+
 ## Newest follow-up: actual log-ratio and full horizontal lower bound (2026-09-23)
 
 No new sibling audit or dependency is needed for this step. The xi product
