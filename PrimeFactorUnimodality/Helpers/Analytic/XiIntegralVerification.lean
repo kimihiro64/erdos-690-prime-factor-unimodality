@@ -21,12 +21,15 @@ local instance xiIntegralVerificationDecidableEq : DecidableEq RiemannXiDivisorZ
 
 namespace XiSignRows
 
-/-- A full-count integral budget and ordered signs imply finite critical-line completeness. -/
-theorem Valid.low_criticalLine_of_count_integral {n : ℕ} {rows : Fin n → XiSignRow}
+/-- An integral budget covers every lower-cutoff label by the same enclosed row family. -/
+theorem Valid.exists_cover_of_count_integral {n : ℕ} {rows : Fin n → XiSignRow}
     {a : ℝ} {b : ℚ} (h : Valid rows 0 b) (hab : a ≤ (b : ℝ))
     (hbudget : (∫ t in a..(b : ℝ), (xiZeroCount t : ℝ)) <
       (b : ℝ) - a + completedArea rows a b) :
-    ∀ p ∈ xiLowHeightIndices a, (riemannXiDivisorZeroValue p).re = 1 / 2 := by
+    ∃ (f : Fin n → RiemannXiDivisorZeroIndex) (hf : Function.Injective f),
+      (∀ i, (riemannXiDivisorZeroValue (f i)).re = 1 / 2 ∧
+        (riemannXiDivisorZeroValue (f i)).im ∈ Set.Ioo ((rows i).lower : ℝ) (rows i).upper) ∧
+      xiPositiveHeightIndices a ⊆ univ.map ⟨f, hf⟩ := by
   classical
   obtain ⟨f, hf, hv⟩ := h.exists_indices
   let S := univ.image f
@@ -49,10 +52,26 @@ theorem Valid.low_criticalLine_of_count_integral {n : ℕ} {rows : Fin n → XiS
     (xiMissingCount_intervalIntegrable S a b) (hN.sub hC) (fun t _ => hbound t)
   rw [intervalIntegral.integral_sub hN hC,
     integral_completedCount rows hab (fun i => by exact_mod_cast h.upper i)] at hcomp
-  apply xiLow_criticalLine_of_missing_integral hab (S := S) _ (by linarith only [hcomp, hbudget])
+  have hcover := (xiMissingCount_eq_zero_iff S a).mp
+    (xiMissingCount_zero_of_integral_lt S hab (by linarith only [hcomp, hbudget]))
+  refine ⟨f, hf, hv, ?_⟩
   intro p hp
-  obtain ⟨i, _, rfl⟩ := mem_image.mp hp
-  exact (hv i).1
+  obtain ⟨i, hi, rfl⟩ := mem_image.mp (hcover hp)
+  exact mem_map.mpr ⟨i, hi, rfl⟩
+
+/-- A full-count integral budget and ordered signs imply finite critical-line completeness. -/
+theorem Valid.low_criticalLine_of_count_integral {n : ℕ} {rows : Fin n → XiSignRow}
+    {a : ℝ} {b : ℚ} (h : Valid rows 0 b) (hab : a ≤ (b : ℝ))
+    (hbudget : (∫ t in a..(b : ℝ), (xiZeroCount t : ℝ)) <
+      (b : ℝ) - a + completedArea rows a b) :
+    ∀ p ∈ xiLowHeightIndices a, (riemannXiDivisorZeroValue p).re = 1 / 2 := by
+  obtain ⟨f, hf, hi, hc⟩ := h.exists_cover_of_count_integral hab hbudget
+  apply xiLow_criticalLine_of_positive
+  intro p hp
+  have hm := (mem_xiStrictPositiveHeightIndices a p).mp hp
+  obtain ⟨i, _, rfl⟩ := mem_map.mp (hc ((mem_xiPositiveHeightIndices a p).mpr
+    ⟨hm.1, hm.2.le⟩))
+  exact (hi i).1
 
 /-- A bound for the discrepancy from any integrable counting model supplies the full-count budget. -/
 theorem Valid.low_criticalLine_of_error_integral {n : ℕ} {rows : Fin n → XiSignRow}

@@ -1335,6 +1335,24 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxPhaseGrid
           lake env lean test/lean/DusartBoxPhaseGrid.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.IteratedAverageConjugation
+          lake env lean test/lean/IteratedAverageConjugation.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiLowConjugatePartition
+          lake env lean test/lean/XiLowConjugatePartition.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiZeroRowEnumeration
+          lake env lean test/lean/XiZeroRowEnumeration.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiTuringEnumeration
+          lake env lean test/lean/XiTuringEnumeration.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxPhaseConjugation
+          lake env lean test/lean/DusartBoxPhaseConjugation.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxPhaseRows
+          lake env lean test/lean/DusartBoxPhaseRows.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaGridData
           lake env lean test/lean/ZetaGridData.lean
           /usr/bin/time -v lake build \

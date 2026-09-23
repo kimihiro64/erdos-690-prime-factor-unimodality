@@ -13,6 +13,12 @@ MODULES = (
     "Helpers.Analytic.DusartBoxPhaseBudget",
     "Helpers.Analytic.DusartBoxPhaseEvaluation",
     "Helpers.Analytic.DusartBoxPhaseGrid",
+    "Mathlib.MeasureTheory.Integral.IntervalIntegral.IteratedAverageConjugation",
+    "Helpers.Analytic.XiLowConjugatePartition",
+    "Helpers.Analytic.XiZeroRowEnumeration",
+    "Helpers.Analytic.XiTuringEnumeration",
+    "Helpers.Analytic.DusartBoxPhaseConjugation",
+    "Helpers.Analytic.DusartBoxPhaseRows",
 )
 
 
@@ -71,3 +77,49 @@ def test_phase_interpolation_uses_actual_ordinates_and_frequency_mass() -> None:
         "‖z‖ + e + d * dusartBoxPhaseFrequencyMass m s u T",
     ):
         assert required in source
+
+
+def test_rows_need_total_count_and_retain_one_family_for_every_weight() -> None:
+    source = strip_lean_comments((ANALYTIC / "XiZeroRowEnumeration.lean").read_text())
+    for required in (
+        "(hcount : xiStrictZeroCount T ≤ n)",
+        "(hf : Function.Injective f)",
+        "eq_of_subset_of_card_le",
+        "xiStrictPositiveHeightIndices T = univ.map ⟨f, hf⟩",
+        "Set.Ioo ((rows i).lower : \u211d) (rows i).upper",
+        "F (riemannXiDivisorConjugation (f i))",
+    ):
+        assert required in source
+    statement = source.split("theorem Valid.exists_weighted_enumeration", 1)[1]
+    assert statement.index("∃ f") < statement.index("∀ F") < statement.index(":= by")
+
+
+def test_positive_rows_feed_actual_psi_and_preserve_real_part_cancellation() -> None:
+    source = strip_lean_comments((ANALYTIC / "DusartBoxPhaseRows.lean").read_text())
+    for required in (
+        "h.exists_complete_indices ha hb hcount",
+        "dusartBoxLowPhaseSum_eq_twice_re",
+        "∃ \u03b3 : Fin n → \u211d",
+        "∀ (m : \u2115) (s u v : \u211d)",
+        "abs_re_le_norm",
+        "2 * |z.re| + 2 * e",
+        "abs_dusartPsiAverageError_div_le_phase",
+        "h.low_criticalLine ha hb hcount",
+        "h.strictCount_le_of_turing_padding hpad ha hmargin",
+    ):
+        assert required in source
+
+
+def test_turing_padding_closes_the_actual_prefix_count() -> None:
+    source = strip_lean_comments((ANALYTIC / "XiTuringEnumeration.lean").read_text())
+    for required in (
+        "exists_cover_of_count_integral",
+        "(hpad : Valid padding a b)",
+        "completedAreaRat (Fin.append rows padding)",
+        "integral_xiZeroCountingRemainder_le_turingBudget",
+        "xiStrictZeroCount (a : \u211d) ≤ n",
+        "hpad.lower i",
+        "h.exists_weighted_enumeration",
+    ):
+        assert required in source
+    assert "(hcount :" not in source
