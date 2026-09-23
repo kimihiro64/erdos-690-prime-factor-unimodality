@@ -8,7 +8,7 @@ import PrimeFactorUnimodality.Helpers.FiniteCertificates.KadiriTransformNumerica
 
 Only low-height verification and lower-band data remain explicit. The
 certified four-point transforms supply the endpoint chain in every consumer.
-The early analytic bridge reduces the lower-band endpoint to ten billion.
+The early analytic bridge reduces the lower-band endpoint to three billion.
 The full theta ray still requires zero verification to a billion; the
 smaller zero-height cutoff is used only on the bounded bridge.
 -/
@@ -36,18 +36,18 @@ theorem hasThetaLogSquaredError_above_endpoint_of_verified_low
     HasThetaLogSquaredError (1 / 5) 1441000000000 :=
   hasThetaLogSquaredError_above_endpoint_of_bootstrap kadiriSix_endpoint_chain hlow
 
-/-- The full ray now starts at ten billion with the same low-zero obligation. -/
+/-- The full ray starts at three billion with the same low-zero obligation. -/
 theorem hasThetaLogSquaredError_above_earlier_cutoff_of_verified_low
     (hlow : ∀ z ∈ xiLowHeightIndices 1000000000,
       (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
-    HasThetaLogSquaredError (1 / 5) 10000000000 := by
+    HasThetaLogSquaredError (1 / 5) 3000000000 := by
   apply hasThetaLogSquaredError_above_earlier_cutoff hlow
   intro z hz
   linarith [xi_zero_gap_six_of_verified_low hlow z hz]
 
-/-- The exact published theta cutoff needs finite data only through ten billion. -/
+/-- The exact published theta cutoff needs finite data only through three billion. -/
 theorem hasThetaLogSquaredError_of_lower_band_and_verified_low
-    (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 10000000000 →
+    (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 3000000000 →
       |Chebyshev.theta x - x| ≤ (1 / 5 : ℝ) * x / Real.log x ^ 2)
     (hlow : ∀ z ∈ xiLowHeightIndices 1000000000,
       (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
@@ -56,7 +56,7 @@ theorem hasThetaLogSquaredError_of_lower_band_and_verified_low
   intro z hz
   linarith [xi_zero_gap_six_of_verified_low hlow z hz]
 
-/-- Checked count/log transitions to ten billion feed the published global theta theorem. -/
+/-- Checked count/log transitions to three billion feed the published global theta theorem. -/
 theorem hasThetaLogSquaredError_of_early_prime_trace_and_verified_low
     {c : SharedTaylorIntervals} (hc : c.Prepared)
     {start p q : ThetaPrimeCheckpoint} (hs : start.Valid)
@@ -66,7 +66,7 @@ theorem hasThetaLogSquaredError_of_early_prime_trace_and_verified_low
     (hpositive : ∀ s ∈ p :: points, 2 ≤ s.point ∧ 0 < s.log.hi)
     (hcoverage : ThetaSquaredCheckpoint.checkFrom (1 / 5) p.squared q.squared
       (points.map ThetaPrimeCheckpoint.squared) = true)
-    (hp : p.point ≤ 3594641) (hq : 10000000000 ≤ q.point)
+    (hp : p.point ≤ 3594641) (hq : 3000000000 ≤ q.point)
     (hlow : ∀ z ∈ xiLowHeightIndices 1000000000,
       (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
     HasThetaLogSquaredError (1 / 5) 3594641 :=
@@ -89,7 +89,7 @@ theorem hasThetaLogSquaredError_of_verified_checkpoints_and_turing_rows
     {p q : ThetaSquaredCheckpoint} {points : List ThetaSquaredCheckpoint}
     (hpoints : ∀ r ∈ points, r.Valid)
     (hsteps : ThetaSquaredCheckpoint.Chain (1 / 5) p q points)
-    (hp : p.point ≤ 3594641) (hq : 10000000000 ≤ q.point)
+    (hp : p.point ≤ 3594641) (hq : 3000000000 ≤ q.point)
     {n : ℕ} {rows : Fin n → XiSignRow} {b : ℚ}
     (hrows : XiSignRows.Valid rows 0 b) (hb : 1000000000 ≤ b)
     (hmargin : xiZeroCountingMainIntegral b - xiZeroCountingMainIntegral 1000000000 +
@@ -100,7 +100,7 @@ theorem hasThetaLogSquaredError_of_verified_checkpoints_and_turing_rows
   apply hasThetaLogSquaredError_of_lower_band_and_verified_low _ (fun z hz => (hlow z hz).le)
   intro x hx hX
   have hp' : (p.point : ℝ) ≤ 3594641 := by exact_mod_cast hp
-  have hq' : (10000000000 : ℝ) ≤ q.point := by exact_mod_cast hq
+  have hq' : (3000000000 : ℝ) ≤ q.point := by exact_mod_cast hq
   simpa using hsteps.bound (by norm_num) hpoints (hp'.trans hx) (hX.trans hq')
 
 end

@@ -1,6 +1,53 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: exact Meissel counting and external dependency rows (2026-09-23)
+## Newest follow-up: analytic takeover at three billion (2026-09-23)
+
+The elementary prime-power correction now costs `1.6 * sqrt(x)`, rather
+than `6 * sqrt(x)`, for every real `x ≥ 3000000000`. The new candidate
+`Chebyshev.PsiBounds` retains Mathlib's decreasing logarithmic error in
+`psi_le`. `DusartSharperRootCorrection` applies it at the square and cube
+roots, then uses Mathlib's Costa-Pereira three-root inequality. No finite
+prime certificate or additional zero information is used for this improvement.
+This sharpens the psi-to-theta transfer discussed in
+[Dusart's paper, Section 3](https://arxiv.org/pdf/1002.0442), without assuming
+the stronger numerical bounds stated there.
+
+`DusartBillionCutoffTheta` proves the three complete intervals
+`[3000000000, 3400000000]`, `[3400000000, 5000000000]`, and
+`[5000000000, 10000000000]`, with both endpoints included. The existing
+order-three psi estimate, both averages, smoothing loss and complete
+infinite tails are unchanged. The resulting normalized upper budgets are
+strictly below `1/5`, verified by exact rational arithmetic in Lean.
+`DusartEarlierCutoff` joins this bridge to the existing infinite ray.
+The finite-band, prime-trace and Turing/checkpoint consumers in
+`DusartVerifiedBootstrap` now require data only through `3000000000`.
+The conclusion is still `HasThetaLogSquaredError (1 / 5) 3594641`.
+
+The endpoint reduction from ten to three billion removes 70% of the
+numeric range, not necessarily 70% of certificate work. The same heuristic
+mesh and 64-stratum operation model now estimates 23,179 checkpoints and
+307,016,043 rows, versus 29,235 checkpoints and 799,223,045 rows. At the
+measured small-prototype rate this is approximately 10.5 serial days,
+down from 27.3. These are workload projections, not certified coverage or
+end-to-end timings; shared-table, theta/log and zero verification costs
+remain excluded. The existing row-by-row approach remains infeasible.
+The finite-certificates design gate still prohibits producing a large
+family until batched arithmetic and shared lookup verification are practical.
+
+This does not discharge the low-zero data: the bridge still uses height
+`25000000`, and the infinite ray still requires `1000000000`. Finite theta
+coverage, shared count tables, anchors and the unconditional providers
+remain open. A floating-point parameter scout suggests further possible
+savings near 2.5 billion, but that smaller cutoff is not proved or used.
+CI builds remain paused; the three new modules and their small regressions
+are configured as sequential targets for when builds resume.
+
+All five new or affected proof modules, both facades and nine Lean test
+files compile. All 22 audited public theorem closures use only `propext`,
+`Classical.choice` and `Quot.sound`. The canonical fast gate, Ruff
+format/lint, mypy, 186 Python tests and actionlint pass.
+
+## Previous follow-up: exact Meissel counting and external dependency rows (2026-09-23)
 
 The new Mathlib candidates `PartialSieve`, `PartialSievePrimeLeaves`, and
 `PrimeCountingMeissel` prove the exact combinatorial counting identity, not
@@ -61,8 +108,8 @@ there is no numerical zero-location or prime-count assumption hidden in
 these scalar calculations.
 
 `DusartEarlierCutoff` joins these intervals to the existing infinite ray.
-The canonical lower-band and checkpoint consumers in
-`DusartVerifiedBootstrap` now require finite theta data only through
+At that revision the canonical lower-band and checkpoint consumers in
+`DusartVerifiedBootstrap` required finite theta data only through
 `10000000000`, a reduction by a factor of 144.1 in the endpoint. Their
 conclusion remains `HasThetaLogSquaredError (1 / 5) 3594641`. The checked
 prime-count/log trace also feeds this shortened consumer. The old

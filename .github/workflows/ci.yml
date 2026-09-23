@@ -953,6 +953,15 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.DusartEarlierCutoffTheta
           lake env lean test/lean/DusartEarlierCutoffTheta.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.Chebyshev.PsiBounds
+          lake env lean test/lean/PsiBounds.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartSharperRootCorrection
+          lake env lean test/lean/DusartSharperRootCorrection.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBillionCutoffTheta
+          lake env lean test/lean/DusartBillionCutoffTheta.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartPsiEndpoint
           lake env lean test/lean/DusartPsiEndpoint.lean
           /usr/bin/time -v lake build \

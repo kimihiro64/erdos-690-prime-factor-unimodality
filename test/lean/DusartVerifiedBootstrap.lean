@@ -29,11 +29,11 @@ example
 example
     (hlow : ∀ z ∈ xiLowHeightIndices 1000000000,
       (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
-    HasThetaLogSquaredError (1 / 5) 10000000000 := by
+    HasThetaLogSquaredError (1 / 5) 3000000000 := by
   exact PrimeFactorUnimodality.hasThetaLogSquaredError_above_earlier_cutoff_of_verified_low hlow
 
 example
-    (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 10000000000 →
+    (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 3000000000 →
       |Chebyshev.theta x - x| ≤ (1 / 5 : ℝ) * x / Real.log x ^ 2)
     (hlow : ∀ z ∈ xiLowHeightIndices 1000000000,
       (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
@@ -49,7 +49,7 @@ example
     (hpositive : ∀ s ∈ p :: points, 2 ≤ s.point ∧ 0 < s.log.hi)
     (hcoverage : ThetaSquaredCheckpoint.checkFrom (1 / 5) p.squared q.squared
       (points.map ThetaPrimeCheckpoint.squared) = true)
-    (hp : p.point ≤ 3594641) (hq : 10000000000 ≤ q.point)
+    (hp : p.point ≤ 3594641) (hq : 3000000000 ≤ q.point)
     (hlow : ∀ z ∈ xiLowHeightIndices 1000000000,
       (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
     HasThetaLogSquaredError (1 / 5) 3594641 := by
@@ -68,7 +68,7 @@ example
     {p q : ThetaSquaredCheckpoint} {points : List ThetaSquaredCheckpoint}
     (hpoints : ∀ r ∈ points, r.Valid)
     (hsteps : ThetaSquaredCheckpoint.Chain (1 / 5) p q points)
-    (hp : p.point ≤ 3594641) (hq : 10000000000 ≤ q.point)
+    (hp : p.point ≤ 3594641) (hq : 3000000000 ≤ q.point)
     {n : ℕ} {rows : Fin n → XiSignRow} {b : ℚ}
     (hrows : XiSignRows.Valid rows 0 b) (hb : 1000000000 ≤ b)
     (hmargin : xiZeroCountingMainIntegral b - xiZeroCountingMainIntegral 1000000000 +

@@ -23,11 +23,11 @@ example
     (hreg : ∀ z : RiemannXiDivisorZeroIndex, (1000000000 : ℝ) ≤
       |(riemannXiDivisorZeroValue z).im| → (riemannXiDivisorZeroValue z).re ≤
         1 - 1 / (6 * Real.log |(riemannXiDivisorZeroValue z).im|)) :
-    HasThetaLogSquaredError (1 / 5) 10000000000 := by
+    HasThetaLogSquaredError (1 / 5) 3000000000 := by
   exact PrimeFactorUnimodality.hasThetaLogSquaredError_above_earlier_cutoff hgap hreg
 
 example
-    (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 10000000000 →
+    (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 3000000000 →
       |Chebyshev.theta x - x| ≤ (1 / 5 : ℝ) * x / Real.log x ^ 2)
     (hgap : ∀ z ∈ xiLowHeightIndices 1000000000,
       (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ))

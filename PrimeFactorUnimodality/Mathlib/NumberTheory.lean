@@ -6,6 +6,7 @@ Authors: Jonas Whidden
 import PrimeFactorUnimodality.Mathlib.NumberTheory.BLSPrimality
 import PrimeFactorUnimodality.Mathlib.NumberTheory.BernoulliPeriodic
 import PrimeFactorUnimodality.Mathlib.NumberTheory.Chebyshev.Intervals
+import PrimeFactorUnimodality.Mathlib.NumberTheory.Chebyshev.PsiBounds
 import PrimeFactorUnimodality.Mathlib.NumberTheory.Harmonic.EulerMascheroniBounds
 import PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries
 import PrimeFactorUnimodality.Mathlib.NumberTheory.PartialSievePeriodic

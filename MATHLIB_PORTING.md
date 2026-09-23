@@ -40,6 +40,7 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.NumberTheory.Chebyshev.PsiBounds` | `Mathlib/NumberTheory/Chebyshev/PsiBounds.lean` | project-verified | Linear psi bounds from the decreasing elementary logarithmic error; a rational square and endpoint logarithm control a full ray. |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.PartialSievePeriodic` | `Mathlib/NumberTheory/PartialSievePeriodic.lean` | project-verified | Exact wheel-period lookup from proved remainder counts and totient; reuses the periodic Nat.count candidate and Mathlib's interval totient identity. |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.PartialSieve` | `Mathlib/NumberTheory/PartialSieve.lean` | project-verified | Exact coprime-interval counts, prime removal, executable list/indexed recurrence, and prefix congruence; Mathlib-only proof. |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.PartialSievePrimeLeaves` | `Mathlib/NumberTheory/PartialSievePrimeLeaves.lean` | project-verified | Complete primorial sieve stopping rule with strict square boundary; actual prime counts from checked recurrence values. |
