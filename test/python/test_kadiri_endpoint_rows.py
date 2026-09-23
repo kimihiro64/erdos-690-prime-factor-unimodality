@@ -49,6 +49,13 @@ MODULES = (
     "TuringCountingBudget",
     "XiTuringVerification",
     "DusartTuringVerification",
+    "XiNormalizedCriticalLine",
+    "XiEvaluationError",
+    "XiStirlingPhase",
+    "ZetaFiniteApproximation",
+    "ZetaEulerTail",
+    "ZetaEulerApproximation",
+    "XiEulerEvaluation",
 )
 
 
@@ -155,3 +162,41 @@ def test_turing_consumers_do_not_assume_counting_error() -> None:
         assert "(hcount :" not in source
         assert "(hlow :" not in source
         assert "turingCountErrorBudget" in source
+
+
+def test_xi_evaluator_candidates_are_checked_before_consumers() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    previous = foundations.index("lake env lean test/lean/DusartTuringVerification.lean")
+    candidates = [
+        ("Analysis.SpecialFunctions.Complex.RotationError", "RotationError"),
+        *[
+            (f"NumberTheory.BernoulliPeriodic.{leaf}", f"Bernoulli{leaf}")
+            for leaf in ("Normalized", "Integrability", "Cells", "Recursion", "ExplicitBound")
+        ],
+    ]
+    for module, regression in candidates:
+        build = foundations.index(f"+PrimeFactorUnimodality.Mathlib.{module}\n")
+        test = foundations.index(f"lake env lean test/lean/{regression}.lean")
+        assert previous < build < test
+        previous = test
+    assert previous < foundations.index(f"+{ANALYTIC}XiNormalizedCriticalLine\n")
+
+
+def test_xi_evaluator_does_not_assume_a_zero_or_rh() -> None:
+    for module in (
+        "ZetaFiniteApproximation",
+        "ZetaEulerTail",
+        "ZetaEulerApproximation",
+        "XiEulerEvaluation",
+    ):
+        path = ROOT.joinpath(*(ANALYTIC + module).split(".")).with_suffix(".lean")
+        source = strip_lean_comments(path.read_text())
+        assert "RiemannHypothesis" not in source
+        assert "IsNontrivialZero" not in source
+    source = strip_lean_comments(
+        (ROOT / "PrimeFactorUnimodality/Helpers/Analytic/ZetaEulerApproximation.lean").read_text()
+    )
+    assert "riemannZeta_sub_eulerApproxOrder" in source
+    assert "zetaEulerTail_recursion" in source
+    assert "norm_zetaEulerTail_le" in source

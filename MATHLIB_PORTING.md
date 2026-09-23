@@ -40,6 +40,14 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.NumberTheory.BernoulliPeriodic.ExplicitBound` | `Mathlib/NumberTheory/BernoulliPeriodic/ExplicitBound.lean` | project-verified | Explicit rational coefficient-sum majorant replaces the existential compactness bound for complete power tails |
+| `PrimeFactorUnimodality.Mathlib.NumberTheory` | `Mathlib/NumberTheory.lean` | project-verified | Facade for number-theoretic candidates |
+| `PrimeFactorUnimodality.Mathlib.NumberTheory.BernoulliPeriodic` | `Mathlib/NumberTheory/BernoulliPeriodic.lean` | project-verified | Facade for complete periodic Bernoulli power tails |
+| `PrimeFactorUnimodality.Mathlib.NumberTheory.BernoulliPeriodic.Normalized` | `Mathlib/NumberTheory/BernoulliPeriodic/Normalized.lean` | project-verified | WIPResearch `bdc46941c4f2e13fb84e0a338b905bb10e711357`, Jonas Whidden, Apache-2.0: normalized polynomial derivatives and unit-cell integration by parts; original `Polynomial` names retained |
+| `PrimeFactorUnimodality.Mathlib.NumberTheory.BernoulliPeriodic.Integrability` | `Mathlib/NumberTheory/BernoulliPeriodic/Integrability.lean` | project-verified | Same WIP leaf: measurable periodic profiles and absolute improper-tail integrability |
+| `PrimeFactorUnimodality.Mathlib.NumberTheory.BernoulliPeriodic.Cells` | `Mathlib/NumberTheory/BernoulliPeriodic/Cells.lean` | project-verified | Same WIP leaf: almost-everywhere integer-cell translation and finite telescoping |
+| `PrimeFactorUnimodality.Mathlib.NumberTheory.BernoulliPeriodic.Recursion` | `Mathlib/NumberTheory/BernoulliPeriodic/Recursion.lean` | project-verified | Same WIP leaf: exact infinite-tail recursion with boundary terms retained |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.RotationError` | `Mathlib/Analysis/SpecialFunctions/Complex/RotationError.lean` | project-verified | Exact positive polar rescaling and uniform error propagation for a complex approximation and its real rotation angle |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex` | `Mathlib/Analysis/SpecialFunctions/Complex.lean` | project-verified | Narrow facade for logarithmic height bounds, shifted limits and trapezoid errors |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogHeightBounds` | `Mathlib/Analysis/SpecialFunctions/Complex/LogHeightBounds.lean` | project-verified | Height-decaying squared-norm logarithmic correction and upper-left-quadrant argument excess from elementary tangent bounds |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaLogContinuity` | `Mathlib/NumberTheory/LSeries/RiemannZetaLogContinuity.lean` | project-verified | Continuity of finite horizontal zeta logarithmic integrals at every positive height, including zero ordinates |

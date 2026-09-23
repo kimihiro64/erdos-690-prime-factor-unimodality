@@ -1,6 +1,46 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: exact phase bound and unconditional counting budget (2026-09-23)
+## Newest follow-up: higher-order evaluation from WIP Bernoulli tails (2026-09-23)
+
+The Mathlib-only leaf `RobinBV/Mathlib/NumberTheory/BernoulliPeriodic.lean`
+from WIPResearch commit `bdc46941c4f2e13fb84e0a338b905bb10e711357`
+(Jonas Whidden, Apache-2.0, originally Lean 4.33.1) is extracted into four
+small candidate modules: normalized profiles, integrability, integer cells
+and complete tail recursion. Original `Polynomial` declaration names are
+retained. The extracted proofs compile on the pinned Lean 4.34 toolchain.
+Their import closure is entirely Mathlib; the tail-recursion axiom audit
+contains only `propext`, `Classical.choice` and `Quot.sound`.
+
+`BernoulliPeriodic.ExplicitBound` replaces the existential compactness bound
+with the rational sum of absolute normalized polynomial coefficients.
+`ZetaEulerTail` adapts WIP's zero-point Euler expansion to arbitrary points
+with positive real part, using the already-audited PNT continuation formula.
+No zero or RH hypothesis is introduced. `ZetaEulerApproximation` proves the
+exact arbitrary-order expansion and its complete explicit error, retaining
+every Bernoulli boundary term and the full remaining integral.
+
+`XiNormalizedCriticalLine` removes a strictly positive amplitude from xi.
+The rotation-error candidate and `XiEvaluationError` propagate independent
+phase and zeta errors. The existing Gamma remainder supplies the explicit
+Stirling phase, and `XiEulerEvaluation` turns separated error intervals into
+actual xi sign changes. Its rounded-evaluation interface explicitly adds
+the finite complex-value and elementary-phase errors to both analytic
+remainders. These are analytic theorems for all real heights,
+positive cutoffs and arbitrary orders, not a finite zero-verification result.
+
+Still needed: certified finite evaluations, including rounding of elementary
+functions, a feasible high-height evaluation strategy where direct summation
+is too long, the actual sign samples, and their completeness margin. This
+increment does not assert that a high-order O(N) sum solves high-height cost.
+No finite replay or new dependency is introduced.
+
+All thirteen proof modules and affected facades compile; 72 examples across
+sixteen new/preserved regression files pass. All 44 public theorem closures
+use only the standard three axioms. The sequential foundation CI chain checks
+each candidate before consumers. Fast source checks, all 147 Python tests,
+Ruff, mypy, Ruby metadata tests and workflow validation pass.
+
+## Previous follow-up: exact phase bound and unconditional counting budget (2026-09-23)
 
 The phase correction now reuses the proved shifted Gamma Stirling error and
 Mathlib's elementary logarithm and tangent bounds. The squared norm gives

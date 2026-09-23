@@ -5,7 +5,43 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: unconditional Turing count budget and actual consumers (2026-09-23)
+## Latest increment: arbitrary-order zeta evaluation and actual xi signs (2026-09-23)
+
+Reuse WIP's now-extracted `Polynomial.bernoulliPeriodic_cpow_tail_recursion`;
+do not reprove its integration-by-parts or improper-limit arguments.
+The exact source and compatibility/axiom audit are in `DUSART_ZERO_REUSE.md`.
+The new explicit rational coefficient bound removes the source's existential
+tail constant. All extracted candidate declarations keep their original names.
+
+`ZetaEulerApproximation` provides `zetaEulerApproxOrder N s m` and its complete
+error `zetaEulerError N s m` for any `0<N`, `0<Re(s)`, `s!=1` and order `m`.
+The error is the rational Bernoulli majorant times the rising-factor norm
+times `N^(-Re(s)-m)/(Re(s)+m)`. No zero-location assumption is required.
+
+`XiNormalizedCriticalLine` proves the exact positive amplitude factorization
+at all real heights. `XiEvaluationError` handles arbitrary phase/value errors;
+`XiStirlingPhase` supplies the proved one-tenth phase bound.
+`XiEulerEvaluation` combines these into an actual normalized xi enclosure
+and proves either orientation of strict sign change from separated intervals.
+`abs_xiNormalizedValue_sub_roundedEuler_le` explicitly propagates finite
+complex-value and elementary-phase errors into the normalized enclosure.
+Those finite errors still require actual proved bounds, not floating-point guesses.
+
+The thirteen proof modules and affected facades compile. All 72 examples in
+sixteen new/preserved tests pass, as do all 44 public theorem axiom audits
+(standard three only), fast checks, Ruff, mypy, 147 Python tests, Ruby metadata
+tests and workflow validation. CI builds and tests the candidates serially
+before their analytic consumers.
+
+**Next:** finish the rigorous numerical evaluation interface and remaining
+non-certificate lower-theta obligations before generating sign data. The
+arbitrary-order O(N) Euler formula is not a claim of efficient high-height
+evaluation; reuse or prove a faster evaluator if the required height makes
+direct summation infeasible. Actual sign samples and completeness margins,
+four R6 transform margins, lower theta, prime prefixes, two anchors and the
+final unconditional Dusart/all-k assembly remain open.
+
+## Previous increment: unconditional Turing count budget and actual consumers (2026-09-23)
 
 `TuringPhaseBounds` now proves the exact phase upper error
 `phase(T)-pi*M(T) <= 7*pi/8+1/10+33/(16*T)` for `T>0`.

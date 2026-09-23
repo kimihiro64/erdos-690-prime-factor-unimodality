@@ -6,6 +6,7 @@ Authors: Jonas Whidden
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogHeightBounds
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogShiftLimit
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogTrapezoid
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.RotationError
 
 /-! # Complex logarithmic special-function candidates
 

@@ -96,6 +96,8 @@ PNT revision when these declarations are required.
 | CA prime-layer decomposition | `RobinBV.CA.*` | Proved exploratory leaf family | Relevant to CA exponent-mass questions, not directly to the finite Erdős 690 recursion |
 | Selberg-sieve interval infrastructure | `RobinBV.Mathlib.NumberTheory.SelbergSieve.*` | Proved leaves with project consumers | Potentially relevant to later rough-number and short-interval work; audit the exact local dependency closure before extraction |
 | Quadratic Dedekind-zeta and Robin bridges | `RobinBV.NumberField.*` | Mixed proved infrastructure and open headline assembly | Preserve the repository's explicit proved/open distinction and dependency qualifications |
+| Periodic Bernoulli power tails | `RobinBV.Mathlib.NumberTheory.BernoulliPeriodic` | Extracted, compiled on Lean 4.34, and axiom-audited here | Exact original names retained in `Polynomial`; four bounded candidate modules. Only Mathlib imports. The explicit rational coefficient bound is a new extension, not the source's existential constant |
+| Higher-order zeta expansion at actual zeros | `RobinBV.Sieve.nontrivial_zero_euler_expansion` | Source proof at the reviewed WIP commit; its zero premise is essential to that statement | This project adapts the recursion to arbitrary evaluation points in `ZetaEulerTail` and `ZetaEulerApproximation`, using the already-audited PNT continuation identity. Do not import the zero-detection statement as a sign evaluator |
 
 ## Maintenance rule
 

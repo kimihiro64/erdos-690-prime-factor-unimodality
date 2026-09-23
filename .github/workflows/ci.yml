@@ -1182,6 +1182,45 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.DusartTuringVerification
           lake env lean test/lean/DusartTuringVerification.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.RotationError
+          lake env lean test/lean/RotationError.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.BernoulliPeriodic.Normalized
+          lake env lean test/lean/BernoulliNormalized.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.BernoulliPeriodic.Integrability
+          lake env lean test/lean/BernoulliIntegrability.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.BernoulliPeriodic.Cells
+          lake env lean test/lean/BernoulliCells.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.BernoulliPeriodic.Recursion
+          lake env lean test/lean/BernoulliRecursion.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.BernoulliPeriodic.ExplicitBound
+          lake env lean test/lean/BernoulliExplicitBound.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiNormalizedCriticalLine
+          lake env lean test/lean/XiNormalizedCriticalLine.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiEvaluationError
+          lake env lean test/lean/XiEvaluationError.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiStirlingPhase
+          lake env lean test/lean/XiStirlingPhase.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaFiniteApproximation
+          lake env lean test/lean/ZetaFiniteApproximation.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaEulerTail
+          lake env lean test/lean/ZetaEulerTail.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaEulerApproximation
+          lake env lean test/lean/ZetaEulerApproximation.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiEulerEvaluation
+          lake env lean test/lean/XiEulerEvaluation.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT
