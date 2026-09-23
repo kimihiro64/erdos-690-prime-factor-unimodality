@@ -89,6 +89,27 @@ theorem xiRosserAbsoluteTail_le_integral {a q u : ℝ}
   rw [xiRosserAbsoluteTail_eq_twice_positive ha hq (by linarith)]
   exact mul_le_mul_of_nonneg_left (xi_closed_damped_tail_le_integral ha hq hu hw) (by norm_num)
 
+/-- Any finite set beyond the cutoff fits in the complete multiplicity-counted tail. -/
+theorem sum_xi_logDampedPower_le_absoluteTail {a q U : ℝ}
+    (ha : 0 ≤ a) (hq : 2 ≤ q) (hU : 1 < U)
+    (B : Finset RiemannXiDivisorZeroIndex)
+    (hB : ∀ z ∈ B, U ≤ |(riemannXiDivisorZeroValue z).im|) :
+    (∑ z ∈ B,
+      logDampedPower a q |(riemannXiDivisorZeroValue z).im|) ≤ xiRosserAbsoluteTail a q U := by
+  classical
+  let e : {p : RiemannXiDivisorZeroIndex // p ∈ B} →
+      {p : RiemannXiDivisorZeroIndex // U ≤ |(riemannXiDivisorZeroValue p).im|} :=
+    fun p => ⟨p.1, hB p.1 p.2⟩
+  have he : Function.Injective e := by
+    intro p q h
+    apply Subtype.ext
+    exact congrArg (fun r => r.val) h
+  rw [← B.tsum_subtype (fun p => logDampedPower a q |(riemannXiDivisorZeroValue p).im|)]
+  exact Summable.tsum_le_tsum_of_inj e he
+    (fun _ _ => (logDampedPower_pos _ _ _).le) (fun _ => le_rfl)
+    (summable_of_hasFiniteSupport (Set.toFinite _))
+    (summable_xi_abs_logDampedPower ha hq hU (fun _ hp => hp))
+
 end
 
 end PrimeFactorUnimodality

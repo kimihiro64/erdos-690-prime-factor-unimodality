@@ -49,6 +49,28 @@ theorem xiRosserClosedTailBound_nonneg {a q p u : ℝ}
     (mul_nonneg (logDampedPowerMajorant_pos _ _ _ _).le hfactor)
     (mul_nonneg (by linarith) (logDampedPower_pos _ _ _).le))
 
+/-- The zero-damping majorant retains the full integrable height power. -/
+def xiRosserPowerTailBound (q U : ℝ) : ℝ :=
+  2 * (logDampedPowerIntegralFactor q (2 * π) U +
+    2 * (Real.log U + 17) * logDampedPower 0 q U)
+
+/-- At zero damping, exponent splitting is unnecessary: use the full power. -/
+theorem xiRosserAbsoluteTail_zero_le_power {q U : ℝ} (hq : 2 ≤ q) (hU : 10 < U) :
+    xiRosserAbsoluteTail 0 q U ≤
+      xiRosserPowerTailBound q U := by
+  have hi : xiRosserTailIntegral 0 q U ≤ logDampedPowerIntegralFactor q (2 * π) U := by
+    have ht := integral_logDampedPower_density_le_of_majorant (a := 0) (q := q)
+      (p := q) (C := 1) le_rfl hq (by linarith : 1 < q)
+      (by positivity : 0 < 2 * π) (by linarith : 1 < U)
+      (by linarith [Real.pi_lt_four] : 2 * π ≤ U) (by
+        intro t ht
+        have hUt : U ≤ t := ht
+        rw [logDampedPower_eq_rpow_mul (by linarith : 0 < t)]
+        simp)
+    simpa only [xiRosserTailIntegral, one_mul] using ht
+  exact (xiRosserAbsoluteTail_le_integral le_rfl hq hU (by simp; linarith)).trans
+    (mul_le_mul_of_nonneg_left (add_le_add hi le_rfl) (by norm_num))
+
 end
 
 end PrimeFactorUnimodality

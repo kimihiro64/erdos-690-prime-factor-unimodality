@@ -75,4 +75,29 @@ example {a T δ : ℝ} (ha : 10 ≤ a) (haT : a < T) (hδ : 0 < δ)
     (∑ p ∈ xiLowHeightIndices T, ‖(1 : ℂ) / riemannXiDivisorZeroValue p‖) ≤
       xiLowReciprocalNormBound a T δ := sum_xi_low_reciprocal_norm_le_explicit ha haT hδ hg
 
+example {a T δ : ℝ} (ha : 0 ≤ a) (haT : a < T) (hδ : 0 < δ)
+    (hg : ∀ p ∈ xiLowHeightIndices T, (riemannXiDivisorZeroValue p).re ≤ 1 - δ)
+    {p : RiemannXiDivisorZeroIndex} (hp : p ∈ xiPositiveHeightIndices a) :
+    ‖(1 : ℂ) / riemannXiDivisorZeroValue p‖ ≤
+      ((a + 1) / δ) * (1 / riemannXiDivisorZeroValue p).re :=
+  norm_xi_positive_prefix_reciprocal_le_mass ha haT hδ hg hp
+
+example {a T δ : ℝ} (ha : 0 ≤ a) (haT : a < T) (hδ : 0 < δ)
+    (hg : ∀ p ∈ xiLowHeightIndices T, (riemannXiDivisorZeroValue p).re ≤ 1 - δ) :
+    (∑ p ∈ xiPositiveHeightIndices a, ‖(1 : ℂ) / riemannXiDivisorZeroValue p‖) ≤
+      ((a + 1) / δ) * ((2 + Real.eulerMascheroniConstant - Real.log (4 * Real.pi)) / 2) :=
+  sum_xi_positive_prefix_reciprocal_norm_le_mass ha haT hδ hg
+
+example {T δ : ℝ} (hT : 10 < T) (hδ : 0 < δ)
+    (hg : ∀ p ∈ xiLowHeightIndices T, (riemannXiDivisorZeroValue p).re ≤ 1 - δ) :
+    (∑ p ∈ xiPositiveHeightIndices 10, ‖(1 : ℂ) / riemannXiDivisorZeroValue p‖) ≤
+      (11 / δ) * ((2 + Real.eulerMascheroniConstant - Real.log (4 * Real.pi)) / 2) := by
+  simpa only [show (10 : ℝ) + 1 = 11 by norm_num] using
+    sum_xi_positive_prefix_reciprocal_norm_le_mass (by norm_num) hT hδ hg
+
+example (a T δ : ℝ) :
+    xiLowReciprocalNormBound a T δ ≤
+      2 * (xiReciprocalCountEnvelope a / δ + xiReciprocalNormWindowBound a T) :=
+  xiLowReciprocalNormBound_le_counting a T δ
+
 end PrimeFactorUnimodality.Tests

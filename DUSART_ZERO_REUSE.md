@@ -1,6 +1,29 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: uniform endpoint estimates (2026-09-23)
+## Newest follow-up: exact real mass and full-power low bands (2026-09-23)
+
+The new small-prefix estimate uses the existing unconditional real
+reciprocal mass from `ZetaXiHadamardConstant` and `XiLowReciprocalMass`.
+It does not use the RH-dependent norm-mass evaluations excluded below.
+Same-height reflection supplies the lower real-part gap, and elementary
+norm algebra converts each prefix reciprocal norm into a multiple of its
+real reciprocal atom. This sharpens the counting-only expression without
+any new zero data or sibling import.
+
+The split-low proof reuses the BV-derived height-and-gap atom, the actual
+finite band partition, full-tail summability and the proved scalar density
+integral. At zero damping the full height power is retained with coefficient
+one; no exponent splitting is needed. The actual uniform psi consumers
+include cutoff multiplicities, empty bands and both signs. Taking minima
+preserves or improves the old endpoint bounds. Actual numerical zero
+verification and scalar values remain to be proved.
+
+The refined mass, three new consumers, prior mixed theta consumer and
+58 regression examples compile. All 18 audited closures have only the
+standard three axioms. No new sibling dependency or low-zero certificate
+is introduced.
+
+## Previous follow-up: uniform endpoint estimates (2026-09-23)
 
 The normalized actual psi estimate now holds throughout the ray above
 its starting point with a single evaluated endpoint budget. This reuses

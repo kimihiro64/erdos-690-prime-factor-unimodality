@@ -80,4 +80,12 @@ example {b q u : ℝ} (hb : 0 ≤ b) (hq : 2 ≤ q) (hu : 1 < u) :
     xiRosserAbsoluteTail b q u ≤ xiRosserAbsoluteTail 0 q u :=
   xiRosserAbsoluteTail_antitone_parameter le_rfl hb hq hu
 
+example {a q U : ℝ}
+    (ha : 0 ≤ a) (hq : 2 ≤ q) (hU : 1 < U)
+    (B : Finset RiemannXiDivisorZeroIndex)
+    (hB : ∀ z ∈ B, U ≤ |(riemannXiDivisorZeroValue z).im|) :
+    (∑ z ∈ B,
+      logDampedPower a q |(riemannXiDivisorZeroValue z).im|) ≤ xiRosserAbsoluteTail a q U :=
+  sum_xi_logDampedPower_le_absoluteTail ha hq hU B hB
+
 end PrimeFactorUnimodality.Tests

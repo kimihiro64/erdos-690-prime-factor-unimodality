@@ -5,7 +5,46 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: a proved uniform endpoint estimate (2026-09-23)
+## Latest analytic increment: sharpened low-zero estimates (2026-09-23)
+
+The low reciprocal-norm estimate now reuses the already proved exact real
+reciprocal mass. On the positive prefix, each reciprocal norm is at most
+`(a+1)/delta` times its real reciprocal atom. The finite real mass is at
+most the unconditional full mass
+`(2+EulerGamma-log(4*pi))/2`. Taking the minimum with the previous counting
+estimate sharpens `xiLowReciprocalNormBound` without changing the hypotheses
+or theorem signature. The comparison with its old counting-only formula
+is proved. This does not assume RH or a numerical low-zero verification.
+
+`DusartBoxLowSplit` splits the actual low block at an adjustable inner
+height `U <= H`, retaining the same real-part gap and the full `m+4`
+height power on `[U,H)`. The zero-damping tail uses that full integrable
+power directly, not an auxiliary exponent `p < m+4`. Coincident cutoffs
+have exactly zero band cost. The complete multiplicity-counted tail and
+existing finite partition are reused.
+
+`DusartBoxSplitAverage` and `DusartBoxSplitPointwise` connect this bound to
+actual normalized averages and pointwise psi on the entire ray. Both take
+the better of the split and original low estimates. Their comparison with
+the preceding budgets is proved, and equal cutoffs recover them exactly.
+The existing high-region and low-gap hypotheses remain explicit.
+
+All three new modules and the refined mass module compile, along with
+the previous mixed theta consumer. The ten affected and preserved test
+files pass 58 examples. All 18 audited theorem closures contain only
+`propext`, `Classical.choice` and `Quot.sound`. Fast checks, Ruff format
+and lint, mypy, all 136 Python tests, Ruby and workflow validation pass.
+
+Next: prove the numerical endpoint estimates and the required actual
+low-zero information, not more alternative conditional interfaces. The
+published theta upper margin remains `1/36260`, not the stronger internal
+fourth-power target. The full-power high tail can also use just the proved
+critical strip for fixed relative-error budgets; a high-region improvement
+is not intrinsically necessary for those constant endpoint rows. The
+shrinking-error analytic tail and finite prime prefix remain separate.
+None of the three final Dusart providers is complete yet.
+
+## Previous analytic increment: a proved uniform endpoint estimate (2026-09-23)
 
 `DusartBoxRosserFrozenPointwise.abs_psi_sub_div_le_frozen` now proves
 the actual relative psi bound for every `x >= x₀` from a budget evaluated

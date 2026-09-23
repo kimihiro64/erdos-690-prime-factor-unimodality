@@ -813,6 +813,7 @@ jobs:
           lake env lean test/lean/LogDampedClosedBound.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.XiRosserClosedBounds
+          lake env lean test/lean/XiRosserPowerTail.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxRosserClosedTail
           /usr/bin/time -v lake build \
@@ -884,6 +885,15 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxRosserFrozenPointwise
           lake env lean test/lean/DusartBoxRosserFrozenPointwise.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxLowSplit
+          lake env lean test/lean/DusartBoxLowSplit.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxSplitAverage
+          lake env lean test/lean/DusartBoxSplitAverage.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxSplitPointwise
+          lake env lean test/lean/DusartBoxSplitPointwise.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
