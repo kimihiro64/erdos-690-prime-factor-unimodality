@@ -73,3 +73,20 @@ theorem norm_fwdDiff_iter_le {h x C : ℝ} (hh : 0 ≤ h) (n : ℕ) {f : ℝ →
       _ ≤ ‖((fwdDiff h)^[n] f) (x + h)‖ + ‖((fwdDiff h)^[n] f) x‖ := norm_sub_le _ _
       _ ≤ 2 ^ n * C + 2 ^ n * C := add_le_add hhi hlo
       _ = 2 ^ (n + 1) * C := by rw [pow_succ]; ring
+
+/-- Finite sample enclosures propagate through the exact binomial difference formula. -/
+theorem norm_fwdDiff_iter_sub_sum_le (h x : ℝ) (n : ℕ) (f : ℝ → E)
+    (v : ℕ → E) (e : ℕ → ℝ)
+    (he : ∀ j ∈ Finset.range (n + 1), ‖f (x + j • h) - v j‖ ≤ e j) :
+    ‖((fwdDiff h)^[n] f) x -
+      ∑ j ∈ Finset.range (n + 1), ((-1 : ℤ) ^ (n - j) * n.choose j) • v j‖ ≤
+      ∑ j ∈ Finset.range (n + 1), (n.choose j : ℝ) * e j := by
+  rw [fwdDiff_iter_eq_sum_shift, ← Finset.sum_sub_distrib]
+  apply (norm_sum_le _ _).trans
+  apply Finset.sum_le_sum
+  intro j hj
+  rw [← smul_sub, norm_zsmul ℝ, Real.norm_eq_abs]
+  have hc : |(((-1 : ℤ) ^ (n - j) * n.choose j : ℤ) : ℝ)| = (n.choose j : ℝ) := by
+    simp
+  rw [hc]
+  exact mul_le_mul_of_nonneg_left (he j hj) (Nat.cast_nonneg _)

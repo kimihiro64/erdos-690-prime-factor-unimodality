@@ -19,6 +19,11 @@ MODULES = (
     "Helpers.Analytic.XiTuringEnumeration",
     "Helpers.Analytic.DusartBoxPhaseConjugation",
     "Helpers.Analytic.DusartBoxPhaseRows",
+    "Mathlib.MeasureTheory.Integral.IntervalIntegral.IteratedAverageStability",
+    "Mathlib.MeasureTheory.Integral.IntervalIntegral.IteratedAverageVertical",
+    "Helpers.Analytic.DusartBoxCoefficientStability",
+    "Helpers.Analytic.DusartBoxCoefficientSamples",
+    "Helpers.Analytic.DusartBoxRowErrors",
 )
 
 
@@ -123,3 +128,53 @@ def test_turing_padding_closes_the_actual_prefix_count() -> None:
     ):
         assert required in source
     assert "(hcount :" not in source
+
+
+def test_coefficient_sensitivity_uses_averages_not_difference_conditioning() -> None:
+    source = strip_lean_comments((ANALYTIC / "DusartBoxCoefficientStability.lean").read_text())
+    for required in (
+        "norm_iteratedBoxAverageComplex_cpow_div_sub_le",
+        "norm_rotated_sub_rotated_le",
+        "1 / L ^ 2",
+        "+ |u|",
+        "(hL : 0 < L)",
+        "(h\u03b3 : L ≤ \u03b3)",
+        "norm_dusartBoxOrdinateCoefficient_sub_center_le",
+    ):
+        assert required in source
+    assert "fwdDiff" not in source
+
+
+def test_midpoint_samples_retain_power_phase_and_rounding_errors() -> None:
+    source = strip_lean_comments((ANALYTIC / "DusartBoxCoefficientSamples.lean").read_text())
+    for required in (
+        "range (m + 4)",
+        "(m + 3).choose j",
+        "norm_fwdDiff_iter_sub_sum_le",
+        "iteratedBoxAverageComplex_cpow_div_eq_difference",
+        "dusartBoxCoefficientDenom_ne_zero",
+        "cpowPrimitiveDenom_ne_zero",
+        "norm_dusartBoxOrdinateCoefficient_sub_checked_samples_le",
+        "* η + r",
+    ):
+        assert required in source
+
+
+def test_midpoint_consumer_closes_universal_ordinate_and_completeness_inputs() -> None:
+    source = strip_lean_comments((ANALYTIC / "DusartBoxRowErrors.lean").read_text())
+    for required in (
+        "norm_dusartBoxOrdinateCoefficient_sub_center_le",
+        "norm_expSum_sub_expSum_le_of_enclosures",
+        "h.abs_psi_average_le_of_turing_phase_enclosure",
+        "dusartBoxRowsError rows m s u V c e + ε",
+        "(hl : ∀ i, 0 < (rows i).lower)",
+        "(hc : ∀ i, ‖dusartBoxOrdinateCoefficient m s u (rows i).center - c i‖ ≤ e i)",
+    ):
+        assert required in source
+    statement = source.split("theorem XiSignRows.Valid.abs_psi_average_le_of_center_enclosures", 1)[
+        1
+    ]
+    statement = statement.split(":= by", 1)[0]
+    assert "∀ \u03b3" not in statement
+    assert "(hcount :" not in statement
+    assert "(hline :" not in statement

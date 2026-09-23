@@ -32,6 +32,10 @@ example (z : ℂ) : z * exp 0 = ((‖z‖ : ℝ) : ℂ) * exp (I * arg z) := by
 
 example (a : ℝ) (z : ℂ) : ‖exp (I * a) * z‖ = ‖z‖ := by simp [norm_mul]
 
+example (a b : ℝ) {z w : ℂ} {L : ℝ} (hL : 0 < L) (hz : L ≤ ‖z‖) (hw : L ≤ ‖w‖) :
+    ‖exp (I * a) / z - exp (I * b) / w‖ ≤ ‖z - w‖ / L ^ 2 + |a - b| / L :=
+  norm_rotation_div_sub_le a b hL hz hw
+
 end
 
 end PrimeFactorUnimodality.Tests

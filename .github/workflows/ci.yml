@@ -722,6 +722,7 @@ jobs:
           lake env lean test/lean/DusartBoxSpectralFormula.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Mathlib.Analysis.Calculus.Deriv.ForwardDiff
+          lake env lean test/lean/ForwardDiff.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Pow.IteratedPrimitive
           /usr/bin/time -v lake build \
@@ -1352,6 +1353,21 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxPhaseRows
           lake env lean test/lean/DusartBoxPhaseRows.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.IteratedAverageStability
+          lake env lean test/lean/IteratedAverageStability.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.IteratedAverageVertical
+          lake env lean test/lean/IteratedAverageVertical.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxCoefficientStability
+          lake env lean test/lean/DusartBoxCoefficientStability.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxCoefficientSamples
+          lake env lean test/lean/DusartBoxCoefficientSamples.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxRowErrors
+          lake env lean test/lean/DusartBoxRowErrors.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaGridData
           lake env lean test/lean/ZetaGridData.lean

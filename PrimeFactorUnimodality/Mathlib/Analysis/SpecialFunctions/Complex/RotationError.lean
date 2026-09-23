@@ -65,4 +65,25 @@ theorem abs_re_rotated_sub_le (a b : ℝ) (z w : ℂ) :
     _ ≤ ‖exp (I * a) * z - exp (I * b) * w‖ := abs_re_le_norm _
     _ ≤ _ := norm_rotated_sub_rotated_le a b z w
 
+/-- Denominators bounded away from zero have an explicit rotated reciprocal error. -/
+theorem norm_rotation_div_sub_le (a b : ℝ) {z w : ℂ} {L : ℝ}
+    (hL : 0 < L) (hz : L ≤ ‖z‖) (hw : L ≤ ‖w‖) :
+    ‖exp (I * a) / z - exp (I * b) / w‖ ≤
+      ‖z - w‖ / L ^ 2 + |a - b| / L := by
+  have hz0 : z ≠ 0 := norm_pos_iff.mp (hL.trans_le hz)
+  have hw0 : w ≠ 0 := norm_pos_iff.mp (hL.trans_le hw)
+  have hinv : ‖z⁻¹ - w⁻¹‖ ≤ ‖z - w‖ / L ^ 2 := by
+    have he := dist_inv_inv₀ hz0 hw0
+    simp only [dist_eq_norm] at he
+    rw [he]
+    apply div_le_div_of_nonneg_left (norm_nonneg _) (sq_pos_of_pos hL)
+    simpa only [pow_two] using mul_le_mul hz hw hL.le (norm_nonneg z)
+  have hw' : ‖w⁻¹‖ ≤ L⁻¹ := by
+    rw [norm_inv]
+    exact inv_anti₀ hL hw
+  simp only [div_eq_mul_inv]
+  apply (norm_rotated_sub_rotated_le a b z⁻¹ w⁻¹).trans
+  have he := add_le_add hinv (mul_le_mul_of_nonneg_right hw' (abs_nonneg (a - b)))
+  simpa only [div_eq_mul_inv, mul_comm L⁻¹] using he
+
 end Complex
