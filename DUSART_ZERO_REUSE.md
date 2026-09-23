@@ -1,6 +1,31 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: checked shared Dirichlet moments (2026-09-23)
+## Newest follow-up: actual checked Euler corrections (2026-09-23)
+
+The short per-sample correction now has an executable interval checker.
+The candidate `Polynomial.bernoulliNormalizedReal_zero` connects all
+normalized endpoint coefficients to the exact rational Bernoulli numbers,
+including the sign convention at index one. `ZetaEulerFactor` factors the
+existing correction without changing any term or its complete remainder.
+The numerical layer shares endpoint logs/amplitudes and the Bernoulli
+coefficient list, then evaluates one successive rising-factor recurrence.
+
+The checker accepts enclosed real heights, including the actual Fourier
+pi-grid heights. A failed squared-norm positivity test rejects inversion;
+successful tests bound the complete complex correction error. The
+`RationalGridPoint.valid_of_check` adapter proves both mathematical sample
+premises, and its zeta consumer retains the existing full error budget.
+
+All six new modules and the updated complex-interval module compile.
+The 78 regression examples across thirteen files and all 20 public theorem
+closure audits pass; the closures contain only the standard three axioms.
+
+This does not supply high-height sign/completeness data or a runtime
+projection. The rational-endpoint sign rows still need an exact compatible
+grid parameterization, and elementary xi-phase/sign checking remains.
+The other unconditional Dusart obligations and paused CI policy are unchanged.
+
+## Previous follow-up: checked shared Dirichlet moments (2026-09-23)
 
 The optional numerical layer now constructs actual shared-moment enclosures.
 `SharedTaylorIntervals` prepares the scalar Taylor lists and logarithm-of-two

@@ -1341,6 +1341,24 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.CheckedZetaMoments
           lake env lean test/lean/CheckedZetaMoments.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ComplexIntervalInverse
+          lake env lean test/lean/ComplexIntervalInverse.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DirichletEndpointIntervals
+          lake env lean test/lean/DirichletEndpointIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaEulerFactor
+          lake env lean test/lean/ZetaEulerFactor.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.EulerBernoulliIntervals
+          lake env lean test/lean/EulerBernoulliIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaCorrectionIntervals
+          lake env lean test/lean/ZetaCorrectionIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.CheckedZetaGridPoints
+          lake env lean test/lean/CheckedZetaGridPoints.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ThetaSquaredCheckpoints
           lake env lean test/lean/ThetaSquaredCheckpoints.lean
           /usr/bin/time -v lake build \

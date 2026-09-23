@@ -405,7 +405,13 @@ def test_rational_grid_checks_discharge_actual_fourier_premises() -> None:
 
 def test_optional_rational_checkers_do_not_import_replay_or_tactic_modules() -> None:
     pending = [
-        ANALYTIC + name for name in ("RadixTwiddleChecks", "CheckedZetaGrid", "CheckedZetaMoments")
+        ANALYTIC + name
+        for name in (
+            "RadixTwiddleChecks",
+            "CheckedZetaGrid",
+            "CheckedZetaMoments",
+            "CheckedZetaGridPoints",
+        )
     ]
     visited: set[str] = set()
     while pending:
@@ -470,6 +476,39 @@ def test_checked_moments_reuse_atoms_and_prove_full_partition_coverage() -> None
     assert "hchain.filter_eq" in consumer
     assert "ZetaGroupedBlock.valid_of_moment_blocks" in consumer
     assert "apply r.valid_of_check" in consumer
+
+
+def test_short_corrections_reuse_endpoint_data_and_reach_actual_grid_consumer() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    previous = workflow.index("lake env lean test/lean/CheckedZetaMoments.lean")
+    for module in (
+        "ComplexIntervalInverse",
+        "DirichletEndpointIntervals",
+        "ZetaEulerFactor",
+        "EulerBernoulliIntervals",
+        "ZetaCorrectionIntervals",
+        "CheckedZetaGridPoints",
+    ):
+        build = workflow.index(f"+{ANALYTIC}{module}\n")
+        test = workflow.index(f"lake env lean test/lean/{module}.lean")
+        assert previous < build < test
+        previous = test
+    root = ROOT / "PrimeFactorUnimodality/Helpers/Analytic"
+    endpoint = strip_lean_comments((root / "DirichletEndpointIntervals.lean").read_text())
+    assert endpoint.count("c.log N") == 2  # Definition and its soundness proof.
+    assert "Real.cos_sub_int_mul_two_pi" in endpoint
+    assert "Real.sin_sub_int_mul_two_pi" in endpoint
+    recurrence = strip_lean_comments((root / "EulerBernoulliIntervals.lean").read_text())
+    assert "eulerRisingStep N S start W" in recurrence
+    assert "zetaRisingFactor_div_pow_succ" in recurrence
+    correction = strip_lean_comments((root / "ZetaCorrectionIntervals.lean").read_text())
+    assert "zetaEulerCorrection_eq_list" in correction
+    assert "ComplexInterval.mem_inverse hi" in correction
+    assert "ComplexInterval.norm_sub_le_of_close" in correction
+    grid = strip_lean_comments((root / "CheckedZetaGridPoints.lean").read_text())
+    assert "hheight : p.toGridPoint.height g ∈" in grid
+    assert "p.valid_of_check hd hN hc hpi hbase hradius hb h" in grid
+    assert "(g.shared.base :" not in grid
 
 
 def test_theta_checkpoint_consumers_derive_band_and_anchor_obligations() -> None:

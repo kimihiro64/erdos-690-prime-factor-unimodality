@@ -52,6 +52,13 @@ theorem bernoulliNormalized_one_eq_zero {k : Nat} (hk : Not (k = 1)) :
 noncomputable def bernoulliNormalizedReal (k : Nat) (u : Real) : Real :=
   ((bernoulliNormalized k).map (Rat.castHom Real)).eval u
 
+/-- The value at zero is the exact rational Bernoulli number divided by its factorial. -/
+theorem bernoulliNormalizedReal_zero (k : ℕ) :
+    bernoulliNormalizedReal k 0 = ((_root_.bernoulli k / (k.factorial : ℚ) : ℚ) : ℝ) := by
+  have h := eval_map_apply (p := bernoulliNormalized k) (f := Rat.castHom ℝ) (0 : ℚ)
+  simp only [map_zero, bernoulliNormalized, eval_mul, eval_C, bernoulli_eval_zero] at h
+  simpa [bernoulliNormalizedReal, bernoulliNormalized, div_eq_mul_inv, mul_comm] using h
+
 /-- The real normalized profiles have the expected successive derivatives. -/
 theorem hasDerivAt_bernoulliNormalizedReal (k : Nat) (u : Real) :
     HasDerivAt (bernoulliNormalizedReal (k+1)) (bernoulliNormalizedReal k u) u := by

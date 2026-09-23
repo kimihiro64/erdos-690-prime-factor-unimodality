@@ -12,6 +12,14 @@ noncomputable section
 open Complex
 open Polynomial MeasureTheory Set
 
+example (k : ℕ) : bernoulliNormalizedReal k 0 =
+    ((_root_.bernoulli k / (k.factorial : ℚ) : ℚ) : ℝ) :=
+  bernoulliNormalizedReal_zero k
+
+example : bernoulliNormalizedReal 1 0 = (-1 / 2 : ℝ) := by
+  rw [bernoulliNormalizedReal_zero]
+  norm_num [_root_.bernoulli_one]
+
 example (k : Nat) :
     derivative (bernoulliNormalized (k+1)) = bernoulliNormalized k := by
   exact Polynomial.derivative_bernoulliNormalized k

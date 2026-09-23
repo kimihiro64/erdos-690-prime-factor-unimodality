@@ -51,6 +51,10 @@ def scale (q : ℚ) (J : ComplexInterval) : ComplexInterval :=
 theorem mem_point (q : RationalPoint) : q.toComplex ∈ point q :=
   ⟨IntervalRat.mem_singleton q.re, IntervalRat.mem_singleton q.im⟩
 
+/-- Rational constants are enclosed on the real axis. -/
+theorem mem_constant (q : ℚ) : (q : ℂ) ∈ point ⟨q, 0⟩ := by
+  constructor <;> simp [point, IntervalRat.mem_def, IntervalRat.singleton]
+
 /-- Inclusion of a real-axis value. -/
 theorem mem_real {x : ℝ} {J : IntervalRat} (hx : x ∈ J) : (x : ℂ) ∈ real J :=
   ⟨hx, by simpa [real] using IntervalRat.mem_singleton 0⟩

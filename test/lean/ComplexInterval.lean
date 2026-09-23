@@ -16,6 +16,9 @@ variable {degree : ℕ}
 example (q : RationalPoint) : q.toComplex ∈ point q := by
   exact PrimeFactorUnimodality.ComplexInterval.mem_point q
 
+example (q : ℚ) : (q : ℂ) ∈ point ⟨q, 0⟩ := by
+  exact PrimeFactorUnimodality.ComplexInterval.mem_constant q
+
 example {x : ℝ} {J : IntervalRat} (hx : x ∈ J) : (x : ℂ) ∈ real J := by
   exact PrimeFactorUnimodality.ComplexInterval.mem_real hx
 

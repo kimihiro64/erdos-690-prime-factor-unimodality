@@ -5,7 +5,40 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: executable shared-moment enclosures (2026-09-23)
+## Latest increment: checked short Euler corrections (2026-09-23)
+
+`CheckedZetaGridPoints` discharges both actual per-sample grid obligations:
+the unit-window bound and the complete short Euler-correction error. Its
+height interval retains the exact Fourier pi factor and accepts arbitrary
+proved real base/radius enclosures. No rational-height equality is assumed.
+
+`DirichletEndpointIntervals` computes the endpoint logarithm/amplitude once
+per grid and reuses them for every sample. `ZetaEulerFactor` extracts one
+endpoint power from the entire correction. `EulerBernoulliIntervals` then
+uses one successive scaled rising-factor recurrence; its rational Bernoulli
+list is shared, including the zero terms. `ComplexIntervalInverse` rejects
+reciprocals whose squared norm is not certified positive. The final squared
+norm check propagates every interval and rounding error to actual zeta.
+The original Euler remainder and every grid-error term remain unchanged.
+
+All six new modules and the updated complex-interval module compile.
+The 78 examples across thirteen new/preserved regression files pass, as do
+all 20 public theorem closure audits (standard three logical axioms only).
+
+Next: an executable elementary xi-phase/sign check and compatible exact
+sign-row endpoints. In particular, rational base and rational radius do not
+make nonzero Fourier-grid heights rational. One option is radius
+`q/(2*pi)`, which gives rational sample heights, but the shared moment
+checker must then accept a real-radius enclosure rather than a rational
+radius only. Do not silently identify a pi-grid height with a rounded number.
+The correction checker already supports this more general radius.
+
+No high-height family has been generated or benchmarked. Shared-moment,
+Fourier and short-correction interfaces are proved; actual sign data and
+completeness, R6 margins, lower theta, prime prefixes/anchors and the final
+unconditional Dusart providers remain open. CI build jobs remain paused.
+
+## Previous increment: executable shared-moment enclosures (2026-09-23)
 
 `CheckedZetaMoments` now derives the shared grouped-block and Fourier-grid
 validity from checked consecutive moment chunks and an ordered partition.
