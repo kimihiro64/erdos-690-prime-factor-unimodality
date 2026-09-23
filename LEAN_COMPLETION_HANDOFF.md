@@ -45,7 +45,36 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
-### Exact averaged powers and zero-free damping (newest, 2026-09-22)
+### Arbitrary-order decay and complete high-zero tail (newest, 2026-09-23)
+
+The repeated-difference and high-tail obligations in the preceding increment
+are now proved. Five new candidates reuse Mathlib's existing forward
+difference, complex-power derivative, and FTC. For every `n`, the complex
+power average is exactly the `n`-th difference divided by
+`h^n*s*(s+1)*...*(s+n)`. The norm estimate gains `|Im(s)|^(-(n+1))`.
+No new forward-difference definition or zero-counting axiom is introduced.
+
+`DusartBoxHeightDecay` bounds the actual atom by an explicit inverse-square
+kernel beyond the cutoff. `XiHeightTailZeroHigh` compares the zero-height
+tail to the existing half-cutoff Lehman estimate. `DusartBoxHighTail` sums
+over the entire actual high-zero subtype, including boundary zeros and all
+multiplicities, and supplies the explicit bound for `T>=10^9`.
+`DusartBoxZeroSplit` proves the exact strict-low/closed-high split and the
+full-series norm bound conditional on the finite low-height real-part gap.
+
+Next source work: estimate the negative-even correction and simplify the
+endpoint constant; obtain the actual low-height gap and reciprocal-norm
+mass bounds; then certify the fixed-cutoff scalar budgets and close the
+three providers. A conditional low-gap inequality is not a proof of the
+gap. The full all-`k` theorem remains unfinished. Preserve the reviewed
+sibling reuse; do not restart contour construction or legacy gap replay.
+
+Verification: all nine new modules compile; eighteen new regression
+examples pass, including order-zero and exact-cutoff cases. The
+twenty-eight audited new exports have only the standard three axioms.
+CI builds every new candidate and consumer serially before its tests.
+
+### Exact averaged powers and zero-free damping (2026-09-22)
 
 The box-transform evaluation from the preceding section is now proved.
 `DusartBoxDistributionIntegral` proves the weighted-step Fubini identity

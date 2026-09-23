@@ -1,6 +1,35 @@
 # Reuse audit for the Dusart zero-sum layer
 
-Newest follow-up (2026-09-22): BV's generic power-decay leaf has now been
+## Newest follow-up: complete high-zero tail (2026-09-23)
+
+The quantitative high-height obligation from the earlier sections is now
+proved for the actual box weight. Mathlib's existing `fwdDiff`, complex-power
+derivative, and FTC give the exact averaged-power identity at every natural
+order, with denominator `h^n*s*(s+1)*...*(s+n)`. The resulting norm bound
+gains inverse height to power `n+1`. Five reusable candidate modules expose
+the local recurrence, primitive identity, and norm estimates.
+
+`DusartBoxHeightDecay` applies these results to the actual paired atoms.
+`XiHeightTailZeroHigh` reduces the zero-height inverse-square tail to four
+times the existing tail at half the cutoff. `DusartBoxHighTail` then applies
+the proved Lehman counting bound for `T>=10^9`. This controls the entire
+high-zero series, with multiplicities, both ordinate signs, and zeros
+exactly at the cutoff. It does not need RH or an assumed low-zero mass.
+
+`DusartBoxZeroSplit` proves the exact strict-low/closed-high decomposition
+and combines that high bound with the previously adapted BV finite-gap
+bound. The low-gap and reciprocal-norm mass inputs remain explicit: this
+does not establish the missing numerical low-height facts or the final
+Dusart providers. The negative-even correction budget and fixed-cutoff
+scalar certification also remain to be completed.
+
+All nine new modules compile. Eighteen new regression examples pass;
+twenty-eight audited exports use only `propext`, `Classical.choice`, and
+`Quot.sound`. CI builds the candidates and consumers serially before tests.
+The sibling audit below remains authoritative; no broader sibling import
+or RH-dependent evaluation was added for this increment.
+
+Previous follow-up (2026-09-22): BV's generic power-decay leaf has now been
 adapted and connected to the actual Dusart box atoms and finite xi sums.
 The exact averaged-power identity and absolute summability also reuse the
 existing paired explicit-formula infrastructure. Details follow here;
