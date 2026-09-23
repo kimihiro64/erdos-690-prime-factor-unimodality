@@ -666,6 +666,29 @@ def test_split_low_ci_build_order() -> None:
     )
 
 
+def test_power_endpoint_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    previous = foundations.index("lake env lean test/lean/DusartBoxSplitPointwise.lean")
+    modules = (
+        ("Mathlib.NumberTheory.Harmonic.EulerMascheroniBounds", "EulerMascheroniBounds"),
+        ("Mathlib.Analysis.SpecialFunctions.Log.PiBounds", "LogPiBounds"),
+        ("Helpers.Analytic.DusartBoxPowerTail", "DusartBoxPowerTail"),
+        ("Helpers.Analytic.DusartBoxPowerBudget", "DusartBoxPowerBudget"),
+        ("Helpers.Analytic.XiZeroNumericalBounds", "XiZeroNumericalBounds"),
+        ("Helpers.Analytic.DusartPsiEndpoint", "DusartPsiEndpoint"),
+    )
+    for module, test in modules:
+        build = foundations.index(f"lake build \\\n            +PrimeFactorUnimodality.{module}\n")
+        regression = foundations.index(f"lake env lean test/lean/{test}.lean")
+        assert previous < build < regression
+        previous = regression
+    assert previous < foundations.index(
+        "+PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds\n"
+    )
+
+
 def test_main_ci_preserves_running_proof_build() -> None:
     root = Path(__file__).resolve().parents[2]
     workflow = (root / ".github/workflows/ci.yml").read_text()

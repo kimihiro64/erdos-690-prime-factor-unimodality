@@ -895,6 +895,24 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxSplitPointwise
           lake env lean test/lean/DusartBoxSplitPointwise.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.Harmonic.EulerMascheroniBounds
+          lake env lean test/lean/EulerMascheroniBounds.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.PiBounds
+          lake env lean test/lean/LogPiBounds.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxPowerTail
+          lake env lean test/lean/DusartBoxPowerTail.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxPowerBudget
+          lake env lean test/lean/DusartBoxPowerBudget.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiZeroNumericalBounds
+          lake env lean test/lean/XiZeroNumericalBounds.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartPsiEndpoint
+          lake env lean test/lean/DusartPsiEndpoint.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

@@ -5,7 +5,51 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: sharpened low-zero estimates (2026-09-23)
+## Latest analytic increment: explicit upper endpoint constants (2026-09-23)
+
+`DusartPsiEndpoint` proves all scalar arithmetic needed for the published
+theta upper margin above `1441000000000`. It fixes smoothing order three,
+relative step `1/450000`, inner height `10^6` and outer height `10^9`.
+Both adjacent averages have a proved rational cap, including the low block,
+full high tail, correction and smoothing loss. The total is strictly below
+`1/36260`; no scalar-bound hypothesis remains.
+
+The actual psi and theta conclusions still explicitly require that every
+actual xi zero below absolute height `10^9` has real part at most `1/2`.
+By the existing reflection this is finite-height RH verification. It has
+NOT been proved by this increment. The finite prime prefix, decreasing
+lower-theta estimate and remaining Dusart providers also remain open.
+
+`DusartBoxPowerTail` uses the proved critical strip and the full integrable
+height power. Thus no quantitative high-region, auxiliary exponent or
+turning-point condition is needed for this constant-error endpoint.
+`DusartBoxPowerBudget` connects it to actual averages and pointwise psi
+on an entire ray, including prime-power discontinuities.
+
+Two Mathlib-only candidates prove `EulerGamma < 0.59` and sufficient lower
+bounds for `log(4*pi)` and `log(2*pi)`, using existing harmonic and logarithm
+theorems. `XiZeroNumericalBounds` proves the real mass is below `0.03`, the
+selected low-mass expression is at most `28.05`, and the fourth-power tail
+is at most `131/10^20` at `10^6` and `205/10^29` at `10^9`.
+These are kernel-checked rational/logarithmic inequalities, not floating
+point estimates or imported interval-table assertions.
+
+All six new modules and the two affected candidate facades compile.
+The eight new or preserved regression files pass 52 examples. All 23
+audited theorem closures use only `propext`, `Classical.choice` and
+`Quot.sound`. The fast gate, Ruff format/lint, mypy, 137 Python tests,
+Ruby tests and workflow validation pass.
+
+The next analytic direction for the shrinking lower margin can reuse
+Mathlib's `pow_div_factorial_le_exp` twice: for integer `r`, dominate the
+damped height kernel by `(r!)^2/a^r` times the zero-damping kernel with one
+less height power. At order three and `r=4`, a relative step proportional
+to `1/log(x)` should give an explicit inverse-logarithmic error using the
+already proved region constant `56`. The existing full-tail machinery and
+scalar power-tail estimates can be reused; no sharper region is necessary
+for this route. This is next work, not a proved lower-margin conclusion.
+
+## Previous analytic increment: sharpened low-zero estimates (2026-09-23)
 
 The low reciprocal-norm estimate now reuses the already proved exact real
 reciprocal mass. On the positive prefix, each reciprocal norm is at most

@@ -1,6 +1,24 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: exact real mass and full-power low bands (2026-09-23)
+## Newest follow-up: evaluated endpoint and critical-strip high tail (2026-09-23)
+
+The full power-tail estimate now specializes the existing BV-derived atom
+to gap zero, using the actual proved critical strip. It reuses the existing
+complete series and summability; no high-region or turning-point hypothesis
+remains for a constant-error endpoint row. The actual uniform psi consumer
+retains only the finite low-height gap.
+
+Mathlib's harmonic upper sequence and certified log/pi bounds provide the
+new scalar constants. The existing exact real mass is below `0.03`; the
+selected reciprocal window and both full power tails have rational bounds.
+All endpoint arithmetic is proved, including the strict published theta
+upper margin. Actual low-height verification below `10^9` remains explicit
+and unproved here. No RH-dependent sibling norm-mass evaluation is used.
+
+All six new modules, candidate facades and 52 regression examples compile;
+the 23 audited exported closures contain only the standard three axioms.
+
+## Previous follow-up: exact real mass and full-power low bands (2026-09-23)
 
 The new small-prefix estimate uses the existing unconditional real
 reciprocal mass from `ZetaXiHadamardConstant` and `XiLowReciprocalMass`.
