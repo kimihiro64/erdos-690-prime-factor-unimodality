@@ -45,6 +45,50 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Fixed low cutoff and retained high-zero damping (newest, 2026-09-23)
+
+`XiHeightBand` now partitions the actual divisor into the strict low prefix
+and `[H,T)`, including multiplicities and cutoff zeros. Its reciprocal-norm
+bound uses the existing positive-window counting estimate and conjugation.
+At equal cutoffs the band and its budget are exactly zero.
+
+The initial region is **already proved**: `ZetaZeroFreeInitial.xi_zero_gap_initial`
+gives `1-beta >= 1/(56*log(abs(gamma)))` above `10^9` without a region premise.
+`XiHeightBandGap` applies it uniformly on the intermediate band. Do not
+reconstruct that initial region or repeat the sibling audit.
+
+`DusartBoxTwoCutoffs` and `DusartBoxTwoCutoffBudget` connect this split to the
+actual complete xi series, corrected psi averages, and pointwise psi error.
+Only the fixed prefix below `H` needs a separate location bound. The named
+`HasDusartTwoCutoffScalarBudget A X H delta` contains only real scalar
+inequalities and admissible parameters at every `x>=X`; it is **not proved**.
+Together with the fixed gap it implies the unchanged theta target
+`HasThetaLogFourthError (648/1000) (4e18)` when `A=1/2` and `X=4e18`.
+Equal cutoffs recover `dusartBoxCountingErrorBudget` exactly, rather than
+charging a nonzero intermediate-band overestimate.
+
+`DusartBoxHeightGap` additionally retains the exponential real-part damping
+in the higher-order height bound. `DusartBoxDampedHighTail` sums it over the
+complete actual high divisor. Its `xiInitialDampedHeightTail x T` converges,
+is bounded by the previously proved undamped tail, and bounds the actual
+high box sum after multiplication by `dusartBoxTailFactor`. There is no
+new assumed region or mass estimate. Its damped series still needs a sharp
+explicit counting/integral bound before replacing the scalar budget's
+current undamped Lehman term.
+
+Next non-certificate work: finish that quantitative damped-tail estimate
+and the stronger-region/parameter arguments needed for the exact uniform
+constants. The proved constant `56` is an initial region, not Dusart's
+final numerical region. Do not assert that these coarse bounds already
+close every intermediate `x` range. The strong finite low-height input,
+finite prime prefix, and three final providers remain unfinished.
+
+Verification: six new modules and twenty-five regression examples compile.
+Twenty-five audited exports use only `propext`, `Classical.choice`, and
+`Quot.sound`. CI builds the new modules serially before their consumers
+and tests; the build-order regression also requires the existing initial
+region to be built before the band-gap consumer.
+
 ### Reciprocal-norm mass discharged by counting (newest, 2026-09-23)
 
 The independent low reciprocal-norm mass obligation below is now removed.

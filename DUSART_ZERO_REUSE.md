@@ -1,5 +1,32 @@
 # Reuse audit for the Dusart zero-sum layer
 
+## Newest follow-up: fixed low cutoff and damped high tail (2026-09-23)
+
+The existing `xi_zero_gap_initial` is reused directly, not reproved. It
+supplies the constant-`56` gap for actual xi zeros above `10^9`. The new
+height band uses this region, the earlier multiplicity-preserving
+conjugation, and the actual reciprocal-window estimate. The strong gap
+input is now confined to one fixed low prefix, while the upper cutoff may
+vary with `x`. Equal cutoffs give exactly the previous single-cutoff budget.
+
+The generic averaged-power estimate also retains the real part of the
+exponent. `DusartBoxHeightGap` uses this to combine higher-order height
+decay with the BV-style exponential gap factor. Its actual-xi specialization
+uses the proved initial region. `DusartBoxDampedHighTail` sums that stronger
+kernel using the already reused unconditional inverse-square summability.
+Thus no new RH-dependent mass or zero-free hypothesis is imported.
+
+This is an intermediate estimate toward Dusart's Rosser--Schoenfeld method
+(HDR, section 2.4, equations (2.8)--(2.12)); it is not a claim that the
+paper's four-region optimization or final constants are already proved.
+The explicit damped-kernel integral, stronger numerical region and uniform
+parameter estimates, low-height input, and final providers remain to finish.
+
+All six modules and twenty-five new examples compile. Twenty-five audited
+exports use only `propext`, `Classical.choice`, and `Quot.sound`. The sibling
+revisions below remain unchanged; this increment reuses their already
+adapted infrastructure rather than importing further sibling closures.
+
 ## Newest follow-up: low reciprocal-norm mass from counting (2026-09-23)
 
 The norm-mass bound no longer needs an independent numerical assumption.
