@@ -1056,6 +1056,21 @@ jobs:
           lake env lean test/lean/DusartZeroVerification.lean
           lake env lean test/lean/DusartZeroIntegralVerification.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.HorizontalDecay
+          lake env lean test/lean/HorizontalDecay.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaEulerDecay
+          lake env lean test/lean/RiemannZetaEulerDecay.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaLogIntegral
+          lake env lean test/lean/RiemannZetaLogIntegral.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringHorizontalLog
+          lake env lean test/lean/TuringHorizontalLog.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringHorizontalShift
+          lake env lean test/lean/TuringHorizontalShift.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

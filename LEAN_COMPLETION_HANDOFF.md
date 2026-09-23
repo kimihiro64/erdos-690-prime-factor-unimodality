@@ -5,7 +5,46 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: integrated count-completeness proof (2026-09-23)
+## Latest increment: complete horizontal logarithmic upper bound (2026-09-23)
+
+The Turing argument's actual horizontal integral is now absolutely
+integrable at every nonzero height. Mathlib's
+`MeromorphicOn.intervalIntegrable_log_norm` handles finite segments even
+when they cross zeros; no logarithmic singularity theory is reconstructed.
+Three Mathlib-only candidates supply horizontal Dirichlet-series decay,
+its actual Euler-log specialization, and complete logarithmic tail bounds.
+The missing coefficient at one yields the factor `2^(c-x)`, whose integral
+is explicit. Both the absolute integral and the absolute value of the
+integral are bounded by `log(norm(zeta(c)))/log(2)` for every `c>1`.
+
+`TuringHorizontalLog` defines the actual integral from `1/2` to infinity.
+It reuses the already proved Euler continuation estimate to bound the
+finite segment and proves the whole upper bound
+`J(T) <= 3/2*log(5*abs(T)) + 1` for `abs(T)>=1`. Its complete tail after
+two has absolute integral at most one, at every height including zero.
+This is a coarser explicit bound than Trudgian's optimized convexity bound;
+it does not assert the paper's numerical constants.
+
+`TuringHorizontalShift` proves equation (2.8)'s exact shift decomposition
+using differences of real log moduli. It keeps both right-hand integrals.
+For shift one they have total possible negative contribution at most four,
+so `J(T) >= shiftedIntegral(1,T)-4`. No pointwise nonvanishing is required
+on the segment. All five modules are built sequentially in non-certificate
+CI, and the candidate leaves are built and audited before their consumers.
+All 56 examples in eight regression files pass. The 20 audited theorem
+closures contain only `propext`, `Classical.choice`, and `Quot.sound`.
+Fast checks, Ruff, mypy, 144 Python tests, Ruby metadata tests and workflow
+validation pass. No finite replay was started.
+
+**Next:** prove the shifted integral's spectral lower bound using the
+existing actual Hadamard logarithmic derivative, same-height reflection,
+and quantitative digamma estimates. Also prove the Littlewood/Turing
+identity connecting the count discrepancy to horizontal integrals, with
+the existing model's missing `7/8` offset accounted for. Neither result is
+provided by this upper-bound increment. The numerical signs, four transform
+margins, lower theta band, finite prime prefixes and anchors remain open.
+
+## Previous increment: integrated count-completeness proof (2026-09-23)
 
 `XiMissingCount` subtracts a fixed finite witness family from the actual
 closed positive-height divisor. Its cardinality is monotone, retains every

@@ -1,6 +1,34 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: integrated missing-count verification (2026-09-23)
+## Newest follow-up: actual horizontal logarithmic integrals (2026-09-23)
+
+The finite-segment logarithmic singularities require no new general proof:
+Mathlib's `MeromorphicOn.intervalIntegrable_log_norm` handles them directly.
+Its cross-field `MeromorphicAt.comp_analyticAt` and the analytic real
+embedding specialize it to horizontal zeta segments. The new horizontal
+series bound uses `LSeries.norm_term_eq`, `LSeriesSummable.of_re_le_re`,
+real-power monotonicity and summable norm comparison. The existing Euler
+logarithm then supplies both signs of the actual logarithmic modulus.
+
+The actual upper bound uses the previously audited PNT Euler-continuation
+leaf through `norm_riemannZeta_le_euler_one`, and the proved real-axis pole
+bound. The complete infinite tail is bounded, not truncated. The shift
+identity reuses interval-integral translation and additivity, preserving
+both right-hand contributions and avoiding a nonvanishing premise at every
+point. No RH-based zero mass or new sibling dependency is introduced.
+
+The sibling capability index and the inspected WIP coefficient-normalization
+module do not provide this horizontal support-decay interface. These new
+candidates instead apply the pinned Mathlib lemmas above directly. The
+quantitative lower shifted integral and the count-to-horizontal-integral
+identity remain required; this increment is not finite RH verification or
+the final Dusart theorem.
+
+The five modules and affected candidate facades compile. All 56 regression
+examples and 20 complete standard-axiom closure checks pass. The analytic
+chain has no generated or finite-replay dependency.
+
+## Previous follow-up: integrated missing-count verification (2026-09-23)
 
 The completeness argument reuses the actual positive-height finsets,
 their monotonicity, the existing critical-line row witnesses, and the

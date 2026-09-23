@@ -26,6 +26,8 @@ MODULES = (
     "XiCountingIntegral",
     "XiIntegralVerification",
     "DusartZeroVerification",
+    "TuringHorizontalLog",
+    "TuringHorizontalShift",
 )
 
 
@@ -38,9 +40,17 @@ def test_endpoint_assemblers_build_serially_before_scalar_replay() -> None:
         test = foundations.index(f"lake env lean test/lean/{module}.lean")
         assert previous < build < test
         previous = test
-    assert previous < foundations.index(
-        "lake env lean test/lean/DusartZeroIntegralVerification.lean"
-    )
+    integral_test = foundations.index("lake env lean test/lean/DusartZeroIntegralVerification.lean")
+    assert foundations.index("lake env lean test/lean/DusartZeroVerification.lean") < integral_test
+    previous_candidate = integral_test
+    for leaf in ("HorizontalDecay", "RiemannZetaEulerDecay", "RiemannZetaLogIntegral"):
+        candidate_build = foundations.index(
+            f"+PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.{leaf}"
+        )
+        candidate_test = foundations.index(f"lake env lean test/lean/{leaf}.lean")
+        assert previous_candidate < candidate_build < candidate_test
+        previous_candidate = candidate_test
+    assert previous_candidate < foundations.index(f"+{ANALYTIC}TuringHorizontalLog")
     candidate = foundations.index(
         "+PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.FinsetAbel"
     )
