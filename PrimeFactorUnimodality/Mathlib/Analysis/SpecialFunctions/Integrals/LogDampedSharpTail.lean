@@ -134,4 +134,49 @@ theorem logDampedTailPrimitive_exp {m ν X b : ℝ} (hX : 0 < X) (hν : 0 < ν) 
   unfold logDampedTailPrimitive
   rw [logDampedPower_nu hX hν, log_exp, he]
 
+/-- The upper-primitive parameter condition equals the usual explicit lower bound on `X`. -/
+theorem logDampedTail_parameter_iff {X m b : ℝ} (hX : 0 ≤ X) (hm : 0 < m) :
+    log b ≤ 1 / m + sqrt (X ^ 2 / m) ↔ (m * log b - 1) / sqrt m ≤ X := by
+  have hs : 0 < sqrt m := sqrt_pos.mpr hm
+  have hsq : sqrt m ^ 2 = m := sq_sqrt hm.le
+  rw [sqrt_div (sq_nonneg X), sqrt_sq hX]
+  rw [div_le_iff₀ hs]
+  constructor
+  · intro h
+    have hh := (le_div_iff₀ hs).mp (show log b - 1 / m ≤ X / sqrt m by linarith)
+    have hh' := mul_le_mul_of_nonneg_right hh hs.le
+    have he : (log b - 1 / m) * sqrt m * sqrt m = m * log b - 1 := by
+      calc
+        _ = (log b - 1 / m) * (sqrt m ^ 2) := by ring
+        _ = _ := by rw [hsq]; field_simp
+    rwa [he] at hh'
+  · intro h
+    have he : (log b - 1 / m) * sqrt m * sqrt m = m * log b - 1 := by
+      calc
+        _ = (log b - 1 / m) * (sqrt m ^ 2) := by ring
+        _ = _ := by rw [hsq]; field_simp
+    rw [← he] at h
+    have hh := (mul_le_mul_iff_left₀ hs).mp h
+    have hh' := (le_div_iff₀ hs).mpr hh
+    linarith
+
+/-- The sharp density coefficient improves the power-majorant coefficient throughout its domain. -/
+theorem logDampedTail_factor_le_power {m ν L : ℝ}
+    (hν : 0 < ν) (hmargin : 1 < m * ν ^ 2) :
+    (ν ^ 2 / (m * ν ^ 2 - 1)) * (L + 1 / m) ≤
+      L / (m - 1 / ν ^ 2) + 1 / (m - 1 / ν ^ 2) ^ 2 := by
+  have hν2 : 0 < ν ^ 2 := sq_pos_of_pos hν
+  have hd : 0 < m - 1 / ν ^ 2 := sub_pos.mpr ((div_lt_iff₀ hν2).mpr hmargin)
+  have hdm : m - 1 / ν ^ 2 ≤ m := sub_le_self _ (by positivity)
+  have hm : 0 < m := hd.trans_le hdm
+  have he : ν ^ 2 / (m * ν ^ 2 - 1) = 1 / (m - 1 / ν ^ 2) := by
+    field_simp [(sub_pos.mpr hmargin).ne', hν.ne', hd.ne']
+  have hi := one_div_le_one_div_of_le hd hdm
+  rw [he]
+  calc
+    _ = (L + 1 / m) / (m - 1 / ν ^ 2) := by ring
+    _ ≤ (L + 1 / (m - 1 / ν ^ 2)) / (m - 1 / ν ^ 2) :=
+      div_le_div_of_nonneg_right (add_le_add le_rfl hi) hd.le
+    _ = _ := by rw [add_div, div_div, pow_two (m - 1 / ν ^ 2)]
+
 end Real

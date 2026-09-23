@@ -1,6 +1,27 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: sharper density tail (2026-09-23)
+## Newest follow-up: normalized estimates and explicit smoothing (2026-09-23)
+
+The sharp-tail comparison reuses the previous power-majorant estimate;
+it does not rebuild any zero-sum infrastructure. The upper-primitive
+parameter condition is proved equivalent to the paper's lower bound on
+the root parameter. The entire sharp budget is proved no larger than the
+old budget on its stated domain.
+
+Exact power cancellation gives dimensionless bounds for the actual psi
+averages and pointwise error. A chosen order-dependent smoothing step
+has an order-independent total width, stays in the analytic domain, and
+has exact cost `1/(8*log(x)^4)`. Thus the remaining `3/8` scalar allowance
+would give the required `1/2` psi coefficient. No low-height location,
+numerical region, or final scalar bound is silently supplied here.
+
+All three new modules, modified consumers and the candidate facade
+compile. Twenty-one new and twenty-one preserved examples pass; all
+twenty-five audited closures have only the three standard axioms. The
+fixed-height branch is still needed where the growing-cutoff domain does
+not cover the initial range. Final Dusart providers remain unfinished.
+
+## Previous follow-up: sharper density tail (2026-09-23)
 
 The zero-counting, improper-Abel, symmetry and high-box estimates are
 reused directly. A new Mathlib-only upper primitive proves the density

@@ -1,5 +1,5 @@
 import PrimeFactorUnimodality.Helpers.Analytic.DusartBoxRosserNuBudget
-import PrimeFactorUnimodality.Helpers.Analytic.XiRosserSharpTail
+import PrimeFactorUnimodality.Helpers.Analytic.XiRosserSharpComparison
 
 /-! # Actual psi estimates with the sharp Rosser density tail
 
@@ -22,6 +22,18 @@ def dusartBoxRosserSharpErrorBudget (m : ℕ) (h x R ν a H δ : ℝ) : ℝ :=
     (x + (m + 3 : ℕ) * h) * (2 * xiRosserNuWindowBound X ν) +
     (2 ^ (m + 3) * (x + (m + 3 : ℕ) * h) ^ (m + 4) / h ^ (m + 3)) *
       xiRosserSharpTailBound X (m + 3 : ℕ) ν + 1 / (2 * (x ^ 2 - 1)) + Real.log (2 * π)
+
+/-- The complete sharp budget improves the previous elementary budget with identical parameters. -/
+theorem dusartBoxRosserSharpErrorBudget_le_nu (m : ℕ) {h x R ν a H δ : ℝ}
+    (hh : 0 < h) (hx : 0 < x) (hν : 0 < ν) (hmargin : 1 < (m + 3 : ℕ) * ν ^ 2) :
+    dusartBoxRosserSharpErrorBudget m h x R ν a H δ ≤
+      dusartBoxRosserNuErrorBudget m h x R ν a H δ := by
+  have ht := xiRosserSharpTailBound_le_nu (X := sqrt (Real.log x / R)) hν hmargin
+  have hq : ((m + 3 : ℕ) : ℝ) + 1 = (m + 4 : ℕ) := by push_cast; ring
+  rw [hq] at ht
+  unfold dusartBoxRosserSharpErrorBudget dusartBoxRosserNuErrorBudget
+  exact add_le_add (add_le_add (add_le_add le_rfl
+    (mul_le_mul_of_nonneg_left ht (by positivity))) le_rfl) le_rfl
 
 /-- The actual high-zero box sum inherits the sharp bound from the existing integral estimate. -/
 theorem norm_dusartBoxXiHighSum_le_rosserSharp (m : ℕ) {h x R ν : ℝ}

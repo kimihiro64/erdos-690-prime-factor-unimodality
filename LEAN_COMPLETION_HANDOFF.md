@@ -5,7 +5,38 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: sharp Rosser tail and actual psi (2026-09-23)
+## Latest analytic increment: normalized psi and an explicit step (2026-09-23)
+
+`XiRosserSharpComparison` proves that the sharp bound is at most the old
+power-majorant bound; the reciprocal correction and boundary terms match
+exactly. The candidate also proves equivalence with the paper's explicit
+lower bound `(m*log(b)-1)/sqrt(m) <= X`. The full sharp psi budget inherits
+the comparison, without changing either existing API.
+
+`DusartBoxRosserRelative` cancels the large powers of `x` exactly after
+writing the step as `s*x`. Both actual averages and pointwise psi now have
+a dimensionless bound. The lower average uses `s/(1-(m+3)*s)`, not the
+upper average's relative step.
+
+`DusartBoxLogFourthStep` chooses `s=1/(4*(m+3)*log(x)^4)` for every order.
+Its total width is independent of that order; the lower point is at least
+`3*x/4` for `x>=3`. The smoothing cost is exactly `1/(8*log(x)^4)`, and an
+explicit remaining scalar bound of `3/(8*log(x)^4)` yields the actual psi
+coefficient `1/2`. This proves the reduction and parameter admissibility,
+not the remaining scalar inequality or low-zero hypotheses.
+
+Three new modules, modified consumers and the candidate facade compile.
+Twenty-one added examples and twenty-one preserved examples pass. All
+twenty-five audited closures use only the standard three axioms.
+
+The growing-cutoff branch still requires `H <= exp(nu*sqrt(log(x)/R))`.
+Do not use it outside that domain near the fixed starting point. The
+existing `DusartBoxRosserClosedBudget` at equal cutoffs supplies the
+fixed-height alternative; its normalization and quantitative range proof
+remain next work. Strong low-height information, the optimized region,
+uniform scalar bounds, finite prime prefix and final providers remain open.
+
+## Previous analytic increment: sharp Rosser tail and actual psi (2026-09-23)
 
 `LogDampedSharpTail` proves the density coefficient of HDR Lemma 49 by
 differentiating an elementary upper primitive, without adding Bessel

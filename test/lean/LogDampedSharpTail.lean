@@ -64,4 +64,23 @@ example {a m b u : ℝ} (ha : 0 ≤ a) (hm : 0 < m) (hb : 0 < b) (hu : 1 < u)
     (∫ t in Icc u u, log (t / b) * logDampedPower a (m + 1) t) ≤ 0 := by
   simpa only [sub_self] using integral_logDampedPower_log_le_sub ha hm hb hu le_rfl hgap hparam
 
+example {X m b : ℝ} (hX : 0 ≤ X) (hm : 0 < m) :
+    log b ≤ 1 / m + sqrt (X ^ 2 / m) ↔ (m * log b - 1) / sqrt m ≤ X :=
+  logDampedTail_parameter_iff hX hm
+
+example {m ν L : ℝ} (hν : 0 < ν) (hmargin : 1 < m * ν ^ 2) :
+    (ν ^ 2 / (m * ν ^ 2 - 1)) * (L + 1 / m) ≤
+      L / (m - 1 / ν ^ 2) + 1 / (m - 1 / ν ^ 2) ^ 2 :=
+  logDampedTail_factor_le_power hν hmargin
+
+-- The parameter equivalence includes a zero root and equality at the boundary.
+example : log (exp 1) ≤ 1 / (1 : ℝ) + sqrt (0 ^ 2 / 1) ↔
+    ((1 : ℝ) * log (exp 1) - 1) / sqrt 1 ≤ 0 :=
+  logDampedTail_parameter_iff (by norm_num) (by norm_num)
+
+-- The comparison does not require the logarithmic offset to be positive.
+example : ((1 : ℝ) ^ 2 / (3 * 1 ^ 2 - 1)) * (-2 + 1 / 3) ≤
+    -2 / (3 - 1 / 1 ^ 2) + 1 / (3 - 1 / 1 ^ 2) ^ 2 :=
+  logDampedTail_factor_le_power (by norm_num) (by norm_num)
+
 end Real.Tests

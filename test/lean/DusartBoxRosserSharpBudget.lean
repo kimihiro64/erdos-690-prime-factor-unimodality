@@ -53,4 +53,10 @@ example (m : ℕ) {h x R ν a H δ : ℝ}
   abs_psi_sub_le_dusartBoxRosserSharpBudget m hh hx hR hν hν1 hmargin hparam
     ha haH hH hδ hHT hgap hreg
 
+example (m : ℕ) {h x R ν a H δ : ℝ}
+    (hh : 0 < h) (hx : 0 < x) (hν : 0 < ν) (hmargin : 1 < (m + 3 : ℕ) * ν ^ 2) :
+    dusartBoxRosserSharpErrorBudget m h x R ν a H δ ≤
+      dusartBoxRosserNuErrorBudget m h x R ν a H δ :=
+  dusartBoxRosserSharpErrorBudget_le_nu m hh hx hν hmargin
+
 end PrimeFactorUnimodality.Tests

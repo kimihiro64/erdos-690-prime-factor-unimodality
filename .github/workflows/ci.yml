@@ -849,8 +849,17 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.XiRosserSharpTail
           lake env lean test/lean/XiRosserSharpTail.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiRosserSharpComparison
+          lake env lean test/lean/XiRosserSharpComparison.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxRosserSharpBudget
           lake env lean test/lean/DusartBoxRosserSharpBudget.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxRosserRelative
+          lake env lean test/lean/DusartBoxRosserRelative.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxLogFourthStep
+          lake env lean test/lean/DusartBoxLogFourthStep.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
