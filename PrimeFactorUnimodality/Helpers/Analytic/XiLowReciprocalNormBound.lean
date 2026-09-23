@@ -1,10 +1,10 @@
+import PrimeFactorUnimodality.Helpers.Analytic.XiPositiveReciprocalMass
 import PrimeFactorUnimodality.Helpers.Analytic.XiReciprocalNormHigh
-import PrimeFactorUnimodality.Helpers.Analytic.XiReciprocalNormSymmetry
 
 /-! # An explicit low reciprocal-norm mass from the actual counting theorem
 
 Same-height reflection turns an upper real-part gap into a lower one.
-The unconditional exact real reciprocal mass sharpens the small prefix,
+Half of the unconditional exact real reciprocal mass bounds the positive prefix,
 while the reciprocal-ordinate Abel estimate controls the rest. Conjugation
 handles both signs with all multiplicities.
 Only the stated low-height gap remains an input; the norm-mass estimate
@@ -80,17 +80,13 @@ theorem norm_xi_positive_prefix_reciprocal_le_mass {a T δ : ℝ}
   apply (mul_le_mul_iff_left₀ (mul_pos hδ (sq_pos_of_pos hz))).mp
   convert hb using 1 <;> field_simp
 
-/-- Reuse the unconditional exact real mass instead of a coarse small-height count. -/
+/-- Only half the unconditional total real mass is needed for a positive prefix. -/
 theorem sum_xi_positive_prefix_reciprocal_norm_le_mass {a T δ : ℝ}
     (ha : 0 ≤ a) (haT : a < T) (hδ : 0 < δ)
     (hgap : ∀ p ∈ xiLowHeightIndices T, (riemannXiDivisorZeroValue p).re ≤ 1 - δ) :
     (∑ p ∈ xiPositiveHeightIndices a, ‖(1 : ℂ) / riemannXiDivisorZeroValue p‖) ≤
-      ((a + 1) / δ) * ((2 + Real.eulerMascheroniConstant - Real.log (4 * Real.pi)) / 2) := by
-  have hmass := (sum_reciprocal_le_xiLowReciprocalMass T (xiPositiveHeightIndices a) (by
-    intro p hp
-    have hv := (mem_xiPositiveHeightIndices a p).mp hp
-    rw [abs_of_pos hv.1]
-    exact hv.2.trans_lt haT)).trans (xiLowReciprocalMass_le_total T)
+      ((a + 1) / δ) * ((2 + Real.eulerMascheroniConstant - Real.log (4 * Real.pi)) / 4) := by
+  have hmass := sum_xi_positive_reciprocal_le_half_total a
   calc
     _ ≤ ∑ p ∈ xiPositiveHeightIndices a, ((a + 1) / δ) *
         (1 / riemannXiDivisorZeroValue p).re :=
@@ -102,7 +98,7 @@ theorem sum_xi_positive_prefix_reciprocal_norm_le_mass {a T δ : ℝ}
 /-- A fully elementary expression bounding the strict low reciprocal-norm mass. -/
 def xiLowReciprocalNormBound (a T δ : ℝ) : ℝ :=
   2 * (min (xiReciprocalCountEnvelope a / δ)
-    (((a + 1) / δ) * ((2 + Real.eulerMascheroniConstant - Real.log (4 * Real.pi)) / 2)) +
+    (((a + 1) / δ) * ((2 + Real.eulerMascheroniConstant - Real.log (4 * Real.pi)) / 4)) +
       xiReciprocalNormWindowBound a T)
 
 /-- Counting and the gap suffice: no independent reciprocal-mass hypothesis remains. -/
@@ -125,7 +121,7 @@ theorem sum_xi_low_reciprocal_norm_le_explicit {a T δ : ℝ}
   rw [← hwin] at hs
   have hpos : (∑ p ∈ xiPositiveHeightIndices T, ‖(1 : ℂ) / riemannXiDivisorZeroValue p‖) ≤
       min (xiReciprocalCountEnvelope a / δ)
-        (((a + 1) / δ) * ((2 + Real.eulerMascheroniConstant - Real.log (4 * Real.pi)) / 2)) +
+        (((a + 1) / δ) * ((2 + Real.eulerMascheroniConstant - Real.log (4 * Real.pi)) / 4)) +
           xiReciprocalNormWindowBound a T := by linarith only [hs, hprefix, hw]
   exact (sum_xi_low_reciprocal_norm_le_twice_positive T).trans
     (mul_le_mul_of_nonneg_left hpos (by norm_num))

@@ -1,5 +1,41 @@
 # Reuse audit for the Dusart zero-sum layer
 
+## Newest follow-up: half-mass reuse and reduced psi verification height (2026-09-23)
+
+`XiPositiveReciprocalMass` uses the existing multiplicity-preserving
+conjugation and unconditional real reciprocal mass. A positive prefix and
+its conjugate image are disjoint and have equal sums; their union is bounded
+by the complete mass. Consequently the positive prefix needs only half that
+mass. No RH premise, new zero enumeration or sibling dependency is introduced.
+`XiLowReciprocalNormBound` now uses this improvement in its actual bound.
+
+`XiReducedCutoffBounds` proves explicit logarithmic and power-tail bounds
+for inner height 1250000 and outer height 25000000. The order-five smoothing
+step 1/600000 then proves the same psi margin `1/36260` for every real
+`x>=1441000000000`, requiring critical-line verification only below 25000000.
+The original billion-height psi theorem now derives from this stronger
+theorem. The middle-band theta consumer uses the same improved interface.
+All scalar caps are proved inequalities, not numerical projections.
+
+`DusartReducedZeroVerification` feeds the existing finite sign-row/Turing
+verifier into these actual psi and theta estimates. Its starting region
+constant 69 at height 25000000 follows from the proved bounded initial
+region, without a low-zero premise. A supplied valid endpoint chain can
+improve that region; this does not assert the chain's numerical margins.
+
+This reduces the psi endpoint's verification height by a factor of forty,
+not the entire project's height requirement. The concrete R6 rows and
+far/middle-ray estimates still use height one billion. Their numerical
+admissibility, actual finite zero signs/completeness, the lower theta band,
+prime-counting prefix and final unconditional providers remain open.
+No finite certificate generation or replay is involved in this increment.
+
+All 57 affected/new analytic modules compile; 289 regression examples in
+55 files pass. All 32 audited public theorem closures contain only
+`propext`, `Classical.choice` and `Quot.sound`. Fast source checks, Ruff
+formatting/lint, mypy, all 150 Python tests, Ruby metadata tests and workflow
+validation pass. New CI build and regression steps are sequential.
+
 ## Newest follow-up: moderate-height Lehman and bootstrap domain (2026-09-23)
 
 The existing proved `log(T)+17` counting discrepancy already applies near

@@ -753,6 +753,9 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.XiReciprocalNormSymmetry
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiPositiveReciprocalMass
+          lake env lean test/lean/XiPositiveReciprocalMass.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.XiLowReciprocalNormBound
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxCountingBudget
@@ -922,6 +925,15 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.XiZeroNumericalBounds
           lake env lean test/lean/XiZeroNumericalBounds.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiReducedCutoffBounds
+          lake env lean test/lean/XiReducedCutoffBounds.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartEndpointElementary
+          lake env lean test/lean/DusartEndpointElementary.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartReducedPsiEndpoint
+          lake env lean test/lean/DusartReducedPsiEndpoint.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartPsiEndpoint
           lake env lean test/lean/DusartPsiEndpoint.lean
@@ -1187,6 +1199,9 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartTuringVerification
           lake env lean test/lean/DusartTuringVerification.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartReducedZeroVerification
+          lake env lean test/lean/DusartReducedZeroVerification.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.RotationError
           lake env lean test/lean/RotationError.lean

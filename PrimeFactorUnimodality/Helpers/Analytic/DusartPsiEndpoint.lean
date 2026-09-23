@@ -1,13 +1,12 @@
-import PrimeFactorUnimodality.Helpers.Analytic.DusartBoxPowerBudget
-import PrimeFactorUnimodality.Helpers.Analytic.XiZeroNumericalBounds
+import PrimeFactorUnimodality.Helpers.Analytic.DusartReducedPsiEndpoint
 
 /-! # The published upper theta margin from explicit endpoint arithmetic
 
-Fix smoothing order three, relative step 1/450000, and zero cutoffs
-10^6 and 10^9. All scalar inequalities are proved. The normalized
-psi error is below 1/36260 above 1441000000000, provided the actual
-zeros below the outer cutoff lie on the critical line. That finite
-zero verification remains an explicit hypothesis, not an axiom.
+The legacy order-three scalar budgets remain available. The actual psi
+theorem now applies the order-five estimate in `DusartReducedPsiEndpoint`,
+restricting its original billion-height zero premise to height 25000000.
+The normalized error remains below 1/36260 above 1441000000000. Finite
+zero verification remains an explicit hypothesis; it is not proved here.
 -/
 
 namespace PrimeFactorUnimodality
@@ -15,34 +14,6 @@ namespace PrimeFactorUnimodality
 noncomputable section
 
 open Real
-
-/-- A rational lower base point controls the half-logarithmic decay. -/
-theorem dusartEndpoint_half_log_decay_le {x : ℝ} (hx : (1440000000000 : ℝ) ≤ x) :
-    exp (-(1 / 2) * Real.log x) ≤ (1 / 1200000 : ℝ) := by
-  have hl := Real.log_le_log (by norm_num : (0 : ℝ) < 1200000 ^ 2)
-    (by norm_num at hx ⊢; exact hx : (1200000 : ℝ) ^ 2 ≤ x)
-  rw [Real.log_pow] at hl
-  norm_num at hl
-  have he : -(1 / 2) * Real.log x ≤ - Real.log (1200000 : ℝ) := by nlinarith
-  simpa only [Real.exp_neg, Real.exp_log (by norm_num : (0 : ℝ) < 1200000), one_div] using
-    Real.exp_le_exp.mpr he
-
-/-- The normalized elementary correction is negligible on this ray. -/
-theorem dusartEndpoint_correction_le {x : ℝ} (hx : (1440000000000 : ℝ) ≤ x) :
-    (1 / (2 * (x ^ 2 - 1)) + Real.log (2 * π)) / x ≤ (4 / 1440000000000 : ℝ) := by
-  have hxpos : 0 < x := by linarith
-  have hd : 1 ≤ 2 * (x ^ 2 - 1) := by nlinarith
-  have hr : 1 / (2 * (x ^ 2 - 1)) ≤ 1 := by
-    simpa using one_div_le_one_div_of_le (by norm_num : (0 : ℝ) < 1) hd
-  have hl : Real.log (2 * π) ≤ 3 := by
-    have hl := Real.log_le_log (by positivity : 0 < 2 * π)
-      (by linarith [pi_lt_four] : 2 * π ≤ 2 ^ 3)
-    rw [Real.log_pow] at hl
-    norm_num at hl
-    linarith [Real.log_two_lt_d9]
-  exact (div_le_div_of_nonneg_right (by linarith : 1 / (2 * (x ^ 2 - 1)) +
-    Real.log (2 * π) ≤ 4) hxpos.le).trans
-      (div_le_div_of_nonneg_left (by norm_num) (by norm_num) hx)
 
 /-- Both adjacent relative steps fit inside one rational width bound. -/
 theorem dusartEndpoint_width_le {s : ℝ} (hs : s ≤ (1 / 449997 : ℝ)) :
@@ -125,12 +96,11 @@ theorem abs_psi_sub_div_lt_of_billion_low_gap {x : ℝ} (hx : (1441000000000 : �
     (hgap : ∀ z ∈ xiLowHeightIndices 1000000000,
       (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
     |Chebyshev.psi x - x| / x < (1 / 36260 : ℝ) := by
-  have hb := abs_psi_sub_div_le_power_frozen (x₀ := (1441000000000 : ℝ))
-    (s := 1 / 450000) (a := 10) (U := 1000000) (H := 1000000000) (δ := 1 / 2)
-    0 (by norm_num) (by norm_num) hx (by norm_num) (by norm_num)
-    (by norm_num) (by norm_num) (by norm_num)
-    (by simpa only [show (1 - 1 / 2 : ℝ) = 1 / 2 by norm_num] using hgap)
-  exact hb.trans_lt (dusartBoxPowerPsiBound_endpoint_lt le_rfl)
+  apply abs_psi_sub_div_lt_of_reduced_low_gap hx
+  intro z hz
+  apply hgap z
+  rw [mem_xiLowHeightIndices] at hz ⊢
+  linarith
 
 /-- The exact published theta upper margin follows on the entire ray. -/
 theorem theta_lt_dusart_upper_of_billion_low_gap {x : ℝ} (hx : (1441000000000 : ℝ) ≤ x)

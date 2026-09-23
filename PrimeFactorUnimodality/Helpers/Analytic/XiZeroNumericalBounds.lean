@@ -73,11 +73,11 @@ theorem xiReciprocalNormWindowBound_million_le :
 theorem xiLowReciprocalNormBound_million_half_le : xiLowReciprocalNormBound 10 1000000 (1 / 2) ≤
     (561 / 20 : ℝ) := by
   have hp : ((10 + 1) / (1 / 2) : ℝ) *
-      ((2 + eulerMascheroniConstant - Real.log (4 * π)) / 2) ≤ 66 / 100 := by
+      ((2 + eulerMascheroniConstant - Real.log (4 * π)) / 4) ≤ 66 / 100 := by
     linarith [xiRealReciprocalMass_lt_three_hundredths]
   have hm := (min_le_right (xiReciprocalCountEnvelope 10 / (1 / 2))
     (((10 + 1) / (1 / 2) : ℝ) *
-      ((2 + eulerMascheroniConstant - Real.log (4 * π)) / 2))).trans hp
+      ((2 + eulerMascheroniConstant - Real.log (4 * π)) / 4))).trans hp
   unfold xiLowReciprocalNormBound
   linarith [xiReciprocalNormWindowBound_million_le]
 
@@ -203,11 +203,11 @@ theorem xiReciprocalNormWindowBound_billion_le :
 theorem xiLowReciprocalNormBound_billion_half_le : xiLowReciprocalNormBound 10 1000000000 (1 / 2) ≤
     (70 : ℝ) := by
   have hp : ((10 + 1) / (1 / 2) : ℝ) *
-      ((2 + eulerMascheroniConstant - Real.log (4 * π)) / 2) ≤ 66 / 100 := by
+      ((2 + eulerMascheroniConstant - Real.log (4 * π)) / 4) ≤ 66 / 100 := by
     linarith [xiRealReciprocalMass_lt_three_hundredths]
   have hm := (min_le_right (xiReciprocalCountEnvelope 10 / (1 / 2))
     (((10 + 1) / (1 / 2) : ℝ) *
-      ((2 + eulerMascheroniConstant - Real.log (4 * π)) / 2))).trans hp
+      ((2 + eulerMascheroniConstant - Real.log (4 * π)) / 4))).trans hp
   unfold xiLowReciprocalNormBound
   linarith [xiReciprocalNormWindowBound_billion_le]
 

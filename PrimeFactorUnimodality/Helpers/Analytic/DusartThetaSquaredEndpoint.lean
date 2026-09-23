@@ -13,15 +13,13 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 
-/-- The existing endpoint controls the stronger log-square theta error on this whole band. -/
-theorem abs_theta_sub_lt_logSquared_of_endpoint_band {x : ℝ}
+/-- The relative psi endpoint controls the stronger log-square error on this whole band. -/
+theorem abs_theta_sub_lt_logSquared_of_psi_endpoint {x : ℝ}
     (hx : (1441000000000 : ℝ) ≤ x) (hlog : Real.log x ≤ 85)
-    (hgap : ∀ z ∈ xiLowHeightIndices 1000000000,
-      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
+    (hp : |Chebyshev.psi x - x| / x < (1 / 36260 : ℝ)) :
     |Chebyshev.theta x - x| < (1 / 5 : ℝ) * x / Real.log x ^ 2 := by
   have hxpos : 0 < x := by linarith
   have hlpos : 0 < Real.log x := Real.log_pos (by linarith)
-  have hp := abs_psi_sub_div_lt_of_billion_low_gap hx hgap
   have ht := abs_theta_sub_div_le_psi_relative_error hxpos (le_refl (|Chebyshev.psi x - x| / x))
   have hn : |Chebyshev.theta x - x| / x < (1 / 5 : ℝ) / Real.log x ^ 2 := by
     by_cases hsmall : Real.log x ≤ 64
@@ -50,7 +48,42 @@ theorem abs_theta_sub_lt_logSquared_of_endpoint_band {x : ℝ}
         _ ≤ _ := div_le_div_of_nonneg_left (by norm_num) (pow_pos hlpos 2) hsquare
   exact ((div_lt_iff₀ hxpos).mp hn).trans_eq (by ring)
 
-/-- The middle band need not be included in the remaining verification of the full estimate. -/
+/-- Zeros only below twenty-five million suffice for this entire middle band. -/
+theorem abs_theta_sub_lt_logSquared_of_reduced_endpoint_band {x : ℝ}
+    (hx : (1441000000000 : ℝ) ≤ x) (hlog : Real.log x ≤ 85)
+    (hgap : ∀ z ∈ xiLowHeightIndices 25000000,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
+    |Chebyshev.theta x - x| < (1 / 5 : ℝ) * x / Real.log x ^ 2 :=
+  abs_theta_sub_lt_logSquared_of_psi_endpoint hx hlog
+    (abs_psi_sub_div_lt_of_reduced_low_gap hx hgap)
+
+/-- The original interface is retained for consumers with a larger verified prefix. -/
+theorem abs_theta_sub_lt_logSquared_of_endpoint_band {x : ℝ}
+    (hx : (1441000000000 : ℝ) ≤ x) (hlog : Real.log x ≤ 85)
+    (hgap : ∀ z ∈ xiLowHeightIndices 1000000000,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
+    |Chebyshev.theta x - x| < (1 / 5 : ℝ) * x / Real.log x ^ 2 :=
+  abs_theta_sub_lt_logSquared_of_psi_endpoint hx hlog
+    (abs_psi_sub_div_lt_of_billion_low_gap hx hgap)
+
+/-- The full estimate uses the reduced zero prefix when its far ray is supplied separately. -/
+theorem hasThetaLogSquaredError_of_reduced_endpoint_band_and_tail
+    (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 1441000000000 →
+      |Chebyshev.theta x - x| ≤ (1 / 5 : ℝ) * x / Real.log x ^ 2)
+    (tail : HasThetaLogSquaredError (1 / 5) (Real.exp 85))
+    (hgap : ∀ z ∈ xiLowHeightIndices 25000000,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) 3594641 := by
+  intro x hx
+  by_cases hlo : x ≤ 1441000000000
+  · exact finite x hx hlo
+  · by_cases hhi : Real.log x ≤ 85
+    · exact (abs_theta_sub_lt_logSquared_of_reduced_endpoint_band (le_of_not_ge hlo) hhi hgap).le
+    · apply tail x
+      exact (Real.exp_le_exp.mpr (le_of_not_ge hhi)).trans_eq
+        (Real.exp_log (by linarith : 0 < x))
+
+/-- Compatibility with a larger low-zero input does not repeat the endpoint calculation. -/
 theorem hasThetaLogSquaredError_of_endpoint_band_and_tail
     (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 1441000000000 →
       |Chebyshev.theta x - x| ≤ (1 / 5 : ℝ) * x / Real.log x ^ 2)
@@ -58,14 +91,11 @@ theorem hasThetaLogSquaredError_of_endpoint_band_and_tail
     (hgap : ∀ z ∈ xiLowHeightIndices 1000000000,
       (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
     HasThetaLogSquaredError (1 / 5) 3594641 := by
-  intro x hx
-  by_cases hlo : x ≤ 1441000000000
-  · exact finite x hx hlo
-  · by_cases hhi : Real.log x ≤ 85
-    · exact (abs_theta_sub_lt_logSquared_of_endpoint_band (le_of_not_ge hlo) hhi hgap).le
-    · apply tail x
-      exact (Real.exp_le_exp.mpr (le_of_not_ge hhi)).trans_eq
-        (Real.exp_log (by linarith : 0 < x))
+  apply hasThetaLogSquaredError_of_reduced_endpoint_band_and_tail finite tail
+  intro z hz
+  apply hgap z
+  rw [mem_xiLowHeightIndices] at hz ⊢
+  linarith
 
 end
 

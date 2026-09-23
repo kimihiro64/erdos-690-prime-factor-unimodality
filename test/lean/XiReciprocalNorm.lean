@@ -85,13 +85,13 @@ example {a T δ : ℝ} (ha : 0 ≤ a) (haT : a < T) (hδ : 0 < δ)
 example {a T δ : ℝ} (ha : 0 ≤ a) (haT : a < T) (hδ : 0 < δ)
     (hg : ∀ p ∈ xiLowHeightIndices T, (riemannXiDivisorZeroValue p).re ≤ 1 - δ) :
     (∑ p ∈ xiPositiveHeightIndices a, ‖(1 : ℂ) / riemannXiDivisorZeroValue p‖) ≤
-      ((a + 1) / δ) * ((2 + Real.eulerMascheroniConstant - Real.log (4 * Real.pi)) / 2) :=
+      ((a + 1) / δ) * ((2 + Real.eulerMascheroniConstant - Real.log (4 * Real.pi)) / 4) :=
   sum_xi_positive_prefix_reciprocal_norm_le_mass ha haT hδ hg
 
 example {T δ : ℝ} (hT : 10 < T) (hδ : 0 < δ)
     (hg : ∀ p ∈ xiLowHeightIndices T, (riemannXiDivisorZeroValue p).re ≤ 1 - δ) :
     (∑ p ∈ xiPositiveHeightIndices 10, ‖(1 : ℂ) / riemannXiDivisorZeroValue p‖) ≤
-      (11 / δ) * ((2 + Real.eulerMascheroniConstant - Real.log (4 * Real.pi)) / 2) := by
+      (11 / δ) * ((2 + Real.eulerMascheroniConstant - Real.log (4 * Real.pi)) / 4) := by
   simpa only [show (10 : ℝ) + 1 = 11 by norm_num] using
     sum_xi_positive_prefix_reciprocal_norm_le_mass (by norm_num) hT hδ hg
 

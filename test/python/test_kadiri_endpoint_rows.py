@@ -50,6 +50,7 @@ MODULES = (
     "TuringCountingBudget",
     "XiTuringVerification",
     "DusartTuringVerification",
+    "DusartReducedZeroVerification",
     "XiNormalizedCriticalLine",
     "XiEvaluationError",
     "XiStirlingPhase",
@@ -191,13 +192,50 @@ def test_moderate_lehman_domain_reaches_endpoint_rows() -> None:
 
 
 def test_turing_consumers_do_not_assume_counting_error() -> None:
-    for module in ("XiTuringVerification", "DusartTuringVerification"):
+    for module in (
+        "XiTuringVerification",
+        "DusartTuringVerification",
+        "DusartReducedZeroVerification",
+    ):
         path = ROOT / "PrimeFactorUnimodality/Helpers/Analytic" / f"{module}.lean"
         source = strip_lean_comments(path.read_text())
         assert "(herror :" not in source
         assert "(hcount :" not in source
         assert "(hlow :" not in source
         assert "turingCountErrorBudget" in source
+
+
+def test_reduced_psi_cutoff_is_connected_before_legacy_consumers() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    ordered = (
+        "XiPositiveReciprocalMass",
+        "XiLowReciprocalNormBound",
+        "XiZeroNumericalBounds",
+        "XiReducedCutoffBounds",
+        "DusartEndpointElementary",
+        "DusartReducedPsiEndpoint",
+        "DusartPsiEndpoint",
+        "DusartThetaSquaredEndpoint",
+        "XiTuringVerification",
+        "DusartReducedZeroVerification",
+    )
+    positions = [workflow.index(f"+{ANALYTIC}{module}\n") for module in ordered]
+    assert positions == sorted(positions)
+    root = ROOT / "PrimeFactorUnimodality/Helpers/Analytic"
+    reduced = strip_lean_comments((root / "DusartReducedPsiEndpoint.lean").read_text())
+    assert "xiLowHeightIndices 25000000" in reduced
+    assert "xiLowHeightIndices 1000000000" not in reduced
+    assert "dusartBoxPowerPsiBound 2 (1 / 600000) x₀ 25 1250000 25000000" in reduced
+    legacy = strip_lean_comments((root / "DusartPsiEndpoint.lean").read_text())
+    assert "apply abs_psi_sub_div_lt_of_reduced_low_gap hx" in legacy
+    for module in (
+        "XiPositiveReciprocalMass",
+        "XiReducedCutoffBounds",
+        "DusartEndpointElementary",
+        "DusartReducedPsiEndpoint",
+        "DusartReducedZeroVerification",
+    ):
+        assert f"lake env lean test/lean/{module}.lean" in workflow
 
 
 def test_xi_evaluator_candidates_are_checked_before_consumers() -> None:
