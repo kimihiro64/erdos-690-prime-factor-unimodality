@@ -14,10 +14,6 @@ open PrimeFactorUnimodality
 
 variable {degree : ℕ}
 
-example {R : IntervalRat}
-    (h : residualWithinHalf R = true) {x : ℝ} (hx : x ∈ R) : |x| ≤ (1 / 2 : ℝ) := by
-  exact PrimeFactorUnimodality.abs_le_half_of_residualWithinHalf h hx
-
 example (r : MomentIntervalChunk) {c : SharedTaylorIntervals} (hc : c.Prepared)
     {P : IntervalRat} (hpi : Real.pi ∈ P) (base radius : ℚ) (degree : ℕ)
     (hfirst : 0 < r.first) (j : Fin degree) :

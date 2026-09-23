@@ -1,6 +1,31 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: checked elementary xi phase (2026-09-23)
+## Newest follow-up: exact rational sign grids with real-radius moment checks (2026-09-23)
+
+The moment assembler is shared by both the preserved rational-parameter API
+and the new enclosed-real-parameter builder. Exact finite-sum and residual
+coverage arguments occur once in `MomentChunkAssembly`. Retained blocks,
+their rounding/append proofs and full-grid partition assembly are unchanged.
+
+With radius `span/(2*pi)`, the original Fourier height is exactly the rational
+ordinate `base+span*index/2^levels`; this reuses the previously proved
+`ZetaGridPoint.height_of_radius`. Positive spans preserve all signed-index
+orders. The exact endpoint identity now feeds the existing rational
+`XiSignRow` verifier, while a proved reciprocal-pi interval supplies the
+same radius enclosure to moments, corrections and phase checks.
+
+Six new and four affected modules compile. The 91 examples across fourteen
+files and thirteen theorem closure audits pass (standard three axioms only).
+The complete reciprocal-pi-radius moment-to-grid adapter is exercised, as
+are the preserved rational API and signed exact heights. Fast checks, Ruff,
+mypy, all 162 Python tests and workflow validation pass.
+
+The remaining sample obligation is executable value/error sign margins,
+including every existing error term. No high-height data family or runtime
+projection has been supplied. Other unconditional Dusart obligations and
+the paused CI build policy are unchanged.
+
+## Previous follow-up: checked elementary xi phase (2026-09-23)
 
 `XiSimplePhase` replaces two argument evaluations and one complex-norm
 logarithm with the elementary real-log expression, with a proved full error

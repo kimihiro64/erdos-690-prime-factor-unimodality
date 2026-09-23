@@ -1329,6 +1329,12 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.MomentIntervalColumns
           lake env lean test/lean/MomentIntervalColumns.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.MomentChunkData
+          lake env lean test/lean/MomentChunkData.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.MomentChunkAssembly
+          lake env lean test/lean/MomentChunkAssembly.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.MomentChunkIntervals
           lake env lean test/lean/MomentChunkIntervals.lean
           /usr/bin/time -v lake build \
@@ -1370,6 +1376,18 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.CheckedXiGridPhase
           lake env lean test/lean/CheckedXiGridPhase.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.RationalGridHeights
+          lake env lean test/lean/RationalGridHeights.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.RationalGridRadiusIntervals
+          lake env lean test/lean/RationalGridRadiusIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.IntervalMomentChunks
+          lake env lean test/lean/IntervalMomentChunks.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.IntervalMomentBlocks
+          lake env lean test/lean/IntervalMomentBlocks.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ThetaSquaredCheckpoints
           lake env lean test/lean/ThetaSquaredCheckpoints.lean

@@ -65,6 +65,7 @@ MODULES = (
     "ZetaGridEvaluation",
     "XiGridEvaluation",
     "XiSimplePhase",
+    "RationalGridHeights",
     "ThetaSquaredCheckpoints",
     "ThetaSquaredChain",
     "DusartCheckpointAnchors",
@@ -413,6 +414,8 @@ def test_optional_rational_checkers_do_not_import_replay_or_tactic_modules() -> 
             "CheckedZetaMoments",
             "CheckedZetaGridPoints",
             "CheckedXiGridPhase",
+            "IntervalMomentBlocks",
+            "RationalGridRadiusIntervals",
         )
     ]
     visited: set[str] = set()
@@ -445,6 +448,8 @@ def test_checked_moments_reuse_atoms_and_prove_full_partition_coverage() -> None
         "DirichletAtomIntervals",
         "MomentIntervalRecurrence",
         "MomentIntervalColumns",
+        "MomentChunkData",
+        "MomentChunkAssembly",
         "MomentChunkIntervals",
         "DirichletMomentBlocks",
         "MomentBlockPartition",
@@ -456,7 +461,7 @@ def test_checked_moments_reuse_atoms_and_prove_full_partition_coverage() -> None
         assert previous < build < test
         previous = test
     root = ROOT / "PrimeFactorUnimodality/Helpers/Analytic"
-    chunk = strip_lean_comments((root / "MomentChunkIntervals.lean").read_text())
+    chunk = strip_lean_comments((root / "MomentChunkAssembly.lean").read_text())
     assert "let atoms :=" in chunk
     assert "ComplexInterval.momentVector a.weight a.residual degree" in chunk
     assert "List.sum_toFinset" in chunk
@@ -537,6 +542,36 @@ def test_elementary_phase_checks_include_analytic_and_gamma_errors() -> None:
     assert "p.valid_of_check hd hN hc hpi hbase hradius hb h" in consumer
     assert "hpoint.abs_xi_sub_approx_le hg" in consumer
     assert "abs_stirling_sub_le_of_check hp hc hheight hphase" in consumer
+
+
+def test_real_radius_moments_reuse_one_assembler_and_exact_rational_heights() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    previous = workflow.index("lake env lean test/lean/CheckedXiGridPhase.lean")
+    for module in (
+        "RationalGridHeights",
+        "RationalGridRadiusIntervals",
+        "IntervalMomentChunks",
+        "IntervalMomentBlocks",
+    ):
+        build = workflow.index(f"+{ANALYTIC}{module}\n")
+        test = workflow.index(f"lake env lean test/lean/{module}.lean")
+        assert previous < build < test
+        previous = test
+    root = ROOT / "PrimeFactorUnimodality/Helpers/Analytic"
+    old = strip_lean_comments((root / "MomentChunkIntervals.lean").read_text())
+    new = strip_lean_comments((root / "IntervalMomentChunks.lean").read_text())
+    for source in (old, new):
+        assert "r.evaluateAtoms" in source
+        assert "r.evaluateAtoms_mem" in source
+        assert "List.sum_toFinset" not in source
+    assert new.count("DirichletEndpointIntervals.prepare c n") == 1
+    assert "{base radius :" in new
+    blocks = strip_lean_comments((root / "IntervalMomentBlocks.lean").read_text())
+    assert "(ofChunk r coefficients errors).Valid base radius" in blocks
+    heights = strip_lean_comments((root / "RationalGridHeights.lean").read_text())
+    assert "XiSignRow.valid_of_grid_endpoints" in heights
+    assert "p.height_eq_rational g base span hb hr" in heights
+    assert "Real.pi" in heights
 
 
 def test_theta_checkpoint_consumers_derive_band_and_anchor_obligations() -> None:

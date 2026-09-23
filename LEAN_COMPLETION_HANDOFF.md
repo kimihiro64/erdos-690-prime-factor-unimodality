@@ -5,7 +5,40 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: checked elementary xi phases (2026-09-23)
+## Latest increment: real-radius moments and exact rational sign grids (2026-09-23)
+
+`MomentChunkData` and `MomentChunkAssembly` now own the one materialized-atom
+assembler and its exact moment/residual coverage proofs. The original
+rational-parameter API is preserved as a wrapper. `IntervalMomentChunks`
+reuses that assembler with proved real base/radius enclosures, computing
+each atom's log only once through the shared endpoint builder.
+`IntervalMomentBlocks` supplies the unchanged retained-block predicate, so
+existing rounding, append, partition and Fourier-grid assembly are reused.
+
+`RationalGridHeights` chooses radius `span/(2*pi)` and reuses the existing
+`ZetaGridPoint.height_of_radius` identity to prove exact rational ordinates
+`base+span*index/2^levels`. Positive spans preserve signed-index order.
+`XiSignRow.valid_of_rational_grid` supplies the exact endpoint equalities
+to the existing sign-row verifier. `RationalGridRadiusIntervals` computes
+the real-radius enclosure used consistently by moments and sample checks.
+No grid height is identified with a rounded rational approximation.
+
+All six new and four affected modules compile. The 91 examples across
+fourteen new/preserved files pass, including a checked reciprocal-pi-radius
+moment block through complete Fourier-grid validity. All thirteen theorem
+closure audits use only the standard three axioms. Fast checks, Ruff,
+mypy, 162 Python tests and workflow validation pass.
+
+Next non-certificate work: executable zeta-value and full-error sign margins
+from retained rational Fourier arrays. Use a short polynomial enclosure
+per sample, not another long prefix. Bound every Euler, Taylor, moment,
+Fourier, correction and phase term. The phase/correction/grid interfaces
+and exact rational endpoint compatibility are already proved; do not redo
+them. Actual high-height data/completeness, representative runtime/precision
+projections, R6 margins, lower theta, finite prime prefixes/anchors and final
+unconditional providers remain. Keep CI builds paused until Dusart is done.
+
+## Previous increment: checked elementary xi phases (2026-09-23)
 
 `XiSimplePhase` proves the complete `33/(16*t)` bound, for all `t>0`,
 between the existing Stirling phase and
