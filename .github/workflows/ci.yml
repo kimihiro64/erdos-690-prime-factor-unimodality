@@ -714,6 +714,19 @@ jobs:
           lake env lean test/lean/IteratedPowerAverages.lean
           lake env lean test/lean/DusartBoxHighTail.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxGammaBounds
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxPsiError
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxPsiBudget
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ThetaFromPsi
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxLogFourth
+          lake env lean test/lean/DusartBoxCorrections.lean
+          lake env lean test/lean/DusartBoxPsiBudget.lean
+          lake env lean test/lean/DusartBoxLogFourth.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

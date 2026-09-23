@@ -1,5 +1,32 @@
 # Reuse audit for the Dusart zero-sum layer
 
+## Newest follow-up: corrections and actual pointwise error (2026-09-23)
+
+The complete negative-even correction is now bounded by the geometric
+series `1/(2*(x^2-1))`. This uses the existing actual box transform,
+Mathlib's negative-exponent monotonicity, local average norm bound, and
+geometric summation. It neither assumes a bound on the cutoff derivatives
+nor discards low negative-even zeros.
+
+`DusartBoxPsiError` directly reuses
+`neg_two_mul_logDeriv_riemannXi_zero_eq` from the pinned PNT
+`Mathlib/NumberTheory/LSeries/RiemannXiDivisorZeros.lean`, revision
+`f6147e7572ab3abe5428101bc0b13627bcb005df` (Matteo Cipollina, Apache-2.0).
+This simplifies the full endpoint constant to `log(2*pi)`. No new
+Hadamard-constant proof or RH-dependent evaluation was introduced.
+
+The new budget controls the actual psi averages and, by both adjacent
+averages, the pointwise psi error including jumps. The existing
+`hasThetaLogFourthError_of_psiLogFourthError_sharp` then transfers a
+psi coefficient `1/2` to the required theta coefficient `648/1000`
+above `4e18`. All zero and scalar inputs of this transfer remain explicit
+in `HasDusartBoxLogFourthBudget`; that proposition is not yet established.
+
+Four new modules, eighteen regression examples, and fourteen exported
+axiom closures were checked. All closures use only the standard three
+axioms. The remaining low-zero inputs, uniform parameter/scalar proof,
+finite prefix, and three final providers still require completion.
+
 ## Newest follow-up: complete high-zero tail (2026-09-23)
 
 The quantitative high-height obligation from the earlier sections is now

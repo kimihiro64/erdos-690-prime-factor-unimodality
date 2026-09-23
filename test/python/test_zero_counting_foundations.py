@@ -358,6 +358,25 @@ def test_box_high_tail_ci_build_order() -> None:
         assert positions[-1] < foundations.index(f"lake env lean test/lean/{test}.lean")
 
 
+def test_box_corrections_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    prefix = "PrimeFactorUnimodality.Helpers.Analytic"
+    modules = (
+        f"{prefix}.DusartBoxGammaBounds",
+        f"{prefix}.DusartBoxPsiError",
+        f"{prefix}.DusartBoxPsiBudget",
+        f"{prefix}.ThetaFromPsi",
+        f"{prefix}.DusartBoxLogFourth",
+    )
+    positions = [foundations.index(f"+{module}\n") for module in modules]
+    assert positions == sorted(positions)
+    assert foundations.index("lake env lean test/lean/DusartBoxHighTail.lean") < positions[0]
+    for test in ("DusartBoxCorrections", "DusartBoxPsiBudget", "DusartBoxLogFourth"):
+        assert positions[-1] < foundations.index(f"lake env lean test/lean/{test}.lean")
+
+
 def test_main_ci_preserves_running_proof_build() -> None:
     root = Path(__file__).resolve().parents[2]
     workflow = (root / ".github/workflows/ci.yml").read_text()

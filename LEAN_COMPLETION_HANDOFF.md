@@ -45,6 +45,44 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Full correction budget and pointwise psi bound (newest, 2026-09-23)
+
+The negative-even and endpoint-constant obligations below are now proved.
+`DusartBoxGammaBounds` identifies every actual Gamma atom with its averaged
+negative-even divided power and bounds the full series by
+`1/(2*(x^2-1))`, for every `x>1`. The geometric majorant also establishes
+absolute summability; it does not drop the first poles.
+`DusartBoxPsiError` reuses PNT's exact xi logarithmic derivative at zero to
+simplify the endpoint correction to `log(2*pi)`.
+
+`DusartBoxPsiBudget` combines low zeros, the full high tail, the Gamma
+correction, and the endpoint constant. Its actual averaged bound is applied
+at both `x` and `x-(m+3)*h`. The maximum of those two bounds, plus the exact
+loss `(m+3)*h/2`, bounds `|psi(x)-x|` even at jumps. The normalized version
+is proved too. The low-height real-part gap and reciprocal-norm mass remain
+explicit hypotheses, not silently verified inputs.
+
+`DusartBoxLogFourth` connects these actual estimates to the existing
+`HasPsiLogFourthError` and sharp theta transfer. The exact still-unproved
+input is `HasDusartBoxLogFourthBudget (1/2) (4e18)`: at **every** `x>=4e18`,
+it requires admissible parameters, the actual low-zero gap/mass facts, and
+the explicit scalar inequality. Proving it gives
+`HasThetaLogFourthError (648/1000) (4e18)` via the already proved
+`148/1000` prime-power correction. The definition is an obligation, not a
+new unconditional provider or an assumption added to Challenge/Solution.
+
+Next source work: bound the finite reciprocal-norm mass from counting/Abel
+estimates, finish the needed zero-free/low-height inputs, and establish
+parameters and scalar bounds uniformly above the fixed cutoff. Keep the
+finite-prefix and final three providers in scope. Do not reconstruct the
+explicit formula or correction bounds, repeat sibling audits, or use the
+large-`x` estimate outside its proven range.
+
+Verification: four new modules compile; eighteen new examples and all
+fourteen axiom audits pass. Their closures contain only `propext`,
+`Classical.choice`, and `Quot.sound`. CI builds them serially and builds
+`ThetaFromPsi` before the provider-boundary tests.
+
 ### Arbitrary-order decay and complete high-zero tail (newest, 2026-09-23)
 
 The repeated-difference and high-tail obligations in the preceding increment
