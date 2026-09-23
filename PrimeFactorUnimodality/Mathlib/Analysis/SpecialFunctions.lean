@@ -3,8 +3,7 @@ Copyright (c) 2026 Jonas Whidden. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonas Whidden
 -/
-import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogShiftLimit
-import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogTrapezoid
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Exp.Monomial
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.DigammaConjugation
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrability.LogCauchy

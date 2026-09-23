@@ -1,6 +1,31 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: complete Littlewood identity and continuity through zeros (2026-09-23)
+## Newest follow-up: exact phase bound and unconditional counting budget (2026-09-23)
+
+The phase correction now reuses the proved shifted Gamma Stirling error and
+Mathlib's elementary logarithm and tangent bounds. The squared norm gives
+the decaying correction instead of the earlier constant triangle bound;
+the pole argument retains its correct upper-left-quadrant branch.
+No zero indexing, summability or sibling region result is reconstructed.
+
+The actual counting remainder has the unconditional upper integral budget
+`(15/16)*(b-a)+((19/2)*log(5*b)+95)/pi` for `32<=a<=b`.
+The exact counting normalization and Littlewood identity are reused without
+dropping their `7/8` offset. The existing finite missing-label verifier now
+accepts an explicit endpoint margin and sign rows, with its analytic
+counting-error premise discharged. Actual Dusart region/theta consumers
+use that strengthened verifier.
+
+Finite numerical signs and margins, lower theta verification and the final
+unconditional providers remain open. This proves the analytic count budget,
+not a computed finite critical-line result. No new sibling dependency or
+finite certificate replay was introduced.
+
+The five proof modules and affected facades compile. All 33 regression
+examples and 11 standard-axiom closure audits pass; fast checks, 145 Python
+tests, Ruby metadata validation and workflow checks also pass.
+
+## Previous follow-up: complete Littlewood identity and continuity through zeros (2026-09-23)
 
 The remaining continuity proof reuses Mathlib's
 `MeromorphicOn.extract_zeros_poles_log`, compact divisor finiteness and

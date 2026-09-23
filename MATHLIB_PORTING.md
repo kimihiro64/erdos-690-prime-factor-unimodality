@@ -40,6 +40,8 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex` | `Mathlib/Analysis/SpecialFunctions/Complex.lean` | project-verified | Narrow facade for logarithmic height bounds, shifted limits and trapezoid errors |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogHeightBounds` | `Mathlib/Analysis/SpecialFunctions/Complex/LogHeightBounds.lean` | project-verified | Height-decaying squared-norm logarithmic correction and upper-left-quadrant argument excess from elementary tangent bounds |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaLogContinuity` | `Mathlib/NumberTheory/LSeries/RiemannZetaLogContinuity.lean` | project-verified | Continuity of finite horizontal zeta logarithmic integrals at every positive height, including zero ordinates |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Meromorphic.HorizontalFactorization` | `Mathlib/Analysis/Meromorphic/HorizontalFactorization.lean` | project-verified | Compact meromorphic factorization gives exact horizontal logarithmic integral decomposition, including singular heights |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Meromorphic.HorizontalContinuity` | `Mathlib/Analysis/Meromorphic/HorizontalContinuity.lean` | project-verified | Continuity through zeros and poles from finite logarithmic singularities and a clipped continuous remainder |

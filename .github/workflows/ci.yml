@@ -1167,6 +1167,21 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.TuringLittlewood
           lake env lean test/lean/TuringLittlewood.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogHeightBounds
+          lake env lean test/lean/LogHeightBounds.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringPhaseBounds
+          lake env lean test/lean/TuringPhaseBounds.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringCountingBudget
+          lake env lean test/lean/TuringCountingBudget.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiTuringVerification
+          lake env lean test/lean/XiTuringVerification.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartTuringVerification
+          lake env lean test/lean/DusartTuringVerification.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

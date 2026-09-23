@@ -45,6 +45,10 @@ MODULES = (
     "TuringLittlewoodReduction",
     "TuringHorizontalContinuity",
     "TuringLittlewood",
+    "TuringPhaseBounds",
+    "TuringCountingBudget",
+    "XiTuringVerification",
+    "DusartTuringVerification",
 )
 
 
@@ -108,6 +112,14 @@ def test_endpoint_assemblers_build_serially_before_scalar_replay() -> None:
         assert previous_candidate < candidate_build < candidate_test
         previous_candidate = candidate_test
     assert previous_candidate < foundations.index(f"+{ANALYTIC}TuringHorizontalDerivative\n")
+    phase_candidate = foundations.index(
+        "+PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogHeightBounds"
+    )
+    phase_candidate_test = foundations.index("lake env lean test/lean/LogHeightBounds.lean")
+    assert foundations.index("lake env lean test/lean/TuringLittlewood.lean") < phase_candidate
+    assert (
+        phase_candidate < phase_candidate_test < foundations.index(f"+{ANALYTIC}TuringPhaseBounds")
+    )
     candidate = foundations.index(
         "+PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.FinsetAbel"
     )
@@ -133,3 +145,13 @@ def test_endpoint_assembler_closure_has_no_scalar_replay_dependency() -> None:
         path = ROOT.joinpath(*module.split(".")).with_suffix(".lean")
         if path.is_file():
             pending.extend(lean_imports(strip_lean_comments(path.read_text())))
+
+
+def test_turing_consumers_do_not_assume_counting_error() -> None:
+    for module in ("XiTuringVerification", "DusartTuringVerification"):
+        path = ROOT / "PrimeFactorUnimodality/Helpers/Analytic" / f"{module}.lean"
+        source = strip_lean_comments(path.read_text())
+        assert "(herror :" not in source
+        assert "(hcount :" not in source
+        assert "(hlow :" not in source
+        assert "turingCountErrorBudget" in source

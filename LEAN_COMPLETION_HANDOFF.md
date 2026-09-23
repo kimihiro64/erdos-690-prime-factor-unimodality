@@ -5,7 +5,47 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: complete Littlewood identity through zero heights (2026-09-23)
+## Latest increment: unconditional Turing count budget and actual consumers (2026-09-23)
+
+`TuringPhaseBounds` now proves the exact phase upper error
+`phase(T)-pi*M(T) <= 7*pi/8+1/10+33/(16*T)` for `T>0`.
+The `7/8` offset is retained, not silently absorbed into the counting model.
+Above height 32 this is at most `15*pi/16`.
+
+`TuringCountingBudget` integrates this bound and combines it with the
+complete Littlewood argument bound. For every `32<=a<=b`, the actual
+closed-count remainder satisfies
+
+`integral(R, a..b) <= (15/16)*(b-a)+((19/2)*log(5*b)+95)/pi`.
+
+The right side is `turingCountErrorBudget a b`. Its width coefficient is
+strictly below one, so it applies to the existing missing-label verifier.
+`XiSignRows.Valid.low_criticalLine_of_turing_margin` now needs only valid
+sign rows and the explicit endpoint margin, not an assumed counting-error
+integral or total zero count. `DusartTuringVerification` supplies the actual
+region-at-six and log-square-theta consumers at both cutoffs with those
+analytic assumptions removed.
+
+The generic candidate `Complex.LogHeightBounds` uses the exact squared norm
+and `log x<=x-1` for the logarithmic correction. The argument correction uses
+Mathlib's `theta<=tan(theta)` with the branch range proved explicitly.
+No further zero enumeration, sibling import or numerical replay is involved.
+
+All five new proof modules, the new facade and the affected parent facades
+compile. All 33 examples in eight new/preserved regression files pass; all
+11 new public theorem closures contain only `propext`, `Classical.choice`
+and `Quot.sound`. Fast checks, Ruff, mypy, 145 Python tests, Ruby metadata
+tests and workflow validation pass. The new proof modules and tests are in
+the sequential non-certificate CI chain.
+
+**Next:** finish the non-certificate infrastructure for the actual low-zero
+sign evaluations and the lower theta band, then discharge the finite data.
+The analytic Turing/counting-error bound is closed and must not be redone.
+Finite signs and their scalar endpoint margin, four R6 transform margins,
+the lower theta band, prime prefixes, two anchors and the final unconditional
+Dusart/all-k assembly remain. No finite RH verification is claimed yet.
+
+## Previous increment: complete Littlewood identity through zero heights (2026-09-23)
 
 `TuringLittlewood` now proves the unconditional identity
 `integral(argument, a..b) = J(b)-J(a)` for every `0<a<=b` and anchor
