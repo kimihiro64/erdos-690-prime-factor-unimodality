@@ -56,6 +56,10 @@ MODULES = (
     "ZetaEulerTail",
     "ZetaEulerApproximation",
     "XiEulerEvaluation",
+    "ThetaSquaredCheckpoints",
+    "ThetaSquaredChain",
+    "DusartCheckpointAnchors",
+    "DusartCheckpointVerification",
 )
 
 
@@ -200,3 +204,19 @@ def test_xi_evaluator_does_not_assume_a_zero_or_rh() -> None:
     assert "riemannZeta_sub_eulerApproxOrder" in source
     assert "zetaEulerTail_recursion" in source
     assert "norm_zetaEulerTail_le" in source
+
+
+def test_theta_checkpoint_consumers_derive_band_and_anchor_obligations() -> None:
+    source = strip_lean_comments(
+        (
+            ROOT / "PrimeFactorUnimodality/Helpers/Analytic/DusartCheckpointVerification.lean"
+        ).read_text()
+    )
+    assert "thetaLogSquared_on_published_band_of_checkpoints" in source
+    assert "hsteps.bound" in source
+    assert "hasThetaLogSquaredError_of_lower_band_and_turing_rows" in source
+    assert "ThetaSquaredCheckpoint.lower_anchor" in source
+    assert "ThetaSquaredCheckpoint.upper_anchor" in source
+    assert "(finite : ∀" not in source
+    assert "(lowerAnchor :" not in source
+    assert "(upperAnchor :" not in source

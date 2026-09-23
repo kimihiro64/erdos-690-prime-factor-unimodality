@@ -1,6 +1,26 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: higher-order evaluation from WIP Bernoulli tails (2026-09-23)
+## Newest follow-up: compact lower-theta and anchor interfaces (2026-09-23)
+
+Mathlib's `Chebyshev.theta_mono`, logarithm monotonicity and elementary
+positive-power comparisons suffice for the remaining real-interval adapter.
+The existing endpoint rows target different Dusart margins, so they do not
+by themselves prove the required coefficient `1/5` with two log powers.
+
+`ThetaSquaredCheckpoints` and `ThetaSquaredChain` derive that exact bound
+from shared rational endpoint enclosures and ordered pair margins, including
+all noninteger points and both boundaries. The same endpoint data feeds
+`DusartCheckpointAnchors`, reducing both Abel anchor obligations to rational
+polynomial comparisons plus a prime-counting enclosure. The final consumer
+reuses the proved Turing/region ray and the published-cutoff adapters.
+
+The four modules compile, all 32 focused examples pass, and all ten public
+theorem closures have only the standard three axioms. No new sibling
+dependency, finite data generation, or certificate replay is involved.
+Actual numeric enclosures and margins remain unproved inputs; this is not
+a claim of a closed lower-theta band or completed Dusart provider.
+
+## Previous follow-up: higher-order evaluation from WIP Bernoulli tails (2026-09-23)
 
 The Mathlib-only leaf `RobinBV/Mathlib/NumberTheory/BernoulliPeriodic.lean`
 from WIPResearch commit `bdc46941c4f2e13fb84e0a338b905bb10e711357`

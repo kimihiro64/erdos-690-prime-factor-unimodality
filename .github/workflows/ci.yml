@@ -1221,6 +1221,18 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.XiEulerEvaluation
           lake env lean test/lean/XiEulerEvaluation.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ThetaSquaredCheckpoints
+          lake env lean test/lean/ThetaSquaredCheckpoints.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ThetaSquaredChain
+          lake env lean test/lean/ThetaSquaredChain.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartCheckpointAnchors
+          lake env lean test/lean/DusartCheckpointAnchors.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartCheckpointVerification
+          lake env lean test/lean/DusartCheckpointVerification.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

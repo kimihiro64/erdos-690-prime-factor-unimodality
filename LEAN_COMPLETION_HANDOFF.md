@@ -5,7 +5,44 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: arbitrary-order zeta evaluation and actual xi signs (2026-09-23)
+## Latest increment: shared lower-theta checkpoints and rational anchors (2026-09-23)
+
+`ThetaSquaredCheckpoints` stores a natural endpoint and rational lower/upper
+theta enclosures and log upper bound. Its decidable `Step` predicate checks
+only rational inequalities. Monotonicity of theta and log turns that test
+into the exact `c*x/log(x)^2` error on the entire closed real interval.
+No sampling of interior integers or continuity of theta is assumed.
+
+`ThetaSquaredChain` supplies ordered coverage, append and one reusable band
+assembler. Consecutive steps share endpoint data; independently checked
+chunks repeat only the checkpoint at their seam. `DusartCheckpointAnchors`
+uses the same theta enclosure, a lower log enclosure, and prime-counting
+bounds to prove both exact Abel anchors from rational comparisons.
+
+`DusartCheckpointVerification` connects these interfaces to the published
+band `[3594641,1441000000000]`, the Turing/region analytic ray, and the exact
+prime-counting provider. The whole lower-band inequality and real-valued
+anchors are no longer assumed by those consumers; their actual finite
+endpoint enclosures and rational margins must still be supplied.
+
+Four modules compile; 32 examples across seven new/preserved tests and all
+ten public theorem axiom audits pass (standard three only). CI checks the
+new modules in the non-certificate serial chain. No checkpoint family or
+finite certificate replay was generated. The previous xi-evaluation and
+Turing proofs are reused unchanged.
+
+**Next:** remaining non-certificate finite-evaluation infrastructure and a
+feasible high-height zero evaluation method. Do not regenerate theta sums
+for every interval or every consumer: share the endpoint enclosures with
+the anchor proofs. Actual checkpoint data, zero signs/completeness, R6
+margins, prime prefixes and closed unconditional providers remain open.
+
+Sizing warning: the existing Turing cutoff `T=10^9` has counting main term
+approximately `2.8465*10^9` (not a claimed exact count). A naive per-zero
+Euler replay is infeasible. Resolve that algorithmic cost before generating
+any sign family, while preserving the final theorem and rigorous constants.
+
+## Previous increment: arbitrary-order zeta evaluation and actual xi signs (2026-09-23)
 
 Reuse WIP's now-extracted `Polynomial.bernoulliPeriodic_cpow_tail_recursion`;
 do not reprove its integration-by-parts or improper-limit arguments.
