@@ -622,6 +622,41 @@ def test_grid_sign_checks_retain_all_errors_and_reuse_shared_arrays() -> None:
     assert "height_eq_rational" in consumer
 
 
+def test_turing_margin_retains_full_budget_and_uses_stable_difference() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    previous = workflow.index("lake env lean test/lean/CheckedXiGridSigns.lean")
+    build = workflow.index(f"+{ANALYTIC}TuringMarginIntervals\n")
+    regression = workflow.index("lake env lean test/lean/TuringMarginIntervals.lean")
+    assert previous < build < regression
+    source = strip_lean_comments(
+        (ROOT / "PrimeFactorUnimodality/Helpers/Analytic/TuringMarginIntervals.lean").read_text()
+    )
+    assert "(b ^ 2 - a ^ 2) * (Real.log a - Real.log (2 * Real.pi) - 3 / 2)" in source
+    assert "(15 / 16) * (b - a)" in source
+    assert "IntervalRat.scale (19 / 2) (c.log (5 * b))" in source
+    assert "IntervalRat.singleton 95" in source
+    assert "32 ≤ a ∧ a ≤ b ∧" in source
+    assert "XiSignRows.completedAreaRat rows a b" in source
+    assert "hrows.low_criticalLine_of_turing_margin hm.1 hm.2.1 hm.2.2" in source
+
+
+def test_checked_sign_blocks_use_shared_endpoints_and_adjacent_order() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    previous = workflow.index("lake env lean test/lean/TuringMarginIntervals.lean")
+    build = workflow.index(f"+{ANALYTIC}CheckedXiGridRows\n")
+    regression = workflow.index("lake env lean test/lean/CheckedXiGridRows.lean")
+    assert previous < build < regression
+    source = strip_lean_comments(
+        (ROOT / "PrimeFactorUnimodality/Helpers/Analytic/CheckedXiGridRows.lean").read_text()
+    )
+    assert "sample : Vector XiGridSignData (n + 1)" in source
+    assert "XiSignRows.ofEndpoints (s.ordinate base span levels)" in source
+    assert "Fin.strictMono_iff_lt_succ.mpr" in source
+    assert "XiSignRow.valid_of_checked_grid" in source
+    assert "TuringMarginIntervals.low_criticalLine_of_check hd hc.scalar" in source
+    assert "∀ i j" not in source
+
+
 def test_theta_checkpoint_consumers_derive_band_and_anchor_obligations() -> None:
     source = strip_lean_comments(
         (

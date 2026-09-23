@@ -1422,6 +1422,12 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.CheckedXiGridSigns
           lake env lean test/lean/CheckedXiGridSigns.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringMarginIntervals
+          lake env lean test/lean/TuringMarginIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.CheckedXiGridRows
+          lake env lean test/lean/CheckedXiGridRows.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ThetaSquaredCheckpoints
           lake env lean test/lean/ThetaSquaredCheckpoints.lean
           /usr/bin/time -v lake build \

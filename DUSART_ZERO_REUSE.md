@@ -1,6 +1,28 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: complete rational error checks imply actual xi signs (2026-09-23)
+## Newest follow-up: checked complete Turing scalar margin (2026-09-23)
+
+The exact smooth-integral difference now has a cancellation-aware rational
+interval evaluator. Its shared constant `log(2*pi)` is charged only to the
+difference of endpoint squares. The full proved counting-error budget is
+included. A successful rational comparison gives precisely the existing
+Turing completeness premise, with both height hypotheses and strictness
+checked; the final theorem certifies every low-height divisor label from
+valid ordered sign rows and the computed endpoint area.
+
+`CheckedXiGridRows` connects shared endpoint vectors to ordered sign rows
+using only adjacent index and sign checks, reusing Mathlib's finite-order
+theorem and the existing append/area proofs. Placement and the scalar
+margin feed actual low-height completeness directly. This closes those
+interfaces, not the actual high-height data: numerical rows, coverage,
+feasibility projections and other Dusart obligations remain. No sibling
+reaudit or new zero-counting argument was needed. CI builds stay paused.
+
+Both modules compile; 45 Lean examples across six files and ten theorem
+closure audits pass, with only the standard three axioms. All 165 Python
+tests and the canonical fast/workflow gates pass.
+
+## Previous follow-up: complete rational error checks imply actual xi signs (2026-09-23)
 
 The retained Fourier arrays now feed a short Horner enclosure, using an
 independently proved generic semiring identity. The existing analytic Euler

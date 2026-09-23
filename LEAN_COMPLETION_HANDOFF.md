@@ -5,7 +5,41 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: checked full-error xi sign margins (2026-09-23)
+## Latest increment: checked Turing margins and shared endpoint blocks (2026-09-23)
+
+`TuringMarginIntervals` now supplies the scalar comparison required by
+`XiSignRows.Valid.low_criticalLine_of_turing_margin`. An exact rearrangement
+of the smooth primitive uses `(b^2-a^2)*(log a-log(2*pi)-3/2)` and
+`b^2*log(b/a)`, so the shared logarithmic constant is not charged separately
+to two large squares. Shared prepared logarithms and a nonzero pi enclosure
+give a rational interval for the complete expression.
+
+The checker retains the full `15/16*(b-a)` penalty and
+`((19/2)*log(5*b)+95)/pi`, checks `32<=a<=b`, and demands strict separation
+from `b-a+completedAreaRat`. Its soundness theorem supplies the unchanged
+actual low-critical-line completeness result with multiplicities. It does
+not assume an integrated argument bound or an RH statement.
+
+`CheckedXiGridRows` stores each endpoint sample once. It checks samples and
+only adjacent order/opposite-sign pairs, obtains global strict ordering
+from Mathlib, and reuses `XiSignRows.valid_of_endpoints`. Checked endpoint
+placement and the Turing comparison now feed the actual low-height
+completeness theorem directly. Existing append and completed-area proofs
+compose blocks without replaying their signs; no quadratic pairwise order
+test is introduced.
+
+Both new modules compile. All 45 Lean examples across six new/preserved
+files pass, and all ten new theorem closure audits contain only the
+standard three logical axioms. Fast checks, Ruff, mypy, workflow validation
+and all 165 Python tests pass.
+
+Actual numerical signs, coverage and endpoint margins still need data.
+Finish any other non-certificate interfaces before the representative
+high-height feasibility gate; do not generate the large family first.
+The R6, lower theta, finite prime/anchor and unconditional provider
+obligations remain. CI build jobs remain paused.
+
+## Previous increment: checked full-error xi sign margins (2026-09-23)
 
 `ComplexPolynomialIntervals` encloses each grid value by a short Horner
 fold over the retained rational Fourier arrays. Its generic semiring
