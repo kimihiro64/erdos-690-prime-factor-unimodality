@@ -45,6 +45,41 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Reciprocal-norm mass discharged by counting (newest, 2026-09-23)
+
+The independent low reciprocal-norm mass obligation below is now removed.
+`XiReciprocalNormWindow` specializes the proved finite Abel identity to
+`1/t`. `XiReciprocalCountIntegral` integrates the **proved** envelope
+`P(t)+log(t)+17`, valid from height ten. `XiReciprocalNormHigh` gives an
+explicit logarithmic expression for every positive-ordinate window `(a,T]`.
+
+`XiReciprocalNormSymmetry` uses real-axis nonvanishing and the existing
+multiplicity-preserving conjugation equivalence to cover both signs.
+`XiLowReciprocalNormBound` applies same-height reflection to the stated
+upper gap, obtaining a lower gap and hence a reciprocal-norm bound for
+the small prefix. Its final result bounds the full strict low mass by
+`xiLowReciprocalNormBound a T delta` for `10<=a<T` and `delta>0`.
+Boundary zeros and multiplicities are retained; no RH is assumed by the
+counting or symmetry arguments. The low real-part gap itself is still
+an explicit, unproved numerical input.
+
+`DusartBoxCountingBudget` substitutes that mass estimate into the actual
+psi bound and provider interface. The tighter remaining obligation is
+`HasDusartBoxCountingBudget (1/2) (4e18)`: for every point above the cutoff,
+prove admissible parameters, the actual low-height gap, and the scalar
+inequality. It implies the preceding box obligation and the exact
+`648/1000` theta target. Do not claim this proposition established merely
+because its implication and its mass estimate are now proved.
+
+Next: finish the low-height/zero-free input and parameters giving the
+uniform scalar inequality. Preserve the finite-prefix and three final
+provider obligations. No certificate replay was required for this mass
+estimate, and no sibling re-audit or zero-counting reconstruction is needed.
+
+Verification: all six new modules compile; nineteen new regression examples
+and nineteen axiom audits pass. All audited exports use only `propext`,
+`Classical.choice`, and `Quot.sound`. CI builds all six serially before tests.
+
 ### Full correction budget and pointwise psi bound (newest, 2026-09-23)
 
 The negative-even and endpoint-constant obligations below are now proved.

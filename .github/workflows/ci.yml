@@ -727,6 +727,20 @@ jobs:
           lake env lean test/lean/DusartBoxPsiBudget.lean
           lake env lean test/lean/DusartBoxLogFourth.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiReciprocalNormWindow
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiReciprocalCountIntegral
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiReciprocalNormHigh
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiReciprocalNormSymmetry
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiLowReciprocalNormBound
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxCountingBudget
+          lake env lean test/lean/XiReciprocalNorm.lean
+          lake env lean test/lean/DusartBoxCountingBudget.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

@@ -1,5 +1,27 @@
 # Reuse audit for the Dusart zero-sum layer
 
+## Newest follow-up: low reciprocal-norm mass from counting (2026-09-23)
+
+The norm-mass bound no longer needs an independent numerical assumption.
+The new modules directly reuse `sum_xi_height_window_eq_boundary_sub_integral`
+and `abs_xiZeroCountingRemainder_le_log_add`. The latter already applies
+from height ten. Its explicit envelope divided by `t^2` has a proved
+elementary primitive, giving a logarithmic-square bound on the actual
+positive-ordinate reciprocal-norm sum.
+
+Existing real-axis nonvanishing, multiplicity-preserving conjugation, and
+same-height reflection supply the remaining pieces. Conjugation handles
+both ordinate signs; reflection turns the stated upper low-height gap
+into a lower one and bounds the small prefix. The resulting
+`sum_xi_low_reciprocal_norm_le_explicit` retains every multiplicity and
+does not lose endpoint zeros. No RH-dependent mass evaluation is imported.
+
+`DusartBoxCountingBudget` connects this explicit estimate to the actual psi
+and fixed theta interfaces. Its remaining low-gap input is **not** proved
+by the mass bound. The uniform scalar parameters, finite prefix, and three
+final providers remain unfinished. Six new modules and nineteen examples
+compile; nineteen audited exports have only the standard three axioms.
+
 ## Newest follow-up: corrections and actual pointwise error (2026-09-23)
 
 The complete negative-even correction is now bounded by the geometric

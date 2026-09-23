@@ -377,6 +377,26 @@ def test_box_corrections_ci_build_order() -> None:
         assert positions[-1] < foundations.index(f"lake env lean test/lean/{test}.lean")
 
 
+def test_reciprocal_norm_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    prefix = "PrimeFactorUnimodality.Helpers.Analytic"
+    modules = (
+        f"{prefix}.XiReciprocalNormWindow",
+        f"{prefix}.XiReciprocalCountIntegral",
+        f"{prefix}.XiReciprocalNormHigh",
+        f"{prefix}.XiReciprocalNormSymmetry",
+        f"{prefix}.XiLowReciprocalNormBound",
+        f"{prefix}.DusartBoxCountingBudget",
+    )
+    positions = [foundations.index(f"+{module}\n") for module in modules]
+    assert positions == sorted(positions)
+    assert foundations.index("lake env lean test/lean/DusartBoxLogFourth.lean") < positions[0]
+    for test in ("XiReciprocalNorm", "DusartBoxCountingBudget"):
+        assert positions[-1] < foundations.index(f"lake env lean test/lean/{test}.lean")
+
+
 def test_main_ci_preserves_running_proof_build() -> None:
     root = Path(__file__).resolve().parents[2]
     workflow = (root / ".github/workflows/ci.yml").read_text()
