@@ -1,6 +1,28 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: uniform correction and four rational transform points (2026-09-23)
+## Newest follow-up: finite critical-line exhaustion (2026-09-23)
+
+The new sign/count verifier reuses `exists_xi_divisor_index_of_zero`, the
+actual strict positive-height count, multiplicity-preserving conjugation,
+and real-axis nonvanishing. It does not introduce another zero enumeration
+or assume that distinct complex values exhaust the divisor labels.
+Mathlib's intermediate value theorem supplies the critical-line zeros;
+`Finset.card_image_of_injective` and `eq_of_subset_of_card_le` provide the
+finite exhaustion step. No new general cardinality lemma is needed.
+
+Compact rational row blocks concatenate, and an endpoint-sequence adapter
+shares the data at adjacent boundaries. The reusable proof derives the
+exact low-height hypothesis required by the existing Dusart consumers.
+Actual numerical sign verification and a matching total-count upper bound
+remain open. This is not an unconditional finite critical-line result,
+nor a new RH-dependent sibling import. No sibling revision or dependency
+has changed in this increment.
+
+All four modules compile; 44 regression examples and 21 complete axiom
+audits pass. The audited closures contain only the standard three logical
+axioms. The source remains in the non-certificate CI job.
+
+## Previous follow-up: uniform correction and four rational transform points (2026-09-23)
 
 The remaining correction sign now follows from existing height-decaying
 Gamma and complete Lehman bounds, the exact polynomial coefficient mass,

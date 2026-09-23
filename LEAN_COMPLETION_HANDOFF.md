@@ -5,7 +5,52 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: uniform correction and four-point transform assembler (2026-09-23)
+## Latest increment: finite critical-line verification logic (2026-09-23)
+
+`XiCriticalLine` proves that the actual entire xi function is real and
+continuous on `1/2+i*t`. A strict endpoint sign change gives an interior
+critical-line zero by Mathlib's intermediate value theorem. The existing
+`exists_xi_divisor_index_of_zero` supplies its actual divisor label; zero
+indexing and analytic multiplicities are not reconstructed. Positive
+endpoint rescaling preserves signs, allowing future normalized evaluations.
+
+`XiSignRows` defines rational rows and local sign validity. Ordered blocks
+can be concatenated by `Valid.append`, including empty blocks and shared
+boundaries. `ofEndpoints` stores a single endpoint sequence and derives its
+adjacent rows; `valid_of_endpoints` proves their ordered placement. Selected
+interior zeros have distinct ordinates and hence distinct divisor labels.
+This is non-generated proof infrastructure, not a generated list of zeros.
+
+`XiZeroExhaustion` proves the missing completeness step. The actual strict
+positive-height count retains all multiplicity labels. If its upper bound
+is no larger than the number of valid rows, finite cardinality forces every
+label into the witnessed family. Actual conjugation and the existing
+real-axis nonvanishing extend the result to every label in
+`xiLowHeightIndices T`, with no assumption of RH or simplicity. The empty
+case, negative ordinates and the strict upper cutoff are retained.
+
+`DusartZeroVerification` feeds this derived low-height condition to the
+existing region-at-six bootstrap and both exact theta consumers. Its
+inputs are the valid rows, total-count upper bound, endpoint bootstrap
+chain and, for the published cutoff, the separate lower theta band.
+
+**Still required:** implement and prove a usable sign evaluator and a
+matching total-count certificate; neither the signs nor the upper bound
+has been supplied at `10^9`. This increment proves the sign/count-to-location
+implication, not finite RH verification itself. The four transform margins,
+lower theta band, finite prime prefixes and anchors remain open as before.
+Do not generate a giant zero table before establishing a feasible evaluation
+and count-verification method. No certificate replay was started here.
+
+All four new modules compile. The 44 examples in seven regression files
+pass, including opposite sign orientations, positive rescaling, empty
+blocks, shared endpoints, duplicate-row rejection, zero cutoff and negative
+ordinates. All 21 audited closures contain only `propext`, `Classical.choice`
+and `Quot.sound`. Fast checks, Ruff, mypy, 144 Python tests, Ruby metadata
+tests and workflow validation pass. CI builds these modules sequentially
+in `lean-foundations`; the no-replay import guard covers their full closure.
+
+## Previous increment: uniform correction and four-point transform assembler (2026-09-23)
 
 The correction inequalities for the proposed `56 -> 8 -> 13/2 -> 6` chain
 are now proved uniformly. `KadiriR6Gamma` retains the negative first harmonic

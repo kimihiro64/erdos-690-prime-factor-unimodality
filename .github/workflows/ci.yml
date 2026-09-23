@@ -1030,6 +1030,18 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriR6FourPoints
           lake env lean test/lean/KadiriR6FourPoints.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiCriticalLine
+          lake env lean test/lean/XiCriticalLine.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiSignRows
+          lake env lean test/lean/XiSignRows.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiZeroExhaustion
+          lake env lean test/lean/XiZeroExhaustion.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartZeroVerification
+          lake env lean test/lean/DusartZeroVerification.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

@@ -1,4 +1,4 @@
-"""Keep the bootstrap assembler separate from its small scalar replay rows."""
+"""Keep region and zero-verification assemblers separate from numerical replay."""
 
 from pathlib import Path
 
@@ -18,6 +18,10 @@ MODULES = (
     "KadiriR6Bootstrap",
     "DusartSquaredBootstrap",
     "KadiriR6FourPoints",
+    "XiCriticalLine",
+    "XiSignRows",
+    "XiZeroExhaustion",
+    "DusartZeroVerification",
 )
 
 
