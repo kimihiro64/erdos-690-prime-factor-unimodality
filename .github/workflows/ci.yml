@@ -843,6 +843,15 @@ jobs:
           lake env lean test/lean/XiRosserNuBounds.lean
           lake env lean test/lean/DusartBoxRosserNuBudget.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogDampedSharpTail
+          lake env lean test/lean/LogDampedSharpTail.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiRosserSharpTail
+          lake env lean test/lean/XiRosserSharpTail.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxRosserSharpBudget
+          lake env lean test/lean/DusartBoxRosserSharpBudget.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

@@ -78,6 +78,33 @@ theorem integral_log_density_rpow_add_div {p b u : ℝ}
   rw [log_div hu.ne' hb.ne']
   ring
 
+/-- A power majorant independently controls the reciprocal-height correction. -/
+theorem integral_logDampedPower_div_le_of_majorant {a q p u C : ℝ}
+    (ha : 0 ≤ a) (hq : 2 ≤ q) (hp : 0 < p) (hu : 1 < u)
+    (hbound : ∀ t ∈ Ici u, logDampedPower a q t ≤ t ^ (-p) * C) :
+    (∫ t in Ioi u, logDampedPower a q t / t) ≤ C * (u ^ (-p) / p) := by
+  have hu0 : 0 < u := lt_trans zero_lt_one hu
+  rw [← integral_rpow_div_tail hp hu0, ← integral_const_mul]
+  apply integral_mono_ae (integrableOn_logDampedPower_div ha hq hu)
+    ((integrableOn_rpow_div_tail hp hu0).const_mul C)
+  filter_upwards [ae_restrict_mem measurableSet_Ioi] with t ht
+  have ht' : u < t := ht
+  convert div_le_div_of_nonneg_right (hbound t (mem_Ici.mpr ht'.le)) (hu0.trans ht').le using 1
+  ring
+
+/-- Beyond the residual turning height, the correction is bounded by the kernel at the cutoff. -/
+theorem integral_logDampedPower_div_le_cutoff {a q p u : ℝ}
+    (ha : 0 ≤ a) (hq : 2 ≤ q) (hp : 0 < p) (hpq : p < q) (hu : 1 < u)
+    (hw : exp (sqrt (a / (q - p))) ≤ u) :
+    (∫ t in Ioi u, logDampedPower a q t / t) ≤ logDampedPower a q u / p := by
+  have hi := integral_logDampedPower_div_le_of_majorant ha hq hp hu
+    (fun t ht => logDampedPower_le_rpow_mul_cutoff ha hpq hu ht hw)
+  calc
+    _ ≤ _ := hi
+    _ = _ := by
+      conv_rhs => rw [logDampedPower_split (p := p) (lt_trans zero_lt_one hu)]
+      ring
+
 /-- A power majorant gives a closed bound on the actual damped density integrals. -/
 theorem integral_logDampedPower_density_le_of_majorant {a q p b u C : ℝ}
     (ha : 0 ≤ a) (hq : 2 ≤ q) (hp : 1 < p) (hb : 0 < b) (hu : 1 < u) (hbu : b ≤ u)
@@ -105,13 +132,8 @@ theorem integral_logDampedPower_density_le_of_majorant {a q p b u C : ℝ}
     ring
   have hE : (∫ t in Ioi u, logDampedPower a q t / t) ≤
       C * ∫ t in Ioi u, t ^ (-p) / t := by
-    rw [← integral_const_mul]
-    apply integral_mono_ae (integrableOn_logDampedPower_div ha hq hu)
-      ((integrableOn_rpow_div_tail (by linarith : 0 < p) hu0).const_mul C)
-    filter_upwards [ae_restrict_mem measurableSet_Ioi] with t ht
-    have ht' : u < t := ht
-    convert div_le_div_of_nonneg_right (hbound t (mem_Ici.mpr ht'.le)) (hu0.trans ht').le using 1
-    ring
+    rw [integral_rpow_div_tail (by linarith : 0 < p) hu0]
+    exact integral_logDampedPower_div_le_of_majorant ha hq (by linarith) hu hbound
   calc
     _ ≤ C * (∫ t in Ioi u, ((1 / b) * log (t / b)) * t ^ (-p)) +
         C * (∫ t in Ioi u, t ^ (-p) / t) := add_le_add hD hE

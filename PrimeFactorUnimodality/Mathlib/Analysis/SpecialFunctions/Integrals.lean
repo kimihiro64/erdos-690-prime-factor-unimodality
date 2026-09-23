@@ -7,7 +7,7 @@ import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.Correl
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.CosineCorrelation
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ExpMoments
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ExpTrig
-import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogDampedParameter
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogDampedSharpTail
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogDampedWindow
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogReciprocalSquarePair
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ReciprocalSquarePair
@@ -26,4 +26,5 @@ exponents handled explicitly. The damped-tail modules give exact logarithmic
 power integrals and closed majorants with a freely chosen power exponent.
 Finite exponent-one windows instead use an elementary upper primitive.
 Exponential cutoff parameters discharge the power-majorant choices exactly.
+The decreasing density also has a sharper elementary upper-primitive bound.
 -/

@@ -5,7 +5,36 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: chosen Rosser exponent and cutoff (2026-09-23)
+## Latest analytic increment: sharp Rosser tail and actual psi (2026-09-23)
+
+`LogDampedSharpTail` proves the density coefficient of HDR Lemma 49 by
+differentiating an elementary upper primitive, without adding Bessel
+infrastructure. Its derivative has a nonnegative quadratic correction.
+The finite estimate passes to the actual improper integral using already
+proved integrability. Zero damping and the endpoint exponent `m=1` are
+supported. The strict turning-height margin and the parameter condition
+`log(b) <= 1/m + sqrt(a/m)` are explicit, including equality in the latter.
+
+`LogDampedBound` now exposes its existing reciprocal-height majorization
+as a reusable theorem and proves exact cutoff cancellation separately.
+`XiRosserSharpTail` combines these results with the existing whole-tail
+theorem, retaining both signs, cutoff multiplicities, and the boundary
+term for our proved counting envelope `log(t)+17`.
+
+`DusartBoxRosserSharpBudget` connects this bound to the actual high-zero
+box sum, averaged psi and pointwise psi. The latter propagates the sharp
+parameter condition from the lower adjacent average by monotonicity.
+The old power-majorant APIs remain intact; no final numerical theorem is
+assumed. Strong enough low-height information, the optimized region,
+uniform scalar inequalities, finite prime prefix and final providers
+remain unfinished.
+
+All three new modules, the modified candidate and facade compile.
+Seventeen new regression examples and twenty-six preserved examples pass.
+The twenty-three audited theorem closures use only the standard three
+axioms. CI builds and tests the new layers serially before the consumers.
+
+## Previous analytic increment: chosen Rosser exponent and cutoff (2026-09-23)
 
 `LogDampedParameter` proves the exact cutoff feasibility criterion and
 chooses `p=q-1/nu^2` under `(q-1)*nu^2>1`. At `T=exp(nu*X)` the selected

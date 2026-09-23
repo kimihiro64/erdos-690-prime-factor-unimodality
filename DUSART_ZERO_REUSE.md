@@ -1,6 +1,27 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: exponential cutoff parameters (2026-09-23)
+## Newest follow-up: sharper density tail (2026-09-23)
+
+The zero-counting, improper-Abel, symmetry and high-box estimates are
+reused directly. A new Mathlib-only upper primitive proves the density
+coefficient in HDR Lemma 49 by elementary calculus. The reciprocal-height
+correction is extracted from the previous power-majorant proof, with its
+cutoff cancellation proved independently. No sibling import, RH-based
+mass evaluation or new zero enumeration is introduced.
+
+`XiRosserSharpTail` combines these with the actual complete zero tail.
+`DusartBoxRosserSharpBudget` supplies the corresponding actual averaged
+and pointwise psi estimates. Our counting-envelope constants remain
+`log(t)+17`; this is not a claim to have proved the paper's sharper
+counting coefficients or final numerical Dusart bounds. The low-height
+information, optimized region, uniform scalar inequalities, finite prime
+prefix and final providers remain open.
+
+Three new modules and the modified candidate/facade compile. Seventeen
+new examples and twenty-six old examples pass. All twenty-three audited
+theorem closures have only the three standard axioms.
+
+## Previous follow-up: exponential cutoff parameters (2026-09-23)
 
 The existing kernel, finite window and complete tail are reused unchanged.
 The Mathlib-only parameter candidate now chooses the integrable exponent
