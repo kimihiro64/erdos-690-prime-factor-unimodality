@@ -934,6 +934,24 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.DusartLogarithmicTheta
           lake env lean test/lean/DusartLogarithmicTheta.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ThetaLogSquaredError
+          lake env lean test/lean/ThetaLogSquaredError.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartTwoTermComparison
+          lake env lean test/lean/DusartTwoTermComparison.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartShortIntervalSquared
+          lake env lean test/lean/DusartShortIntervalSquared.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartPrimeCountingSquared
+          lake env lean test/lean/DusartPrimeCountingSquared.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartSquaredAtPublishedCutoff
+          lake env lean test/lean/DusartSquaredAtPublishedCutoff.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartThetaSquaredEndpoint
+          lake env lean test/lean/DusartThetaSquaredEndpoint.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

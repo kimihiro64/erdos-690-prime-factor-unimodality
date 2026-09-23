@@ -5,7 +5,58 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: both theta margins on the analytic ray (2026-09-23)
+## Latest analytic increment: direct log-square provider route (2026-09-23)
+
+The exact two-term prime-counting and `1/(2*log(x)^2)` short-interval
+statements do not require the older log-cubed/log-fourth interfaces.
+`DusartTwoTermComparison` proves their derivatives, polynomial anchor
+equivalences and unbounded anchored comparisons directly from the existing
+`dusartJ` calculus. The lower comparison needs theta coefficient at most
+two; the upper comparison needs an affine logarithmic margin. Coefficient
+`1/5` and `log(X)>=10` discharge both margins.
+
+`DusartPrimeCountingSquared` uses the actual anchored Abel sandwich to
+produce both requested prime-counting tails. `DusartShortIntervalSquared`
+uses the actual theta increment to produce a prime in exactly the requested
+interval; `log(x)>=2` gives its strict margin. These are full calculus and
+prime-existence proofs, not assumed derivative or increment inequalities.
+
+`DusartSquaredAtPublishedCutoff` specializes both global adapters at
+`3594641`, the `eta_2=0.2` entry of Dusart HDR Theorem 93, and proves the
+logarithmic side condition. The remaining inputs are the actual theta
+log-square estimate, the prime-counting and short-interval prefixes through
+that cutoff, and two explicitly stated polynomial anchor inequalities.
+The theta estimate itself and these finite inputs are NOT claimed proved.
+No fourth-power theta error, integral core remainder, or additional
+log-cubed theta estimate is required by this new direct route.
+
+The common psi-to-theta argument is now factored into
+`abs_theta_sub_div_le_psi_relative_error`, preserving the existing theta
+margin API. `DusartThetaSquaredEndpoint` uses the proved actual psi endpoint
+and root correction to establish the `1/5` log-square error from
+`1441000000000` through `exp(85)`, conditional only on the same finite
+critical-line verification below height `10^9`. It splits at logarithmic
+height 64 to exploit the decaying root correction. All scalar arithmetic
+for this band is proved, with no new numerical inputs.
+
+Next non-certificate work: establish the actual log-square theta error on
+the far ray above `exp(85)` and finish any analytic portion of the lower
+band from `3594641` through `1441000000000`. Reuse the existing fixed/growing
+Rosser budgets, frozen endpoint estimates and actual zero-region bootstrap.
+Do not resume work toward an unnecessary fourth-power target. The finite
+low-zero verification is still unproved, and stronger numerical region
+constants must be proved before use. Finite-prefix/anchor certificates and
+final unconditional provider assembly remain after those analytic tasks.
+
+All six new modules and the refactored theta consumer compile. The nine
+new or preserved regression files pass 38 examples; all 19 audited
+closures use only `propext`, `Classical.choice` and `Quot.sound`. The fast
+gate, Ruff format/lint, mypy, 140 Python tests, Ruby metadata tests and
+workflow validation pass. CI builds the new modules and tests serially
+in `lean-foundations`, with a regression guarding against finite-replay
+dependencies in their import closure.
+
+## Previous analytic increment: both theta margins on the analytic ray (2026-09-23)
 
 `DusartLogarithmicTheta.dusartTheta_margins_of_billion_low_gap` now proves
 both exact published theta margins at every real `x >= 1441000000000`.

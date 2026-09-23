@@ -34,4 +34,9 @@ example {X R a H δ : ℝ} {ε : ℝ → ℝ}
     HasDusartThetaBounds :=
   hasDusartThetaBounds_of_rosserMixed hX hR ha haH hH hδ finite hgap hreg hscalar hupper hlower
 
+example {x ε : ℝ} (hx : 0 < x)
+    (hpsi : |ψ x - x| / x ≤ ε) :
+    |θ x - x| / x ≤ ε + dusartThetaRootRelativeCorrection x :=
+  abs_theta_sub_div_le_psi_relative_error hx hpsi
+
 end PrimeFactorUnimodality.Tests

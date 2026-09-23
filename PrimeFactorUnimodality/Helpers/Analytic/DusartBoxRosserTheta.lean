@@ -21,13 +21,10 @@ def dusartThetaRootRelativeCorrection (x : ℝ) : ℝ :=
   (Real.log 4 + 4) * (exp (-Real.log x / 2) +
     exp (-2 * Real.log x / 3) + exp (-4 * Real.log x / 5))
 
-/-- A normalized actual psi estimate transfers directly to the two requested theta margins. -/
-theorem dusartTheta_margins_of_normalized_psi {x ε : ℝ} (hx : 0 < x)
-    (hpsi : |ψ x - x| / x ≤ ε)
-    (hupper : ε < 1 / 36260)
-    (hlower : ε + dusartThetaRootRelativeCorrection x < (12323 / 10000 : ℝ) / Real.log x) :
-    θ x - x < x / 36260 ∧
-      |θ x - x| < (12323 / 10000 : ℝ) * x / Real.log x := by
+/-- The normalized psi error and the existing root correction control the absolute theta error. -/
+theorem abs_theta_sub_div_le_psi_relative_error {x ε : ℝ} (hx : 0 < x)
+    (hpsi : |ψ x - x| / x ≤ ε) :
+    |θ x - x| / x ≤ ε + dusartThetaRootRelativeCorrection x := by
   have hp : |ψ x - x| ≤ ε * x := (div_le_iff₀ hx).mp hpsi
   have hu := theta_upper_of_psi_relative_error hp
   have hl := theta_lower_of_psi_relative_error_elementary
@@ -42,6 +39,17 @@ theorem dusartTheta_margins_of_normalized_psi {x ε : ℝ} (hx : 0 < x)
     · linarith only [hl']
     · have hcx := mul_nonneg hc hx.le
       nlinarith only [hu, hcx]
+  exact (div_le_iff₀ hx).mpr ha
+
+/-- A normalized actual psi estimate transfers directly to the two requested theta margins. -/
+theorem dusartTheta_margins_of_normalized_psi {x ε : ℝ} (hx : 0 < x)
+    (hpsi : |ψ x - x| / x ≤ ε)
+    (hupper : ε < 1 / 36260)
+    (hlower : ε + dusartThetaRootRelativeCorrection x < (12323 / 10000 : ℝ) / Real.log x) :
+    θ x - x < x / 36260 ∧
+      |θ x - x| < (12323 / 10000 : ℝ) * x / Real.log x := by
+  have hu := theta_upper_of_psi_relative_error ((div_le_iff₀ hx).mp hpsi)
+  have ha := (div_le_iff₀ hx).mp (abs_theta_sub_div_le_psi_relative_error hx hpsi)
   constructor
   · have hm := mul_lt_mul_of_pos_right hupper hx
     linarith only [hu, hm]

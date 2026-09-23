@@ -1,6 +1,33 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: decreasing error and both published theta margins (2026-09-23)
+## Newest follow-up: direct log-square adapters and a proved middle band (2026-09-23)
+
+The direct prime-counting route reuses `dusartJ_sandwich`, its already
+proved derivative, and the existing logarithmic derivative candidates.
+Comparison with the exact two-term models requires only theta error
+`0.2*x/log(x)^2`, not the older stronger log-cubed/log-fourth interfaces.
+The short-interval route reuses `exists_prime_of_theta_increment` at the
+requested width. Both adapters specialize to the published cutoff
+`3594641`; all derivative margins and logarithmic side conditions are proved.
+
+The normalized psi-to-theta comparison is extracted from the existing
+theta-margin proof without changing its interface. It combines the actual
+psi endpoint and root correction to prove the log-square theta error on
+`[1441000000000, exp(85)]`, retaining only the existing finite low-zero
+condition. All zero summability, counting and reflection arguments are
+reused unchanged. No new sibling audit, import or RH-dependent mass
+evaluation is involved.
+
+The global log-square estimate, low-height verification, finite prefixes
+and exact prime-counting anchors remain open inputs. These adapters do not
+claim those inputs or the three unconditional Dusart providers.
+
+The six new modules and refactored consumer compile. All 38 new or
+preserved regression examples pass; all 19 audited closures contain only
+the three standard logical axioms. The new direct route has no finite
+replay dependency.
+
+## Previous follow-up: decreasing error and both published theta margins (2026-09-23)
 
 The polynomial damping candidate applies Mathlib's existing
 `Real.pow_div_factorial_le_exp` twice, at arbitrary natural order. Its
