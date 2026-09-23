@@ -976,6 +976,27 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.DusartFarTheta
           lake env lean test/lean/DusartFarTheta.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartMiddleTail
+          lake env lean test/lean/DusartMiddleTail.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartMiddleScalars
+          lake env lean test/lean/DusartMiddleScalars.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartMiddleAverage
+          lake env lean test/lean/DusartMiddleAverage.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartMiddleShift
+          lake env lean test/lean/DusartMiddleShift.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartMiddlePsi
+          lake env lean test/lean/DusartMiddlePsi.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartMiddleTheta
+          lake env lean test/lean/DusartMiddleTheta.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartSquaredAnalyticRay
+          lake env lean test/lean/DusartSquaredAnalyticRay.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

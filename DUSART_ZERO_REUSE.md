@@ -1,6 +1,28 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: evaluated far-ray bound using existing zero sums (2026-09-23)
+## Newest follow-up: the middle band and complete conditional analytic ray (2026-09-23)
+
+The fixed-cutoff tail already retained the full fourth height power.
+Its closed expression now has an explicit coefficient and exponential
+damping across the whole middle band, without zero-window enumeration.
+Mathlib's `log_le_sub_one_of_pos` gives the global damped-monomial maximum;
+the existing after-turning-point theorem alone would not cover this band.
+Both actual averages reuse the established fixed-height Rosser API and
+their correct separate normalizations.
+
+The actual theta coefficient `1/5` now holds on the full ray above
+`1441000000000`, conditional on the same finite low critical-line input
+and numerical high region `R=6`. Neither zero-location input is supplied
+by this increment. The lower bounded band, finite prime prefixes and
+anchors remain unfinished. No new sibling dependency, RH-based mass
+evaluation or assumed scalar margin is introduced.
+
+The seven modules, extended candidate and affected facades compile.
+All 47 regression examples pass; all 24 audited closures contain only
+the three standard logical axioms. The new analytic chain has no finite
+replay dependency and is built serially before certificates in CI.
+
+## Previous follow-up: evaluated far-ray bound using existing zero sums (2026-09-23)
 
 The far-ray estimate reuses the actual sharp Rosser budget and both adjacent
 psi averages. Mathlib's logarithm-over-power monotonicity supplies the new

@@ -52,4 +52,32 @@ theorem antitoneOn_pow_mul_exp_neg (n : ℕ) {a : ℝ} (ha : 0 < a) :
   intro x hx y _ hxy
   exact pow_mul_exp_neg_le_of_le n ha hx hxy
 
+/-- The turning point gives a global maximum for a positive-degree damped monomial. -/
+theorem pow_mul_exp_neg_le_peak (n : ℕ) (hn : 0 < n) {a x : ℝ}
+    (ha : 0 < a) (hx : 0 ≤ x) :
+    x ^ n * exp (-a * x) ≤ ((n : ℝ) / a) ^ n * exp (-(n : ℝ)) := by
+  by_cases hxzero : x = 0
+  · subst x
+    simp only [zero_pow (Nat.ne_of_gt hn), zero_mul]
+    positivity
+  have hxpos : 0 < x := lt_of_le_of_ne hx (Ne.symm hxzero)
+  have hnpos : (0 : ℝ) < n := Nat.cast_pos.mpr hn
+  have hl := mul_le_mul_of_nonneg_left
+    (log_le_sub_one_of_pos (div_pos (mul_pos ha hxpos) hnpos)) hnpos.le
+  rw [log_div (mul_pos ha hxpos).ne' hnpos.ne', log_mul ha.ne' hxpos.ne'] at hl
+  have hcancel : (n : ℝ) * (a * x / (n : ℝ) - 1) = a * x - n := by field_simp
+  rw [hcancel] at hl
+  have he : (n : ℝ) * log x - a * x ≤
+      (n : ℝ) * log ((n : ℝ) / a) - n := by
+    rw [log_div hnpos.ne' ha.ne']
+    nlinarith only [hl]
+  calc
+    _ = exp ((n : ℝ) * log x - a * x) := by
+      rw [exp_sub, exp_nat_mul, exp_log hxpos, show -a * x = -(a * x) by ring, exp_neg]
+      ring
+    _ ≤ exp ((n : ℝ) * log ((n : ℝ) / a) - n) := exp_le_exp.mpr he
+    _ = _ := by
+      rw [exp_sub, exp_nat_mul, exp_log (div_pos hnpos ha), exp_neg]
+      ring
+
 end Real

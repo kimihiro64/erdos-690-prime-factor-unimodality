@@ -24,6 +24,15 @@ FAR_MODULES = (
     "DusartFarPsi",
     "DusartFarTheta",
 )
+MIDDLE_MODULES = (
+    "DusartMiddleTail",
+    "DusartMiddleScalars",
+    "DusartMiddleAverage",
+    "DusartMiddleShift",
+    "DusartMiddlePsi",
+    "DusartMiddleTheta",
+    "DusartSquaredAnalyticRay",
+)
 
 
 def test_log_square_modules_build_serially_in_foundations() -> None:
@@ -44,7 +53,8 @@ def test_log_square_modules_build_serially_in_foundations() -> None:
 
 def test_log_square_route_has_no_finite_replay_dependency() -> None:
     pending = [
-        f"PrimeFactorUnimodality.Helpers.Analytic.{module}" for module in MODULES + FAR_MODULES
+        f"PrimeFactorUnimodality.Helpers.Analytic.{module}"
+        for module in MODULES + FAR_MODULES + MIDDLE_MODULES
     ]
     visited: set[str] = set()
     while pending:
@@ -70,6 +80,22 @@ def test_far_ray_modules_build_serially_after_their_scalar_candidate() -> None:
     assert previous < candidate < candidate_test
     previous = candidate_test
     for module in FAR_MODULES:
+        build = foundations.index(
+            f"lake build \\\n            +PrimeFactorUnimodality.Helpers.Analytic.{module}\n"
+        )
+        test = foundations.index(f"lake env lean test/lean/{module}.lean")
+        assert previous < build < test
+        previous = test
+    assert previous < foundations.index(
+        "+PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds\n"
+    )
+
+
+def test_middle_band_modules_build_serially_before_the_ray_assembler() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    previous = foundations.index("lake env lean test/lean/DusartFarTheta.lean")
+    for module in MIDDLE_MODULES:
         build = foundations.index(
             f"lake build \\\n            +PrimeFactorUnimodality.Helpers.Analytic.{module}\n"
         )

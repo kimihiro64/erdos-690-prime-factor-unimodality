@@ -27,4 +27,19 @@ example {n : ℕ} {a x : ℝ} (ha : 0 < a) (hx : (n : ℝ) / a ≤ x) :
     x ^ n * exp (-a * x) ≤ x ^ n * exp (-a * x) :=
   Real.pow_mul_exp_neg_le_of_le n ha hx le_rfl
 
+example (n : ℕ) (hn : 0 < n) {a x : ℝ} (ha : 0 < a) (hx : 0 ≤ x) :
+    x ^ n * exp (-a * x) ≤ ((n : ℝ) / a) ^ n * exp (-(n : ℝ)) :=
+  Real.pow_mul_exp_neg_le_peak n hn ha hx
+
+example {x : ℝ} (hx : 0 ≤ x) :
+    x ^ 8 * exp (-x / 126) ≤ (1008 : ℝ) ^ 8 * exp (-8) := by
+  have h := Real.pow_mul_exp_neg_le_peak 8 (by norm_num)
+    (by norm_num : (0 : ℝ) < 1 / 126) hx
+  simp only [Nat.cast_ofNat, show (8 : ℝ) / (1 / 126) = 1008 by norm_num] at h
+  simpa only [show -(1 / 126 : ℝ) * x = -x / 126 by ring] using h
+
+example (n : ℕ) (hn : 0 < n) {a : ℝ} (ha : 0 < a) :
+    (0 : ℝ) ^ n * exp (-a * 0) ≤ ((n : ℝ) / a) ^ n * exp (-(n : ℝ)) :=
+  Real.pow_mul_exp_neg_le_peak n hn ha le_rfl
+
 end PrimeFactorUnimodality.Tests

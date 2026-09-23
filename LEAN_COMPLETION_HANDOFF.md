@@ -5,7 +5,48 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: evaluated far-ray log-square estimate (2026-09-23)
+## Latest analytic increment: the complete conditional analytic ray (2026-09-23)
+
+`DusartSquaredAnalyticRay.hasThetaLogSquaredError_above_endpoint` now proves
+the actual theta coefficient `1/5` at every real `x>=1441000000000`.
+The formerly missing band `[exp(85), exp(5000)]` is proved, including both
+endpoints, and joined to the earlier endpoint and far-ray theorems.
+There is no remaining middle-band hypothesis or unevaluated scalar budget.
+The two zero inputs remain UNPROVED: critical-line verification below `10^9`
+and the high region with `R=6`. The proved unconditional region is still
+`R=56`; this increment does not improve that region or assume its improvement.
+
+The new middle-band proof fixes `H=10^9`, smoothing order three and split
+exponent two. `DusartMiddleTail` keeps the full fourth height power and
+proves the closed tail bound `(7/10^27)*exp(-log(x)/126)` throughout the
+band. `Exp.Monomial.pow_mul_exp_neg_le_peak` supplies the global maximum
+of the eighth-degree damped monomial, including the increasing side of
+its turning point. This reuses Mathlib's elementary logarithm inequality.
+
+For `84<=b=log(x)<=5000` and `0.075/b^2<=s<=0.085/b^2`, the high, low and
+correction moments are at most `0.059`, `0.0001` and `0.0001`.
+`DusartMiddleAverage` obtains the actual averaged error `0.06/b^2`.
+Choosing `s=0.08/b^2`, `DusartMiddleShift` preserves the lower average's
+true normalization and step window. `DusartMiddlePsi` proves actual
+pointwise error `0.19/b^2` for `85<=b<=5000`; the prime-power correction
+costs at most `0.0001/b^2`. No interval-row replay is required for this band.
+
+`hasThetaLogSquaredError_of_lower_band_and_zero_data` reduces the global
+input at `3594641` to only the lower band through `1441000000000` and
+the two zero-location inputs. Finite prime-counting/short-interval prefixes
+and exact anchors remain separate downstream obligations. Next work is
+to prove the missing numerical zero-free region, reusing the existing
+Kadiri bootstrap and elementary budgets, and settle the lower-band input.
+Do not redo the now-complete middle/far bounds or audit unchanged siblings.
+
+The seven new modules, extended scalar candidate and affected facades
+compile. All 47 examples across twelve new or preserved regression files
+pass; all 24 audited closures contain only `propext`, `Classical.choice`
+and `Quot.sound`. The fast gate, Ruff, mypy, 142 Python tests, Ruby metadata
+tests and workflow validation pass. CI runs the middle modules and their
+regressions serially in `lean-foundations`, with a no-replay import guard.
+
+## Previous analytic increment: evaluated far-ray log-square estimate (2026-09-23)
 
 `DusartFarTheta.hasThetaLogSquaredError_far` proves the actual theta error
 with coefficient `1/5` on the entire ray above `exp(5000)`. It retains two
