@@ -1,6 +1,33 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: one-cell bootstrap and exact polynomial checks (2026-09-23)
+## Newest follow-up: uniform correction and four rational transform points (2026-09-23)
+
+The remaining correction sign now follows from existing height-decaying
+Gamma and complete Lehman bounds, the exact polynomial coefficient mass,
+and elementary inequalities. The proof is uniform over all three bootstrap
+steps and includes zero scale. It introduces no new zero counting, pairing,
+or summability machinery and no assumed numerical correction.
+
+The existing signed-transform endpoint-minimum theorem reduces the moving
+arguments to four rational points, after their logarithmic interval bounds
+are proved. One `Fin 4` family and the existing ordered-chain assembler
+cover all three steps. The four scalar validity inequalities remain explicit
+inputs; they have not been evaluated here. The same finite low-height
+critical-line condition is still required by the actual region consumer.
+
+The published sibling heads still match the previous audit. Source checks
+reconfirmed Robin's unconditional inverse-square summability leaf, its
+RH-dependent exact norm-mass theorem, BV's existential region constant,
+and WIP's existential logarithm-ninth region. The existing reuse remains
+applicable; none of these inspected statements supplies the missing explicit
+region at six or finite critical-line verification by dropping a hypothesis.
+
+The six modules and candidate compile, all 39 regression examples pass,
+and all 21 audited closures contain only the three standard logical axioms.
+The new source remains in the non-certificate CI job, with no finite replay
+dependency and no new sibling dependency.
+
+## Previous follow-up: one-cell bootstrap and exact polynomial checks (2026-09-23)
 
 The existing elementary grid theorem already covers a one-cell scale domain.
 `KadiriEndpointRows` uses it directly and composes checked improvements with

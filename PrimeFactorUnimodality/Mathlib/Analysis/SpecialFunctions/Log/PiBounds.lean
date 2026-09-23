@@ -36,4 +36,12 @@ theorem log_two_mul_pi_gt_1837_div_1000 : (1837 / 1000 : ℝ) < Real.log (2 * π
     rw [show (4 : ℝ) * π = 2 * (2 * π) by ring, log_mul (by positivity) (by positivity)]
   linarith [log_four_mul_pi_gt_5061_div_2000, log_two_lt_d9]
 
+/-- A coarse lower bound for log pi, obtained from the same existing logarithm estimates. -/
+theorem log_pi_gt_57_div_50 : (57 / 50 : ℝ) < Real.log π := by
+  have he : Real.log (4 * π) = 2 * Real.log 2 + Real.log π := by
+    rw [log_mul (by norm_num : (4 : ℝ) ≠ 0) pi_pos.ne',
+      show (4 : ℝ) = 2 ^ 2 by norm_num, log_pow]
+    norm_num
+  linarith [log_four_mul_pi_gt_5061_div_2000, log_two_lt_d9]
+
 end Real

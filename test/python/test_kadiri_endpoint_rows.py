@@ -10,8 +10,14 @@ MODULES = (
     "MossinghoffTrudgianBounds",
     "KadiriEndpointRows",
     "KadiriR6Parameters",
+    "KadiriR6Gamma",
+    "KadiriR6Tail",
+    "KadiriR6Polynomial",
+    "KadiriR6Correction",
+    "KadiriR6Transform",
     "KadiriR6Bootstrap",
     "DusartSquaredBootstrap",
+    "KadiriR6FourPoints",
 )
 
 

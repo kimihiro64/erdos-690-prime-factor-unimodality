@@ -5,7 +5,55 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: compact endpoint bootstrap and common parameter bounds (2026-09-23)
+## Latest increment: uniform correction and four-point transform assembler (2026-09-23)
+
+The correction inequalities for the proposed `56 -> 8 -> 13/2 -> 6` chain
+are now proved uniformly. `KadiriR6Gamma` retains the negative first harmonic
+and bounds the remaining coefficient mass, giving Gamma residual at most
+`-1/4`. `KadiriR6Tail` bounds the complete pole and Lehman tail coefficients;
+no zeros or individual harmonic logarithms are enumerated. A small extension
+of the Mathlib-only `Log.PiBounds` candidate proves `log(pi)>1.14` from the
+existing logarithm bounds.
+
+`KadiriR6Polynomial` proves the elementary moment mass at most `3000` and
+bounds the linear, quadratic and cubic coefficients by `-34`, `1504`,
+and `13956`. The resulting polynomial is nonpositive throughout
+`0<=eta<=0.0081`, including zero. `KadiriR6Correction` substitutes all
+actual quantities, removing the correction-sign obligation for every
+`R>=13/2`, `r>=6`. Only the previously checked common kernel enclosures
+remain premises of this correction theorem.
+
+`KadiriR6Transform` places the three exact logarithmic arguments in
+`[0.12,1]`, `[0.71,1]` and `[0.81,1]`. It bounds the common leading
+coefficient by `138` and justifies rounding the first harmonic down to
+`1.741`. The already proved endpoint-minimum theorem controls the signed
+transform over each entire interval; monotonicity is not assumed.
+
+`KadiriR6FourPoints` stores four rational point/bound pairs in one `Fin 4`
+family: `(0.12,18)`, `(0.71,22)`, `(0.81,23)`, `(1,23)`. A proof of
+`KadiriSixTransformBounds`, together with the existing common kernel
+enclosures, now supplies the complete ordered endpoint chain. Integration
+regressions pass that exact chain to both actual theta consumers, retaining
+the same low-height input and the separate lower-band input.
+
+**Still required:** prove those four scalar transform bounds. The family is
+an explicit proposition, not a numerical certificate or an asserted region.
+The finite low-zero critical-line condition below `10^9`, the lower theta
+band, finite prime prefixes and anchors also remain unproved. The project
+is not yet an unconditional all-`k` proof. No full certificate replay was
+started for this increment. Continue from these named numerical obligations;
+do not reconstruct the correction or the previously reused zero machinery.
+
+The six new modules and extended candidate compile. All 39 examples in ten
+regression files pass, including zero scale, the least allowed sigma, all
+four distinct points and both actual theta consumers. All 21 audited theorem
+closures contain only `propext`, `Classical.choice` and `Quot.sound`.
+Fast source/architecture checks, Ruff, mypy, 144 Python tests, Ruby metadata
+tests and workflow validation pass. CI builds the new analytic modules and
+tests sequentially in `lean-foundations`, before certificate replay; the
+existing no-replay dependency guard now covers the full correction chain.
+
+## Previous increment: compact endpoint bootstrap and common parameter bounds (2026-09-23)
 
 `KadiriEndpointRows` specializes the existing elementary grid bootstrap to
 one cell covering the entire scale interval. Each row needs two exact

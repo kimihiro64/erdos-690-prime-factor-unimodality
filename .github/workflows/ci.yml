@@ -1006,11 +1006,29 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriR6Parameters
           lake env lean test/lean/KadiriR6Parameters.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriR6Gamma
+          lake env lean test/lean/KadiriR6Gamma.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriR6Tail
+          lake env lean test/lean/KadiriR6Tail.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriR6Polynomial
+          lake env lean test/lean/KadiriR6Polynomial.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriR6Correction
+          lake env lean test/lean/KadiriR6Correction.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriR6Transform
+          lake env lean test/lean/KadiriR6Transform.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriR6Bootstrap
           lake env lean test/lean/KadiriR6Bootstrap.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartSquaredBootstrap
           lake env lean test/lean/DusartSquaredBootstrap.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriR6FourPoints
+          lake env lean test/lean/KadiriR6FourPoints.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
