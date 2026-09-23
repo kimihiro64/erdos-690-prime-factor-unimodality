@@ -5,6 +5,33 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
+## Latest analytic increment: Rosser weighted windows (2026-09-23)
+
+The damped-power calculus and actual finite weighted-counting step now
+compile. `XiWeightedCountingBounds` and `XiWeightedCountingPeak` reuse the
+proved count/Abel layer, retaining signed endpoint errors and cancelling
+the common turning-point discrepancy. `XiRosserWindow` clamps the maximum
+to the window and proves the bound for arbitrary `a>=0`, `q>0`, and
+`10<=u<=v`. Multiplicities and zeros at the split are preserved; equal
+endpoints give an exactly zero bound.
+
+`DusartBoxRosserWindow` connects this bound to actual positive-ordinate
+box atoms, retaining their full `m+4` inverse-height power. Its arbitrary
+positive `R` interface is conditional on the corresponding region. The
+initial `R=56` consumer derives that hypothesis from the existing theorem.
+The new candidates are exported and documented; CI checks them before
+their consumers in serial steps. Six modules, twenty-seven examples and
+twenty-six standard-axiom closures were verified.
+
+Next: pass the weighted estimate to the improper high tail using the
+existing convergence/Abel infrastructure, and prove usable uniform integral
+and scalar bounds. The current envelope is `log(t)+17`, not the sharper
+coefficients in HDR Lemma 47. Optimized region parameters, sufficient
+low-height information, the uniform fixed-cutoff numerical budget and the
+three final Dusart providers are still required. Do not redo the existing
+counting, initial bounded gap, or explicit-formula infrastructure, and do
+not treat this finite-window result as the completed all-`k` proof.
+
 ## Current override: analytic replacement (2026-09-22)
 
 The subsequent prime-prefix refactor also removes `RecordPrimeWitnesses`

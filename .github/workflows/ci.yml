@@ -771,6 +771,21 @@ jobs:
           lake env lean test/lean/DusartBoxDampedBudget.lean
           lake env lean test/lean/XiInitialBoundedGap.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Pow.LogDamped
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Pow.LogDampedShape
+          lake env lean test/lean/LogDampedPower.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiWeightedCountingBounds
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiWeightedCountingPeak
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiRosserWindow
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxRosserWindow
+          lake env lean test/lean/XiRosserWindow.lean
+          lake env lean test/lean/DusartBoxRosserWindow.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

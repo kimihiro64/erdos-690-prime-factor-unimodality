@@ -1,5 +1,35 @@
 # Reuse audit for the Dusart zero-sum layer
 
+## Newest follow-up: Rosser weighted windows (2026-09-23)
+
+`XiWeightedCountingBounds` directly reuses the exact actual-xi Abel identity
+and the proved `log(t)+17` error envelope. Integration by parts retains
+the envelope derivative `1/t` and signed endpoint discrepancies. Joining
+the two monotonicity branches cancels the discrepancy at the turning
+point, leaving twice the envelope times the peak, not four times it.
+
+The Mathlib-only `Pow/LogDamped` and `Pow/LogDampedShape` candidates prove
+the derivative, square-root upper bound, continuity and turning-point signs
+of `exp(-q*log(t)-a/log(t))`. `XiRosserWindow` applies these to the actual
+multiplicity-counted zeros, handling maxima before, inside and after the
+window. Equal endpoints have exactly zero cost. This follows the argument
+of Dusart HDR section 2.4, Lemma 47, but explicitly uses our proved counting
+envelope, not the paper's stronger numerical coefficients.
+
+`DusartBoxRosserWindow` connects the result to actual positive-ordinate
+box spectral sums, retaining the full inverse-height exponent `m+4`.
+The general theorem keeps the region constant `R` arbitrary and its region
+hypothesis explicit. The constant-`56` specialization uses the existing
+proved region and requires no zero-location premise. No new sibling import,
+RH-dependent mass evaluation, or zero enumeration is introduced.
+
+All six modules and twenty-seven regression examples compile. All twenty-six
+exported theorem closures contain only `propext`, `Classical.choice`, and
+`Quot.sound`. The improper weighted integral and sharper scalar estimates,
+optimized region and sufficient low-height information, finite prime prefix,
+and three final providers remain unfinished. This finite-window step is not
+yet the complete Rosser high-tail bound or the final Dusart theorem.
+
 ## Newest follow-up: the initial low strip is now proved (2026-09-23)
 
 The unconditional real reciprocal mass already available in
