@@ -4,6 +4,18 @@ import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Pow.LogDampedSha
 
 open Real Set
 
+example {a b q t : ℝ} (hab : a ≤ b) (ht : 1 < t) :
+    logDampedPower b q t ≤ logDampedPower a q t :=
+  logDampedPower_antitone_parameter hab ht
+
+example {b q t : ℝ} (hb : 0 ≤ b) (ht : 1 < t) :
+    logDampedPower b q t ≤ logDampedPower 0 q t :=
+  logDampedPower_antitone_parameter hb ht
+
+example {a q t : ℝ} (ht : 1 < t) :
+    logDampedPower a q t ≤ logDampedPower a q t :=
+  logDampedPower_antitone_parameter le_rfl ht
+
 example (t : ℝ) : logDampedPower 0 0 t = 1 := by simp [logDampedPower]
 
 example {q t : ℝ} (ht : 0 < t) : logDampedPower 0 q t = t ^ (-q) := by

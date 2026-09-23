@@ -876,6 +876,15 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxRosserTheta
           lake env lean test/lean/DusartBoxRosserTheta.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxRosserFrozenTail
+          lake env lean test/lean/DusartBoxRosserFrozenTail.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxRosserFrozenAverage
+          lake env lean test/lean/DusartBoxRosserFrozenAverage.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxRosserFrozenPointwise
+          lake env lean test/lean/DusartBoxRosserFrozenPointwise.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

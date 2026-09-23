@@ -47,6 +47,15 @@ theorem hasDerivAt_logDampedPower {a q t : ℝ} (ht : 1 < t) :
   field_simp
   ring
 
+/-- Increasing the damping parameter decreases the kernel at every height above one. -/
+theorem logDampedPower_antitone_parameter {a b q t : ℝ} (hab : a ≤ b) (ht : 1 < t) :
+    logDampedPower b q t ≤ logDampedPower a q t := by
+  unfold logDampedPower
+  apply Real.exp_le_exp.mpr
+  have hd := div_le_div_of_nonneg_right hab (Real.log_pos ht).le
+  linarith only [hd]
+
+
 /-- An arithmetic-geometric mean bound controls the kernel uniformly above one. -/
 theorem logDampedPower_le_exp_sqrt {a q t : ℝ} (ha : 0 ≤ a) (hq : 0 ≤ q) (ht : 1 < t) :
     logDampedPower a q t ≤ exp (-2 * sqrt (a * q)) := by

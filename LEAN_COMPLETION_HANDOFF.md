@@ -5,7 +5,45 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: complete cutoff selection and direct theta margins (2026-09-23)
+## Latest analytic increment: a proved uniform endpoint estimate (2026-09-23)
+
+`DusartBoxRosserFrozenPointwise.abs_psi_sub_div_le_frozen` now proves
+the actual relative psi bound for every `x >= x₀` from a budget evaluated
+only at the two starting points. The relative step is fixed along the ray;
+the left average uses `s/(1-(m+3)*s)`. The smoothing loss is unchanged.
+The turning-point hypothesis is checked only at `x₀`, not at every
+larger point. This is the uniformity needed for relative-error table rows,
+not a new assumption of uniform scalar control.
+
+The proof uses damping-parameter antitonicity in the scalar kernel and the
+actual summable two-sided zero tail. `DusartBoxRosserFrozenAverage`
+proves the low-zero and normalized correction terms decrease.
+`DusartBoxRosserFrozenTail` supplies the fixed high-tail bound.
+The shared actual-tail estimate is factored out of the previous Rosser
+proof, preserving that API. No zero-counting or multiplicity proof is
+repeated.
+
+With no intermediate band, these new theorems need only `10 <= a < H`,
+not the old auxiliary `H >= 10^9` restriction. They still require actual
+low-zero and high-region information. This does not claim those inputs
+or a usable numerical value of the endpoint budget have been proved.
+The three final providers remain unfinished.
+
+All three new modules, the modified scalar candidate and refactored
+consumers compile. The affected regressions include zero damping,
+equal parameters, the starting point itself and the smallest box order.
+Nineteen audited theorem closures use only the three standard axioms.
+
+Next quantitative issue: the low block currently charges reciprocal-norm
+mass all the way to the low-region verification height. The higher-order
+height estimate is already available for these same zeros, with their
+strong low-height gap. Split that block at an adjustable inner height,
+use the existing reciprocal-norm bound below it, and retain higher-order
+height decay above it. Reuse the actual band partition and full-tail
+majorant; do not replace the strong gap on that band by the weaker initial
+region. Numerical bounds and the finite prime prefix remain to be proved.
+
+## Previous analytic increment: complete cutoff selection and direct theta margins (2026-09-23)
 
 `DusartBoxRosserFixedRelative` normalizes the fixed-height estimate.
 `LogDampedSharpTail` proves that either this branch's turning point is

@@ -1,6 +1,28 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: complete cutoff cover and refreshed sibling boundary (2026-09-23)
+## Newest follow-up: uniform endpoint estimates (2026-09-23)
+
+The normalized actual psi estimate now holds throughout the ray above
+its starting point with a single evaluated endpoint budget. This reuses
+the existing BV-derived complex-power decay, actual multiplicity-counted
+zero sums, and complete Rosser tail. Increasing damping decreases each
+kernel atom and hence the convergent tail. Low-zero and normalized
+correction terms also decrease. No new sibling import or zero-counting
+argument is needed.
+
+The high-tail norm estimate is factored out before the turning-point
+condition is introduced. Its scalar majorant is then evaluated once at
+the starting point. The old Rosser API remains unchanged. The two adjacent
+averages retain different normalizations, and the conclusion includes
+every point on the ray, including prime-power jumps.
+
+The three new modules compile and nineteen exported closures have only
+the standard three axioms. This proves the uniformity of an endpoint
+estimate, not its final numerical value. Low-height verification, a
+suitable quantitative region, scalar bounds and finite prime estimates
+remain open. The sibling refresh below remains current.
+
+## Previous follow-up: complete cutoff cover and refreshed sibling boundary (2026-09-23)
 
 The fixed and growing estimates now cover every positive root parameter.
 The actual averages select their branches independently and retain the

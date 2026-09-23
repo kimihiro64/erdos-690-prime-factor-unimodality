@@ -32,6 +32,16 @@ def xiRosserAbsoluteTail (a q u : ℝ) : ℝ :=
   ∑' p : {p : RiemannXiDivisorZeroIndex // u ≤ |(riemannXiDivisorZeroValue p).im|},
     logDampedPower a q |(riemannXiDivisorZeroValue p.1).im|
 
+/-- A fixed closed tail decreases when its damping parameter increases. -/
+theorem xiRosserAbsoluteTail_antitone_parameter {a b q u : ℝ}
+    (ha : 0 ≤ a) (hab : a ≤ b) (hq : 2 ≤ q) (hu : 1 < u) :
+    xiRosserAbsoluteTail b q u ≤ xiRosserAbsoluteTail a q u := by
+  apply (summable_xi_abs_logDampedPower (ha.trans hab) hq hu (fun _ hp => hp)).tsum_le_tsum
+    _ (summable_xi_abs_logDampedPower ha hq hu (fun _ hp => hp))
+  intro p
+  exact logDampedPower_antitone_parameter hab (hu.trans_le p.2)
+
+
 /-- Conjugation pairs the whole closed tail, not just distinct zero heights. -/
 theorem xiRosserAbsoluteTail_eq_twice_positive {a q u : ℝ}
     (ha : 0 ≤ a) (hq : 2 ≤ q) (hu : 1 < u) :

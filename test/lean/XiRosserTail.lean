@@ -72,4 +72,12 @@ example {u : ℝ} (hu : 1 < u) :
       logDampedPower 0 2 |(riemannXiDivisorZeroValue p.1).im|) :=
   summable_xi_abs_logDampedPower le_rfl le_rfl hu (fun _ hp => hp)
 
+example {a b q u : ℝ} (ha : 0 ≤ a) (hab : a ≤ b) (hq : 2 ≤ q) (hu : 1 < u) :
+    xiRosserAbsoluteTail b q u ≤ xiRosserAbsoluteTail a q u :=
+  xiRosserAbsoluteTail_antitone_parameter ha hab hq hu
+
+example {b q u : ℝ} (hb : 0 ≤ b) (hq : 2 ≤ q) (hu : 1 < u) :
+    xiRosserAbsoluteTail b q u ≤ xiRosserAbsoluteTail 0 q u :=
+  xiRosserAbsoluteTail_antitone_parameter le_rfl hb hq hu
+
 end PrimeFactorUnimodality.Tests
