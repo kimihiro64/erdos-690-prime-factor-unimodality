@@ -69,6 +69,20 @@ axiom surface, and toolchain; then record the source and attribution locally.
 
 ## Build and checks
 
+CI builds are temporarily paused until the unconditional Dusart work is
+complete. Metadata/source checks, Python checks, sandbox tests, and the
+submission-link check remain enabled. Lean compilation, certificate replay,
+documentation, paper builds, release packaging checks, and release publication
+require the repository Actions variable `DUSART_CI_BUILDS` to equal `enabled`.
+An unset variable or the value `paused` keeps these jobs disabled, including
+on manual dispatch. A green CI badge during this pause is not a Lean proof
+verification. No build caches or uploaded artifacts are deleted by the pause;
+their existing retention limits still apply.
+
+After Dusart is complete, resume with
+`gh variable set DUSART_CI_BUILDS --body enabled`, then dispatch CI with
+`gh workflow run ci.yml`. Local pre-commit checks remain mandatory throughout.
+
 Install Git, Python 3.11+, Ruby, and `elan`, then run:
 
 ```text

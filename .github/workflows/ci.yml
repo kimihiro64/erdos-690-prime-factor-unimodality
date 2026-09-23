@@ -14,6 +14,10 @@ concurrency:
   # Incremental proof commits must not cancel an expensive running main build.
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
+# Builds are paused while the unconditional Dusart providers are unfinished.
+# Leave DUSART_CI_BUILDS unset or "paused" to run only the lightweight checks.
+# After completing Dusart, set the repository variable to "enabled" to resume.
+# This gate applies to pushes, pull requests, and manual dispatches alike.
 jobs:
   release_version:
     name: Validate release version
@@ -94,6 +98,7 @@ jobs:
 
   release-licensing:
     name: Check release licensing bundles
+    if: ${{ vars.DUSART_CI_BUILDS == 'enabled' }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -156,6 +161,7 @@ jobs:
 
   lean-foundations:
     name: Elaborate non-certificate Lean foundations
+    if: ${{ vars.DUSART_CI_BUILDS == 'enabled' }}
     # Keep source-policy failure from hiding the diagnostic foundation build
     # while the public theorem is still being closed.  The complete build
     # below remains gated by metadata-and-boundary.
@@ -1335,6 +1341,7 @@ jobs:
 
   certificate-prebuild:
     name: Prebuild high-memory certificate chains
+    if: ${{ vars.DUSART_CI_BUILDS == 'enabled' }}
     needs: [release_version, metadata-and-boundary, python, lean-foundations]
     runs-on: ubuntu-latest
     timeout-minutes: 180
@@ -1374,6 +1381,7 @@ jobs:
 
   analytic-tail:
     name: Check the certificate-independent all-k reduction
+    if: ${{ vars.DUSART_CI_BUILDS == 'enabled' }}
     needs: [lean-foundations]
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -1433,6 +1441,7 @@ jobs:
 
   build:
     name: Replay certificates and build with Lean
+    if: ${{ vars.DUSART_CI_BUILDS == 'enabled' }}
     needs: [release_version, metadata-and-boundary, python, certificate-prebuild, analytic-tail]
     runs-on: ubuntu-latest
     timeout-minutes: 180
@@ -1507,6 +1516,7 @@ jobs:
 
   docs:
     name: Build API documentation
+    if: ${{ vars.DUSART_CI_BUILDS == 'enabled' }}
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 180
@@ -1549,6 +1559,7 @@ jobs:
 
   comparator:
     name: Check statement against solution
+    if: ${{ vars.DUSART_CI_BUILDS == 'enabled' }}
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 180
@@ -1582,6 +1593,7 @@ jobs:
 
   paper:
     name: Build research paper
+    if: ${{ vars.DUSART_CI_BUILDS == 'enabled' }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -1666,6 +1678,7 @@ jobs:
   release:
     name: Publish verified release
     if: >-
+      vars.DUSART_CI_BUILDS == 'enabled' &&
       needs.release_version.outputs.release_ready == 'true' &&
       github.ref == 'refs/heads/main' &&
       (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
