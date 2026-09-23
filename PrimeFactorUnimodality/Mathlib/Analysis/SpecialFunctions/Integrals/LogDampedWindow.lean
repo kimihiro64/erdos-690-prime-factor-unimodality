@@ -23,6 +23,14 @@ open MeasureTheory Set
 def logDampedWindowPrimitive (a b t : ℝ) : ℝ :=
   exp (-a / log t) * (log t ^ 2 / a) * (log t - log b)
 
+/-- The upper primitive is nonnegative above its logarithmic scale. -/
+theorem logDampedWindowPrimitive_nonneg {a b t : ℝ}
+    (ha : 0 < a) (hb : 0 < b) (hbt : b ≤ t) :
+    0 ≤ logDampedWindowPrimitive a b t := by
+  have hl : 0 ≤ log t - log b := sub_nonneg.mpr (log_le_log hb hbt)
+  unfold logDampedWindowPrimitive
+  positivity
+
 /-- The upper primitive's derivative is the density plus an explicit correction. -/
 theorem hasDerivAt_logDampedWindowPrimitive {a b t : ℝ}
     (ha : 0 < a) (hb : 0 < b) (ht : 1 < t) :

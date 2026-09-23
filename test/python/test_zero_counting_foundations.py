@@ -543,6 +543,29 @@ def test_rosser_increasing_band_ci_build_order() -> None:
         assert positions[-1] < foundations.index(f"lake env lean test/lean/{test}.lean")
 
 
+def test_rosser_nu_parameter_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    prefix = "PrimeFactorUnimodality.Helpers.Analytic"
+    candidate = "PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals"
+    modules = (
+        f"{candidate}.LogDampedParameter",
+        f"{prefix}.XiRosserNuTail",
+        f"{prefix}.XiRosserNuWindow",
+        f"{prefix}.DusartBoxRosserNuBudget",
+    )
+    positions = [foundations.index(f"lake build \\\n            +{module}\n") for module in modules]
+    assert positions == sorted(positions)
+    assert (
+        foundations.index("lake env lean test/lean/DusartBoxRosserBandBudget.lean") < positions[0]
+    )
+    candidate_test = foundations.index("lake env lean test/lean/LogDampedParameter.lean")
+    assert positions[0] < candidate_test < positions[1]
+    for test in ("XiRosserNuBounds", "DusartBoxRosserNuBudget"):
+        assert positions[-1] < foundations.index(f"lake env lean test/lean/{test}.lean")
+
+
 def test_main_ci_preserves_running_proof_build() -> None:
     root = Path(__file__).resolve().parents[2]
     workflow = (root / ".github/workflows/ci.yml").read_text()

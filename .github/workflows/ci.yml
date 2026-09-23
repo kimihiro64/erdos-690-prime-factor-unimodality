@@ -832,6 +832,17 @@ jobs:
           lake env lean test/lean/XiRosserIncreasingBand.lean
           lake env lean test/lean/DusartBoxRosserBandBudget.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogDampedParameter
+          lake env lean test/lean/LogDampedParameter.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiRosserNuTail
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiRosserNuWindow
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxRosserNuBudget
+          lake env lean test/lean/XiRosserNuBounds.lean
+          lake env lean test/lean/DusartBoxRosserNuBudget.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

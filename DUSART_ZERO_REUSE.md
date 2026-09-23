@@ -1,6 +1,32 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: increasing-window endpoint estimate (2026-09-23)
+## Newest follow-up: exponential cutoff parameters (2026-09-23)
+
+The existing kernel, finite window and complete tail are reused unchanged.
+The Mathlib-only parameter candidate now chooses the integrable exponent
+`p=q-1/nu^2`, proves its exact domain and turning conditions, and evaluates
+the selected coefficient and complete integral majorant at `exp(nu*X)`.
+It includes the exponential splitting identity of HDR equation (2.24).
+No zero-counting, conjugation or improper-Abel infrastructure is rebuilt.
+
+`XiRosserNuWindow` reuses the upper-primitive estimate to obtain the
+Lemma-48-style expression with our proved counting envelope.
+`XiRosserNuTail` retains the actual whole tail and all cutoff labels.
+`DusartBoxRosserNuBudget` discharges the parameter choices in the actual
+averaged and pointwise psi estimates. The two adjacent averages can use
+different cutoffs at the same `nu`, with coverage transferred monotonically.
+
+There is no new sibling dependency or weakened hypothesis. Strong enough
+low-height information, optimized region parameters, the final uniform
+scalar inequality, finite prime prefix and final providers remain open.
+In particular the present power-majorant coefficient is not identified
+with the sharper incomplete-Bessel estimate in HDR Lemma 49.
+
+Four new modules, the adapted candidate and facade, twenty-seven new
+examples and twenty-three preserved examples compile. All twenty-eight
+audited theorem closures have only the three standard axioms.
+
+## Previous follow-up: increasing-window endpoint estimate (2026-09-23)
 
 Dusart HDR section 2.4, Lemma 48 uses a finite exponent-one density. Its
 upper bound now follows directly from an elementary upper primitive,

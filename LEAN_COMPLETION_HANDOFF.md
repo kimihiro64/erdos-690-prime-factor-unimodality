@@ -5,7 +5,42 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: increasing finite Rosser band (2026-09-23)
+## Latest analytic increment: chosen Rosser exponent and cutoff (2026-09-23)
+
+`LogDampedParameter` proves the exact cutoff feasibility criterion and
+chooses `p=q-1/nu^2` under `(q-1)*nu^2>1`. At `T=exp(nu*X)` the selected
+coefficient is exactly `exp(-2*X/nu)`. It also proves the original kernel's
+decreasing-tail condition, the full integral-factor simplification, and
+the exponential identity in Dusart HDR equation (2.24).
+
+`XiRosserNuTail` bounds the actual complete tail with no auxiliary exponent
+or turning-height input. `XiRosserNuWindow` gives the Lemma-48-style
+exponential finite-window bound, using the already proved counting
+envelope. Its endpoint simplification does not assume an exact low count
+or RH. The proof keeps the strict positivity and parameter-domain
+conditions explicit; equality at the integrability margin is excluded.
+
+`DusartBoxRosserNuBudget` supplies actual averaged and pointwise psi
+estimates with `X=sqrt(log(x)/R)`. The conditions `0<nu<=1` and
+`(m+3)*nu^2>1` discharge both turning conditions and the exponent domain.
+Each adjacent average uses its own automatically chosen cutoff, so only
+the lower average's height-coverage condition is required. The low-height
+gap and region above that prefix remain explicit inputs, not assumed
+numerical theorems disguised as completed providers.
+
+All four new modules, the adapted window candidate, and the candidate
+facade compile. Twenty-seven new examples and all twenty-three previous
+finite-band examples pass. The twenty-eight audited exported closures
+use only the three standard axioms. CI includes serial builds and a
+regression checking candidate-before-consumer ordering.
+
+This leaves the actual uniform scalar inequalities, sufficiently strong
+low-height information, optimized region, finite prime prefix and three
+final Dusart providers unfinished. The current power-integral majorant
+is valid but is not a claim to have formalized the sharper incomplete-
+Bessel coefficient in HDR Lemma 49 or established the final constants.
+
+## Previous analytic increment: increasing finite Rosser band (2026-09-23)
 
 The finite exponent-one kernel now has the endpoint bound used in Dusart
 HDR section 2.4, Lemma 48. `LogDampedWindow` differentiates an elementary
