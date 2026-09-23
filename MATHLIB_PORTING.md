@@ -40,6 +40,10 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.GroupedEvaluation` | `Mathlib/NumberTheory/LSeries/GroupedEvaluation.lean` | project-verified | Exact cpow height-shift factorization and complete grouped/rounded finite Dirichlet-sum errors. |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.GroupedRounding` | `Mathlib/Analysis/SpecialFunctions/Complex/GroupedRounding.lean` | project-verified | Independent complex phase and shared-moment errors, including the complete Taylor remainder. |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.GroupedExponential` | `Mathlib/Analysis/SpecialFunctions/Complex/GroupedExponential.lean` | project-verified | Finset fiber sums, shared Taylor moments and nearest-integer residual bounds. |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.ExponentialMoments` | `Mathlib/Analysis/SpecialFunctions/Complex/ExponentialMoments.lean` | project-verified | Reuses Mathlib exponential remainder, finite-sum interchange and norm comparison for shared moments and rounded coefficients. |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.BernoulliPeriodic.ExplicitBound` | `Mathlib/NumberTheory/BernoulliPeriodic/ExplicitBound.lean` | project-verified | Explicit rational coefficient-sum majorant replaces the existential compactness bound for complete power tails |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory` | `Mathlib/NumberTheory.lean` | project-verified | Facade for number-theoretic candidates |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.BernoulliPeriodic` | `Mathlib/NumberTheory/BernoulliPeriodic.lean` | project-verified | Facade for complete periodic Bernoulli power tails |

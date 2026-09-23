@@ -1,5 +1,44 @@
 # Reuse audit for the Dusart zero-sum layer
 
+## Newest follow-up: shared frequency-group evaluations (2026-09-23)
+
+The actual zeta evaluator now separates a block's long positive Dirichlet
+prefix into reusable moments of grouped logarithmic frequencies. Mathlib's
+finite fiber sums, exponential Taylor remainder and complex-power identities
+give the exact regrouping and complete error. The four general candidates
+live entirely in the Mathlib candidate layer; the actual zeta and xi consumers
+reuse the existing Euler expansion, WIP Bernoulli tails, normalized xi phase
+and sign-row verifier. No zero indexing or counting foundation is rebuilt.
+
+Each block supplies explicit integer bins and checked moment enclosures.
+Every sample in its normalized unit window reuses those coefficients and
+supplies only group phases and the short Euler correction. The residual
+frequencies have magnitude at most one half, giving the uniform truncation
+bound `N * (1/2)^degree * exp(1/2)`. Every stored-moment error, phase error,
+short-correction error and the complete Euler remainder remains in the
+actual zeta bound. Separated real xi intervals feed `XiSignRow.Valid` in
+either sign orientation. Nearest-integer bins are only a convenience
+specialization; the actual consumer does not require evaluating an exact
+floor of a transcendental logarithm.
+
+These are analytic approximation and sign implications, not computed finite
+zero verification. No moment data, actual sign samples or completeness
+margin is supplied by this increment. It is not yet a fast Fourier evaluator
+or a high-height runtime result: building and checking shared coefficients
+and efficiently evaluating a whole grid remain implementation obligations.
+The previous billion-height middle/far-ray requirements are unchanged.
+
+All seven new proof modules and the five affected candidate facades compile.
+The 69 examples across twelve new/preserved regression files pass, including
+empty sums, degree zero, nearest-integer ties, a negative window endpoint,
+zero-cutoff rejection, an explicit valid unit block and the actual sign-row
+and reduced Dusart consumers. All 25 audited public theorem closures use
+only `propext`, `Classical.choice` and `Quot.sound`. CI builds each new
+candidate and consumer sequentially with its regression test.
+Fast source/architecture checks, Ruff formatting and lint, mypy, all 152
+Python tests, Ruby metadata checks and workflow validation pass. No finite
+certificate generation or replay was run.
+
 ## Newest follow-up: height-uniform R6 admissibility and common chain (2026-09-23)
 
 The existing R6 row and correction proofs now apply at every real cutoff

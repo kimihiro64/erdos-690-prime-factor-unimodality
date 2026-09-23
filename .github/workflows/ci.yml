@@ -1242,6 +1242,27 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.XiEulerEvaluation
           lake env lean test/lean/XiEulerEvaluation.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.ExponentialMoments
+          lake env lean test/lean/ExponentialMoments.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.GroupedExponential
+          lake env lean test/lean/GroupedExponential.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.GroupedRounding
+          lake env lean test/lean/GroupedRounding.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.GroupedEvaluation
+          lake env lean test/lean/GroupedDirichlet.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaGroupedData
+          lake env lean test/lean/ZetaGroupedData.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaGroupedEvaluation
+          lake env lean test/lean/ZetaGroupedEvaluation.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiGroupedEvaluation
+          lake env lean test/lean/XiGroupedEvaluation.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ThetaSquaredCheckpoints
           lake env lean test/lean/ThetaSquaredCheckpoints.lean
           /usr/bin/time -v lake build \

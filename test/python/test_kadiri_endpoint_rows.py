@@ -58,6 +58,9 @@ MODULES = (
     "ZetaEulerTail",
     "ZetaEulerApproximation",
     "XiEulerEvaluation",
+    "ZetaGroupedData",
+    "ZetaGroupedEvaluation",
+    "XiGroupedEvaluation",
     "ThetaSquaredCheckpoints",
     "ThetaSquaredChain",
     "DusartCheckpointAnchors",
@@ -287,6 +290,9 @@ def test_xi_evaluator_does_not_assume_a_zero_or_rh() -> None:
         "ZetaEulerTail",
         "ZetaEulerApproximation",
         "XiEulerEvaluation",
+        "ZetaGroupedData",
+        "ZetaGroupedEvaluation",
+        "XiGroupedEvaluation",
     ):
         path = ROOT.joinpath(*(ANALYTIC + module).split(".")).with_suffix(".lean")
         source = strip_lean_comments(path.read_text())
@@ -298,6 +304,33 @@ def test_xi_evaluator_does_not_assume_a_zero_or_rh() -> None:
     assert "riemannZeta_sub_eulerApproxOrder" in source
     assert "zetaEulerTail_recursion" in source
     assert "norm_zetaEulerTail_le" in source
+
+
+def test_grouped_evaluator_is_checked_before_its_actual_sign_consumer() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    previous = workflow.index("lake env lean test/lean/XiEulerEvaluation.lean")
+    for module, regression in (
+        ("Analysis.SpecialFunctions.Complex.ExponentialMoments", "ExponentialMoments"),
+        ("Analysis.SpecialFunctions.Complex.GroupedExponential", "GroupedExponential"),
+        ("Analysis.SpecialFunctions.Complex.GroupedRounding", "GroupedRounding"),
+        ("NumberTheory.LSeries.GroupedEvaluation", "GroupedDirichlet"),
+    ):
+        build = workflow.index(f"+PrimeFactorUnimodality.Mathlib.{module}\n")
+        test = workflow.index(f"lake env lean test/lean/{regression}.lean")
+        assert previous < build < test
+        previous = test
+    for module in ("ZetaGroupedData", "ZetaGroupedEvaluation", "XiGroupedEvaluation"):
+        build = workflow.index(f"+{ANALYTIC}{module}\n")
+        test = workflow.index(f"lake env lean test/lean/{module}.lean")
+        assert previous < build < test
+        previous = test
+    root = ROOT / "PrimeFactorUnimodality/Helpers/Analytic"
+    bound = strip_lean_comments((root / "ZetaGroupedEvaluation.lean").read_text())
+    assert "norm_dirichlet_sum_sub_rounded_with_centers_le" in bound
+    assert "norm_riemannZeta_sub_eulerApproxOrder_le" in bound
+    signs = strip_lean_comments((root / "XiGroupedEvaluation.lean").read_text())
+    assert "XiSignRow.valid_of_grouped_endpoints" in signs
+    assert "hp.norm_zeta_sub_value_le hd" in signs
 
 
 def test_theta_checkpoint_consumers_derive_band_and_anchor_obligations() -> None:
