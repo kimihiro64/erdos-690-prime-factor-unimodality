@@ -1,6 +1,34 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: evaluated endpoint and critical-strip high tail (2026-09-23)
+## Newest follow-up: decreasing error and both published theta margins (2026-09-23)
+
+The polynomial damping candidate applies Mathlib's existing
+`Real.pow_div_factorial_le_exp` twice, at arbitrary natural order. Its
+actual-tail consumers reuse the multiplicity-counted summability and
+zero-damping power-tail bound, including both signs and every cutoff label.
+The actual high-zero region is supplied by the already proved
+`xi_zero_gap_initial`, with constant `56`; no sharper region is assumed.
+
+The low block uses the existing exact real reciprocal mass and finite
+window expression. Evaluated billion-height bounds and elementary Taylor
+inequalities supply all scalar constants for the actual psi averages and
+the pointwise reciprocal-logarithmic error. The existing elementary
+prime-power correction then gives the published theta lower margin.
+Together with the previous constant upper endpoint, both theta margins
+hold on the entire ray above `1441000000000`.
+
+The low-height critical-line verification remains an explicit, unproved
+input. The global theta assembler additionally needs its finite theta
+prefix. No RH-dependent sibling mass evaluation, new zero enumeration,
+or replacement axiom is introduced. Prime-counting and short-interval
+providers remain unfinished. The existing sibling reuse boundary is
+unchanged; these proofs do not reconstruct the zero infrastructure.
+
+The seven new modules and both affected candidate facades compile.
+All 50 regression examples pass, and all 21 audited theorem closures
+contain only the three standard logical axioms.
+
+## Previous follow-up: evaluated endpoint and critical-strip high tail (2026-09-23)
 
 The full power-tail estimate now specializes the existing BV-derived atom
 to gap zero, using the actual proved critical strip. It reuses the existing

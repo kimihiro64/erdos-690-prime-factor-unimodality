@@ -12,6 +12,7 @@ import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.AffineRatio
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.Deriv
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.PiBounds
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Pow.IteratedPrimitive
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Pow.LogDampedPolynomial
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Trigonometric.Autocorrelation
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Trigonometric.ZeroCount
 

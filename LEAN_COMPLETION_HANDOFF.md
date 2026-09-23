@@ -5,7 +5,53 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: explicit upper endpoint constants (2026-09-23)
+## Latest analytic increment: both theta margins on the analytic ray (2026-09-23)
+
+`DusartLogarithmicTheta.dusartTheta_margins_of_billion_low_gap` now proves
+both exact published theta margins at every real `x >= 1441000000000`.
+There is no remaining scalar inequality or quantitative high-region input
+in that theorem. The critical-line condition for actual xi zeros below
+absolute height `10^9` remains explicit and UNPROVED.
+
+The new Mathlib-only `LogDampedPolynomial` candidate applies Mathlib's
+exponential Taylor bound twice. For every natural `n`, the kernel is at
+most `(n!)^2/a^n` times the zero-damping kernel with one less height power.
+`XiRosserPolynomialTail` and `DusartBoxPolynomialTail` apply this to the
+complete multiplicity-counted actual tail, including both signs and the
+cutoff. These reuse the existing summability, counting and gap proofs.
+
+At order three with `n=4`, the proved region constant `56` suffices.
+The billion-height low mass is at most `70`, and the power-three tail is
+at most `4/10^18`. For `b=log(x)>=50` and
+`1/(60*b)<=s<=1/(20*b)`, the low block, high tail and correction are at
+most `0.24/b`, `0.06/b` and `0.16/b`. Their sum is below `1/(2*b)`.
+The actual average theorem is `abs_dusartPsiAverageError_div_le_logarithmic`.
+
+Choosing `s=1/(50*log(x))` and retaining the lower average's true base
+point proves `abs_psi_sub_div_le_logarithmic_of_billion_low_gap` with
+coefficient `1.03` for `log(x)>=100`. The root correction costs at most
+`0.01/log(x)`, leaving a strict margin below `1.2323/log(x)`. Between the
+original endpoint and logarithmic height one hundred, the previous constant
+psi estimate supplies the lower bound. That same constant estimate gives
+the upper theta margin on the entire ray.
+
+`hasDusartThetaBounds_of_finite_and_billion_low_gap` assembles the global
+theta provider from exactly two outstanding inputs: the finite theta
+prefix through `1441000000000` and finite critical-line verification below
+height `10^9`. Neither is silently supplied. The required prime-counting
+and short-interval providers also remain unfinished; the new reciprocal-log
+bound must not be substituted for their stronger quantitative requirements.
+Continue non-certificate proofs before replay work. Do not repeat the sibling
+audit or rebuild the already established zero machinery.
+
+The seven new modules and candidate facades compile. CI builds their
+regressions serially in `lean-foundations`, before certificate jobs.
+All 50 examples in twelve new or preserved regression files pass. The 21
+audited exported closures contain only `propext`, `Classical.choice` and
+`Quot.sound`. The fast gate, Ruff format/lint, mypy, 138 Python tests,
+Ruby metadata tests and workflow validation pass.
+
+## Previous analytic increment: explicit upper endpoint constants (2026-09-23)
 
 `DusartPsiEndpoint` proves all scalar arithmetic needed for the published
 theta upper margin above `1441000000000`. It fixes smoothing order three,

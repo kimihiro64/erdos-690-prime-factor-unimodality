@@ -44,4 +44,16 @@ example : xiRosserPowerTailBound 4 1000000000 ≤
     (205 / 10 ^ 29 : ℝ) :=
   xiRosserPowerTailBound_four_billion_le
 
+example : xiRosserPowerTailBound 3 1000000000 ≤
+    (4 / 10 ^ 18 : ℝ) :=
+  xiRosserPowerTailBound_three_billion_le
+
+example :
+    xiReciprocalNormWindowBound 10 1000000000 ≤ (1717 / 50 : ℝ) :=
+  xiReciprocalNormWindowBound_billion_le
+
+example : xiLowReciprocalNormBound 10 1000000000 (1 / 2) ≤
+    (70 : ℝ) :=
+  xiLowReciprocalNormBound_billion_half_le
+
 end PrimeFactorUnimodality.Tests

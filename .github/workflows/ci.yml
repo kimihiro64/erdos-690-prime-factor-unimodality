@@ -913,6 +913,27 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.DusartPsiEndpoint
           lake env lean test/lean/DusartPsiEndpoint.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Pow.LogDampedPolynomial
+          lake env lean test/lean/LogDampedPolynomial.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiRosserPolynomialTail
+          lake env lean test/lean/XiRosserPolynomialTail.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartBoxPolynomialTail
+          lake env lean test/lean/DusartBoxPolynomialTail.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartLogarithmicScalars
+          lake env lean test/lean/DusartLogarithmicScalars.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartLogarithmicAverage
+          lake env lean test/lean/DusartLogarithmicAverage.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartLogarithmicPsi
+          lake env lean test/lean/DusartLogarithmicPsi.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartLogarithmicTheta
+          lake env lean test/lean/DusartLogarithmicTheta.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

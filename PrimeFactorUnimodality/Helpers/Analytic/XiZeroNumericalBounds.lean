@@ -128,6 +128,89 @@ theorem xiRosserPowerTailBound_four_billion_le : xiRosserPowerTailBound 4 100000
   exact (xiRosserPowerTailBound_four_le_log_bound
     (by norm_num) (by norm_num) hl).trans (by norm_num)
 
+/-- The cubic power tail at the outer height has a rational bound. -/
+theorem xiRosserPowerTailBound_three_billion_le : xiRosserPowerTailBound 3 1000000000 ≤
+    (4 / 10 ^ 18 : ℝ) := by
+  have he : xiRosserPowerTailBound 3 1000000000 =
+      (2 * Real.log ((1000000000 : ℝ) / (2 * π)) + 1) / (4 * π * 1000000000 ^ 2) +
+        (4 * Real.log (1000000000 : ℝ) + 206 / 3) / 1000000000 ^ 3 := by
+    unfold xiRosserPowerTailBound logDampedPowerIntegralFactor
+    rw [logDampedPower_eq_rpow_mul (by norm_num : (0 : ℝ) < 1000000000)]
+    norm_num only [show (1 - 3 : ℝ) = -2 by norm_num, neg_zero, zero_div,
+      Real.exp_zero, mul_one]
+    ring
+  have hl : Real.log (1000000000 : ℝ) ≤ 9 * (2303 / 1000 : ℝ) := by
+    rw [show (1000000000 : ℝ) = 10 ^ 9 by norm_num, Real.log_pow]
+    norm_num
+    linarith [dusart_log_ten_bounds.2]
+  have hn : 2 * Real.log ((1000000000 : ℝ) / (2 * π)) + 1 ≤ 40 := by
+    rw [Real.log_div (by norm_num) (by positivity)]
+    linarith [Real.log_two_mul_pi_gt_1837_div_1000]
+  have hfirst : (2 * Real.log ((1000000000 : ℝ) / (2 * π)) + 1) /
+      (4 * π * 1000000000 ^ 2) ≤ 40 / (4 * 3 * 1000000000 ^ 2 : ℝ) := by
+    calc
+      _ ≤ 40 / (4 * π * 1000000000 ^ 2) :=
+        div_le_div_of_nonneg_right hn (by positivity)
+      _ ≤ _ := div_le_div_of_nonneg_left (by norm_num) (by norm_num)
+        (by nlinarith [pi_gt_three])
+  have hsecond : (4 * Real.log (1000000000 : ℝ) + 206 / 3) / 1000000000 ^ 3 ≤
+      160 / (1000000000 ^ 3 : ℝ) :=
+    div_le_div_of_nonneg_right (by linarith) (by norm_num)
+  rw [he]
+  exact (add_le_add hfirst hsecond).trans (by norm_num)
+
+/-- A coarse rational bound on the full reciprocal window to the outer height. -/
+theorem xiReciprocalNormWindowBound_billion_le :
+    xiReciprocalNormWindowBound 10 1000000000 ≤ (1717 / 50 : ℝ) := by
+  let L := Real.log 10
+  let B := Real.log (2 * π)
+  have hL : (2302 / 1000 : ℝ) ≤ L := dusart_log_ten_bounds.1
+  have hL' : L ≤ (2303 / 1000 : ℝ) := dusart_log_ten_bounds.2
+  have hB : (1837 / 1000 : ℝ) ≤ B := log_two_mul_pi_gt_1837_div_1000.le
+  have hπ : (314 / 100 : ℝ) ≤ π := by linarith [pi_gt_d2]
+  have hl : Real.log (1000000000 : ℝ) = 9 * L := by
+    rw [show (1000000000 : ℝ) = 10 ^ 9 by norm_num, log_pow]
+    norm_num
+    rfl
+  have he : xiReciprocalNormWindowBound 10 1000000000 =
+      (80 * L ^ 2 - 16 * L * B + 2 * L - 2 * B - 2) / (4 * π) +
+        (L + 18) / 10 - 1 / 1000000000 := by
+    unfold xiReciprocalNormWindowBound xiReciprocalCountEnvelope xiZeroCountingMainTerm
+      xiReciprocalCountPrimitive
+    rw [log_div (by norm_num : (1000000000 : ℝ) ≠ 0) (by positivity : 2 * π ≠ 0),
+      log_div (by norm_num : (10 : ℝ) ≠ 0) (by positivity : 2 * π ≠ 0), hl]
+    dsimp [L, B]
+    ring
+  let N : ℝ := 80 * (2303 / 1000 : ℝ) ^ 2 - 16 * (2302 / 1000 : ℝ) *
+    (1837 / 1000 : ℝ) + 2 * (2303 / 1000 : ℝ) - 2 * (1837 / 1000 : ℝ) - 2
+  have hN : 80 * L ^ 2 - 16 * L * B + 2 * L - 2 * B - 2 ≤ N := by
+    have hs : L ^ 2 ≤ (2303 / 1000 : ℝ) ^ 2 := by nlinarith
+    have hp : (2302 / 1000 : ℝ) * (1837 / 1000 : ℝ) ≤ L * B :=
+      mul_le_mul hL hB (by norm_num) (by linarith)
+    dsimp [N]
+    nlinarith
+  have hfrac : (80 * L ^ 2 - 16 * L * B + 2 * L - 2 * B - 2) / (4 * π) ≤
+      N / (4 * (314 / 100 : ℝ)) := by
+    calc
+      _ ≤ N / (4 * π) := div_le_div_of_nonneg_right hN (by positivity)
+      _ ≤ _ := div_le_div_of_nonneg_left (by norm_num [N]) (by norm_num)
+        (by linarith)
+  rw [he]
+  dsimp [N] at hfrac
+  linarith
+
+/-- The low-block expression at the outer height is at most seventy. -/
+theorem xiLowReciprocalNormBound_billion_half_le : xiLowReciprocalNormBound 10 1000000000 (1 / 2) ≤
+    (70 : ℝ) := by
+  have hp : ((10 + 1) / (1 / 2) : ℝ) *
+      ((2 + eulerMascheroniConstant - Real.log (4 * π)) / 2) ≤ 66 / 100 := by
+    linarith [xiRealReciprocalMass_lt_three_hundredths]
+  have hm := (min_le_right (xiReciprocalCountEnvelope 10 / (1 / 2))
+    (((10 + 1) / (1 / 2) : ℝ) *
+      ((2 + eulerMascheroniConstant - Real.log (4 * π)) / 2))).trans hp
+  unfold xiLowReciprocalNormBound
+  linarith [xiReciprocalNormWindowBound_billion_le]
+
 end
 
 end PrimeFactorUnimodality
