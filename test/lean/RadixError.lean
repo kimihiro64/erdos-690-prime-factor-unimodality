@@ -11,6 +11,9 @@ noncomputable section
 
 open Complex Finset Fourier ZMod
 
+example {n : ℕ} {t : RadixTrace n} {w : ℂ} {a : Vector ℂ (2 ^ n)}
+    (ht : t.Valid w a) (hw : ‖w‖ = 1) : 0 ≤ t.error := ht.error_nonneg hw
+
 
 
 example {n : ℕ} {t : RadixTrace n}

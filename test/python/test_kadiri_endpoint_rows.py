@@ -574,6 +574,54 @@ def test_real_radius_moments_reuse_one_assembler_and_exact_rational_heights() ->
     assert "Real.pi" in heights
 
 
+def test_grid_sign_checks_retain_all_errors_and_reuse_shared_arrays() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    previous = workflow.index("lake env lean test/lean/IntervalMomentBlocks.lean")
+    modules = ["Mathlib.Algebra.BigOperators.Ring.Horner"] + [
+        f"Helpers.Analytic.{name}"
+        for name in (
+            "ComplexPolynomialIntervals",
+            "ComplexRotationIntervals",
+            "ZetaGridValueIntervals",
+            "EulerRemainderIntervals",
+            "ZetaGridErrorBound",
+            "RationalGridErrorBudget",
+            "CheckedZetaGridError",
+            "XiGridSignIntervals",
+            "SharedXiGridCheck",
+            "CheckedXiGridSigns",
+        )
+    ]
+    for module in modules:
+        build = workflow.index(f"+PrimeFactorUnimodality.{module}\n")
+        regression = workflow.index(f"lake env lean test/lean/{module.rsplit('.', 1)[1]}.lean")
+        assert previous < build < regression
+        previous = regression
+    root = ROOT / "PrimeFactorUnimodality/Helpers/Analytic"
+    value = strip_lean_comments((root / "ZetaGridValueIntervals.lean").read_text())
+    assert "(r.trace column).values" in value
+    assert "RationalTrace.values_semantic" in value
+    assert "mem_polynomial" in value
+    assert "Icc 1" not in value
+    remainder = strip_lean_comments((root / "EulerRemainderIntervals.lean").read_text())
+    assert "zetaEulerError_eq_scaled" in remainder
+    assert "eulerRisingStep N S k (eulerRisingInterval N S k)" in remainder
+    assert "bernoulliCoeffBound_eq_budget" in remainder
+    shared = strip_lean_comments((root / "RationalGridErrorBudget.lean").read_text())
+    assert "b.moment k j" in shared
+    assert "(r.trace j).error r.twiddles" in shared
+    assert "expHalf.hi" in shared
+    margin = strip_lean_comments((root / "XiGridSignIntervals.lean").read_text())
+    assert "s.tailCap + sharedCap + s.point.error + s.valueCap * (1 / 10 + s.phaseError)" in margin
+    assert "0 ≤ s.phaseError" in margin
+    assert "ComplexInterval.mem_rotated" in margin
+    consumer = strip_lean_comments((root / "CheckedXiGridSigns.lean").read_text())
+    assert "s.point.error_le_of_checks" in consumer
+    assert "s.margin_of_check" in consumer
+    assert "XiSignRow.valid_of_checked_grid" in consumer
+    assert "height_eq_rational" in consumer
+
+
 def test_theta_checkpoint_consumers_derive_band_and_anchor_obligations() -> None:
     source = strip_lean_comments(
         (

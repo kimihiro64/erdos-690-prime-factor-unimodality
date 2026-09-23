@@ -109,6 +109,14 @@ theorem norm_sub_le_of_close {J : ComplexInterval} {q : RationalPoint} {e : ℚ}
   · exact_mod_cast h.1
   · exact_mod_cast h.2
 
+/-- A zero-centered error test also certifies a norm cap without taking square roots. -/
+theorem norm_le_of_close_zero {J : ComplexInterval} {e : ℚ}
+    (h : close J ⟨0, 0⟩ e = true) {z : ℂ} (hz : z ∈ J) : ‖z‖ ≤ (e : ℝ) := by
+  have hb := norm_sub_le_of_close h hz
+  have hzero : (⟨0, 0⟩ : RationalPoint).toComplex = 0 := by
+    apply Complex.ext <;> simp [RationalPoint.toComplex]
+  simpa only [hzero, sub_zero] using hb
+
 end ComplexInterval
 
 end PrimeFactorUnimodality

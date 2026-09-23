@@ -1,6 +1,30 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: exact rational sign grids with real-radius moment checks (2026-09-23)
+## Newest follow-up: complete rational error checks imply actual xi signs (2026-09-23)
+
+The retained Fourier arrays now feed a short Horner enclosure, using an
+independently proved generic semiring identity. The existing analytic Euler
+tail has an exact scaled-factor form and a checked rational majorant; the
+normalized Bernoulli coefficient sum is proved equal to its executable
+finite formula. Complete recursive Fourier errors also have exact rational
+semantics. No tail, moment, rounding, correction or Gamma term is omitted.
+
+One shared check bounds all height-independent errors. Per-sample checks
+then certify the short correction, scaled Euler remainder, elementary
+phase, norm and strict sign margin. The assembler feeds the existing
+actual-xi and exact-rational sign-row theorems. It neither assumes an RH
+statement nor introduces a sign as a shared-data validity field.
+
+Twenty changed/affected modules compile, 132 Lean examples in twenty-two
+files pass, and all twenty-two audited closures use only the standard
+three logical axioms. All 163 Python tests and fast/workflow gates pass.
+
+Actual numerical rows, their coverage and the scalar Turing completeness
+margin remain to be supplied. A representative high-height feasibility
+gate remains required before any large family. Other Dusart obligations
+and the paused CI build policy are unchanged.
+
+## Previous follow-up: exact rational sign grids with real-radius moment checks (2026-09-23)
 
 The moment assembler is shared by both the preserved rational-parameter API
 and the new enclosed-real-parameter builder. Exact finite-sum and residual

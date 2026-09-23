@@ -67,6 +67,19 @@ def RationalTrace.semantic (p : RationalTwiddles) : {n : ℕ} → RationalTrace 
     (t : RationalTrace n) : (t.semantic p).values = t.values.map RationalPoint.toComplex := by
   cases t <;> simp [RationalTrace.semantic, RadixTrace.values, RationalTrace.values]
 
+/-- Complete rational error budget, retaining both children, twiddle and rounding errors. -/
+def RationalTrace.error (p : RationalTwiddles) : {n : ℕ} → RationalTrace n → ℚ
+  | 0, .leaf _ error => error
+  | n + 1, .node l r _ rounding cap => l.error p + r.error p + cap * p.error n + rounding
+
+/-- The computable budget is exactly the error of the interpreted complex trace. -/
+@[simp] theorem RationalTrace.error_semantic (p : RationalTwiddles) {n : ℕ} (t : RationalTrace n) :
+    (t.semantic p).error = (t.error p : ℝ) := by
+  induction t with
+  | leaf => rfl
+  | node l r out e cap ihl ihr =>
+    simp [RationalTrace.semantic, RadixTrace.error, RationalTrace.error, ihl, ihr]
+
 /-- Every leaf and arithmetic merge is checked with exact rational squared norms. -/
 def RationalTrace.check (p : RationalTwiddles) : {n : ℕ} → RationalTrace n →
     Vector RationalPoint (2 ^ n) → Bool

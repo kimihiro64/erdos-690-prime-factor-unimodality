@@ -41,6 +41,11 @@ def zeroTwiddles : RationalTwiddles :=
 def rationalPair : RationalTrace 1 :=
   .node (.leaf ⟨1, 0⟩ 0) (.leaf ⟨3, 0⟩ 0) #v[⟨1, 0⟩, ⟨1, 0⟩] 0 3
 example : rationalPair.check zeroTwiddles #v[⟨1, 0⟩, ⟨3, 0⟩] = true := by decide +kernel
+example : rationalPair.error zeroTwiddles = 6 := by decide +kernel
+example (p : RationalTwiddles) {n : ℕ} (t : RationalTrace n) :
+    (t.semantic p).error = (t.error p : ℝ) := RationalTrace.error_semantic p t
+example : (RationalTrace.node (.leaf ⟨0, 0⟩ 2) (.leaf ⟨0, 0⟩ 3)
+    #v[⟨0, 0⟩, ⟨0, 0⟩] 1 7).error zeroTwiddles = 20 := by decide +kernel
 example : rationalPair.check zeroTwiddles #v[⟨1, 0⟩, ⟨4, 0⟩] = false := by decide +kernel
 example : (RationalTrace.leaf ⟨0, 0⟩ (-1)).check zeroTwiddles #v[⟨0, 0⟩] = false := by decide +kernel
 example : allIndices (fun _ : Fin 0 => false) = true := by decide +kernel

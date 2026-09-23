@@ -82,6 +82,12 @@ theorem RadixTrace.Valid.norm_radixTwo_sub_le {n : ℕ} {t : RadixTrace n}
     simpa only [radixTwo, Vector.getElem_ofFn, hpower, RadixTrace.values,
       RadixTrace.error, j, add_assoc] using hall
 
+/-- The complete error of a valid unit-root transform cannot be negative. -/
+theorem RadixTrace.Valid.error_nonneg {n : ℕ} {t : RadixTrace n}
+    {w : ℂ} {a : Vector ℂ (2 ^ n)} (ht : t.Valid w a) (hw : ‖w‖ = 1) :
+    0 ≤ t.error :=
+  (norm_nonneg _).trans (ht.norm_radixTwo_sub_le hw ⟨0, by positivity⟩)
+
 /-- A checked shared trace encloses the complete mathematical Fourier sum. -/
 theorem RadixTrace.Valid.norm_sum_sub_le {n : ℕ} {t : RadixTrace n}
     {w : ℂ} {a : Vector ℂ (2 ^ n)} (ht : t.Valid w a) (hw : ‖w‖ = 1)

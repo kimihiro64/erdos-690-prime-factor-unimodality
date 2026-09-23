@@ -15,11 +15,41 @@ The integral estimate retains the whole improper tail.
 
 namespace Polynomial
 
+/-- Compute the normalized coefficient majorant without traversing polynomial support. -/
+def bernoulliCoeffBudget (k : ℕ) : ℚ :=
+  ∑ j ∈ Finset.range (k + 1),
+    |(_root_.bernoulli (k - j) * k.choose j) / (k.factorial : ℚ)|
+
 noncomputable section
 
 /-- An explicit rational majorant for the normalized periodic profile. -/
 def bernoulliCoeffBound (k : ℕ) : ℚ :=
   ∑ j ∈ (bernoulliNormalized k).support, |(bernoulliNormalized k).coeff j|
+
+/-- The computable finite formula is exactly the analytic coefficient majorant. -/
+theorem bernoulliCoeffBound_eq_budget (k : ℕ) :
+    bernoulliCoeffBound k = bernoulliCoeffBudget k := by
+  have hc (j : ℕ) : (bernoulliNormalized k).coeff j =
+      if j ≤ k then (_root_.bernoulli (k - j) * k.choose j) / (k.factorial : ℚ) else 0 := by
+    rw [bernoulliNormalized, coeff_C_mul, coeff_bernoulli]
+    split_ifs <;> simp [div_eq_mul_inv, mul_comm]
+  have hs : (bernoulliNormalized k).support ⊆ Finset.range (k + 1) := by
+    intro j hj
+    have hj' := mem_support_iff.mp hj
+    rw [hc] at hj'
+    split_ifs at hj' with h
+    · exact Finset.mem_range.mpr (by omega)
+    · exact (hj' rfl).elim
+  unfold bernoulliCoeffBound bernoulliCoeffBudget
+  calc
+    _ = ∑ j ∈ Finset.range (k + 1), |(bernoulliNormalized k).coeff j| := by
+      apply Finset.sum_subset hs
+      intro j _ hnot
+      rw [notMem_support_iff.mp hnot, abs_zero]
+    _ = _ := by
+      apply Finset.sum_congr rfl
+      intro j hj
+      rw [hc, ite_eq_left (by have := Finset.mem_range.mp hj; omega)]
 
 /-- The coefficient majorant is nonnegative at every order. -/
 theorem bernoulliCoeffBound_nonneg (k : ℕ) : 0 ≤ bernoulliCoeffBound k :=

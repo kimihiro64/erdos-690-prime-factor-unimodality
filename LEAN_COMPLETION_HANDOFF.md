@@ -5,7 +5,50 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: real-radius moments and exact rational sign grids (2026-09-23)
+## Latest increment: checked full-error xi sign margins (2026-09-23)
+
+`ComplexPolynomialIntervals` encloses each grid value by a short Horner
+fold over the retained rational Fourier arrays. Its generic semiring
+identity is exported from the Mathlib candidate layer. Integer-period
+rotation intervals retain the pi enclosure and all sine/cosine error.
+
+`EulerRemainderIntervals` bounds the complete improper Euler tail using
+a scaled rising-factor recurrence. The Bernoulli majorant has an exact
+computable finite formula, proved equal to the existing analytic bound.
+Endpoint amplitudes and the Bernoulli coefficient bound are shared across
+the block. `RationalTrace.error_semantic` identifies the complete recursive
+transform error with rational arithmetic, retaining both children,
+twiddle error and arithmetic rounding.
+
+`RationalGridErrorBudget` checks the Taylor, moment and transform sums once
+per block. `CheckedZetaGridError` adds the actual per-height Euler and short
+correction errors. `XiGridSignIntervals` checks the norm and strict sign
+margin, including the separate one-tenth Gamma remainder. A negative
+phase budget or a non-strict endpoint comparison is rejected.
+
+`SharedXiGridCheck` packages the existing proved shared interfaces without
+assuming a sign or a zero. `CheckedXiGridSigns` proves that its Boolean
+sample check implies the actual xi sign, and that two opposite checks at
+increasing exact rational-grid heights give the original `XiSignRow.Valid`.
+There is no remaining unproved value/error/phase inequality in this sample
+adapter. Shared block validity and actual numerical rows still must be
+supplied by their existing checking theorems.
+
+All twenty changed/affected modules compile. The 132 Lean examples across
+twenty-two files and all twenty-two theorem closure audits pass; only
+`propext`, `Classical.choice` and `Quot.sound` occur. All 163 Python tests,
+fast gates, Ruff, mypy and workflow checks pass. CI builds the new modules
+sequentially when the paused build jobs are eventually enabled.
+
+Next: the Turing consumer still exposes an explicit scalar completeness
+margin involving `xiZeroCountingMainIntegral` and `turingCountErrorBudget`.
+Finish its executable interval bound before generating high-height rows.
+Actual sign/coverage data and a representative runtime/precision projection
+remain absent. The four R6 bounds, lower theta, prime prefixes/anchors and
+unconditional Dusart providers remain open. Keep CI builds paused; small
+regression examples do not establish billion-height feasibility.
+
+## Previous increment: real-radius moments and exact rational sign grids (2026-09-23)
 
 `MomentChunkData` and `MomentChunkAssembly` now own the one materialized-atom
 assembler and its exact moment/residual coverage proofs. The original

@@ -1389,6 +1389,39 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.IntervalMomentBlocks
           lake env lean test/lean/IntervalMomentBlocks.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Algebra.BigOperators.Ring.Horner
+          lake env lean test/lean/Horner.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ComplexPolynomialIntervals
+          lake env lean test/lean/ComplexPolynomialIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ComplexRotationIntervals
+          lake env lean test/lean/ComplexRotationIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaGridValueIntervals
+          lake env lean test/lean/ZetaGridValueIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.EulerRemainderIntervals
+          lake env lean test/lean/EulerRemainderIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaGridErrorBound
+          lake env lean test/lean/ZetaGridErrorBound.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.RationalGridErrorBudget
+          lake env lean test/lean/RationalGridErrorBudget.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.CheckedZetaGridError
+          lake env lean test/lean/CheckedZetaGridError.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiGridSignIntervals
+          lake env lean test/lean/XiGridSignIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SharedXiGridCheck
+          lake env lean test/lean/SharedXiGridCheck.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.CheckedXiGridSigns
+          lake env lean test/lean/CheckedXiGridSigns.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ThetaSquaredCheckpoints
           lake env lean test/lean/ThetaSquaredCheckpoints.lean
           /usr/bin/time -v lake build \

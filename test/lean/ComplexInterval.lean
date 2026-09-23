@@ -51,6 +51,13 @@ example : (point ⟨3, 4⟩).close ⟨0, 0⟩ (499 / 100) = false := by decide +
 example : (point ⟨0, 0⟩).close ⟨0, 0⟩ (-1) = false := by decide +kernel
 example : (point ⟨1, 0⟩).subset (point ⟨0, 0⟩) = false := by decide +kernel
 
+example {J : ComplexInterval} {e : ℚ} (h : J.close ⟨0, 0⟩ e = true)
+    {z : ℂ} (hz : z ∈ J) : ‖z‖ ≤ (e : ℝ) :=
+  ComplexInterval.norm_le_of_close_zero h hz
+
+example : (ComplexInterval.point ⟨3, 4⟩).close ⟨0, 0⟩ 5 = true := by decide +kernel
+example : (ComplexInterval.point ⟨3, 4⟩).close ⟨0, 0⟩ 4 = false := by decide +kernel
+
 end
 
 end PrimeFactorUnimodality.Tests

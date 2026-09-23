@@ -12,6 +12,13 @@ noncomputable section
 open Complex
 open Polynomial MeasureTheory Set
 
+example (k : ℕ) : bernoulliCoeffBound k = bernoulliCoeffBudget k :=
+  bernoulliCoeffBound_eq_budget k
+
+example : bernoulliCoeffBudget 0 = 1 := by decide +kernel
+example : bernoulliCoeffBudget 1 = 3 / 2 := by decide +kernel
+example : bernoulliCoeffBudget 2 = 13 / 12 := by decide +kernel
+
 example (k : ℕ) : 0 ≤ bernoulliCoeffBound k := by
   exact Polynomial.bernoulliCoeffBound_nonneg k
 
