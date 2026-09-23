@@ -655,6 +655,12 @@ jobs:
           lake env lean test/lean/KadiriElementaryMoments.lean
           lake env lean test/lean/KadiriElementaryBootstrap.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.MossinghoffTrudgianBounds
+          lake env lean test/lean/MossinghoffTrudgianBounds.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriEndpointRows
+          lake env lean test/lean/KadiriEndpointRows.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.IteratedAverage
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartPsiSmoothing
@@ -997,6 +1003,15 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.DusartSquaredAnalyticRay
           lake env lean test/lean/DusartSquaredAnalyticRay.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriR6Parameters
+          lake env lean test/lean/KadiriR6Parameters.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriR6Bootstrap
+          lake env lean test/lean/KadiriR6Bootstrap.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartSquaredBootstrap
+          lake env lean test/lean/DusartSquaredBootstrap.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT
@@ -1034,6 +1049,9 @@ jobs:
       - name: Prebuild high-memory generated chains serially
         run: |
           python3 scripts/patch_pnt_compat.py
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.FiniteCertificates.KadiriKernelNumerical
+          lake env lean test/lean/KadiriKernelNumerical.lean
           lake build \
             +PrimeFactorUnimodality.Helpers.FiniteCertificates.Generated.PrimePrefixes
           lake build \

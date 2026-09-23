@@ -5,7 +5,60 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: the complete conditional analytic ray (2026-09-23)
+## Latest increment: compact endpoint bootstrap and common parameter bounds (2026-09-23)
+
+`KadiriEndpointRows` specializes the existing elementary grid bootstrap to
+one cell covering the entire scale interval. Each row needs two exact
+closed-form transform margins and a nonpositive correction. Composition
+uses `Relation.ReflTransGen`: the target of one row must be exactly the
+next row's previous constant. No height grid or quadrature is generated.
+
+`MossinghoffTrudgianPolynomial` now stores its generating decimals once as
+rationals, with the real sequence obtained by casting. The original real
+coefficient statements are unchanged. `MossinghoffTrudgianBounds` proves
+all seventeen coefficient signs in one kernel-checked family, the first
+coefficient bounds `[1.741,1.742]`, and total mass bounds `[4.523,4.524]`.
+The compact implementation compiles in 3.1 seconds; the direct real-arithmetic
+prototype timed out after 28 seconds. The module is 4.5 KB, its olean 206 KB;
+the measured build peak RSS was about 2.42 GiB, including imported state.
+
+The new exact second-derivative endpoint identity supplies the small rows in
+`FiniteCertificates.KadiriKernelNumerical`. Their explicit dyadic checks
+include denominator validity and use only `decide +kernel`. They establish
+support at most `1.09`, kernel value in `[138.7,138.8]`, derivative maximum
+at most `1163`, and the cubic exponential bound. The module checks in
+10.7 seconds, with peak RSS about 3.10 GiB, source 4.2 KB and olean 480 KB.
+The automatic LeanCert wrapper failed to transport its proof; the explicit
+correctness theorem and semantic equality avoid that elaboration failure.
+These small replay rows run in CI's second, certificate-prebuild job.
+
+`KadiriR6Parameters` proves the common separation conditions using
+`theta=1.85573`, `delta=0.62`, `kappa=0.439`, `H=100000`, and `T=10^9`.
+For `R>=13/2`, `r>=6`, the actual scale is in `(0,0.0081]` and sigma in
+`[0.9933,1]`. Both kappa constraints and the cutoff slack are proved.
+`KadiriR6Bootstrap` assembles the proposed `56 -> 8 -> 13/2 -> 6` chain
+from the proved initial region and the same low-height input.
+`DusartSquaredBootstrap` connects this chain to the exact theta estimate,
+including the published cutoff and the separate lower-band obligation.
+
+**Still required for the chain:** prove the correction sign and two transform
+margins for each of its three rows. `kadiriSix_valid` names these exact
+obligations; the common kernel facts above already discharge its other
+numerical inputs. The chain is NOT yet a certified R=6 region. Exploratory
+floating calculations find positive one-cell margins about 4.67, 2.57,
+1.13, but these are diagnostics, not Lean proofs. Low-height critical-line
+verification, the lower theta band, finite prime prefixes and anchors also
+remain unfinished. Continue with the correction and transform inequalities,
+not a new sibling audit or a scale-grid generator.
+
+All six new modules and both modified sources compile. The 57 examples in
+nine regression files pass, and all 25 audited theorem closures contain only
+`propext`, `Classical.choice`, and `Quot.sound`. The fast profile, Ruff,
+mypy, 144 Python tests, Ruby metadata tests and workflow validation pass.
+CI builds the non-certificate assemblers sequentially in `lean-foundations`;
+a regression rejects any scalar-replay import in their dependency closure.
+
+## Previous analytic increment: the complete conditional analytic ray (2026-09-23)
 
 `DusartSquaredAnalyticRay.hasThetaLogSquaredError_above_endpoint` now proves
 the actual theta coefficient `1/5` at every real `x>=1441000000000`.

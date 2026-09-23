@@ -22,7 +22,7 @@ noncomputable section
 open Finset Real
 
 /-- Exact rational values of the generating sequence displayed in table 5. -/
-def mossinghoffTrudgianGenerator : ℕ → ℝ
+def mossinghoffTrudgianGeneratorRat : ℕ → ℚ
   | 0 => 1
   | 1 => -2.09100370089199
   | 2 => 0.414661861733616
@@ -42,6 +42,9 @@ def mossinghoffTrudgianGenerator : ℕ → ℝ
   | 16 => 59.6961898512813
   | _ => 0
 
+/-- The real generating sequence is the cast of the single exact rational table. -/
+def mossinghoffTrudgianGenerator (j : ℕ) : ℝ := mossinghoffTrudgianGeneratorRat j
+
 /-- The positive normalization making the zero cosine coefficient equal to one. -/
 def mossinghoffTrudgianEnergy : ℝ :=
   ∑ j ∈ range 17, mossinghoffTrudgianGenerator j ^ 2
@@ -56,7 +59,7 @@ theorem mossinghoffTrudgianEnergy_pos : 0 < mossinghoffTrudgianEnergy := by
   have h := single_le_sum (fun j (_ : j ∈ range 17) =>
     sq_nonneg (mossinghoffTrudgianGenerator j)) (show 0 ∈ range 17 by decide)
   have hfirst : mossinghoffTrudgianGenerator 0 ^ 2 = 1 := by
-    norm_num [mossinghoffTrudgianGenerator]
+    norm_num [mossinghoffTrudgianGenerator, mossinghoffTrudgianGeneratorRat]
   rw [hfirst] at h
   exact lt_of_lt_of_le (by norm_num : (0 : ℝ) < 1) h
 

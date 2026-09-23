@@ -1,6 +1,27 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: the middle band and complete conditional analytic ray (2026-09-23)
+## Newest follow-up: one-cell bootstrap and exact polynomial checks (2026-09-23)
+
+The existing elementary grid theorem already covers a one-cell scale domain.
+`KadiriEndpointRows` uses it directly and composes checked improvements with
+Mathlib's reflexive-transitive closure. No new zero indexing, pairing,
+counting, or summability machinery is introduced. The actual initial region
+at 56 is reused in `KadiriR6Bootstrap`.
+
+The exact published generating sequence is stored once as rational data.
+One finite sign check and a shared cast supply the actual real polynomial
+coefficients; its existing global nonnegativity proof is unchanged.
+The common parameter ranges and both kappa constraints are now proved.
+Small explicit LeanCert dyadic rows provide the kernel and support bounds;
+their Boolean premises use kernel replay, and domain validity is checked.
+
+The proposed three-step chain still needs its correction and transform
+inequalities. `DusartSquaredBootstrap` connects a checked chain to the
+actual theta estimate, but does not assert the chain or finite low-zero
+verification. No RH-dependent sibling mass formula or new sibling dependency
+is introduced; the previously recorded reuse boundary remains unchanged.
+
+## Previous follow-up: the middle band and complete conditional analytic ray (2026-09-23)
 
 The fixed-cutoff tail already retained the full fourth height power.
 Its closed expression now has an explicit coefficient and exponential

@@ -73,6 +73,20 @@ theorem kadiriKernel_zero_pos : 0 < kadiriKernel θ 0 := by
   rw [kadiriKernel_zero hθ]
   exact mul_pos (by positivity) (by linarith)
 
+/-- The derivative maximum has an exact expression using only the frequency and support. -/
+theorem neg_kadiriKernel₂_zero :
+    -kadiriKernel₂ θ 0 = (1 + tan θ ^ 2) * tan θ ^ 2 *
+      ((1 + tan θ ^ 2) * kadiriSupport θ / 2 + 1) := by
+  have hs := (sin_pos hθ).ne'
+  have hc := (cos_neg hθ).ne
+  have hs2 : sin (2 * θ) ≠ 0 := by
+    rw [sin_two_mul]
+    exact mul_ne_zero (mul_ne_zero (by norm_num) hs) hc
+  simp only [kadiriKernel₂, zero_mul, add_zero, sub_zero, sin_zero, cos_zero, mul_zero,
+    mul_one, zero_sub]
+  field_simp
+  ring
+
 /-- The kernel vanishes exactly at its right endpoint. -/
 theorem kadiriKernel_support : kadiriKernel θ (kadiriSupport θ) = 0 := by
   have hs := (sin_pos hθ).ne'
