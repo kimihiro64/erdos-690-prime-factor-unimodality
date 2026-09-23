@@ -5,7 +5,49 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: direct log-square provider route (2026-09-23)
+## Latest analytic increment: evaluated far-ray log-square estimate (2026-09-23)
+
+`DusartFarTheta.hasThetaLogSquaredError_far` proves the actual theta error
+with coefficient `1/5` on the entire ray above `exp(5000)`. It retains two
+explicit, UNPROVED inputs: critical-line verification below absolute height
+`10^9`, and the high-zero region with constant `R=6`. The unconditional
+region currently proved in `ZetaZeroFreeInitial` has constant `56`, not six.
+Neither the new provider nor the all-`k` result is unconditional yet.
+
+The order-three Rosser budget uses `nu=4/5`, root parameter
+`X=sqrt(log(x)/6)`, and relative step near `exp(-4*X/5)`. For `X>=28`,
+`DusartFarKernelBounds` and `DusartFarScalarDecay` discharge every scalar
+bound in that budget. `DusartFarAverage` proves normalized averaged error
+at most `0.01/log(x)^2` for `log(x)>=4704` throughout a factor-two step
+window. No infinite-tail or scalar inequality is left as a supplied input.
+
+`DusartFarShift` handles the lower average's different base point, root
+parameter and step. `DusartFarPsi` obtains the actual pointwise bound
+`0.05/log(x)^2` above logarithmic height 5000. The root correction costs
+at most `0.002/log(x)^2`, so the requested theta coefficient has ample room.
+These proofs reuse the existing actual zero sums, multiplicities, complete
+Rosser tail and psi-to-theta comparison without a new zero enumeration.
+
+`hasThetaLogSquaredError_of_bands_and_zero_data` now reduces the global
+log-square input to the bands `[3594641, 1441000000000]` and
+`[exp(85), exp(5000)]`, plus the two zero-location inputs. The intervening
+band remains the previously proved `DusartThetaSquaredEndpoint` estimate.
+Next non-certificate work is the bounded analytic middle band and numerical
+region bootstrap. Reuse the closed fixed-cutoff tail with its full height
+power; do not restart the completed far ray or re-audit unchanged siblings.
+The finite prefixes, prime-counting anchors and low-zero verification are
+still real obligations, not certificates that have already been checked.
+
+The Mathlib-only `Exp.Monomial` candidate obtains damped-monomial
+monotonicity from Mathlib's logarithm-over-power theorem, including order
+zero and the turning point. The seven project modules and candidate facades
+compile. All 43 examples in eleven new or preserved test files pass; all
+27 new theorem closures contain only `propext`, `Classical.choice` and
+`Quot.sound`. The fast gate, Ruff, mypy, 141 Python tests, Ruby metadata
+tests and workflow validation pass. CI runs the candidate, modules and
+regressions sequentially in `lean-foundations`, before certificate work.
+
+## Previous analytic increment: direct log-square provider route (2026-09-23)
 
 The exact two-term prime-counting and `1/(2*log(x)^2)` short-interval
 statements do not require the older log-cubed/log-fourth interfaces.

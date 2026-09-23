@@ -15,6 +15,15 @@ MODULES = (
     "DusartSquaredAtPublishedCutoff",
     "DusartThetaSquaredEndpoint",
 )
+FAR_MODULES = (
+    "DusartFarKernelBounds",
+    "DusartFarScalarDecay",
+    "DusartFarStepWindow",
+    "DusartFarAverage",
+    "DusartFarShift",
+    "DusartFarPsi",
+    "DusartFarTheta",
+)
 
 
 def test_log_square_modules_build_serially_in_foundations() -> None:
@@ -34,7 +43,9 @@ def test_log_square_modules_build_serially_in_foundations() -> None:
 
 
 def test_log_square_route_has_no_finite_replay_dependency() -> None:
-    pending = [f"PrimeFactorUnimodality.Helpers.Analytic.{module}" for module in MODULES]
+    pending = [
+        f"PrimeFactorUnimodality.Helpers.Analytic.{module}" for module in MODULES + FAR_MODULES
+    ]
     visited: set[str] = set()
     while pending:
         module = pending.pop()
@@ -46,3 +57,25 @@ def test_log_square_route_has_no_finite_replay_dependency() -> None:
         path = ROOT.joinpath(*module.split(".")).with_suffix(".lean")
         if path.is_file():
             pending.extend(lean_imports(strip_lean_comments(path.read_text())))
+
+
+def test_far_ray_modules_build_serially_after_their_scalar_candidate() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    previous = foundations.index("lake env lean test/lean/DusartThetaSquaredEndpoint.lean")
+    candidate = foundations.index(
+        "+PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Exp.Monomial\n"
+    )
+    candidate_test = foundations.index("lake env lean test/lean/ExpMonomial.lean")
+    assert previous < candidate < candidate_test
+    previous = candidate_test
+    for module in FAR_MODULES:
+        build = foundations.index(
+            f"lake build \\\n            +PrimeFactorUnimodality.Helpers.Analytic.{module}\n"
+        )
+        test = foundations.index(f"lake env lean test/lean/{module}.lean")
+        assert previous < build < test
+        previous = test
+    assert previous < foundations.index(
+        "+PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds\n"
+    )

@@ -1,6 +1,32 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: direct log-square adapters and a proved middle band (2026-09-23)
+## Newest follow-up: evaluated far-ray bound using existing zero sums (2026-09-23)
+
+The far-ray estimate reuses the actual sharp Rosser budget and both adjacent
+psi averages. Mathlib's logarithm-over-power monotonicity supplies the new
+damped-monomial candidate. Explicit bounds at root parameter 28 discharge
+the entire scalar budget, including its complete high tail; no sibling
+zero machinery is reconstructed. The shifted lower average retains its
+own root, step and normalization.
+
+The actual theta estimate has coefficient `1/5` above `exp(5000)`, subject
+to finite low critical-line verification and the high region `R=6`.
+Both zero-location inputs remain unproved. The existing unconditional
+constant `56` is not silently substituted for six. The remaining middle
+and lower bands, finite prime prefixes and anchors also remain explicit.
+
+Published main refs were rechecked: Robin1984 remains `acab1a31f31e0499518a4416b63281e0b4838f9c`,
+BV remains `7a1748306e026825ed6a5555516cc2f28989b2ac`, and WIPResearch remains
+`10607f234b2e5a64345bd49c7f21f80a419bc818`. The source-inspected WIP region
+bridges retain existential constants; the inspected exact norm-mass
+evaluations retain RH. No new sibling closure is imported or claimed audited.
+
+The candidate, seven project modules and affected facades compile. All 43
+new or preserved regression examples pass, and all 27 newly audited theorem
+closures contain only the three standard logical axioms. This increment
+has no finite-replay dependency.
+
+## Previous follow-up: direct log-square adapters and a proved middle band (2026-09-23)
 
 The direct prime-counting route reuses `dusartJ_sandwich`, its already
 proved derivative, and the existing logarithmic derivative candidates.

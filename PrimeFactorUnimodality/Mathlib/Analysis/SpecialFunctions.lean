@@ -5,14 +5,14 @@ Authors: Jonas Whidden
 -/
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogShiftLimit
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogTrapezoid
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Exp.Monomial
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.DigammaConjugation
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrability.LogCauchy
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.AffineRatio
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.Deriv
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.PiBounds
-import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Pow.IteratedPrimitive
-import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Pow.LogDampedPolynomial
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Pow
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Trigonometric.Autocorrelation
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Trigonometric.ZeroCount
 
