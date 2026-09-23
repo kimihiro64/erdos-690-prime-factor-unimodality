@@ -5,7 +5,45 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: elementary Rosser majorants (2026-09-23)
+## Latest analytic increment: increasing finite Rosser band (2026-09-23)
+
+The finite exponent-one kernel now has the endpoint bound used in Dusart
+HDR section 2.4, Lemma 48. `LogDampedWindow` differentiates an elementary
+upper primitive and proves that its correction is nonnegative. This gives
+a finite integral bound retaining both endpoints, and the exact expression
+at `T=exp(nu*X)`. No convergence at infinity is assumed for this kernel.
+
+`XiRosserIncreasingBound` combines this with the existing actual weighted
+counting theorem and envelope `log(t)+17`. `XiHeightBand` now exposes its
+existing conjugation-cover proof for any nonnegative invariant weight;
+the old reciprocal-norm theorem remains a specialization. The new
+`XiRosserIncreasingBand` retains the lower-cutoff zeros and both signs.
+Coincident cutoffs have exactly zero cost.
+
+`DusartBoxRosserIncreasingBand` keeps each actual ordinate inside the
+damping factor rather than substituting the worst gap over the whole
+band. `DusartBoxRosserBandBudget` combines this with the already closed
+high tail, finite low mass and all corrections, giving the actual averaged
+and pointwise psi estimates. The arbitrary region constant now controls
+both band and tail; the old fixed-56 intermediate-band substitution is
+not used in this new consumer. The general low cutoff need only be at
+least twenty. The strong low-height gap remains an explicit input.
+
+All five new modules and the candidate facade compile, together with the
+preserved closed-budget consumer after the band-cover refactor. Twenty-three
+new examples and fifteen preserved examples pass. All twenty-five audited
+exports, including the modified band API, use only the standard three axioms.
+CI includes serial foundation builds and a build-order regression.
+
+The pointwise consumer requires the increasing condition at the lower
+arithmetic endpoint and the decreasing condition at the upper endpoint;
+monotonicity transfers both conditions to the other average. Optimized
+region parameters, sufficiently strong low-height information, uniform
+fixed-cutoff scalar estimates, the finite prime prefix and the three
+final Dusart providers remain unfinished. This is not a completed
+numerical Dusart bound or an all-`k` completion claim.
+
+## Previous analytic increment: elementary Rosser majorants (2026-09-23)
 
 The remaining high-tail integrals now have closed real bounds. Three new
 Mathlib-only candidates prove arbitrary-power splitting, the cutoff/global

@@ -1,6 +1,34 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: elementary Rosser bounds (2026-09-23)
+## Newest follow-up: increasing-window endpoint estimate (2026-09-23)
+
+Dusart HDR section 2.4, Lemma 48 uses a finite exponent-one density. Its
+upper bound now follows directly from an elementary upper primitive,
+whose derivative is the density plus a proved nonnegative correction.
+This avoids introducing incomplete-Gamma infrastructure. The exponential
+cutoff evaluation gives the paper's factor
+`exp(-X/nu)*nu^2*(nu*X-log(b))` exactly. The counting envelope remains our
+proved `log(t)+17`, not the paper's sharper numerical coefficients.
+
+The actual zero sum uses the existing Rosser window theorem. Both signs
+reuse the existing `XiHeightBand` cover: that proof was generalized to
+nonnegative conjugation-invariant weights, and its reciprocal-norm API
+is preserved unchanged. Halving the lower majorizing-window cutoff keeps
+every zero on the band's lower boundary. Equal band cutoffs cost zero.
+
+The box atom uses the already adapted BV complex-power estimate, retaining
+height-dependent exponential damping with the exponent-one denominator.
+The combined consumer bounds actual averaged and pointwise psi using this
+finite band and the previous complete high-tail bound. One arbitrary
+region constant controls both blocks. No RH-dependent mass evaluation,
+new sibling import or zero enumeration is introduced. Low-height gap,
+optimized region and final uniform scalar inputs remain to be proved.
+
+Five new modules, twenty-three new examples and fifteen preserved examples
+compile. The candidate facade and combined consumers also compile; all
+twenty-five audited theorem closures have only the standard three axioms.
+
+## Previous follow-up: elementary Rosser bounds (2026-09-23)
 
 The actual infinite zero sum and its counting infrastructure are reused
 unchanged. `LogDampedMajorant` splits off any real power and selects the

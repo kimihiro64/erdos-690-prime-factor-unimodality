@@ -57,11 +57,12 @@ theorem disjoint_xiLowHeightIndices_band (a b : ℝ) :
   obtain ⟨hlo, hhi⟩ := (mem_xiHeightBandIndices a a p).mp hp
   exact (not_lt_of_ge hlo) hhi
 
-/-- Both ordinate signs in the band fit in two conjugate positive windows. -/
-theorem sum_xi_band_reciprocal_norm_le_twice_window {a b : ℝ} (ha : 0 < a) :
-    (∑ p ∈ xiHeightBandIndices a b, ‖(1 : ℂ) / riemannXiDivisorZeroValue p‖) ≤
-      2 * ∑ p ∈ xiHeightWindowIndices (a / 2) b,
-        ‖(1 : ℂ) / riemannXiDivisorZeroValue p‖ := by
+/-- Any nonnegative conjugation-invariant weight fits in two positive windows. -/
+theorem sum_xi_band_le_twice_window {a b : ℝ} (ha : 0 < a)
+    {f : RiemannXiDivisorZeroIndex → ℝ} (hf : ∀ p, 0 ≤ f p)
+    (hc : ∀ p, f (riemannXiDivisorConjugation p) = f p) :
+    (∑ p ∈ xiHeightBandIndices a b, f p) ≤
+      2 * ∑ p ∈ xiHeightWindowIndices (a / 2) b, f p := by
   classical
   let P := xiHeightWindowIndices (a / 2) b
   let e := riemannXiDivisorConjugation
@@ -97,10 +98,17 @@ theorem sum_xi_band_reciprocal_norm_le_twice_window {a b : ℝ} (ha : 0 < a) :
     rw [riemannXiDivisorZeroValue_conjugation, conj_im] at hp'
     linarith
   have hs := Finset.sum_le_sum_of_subset_of_nonneg hcover
-    (fun p _ _ => norm_nonneg ((1 : ℂ) / riemannXiDivisorZeroValue p))
+    (fun p _ _ => hf p)
   rw [Finset.sum_union hd, Finset.sum_map] at hs
-  simp only [Equiv.toEmbedding_apply, e, norm_xi_reciprocal_conjugation] at hs
+  simp only [Equiv.toEmbedding_apply, e, hc] at hs
   simpa only [two_mul] using hs
+
+/-- Both ordinate signs in the band fit in two conjugate positive windows. -/
+theorem sum_xi_band_reciprocal_norm_le_twice_window {a b : ℝ} (ha : 0 < a) :
+    (∑ p ∈ xiHeightBandIndices a b, ‖(1 : ℂ) / riemannXiDivisorZeroValue p‖) ≤
+      2 * ∑ p ∈ xiHeightWindowIndices (a / 2) b,
+        ‖(1 : ℂ) / riemannXiDivisorZeroValue p‖ :=
+  sum_xi_band_le_twice_window ha (fun _ => norm_nonneg _) norm_xi_reciprocal_conjugation
 
 /-- The band mass is controlled by counting, with no real-part gap hypothesis. -/
 theorem sum_xi_band_reciprocal_norm_le_explicit {a b : ℝ}

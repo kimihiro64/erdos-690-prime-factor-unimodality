@@ -8,6 +8,7 @@ import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.Cosine
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ExpMoments
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ExpTrig
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogDampedBound
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogDampedWindow
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogReciprocalSquarePair
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ReciprocalSquarePair
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ReciprocalSquarePairDeriv
@@ -23,4 +24,5 @@ and an exact logarithmic integral evaluation. The exponential modules also
 give exact linear-weight and trigonometric endpoint formulas, with zero
 exponents handled explicitly. The damped-tail modules give exact logarithmic
 power integrals and closed majorants with a freely chosen power exponent.
+Finite exponent-one windows instead use an elementary upper primitive.
 -/
