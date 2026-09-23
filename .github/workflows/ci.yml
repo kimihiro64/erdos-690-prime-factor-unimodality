@@ -1131,6 +1131,42 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.TuringFiniteLogDerivative
           lake env lean test/lean/TuringFiniteLogDerivative.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaLogDerivDecay
+          lake env lean test/lean/RiemannZetaLogDerivDecay.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaEulerIntegral
+          lake env lean test/lean/RiemannZetaEulerIntegral.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaLogTailDerivative
+          lake env lean test/lean/RiemannZetaLogTailDerivative.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.FiniteExceptions
+          lake env lean test/lean/FiniteExceptions.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Complex.Log.HorizontalContinuity
+          lake env lean test/lean/LogHorizontalContinuity.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Meromorphic.HorizontalFactorization
+          lake env lean test/lean/MeromorphicHorizontalFactorization.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Meromorphic.HorizontalContinuity
+          lake env lean test/lean/MeromorphicHorizontalContinuity.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaLogContinuity
+          lake env lean test/lean/RiemannZetaLogContinuity.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringHorizontalDerivative
+          lake env lean test/lean/TuringHorizontalDerivative.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringLittlewoodReduction
+          lake env lean test/lean/TuringLittlewoodReduction.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringHorizontalContinuity
+          lake env lean test/lean/TuringHorizontalContinuity.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.TuringLittlewood
+          lake env lean test/lean/TuringLittlewood.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT

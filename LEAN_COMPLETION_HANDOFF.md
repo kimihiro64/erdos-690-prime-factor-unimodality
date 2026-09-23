@@ -5,7 +5,48 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: exact count normalization and finite log derivative (2026-09-23)
+## Latest increment: complete Littlewood identity through zero heights (2026-09-23)
+
+`TuringLittlewood` now proves the unconditional identity
+`integral(argument, a..b) = J(b)-J(a)` for every `0<a<=b` and anchor
+`sigma>1`. Zero ordinates and endpoint zeros are allowed. Its explicit
+argument budget is `(19/2)*log(5*b)+95` for `1<=a<=b`. The actual
+closed-count discrepancy has the exact horizontal endpoint decomposition
+with its smooth Gamma/pole correction retained.
+
+The complete right-tail derivative is now proved: the von Mangoldt series
+gives a uniform integrable majorant, the Euler logarithm vanishes at
+horizontal infinity, and improper FTC identifies the derivative integral.
+Dominated differentiation then supplies the height derivative at every real
+height. Combining it with the finite-segment derivative gives the actual
+argument at every regular positive height.
+
+The continuity gap is also closed. Mathlib's `extract_zeros_poles_log`
+reduces the finite integral on a compact rectangle to finitely many
+logarithmic distances and a continuous remainder. The exceptional points'
+real projections are null on every horizontal line. The singular integrals
+are continuous even at zero heights and endpoints; coordinate clipping
+handles the continuous remainder. Connectedness and a nonzero zeta value
+at real part two discharge finite-order hypotheses. No zero enumeration or
+zero-free-height assumption remains in `TuringHorizontalContinuity`.
+The finite-exception FTC then finishes Littlewood's identity.
+
+All twelve new production modules and the affected candidate facades compile.
+All 79 examples across sixteen regression modules pass; all 29 new public
+theorem closures contain only `propext`, `Classical.choice` and `Quot.sound`.
+The fast gate, Ruff, mypy, 144 Python tests, Ruby metadata tests and workflow
+validation pass. Each module and regression runs in the sequential analytic
+CI chain before certificates. No finite replay was started.
+
+**Next:** bound the smooth phase correction against the actual counting
+main term, keeping its missing `7/8` offset explicit, and connect the
+resulting numerical discrepancy budget to `XiIntegralVerification`.
+Do not redo horizontal derivatives, continuity, factorization, or Littlewood.
+Low-zero signs/completeness, four transform margins, the lower theta band,
+finite prime prefixes, anchors and final unconditional Dusart providers
+still remain. This increment is not finite RH verification.
+
+## Previous increment: exact count normalization and finite log derivative (2026-09-23)
 
 `TuringPoleContour` integrates the pole reciprocal with its actual principal
 log branch at positive height and separates the surrogate horizontal contour.

@@ -5,8 +5,12 @@ Authors: Jonas Whidden
 -/
 import PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.HorizontalDecay
 import PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaEulerDecay
+import PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaEulerIntegral
 import PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaEulerLog
+import PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaLogContinuity
+import PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaLogDerivDecay
 import PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaLogIntegral
+import PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.RiemannZetaLogTailDerivative
 import PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.ZetaTrigonometricShift
 
 /-! # Reusable Dirichlet-series candidates

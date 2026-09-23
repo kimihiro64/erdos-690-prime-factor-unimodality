@@ -1,6 +1,37 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: actual counting phase and finite log derivative (2026-09-23)
+## Newest follow-up: complete Littlewood identity and continuity through zeros (2026-09-23)
+
+The remaining continuity proof reuses Mathlib's
+`MeromorphicOn.extract_zeros_poles_log`, compact divisor finiteness and
+finite meromorphic order on connected sets. It introduces no new zero
+enumeration, multiplicity machinery or sibling dependency. Project-independent
+adapters isolate the horizontal factorization and continuous-integral steps
+in the candidate layer before their zeta and Turing consumers.
+
+The full right-tail derivative directly reuses Mathlib's von Mangoldt
+Dirichlet series, improper FTC and dominated differentiation. No finite
+tail truncation or new numerical certificate is needed. The actual
+Littlewood identity now holds across all positive zero heights, and both
+complete horizontal bounds give the explicit argument-integral budget
+`(19/2)*log(5*b)+95`. The exact Gamma/pole correction to the counting model
+is retained; low-zero completeness does not follow from dropping it.
+
+The focused sibling check reconfirmed the reuse already recorded below:
+Robin/PNT inverse-square summability, BV conjugation order and existing
+weighted/divisor infrastructure are not being reconstructed. The inspected
+WIP shifted norm-mass identities retain RH, while local-count bounds have
+existential constants. No blanket absence claim about sibling results is
+made. The current new proof instead applies the exact pinned Mathlib
+factorization theorem needed at the remaining analytic boundary.
+
+All twelve production modules and affected candidate facades compile.
+The 79 regression examples and all 29 standard-axiom closure checks pass.
+Fast checks, Python/Ruby tests and workflow validation pass without finite
+replay. Smooth phase bounds and actual numerical low-zero verification
+remain required for the final Dusart providers.
+
+## Previous follow-up: actual counting phase and finite log derivative (2026-09-23)
 
 The existing surrogate counting contour, Euler logarithm, Gamma primitive,
 actual divisor countability and strict/closed count bridge give the exact

@@ -41,6 +41,10 @@ MODULES = (
     "TuringCountPhase",
     "TuringCountIntegral",
     "TuringFiniteLogDerivative",
+    "TuringHorizontalDerivative",
+    "TuringLittlewoodReduction",
+    "TuringHorizontalContinuity",
+    "TuringLittlewood",
 )
 
 
@@ -88,6 +92,22 @@ def test_endpoint_assemblers_build_serially_before_scalar_replay() -> None:
         assert previous_candidate < candidate_build < candidate_test
         previous_candidate = candidate_test
     assert previous_candidate < foundations.index(f"+{ANALYTIC}TuringPoleContour")
+    previous_candidate = foundations.index("lake env lean test/lean/TuringFiniteLogDerivative.lean")
+    for leaf, regression in (
+        ("NumberTheory.LSeries.RiemannZetaLogDerivDecay", "RiemannZetaLogDerivDecay"),
+        ("NumberTheory.LSeries.RiemannZetaEulerIntegral", "RiemannZetaEulerIntegral"),
+        ("NumberTheory.LSeries.RiemannZetaLogTailDerivative", "RiemannZetaLogTailDerivative"),
+        ("MeasureTheory.Integral.IntervalIntegral.FiniteExceptions", "FiniteExceptions"),
+        ("Analysis.Complex.Log.HorizontalContinuity", "LogHorizontalContinuity"),
+        ("Analysis.Meromorphic.HorizontalFactorization", "MeromorphicHorizontalFactorization"),
+        ("Analysis.Meromorphic.HorizontalContinuity", "MeromorphicHorizontalContinuity"),
+        ("NumberTheory.LSeries.RiemannZetaLogContinuity", "RiemannZetaLogContinuity"),
+    ):
+        candidate_build = foundations.index(f"+PrimeFactorUnimodality.Mathlib.{leaf}")
+        candidate_test = foundations.index(f"lake env lean test/lean/{regression}.lean")
+        assert previous_candidate < candidate_build < candidate_test
+        previous_candidate = candidate_test
+    assert previous_candidate < foundations.index(f"+{ANALYTIC}TuringHorizontalDerivative\n")
     candidate = foundations.index(
         "+PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.FinsetAbel"
     )

@@ -6,6 +6,7 @@ Authors: Jonas Whidden
 import PrimeFactorUnimodality.Mathlib.Analysis.Calculus.ParametricIntervalIntegral
 import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.CircleAverageAntipodal
 import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.FinsetAbel
+import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.FiniteExceptions
 import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.IteratedAverageAlgebra
 import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.IteratedAveragePower
 import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.IteratedAverageRegularity
