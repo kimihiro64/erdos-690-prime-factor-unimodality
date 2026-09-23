@@ -47,7 +47,7 @@ def correction (row : KadiriEndpointRow) (R r T : ℝ) (n : ℕ) (a : ℕ → �
 structure Valid (row : KadiriEndpointRow) (R r T : ℝ) (n : ℕ) (a : ℕ → ℝ) : Prop where
   previous_pos : 0 < R
   target_pos : 0 < r
-  height_ge : 10 ^ 9 ≤ T
+  height_ge : 10 ≤ T
   cutoff_ge : 4 ≤ row.cutoff
   degree_ge : 1 ≤ n
   angle_mem : π / 2 < row.angle ∧ row.angle < π

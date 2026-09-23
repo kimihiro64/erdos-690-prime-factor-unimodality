@@ -41,7 +41,7 @@ def kadiriCorrectionPolynomial (θ η η₀ σ₀ κ δ M P L₀ L₁ G q : ℝ)
 /-- Proved scalar bounds on the actual terms yield the complete cubic correction envelope. -/
 theorem kadiriBootstrapCorrection_le_polynomial {θ η η₀ σ₀ σ κ δ z H t M P L₀ L₁ G q : ℝ}
     (hθ : π / 2 < θ ∧ θ < π) (hη : 0 ≤ η) (hσ₀ : 1 / 2 < σ₀) (hκ : 0 ≤ κ)
-    (ht : 10 ^ 9 ≤ t) (hH : 0 < H) (S : Finset ℕ) (a : ℕ → ℝ)
+    (ht : 10 ≤ t) (hH : 0 < H) (S : Finset ℕ) (a : ℕ → ℝ)
     (ha : ∀ i ∈ S, 0 ≤ a i) (hM : kadiriDerivativeMass θ z ≤ M)
     (hP : kadiriPoleCoefficient S a t ≤ P)
     (hL : (∑ i ∈ S, a i * xiLehmanTailMajorant ((i : ℝ) * t) H) ≤ L₀ + L₁ * Real.log t)

@@ -163,32 +163,38 @@ theorem integrableOn_reciprocalSquarePair_div {t H : ℝ} (ht : 0 < t) (hH : 0 <
   rw [add_comm t H, ← integrableOn_Ioi_comp_add_iff t H]
   exact integrableOn_reciprocalSquarePair_div_add ht hH
 
-/-- Exact integration by parts for the logarithmic derivative-weight integral. -/
-theorem integral_log_mul_reciprocalSquarePairSlope {t H : ℝ} (ht : 0 < t) (hH : 0 < H) :
-    (∫ x in Ioi (t + H), Real.log x * reciprocalSquarePairSlope t x) =
-      Real.log (t + H) * reciprocalSquarePair t (t + H) +
+/-- Exact integration by parts, retaining an arbitrary constant in the logarithmic weight. -/
+theorem integral_log_sub_mul_reciprocalSquarePairSlope {t H : ℝ}
+    (ht : 0 < t) (hH : 0 < H) (c : ℝ) :
+    (∫ x in Ioi (t + H), (Real.log x - c) * reciprocalSquarePairSlope t x) =
+      (Real.log (t + H) - c) * reciprocalSquarePair t (t + H) +
         ∫ x in Ioi (t + H), reciprocalSquarePair t x / x := by
   have hd (x : ℝ) (hx : x ∈ Ici (t + H)) :
-      HasDerivAt (fun y => Real.log y * reciprocalSquarePair t y)
-        (reciprocalSquarePair t x / x - Real.log x * reciprocalSquarePairSlope t x) x := by
+      HasDerivAt (fun y => (Real.log y - c) * reciprocalSquarePair t y)
+        (reciprocalSquarePair t x / x -
+          (Real.log x - c) * reciprocalSquarePairSlope t x) x := by
     have hx' : t + H ≤ x := hx
     have hxpos : 0 < x := by linarith
-    convert (hasDerivAt_log hxpos.ne').mul
+    convert ((hasDerivAt_log hxpos.ne').sub_const c).mul
       (hasDerivAt_reciprocalSquarePair (by linarith : x - t ≠ 0)
         (by linarith : x + t ≠ 0)) using 1
     unfold reciprocalSquarePairSlope
     ring
   have hD := integrableOn_reciprocalSquarePair_div ht hH
-  have hL : IntegrableOn (fun x => Real.log x * reciprocalSquarePairSlope t x)
-      (Ioi (t + H)) := by
-    simpa only [sub_zero] using integrableOn_log_sub_mul_reciprocalSquarePairSlope ht hH 0
+  have hL := integrableOn_log_sub_mul_reciprocalSquarePairSlope ht hH c
   have hi : IntegrableOn (fun x => reciprocalSquarePair t x / x -
-      Real.log x * reciprocalSquarePairSlope t x) (Ioi (t + H)) :=
+      (Real.log x - c) * reciprocalSquarePairSlope t x) (Ioi (t + H)) :=
     (hD.sub hL).congr_fun (fun _ _ => rfl) measurableSet_Ioi
-  have hlim : Tendsto (fun x => Real.log x * reciprocalSquarePair t x) atTop (𝓝 0) := by
-    simpa only [sub_zero] using tendsto_log_sub_mul_reciprocalSquarePair_atTop t 0
+  have hlim := tendsto_log_sub_mul_reciprocalSquarePair_atTop t c
   have h := integral_Ioi_of_hasDerivAt_of_tendsto' hd hi hlim
   rw [integral_sub hD hL] at h
   linarith
+
+/-- The zero-offset specialization gives the logarithmic derivative-weight integral. -/
+theorem integral_log_mul_reciprocalSquarePairSlope {t H : ℝ} (ht : 0 < t) (hH : 0 < H) :
+    (∫ x in Ioi (t + H), Real.log x * reciprocalSquarePairSlope t x) =
+      Real.log (t + H) * reciprocalSquarePair t (t + H) +
+        ∫ x in Ioi (t + H), reciprocalSquarePair t x / x := by
+  simpa only [sub_zero] using integral_log_sub_mul_reciprocalSquarePairSlope ht hH 0
 
 end Real

@@ -41,7 +41,7 @@ variable {θ η η₀ σ₀ σ δ κ z H A R T : ℝ}
         1 / (R * Real.log |(riemannXiDivisorZeroValue q).im|) ≤
           1 - (riemannXiDivisorZeroValue q).re)
     (hharm : ∀ i ∈ S, |(i : ℝ) * (riemannXiDivisorZeroValue p).im| + H ≤ A)
-    (ht : 10 ^ 9 ≤ (riemannXiDivisorZeroValue p).im)
+    (ht : 10 ≤ (riemannXiDivisorZeroValue p).im)
 
 include hR hT hθ hη hη₀ hσ₀ hσ hσ₁ hδ hκ hκ₁ hκ₂ hκ₃ hc hz hH hgap hcut
   h₀ h₁ ha hβ hηρ hpoly hσA hlow hhigh hharm ht
@@ -54,7 +54,7 @@ theorem kadiri_actual_bootstrap_constraint :
         (riemannXiDivisorZeroValue p).im S a := by
   have htpos : 0 < (riemannXiDivisorZeroValue p).im := by linarith
   have hA : ∀ i ∈ S, (i : ℝ) * (riemannXiDivisorZeroValue p).im ≠ 0 →
-      10 ^ 9 ≤ |(i : ℝ) * (riemannXiDivisorZeroValue p).im| + H := by
+      10 < |(i : ℝ) * (riemannXiDivisorZeroValue p).im| + H := by
     intro i _ hi
     have hi₀ : i ≠ 0 := by intro he; subst i; simp at hi
     have hi₁ : (1 : ℝ) ≤ i := by exact_mod_cast Nat.one_le_iff_ne_zero.mpr hi₀

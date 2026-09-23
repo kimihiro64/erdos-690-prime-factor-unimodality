@@ -1,5 +1,65 @@
 # Reuse audit for the Dusart zero-sum layer
 
+## Newest follow-up: moderate-height Lehman and bootstrap domain (2026-09-23)
+
+The existing proved `log(T)+17` counting discrepancy already applies near
+height ten. The billion-height cutoff in the harmonic tail came from the
+additional simplification `log(T)+17 <= 2*log(T)`, not a zero-location theorem.
+
+The reciprocal-square-pair integration-by-parts candidate now retains an
+arbitrary additive constant in its logarithmic weight. `XiLehmanLogBound`
+applies it with constant seventeen to the complete improper integral.
+The strict boundary count absorbs all closed-cutoff multiplicities, without
+assuming that the cutoff is not a zero ordinate. Its elementary bound is
+the exact main integral plus
+`(2*log(t+H)+34)*(1/H^2+1/(H+2*t)^2)+2/(t*H)` for `t+H>10`.
+At `log(t+H)>=17`, this is no larger than the former high-height expression.
+
+The signed harmonic majorant uses this bound, retaining the existing exact
+finite mass subtraction at height zero. Its affine envelope reserves the
+additional `68/H^2` constant explicitly. The actual master, correction and
+uniform/split/grid bootstrap theorems propagate the weaker height premise
+through `KadiriEndpointRow.Valid`, whose height condition is now `10<=T`.
+The original billion-height initial-region theorem remains unchanged.
+
+`KadiriInitialCutoff` reuses that initial region and its already proved
+bounded-strip extension. It derives the explicit initial constant `504/n`
+at height `10^n` for every integer `1<=n<=9`, without a finite zero-location
+premise. For example, constants 63, 72 and 84 apply at heights `10^8`, `10^7`
+and `10^6`, respectively. The endpoint-chain consumer discharges its
+starting-region premise using this theorem; improved-region numerical
+margins and the low-height input remain explicit.
+
+This does not establish numerical row admissibility at height ten or replace
+finite critical-line verification. The existing concrete R6 rows and psi
+endpoint still use height one billion. Lowering that computational cutoff
+requires new admissibility and psi-budget bounds; changing this analytic
+domain alone is insufficient. No finite certificate generation is involved.
+
+All 97 affected/new analytic and candidate modules compile. The 338 focused
+examples in 66 files pass, including the existing concrete R6 and conditional
+Dusart consumers. All 24 audited public theorem closures contain only
+`propext`, `Classical.choice` and `Quot.sound`. Fast source checks, all 149
+Python tests, Ruff formatting/lint, mypy, Ruby metadata tests and workflow
+validation pass. The new CI build and regression steps remain sequential.
+
+## Published sibling update inspected (2026-09-23)
+
+The public WIPResearch head is now
+`10607f234b2e5a64345bd49c7f21f80a419bc818`, following the previously reviewed
+`bdc46941c4f2e13fb84e0a338b905bb10e711357`. Robin and BV heads are unchanged.
+The newer WIP sources include explicit logarithmic-phase correlation and
+integer-multiplicity sum bounds, and additional BKLNW band consumers.
+These are further reuse candidates, not a newly pinned dependency or a claim
+that their complete closures have been ported and audited here.
+
+In particular, `BKLNWClassicalZeroFreeEnvelope` retains an existential region
+constant; `Zeta23ZeroFreeBridge` retains an existential logarithmic-power
+constant; and `BKLNWHeightBandDensityExplicit` requires a supplied
+`zero_density_bound` and band-region hypotheses. Those inspected statements
+do not supply the missing finite-height critical-line verification. The
+previously extracted Bernoulli and conjugation leaves remain in use.
+
 ## Newest follow-up: compact lower-theta and anchor interfaces (2026-09-23)
 
 Mathlib's `Chebyshev.theta_mono`, logarithm monotonicity and elementary

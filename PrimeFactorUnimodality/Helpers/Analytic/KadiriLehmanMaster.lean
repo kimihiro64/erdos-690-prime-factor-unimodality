@@ -39,7 +39,7 @@ theorem kadiriWeight_lehman_pole_master_nonneg {θ η η₀ σ₀ σ δ κ z H :
       ¬ kadiriCentralStrip σ (riemannXiDivisorZeroValue q) →
         |k i * (riemannXiDivisorZeroValue p).im| + H ≤ |(riemannXiDivisorZeroValue q).im|)
     (hA : ∀ i ∈ S, k i * (riemannXiDivisorZeroValue p).im ≠ 0 →
-      10 ^ 9 ≤ |k i * (riemannXiDivisorZeroValue p).im| + H) :
+      10 < |k i * (riemannXiDivisorZeroValue p).im| + H) :
     0 ≤ (∑ i ∈ S, a i * kadiriPoleMajorant θ η z σ
         (k i * (riemannXiDivisorZeroValue p).im)) -
       a j * ((finiteLaplace (fun u => (kadiriWeight θ η u : ℂ)) (kadiriWeightSupport θ η)

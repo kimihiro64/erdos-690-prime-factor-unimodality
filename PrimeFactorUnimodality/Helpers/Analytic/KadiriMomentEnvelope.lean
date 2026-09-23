@@ -42,7 +42,7 @@ def kadiriMomentCorrectionPolynomial (θ η η₀ σ₀ κ δ z H T B₀ B₁ B�
 theorem kadiriBootstrapCorrection_le_momentPolynomial
     {θ η η₀ σ₀ σ κ δ z H T t y B₀ B₁ B₂ B₃ q : ℝ}
     (hθ : π / 2 < θ ∧ θ < π) (hη : 0 ≤ η) (hσ₀ : 1 / 2 < σ₀) (hσ : σ₀ ≤ σ)
-    (hκ : 0 ≤ κ) (hκ₁ : κ ≤ 1) (hT : 2 ≤ T) (hTt : T ≤ t) (ht : 10 ^ 9 ≤ t)
+    (hκ : 0 ≤ κ) (hκ₁ : κ ≤ 1) (hT : 2 ≤ T) (hTt : T ≤ t) (ht : 10 ≤ t)
     (hH : 4 ≤ H) (hz : z ≤ 0) (hy : 0 < y) (hzy : -z * kadiriSupport θ ≤ y)
     (hend : Real.exp y ≤ 1 + y + y ^ 2 / 2 + y ^ 3 / (345 / 100))
     (hB₀ : kadiriDerivativeMoment θ 0 ≤ B₀) (hB₁ : kadiriDerivativeMoment θ 1 ≤ B₁)

@@ -83,7 +83,7 @@ theorem sum_xiLehmanTailMajorant_le_affine {T t H : ℝ}
     have hit := mul_pos hi₀ htpos
     apply mul_le_mul_of_nonneg_left _ (ha i (Finset.mem_of_mem_erase hi))
     simp only [xiLehmanTailMajorant, hit.ne', ↓reduceIte, abs_of_pos hit]
-    have hb := xiLehmanHighBound_le_affine hT
+    have hb := xiLehmanLogBound_le_affine hT
       (ht.trans (by nlinarith : t ≤ (i : ℝ) * t)) hH
     rw [Real.log_mul hi₀.ne' htpos.ne'] at hb
     convert! hb using 1
@@ -96,7 +96,7 @@ theorem sum_xiLehmanTailMajorant_le_affine {T t H : ℝ}
   ring
 
 /-- At the proved high cutoff, the actual weighted majorant is nonnegative. -/
-theorem sum_xiLehmanTailMajorant_nonneg {t H : ℝ} (ht : 10 ^ 9 ≤ t) (hH : 0 < H)
+theorem sum_xiLehmanTailMajorant_nonneg {t H : ℝ} (ht : 10 ≤ t) (hH : 0 < H)
     (S : Finset ℕ) (a : ℕ → ℝ) (ha : ∀ i ∈ S, 0 ≤ a i) :
     0 ≤ ∑ i ∈ S, a i * xiLehmanTailMajorant ((i : ℝ) * t) H :=
   (Finset.sum_nonneg (fun i hi => mul_nonneg (ha i hi) (xiHeightTail_nonneg _ _))).trans

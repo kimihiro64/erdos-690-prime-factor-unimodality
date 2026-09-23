@@ -18,7 +18,7 @@ open Real
 /-- Elementary endpoint checks imply the actual signed zero-free region on the full height ray. -/
 theorem xi_zero_gap_of_conservative_grid_budget
     {θ R r T H η₀ σ₀ δ κ y B₀ B₁ B₂ B₃ : ℝ} {n : ℕ}
-    (hR : 0 < R) (hr : 0 < r) (hT : 10 ^ 9 ≤ T) (hH : 4 ≤ H) (hn : 1 ≤ n)
+    (hR : 0 < R) (hr : 0 < r) (hT : 10 ≤ T) (hH : 4 ≤ H) (hn : 1 ≤ n)
     (hθ : π / 2 < θ ∧ θ < π)
     (hηdef : η₀ = 1 / (r * log T)) (hηhalf : η₀ ≤ 1 / 2)
     (hσdef : σ₀ = kadiriBootstrapSigma R n H T) (hσ₀ : 1 / 2 < σ₀)

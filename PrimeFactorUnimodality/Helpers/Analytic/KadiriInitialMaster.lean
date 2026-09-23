@@ -58,7 +58,8 @@ theorem kadiriWeight_initial_region_master_nonneg {θ η η₀ σ₀ σ δ κ z 
   exact kadiriWeight_region_master_nonneg (by norm_num) (by norm_num)
     hθ hη hη₀ hσ₀ hσ hσ₁ hδ hκ hκ₁ hκ₂ hκ₃
     hc hz hH hgap hcut S a k ha j hj hk p hβ hηρ hpoly hσA hlow
-    (fun q hq => xi_zero_gap_initial (riemannXiDivisorZeroValue_eq_zero q) hq) hharm hA
+    (fun q hq => xi_zero_gap_initial (riemannXiDivisorZeroValue_eq_zero q) hq) hharm
+    (fun i hi ht => by have h := hA i hi ht; linarith)
 
 end
 

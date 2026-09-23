@@ -540,6 +540,8 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.XiLehmanHigh
           lake env lean test/lean/BacklundCountingHigh.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiLehmanLogBound
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.XiLehmanBudget
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriPoleBounds
@@ -605,6 +607,7 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriBootstrapCorrection
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.XiLehmanAffine
+          lake env lean test/lean/XiLehmanLogBound.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriTailEnvelope
           /usr/bin/time -v lake build \
@@ -661,6 +664,9 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriEndpointRows
           lake env lean test/lean/KadiriEndpointRows.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriInitialCutoff
+          lake env lean test/lean/KadiriInitialCutoff.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral.IntervalIntegral.IteratedAverage
           /usr/bin/time -v lake build \

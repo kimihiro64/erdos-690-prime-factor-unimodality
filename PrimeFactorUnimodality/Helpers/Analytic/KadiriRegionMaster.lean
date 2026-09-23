@@ -41,7 +41,7 @@ theorem kadiriWeight_region_master_nonneg {θ η η₀ σ₀ σ δ κ z H A R T 
           1 - (riemannXiDivisorZeroValue q).re)
     (hharm : ∀ i ∈ S, |k i * (riemannXiDivisorZeroValue p).im| + H ≤ A)
     (hA : ∀ i ∈ S, k i * (riemannXiDivisorZeroValue p).im ≠ 0 →
-      10 ^ 9 ≤ |k i * (riemannXiDivisorZeroValue p).im| + H) :
+      10 < |k i * (riemannXiDivisorZeroValue p).im| + H) :
     0 ≤ (∑ i ∈ S, a i * kadiriPoleMajorant θ η z σ
         (k i * (riemannXiDivisorZeroValue p).im)) -
       a j * ((finiteLaplace (fun u => (kadiriWeight θ η u : ℂ)) (kadiriWeightSupport θ η)

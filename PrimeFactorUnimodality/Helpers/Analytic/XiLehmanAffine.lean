@@ -20,7 +20,7 @@ def xiLehmanLogCoefficient (T H : ℝ) : ℝ :=
 
 /-- The constant term in the same envelope. -/
 def xiLehmanAffineConstant (T H : ℝ) : ℝ :=
-  H / T * (1 / (π * H) + 8 / H ^ 2) + 4 / (T * H)
+  H / T * (1 / (π * H) + 8 / H ^ 2) + 4 / (T * H) + 68 / H ^ 2
 
 /-- The logarithmic coefficient is nonnegative at positive parameters. -/
 theorem xiLehmanLogCoefficient_nonneg {T H : ℝ} (hT : 0 < T) (hH : 0 < H) :
@@ -30,10 +30,10 @@ theorem xiLehmanLogCoefficient_nonneg {T H : ℝ} (hT : 0 < T) (hH : 0 < H) :
 theorem xiLehmanAffineConstant_nonneg {T H : ℝ} (hT : 0 < T) (hH : 0 < H) :
     0 ≤ xiLehmanAffineConstant T H := by unfold xiLehmanAffineConstant; positivity
 
-/-- An elementary logarithmic envelope controls the tail at every larger height. -/
-theorem xiLehmanHighBound_le_affine {T t H : ℝ}
+/-- The affine envelope also reserves the full additive counting-error budget. -/
+theorem xiLehmanHighBound_add_le_affine {T t H : ℝ}
     (hT : 2 ≤ T) (ht : T ≤ t) (hH : 4 ≤ H) :
-    xiLehmanHighBound t H ≤ xiLehmanLogCoefficient T H * Real.log t +
+    xiLehmanHighBound t H + 68 / H ^ 2 ≤ xiLehmanLogCoefficient T H * Real.log t +
       xiLehmanAffineConstant T H := by
   have hTpos : 0 < T := by linarith
   have htpos : 0 < t := hTpos.trans_le ht
@@ -81,7 +81,7 @@ theorem xiLehmanHighBound_le_affine {T t H : ℝ}
       (mul_le_mul_of_nonneg_right ht hHpos.le)
   calc
     _ ≤ (1 / (2 * π)) * (L * (2 / H) + Real.log t / T) +
-        4 * L * (2 / H ^ 2) + 4 / (T * H) := by
+        4 * L * (2 / H ^ 2) + 4 / (T * H) + 68 / H ^ 2 := by
       unfold xiLehmanHighBound
       nlinarith only [hfirst, hsecond, hlast]
     _ = _ := by
@@ -89,6 +89,50 @@ theorem xiLehmanHighBound_le_affine {T t H : ℝ}
       simp only [div_eq_mul_inv, mul_inv_rev]
       norm_num
       ring
+
+/-- The former high-height expression remains covered by the same envelope. -/
+theorem xiLehmanHighBound_le_affine {T t H : ℝ}
+    (hT : 2 ≤ T) (ht : T ≤ t) (hH : 4 ≤ H) :
+    xiLehmanHighBound t H ≤ xiLehmanLogCoefficient T H * Real.log t +
+      xiLehmanAffineConstant T H :=
+  (le_add_of_nonneg_right (by positivity : (0 : ℝ) ≤ 68 / H ^ 2)).trans
+    (xiLehmanHighBound_add_le_affine hT ht hH)
+
+/-- The complete logarithmic discrepancy costs at most an explicit constant increment. -/
+theorem xiLehmanLogBound_le_highBound_add {t H : ℝ}
+    (ht : 0 < t) (hH : 0 < H) (hA : 1 ≤ t + H) :
+    xiLehmanLogBound t H ≤ xiLehmanHighBound t H + 68 / H ^ 2 := by
+  have hsq : 1 / H ^ 2 + 1 / (H + 2 * t) ^ 2 ≤ 2 / H ^ 2 := by
+    have h := one_div_le_one_div_of_le (sq_pos_of_pos hH)
+      (sq_le_sq₀ hH.le (by positivity) |>.mpr (by linarith : H ≤ H + 2 * t))
+    simp only [div_eq_mul_inv, one_mul] at h ⊢
+    linarith only [h]
+  have hlog := mul_nonneg (Real.log_nonneg hA)
+    (by positivity : (0 : ℝ) ≤ 1 / H ^ 2 + 1 / (H + 2 * t) ^ 2)
+  have hlast : (0 : ℝ) ≤ 2 / (t * H) := by positivity
+  unfold xiLehmanLogBound xiLehmanHighBound
+  simp only [div_eq_mul_inv] at hsq hlog hlast ⊢
+  nlinarith only [hsq, hlog, hlast]
+
+/-- At the former logarithmic threshold the new bound improves the old one. -/
+theorem xiLehmanLogBound_le_highBound {t H : ℝ}
+    (ht : 0 < t) (hH : 0 < H) (hlog : 17 ≤ Real.log (t + H)) :
+    xiLehmanLogBound t H ≤ xiLehmanHighBound t H := by
+  have h := mul_le_mul_of_nonneg_right
+    (by linarith : 2 * Real.log (t + H) + 34 ≤ 4 * Real.log (t + H))
+    (by positivity : (0 : ℝ) ≤ 1 / H ^ 2 + 1 / (H + 2 * t) ^ 2)
+  have hlast : (0 : ℝ) ≤ 2 / (t * H) := by positivity
+  unfold xiLehmanLogBound xiLehmanHighBound
+  simp only [div_eq_mul_inv] at h hlast ⊢
+  nlinarith only [h, hlast]
+
+/-- The moderate-height bound is compatible with the existing correction polynomial. -/
+theorem xiLehmanLogBound_le_affine {T t H : ℝ}
+    (hT : 2 ≤ T) (ht : T ≤ t) (hH : 4 ≤ H) :
+    xiLehmanLogBound t H ≤ xiLehmanLogCoefficient T H * Real.log t +
+      xiLehmanAffineConstant T H :=
+  (xiLehmanLogBound_le_highBound_add (by linarith) (by linarith) (by linarith)).trans
+    (xiLehmanHighBound_add_le_affine hT ht hH)
 
 end
 

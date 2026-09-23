@@ -34,7 +34,7 @@ example : xiHeightTail (-30600000000) 100000 ≤ xiLehmanTailMajorant (-30600000
 
 example {ι : Type*} (S : Finset ι) (a k : ι → ℝ) (ha : ∀ i ∈ S, 0 ≤ a i)
     {t H : ℝ} (hH : 0 < H)
-    (hA : ∀ i ∈ S, k i * t ≠ 0 → 10 ^ 9 ≤ |k i * t| + H) :
+    (hA : ∀ i ∈ S, k i * t ≠ 0 → 10 < |k i * t| + H) :
     (∑ i ∈ S, a i * xiHeightTail (k i * t) H) ≤
       ∑ i ∈ S, a i * xiLehmanTailMajorant (k i * t) H :=
   sum_xiHeightTail_le_lehmanMajorant S a k ha hH hA

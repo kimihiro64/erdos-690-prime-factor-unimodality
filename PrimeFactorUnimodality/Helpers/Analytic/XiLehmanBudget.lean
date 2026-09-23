@@ -1,5 +1,6 @@
 import PrimeFactorUnimodality.Helpers.Analytic.XiHeightTailZero
 import PrimeFactorUnimodality.Helpers.Analytic.XiLehmanHigh
+import PrimeFactorUnimodality.Helpers.Analytic.XiLehmanLogBound
 
 /-! # A proved tail majorant for all harmonics of the weighted master
 
@@ -30,16 +31,16 @@ theorem xiHeightTail_le_highBound {t H : ℝ}
   (xiHeightTail_le_main_add_correction_high ht hH hA).trans
     (xiLehmanMainIntegral_add_correction_le ht hH)
 
-/-- The zero harmonic uses exact finite subtraction; other harmonics use the high bound. -/
+/-- The zero harmonic uses finite subtraction; other harmonics retain the counting constant. -/
 def xiLehmanTailMajorant (t H : ℝ) : ℝ :=
   if t = 0 then
     2 * (1 + 1 / H ^ 2) *
       ((2 + Real.eulerMascheroniConstant - Real.log (4 * π)) / 2 - xiLowReciprocalMass H)
-  else xiLehmanHighBound |t| H
+  else xiLehmanLogBound |t| H
 
 /-- The combined majorant applies to signed heights and retains the zero harmonic. -/
 theorem xiHeightTail_le_lehmanMajorant {t H : ℝ} (hH : 0 < H)
-    (hA : t ≠ 0 → 10 ^ 9 ≤ |t| + H) :
+    (hA : t ≠ 0 → 10 < |t| + H) :
     xiHeightTail t H ≤ xiLehmanTailMajorant t H := by
   by_cases ht : t = 0
   · subst t
@@ -47,12 +48,12 @@ theorem xiHeightTail_le_lehmanMajorant {t H : ℝ} (hH : 0 < H)
       xiHeightTail_zero_le_reciprocal_mass hH
   · simp only [xiLehmanTailMajorant, ht, ↓reduceIte]
     rw [← xiHeightTail_abs hH t]
-    exact xiHeightTail_le_highBound (abs_pos.mpr ht) hH (hA ht)
+    exact xiHeightTail_le_logBound (abs_pos.mpr ht) hH (hA ht)
 
 /-- Nonnegative coefficients preserve the combined zero and positive-height estimates. -/
 theorem sum_xiHeightTail_le_lehmanMajorant {ι : Type*} (S : Finset ι)
     (a k : ι → ℝ) (ha : ∀ i ∈ S, 0 ≤ a i) {t H : ℝ} (hH : 0 < H)
-    (hA : ∀ i ∈ S, k i * t ≠ 0 → 10 ^ 9 ≤ |k i * t| + H) :
+    (hA : ∀ i ∈ S, k i * t ≠ 0 → 10 < |k i * t| + H) :
     (∑ i ∈ S, a i * xiHeightTail (k i * t) H) ≤
       ∑ i ∈ S, a i * xiLehmanTailMajorant (k i * t) H :=
   Finset.sum_le_sum (fun i hi => mul_le_mul_of_nonneg_left
@@ -60,7 +61,7 @@ theorem sum_xiHeightTail_le_lehmanMajorant {ι : Type*} (S : Finset ι)
 
 /-- Every natural harmonic qualifies once the base height is high; zero is included. -/
 theorem sum_xiHeightTail_nat_harmonics_le (S : Finset ℕ) (a : ℕ → ℝ)
-    (ha : ∀ i ∈ S, 0 ≤ a i) {t H : ℝ} (ht : 10 ^ 9 ≤ t) (hH : 0 < H) :
+    (ha : ∀ i ∈ S, 0 ≤ a i) {t H : ℝ} (ht : 10 ≤ t) (hH : 0 < H) :
     (∑ i ∈ S, a i * xiHeightTail ((i : ℝ) * t) H) ≤
       ∑ i ∈ S, a i * xiLehmanTailMajorant ((i : ℝ) * t) H := by
   apply sum_xiHeightTail_le_lehmanMajorant S a (fun i => (i : ℝ)) ha hH

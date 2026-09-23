@@ -9,6 +9,7 @@ ANALYTIC = "PrimeFactorUnimodality.Helpers.Analytic."
 MODULES = (
     "MossinghoffTrudgianBounds",
     "KadiriEndpointRows",
+    "KadiriInitialCutoff",
     "KadiriR6Parameters",
     "KadiriR6Gamma",
     "KadiriR6Tail",
@@ -156,6 +157,37 @@ def test_endpoint_assembler_closure_has_no_scalar_replay_dependency() -> None:
         path = ROOT.joinpath(*module.split(".")).with_suffix(".lean")
         if path.is_file():
             pending.extend(lean_imports(strip_lean_comments(path.read_text())))
+
+
+def test_moderate_lehman_domain_reaches_endpoint_rows() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    assert workflow.index(f"+{ANALYTIC}XiLehmanLogBound\n") < workflow.index(
+        f"+{ANALYTIC}XiLehmanBudget\n"
+    )
+    assert (
+        workflow.index(f"+{ANALYTIC}XiLehmanAffine\n")
+        < workflow.index("lake env lean test/lean/XiLehmanLogBound.lean")
+        < workflow.index(f"+{ANALYTIC}KadiriTailEnvelope\n")
+    )
+    for module in (
+        "KadiriLehmanMaster",
+        "KadiriExplicitMaster",
+        "KadiriRegionMaster",
+        "KadiriBootstrapMaster",
+        "KadiriUniformBootstrap",
+        "KadiriSplitBootstrap",
+        "KadiriScaleCoverBootstrap",
+        "KadiriGridBootstrap",
+        "KadiriConservativeBootstrap",
+        "KadiriElementaryBootstrap",
+        "KadiriEndpointRows",
+    ):
+        path = ROOT / "PrimeFactorUnimodality/Helpers/Analytic" / f"{module}.lean"
+        source = strip_lean_comments(path.read_text())
+        assert "10 ^ 9" not in source
+        assert "1000000000" not in source
+    budget = ROOT / "PrimeFactorUnimodality/Helpers/Analytic/XiLehmanBudget.lean"
+    assert "else xiLehmanLogBound |t| H" in strip_lean_comments(budget.read_text())
 
 
 def test_turing_consumers_do_not_assume_counting_error() -> None:

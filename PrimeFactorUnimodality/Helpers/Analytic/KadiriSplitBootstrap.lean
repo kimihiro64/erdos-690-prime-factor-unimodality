@@ -18,7 +18,7 @@ open Real
 /-- Two fixed scale regimes improve the actual region at every positive or negative ordinate. -/
 theorem xi_zero_gap_of_split_moment_budget
     {θ R r T T₁ H η₀ η₁ σ₀ δ κ y B₀ B₁ B₂ B₃ : ℝ} {n : ℕ}
-    (hR : 0 < R) (hr : 0 < r) (hT : 10 ^ 9 ≤ T) (hH : 4 ≤ H) (hn : 1 ≤ n)
+    (hR : 0 < R) (hr : 0 < r) (hT : 10 ≤ T) (hH : 4 ≤ H) (hn : 1 ≤ n)
     (hθ : π / 2 < θ ∧ θ < π)
     (hηdef : η₀ = 1 / (r * log T)) (hηhalf : η₀ ≤ 1 / 2)
     (_hη₁ : 0 < η₁) (hT₁ : 1 < T₁) (hthreshold : T₁ ≤ exp (1 / (R * η₁)))
