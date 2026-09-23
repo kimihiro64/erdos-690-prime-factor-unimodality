@@ -18,6 +18,7 @@ def test_partial_sieve_foundations_build_serially() -> None:
         ("PrimeCountingMeissel", "Mathlib.NumberTheory"),
         ("PartialSieveRows", "Helpers.Arithmetic"),
         ("MeisselRows", "Helpers.Arithmetic"),
+        ("PartialSievePeriodic", "Mathlib.NumberTheory"),
     ):
         build = foundations.index(f"+{BASE}{directory}.{name}\n")
         test = foundations.index(f"lake env lean test/lean/{name}.lean")

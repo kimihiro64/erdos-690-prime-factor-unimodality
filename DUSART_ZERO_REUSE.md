@@ -24,6 +24,14 @@ from these checks, a verified prime prefix, a verified partial-sieve claim,
 and verified small quotient counts. Sparse primality evidence alone still
 does not satisfy these complete-count premises.
 
+`PartialSievePeriodic` supplies the shared-wheel leaf: a proved remainder
+count plus the totient of one complete period determines the count at any
+larger endpoint. It reuses the existing periodic-count candidate and
+Mathlib's coprime-interval totient identity. A regression proves the number
+of positive integers coprime to six through `10000000000` is `3333333333`
+from the tiny remainder alone; this is a partial-sieve count, not a claim
+about the number of primes at that endpoint.
+
 These are non-certificate foundations, not a completed numerical provider.
 The row feasibility probe remains below the required full-range throughput;
 no large family is generated or claimed to run in minutes. The next
@@ -33,10 +41,10 @@ high-height zero data, anchors, and unconditional all-k providers remain
 open. CI builds remain paused. The new foundations and their small
 regressions are configured as sequential CI targets for when builds resume.
 
-All five new modules and both affected facades compile. Five Lean regression
+All six new modules and both affected facades compile. Six Lean regression
 files include an end-to-end Meissel proof of `primeCounting 100 = 25` and
 rejection checks for false values, forward/cyclic dependencies, missing
-leaves, and invalid cutoffs. All 20 audited theorem closures use only the
+leaves, and invalid cutoffs. All 24 audited theorem closures use only the
 standard `propext`, `Classical.choice`, and `Quot.sound` axioms. The 183
 Python tests, canonical fast gate, Ruff format/lint, mypy, and actionlint pass.
 

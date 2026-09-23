@@ -1511,6 +1511,9 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Arithmetic.MeisselRows
           lake env lean test/lean/MeisselRows.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.NumberTheory.PartialSievePeriodic
+          lake env lean test/lean/PartialSievePeriodic.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ZetaExplicitBounds
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ExplicitMediumPNT
