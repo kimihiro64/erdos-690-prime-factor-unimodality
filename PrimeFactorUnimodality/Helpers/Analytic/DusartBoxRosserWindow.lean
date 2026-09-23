@@ -15,25 +15,36 @@ noncomputable section
 
 open Complex Real intervalIntegral
 
-/-- A positive-height spectral atom is bounded by the full damped-power kernel. -/
+/-- Either ordinate sign has the same full damped-power bound at its absolute height. -/
+theorem norm_dusartBox_atom_le_abs_rosser_kernel (m : ℕ) {h x R : ℝ}
+    (hh : 0 < h) (hx : 1 < x) (hR : 0 < R) {s : ℂ} (hγ : 1 < |s.im|)
+    (hβ0 : 0 ≤ s.re) (hβ : s.re ≤ 1 - 1 / (R * Real.log |s.im|)) :
+    ‖iteratedBoxAverageComplex h (m + 3) (fun t => (t : ℂ) ^ s / s) x‖ ≤
+      (2 ^ (m + 3) * (x + (m + 3 : ℕ) * h) ^ (m + 4) / h ^ (m + 3)) *
+        logDampedPower (Real.log x / R) (m + 4 : ℕ) |s.im| := by
+  have hγ0 : 0 < |s.im| := lt_trans zero_lt_one hγ
+  have hs : s ≠ 0 := fun he => (abs_pos.mp hγ0) (by simp [he])
+  have hδ : 0 ≤ 1 / (R * Real.log |s.im|) :=
+    one_div_nonneg.mpr (mul_nonneg hR.le (Real.log_pos hγ).le)
+  have hb := norm_dusartBox_paired_atom_le_height_gap m hh hx hδ (abs_pos.mp hγ0) hβ0 hβ
+  rw [finiteLaplace_dusartBoxWeight_add_inv m hh hx hs] at hb
+  refine hb.trans_eq ?_
+  rw [logDampedPower_eq_rpow_mul hγ0, Real.rpow_neg hγ0.le, Real.rpow_natCast]
+  have he : -(1 / (R * Real.log |s.im|)) * Real.log x =
+      -(Real.log x / R) / Real.log |s.im| := by ring
+  rw [he]
+  ring
+
+/-- The positive-height interface specializes the same absolute-height atom estimate. -/
 theorem norm_dusartBox_atom_le_rosser_kernel (m : ℕ) {h x R : ℝ}
     (hh : 0 < h) (hx : 1 < x) (hR : 0 < R) {s : ℂ} (hγ : 1 < s.im)
     (hβ0 : 0 ≤ s.re) (hβ : s.re ≤ 1 - 1 / (R * Real.log s.im)) :
     ‖iteratedBoxAverageComplex h (m + 3) (fun t => (t : ℂ) ^ s / s) x‖ ≤
       (2 ^ (m + 3) * (x + (m + 3 : ℕ) * h) ^ (m + 4) / h ^ (m + 3)) *
         logDampedPower (Real.log x / R) (m + 4 : ℕ) s.im := by
-  have hγ0 : 0 < s.im := lt_trans zero_lt_one hγ
-  have hs : s ≠ 0 := fun he => hγ0.ne' (by simp [he])
-  have hδ : 0 ≤ 1 / (R * Real.log s.im) :=
-    one_div_nonneg.mpr (mul_nonneg hR.le (Real.log_pos hγ).le)
-  have hb := norm_dusartBox_paired_atom_le_height_gap m hh hx hδ hγ0.ne' hβ0 hβ
-  rw [finiteLaplace_dusartBoxWeight_add_inv m hh hx hs, abs_of_pos hγ0] at hb
-  refine hb.trans_eq ?_
-  rw [logDampedPower_eq_rpow_mul hγ0, Real.rpow_neg hγ0.le, Real.rpow_natCast]
-  have he : -(1 / (R * Real.log s.im)) * Real.log x =
-      -(Real.log x / R) / Real.log s.im := by ring
-  rw [he]
-  ring
+  have he : |s.im| = s.im := abs_of_pos (lt_trans zero_lt_one hγ)
+  simpa only [he] using norm_dusartBox_atom_le_abs_rosser_kernel m hh hx hR
+    (by simpa only [he] using hγ) hβ0 (by simpa only [he] using hβ)
 
 /-- The actual finite spectral sum is bounded by the explicit Rosser integral expression. -/
 theorem norm_dusartBox_xi_window_le_rosser (m : ℕ) {h x R u v : ℝ}

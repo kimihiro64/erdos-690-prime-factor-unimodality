@@ -1,5 +1,37 @@
 # Reuse audit for the Dusart zero-sum layer
 
+## Newest follow-up: complete Rosser tail and pointwise psi (2026-09-23)
+
+The infinite step now reuses `XiZeroCountingImproper` and its existing
+count-boundary theorem directly. `XiRosserAbel` proves actual damped-kernel
+summability and the exact improper Abel identity. The new Mathlib-only
+tail/integral candidates prove inverse-square domination and absolute
+integrability of both the logarithmic density and reciprocal-height
+correction. Neither convergence nor an upper boundary limit is assumed.
+
+`XiRosserTailBound` passes the decreasing window estimate to infinity,
+keeping the lower counting discrepancy. `XiRosserCutoff` adds every cutoff
+label and combines its multiplicity with that discrepancy before applying
+the already proved strict-count envelope. `XiRosserSymmetry` reuses the
+existing multiplicity-preserving conjugation to cover both ordinate signs.
+The closed absolute-height tail has no leftover multiplicity charge.
+
+`DusartBoxRosserTail` bounds the actual complete high box sum, retaining
+the full `m+4` height power. The constant-`56` specialization derives its
+region input. `DusartBoxRosserBudget` connects this tail to the actual psi
+averages and pointwise error, including all finite blocks, corrections and
+the exact smoothing loss. Its stronger low-height and arbitrary-region
+inputs remain explicit. A named local instance also fixes an import-name
+collision exposed when joining the window and height-band proof branches.
+
+Eight new modules, two adapted consumers, twenty-five new examples and
+the twenty-seven preserved window examples compile. Thirty-seven exported
+theorem closures use only the standard three axioms. The remaining Rosser
+work is quantitative evaluation/majorization of the convergent integrals
+and uniform parameter bounds; the actual infinite zero sum is now handled.
+The optimized region, sufficiently strong low-height information, finite
+prime prefix and three final Dusart providers are still unfinished.
+
 ## Newest follow-up: Rosser weighted windows (2026-09-23)
 
 `XiWeightedCountingBounds` directly reuses the exact actual-xi Abel identity

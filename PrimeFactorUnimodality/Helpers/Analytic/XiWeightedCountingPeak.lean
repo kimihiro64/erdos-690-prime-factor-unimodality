@@ -14,7 +14,8 @@ noncomputable section
 
 open MeasureTheory Real Set
 
-local instance : DecidableEq RiemannXiDivisorZeroIndex := Classical.decEq _
+local instance xiWeightedWindowDecidableEq : DecidableEq RiemannXiDivisorZeroIndex :=
+  Classical.decEq _
 
 /-- A window with coincident endpoints has no divisor labels. -/
 @[simp] theorem xiHeightWindowIndices_self (a : ℝ) : xiHeightWindowIndices a a = ∅ := by

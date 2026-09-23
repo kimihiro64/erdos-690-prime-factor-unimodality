@@ -5,7 +5,38 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: Rosser weighted windows (2026-09-23)
+## Latest analytic increment: complete Rosser tail (2026-09-23)
+
+`XiRosserAbel` now proves convergence, the vanishing counting boundary and
+the exact infinite identity using the existing improper Abel infrastructure.
+The Mathlib-only damped-tail/integral candidates establish all required
+integrability. `XiRosserTailBound` applies the counting envelope;
+`XiRosserCutoff` absorbs the exact cutoff multiplicity into the strict count;
+`XiRosserSymmetry` covers both signs via the existing divisor conjugation.
+These bounds apply to exponents at least two and cutoffs beyond the turning
+point. They do not require that the cutoff avoid zero ordinates.
+
+`DusartBoxRosserTail` supplies the full actual high-zero norm estimate for
+any positive region constant, and an initial `56` specialization with the
+region proved internally. `DusartBoxRosserBudget` joins this to the existing
+finite low/band estimates and all correction terms, then bounds pointwise
+psi through both adjacent averages. The upper evaluation point's turning
+condition also controls the lower average. No unbounded zero sum remains
+in the new budget; convergent real integrals do remain.
+
+The combined consumer exposed and fixed an anonymous local-instance name
+collision between `XiWeightedCountingPeak` and `XiHeightBand`. CI now builds
+the complete combined consumer, not merely each branch in isolation.
+Eight new modules, twenty-five new examples and all twenty-seven previous
+window examples compile; thirty-seven theorem closures use standard axioms.
+
+Next: prove usable quantitative bounds for the weighted improper integrals
+and their full parameter ranges. Keep the arbitrary `R` interface; do not
+replace the required optimized constant with the weak initial constant.
+The stronger low-height input, uniform numerical budget at the fixed
+cutoff, finite prime prefix and three final providers remain unfinished.
+
+## Previous analytic increment: Rosser weighted windows (2026-09-23)
 
 The damped-power calculus and actual finite weighted-counting step now
 compile. `XiWeightedCountingBounds` and `XiWeightedCountingPeak` reuse the

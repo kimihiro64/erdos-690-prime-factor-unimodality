@@ -467,6 +467,32 @@ def test_rosser_window_ci_build_order() -> None:
         assert positions[-1] < foundations.index(f"lake env lean test/lean/{test}.lean")
 
 
+def test_rosser_tail_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    prefix = "PrimeFactorUnimodality.Helpers.Analytic"
+    candidate = "PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions"
+    modules = (
+        f"{candidate}.Pow.LogDampedTail",
+        f"{candidate}.Integrals.LogDamped",
+        f"{prefix}.XiRosserAbel",
+        f"{prefix}.XiRosserTailBound",
+        f"{prefix}.XiRosserCutoff",
+        f"{prefix}.XiRosserSymmetry",
+        f"{prefix}.DusartBoxRosserTail",
+        f"{prefix}.DusartBoxRosserBudget",
+    )
+    positions = [foundations.index(f"lake build \\\n            +{module}\n") for module in modules]
+    assert positions == sorted(positions)
+    assert foundations.index("lake env lean test/lean/DusartBoxRosserWindow.lean") < positions[0]
+    assert positions[1] < foundations.index("lake env lean test/lean/LogDampedTail.lean")
+    assert foundations.index(f"+{prefix}.XiZeroCountingImproper\n") < positions[2]
+    assert foundations.index(f"+{prefix}.XiHeightTailEndpoint\n") < positions[4]
+    for test in ("XiRosserTail", "DusartBoxRosserTail"):
+        assert positions[-1] < foundations.index(f"lake env lean test/lean/{test}.lean")
+
+
 def test_main_ci_preserves_running_proof_build() -> None:
     root = Path(__file__).resolve().parents[2]
     workflow = (root / ".github/workflows/ci.yml").read_text()
