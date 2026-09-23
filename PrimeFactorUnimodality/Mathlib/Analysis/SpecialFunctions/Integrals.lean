@@ -7,7 +7,7 @@ import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.Correl
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.CosineCorrelation
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ExpMoments
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ExpTrig
-import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogDamped
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogDampedBound
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.LogReciprocalSquarePair
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ReciprocalSquarePair
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals.ReciprocalSquarePairDeriv
@@ -21,5 +21,6 @@ majorants for weighted exponential integrals in terms of four moments.
 The reciprocal-pair modules add explicit improper tail integral bounds
 and an exact logarithmic integral evaluation. The exponential modules also
 give exact linear-weight and trigonometric endpoint formulas, with zero
-exponents handled explicitly.
+exponents handled explicitly. The damped-tail modules give exact logarithmic
+power integrals and closed majorants with a freely chosen power exponent.
 -/

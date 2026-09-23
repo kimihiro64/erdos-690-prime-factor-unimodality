@@ -493,6 +493,31 @@ def test_rosser_tail_ci_build_order() -> None:
         assert positions[-1] < foundations.index(f"lake env lean test/lean/{test}.lean")
 
 
+def test_rosser_closed_bound_ci_build_order() -> None:
+    root = Path(__file__).resolve().parents[2]
+    workflow = (root / ".github/workflows/ci.yml").read_text()
+    foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]
+    prefix = "PrimeFactorUnimodality.Helpers.Analytic"
+    candidate = "PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions"
+    modules = (
+        f"{candidate}.Pow.LogDampedMajorant",
+        f"{candidate}.Integrals.LogPowerTail",
+        f"{candidate}.Integrals.LogDampedBound",
+        f"{prefix}.XiRosserClosedBounds",
+        f"{prefix}.DusartBoxRosserClosedTail",
+        f"{prefix}.DusartBoxRosserClosedBudget",
+    )
+    positions = [foundations.index(f"lake build \\\n            +{module}\n") for module in modules]
+    assert positions == sorted(positions)
+    assert foundations.index("lake env lean test/lean/DusartBoxRosserTail.lean") < positions[0]
+    scalar_test = foundations.index("lake env lean test/lean/LogDampedClosedBound.lean")
+    assert positions[2] < scalar_test < positions[3]
+    assert positions[-1] < foundations.index(
+        "lake env lean test/lean/DusartBoxRosserClosedBudget.lean"
+    )
+    assert positions[-1] < foundations.index(f"+{prefix}.ZetaExplicitBounds\n")
+
+
 def test_main_ci_preserves_running_proof_build() -> None:
     root = Path(__file__).resolve().parents[2]
     workflow = (root / ".github/workflows/ci.yml").read_text()

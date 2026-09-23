@@ -1,6 +1,36 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: complete Rosser tail and pointwise psi (2026-09-23)
+## Newest follow-up: elementary Rosser bounds (2026-09-23)
+
+The actual infinite zero sum and its counting infrastructure are reused
+unchanged. `LogDampedMajorant` splits off any real power and selects the
+remaining kernel's cutoff value after its turning point, or its global
+peak otherwise. `LogPowerTail` proves the exact improper integral with
+arbitrary logarithmic offset. `LogDampedBound` bounds both Rosser density
+terms and cancels the split powers in the cutoff branch. These candidates
+use only Mathlib and the already proved scalar kernel layer.
+
+`XiRosserClosedBounds`, `DusartBoxRosserClosedTail` and
+`DusartBoxRosserClosedBudget` connect the elementary expression to the
+actual whole tail, averaged psi and pointwise psi. The parameter range is
+`1<p<q`, with `q=m+4` in the box estimate; the region constant remains
+arbitrary. Integrability is proved, not inferred from a formal integral
+identity. Both signs, every cutoff multiplicity, and all correction terms
+remain covered by the previous complete-tail theorem.
+
+The six new modules, their candidate facade, thirty-one new examples and
+sixteen preserved tail examples compile. All twenty-six new theorem
+closures use only the three standard axioms.
+
+The sibling check reconfirmed existing reuse, not a replacement theorem
+for the missing numerical constants. Robin/WIP norm-mass evaluations
+assume RH; the inspected BV counting bound has an existential constant
+for nonprincipal characters. The stronger low-height information,
+optimized region, uniform fixed-cutoff scalar bound, finite prime prefix
+and three final providers remain to be proved. No new sibling import is
+needed for this elementary-integral step.
+
+## Previous follow-up: complete Rosser tail and pointwise psi (2026-09-23)
 
 The infinite step now reuses `XiZeroCountingImproper` and its existing
 count-boundary theorem directly. `XiRosserAbel` proves actual damped-kernel

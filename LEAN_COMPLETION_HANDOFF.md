@@ -5,7 +5,37 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: complete Rosser tail (2026-09-23)
+## Latest analytic increment: elementary Rosser majorants (2026-09-23)
+
+The remaining high-tail integrals now have closed real bounds. Three new
+Mathlib-only candidates prove arbitrary-power splitting, the cutoff/global
+peak coefficient, and the exact logarithmic power integral for every
+exponent greater than one. The density and reciprocal-height correction
+are bounded together. In the cutoff branch, an exact cancellation rewrites
+the product as the original kernel times an elementary rational-log factor.
+The power parameter is free; no fixed exponent is substituted for it.
+
+`XiRosserClosedBounds` bounds the actual complete two-sided tail.
+`DusartBoxRosserClosedTail` retains the full `m+4` height power and the
+arbitrary region constant. `DusartBoxRosserClosedBudget` connects the
+elementary expression to the actual averaged and pointwise psi errors,
+preserving both adjacent averages and every correction term. No zero sum
+or improper integral remains on these right-hand sides. The general
+theorems still require their stated low-height and high-region inputs;
+the initial `56` high-tail specialization derives its region input.
+
+CI builds the candidates and combined consumers in serial foundation
+steps, with regressions for cutoff equality, both coefficient branches,
+zero damping, signed logarithmic densities, and the actual psi consumer.
+All six new modules and the candidate facade compile; thirty-one new
+examples and sixteen preserved tail examples pass. All twenty-six new
+theorem closures use only `propext`, `Classical.choice`, and `Quot.sound`.
+This removes integral majorization as an open source obligation. It does
+not establish the final uniform numerical inequality: optimized region
+parameters, stronger low-height information, the fixed-cutoff scalar
+bound, finite prime prefix and three final Dusart providers remain.
+
+## Previous analytic increment: complete Rosser tail (2026-09-23)
 
 `XiRosserAbel` now proves convergence, the vanishing counting boundary and
 the exact infinite identity using the existing improper Abel infrastructure.
