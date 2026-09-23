@@ -1,4 +1,6 @@
+import PrimeFactorUnimodality.Helpers.Analytic.DusartCheckedThetaTrace
 import PrimeFactorUnimodality.Helpers.Analytic.DusartCheckpointVerification
+import PrimeFactorUnimodality.Helpers.Analytic.DusartEarlierCutoff
 import PrimeFactorUnimodality.Helpers.Analytic.DusartReducedZeroVerification
 import PrimeFactorUnimodality.Helpers.FiniteCertificates.KadiriTransformNumerical
 
@@ -6,8 +8,9 @@ import PrimeFactorUnimodality.Helpers.FiniteCertificates.KadiriTransformNumerica
 
 Only low-height verification and lower-band data remain explicit. The
 certified four-point transforms supply the endpoint chain in every consumer.
-In particular the full theta ray still requires verification to a billion;
-the smaller cutoff is used only for its separate region and psi route.
+The early analytic bridge reduces the lower-band endpoint to ten billion.
+The full theta ray still requires zero verification to a billion; the
+smaller zero-height cutoff is used only on the bounded bridge.
 -/
 
 namespace PrimeFactorUnimodality
@@ -33,14 +36,43 @@ theorem hasThetaLogSquaredError_above_endpoint_of_verified_low
     HasThetaLogSquaredError (1 / 5) 1441000000000 :=
   hasThetaLogSquaredError_above_endpoint_of_bootstrap kadiriSix_endpoint_chain hlow
 
-/-- The exact published theta cutoff retains just lower-band and low-zero obligations. -/
+/-- The full ray now starts at ten billion with the same low-zero obligation. -/
+theorem hasThetaLogSquaredError_above_earlier_cutoff_of_verified_low
+    (hlow : ∀ z ∈ xiLowHeightIndices 1000000000,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) 10000000000 := by
+  apply hasThetaLogSquaredError_above_earlier_cutoff hlow
+  intro z hz
+  linarith [xi_zero_gap_six_of_verified_low hlow z hz]
+
+/-- The exact published theta cutoff needs finite data only through ten billion. -/
 theorem hasThetaLogSquaredError_of_lower_band_and_verified_low
-    (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 1441000000000 →
+    (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 10000000000 →
       |Chebyshev.theta x - x| ≤ (1 / 5 : ℝ) * x / Real.log x ^ 2)
     (hlow : ∀ z ∈ xiLowHeightIndices 1000000000,
       (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) 3594641 := by
+  apply hasThetaLogSquaredError_of_earlier_band_and_zero_data finite hlow
+  intro z hz
+  linarith [xi_zero_gap_six_of_verified_low hlow z hz]
+
+/-- Checked count/log transitions to ten billion feed the published global theta theorem. -/
+theorem hasThetaLogSquaredError_of_early_prime_trace_and_verified_low
+    {c : SharedTaylorIntervals} (hc : c.Prepared)
+    {start p q : ThetaPrimeCheckpoint} (hs : start.Valid)
+    {points : List ThetaPrimeCheckpoint}
+    (hcounts : ∀ s ∈ p :: points, Nat.primeCounting s.point = s.count)
+    (htrace : ThetaPrimeCheckpoint.checkTrace c start (p :: points) = true)
+    (hpositive : ∀ s ∈ p :: points, 2 ≤ s.point ∧ 0 < s.log.hi)
+    (hcoverage : ThetaSquaredCheckpoint.checkFrom (1 / 5) p.squared q.squared
+      (points.map ThetaPrimeCheckpoint.squared) = true)
+    (hp : p.point ≤ 3594641) (hq : 10000000000 ≤ q.point)
+    (hlow : ∀ z ∈ xiLowHeightIndices 1000000000,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
     HasThetaLogSquaredError (1 / 5) 3594641 :=
-  hasThetaLogSquaredError_of_lower_band_and_bootstrap finite kadiriSix_endpoint_chain hlow
+  hasThetaLogSquaredError_of_lower_band_and_verified_low
+    (thetaLogSquared_on_band_of_checked_prime_trace hc hs hcounts htrace hpositive hcoverage hp hq)
+    hlow
 
 /-- Turing signs and the complete counting margin give the entire upper theta ray. -/
 theorem hasThetaLogSquaredError_above_endpoint_of_verified_turing_rows {n : ℕ}
@@ -57,15 +89,19 @@ theorem hasThetaLogSquaredError_of_verified_checkpoints_and_turing_rows
     {p q : ThetaSquaredCheckpoint} {points : List ThetaSquaredCheckpoint}
     (hpoints : ∀ r ∈ points, r.Valid)
     (hsteps : ThetaSquaredCheckpoint.Chain (1 / 5) p q points)
-    (hp : p.point ≤ 3594641) (hq : 1441000000000 ≤ q.point)
+    (hp : p.point ≤ 3594641) (hq : 10000000000 ≤ q.point)
     {n : ℕ} {rows : Fin n → XiSignRow} {b : ℚ}
     (hrows : XiSignRows.Valid rows 0 b) (hb : 1000000000 ≤ b)
     (hmargin : xiZeroCountingMainIntegral b - xiZeroCountingMainIntegral 1000000000 +
       turingCountErrorBudget 1000000000 b <
         (b : ℝ) - 1000000000 + (XiSignRows.completedAreaRat rows 1000000000 b : ℝ)) :
-    HasThetaLogSquaredError (1 / 5) 3594641 :=
-  hasThetaLogSquaredError_of_checkpoints_and_turing_rows
-    hpoints hsteps hp hq hrows hb hmargin kadiriSix_endpoint_chain
+    HasThetaLogSquaredError (1 / 5) 3594641 := by
+  have hlow := hrows.low_criticalLine_of_turing_margin (by norm_num) hb hmargin
+  apply hasThetaLogSquaredError_of_lower_band_and_verified_low _ (fun z hz => (hlow z hz).le)
+  intro x hx hX
+  have hp' : (p.point : ℝ) ≤ 3594641 := by exact_mod_cast hp
+  have hq' : (10000000000 : ℝ) ≤ q.point := by exact_mod_cast hq
+  simpa using hsteps.bound (by norm_num) hpoints (hp'.trans hx) (hX.trans hq')
 
 end
 

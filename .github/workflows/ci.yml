@@ -944,6 +944,15 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.DusartReducedPsiEndpoint
           lake env lean test/lean/DusartReducedPsiEndpoint.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartEarlierCutoffScalars
+          lake env lean test/lean/DusartEarlierCutoffScalars.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartEarlierCutoffBudget
+          lake env lean test/lean/DusartEarlierCutoffBudget.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartEarlierCutoffTheta
+          lake env lean test/lean/DusartEarlierCutoffTheta.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartPsiEndpoint
           lake env lean test/lean/DusartPsiEndpoint.lean
           /usr/bin/time -v lake build \
@@ -1030,6 +1039,9 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.DusartSquaredAnalyticRay
           lake env lean test/lean/DusartSquaredAnalyticRay.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.DusartEarlierCutoff
+          lake env lean test/lean/DusartEarlierCutoff.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriR6Parameters
           lake env lean test/lean/KadiriR6Parameters.lean

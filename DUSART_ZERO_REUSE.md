@@ -1,6 +1,47 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: exact local prime counts from a retained sieve (2026-09-23)
+## Newest follow-up: analytic takeover at ten billion (2026-09-23)
+
+`DusartEarlierCutoffScalars`, `DusartEarlierCutoffBudget`, and
+`DusartEarlierCutoffTheta` prove two complete analytic intervals:
+`[10000000000, 100000000000]` and `[100000000000, 1441000000000]`.
+They use the existing order-three psi formula with step `1/50000`, inner
+height `100000`, outer height `25000000`, and gap `1/2`. Both adjacent
+averages, smoothing loss, reciprocal mass, full infinite tails, and the
+prime-power correction are included. Rational logarithm bounds suffice;
+there is no numerical zero-location or prime-count assumption hidden in
+these scalar calculations.
+
+`DusartEarlierCutoff` joins these intervals to the existing infinite ray.
+The canonical lower-band and checkpoint consumers in
+`DusartVerifiedBootstrap` now require finite theta data only through
+`10000000000`, a reduction by a factor of 144.1 in the endpoint. Their
+conclusion remains `HasThetaLogSquaredError (1 / 5) 3594641`. The checked
+prime-count/log trace also feeds this shortened consumer. The old
+trillion-endpoint trace interface remains available for compatibility.
+
+This does not discharge the actual low-zero data: the bridge uses height
+`25000000`, and the full infinite ray still requires height `1000000000`.
+It does not supply the shorter finite count/coverage data, prime-counting
+anchors, small prefixes, or final unconditional Dusart providers.
+
+The full-range feasibility investigation rejected the current bulk-sieve
+counting route before producing a large family. Primality certificates
+prove selected primes but do not establish completeness of a prime count.
+Pratt/partial-Pocklington proofs are useful for sparse witnesses; BPSW is
+not used as a Lean primality oracle, and an external ECPP result is not
+treated as a kernel proof. A practical complete counting implementation
+for the remaining range still needs its own feasibility gate. The earlier
+sieve source increment below is an exact interface, not a claim that its
+trillion-scale replay is practical. CI builds remain paused.
+
+Seven new or affected modules and ten focused Lean test files compile,
+including both shared interval boundaries and the old trace interface.
+All 29 audited theorem closures use only `propext`, `Classical.choice`, and
+`Quot.sound`. All 180 Python tests, the fast checks, formatting, lint,
+type checking, and workflow validation pass.
+
+## Previous follow-up: exact local prime counts from a retained sieve (2026-09-23)
 
 `SievePrimeCounting` now identifies the complete prime set from a certified
 mod-six wheel bitset. It counts primes two and three separately, excludes the
