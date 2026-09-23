@@ -1,6 +1,37 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: checked complete Turing scalar margin (2026-09-23)
+## Newest follow-up: all four R6 transform bounds certified (2026-09-23)
+
+`ExpIntegralExpressions` preserves the exact five elementary integral
+formulas, including the removable zero-exponent branches.
+`KadiriTransformExpressions` assembles the complete signed transform;
+`KadiriTransformChecks` connects its checked dyadic enclosure, including
+every denominator-domain check, to the original four-point interface.
+
+The four original points `0.09`, `0.69`, `0.79`, and `1` now have
+kernel-checked lower bounds `18`, `22`, `23`, and `23`. One small module
+reuses the existing row family and kernel constants. The tightest-point
+representative passed in 6.2 seconds (peak process RSS about 4.32 GiB,
+including imports); all four rows and both resulting endpoint chains
+compile. No per-witness files, numerical axioms, or new integration
+assumptions were introduced.
+
+`DusartVerifiedBootstrap` supplies the real high-region, complete upper
+theta-ray, and published-cutoff consumers without scalar-transform or
+endpoint-chain hypotheses. The billion-height low-zero premise remains
+explicit for the full theta route; the reduced twenty-five-million cutoff
+is not substituted for it. Actual zero-verification data and coverage,
+lower-theta checkpoints, prime prefixes/anchors and final unconditional
+providers remain open. The R6 scalar bounds are no longer an open item.
+
+All five new modules compile. Focused interface, zero-exponent, negative
+exponent, denominator-rejection and existing downstream regression tests
+pass. All 23 exported theorem closures use only the standard three logical
+axioms. CI places expression semantics before numerical replay and keeps
+the four-row certificate and its consumers serial in the certificate job.
+Build jobs remain paused.
+
+## Previous follow-up: checked complete Turing scalar margin (2026-09-23)
 
 The exact smooth-integral difference now has a cancellation-aware rational
 interval evaluator. Its shared constant `log(2*pi)` is charged only to the

@@ -1055,6 +1055,15 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.KadiriR6FourPoints
           lake env lean test/lean/KadiriR6FourPoints.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ExpIntegralExpressions
+          lake env lean test/lean/ExpIntegralExpressions.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriTransformExpressions
+          lake env lean test/lean/KadiriTransformExpressions.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.KadiriTransformChecks
+          lake env lean test/lean/KadiriTransformChecks.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.XiCriticalLine
           lake env lean test/lean/XiCriticalLine.lean
           /usr/bin/time -v lake build \
@@ -1481,6 +1490,12 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.FiniteCertificates.KadiriKernelNumerical
           lake env lean test/lean/KadiriKernelNumerical.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.FiniteCertificates.KadiriTransformNumerical
+          lake env lean test/lean/KadiriTransformNumerical.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.FiniteCertificates.DusartVerifiedBootstrap
+          lake env lean test/lean/DusartVerifiedBootstrap.lean
           lake build \
             +PrimeFactorUnimodality.Helpers.FiniteCertificates.Generated.PrimePrefixes
           lake build \

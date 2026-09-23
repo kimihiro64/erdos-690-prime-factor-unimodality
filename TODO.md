@@ -24,6 +24,10 @@
   dependency. Its sources, archive audit, and caches remain preserved.
 - [ ] Discharge the explicit theta, prime-counting, and short-interval
   analytic interfaces from kernel-checked theorems.
+  The four R6 transform bounds and their height-uniform endpoint chain
+  are now certified; the exact full theta-ray consumer retains the genuine
+  billion-height zero-verification premise. Numerical zero data/coverage,
+  the lower theta band and the finite prime-counting anchors remain open.
   The prime-counting tail is now reduced by a proved adapter from Dusart's
   explicit asymptotic formula (with remainder `7.32 / log^3 x`); the remaining
   obligation is the asymptotic provider itself together with the finite
