@@ -67,6 +67,7 @@ After fetching the locked Lean dependencies (and the Mathlib cache), run:
 
 ```bash
 python3 scripts/patch_pnt_compat.py
+python3 scripts/patch_primecert_compat.py
 ```
 
 This applies the reviewed Lean 4.34 API ports to four pinned PNT dependency
@@ -74,6 +75,14 @@ files. It validates the exact Git revision and every target's full source,
 refuses unrelated edits, is idempotent, and preserves all build caches.
 CI applies the same ports before building. `--check` verifies without writing.
 The locked PNT revision and its original Apache-2.0 notices are unchanged.
+
+The PrimeCert port validates its exact locked revision and both affected
+sources before writing. It adapts the changed multiplicity API and restricts
+the congruence decomposition to nonzero moduli, a premise its sole caller
+already proves. The old zero-modulus statement is false under the current
+definition of multiplicity at zero. Sieve and primality conclusions are
+unchanged. The port preserves notices, unrelated edits and all caches;
+`--check` verifies it without writing. Every Lean CI job applies both ports.
 
 Run the research profile before opening a pull request. Release work additionally
 requires the full Palomar profile, paper, Comparator, NanoDa, clean Git state,

@@ -1,6 +1,51 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: compact prime-count transport for the lower theta band (2026-09-23)
+## Newest follow-up: exact local prime counts from a retained sieve (2026-09-23)
+
+`SievePrimeCounting` now identifies the complete prime set from a certified
+mod-six wheel bitset. It counts primes two and three separately, excludes the
+bit representing one, and proves the exact final wheel-cell cutoff rather
+than rounding an index up. Every smaller endpoint reuses the same sieve.
+The new generic `Nat.bitCountBlock` has balanced splitting, exact bounded
+finite-set semantics and an adjacent-block composition theorem.
+
+`SievePrimeCountIncrements` counts only the bits between consecutive
+endpoints. Its depth guard depends on that block's width, not on the whole
+prefix. `SievedThetaPrimeTrace` transports the actual count from a proved
+seed at three and feeds the earlier theta/log/coverage checks. The lower-band
+consumer no longer assumes each endpoint's prime count separately. Numerical
+sieve data and large-range feasibility still remain; no full family was run.
+
+The reused sieve is `PrimeCert.Sieve.isSieve_of_sieveK_eq` at pinned commit
+`916ee9c35a57af128d5089a69172415051e700ca` (Bhavik Mehta, Apache-2.0,
+original Lean 4.33.0). Its producer requires `n <= 12884901888` and a sufficient
+square-root bound. That limit is retained: it does not directly certify the
+whole `1441000000000` lower-band endpoint. Larger coverage still needs a
+segmented or suitably generalized certified producer, not a giant implicit
+bitset or a weakened endpoint.
+
+`Sieve`, `SieveCorrect`, `ForLean` and `ForMathlib` were inspected. No new
+sibling search was required. On Lean 4.34 the pinned `ForMathlib` initially
+failed because the multiplicity API changed. Its zero-modulus congruence
+decomposition is actually false when multiplicity at zero is zero.
+`scripts/patch_primecert_compat.py` adds the necessary nonzero premise and
+passes the premise already present in the sole Pocklington caller, alongside
+the two routine API ports. Both affected originals are fully validated at
+the locked Git revision before writes; unrelated edits and caches are
+preserved. Original notices and sieve/primality conclusions are unchanged.
+Every Lean CI job applies this reproducible port. The sieve correctness and
+Pocklington source modules compile under the pinned project toolchain.
+
+All four new proof modules and both candidate facades compile; nine focused
+Lean test files cover the complete small sieve/count/log/theta trace, offset
+and zero-width counts, undersized-depth rejection, upper-range rejection,
+and the zero-modulus compatibility counterexample. All 22 audited closures,
+including the imported sieve and Pocklington conclusions, use only the
+standard three axioms. All 177 Python tests and fast/workflow gates pass.
+CI build jobs remain paused. These small regressions are not evidence for
+the runtime of the large numerical families.
+
+## Previous follow-up: compact prime-count transport for the lower theta band (2026-09-23)
 
 The new candidate `Chebyshev.Intervals` derives the exact theta increment
 and number of summands from Mathlib's prime-set difference, then bounds all

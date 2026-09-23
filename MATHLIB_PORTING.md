@@ -40,6 +40,8 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.Data` | `Mathlib/Data.lean` | project-verified | Facade for finite-data candidates within the import limit. |
+| `PrimeFactorUnimodality.Mathlib.Data.Nat.BitCount` | `Mathlib/Data/Nat/BitCount.lean` | project-verified | Balanced bitset counting, exact clipped/offset block semantics, and adjacent-block composition. |
 | `PrimeFactorUnimodality.Mathlib.Algebra` | `Mathlib/Algebra.lean` | project-verified | Facade for algebraic candidates within the direct-import limit. |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Fourier` | `Mathlib/Analysis/Fourier.lean` | project-verified | Facade for shared transforms and rational checking, within the direct-import limit. |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RationalAlias` | `Mathlib/Analysis/Fourier/RationalAlias.lean` | project-verified | Exact sparse rational coordinate assembly and equality with the existing complex alias input. |
