@@ -1,5 +1,33 @@
 # Reuse audit for the Dusart zero-sum layer
 
+## Newest follow-up: the initial low strip is now proved (2026-09-23)
+
+The unconditional real reciprocal mass already available in
+`ZetaXiHadamardConstant`, positivity from `XiLowReciprocalMass`, and the
+actual multiplicity-preserving reflection exclude all xi zeros with absolute
+ordinate at most one. Only Mathlib's elementary bounds `exp(1)<3`, `pi>3`,
+and `EulerGamma<2/3` are needed: a single suitably reflected low zero would
+exceed the total mass. Robin/WIP's RH-dependent norm-mass identities are
+not used or weakened into unconditional claims.
+
+The actual classical zero-free constraint then gives an initial gap on every
+bounded strip, with constant `56` and logarithm of the upper cutoff. This
+removes the supplied low-height hypothesis from `KadiriInitialMaster` and
+provides the low input of the first constant-`56` elementary bootstrap.
+It does not provide stronger low-height RH information or the final region.
+
+The complete damped tail now has an explicit two-tail majorant, using
+Mathlib's subtype/indicator summation and the already proved closed Lehman
+bound. Taking its minimum with the prior estimate gives the actual psi
+budget without an unevaluated zero sum. The weak initial bounded gap also
+provides an unconditional starting box estimate. Sharp numerical constants
+and their full parameter ranges remain to be proved; no new sibling import
+or change to the previously reviewed revisions was needed.
+
+Six new modules and twenty-two new examples compile. Twenty-six audited
+exports, including the initial master without its old low-zero premise,
+use only `propext`, `Classical.choice`, and `Quot.sound`.
+
 ## Newest follow-up: fixed low cutoff and damped high tail (2026-09-23)
 
 The existing `xi_zero_gap_initial` is reused directly, not reproved. It

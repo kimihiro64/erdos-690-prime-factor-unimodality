@@ -26,7 +26,7 @@ def dusartBoxTwoCutoffErrorBudget (m : ℕ) (h x a H T δ : ℝ) : ℝ :=
     dusartBoxTwoCutoffErrorBudget m h x a H H δ =
       dusartBoxCountingErrorBudget m h x a H δ := by
   simp [dusartBoxTwoCutoffErrorBudget, dusartBoxTwoCutoffZeroBudget,
-    dusartBoxCountingErrorBudget, dusartBoxErrorBudget]
+    dusartBoxLowBandBudget, dusartBoxCountingErrorBudget, dusartBoxErrorBudget]
 
 /-- The true average inherits the two-cutoff estimate with both corrections retained. -/
 theorem abs_dusartPsiAverageError_le_twoCutoffBudget (m : ℕ) {h x a H T δ : ℝ}

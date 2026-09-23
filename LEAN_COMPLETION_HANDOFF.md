@@ -45,6 +45,57 @@ Legacy generated sources and caches are preserved, not scheduled for replay.
 
 ## Priority order
 
+### Initial low-height gap proved; explicit damped tail connected (newest, 2026-09-23)
+
+The initial constant-`56` region now covers low heights as well, without
+finite zero data. `XiSmallHeightExclusion` uses the existing unconditional
+real Hadamard mass and reflection: the total real reciprocal mass is less
+than `1/3`, whereas a zero with `beta>=1/2` and `abs(gamma)<=1` would alone
+contribute at least `1/3`. Thus every actual xi zero has `abs(gamma)>1`.
+This uses neither RH nor the RH-dependent sibling norm-mass evaluations.
+
+`ZetaZeroFreeBounded` applies the actual `3,4,1` constraint uniformly between
+heights one and `H`. For every `H>=10^9`, all zeros with `abs(gamma)<=H`
+satisfy `1-beta>=1/(56*log(H))`. The global form uses
+`log(max(10^9,abs(gamma)))`. This is a proved initial gap, not a finite RH
+verification or the final optimized region.
+
+`KadiriInitialMaster` now derives its former low-height hypothesis internally;
+that hypothesis is removed from its public theorem statement. Its explicit
+test consumer supplies neither low-zero data nor a zero-free region.
+`KadiriInitialLowGap` also supplies the first elementary bootstrap's low
+input at `kadiriBootstrapSigma 56 n H T`. Later improved-constant bootstrap
+stages still need their own justified low-height inputs and numerical margins.
+
+`DusartBoxDampedTailBound` makes the damped infinite tail explicit: for `B>=T`,
+it is at most `exp(-log(x)/(56*log(B)))*tail(0,T)+tail(0,B)`. Both closed tails
+are bounded by the proved Lehman expressions. `DusartBoxDampedBudget` takes
+the minimum with the older bound and inserts it into the actual corrected
+psi averages and pointwise error. The new budget is proved never larger
+than the previous one. Finite low/band assembly is factored into the reused
+`norm_dusartBox_low_add_band_le`, not reproved separately for each tail bound.
+
+`DusartBoxInitialBudget` substitutes the proved weak initial low gap into the
+mass and psi estimates, so those estimates have no remaining zero-location
+premise. **Do not try to certify the sharp `4e18` target with this weak gap.**
+It is a starting estimate, not a demonstrated feasible fixed-cutoff budget.
+The sharper route still needs improved regions/weighted estimates, sufficiently
+strong low-height information, and uniform scalar parameters. No exact theta
+provider or final Dusart provider is asserted by this increment.
+
+Next non-certificate work: retain the paper's optimized region constant and
+height-dependent damping in the Rosser weighted sums, prove their uniform
+scalar estimates, and connect the justified strong low-height inputs. Do
+not recreate the now-proved initial bounded gap, mass, or explicit split tail.
+The finite prime prefix and three final providers remain unfinished.
+
+Verification: six new modules and the refactored consumers compile. All
+twenty-two new regression examples pass, as do the preserved box and initial
+region examples. Twenty-six audited exports, including the strengthened
+initial master, use only `propext`, `Classical.choice`, and `Quot.sound`.
+CI builds the new bounded-region prerequisites before the initial master,
+and builds the damped-budget consumers serially before their tests.
+
 ### Fixed low cutoff and retained high-zero damping (newest, 2026-09-23)
 
 `XiHeightBand` now partitions the actual divisor into the strict low prefix

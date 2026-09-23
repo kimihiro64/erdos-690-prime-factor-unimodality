@@ -35,21 +35,23 @@ theorem smoothedXiPairedSum_box_eq_low_add_band_add_high (m : ℕ) {h x H T : �
   rw [xiLowHeightIndices_union_band hHT] at hs
   rw [smoothedXiPairedSum_box_eq_low_add_high m hh hx T, hs]
 
-/-- Independent damping for the fixed low prefix and the variable intermediate band. -/
-def dusartBoxTwoCutoffZeroBudget (m : ℕ) (h x a H T δ : ℝ) : ℝ :=
+/-- The finite low-prefix and intermediate-band contributions, with separate damping. -/
+def dusartBoxLowBandBudget (m : ℕ) (h x a H T δ : ℝ) : ℝ :=
   ((x + (m + 3 : ℕ) * h) * Real.exp (-δ * Real.log x)) *
       xiLowReciprocalNormBound a H δ +
     ((x + (m + 3 : ℕ) * h) * Real.exp (-(1 / (56 * Real.log T)) * Real.log x)) *
-      xiBandReciprocalNormBound H T +
-    dusartBoxTailFactor m h x T * (4 * xiLehmanHighBound (T / 2) (T / 2))
+      xiBandReciprocalNormBound H T
 
-/-- The actual entire xi series is bounded with a location input only below the fixed cutoff. -/
-theorem norm_smoothedXiPairedSum_box_le_two_cutoffs (m : ℕ) {h x a H T δ : ℝ}
+/-- Bound the actual two finite blocks independently of the infinite-tail estimate. -/
+theorem norm_dusartBox_low_add_band_le (m : ℕ) {h x a H T δ : ℝ}
     (hh : 0 < h) (hx : 1 < x) (ha : 10 ≤ a) (haH : a < H)
     (hH : 10 ^ 9 ≤ H) (hHT : H ≤ T) (hδ : 0 < δ)
     (hgap : ∀ p ∈ xiLowHeightIndices H, (riemannXiDivisorZeroValue p).re ≤ 1 - δ) :
-    ‖smoothedXiPairedSum (fun u => (dusartBoxWeight m h x u : ℂ))
-        (dusartBoxSupport m h x) 0‖ ≤ dusartBoxTwoCutoffZeroBudget m h x a H T δ := by
+    ‖(∑ p ∈ xiLowHeightIndices H, iteratedBoxAverageComplex h (m + 3)
+        (fun t => (t : ℂ) ^ riemannXiDivisorZeroValue p / riemannXiDivisorZeroValue p) x) +
+      (∑ p ∈ xiHeightBandIndices H T, iteratedBoxAverageComplex h (m + 3)
+        (fun t => (t : ℂ) ^ riemannXiDivisorZeroValue p / riemannXiDivisorZeroValue p) x)‖ ≤
+      dusartBoxLowBandBudget m h x a H T δ := by
   have hT := hH.trans hHT
   have hx0 : 0 < x := lt_trans zero_lt_one hx
   have hlow := norm_sum_dusartBox_xi_power_average_le m hh hx hδ.le _ hgap
@@ -60,10 +62,24 @@ theorem norm_smoothedXiPairedSum_box_le_two_cutoffs (m : ℕ) {h x a H T δ : �
     (sum_xi_low_reciprocal_norm_le_explicit ha haH hδ hgap) (by positivity))
   have hmid' := hmid.trans (mul_le_mul_of_nonneg_left
     (sum_xi_band_reciprocal_norm_le_bound (by linarith : 20 ≤ H) hHT) (by positivity))
+  exact (norm_add_le _ _).trans (add_le_add hlow' hmid')
+
+/-- Independent damping for the finite blocks, followed by the closed high tail. -/
+def dusartBoxTwoCutoffZeroBudget (m : ℕ) (h x a H T δ : ℝ) : ℝ :=
+  dusartBoxLowBandBudget m h x a H T δ +
+    dusartBoxTailFactor m h x T * (4 * xiLehmanHighBound (T / 2) (T / 2))
+
+/-- The actual entire xi series is bounded with a location input only below the fixed cutoff. -/
+theorem norm_smoothedXiPairedSum_box_le_two_cutoffs (m : ℕ) {h x a H T δ : ℝ}
+    (hh : 0 < h) (hx : 1 < x) (ha : 10 ≤ a) (haH : a < H)
+    (hH : 10 ^ 9 ≤ H) (hHT : H ≤ T) (hδ : 0 < δ)
+    (hgap : ∀ p ∈ xiLowHeightIndices H, (riemannXiDivisorZeroValue p).re ≤ 1 - δ) :
+    ‖smoothedXiPairedSum (fun u => (dusartBoxWeight m h x u : ℂ))
+        (dusartBoxSupport m h x) 0‖ ≤ dusartBoxTwoCutoffZeroBudget m h x a H T δ := by
   rw [smoothedXiPairedSum_box_eq_low_add_band_add_high m hh hx hHT]
   exact (norm_add_le _ _).trans (add_le_add
-    ((norm_add_le _ _).trans (add_le_add hlow' hmid'))
-    (norm_dusartBoxXiHighSum_le_highBound m hh hx hT))
+    (norm_dusartBox_low_add_band_le m hh hx ha haH hH hHT hδ hgap)
+    (norm_dusartBoxXiHighSum_le_highBound m hh hx (hH.trans hHT)))
 
 end
 

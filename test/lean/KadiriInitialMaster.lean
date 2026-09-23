@@ -1,22 +1,12 @@
-import PrimeFactorUnimodality.Helpers.Analytic.KadiriRegionMaster
-import PrimeFactorUnimodality.Helpers.Analytic.ZetaZeroFreeBounded
+import PrimeFactorUnimodality.Helpers.Analytic.KadiriInitialMaster
 
-/-! # The actual smoothed master with proved separation at every height
+/-! # The actual initial master no longer requires supplied low-zero information -/
 
-The bounded-strip and high-height initial regions discharge the former
-outer-zero separation hypothesis at every harmonic. No low-height,
-high-height, or zero-counting premise remains. The final numerical
-improvement of the initial constant is still a separate obligation.
--/
-
-namespace PrimeFactorUnimodality
-
-noncomputable section
+namespace PrimeFactorUnimodality.Tests
 
 open Complex Real
 
-/-- The proved initial region supplies the separation in the actual explicit master. -/
-theorem kadiriWeight_initial_region_master_nonneg {θ η η₀ σ₀ σ δ κ z H A : ℝ}
+example {θ η η₀ σ₀ σ δ κ z H A : ℝ}
     (hθ : π / 2 < θ ∧ θ < π) (hη : 0 < η) (hη₀ : η ≤ η₀)
     (hσ₀ : 1 / 2 < σ₀) (hσ : σ₀ ≤ σ) (hσ₁ : σ ≤ 1) (hδ : 1 / 2 ≤ δ)
     (hκ : 0 ≤ κ) (hκ₁ : κ ≤ 1)
@@ -44,22 +34,9 @@ theorem kadiriWeight_initial_region_master_nonneg {θ η η₀ σ₀ σ δ κ z 
         (∑ i ∈ S, a i * xiLehmanTailMajorant (k i * (riemannXiDivisorZeroValue p).im) H) +
       kadiriWeight θ η 0 * (∑ i ∈ S, a i * smoothedGammaFactorMajorant κ σ
         (k i * (riemannXiDivisorZeroValue p).im)) +
-      (∑ i ∈ S, a i) * ((1 + κ) * η ^ 3 * (-kadiriKernel₂ θ 0) / 4) := by
-  have hjne : k j * (riemannXiDivisorZeroValue p).im ≠ 0 := by
-    rw [hk, one_mul]
-    exact abs_pos.mp (lt_trans zero_lt_one (one_lt_abs_im_xi_divisor p))
-  have hA' : 10 ^ 9 ≤ A := (hA j hj hjne).trans (hharm j hj)
-  have hlow (q : RiemannXiDivisorZeroIndex)
-      (hq : |(riemannXiDivisorZeroValue q).im| < 10 ^ 9) :
-      (riemannXiDivisorZeroValue q).re ≤ σ := by
-    have hg := xi_zero_gap_bounded hA' (riemannXiDivisorZeroValue_eq_zero q)
-      (hq.le.trans hA')
-    linarith
-  exact kadiriWeight_region_master_nonneg (by norm_num) (by norm_num)
-    hθ hη hη₀ hσ₀ hσ hσ₁ hδ hκ hκ₁ hκ₂ hκ₃
-    hc hz hH hgap hcut S a k ha j hj hk p hβ hηρ hpoly hσA hlow
-    (fun q hq => xi_zero_gap_initial (riemannXiDivisorZeroValue_eq_zero q) hq) hharm hA
+      (∑ i ∈ S, a i) * ((1 + κ) * η ^ 3 * (-kadiriKernel₂ θ 0) / 4) :=
+  kadiriWeight_initial_region_master_nonneg
+    hθ hη hη₀ hσ₀ hσ hσ₁ hδ hκ hκ₁ hκ₂ hκ₃ hc hz hH hgap hcut
+    S a k ha j hj hk p hβ hηρ hpoly hσA hharm hA
 
-end
-
-end PrimeFactorUnimodality
+end PrimeFactorUnimodality.Tests
