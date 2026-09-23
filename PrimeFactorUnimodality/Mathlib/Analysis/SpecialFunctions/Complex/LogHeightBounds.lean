@@ -15,10 +15,33 @@ import Mathlib.Tactic.Ring
 The exact squared norm and `log x <= x-1` give a quadratic horizontal
 error above the imaginary axis. The upper-left-quadrant argument bound
 follows from `theta <= tan theta`, with all branch endpoints explicit.
-Both estimates decay with the actual imaginary height.
+Both quadrant argument estimates decay with the actual imaginary height.
 -/
 
 namespace Complex
+
+/-- In the upper-right quadrant, the argument deficit is at most displacement over height. -/
+theorem pi_div_two_sub_re_div_im_le_arg {z : ℂ} (hy : 0 < z.im) (hx : 0 ≤ z.re) :
+    Real.pi / 2 - z.re / z.im ≤ arg z := by
+  have hz : z ≠ 0 := by intro he; simp [he] at hy
+  have hnorm : ‖z‖ ≠ 0 := norm_ne_zero_iff.mpr hz
+  have hlow : 0 ≤ Real.pi / 2 - arg z := by
+    have := arg_le_pi_div_two_iff.mpr (Or.inl hx)
+    linarith
+  have hhigh : Real.pi / 2 - arg z < Real.pi / 2 := by
+    have hn := arg_nonneg_iff.mpr hy.le
+    have he : arg z ≠ 0 := by
+      intro he
+      have hm := (arg_eq_zero_iff.mp he).2
+      linarith
+    have hp := lt_of_le_of_ne hn (Ne.symm he)
+    linarith
+  have ht := Real.le_tan hlow hhigh
+  rw [Real.tan_eq_sin_div_cos, Real.sin_pi_div_two_sub, Real.cos_pi_div_two_sub,
+    sin_arg, cos_arg hz] at ht
+  have he : (z.re / ‖z‖) / (z.im / ‖z‖) = z.re / z.im := by field_simp
+  rw [he] at ht
+  linarith
 
 /-- The logarithmic norm correction decays quadratically in the horizontal displacement. -/
 theorem im_mul_log_norm_sub_log_im_le {z : ℂ} (hy : 0 < z.im) :

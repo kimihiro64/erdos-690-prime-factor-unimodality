@@ -1359,6 +1359,18 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.CheckedZetaGridPoints
           lake env lean test/lean/CheckedZetaGridPoints.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiSimplePhase
+          lake env lean test/lean/XiSimplePhase.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SharedLogIntervals
+          lake env lean test/lean/SharedLogIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiSimplePhaseIntervals
+          lake env lean test/lean/XiSimplePhaseIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.CheckedXiGridPhase
+          lake env lean test/lean/CheckedXiGridPhase.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ThetaSquaredCheckpoints
           lake env lean test/lean/ThetaSquaredCheckpoints.lean
           /usr/bin/time -v lake build \

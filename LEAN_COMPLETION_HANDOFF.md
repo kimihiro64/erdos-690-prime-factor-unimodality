@@ -5,7 +5,38 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: checked short Euler corrections (2026-09-23)
+## Latest increment: checked elementary xi phases (2026-09-23)
+
+`XiSimplePhase` proves the complete `33/(16*t)` bound, for all `t>0`,
+between the existing Stirling phase and
+`t/2*log(t/2)-t/2-t/2*log(pi)+7*pi/8`. It reuses the upper-quadrant
+argument and log-norm estimates; the new lower argument bound is in the
+independently compiled `Complex.LogHeightBounds` candidate. The existing
+one-tenth Gamma remainder is retained separately.
+
+`SharedLogIntervals` covers all real points between rational endpoints.
+`XiSimplePhaseIntervals` computes the pi/log-pi configuration once and uses
+only a prepared interval logarithm plus rational arithmetic at each sample.
+Its executable test includes the analytical simplification error, rejects
+nonpositive height intervals, and supplies the original Stirling-phase
+premise. `CheckedXiGridPhase` combines this with the checked short correction
+at the same exact height interval to bound actual normalized xi.
+
+All four modules, the updated candidate and affected facades compile.
+The 45 examples in nine new/preserved files and nine public theorem closure
+audits pass, using only the standard three logical axioms. Fast checks,
+Ruff, mypy, all 161 Python tests and workflow validation pass.
+
+Next: compatible rational sign-row endpoints and fully executable value/error
+sign margins. The radius `q/(2*pi)` yields exact rational sample heights;
+generalize shared moment evaluation to enclosed real radii and reuse the
+same materialized-atom assembler. Do not duplicate its moment/coverage proof.
+The resulting rational endpoint grid must feed the existing sign-row and
+Turing consumers exactly. No actual high-height numerical family or runtime
+benchmark exists yet. Remaining R6/theta/prime/provider obligations and the
+paused CI build policy are unchanged.
+
+## Previous increment: checked short Euler corrections (2026-09-23)
 
 `CheckedZetaGridPoints` discharges both actual per-sample grid obligations:
 the unit-window bound and the complete short Euler-correction error. Its

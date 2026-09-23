@@ -9,6 +9,16 @@ noncomputable section
 
 open Complex Set
 
+example {z : ℂ} (hy : 0 < z.im) (hx : 0 ≤ z.re) :
+    Real.pi / 2 - z.re / z.im ≤ arg z := pi_div_two_sub_re_div_im_le_arg hy hx
+
+example : Real.pi / 2 ≤ arg I := by
+  simpa using pi_div_two_sub_re_div_im_le_arg (z := I) (by norm_num) (by norm_num)
+
+example : Real.pi / 2 - 1 / 2 ≤ arg ((1 : ℂ) + 2 * I) := by
+  convert pi_div_two_sub_re_div_im_le_arg (z := (1 : ℂ) + 2 * I)
+    (by norm_num) (by norm_num) using 1 <;> norm_num
+
 example {z : ℂ} (hy : 0 < z.im) :
     z.im * (Real.log ‖z‖ - Real.log z.im) ≤ z.re ^ 2 / (2 * z.im) := by
   exact Complex.im_mul_log_norm_sub_log_im_le hy

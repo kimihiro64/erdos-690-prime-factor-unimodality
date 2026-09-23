@@ -1,6 +1,28 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: actual checked Euler corrections (2026-09-23)
+## Newest follow-up: checked elementary xi phase (2026-09-23)
+
+`XiSimplePhase` replaces two argument evaluations and one complex-norm
+logarithm with the elementary real-log expression, with a proved full error
+of `33/(16*t)` at every positive height. The generic upper-right argument
+bound is independently compiled in the candidate layer. The original
+one-tenth Gamma remainder is not absorbed or dropped.
+
+The optional checker prepares pi/log-pi intervals once, encloses real-height
+logarithms by rational endpoint evaluations, and checks all numerical plus
+analytical phase error by rational comparisons. Nonpositive height intervals
+are rejected. `CheckedXiGridPhase` uses the same exact grid height for the
+correction and phase checks and feeds the actual normalized-xi theorem.
+
+All four modules, the candidate and affected facades compile. The 45 examples
+in nine files and all nine public closure audits pass (standard three axioms
+only), as do fast checks, Ruff, mypy, 161 Python tests and workflow validation.
+
+Actual value/error sign margins, rational sign-row grid compatibility,
+high-height data/completeness and performance projections remain. The
+unconditional Dusart providers and paused CI policy are unchanged.
+
+## Previous follow-up: actual checked Euler corrections (2026-09-23)
 
 The short per-sample correction now has an executable interval checker.
 The candidate `Polynomial.bernoulliNormalizedReal_zero` connects all

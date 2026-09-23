@@ -64,6 +64,7 @@ MODULES = (
     "ZetaGridData",
     "ZetaGridEvaluation",
     "XiGridEvaluation",
+    "XiSimplePhase",
     "ThetaSquaredCheckpoints",
     "ThetaSquaredChain",
     "DusartCheckpointAnchors",
@@ -411,6 +412,7 @@ def test_optional_rational_checkers_do_not_import_replay_or_tactic_modules() -> 
             "CheckedZetaGrid",
             "CheckedZetaMoments",
             "CheckedZetaGridPoints",
+            "CheckedXiGridPhase",
         )
     ]
     visited: set[str] = set()
@@ -509,6 +511,32 @@ def test_short_corrections_reuse_endpoint_data_and_reach_actual_grid_consumer() 
     assert "hheight : p.toGridPoint.height g ∈" in grid
     assert "p.valid_of_check hd hN hc hpi hbase hradius hb h" in grid
     assert "(g.shared.base :" not in grid
+
+
+def test_elementary_phase_checks_include_analytic_and_gamma_errors() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    previous = workflow.index("lake env lean test/lean/CheckedZetaGridPoints.lean")
+    for module in (
+        "XiSimplePhase",
+        "SharedLogIntervals",
+        "XiSimplePhaseIntervals",
+        "CheckedXiGridPhase",
+    ):
+        build = workflow.index(f"+{ANALYTIC}{module}\n")
+        test = workflow.index(f"lake env lean test/lean/{module}.lean")
+        assert previous < build < test
+        previous = test
+    root = ROOT / "PrimeFactorUnimodality/Helpers/Analytic"
+    phase = strip_lean_comments((root / "XiSimplePhase.lean").read_text())
+    assert "33 / (16 * t)" in phase
+    assert "abs_turingCountingPhase_sub_stirling_le" in phase
+    checker = strip_lean_comments((root / "XiSimplePhaseIntervals.lean").read_text())
+    assert "0 < T.lo" in checker
+    assert "33 / (16 * T.lo) + intervalPointRadius" in checker
+    consumer = strip_lean_comments((root / "CheckedXiGridPhase.lean").read_text())
+    assert "p.valid_of_check hd hN hc hpi hbase hradius hb h" in consumer
+    assert "hpoint.abs_xi_sub_approx_le hg" in consumer
+    assert "abs_stirling_sub_le_of_check hp hc hheight hphase" in consumer
 
 
 def test_theta_checkpoint_consumers_derive_band_and_anchor_obligations() -> None:
