@@ -1,5 +1,47 @@
 # Reuse audit for the Dusart zero-sum layer
 
+## Newest follow-up: shared radix-two grid evaluator (2026-09-23)
+
+`Fourier.radixTwo` now implements the finite transform with materialized
+even/odd half-transforms and a successive-power twiddle table. The complete
+finite-sum identity is proved for every depth and every root with the required
+period, without a primitivity assumption. Its butterfly-output recurrence is
+exactly `n * 2^n`; this counts butterfly outputs, not total machine instructions
+or Lean replay time. Mathlib's `ZMod.dft` and additive character identify its
+positive-phase convention with the DFT at the negative index.
+
+All integer frequencies, including negative ones and modulo-grid collisions,
+are retained. `Vector.scatterAdd` accumulates sparse coefficients through one
+array update per row, with entry and append theorems. The actual alias array
+uses that accumulator instead of filtering every input for every output.
+One transformed coefficient array per Taylor order then serves every grid
+sample. This avoids independently recomputing the long prefix or transform
+at each candidate zero endpoint.
+
+The recursive `RadixTrace.Valid` interface checks every leaf and merge while
+sharing output and twiddle arrays. Its assembler proves the complete uniform
+error, including input, phase/twiddle and arithmetic errors at every level.
+`ZetaGridEvaluation` combines these errors with the already-proved shared
+moment and full Euler bounds. `XiGridEvaluation` feeds the existing normalized
+xi/phase machinery and the actual sign-row verifier in either orientation.
+The exact grid-height theorem permits rational arithmetic-progression
+endpoints by choosing the block radius appropriately.
+
+This is a proved implementation and error assembler, not completed numerical
+zero verification. Actual moment enclosures, rounded trace data, numerical
+sample signs, completeness margins and a representative high-height replay
+projection are still required. No numerical certificate family was generated
+or replayed, and no high-height runtime claim is made. The original middle/far
+ray cutoff and the other unconditional Dusart obligations are unchanged.
+
+All eight proof modules and the candidate facade compile; 76 examples in
+thirteen new/preserved regression files pass. All 27 audited public theorem
+closures contain only the standard three logical axioms. The tests include
+empty/one-point grids, repeated and negative frequencies, nonprimitive roots,
+nonzero twiddle errors, negative-error rejection and actual sign/Turing
+consumers. CI checks the candidates and consumers sequentially. Fast source
+checks, Ruff, mypy, all 153 Python tests, Ruby metadata and workflow checks pass.
+
 ## Newest follow-up: shared frequency-group evaluations (2026-09-23)
 
 The actual zeta evaluator now separates a block's long positive Dirichlet

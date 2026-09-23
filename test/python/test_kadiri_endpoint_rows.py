@@ -61,6 +61,9 @@ MODULES = (
     "ZetaGroupedData",
     "ZetaGroupedEvaluation",
     "XiGroupedEvaluation",
+    "ZetaGridData",
+    "ZetaGridEvaluation",
+    "XiGridEvaluation",
     "ThetaSquaredCheckpoints",
     "ThetaSquaredChain",
     "DusartCheckpointAnchors",
@@ -293,6 +296,9 @@ def test_xi_evaluator_does_not_assume_a_zero_or_rh() -> None:
         "ZetaGroupedData",
         "ZetaGroupedEvaluation",
         "XiGroupedEvaluation",
+        "ZetaGridData",
+        "ZetaGridEvaluation",
+        "XiGridEvaluation",
     ):
         path = ROOT.joinpath(*(ANALYTIC + module).split(".")).with_suffix(".lean")
         source = strip_lean_comments(path.read_text())
@@ -330,6 +336,38 @@ def test_grouped_evaluator_is_checked_before_its_actual_sign_consumer() -> None:
     assert "norm_riemannZeta_sub_eulerApproxOrder_le" in bound
     signs = strip_lean_comments((root / "XiGroupedEvaluation.lean").read_text())
     assert "XiSignRow.valid_of_grouped_endpoints" in signs
+    assert "hp.norm_zeta_sub_value_le hd" in signs
+
+
+def test_radix_grid_has_shared_arrays_and_sequential_checked_consumers() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    previous = workflow.index("lake env lean test/lean/XiGroupedEvaluation.lean")
+    for module, regression in (
+        ("Mathlib.Analysis.Fourier.RadixTwo", "RadixTwo"),
+        ("Mathlib.Analysis.Fourier.IntegerGrid", "IntegerGrid"),
+        ("Mathlib.Analysis.Fourier.RadixError", "RadixError"),
+        ("Mathlib.Data.Vector.ScatterAdd", "ScatterAdd"),
+        ("Mathlib.Analysis.Fourier.GroupedGrid", "GroupedGrid"),
+        ("Helpers.Analytic.ZetaGridData", "ZetaGridData"),
+        ("Helpers.Analytic.ZetaGridEvaluation", "ZetaGridEvaluation"),
+        ("Helpers.Analytic.XiGridEvaluation", "XiGridEvaluation"),
+    ):
+        build = workflow.index(f"+PrimeFactorUnimodality.{module}\n")
+        test = workflow.index(f"lake env lean test/lean/{regression}.lean")
+        assert previous < build < test
+        previous = test
+    root = ROOT / "PrimeFactorUnimodality"
+    radix = strip_lean_comments((root / "Mathlib/Analysis/Fourier/RadixTwo.lean").read_text())
+    assert "let u := radixTwo" in radix
+    assert "let v := radixTwo" in radix
+    assert "let powers := powerTable" in radix
+    grouped = strip_lean_comments((root / "Mathlib/Analysis/Fourier/GroupedGrid.lean").read_text())
+    assert ").scatterAdd (B.toList.map" in grouped
+    bound = strip_lean_comments((root / "Helpers/Analytic/ZetaGridEvaluation.lean").read_text())
+    assert "norm_exp_polynomial_grid_sub_traces_le" in bound
+    assert "hp.asGrouped.norm_zeta_sub_value_le hd.1" in bound
+    signs = strip_lean_comments((root / "Helpers/Analytic/XiGridEvaluation.lean").read_text())
+    assert "XiSignRow.valid_of_grid_endpoints" in signs
     assert "hp.norm_zeta_sub_value_le hd" in signs
 
 

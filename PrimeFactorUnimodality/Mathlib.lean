@@ -1,8 +1,10 @@
 import PrimeFactorUnimodality.Mathlib.Algebra.Group.PowerStep
 import PrimeFactorUnimodality.Mathlib.Analysis.Analytic.Order.Conjugation
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex
+import PrimeFactorUnimodality.Mathlib.Analysis.Fourier.GroupedGrid
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions
 import PrimeFactorUnimodality.Mathlib.Data.Nat.CoprimePeriodicCount
+import PrimeFactorUnimodality.Mathlib.Data.Vector.ScatterAdd
 import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral
 import PrimeFactorUnimodality.Mathlib.NumberTheory
 import PrimeFactorUnimodality.Mathlib.Topology.Algebra.InfiniteSum.Paired

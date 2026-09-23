@@ -1263,6 +1263,30 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.XiGroupedEvaluation
           lake env lean test/lean/XiGroupedEvaluation.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RadixTwo
+          lake env lean test/lean/RadixTwo.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Fourier.IntegerGrid
+          lake env lean test/lean/IntegerGrid.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RadixError
+          lake env lean test/lean/RadixError.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Data.Vector.ScatterAdd
+          lake env lean test/lean/ScatterAdd.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Analysis.Fourier.GroupedGrid
+          lake env lean test/lean/GroupedGrid.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaGridData
+          lake env lean test/lean/ZetaGridData.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.ZetaGridEvaluation
+          lake env lean test/lean/ZetaGridEvaluation.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiGridEvaluation
+          lake env lean test/lean/XiGridEvaluation.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ThetaSquaredCheckpoints
           lake env lean test/lean/ThetaSquaredCheckpoints.lean
           /usr/bin/time -v lake build \

@@ -40,6 +40,11 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.GroupedGrid` | `Mathlib/Analysis/Fourier/GroupedGrid.lean` | project-verified | Sparse alias-array identity and complete shared-trace errors for moment polynomials on signed grids. |
+| `PrimeFactorUnimodality.Mathlib.Data.Vector.ScatterAdd` | `Mathlib/Data/Vector/ScatterAdd.lean` | project-verified | Sparse shared-array accumulation, repeated-index sums and append composition. |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RadixError` | `Mathlib/Analysis/Fourier/RadixError.lean` | project-verified | Shared recursive trace validity and complete input, twiddle and arithmetic error assembly. |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.IntegerGrid` | `Mathlib/Analysis/Fourier/IntegerGrid.lean` | project-verified | Exact link to Mathlib DFT, signed integer grid phases and complete modulo-grid coefficient aliasing. |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RadixTwo` | `Mathlib/Analysis/Fourier/RadixTwo.lean` | project-verified | Materialized radix-two transform, successive twiddle powers, complete finite-sum identity and butterfly-output count. |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.GroupedEvaluation` | `Mathlib/NumberTheory/LSeries/GroupedEvaluation.lean` | project-verified | Exact cpow height-shift factorization and complete grouped/rounded finite Dirichlet-sum errors. |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.GroupedRounding` | `Mathlib/Analysis/SpecialFunctions/Complex/GroupedRounding.lean` | project-verified | Independent complex phase and shared-moment errors, including the complete Taylor remainder. |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.GroupedExponential` | `Mathlib/Analysis/SpecialFunctions/Complex/GroupedExponential.lean` | project-verified | Finset fiber sums, shared Taylor moments and nearest-integer residual bounds. |
