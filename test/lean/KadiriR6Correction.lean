@@ -1,33 +1,41 @@
 import PrimeFactorUnimodality.Helpers.Analytic.KadiriR6Correction
 
-/-! # Exact statements for the uniform numerical-region correction -/
+/-! # Height-uniform R6 interfaces, boundaries and actual consumers -/
+
+set_option autoImplicit false
 
 namespace PrimeFactorUnimodality.Tests
 
+noncomputable section
+
 open Finset Real
 
-example {R r : ℝ} (hR : 13 / 2 ≤ R) (hr : 6 ≤ r)
+example {T R r : ℝ} (hT : 25000000 ≤ T) (hR : 13 / 2 ≤ R) (hr : 6 ≤ r)
     (hg : (1387 / 10 : ℝ) ≤ kadiriKernel (185573 / 100000) 0)
     (hm : -kadiriKernel₂ (185573 / 100000) 0 ≤ (1163 : ℝ))
     (hd : kadiriSupport (185573 / 100000) ≤ (109 / 100 : ℝ)) :
-    kadiriSixRow.correction R r 1000000000 16 mossinghoffTrudgianCoefficient ≤ 0 := by
-  apply PrimeFactorUnimodality.kadiriSix_correction_nonpos <;> assumption
+    kadiriSixRow.correction R r T 16 mossinghoffTrudgianCoefficient ≤ 0 := by
+  exact PrimeFactorUnimodality.kadiriSix_correction_nonpos hT hR hr hg hm hd
 
-example {R r : ℝ} (hR : 13 / 2 ≤ R) (hr : 6 ≤ r)
+example {T R r : ℝ} (hT : 25000000 ≤ T) (hR : 13 / 2 ≤ R) (hr : 6 ≤ r)
     (hg : (1387 / 10 : ℝ) ≤ kadiriKernel (185573 / 100000) 0 ∧
       kadiriKernel (185573 / 100000) 0 ≤ (1388 / 10 : ℝ))
     (hm : -kadiriKernel₂ (185573 / 100000) 0 ≤ (1163 : ℝ))
     (hd : kadiriSupport (185573 / 100000) ≤ (109 / 100 : ℝ))
     (he : exp (109 / 100 : ℝ) ≤ 1 + 109 / 100 + (109 / 100) ^ 2 / 2 +
       (109 / 100) ^ 3 / (345 / 100))
-    (hlo : kadiriBootstrapLogCoefficient (185573 / 100000) (439 / 1000)
+    (hlo : kadiriBootstrapLogCoefficient (185573 / 100000) (437 / 1000)
       (range 17) mossinghoffTrudgianCoefficient / r ≤
         kadiriTransformGapClosedForm (185573 / 100000) 1 (mossinghoffTrudgianCoefficient 1)
-          (kadiriBootstrapLowerArgument R r 16 100000 1000000000))
-    (hhi : kadiriBootstrapLogCoefficient (185573 / 100000) (439 / 1000)
+          (kadiriBootstrapLowerArgument R r 16 100000 T))
+    (hhi : kadiriBootstrapLogCoefficient (185573 / 100000) (437 / 1000)
       (range 17) mossinghoffTrudgianCoefficient / r ≤
         kadiriTransformGapClosedForm (185573 / 100000) 1 (mossinghoffTrudgianCoefficient 1) 1) :
-    kadiriSixRow.Valid R r 1000000000 16 mossinghoffTrudgianCoefficient := by
-  apply PrimeFactorUnimodality.kadiriSix_valid_of_transform_margins <;> assumption
+    kadiriSixRow.Valid R r T 16 mossinghoffTrudgianCoefficient := by
+  exact PrimeFactorUnimodality.kadiriSix_valid_of_transform_margins hT hR hr hg hm hd he hlo hhi
+
+
+
+end
 
 end PrimeFactorUnimodality.Tests

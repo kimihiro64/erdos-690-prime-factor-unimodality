@@ -238,6 +238,30 @@ def test_reduced_psi_cutoff_is_connected_before_legacy_consumers() -> None:
         assert f"lake env lean test/lean/{module}.lean" in workflow
 
 
+def test_reduced_region_reuses_one_height_uniform_chain() -> None:
+    root = ROOT / "PrimeFactorUnimodality/Helpers/Analytic"
+    for module in (
+        "KadiriR6Parameters",
+        "KadiriR6Gamma",
+        "KadiriR6Tail",
+        "KadiriR6Correction",
+    ):
+        source = strip_lean_comments((root / f"{module}.lean").read_text())
+        assert "(hT : 25000000 ≤ T)" in source
+        assert "1000000000" not in source
+    parameters = strip_lean_comments((root / "KadiriR6Parameters.lean").read_text())
+    assert "437 / 1000" in parameters
+    assert "98 / 10000" in parameters
+    assert "9922 / 10000" in parameters
+    chain = strip_lean_comments((root / "KadiriR6FourPoints.lean").read_text())
+    assert chain.count("kadiriSix_chain_of_four_points_from (by norm_num)") == 2
+    assert "25000000 69 6" in chain
+    assert "1000000000 56 6" in chain
+    consumer = strip_lean_comments((root / "DusartReducedZeroVerification.lean").read_text())
+    assert "kadiriHighRegion_six_of_reduced_rows_and_four_points" in consumer
+    assert "(kadiriSix_reduced_chain_of_four_points hg hm hd he hpoints)" in consumer
+
+
 def test_xi_evaluator_candidates_are_checked_before_consumers() -> None:
     workflow = (ROOT / ".github/workflows/ci.yml").read_text()
     foundations = workflow.split("  lean-foundations:", 1)[1].split("  certificate-prebuild:", 1)[0]

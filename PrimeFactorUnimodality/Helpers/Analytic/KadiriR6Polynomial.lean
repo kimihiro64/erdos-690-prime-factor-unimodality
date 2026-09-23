@@ -45,17 +45,17 @@ theorem kadiriSix_moment_mass_le
 
 /-- Coarse rational bounds force the complete cubic correction to be nonpositive. -/
 theorem kadiriSix_polynomial_nonpos {η σ M P L₀ L₁ G q : ℝ}
-    (hη : 0 ≤ η) (hη' : η ≤ 81 / 10000) (hσ : 9933 / 10000 ≤ σ)
+    (hη : 0 ≤ η) (hη' : η ≤ 98 / 10000) (hσ : 9922 / 10000 ≤ σ)
     (hM' : M ≤ 3000) (hP : 0 ≤ P) (hP' : P ≤ 1 / 1000)
     (hL₀ : 0 ≤ L₀) (hL₀' : L₀ ≤ 1) (hL₁ : 0 ≤ L₁) (hL₁' : L₁ ≤ 1 / 1000)
     (hG : G ≤ -(1 / 4)) (hq : 0 ≤ q) (hq' : q ≤ 1 / 6)
     (hg : (1387 / 10 : ℝ) ≤ kadiriKernel (185573 / 100000) 0)
     (hm : -kadiriKernel₂ (185573 / 100000) 0 ≤ (1163 : ℝ)) :
-    kadiriCorrectionPolynomial (185573 / 100000) η η σ (439 / 1000) (62 / 100)
+    kadiriCorrectionPolynomial (185573 / 100000) η η σ (437 / 1000) (62 / 100)
       M P L₀ L₁ G q (range 17) mossinghoffTrudgianCoefficient ≤ 0 := by
   let g := kadiriKernel (185573 / 100000) 0
   let m := -kadiriKernel₂ (185573 / 100000) 0
-  let E := (1 + 2 * (439 / 1000 : ℝ)) / (2 * (σ - 1 / 2))
+  let E := (1 + 2 * (437 / 1000 : ℝ)) / (2 * (σ - 1 / 2))
   let c := σ - η + (62 / 100 : ℝ)
   have hg₀ : 0 ≤ g := (kadiriKernel_zero_pos mossinghoffTrudgian_theta_mem).le
   have hm₀ : 0 ≤ m := neg_kadiriKernel₂_zero_nonneg mossinghoffTrudgian_theta_mem
@@ -73,17 +73,17 @@ theorem kadiriSix_polynomial_nonpos {η σ M P L₀ L₁ G q : ℝ}
     have h : (1 : ℝ) ^ 3 ≤ c ^ 3 := by gcongr; linarith
     norm_num at h ⊢
     exact h
-  have hf : (439 / 1000 : ℝ) * (1 / (62 / 100) + 1 / c) - 1 ≤ 0 := by
+  have hf : (437 / 1000 : ℝ) * (1 / (62 / 100) + 1 / c) - 1 ≤ 0 := by
     linarith only [hcInv]
   have ha₁ := mossinghoffTrudgianCoefficient_one_pos.le
   have ha₂ : mossinghoffTrudgianCoefficient 1 ≤ 2 := by
     linarith [mossinghoffTrudgianCoefficient_one_bounds.2]
   have hsum : (∑ i ∈ range 17, mossinghoffTrudgianCoefficient i) ≤ 5 := by
     linarith [sum_mossinghoffTrudgianCoefficient_bounds.2]
-  have hlin : kadiriCorrectionLinear (185573 / 100000) η σ (439 / 1000)
+  have hlin : kadiriCorrectionLinear (185573 / 100000) η σ (437 / 1000)
       (62 / 100) G M L₁ q (mossinghoffTrudgianCoefficient 1) ≤ -34 := by
     have hb : mossinghoffTrudgianCoefficient 1 *
-        ((439 / 1000 : ℝ) * (1 / (62 / 100) + 1 / c) - 1) + G ≤ -(1 / 4 : ℝ) := by
+        ((437 / 1000 : ℝ) * (1 / (62 / 100) + 1 / c) - 1) + G ≤ -(1 / 4 : ℝ) := by
       have h := mul_nonpos_of_nonneg_of_nonpos ha₁ hf
       linarith only [h, hG]
     have hmain := mul_le_mul_of_nonneg_left hb hg₀
@@ -92,22 +92,22 @@ theorem kadiriSix_polynomial_nonpos {η σ M P L₀ L₁ G q : ℝ}
         _ ≤ (3000 : ℝ) * (1 / 1000) * (1 / 6) / 2 := by gcongr
         _ = _ := by norm_num
     change g * (mossinghoffTrudgianCoefficient 1 *
-      ((439 / 1000 : ℝ) * (1 / (62 / 100) + 1 / c) - 1) + G) + M * L₁ * q / 2 ≤ -34
+      ((437 / 1000 : ℝ) * (1 / (62 / 100) + 1 / c) - 1) + G) + M * L₁ * q / 2 ≤ -34
     linarith only [hmain, htail, hg]
-  have hquad : kadiriCorrectionQuadratic (185573 / 100000) σ (439 / 1000) M P L₀ L₁ q ≤
+  have hquad : kadiriCorrectionQuadratic (185573 / 100000) σ (437 / 1000) M P L₀ L₁ q ≤
       1504 := by
     change M * (P + L₀ / 2) + m * E * L₁ * q ≤ 1504
     calc
       _ ≤ (3000 : ℝ) * (1 / 1000 + 1 / 2) + 1163 * 2 * (1 / 1000) * (1 / 6) := by
         gcongr
       _ ≤ _ := by norm_num
-  have hcubic : kadiriCorrectionCubic (185573 / 100000) η σ (439 / 1000) (62 / 100)
+  have hcubic : kadiriCorrectionCubic (185573 / 100000) η σ (437 / 1000) (62 / 100)
       L₀ (range 17) mossinghoffTrudgianCoefficient ≤ 13956 := by
     have hb : mossinghoffTrudgianCoefficient 1 *
-        (1 + (439 / 1000 : ℝ) * (1 / (62 / 100) ^ 3 + 1 / c ^ 3)) + E * L₀ +
-        (∑ i ∈ range 17, mossinghoffTrudgianCoefficient i) * (1 + 439 / 1000) / 4 ≤ 12 := by
+        (1 + (437 / 1000 : ℝ) * (1 / (62 / 100) ^ 3 + 1 / c ^ 3)) + E * L₀ +
+        (∑ i ∈ range 17, mossinghoffTrudgianCoefficient i) * (1 + 437 / 1000) / 4 ≤ 12 := by
       calc
-        _ ≤ (2 : ℝ) * (1 + (439 / 1000) * (5 + 1)) + 2 * 1 + 5 * (1 + 439 / 1000) / 4 := by
+        _ ≤ (2 : ℝ) * (1 + (437 / 1000) * (5 + 1)) + 2 * 1 + 5 * (1 + 437 / 1000) / 4 := by
           gcongr
           norm_num
         _ ≤ _ := by norm_num
@@ -116,7 +116,7 @@ theorem kadiriSix_polynomial_nonpos {η σ M P L₀ L₁ G q : ℝ}
     have h' := mul_le_mul_of_nonneg_right hm (by norm_num : (0 : ℝ) ≤ 12)
     exact (h.trans h').trans_eq (by norm_num)
   have hsmall : -34 + (1504 : ℝ) * η + 13956 * η ^ 2 ≤ 0 := by
-    have hs : η ^ 2 ≤ (81 / 10000 : ℝ) ^ 2 := by nlinarith only [hη, hη']
+    have hs : η ^ 2 ≤ (98 / 10000 : ℝ) ^ 2 := by nlinarith only [hη, hη']
     nlinarith only [hη', hs]
   have hn := mul_nonpos_of_nonneg_of_nonpos hη hsmall
   have h₁ := mul_le_mul_of_nonneg_right hlin hη

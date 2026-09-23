@@ -1,5 +1,5 @@
 import PrimeFactorUnimodality.Helpers.Analytic.DusartThetaSquaredEndpoint
-import PrimeFactorUnimodality.Helpers.Analytic.KadiriInitialCutoff
+import PrimeFactorUnimodality.Helpers.Analytic.KadiriR6FourPoints
 import PrimeFactorUnimodality.Helpers.Analytic.MossinghoffTrudgianBounds
 import PrimeFactorUnimodality.Helpers.Analytic.XiTuringVerification
 
@@ -8,8 +8,8 @@ import PrimeFactorUnimodality.Helpers.Analytic.XiTuringVerification
 The actual psi and middle-band theta bounds target the twenty-five-million
 cutoff, with sign rows extending to the endpoint of the Turing counting
 margin. The starting constant 69 is proved from the bounded initial region.
-Improving that region still requires a valid endpoint chain; no numerical
-row or finite sign is asserted here.
+The improved region consumes a valid chain or the common four transform
+margins; no numerical transform value or finite sign is asserted here.
 -/
 
 namespace PrimeFactorUnimodality
@@ -17,14 +17,6 @@ namespace PrimeFactorUnimodality
 noncomputable section
 
 open Real
-
-/-- No low-zero input is required for the initial constant at the reduced cutoff. -/
-theorem kadiriHighRegion_reduced_initial : KadiriHighRegion 69 25000000 := by
-  apply kadiriHighRegion_of_initial_cutoff (by norm_num) (by norm_num)
-  have hlow := dusart_log_outer_reduced_bounds.1
-  rw [log_pow]
-  norm_num
-  linarith [dusart_log_ten_bounds.2]
 
 /-- The reduced sign rows and Turing margin suffice for the actual complete psi ray. -/
 theorem abs_psi_sub_div_lt_of_reduced_turing_rows {n : ℕ} {rows : Fin n → XiSignRow}
@@ -64,6 +56,23 @@ theorem kadiriHighRegion_of_reduced_turing_rows
     mossinghoffTrudgianPolynomial_nonneg
     (fun p hp => (hlow p ((mem_xiLowHeightIndices _ _).mpr hp)).le)
     kadiriHighRegion_reduced_initial
+
+/-- The common four transform points and the reduced Turing rows give the actual region at six. -/
+theorem kadiriHighRegion_six_of_reduced_rows_and_four_points
+    {n : ℕ} {rows : Fin n → XiSignRow} {b : ℚ}
+    (hrows : XiSignRows.Valid rows 0 b) (hb : 25000000 ≤ b)
+    (hmargin : xiZeroCountingMainIntegral b - xiZeroCountingMainIntegral 25000000 +
+      turingCountErrorBudget 25000000 b <
+        (b : ℝ) - 25000000 + (XiSignRows.completedAreaRat rows 25000000 b : ℝ))
+    (hg : (1387 / 10 : ℝ) ≤ kadiriKernel (185573 / 100000) 0 ∧
+      kadiriKernel (185573 / 100000) 0 ≤ (1388 / 10 : ℝ))
+    (hm : -kadiriKernel₂ (185573 / 100000) 0 ≤ (1163 : ℝ))
+    (hd : kadiriSupport (185573 / 100000) ≤ (109 / 100 : ℝ))
+    (he : exp (109 / 100 : ℝ) ≤ 1 + 109 / 100 + (109 / 100) ^ 2 / 2 +
+      (109 / 100) ^ 3 / (345 / 100)) (hpoints : KadiriSixTransformBounds) :
+    KadiriHighRegion 6 25000000 :=
+  kadiriHighRegion_of_reduced_turing_rows hrows hb hmargin
+    (kadiriSix_reduced_chain_of_four_points hg hm hd he hpoints)
 
 end
 

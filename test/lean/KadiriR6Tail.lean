@@ -1,32 +1,40 @@
 import PrimeFactorUnimodality.Helpers.Analytic.KadiriR6Tail
 
-/-! # Exact statements for the uniform numerical-region correction -/
+/-! # Height-uniform R6 interfaces, boundaries and actual consumers -/
+
+set_option autoImplicit false
 
 namespace PrimeFactorUnimodality.Tests
 
+noncomputable section
+
 open Finset Real
 
-example :
-    xiLehmanLogCoefficient 1000000000 100000 ≤ (1 / 100000 : ℝ) := by
-  apply PrimeFactorUnimodality.kadiriSix_lehman_log_coefficient_le <;> assumption
+example {T : ℝ} (hT : 25000000 ≤ T) :
+    xiLehmanLogCoefficient T 100000 ≤ (1 / 100000 : ℝ) := by
+  exact PrimeFactorUnimodality.kadiriSix_lehman_log_coefficient_le hT
 
-example :
-    xiLehmanAffineConstant 1000000000 100000 ≤ (1 / 100000 : ℝ) := by
-  apply PrimeFactorUnimodality.kadiriSix_lehman_affine_constant_le <;> assumption
+example {T : ℝ} (hT : 25000000 ≤ T) :
+    xiLehmanAffineConstant T 100000 ≤ (1 / 100000 : ℝ) := by
+  exact PrimeFactorUnimodality.kadiriSix_lehman_affine_constant_le hT
 
-example :
-    kadiriPoleCoefficient (range 17) mossinghoffTrudgianCoefficient 1000000000 ≤
+example {T : ℝ} (hT : 25000000 ≤ T) :
+    kadiriPoleCoefficient (range 17) mossinghoffTrudgianCoefficient T ≤
       (1 / 1000 : ℝ) := by
-  apply PrimeFactorUnimodality.kadiriSix_pole_coefficient_le <;> assumption
+  exact PrimeFactorUnimodality.kadiriSix_pole_coefficient_le hT
 
-example :
-    kadiriTailLogCoefficient 1000000000 100000 (range 17) mossinghoffTrudgianCoefficient ≤
+example {T : ℝ} (hT : 25000000 ≤ T) :
+    kadiriTailLogCoefficient T 100000 (range 17) mossinghoffTrudgianCoefficient ≤
       (1 / 1000 : ℝ) := by
-  apply PrimeFactorUnimodality.kadiriSix_tail_log_coefficient_le <;> assumption
+  exact PrimeFactorUnimodality.kadiriSix_tail_log_coefficient_le hT
 
-example :
-    kadiriTailConservativeConstant 1000000000 100000 (range 17)
+example {T : ℝ} (hT : 25000000 ≤ T) :
+    kadiriTailConservativeConstant T 100000 (range 17)
       mossinghoffTrudgianCoefficient ≤ 1 := by
-  apply PrimeFactorUnimodality.kadiriSix_tail_constant_le <;> assumption
+  exact PrimeFactorUnimodality.kadiriSix_tail_constant_le hT
+
+
+
+end
 
 end PrimeFactorUnimodality.Tests

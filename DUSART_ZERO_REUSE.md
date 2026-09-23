@@ -1,5 +1,39 @@
 # Reuse audit for the Dusart zero-sum layer
 
+## Newest follow-up: height-uniform R6 admissibility and common chain (2026-09-23)
+
+The existing R6 row and correction proofs now apply at every real cutoff
+`T>=25000000`. The common separation parameter is `437/1000`; the proved
+scale and real-coordinate bounds are `eta<=98/10000` and `sigma>=9922/10000`.
+Both exact kappa inequalities, all pole and complete harmonic-tail budgets,
+the negative Gamma residual and the complete correction sign are proved on
+this wider domain. No numerical correction premise remains after the
+existing shared kernel/support enclosures are supplied.
+
+The argument comparison reuses the already proved monotonicity of
+`log(T)/log(16*T+100000)`. One four-point family, now at `0.09`, `0.69`, `0.79`
+and `1`, supplies a single chain assembler for every starting constant
+between eight and sixty-nine. The original `56 -> 8 -> 6.5 -> 6` billion-height
+interface and the reduced `69 -> 8 -> 6.5 -> 6` interface both call it.
+The actual reduced region consumer connects this chain to the existing
+finite sign-row/Turing verifier. No second certificate family was added.
+
+The four numerical transform bounds and actual finite sign/completeness
+inputs remain unproved here. The middle/far psi estimates still use height
+one billion. In particular, the current middle-tail expression cannot be
+reused by merely replacing its cutoff: a floating diagnostic at `log(x)=800`
+gives a scaled high-tail budget about `344.86` at height 25000000, versus its
+required allowance `0.059`. This is diagnostic evaluation, not a Lean
+theorem or a claim that every alternative analytic argument must fail.
+The original billion-height chain remains available for the existing ray.
+
+All 13 affected analytic modules compile; 60 regression examples in 13
+files pass, retaining the original whole-ray consumer tests and adding the
+new boundary and reduced-chain interfaces. All 37 audited public theorem
+closures contain only the standard three logical axioms. Fast checks,
+Ruff, mypy, all 151 Python tests, Ruby metadata and workflow checks pass.
+No finite certificate generation or replay was run.
+
 ## Newest follow-up: half-mass reuse and reduced psi verification height (2026-09-23)
 
 `XiPositiveReciprocalMass` uses the existing multiplicity-preserving

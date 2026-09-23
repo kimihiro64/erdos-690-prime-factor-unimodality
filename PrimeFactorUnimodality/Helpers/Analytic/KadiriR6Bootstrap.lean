@@ -3,7 +3,8 @@ import PrimeFactorUnimodality.Helpers.Analytic.ZetaZeroFreeInitial
 
 /-! # The actual region at six from a checked endpoint chain
 
-Start from the proved unconditional region at 56, reuse the exact polynomial
+Start from the proved unconditional region at 56 or the reduced-cutoff
+region at 69, reuse the exact polynomial
 and its checked coefficient signs, and keep the low critical-line input
 explicit. The finite chain's validity is still required: this module does
 not assert any unchecked correction or transform margin.
@@ -26,6 +27,17 @@ theorem xi_zero_gap_six_of_endpoint_chain
     (fun p hp => hlow p ((mem_xiLowHeightIndices 1000000000 p).mpr hp))
   intro p hp
   exact xi_zero_gap_initial (riemannXiDivisorZeroValue_eq_zero p) (by norm_num at hp ⊢; exact hp)
+
+/-- The reduced chain uses the proved constant 69, keeping its smaller low-zero premise. -/
+theorem xi_zero_gap_six_of_reduced_endpoint_chain
+    (hchain : KadiriEndpointChain 16 mossinghoffTrudgianCoefficient 25000000 69 6)
+    (hlow : ∀ z ∈ xiLowHeightIndices 25000000,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) : KadiriHighRegion 6 25000000 :=
+  hchain.highRegion
+    (fun i hi => mossinghoffTrudgianCoefficient_nonneg (Finset.mem_range.mp hi))
+    (by simp) mossinghoffTrudgianCoefficient_one_pos mossinghoffTrudgianPolynomial_nonneg
+    (fun p hp => hlow p ((mem_xiLowHeightIndices 25000000 p).mpr hp))
+    kadiriHighRegion_reduced_initial
 
 /-- Three endpoint rows suffice; their common angle and separation data are stored only once. -/
 theorem xi_zero_gap_six_of_three_endpoint_rows
