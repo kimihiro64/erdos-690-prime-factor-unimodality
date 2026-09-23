@@ -179,4 +179,30 @@ theorem logDampedTail_factor_le_power {m ν L : ℝ}
       div_le_div_of_nonneg_right (add_le_add le_rfl hi) hd.le
     _ = _ := by rw [add_div, div_div, pow_two (m - 1 / ν ^ 2)]
 
+/-- Failure of the sharp density parameter condition makes the fixed cutoff admissible. -/
+theorem logDampedPower_fixed_cutoff_of_not_parameter {a m b H : ℝ}
+    (ha : 0 ≤ a) (hm : 0 < m) (hb : 0 < b) (hbH : b ≤ H)
+    (hfail : ¬ log b ≤ 1 / m + sqrt (a / m)) :
+    exp (sqrt (a / (m + 1))) ≤ H := by
+  have hs : sqrt (a / m) ≤ log b := by
+    have hp := one_div_pos.mpr hm
+    linarith
+  have hr : sqrt (a / (m + 1)) ≤ sqrt (a / m) :=
+    sqrt_le_sqrt (div_le_div_of_nonneg_left ha hm (by linarith))
+  exact ((exp_le_exp.mpr (hr.trans hs)).trans_eq (exp_log hb)).trans hbH
+
+/-- The fixed and growing cutoff domains cover every positive root parameter. -/
+theorem logDampedPower_cutoff_cover {X m ν b H : ℝ}
+    (hX : 0 < X) (hm : 0 < m) (hν : 0 < ν) (hb : 0 < b) (hbH : b ≤ H)
+    (hmargin : 1 < m * ν ^ 2) :
+    exp (sqrt (X ^ 2 / (m + 1))) ≤ H ∨
+      (H ≤ exp (ν * X) ∧ log b ≤ 1 / m + sqrt (X ^ 2 / m)) := by
+  by_cases hc : H ≤ exp (ν * X)
+  · by_cases hp : log b ≤ 1 / m + sqrt (X ^ 2 / m)
+    · exact Or.inr ⟨hc, hp⟩
+    · exact Or.inl (logDampedPower_fixed_cutoff_of_not_parameter (sq_nonneg X) hm hb hbH hp)
+  · apply Or.inl
+    have hmarg : 1 < (m + 1 - 1) * ν ^ 2 := by simpa only [add_sub_cancel_right] using hmargin
+    exact (logDampedPower_nu_turn_le hX hν hmarg).trans (lt_of_not_ge hc).le
+
 end Real

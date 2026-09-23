@@ -1,6 +1,46 @@
 # Reuse audit for the Dusart zero-sum layer
 
-## Newest follow-up: normalized estimates and explicit smoothing (2026-09-23)
+## Newest follow-up: complete cutoff cover and refreshed sibling boundary (2026-09-23)
+
+The fixed and growing estimates now cover every positive root parameter.
+The actual averages select their branches independently and retain the
+correct lower normalization. The new direct theta consumer uses the
+published relative margins; the stronger internal fourth-power route is
+optional, not a replacement for the paper's statements. All five new
+modules compile; 37 examples and 27 standard-axiom closure checks pass.
+Numerical zero information, uniform scalar bounds, finite prime estimates,
+and the three final providers remain unfinished.
+
+Published main refs were checked again. Robin1984 remains
+`acab1a31f31e0499518a4416b63281e0b4838f9c` and BV remains
+`7a1748306e026825ed6a5555516cc2f28989b2ac`. WIPResearch has advanced
+from the revision below to
+`10607f234b2e5a64345bd49c7f21f80a419bc818`. The older audit must not
+be read as excluding all new reuse opportunities.
+
+The following additions at that exact WIP revision were source-inspected:
+
+| Module under `RobinBV/` | Reusable content | Remaining input |
+| --- | --- | --- |
+| `Mathlib/Analysis/Complex/ZeroFreeBandBound` | Complex-power bounds retaining height denominators; only Mathlib imports | Real-part gap |
+| `Sieve/Proof/BKLNWReciprocalAbel` | Reciprocal Abel identity; only Mathlib imports | Arbitrary natural-bin coefficients |
+| `Sieve/Proof/BKLNWReciprocalHeightBound` | Multiplicity-weighted reciprocal-height bound | Finite positive-height band |
+| `Sieve/Proof/BKLNWHeightBandDensityAggregation` and `BKLNWHeightBandDensityExplicit` | Endpoint-aware density aggregation and explicit coefficient substitution | A supplied `zero_density_bound`, region and endpoint bounds |
+| `Sieve/Proof/FKSDetectorAggregation` | Actual Type-I/Type-II detector counting, including multiplicity copies | Both detector moment bounds; threshold constant is existential |
+| `Sieve/Proof/BKLNWClassicalZeroFreeEnvelope` | Uniform finite-height classical region | Constant remains existential |
+| `Sieve/Proof/Zeta23ZeroFreeBridge` | Actual logarithm-ninth zero-free estimates | Positive constant remains existential; not Dusart's numerical region |
+
+The updated lakefile pins PNT at
+`f8f58c749d6cde8a641348fcd5e4702993651cd6`, an ancestor of our existing
+PNT pin, and Zeta23 at `fbdc36bbf17d20af3fd0447c6d1a8a02773c9844`.
+The WIP sources retain Jonas Whidden's Apache-2.0 notices. No new sibling
+dependency, checkout, source extraction or build/axiom audit is claimed
+for this refresh. Before importing any addition, check its exact closure
+and port only the needed proof. Our current fixed/growing cutoff argument
+already reuses the established actual-xi counting and Abel infrastructure;
+it does not need to re-import equivalent finite-band wrappers.
+
+## Previous follow-up: normalized estimates and explicit smoothing (2026-09-23)
 
 The sharp-tail comparison reuses the previous power-majorant estimate;
 it does not rebuild any zero-sum infrastructure. The upper-primitive

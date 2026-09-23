@@ -83,4 +83,20 @@ example : ((1 : ℝ) ^ 2 / (3 * 1 ^ 2 - 1)) * (-2 + 1 / 3) ≤
     -2 / (3 - 1 / 1 ^ 2) + 1 / (3 - 1 / 1 ^ 2) ^ 2 :=
   logDampedTail_factor_le_power (by norm_num) (by norm_num)
 
+example {a m b H : ℝ} (ha : 0 ≤ a) (hm : 0 < m) (hb : 0 < b) (hbH : b ≤ H)
+    (hfail : ¬ log b ≤ 1 / m + sqrt (a / m)) :
+    exp (sqrt (a / (m + 1))) ≤ H :=
+  logDampedPower_fixed_cutoff_of_not_parameter ha hm hb hbH hfail
+
+example {X m ν b H : ℝ} (hX : 0 < X) (hm : 0 < m) (hν : 0 < ν) (hb : 0 < b)
+    (hbH : b ≤ H) (hmargin : 1 < m * ν ^ 2) :
+    exp (sqrt (X ^ 2 / (m + 1))) ≤ H ∨
+      (H ≤ exp (ν * X) ∧ log b ≤ 1 / m + sqrt (X ^ 2 / m)) :=
+  logDampedPower_cutoff_cover hX hm hν hb hbH hmargin
+
+-- The fixed branch includes zero damping even when the sharp-parameter test fails.
+example : exp (sqrt ((0 : ℝ) / (1 + 1))) ≤ exp 2 :=
+  logDampedPower_fixed_cutoff_of_not_parameter (by norm_num) (by norm_num)
+    (exp_pos _) le_rfl (by simp)
+
 end Real.Tests

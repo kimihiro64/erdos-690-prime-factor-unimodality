@@ -5,7 +5,49 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: normalized psi and an explicit step (2026-09-23)
+## Latest analytic increment: complete cutoff selection and direct theta margins (2026-09-23)
+
+`DusartBoxRosserFixedRelative` normalizes the fixed-height estimate.
+`LogDampedSharpTail` proves that either this branch's turning point is
+below the fixed height, or the growing branch's two conditions hold.
+`DusartBoxRosserMixed` applies this cover separately at the left and
+right averages. The pointwise estimate has no uncovered cutoff domain.
+`DusartPsiRelativeAverages` proves the shared normalization, including
+order zero. `DusartBoxRosserMixedLogFourth` retains the optional explicit
+smoothing choice and its exact loss.
+
+Important correction to earlier entries: the coefficient `0.648/log(x)^4`
+above `4e18` is an internal sufficient route, not the requested theta
+theorem. It has not been proved here and should not be treated as a
+mandatory intermediate statement. Dusart's 2010 Proposition 5.1 and
+Theorem 5.2 give the actual `1/36260` upper and `1.2323/log(x)` symmetric
+margins. Their proof uses finite prime estimates, computed psi error
+bounds, and an analytic tail. Its fourth-power table entry is `1300`,
+not `0.648`. This observation neither proves nor disproves the stronger
+internal estimate.
+
+`DusartBoxRosserTheta` now connects the actual selected psi estimates
+directly to `HasDusartThetaBounds`, using an arbitrary relative envelope
+and the already proved prime-power correction. The finite prefix remains
+separate. Actual low-zero information, the numerical high region, uniform
+scalar bounds, and the finite prefix are still inputs, not completed
+providers. Prime-counting and short-interval providers also remain open.
+The next work must prove quantitative inputs rather than introduce more
+conditional interfaces.
+
+All five new modules and the modified candidate/facade compile. The six
+affected regression files have 37 passing examples, including equality
+at the cutoff and a left-fixed/right-growing pointwise estimate.
+The 27 audited exports use only the three standard axioms.
+
+The sibling audit also needs its new boundary respected: WIPResearch
+published `10607f234b2e5a64345bd49c7f21f80a419bc818` after our saved
+review. Its density aggregation, reciprocal-height, and detector lemmas
+are candidates for reuse; the inspected density consumers require a
+`zero_density_bound`, and detector counting requires moment bounds.
+They do not discharge those numerical inputs. See `DUSART_ZERO_REUSE.md`.
+
+## Previous analytic increment: normalized psi and an explicit step (2026-09-23)
 
 `XiRosserSharpComparison` proves that the sharp bound is at most the old
 power-majorant bound; the reciprocal correction and boundary terms match
