@@ -5,7 +5,54 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: genuine zeta aliases, inverse DFT and xi transport (2026-09-24)
+## Latest analytic increment: enclosed inputs and shared convolution (2026-09-24)
+
+`PlattTaylorInputs` bounds approximate logarithmic shifts using a proved
+Fourier Lipschitz constant, then retains Taylor truncation and every derivative
+column error. `PlattDirichletInputs` includes approximate complex weights and
+sums all positive-index term errors. `PlattDirichletPhase` expresses each
+weight as a reciprocal square root times a rotation; an enclosed logarithm
+controls both its phase and its frequency shift. Phase uncertainty includes
+the center-height multiplier, so high ordinates do not silently lose accuracy.
+
+`PlattZetaFrequencyInputs` combines these finite errors with the proved
+Dirichlet tail, the complete complex pole correction error, and final rounding.
+The result encloses the actual zeta Fourier transform. Reflection transfers
+positive-frequency enclosures to negative frequencies without additional error,
+retaining the factor `(-1)^k`; no negative-frequency growing-tail evaluation
+is required. `PlattZetaPoleFormula` evaluates the complete correction using
+only elementary factors, retaining its complex phase and polynomial at every
+order. Its Gamma factor is exactly Gamma at one half, not a numerical premise.
+
+The exported `Fourier.CyclicConvolution` candidate proves the exact DFT
+convolution/correlation identities and finite coefficient bucketing, including
+collisions. `PlattDirichletConvolution` reorganizes the same finite prefix into
+shared Taylor-column correlations and combines their products before one
+final inverse transform. This is an exact identity; approximate bucket/FFT
+evaluation still needs error bounds. Circular indexing does not remove the
+requirement to justify each column's actual frequency and shift residual.
+
+`PlattZetaRadixApproximation` reuses the existing radix trace and inverse-grid
+error theorem with index `j` and scale `1/B`. `PlattZetaSignTransport` converts
+strict margins into genuine xi signs and divisor labels, with either sign
+orientation and endpoints from different windows.
+
+All new source modules and the complete candidate facade build (4,159 jobs).
+Four regression files pass, testing bucket collisions, single-element grids,
+empty prefixes, order-zero Taylor truncation, signed phase errors, reflection,
+the retained pole phase, and radix-output-to-xi sign transport. All 24 audited
+theorem closures use only the standard three Lean axioms.
+
+The remaining obligations are substantive: numerical enclosures of the actual
+Gamma-window inputs, bounds for the computed shared-convolution arithmetic,
+interpolation, instantiated sign margins, and zero-count completeness. The
+phase-only Gamma estimate is not a full complex Gamma enclosure. No numerical
+zero verification, full-path runtime feasibility, or unconditional Dusart
+result is claimed. The previous full conditional all-k targets both passed;
+their long-running local certificate workers have finished. No CI enablement
+or release is part of this increment.
+
+## Earlier analytic increment: genuine zeta aliases, inverse DFT and xi transport (2026-09-24)
 
 `PlattZetaReality` now identifies the actual window with completed zeta times
 its real Gaussian normalization and polynomial factor. The new exported
