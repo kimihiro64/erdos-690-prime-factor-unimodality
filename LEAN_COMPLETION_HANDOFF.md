@@ -5,7 +5,52 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: the published short-interval prefix is discharged (2026-09-24)
+## Latest increment: all three finite analytic prefixes are supplied (2026-09-24)
+
+`DusartTailThetaPrefix` closes `3501 <= q < 3594641` for `TailThetaAt`.
+The reusable `ThetaSieveSteps` and `ThetaSieveTrace` modules transport exact
+counts and rational theta enclosures using existing Chebyshev increment lemmas.
+Their seed at three is proved from elementary logarithm bounds. Trace soundness
+proves full half-open coverage, checks the exact final state, and requires the
+consumer margins whenever a cell crosses or follows the threshold 3501.
+
+The deterministic generator emits 9,765 transitions in 26 serial parts plus a
+shared base and facade. A 384-row worst-end pilot, including saved olean and
+axiom audit, passed in 27.54 seconds at 3,356,500 KiB peak RSS. The closed first
+384-row pilot passed in 27.61 seconds. Unlike the worst-end pilot, it requires
+no previous-state parameter. The complete family starts from that actual seed.
+Generator tests check coverage, local counting depth, corrupt rows, exact source
+parity, semantic hashes and stability of earlier files under later data changes.
+All 26 actual batches passed in 700 seconds combined; the facade and final
+reduction also compiled. The generated family totals 1,238,289 source bytes.
+Both Lean regressions pass. Six audited closures, including the actual full
+prefix and strengthened reduction, use only `propext`, `Classical.choice` and
+`Quot.sound`. The canonical fast gate passes with 261 Python tests.
+
+`DusartPublishedTailTheta` supplies the global weaker theta interface from
+`HasThetaLogSquaredError (1 / 5) 3594641`. The other two analytic providers
+already consume this same input. `SquaredThetaFiniteInputs` is removed:
+`completeClassification_of_squaredTheta_and_finite_range` now needs just the
+finite classification and the unbounded theta-error estimate.
+
+`CompleteClassificationSquaredConditional` supplies the actual finite
+classification and record-twin certificate. Its final statement has only the
+theta-error parameter, never an assumed classification. The complete target
+still awaits the twin replays and final audit. The original three-Dusart target
+is unchanged. The unconditional Solution still uses its older provider path;
+final integration and both conditional release gates remain outstanding.
+
+Remaining mathematics: the actual log-square theta-error ray, including its
+tight seed, lower finite band to three billion, low-zero completeness and
+middle-band scalar data. The R6 scalar bootstrap is already proved in
+`KadiriTransformNumerical`; it is not an outstanding premise of
+`DusartVerifiedBootstrap`. A fresh audit of its reduced endpoint chain and
+three complete ray-provider reductions reports only the standard logical
+axioms. These are conditional analytic reductions, not verified zero data.
+Do not mistake this weaker finite theta prefix for the narrow log-square
+finite band or claim that the entire zero-verification workload is feasible.
+
+## Previous increment: the published short-interval prefix is discharged (2026-09-24)
 
 `DusartPublishedShortPrefix` proves `HasDusartShortIntervalPrimeBelow 3594641`
 for every real input starting at 3,275. `ShortIntervalSieveRows` proves the

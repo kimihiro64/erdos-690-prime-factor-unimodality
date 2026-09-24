@@ -40,6 +40,7 @@ PROOF_ASSEMBLY_MODULES: Final[frozenset[str]] = frozenset(
         "CompleteClassificationIntegerProviders",
         "CompleteClassificationCertificates",
         "CompleteClassificationReduction",
+        "CompleteClassificationSquaredReduction",
     }
 )
 LAYERS: Final[dict[str, int]] = {

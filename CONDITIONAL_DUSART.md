@@ -45,29 +45,26 @@ The selected-prime and primorial inequalities retain their original constants
 and the tail still starts at `k = 38001`. `HasDusartThetaBounds` implies this
 weaker interface; it is not redefined to mean a weaker published theorem.
 
-For the subsequent formalization stage, the log-square estimate
-`|theta(x) - x| ≤ x / (5 log(x)^2)` for `x ≥ 3594641` supplies both of these
-tail inequalities above that endpoint. Only the finite theta prefix
-`3501 ≤ q < 3594641` is then needed separately. The alternative all-k reduction
-`completeClassification_of_finite_prefix_and_logSquared` exposes this route
-without requiring the stronger theta upper estimate into the trillions. Its
-finite classification, prime-counting, short-interval, finite-theta-prefix and
-log-square inputs are still explicit obligations. This improvement does not
-prove the original stronger Dusart upper theorem or close the zero-verification
-and log-square finite-band obligations.
+The alternative route uses the log-square estimate
+`|theta(x) - x| ≤ x / (5 log(x)^2)` for `x ≥ 3594641`. It supplies the necessary
+tail inequalities above that endpoint without requiring the stronger theta
+upper estimate into the trillions. The lower-level reduction
+`completeClassification_of_finite_prefix_and_logSquared` retains explicit
+component inputs; the assembled providers described below discharge its finite
+analytic inputs. This improvement does not prove the original stronger Dusart
+upper theorem or close the zero-verification and log-square finite-band obligations.
 
-`CompleteClassificationSquaredReduction` also composes the existing
-prime-counting and short-interval adapters with this weaker theta interface.
-Its `SquaredThetaFiniteInputs` now lists only the finite theta prefix;
-the prime-counting and short-interval prefixes are supplied by checked compact rows.
+`CompleteClassificationSquaredReduction` composes the prime-counting and
+short-interval adapters with this weaker theta interface. All three finite
+analytic prefixes are supplied by checked compact rows; the former
+`SquaredThetaFiniteInputs` parameter is removed entirely.
 The exact count `pi(3594641) = 256357` is kernel-checked by one packed sieve;
 the same log-square theta hypothesis and elementary logarithm bounds then
 prove both Abel anchor comparisons. No additional theta-product certificate
 or anchor assumption is needed. The count pilot, including saved proof output,
-completed in 5.09 seconds on the local two-core machine. Given the remaining
-theta prefix and finite classification, the sole unbounded analytic input is the
-shared log-square theta-error ray. The remaining theta prefix and that ray
-are not claimed to have been proved by this reduction.
+completed in 5.09 seconds on the local two-core machine. Given the finite
+classification, the sole remaining input is the shared unbounded log-square
+theta-error ray. That ray is not claimed to have been proved by this reduction.
 
 `DusartPublishedPiPrefix` covers every real input through 3,594,641. It extends
 the closed prefix through 1,000 by 2,093 half-open rows in nine serial batches.
@@ -88,6 +85,29 @@ strictly larger witness. Eight serial batches passed in 75.7 seconds combined.
 The older low-range families remain available but are not imported by this
 provider. `DusartPublishedShortInterval` then gives the global short-interval
 theorem from the same unbounded theta-error ray, with no finite-prefix premise.
+
+`DusartTailThetaPrefix` supplies the full integer prefix
+`3501 ≤ q < 3594641` for the weaker tail theta interface. Its 9,765 transitions
+in 26 serial batches retain exact prime counts and rational theta enclosures.
+Generic Chebyshev increment bounds turn local sieve counts and smooth-power
+logarithm witnesses into theta bounds. Every cell after the consumer threshold
+checks strict margins; a trace cannot omit its final checkpoint or skip a cell
+crossing the threshold. The seed at three follows from log two and log three.
+Per-batch digests keep earlier source identities stable when later rows change.
+The complete 26-batch replay took 700 seconds combined locally, and the final
+provider and classification reduction compiled. This measures the finite
+prefix only, not the remaining unbounded theorem or full conditional target.
+
+`CompleteClassificationSquaredConditional` supplies the actual finite
+classification, including the record-twin certificate, to the strengthened
+reduction. Its theorem `completeClassification_assuming_theta_error` has exactly
+one explicit analytic parameter and the unchanged all-k conclusion. This is
+reusable proof work for the unconditional result, not a hypothesis asserting
+the classification. The separate three-Dusart target retains its original
+interface. Both full conditional targets still require completed twin replays
+and final axiom audits before any release claim. The current unconditional
+`Solution.lean` still uses the older provider assembly; switching it to the
+replacement is a remaining integration step, not an already completed build.
 
 ## Building and resuming
 

@@ -204,6 +204,10 @@ def test_proof_assembly_modules_are_not_independent_branches() -> None:
     namespace = "ExampleTheorem"
     assert proof_branch("ExampleTheorem.Proof.LargeRange.Result", namespace) == "LargeRange"
     assert proof_branch("ExampleTheorem.Proof.CompleteClassification", namespace) is None
+    assert (
+        proof_branch("ExampleTheorem.Proof.CompleteClassificationSquaredReduction", namespace)
+        is None
+    )
 
 
 def test_mathlib_candidate_rejects_project_and_third_party_dependencies() -> None:

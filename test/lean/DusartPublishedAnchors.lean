@@ -17,12 +17,14 @@ example : HasDusartShortIntervalPrimeBelow 3594641 := dusart_published_shortInte
 example (error : HasThetaLogSquaredError (1 / 5) 3594641) : HasDusartShortIntervalPrime :=
   hasDusartShortIntervalPrime_of_logSquared_ray error
 
-example (theta : ∀ q : Nat, 3501 ≤ q → q < 3594641 → TailThetaAt q) :
-    SquaredThetaFiniteInputs := ⟨theta⟩
+example (q : Nat) (hq : 3501 ≤ q) (hcut : q < 3594641) : TailThetaAt q :=
+  dusart_tail_theta_prefix q hq hcut
+
+example (error : HasThetaLogSquaredError (1 / 5) 3594641) : HasTailThetaBounds :=
+  hasTailThetaBounds_of_logSquared_ray error
 
 example (finiteRange : ∀ k : Nat, 1 ≤ k → k ≤ 38000 →
       (IsUnimodal (primeFactorDensity k) ↔ k ≤ 3))
-    (finite : SquaredThetaFiniteInputs)
     (error : HasThetaLogSquaredError (1 / 5) 3594641) :
     ∀ k : Nat, 1 ≤ k → (IsUnimodal (primeFactorDensity k) ↔ k ≤ 3) :=
-  completeClassification_of_squaredTheta_and_finite_inputs finiteRange finite error
+  completeClassification_of_squaredTheta_and_finite_range finiteRange error
