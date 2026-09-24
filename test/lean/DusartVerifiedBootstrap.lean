@@ -10,6 +10,24 @@ noncomputable section
 
 open Real ThetaPrimeCheckpoint
 
+example {H : ℝ} (hH : 25000000 ≤ H) (hH₁ : H ≤ 1000000000)
+    (hlow : ∀ z ∈ xiLowHeightIndices H,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) (exp 5000) :=
+  hasThetaLogSquaredError_far_of_verified_height hH hH₁ hlow
+
+example
+    (hlow : ∀ z ∈ xiLowHeightIndices 200000000,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) (exp 5000) :=
+  hasThetaLogSquaredError_far_of_verified_height (by norm_num) (by norm_num) hlow
+
+example
+    (hlow : ∀ z ∈ xiLowHeightIndices 25000000,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) (exp 5000) :=
+  hasThetaLogSquaredError_far_of_verified_height le_rfl (by norm_num) hlow
+
 example
     (hlow : ∀ z ∈ xiLowHeightIndices 1000000000,
       (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) : KadiriHighRegion 6 1000000000 := by

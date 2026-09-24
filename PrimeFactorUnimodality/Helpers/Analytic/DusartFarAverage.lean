@@ -1,5 +1,6 @@
 import PrimeFactorUnimodality.Helpers.Analytic.DusartBoxRosserRelative
 import PrimeFactorUnimodality.Helpers.Analytic.DusartFarStepWindow
+import PrimeFactorUnimodality.Helpers.Analytic.XiLowReciprocalNormMonotone
 
 /-! # Square-log error for actual psi averages on the far ray
 
@@ -21,12 +22,13 @@ theorem dusartFar_root_ge {b : ℝ} (hb : 4704 ≤ b) : 28 ≤ sqrt (b / 6) := b
   have hn := sqrt_nonneg (b / 6)
   nlinarith
 
-/-- The whole dimensionless budget has a uniform reciprocal-square-log bound. -/
-theorem dusartBoxRosserRelativeBudget_le_far {s x : ℝ}
+/-- The far scalar budget is uniform over all smaller admissible verification heights. -/
+theorem dusartBoxRosserRelativeBudget_le_far_of_height_le {s x H : ℝ}
     (hx : 1 < x) (hb : 4704 ≤ Real.log x)
     (hs₀ : exp (-(4 / 5 : ℝ) * sqrt (Real.log x / 6)) / 2 ≤ s)
-    (hs₁ : s ≤ 2 * exp (-(4 / 5 : ℝ) * sqrt (Real.log x / 6))) :
-    dusartBoxRosserRelativeBudget 0 s x 6 (4 / 5) 10 1000000000 (1 / 2) ≤
+    (hs₁ : s ≤ 2 * exp (-(4 / 5 : ℝ) * sqrt (Real.log x / 6)))
+    (hH : 10 ≤ H) (hH₁ : H ≤ 1000000000) :
+    dusartBoxRosserRelativeBudget 0 s x 6 (4 / 5) 10 H (1 / 2) ≤
       (1 / 100 : ℝ) / Real.log x ^ 2 := by
   let X := sqrt (Real.log x / 6)
   have hX : 28 ≤ X := dusartFar_root_ge hb
@@ -43,16 +45,17 @@ theorem dusartBoxRosserRelativeBudget_le_far {s x : ℝ}
       _ = (6 * X ^ 2) ^ 2 := by congr 1; dsimp [X]; linarith
       _ = _ := by ring
   have hlow : ((1 + 3 * s) * exp (-(1 / 2) * Real.log x)) *
-      xiLowReciprocalNormBound 10 1000000000 (1 / 2) ≤
+      xiLowReciprocalNormBound 10 H (1 / 2) ≤
         77 * exp (-Real.log x / 2) := by
     calc
       _ ≤ ((1 + 3 * s) * exp (-(1 / 2) * Real.log x)) * 70 :=
-        mul_le_mul_of_nonneg_left xiLowReciprocalNormBound_billion_half_le (by positivity)
+        mul_le_mul_of_nonneg_left
+          (xiLowReciprocalNormBound_half_le_of_le_billion hH hH₁) (by positivity)
       _ ≤ ((11 / 10 : ℝ) * exp (-(1 / 2) * Real.log x)) * 70 :=
         mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_right
           (dusartFar_width_le hX hs₁) (exp_pos _).le) (by norm_num)
       _ = _ := by rw [show -(1 / 2) * Real.log x = -Real.log x / 2 by ring]; ring
-  have hbudget : dusartBoxRosserRelativeBudget 0 s x 6 (4 / 5) 10 1000000000 (1 / 2) ≤
+  have hbudget : dusartBoxRosserRelativeBudget 0 s x 6 (4 / 5) 10 H (1 / 2) ≤
       77 * exp (-Real.log x / 2) + 32 * X * exp (-(5 / 4 : ℝ) * X) +
         2048 * X * exp (-(5 / 4 : ℝ) * X) + 4 / x := by
     simpa only [dusartBoxRosserRelativeBudget, Nat.reduceAdd, Nat.cast_ofNat,
@@ -69,14 +72,24 @@ theorem dusartBoxRosserRelativeBudget_le_far {s x : ℝ}
   have hm := mul_le_mul_of_nonneg_left hbudget (sq_nonneg (Real.log x))
   nlinarith only [hm, hl, hw, hh, hc]
 
-/-- The actual averaged error inherits the evaluated whole-ray scalar budget. -/
-theorem abs_dusartPsiAverageError_div_le_far {s x : ℝ}
+/-- The billion-height specialization retains the original scalar interface. -/
+theorem dusartBoxRosserRelativeBudget_le_far {s x : ℝ}
+    (hx : 1 < x) (hb : 4704 ≤ Real.log x)
+    (hs₀ : exp (-(4 / 5 : ℝ) * sqrt (Real.log x / 6)) / 2 ≤ s)
+    (hs₁ : s ≤ 2 * exp (-(4 / 5 : ℝ) * sqrt (Real.log x / 6))) :
+    dusartBoxRosserRelativeBudget 0 s x 6 (4 / 5) 10 1000000000 (1 / 2) ≤
+      (1 / 100 : ℝ) / Real.log x ^ 2 :=
+  dusartBoxRosserRelativeBudget_le_far_of_height_le hx hb hs₀ hs₁ (by norm_num) le_rfl
+
+/-- The actual averaged error accepts low-zero data at any smaller admissible height. -/
+theorem abs_dusartPsiAverageError_div_le_far_of_height_le {s x H : ℝ}
     (hx : 1 < x) (hb : 4704 ≤ Real.log x)
     (hs₀ : exp (-(4 / 5 : ℝ) * sqrt (Real.log x / 6)) / 2 ≤ s)
     (hs₁ : s ≤ 2 * exp (-(4 / 5 : ℝ) * sqrt (Real.log x / 6)))
-    (hgap : ∀ z ∈ xiLowHeightIndices 1000000000,
+    (hH : 20 ≤ H) (hH₁ : H ≤ 1000000000)
+    (hgap : ∀ z ∈ xiLowHeightIndices H,
       (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ))
-    (hreg : ∀ z : RiemannXiDivisorZeroIndex, (1000000000 : ℝ) ≤
+    (hreg : ∀ z : RiemannXiDivisorZeroIndex, H ≤
       |(riemannXiDivisorZeroValue z).im| → (riemannXiDivisorZeroValue z).re ≤
         1 - 1 / (6 * Real.log |(riemannXiDivisorZeroValue z).im|)) :
     |dusartPsiAverageError 3 (s * x) x| / x ≤ (1 / 100 : ℝ) / Real.log x ^ 2 := by
@@ -92,10 +105,25 @@ theorem abs_dusartPsiAverageError_div_le_far {s x : ℝ}
   have h := abs_dusartPsiAverageError_div_le_rosserRelative 0 hs hx
     (by norm_num : (0 : ℝ) < 6) (by norm_num : (0 : ℝ) < 4 / 5) (by norm_num)
     (by norm_num) hparam (by norm_num : (10 : ℝ) ≤ 10)
-    (by norm_num : (10 : ℝ) < 1000000000) (by norm_num) (by norm_num : (0 : ℝ) < 1 / 2)
-    (dusartFar_cutoff_ge_billion hX)
+    (by linarith : (10 : ℝ) < H) hH (by norm_num : (0 : ℝ) < 1 / 2)
+    (hH₁.trans (dusartFar_cutoff_ge_billion hX))
     (by simpa only [show (1 - 1 / 2 : ℝ) = 1 / 2 by norm_num] using hgap) hreg
-  exact h.trans (dusartBoxRosserRelativeBudget_le_far hx hb hs₀ hs₁)
+  exact h.trans (dusartBoxRosserRelativeBudget_le_far_of_height_le hx hb hs₀ hs₁
+    (by linarith) hH₁)
+
+/-- The original billion-height average is a specialization of the height-uniform theorem. -/
+theorem abs_dusartPsiAverageError_div_le_far {s x : ℝ}
+    (hx : 1 < x) (hb : 4704 ≤ Real.log x)
+    (hs₀ : exp (-(4 / 5 : ℝ) * sqrt (Real.log x / 6)) / 2 ≤ s)
+    (hs₁ : s ≤ 2 * exp (-(4 / 5 : ℝ) * sqrt (Real.log x / 6)))
+    (hgap : ∀ z ∈ xiLowHeightIndices 1000000000,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ))
+    (hreg : ∀ z : RiemannXiDivisorZeroIndex, (1000000000 : ℝ) ≤
+      |(riemannXiDivisorZeroValue z).im| → (riemannXiDivisorZeroValue z).re ≤
+        1 - 1 / (6 * Real.log |(riemannXiDivisorZeroValue z).im|)) :
+    |dusartPsiAverageError 3 (s * x) x| / x ≤ (1 / 100 : ℝ) / Real.log x ^ 2 :=
+  abs_dusartPsiAverageError_div_le_far_of_height_le hx hb hs₀ hs₁
+    (by norm_num) le_rfl hgap hreg
 
 end
 

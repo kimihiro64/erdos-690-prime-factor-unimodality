@@ -15,11 +15,13 @@ noncomputable section
 
 open Real
 
-/-- The actual pointwise psi error is at most one twentieth of the log-square scale. -/
-theorem abs_psi_sub_div_le_far {x : ℝ} (hx : 1 < x) (hb : 5000 ≤ Real.log x)
-    (hgap : ∀ z ∈ xiLowHeightIndices 1000000000,
+/-- The pointwise far bound is uniform over smaller admissible verification heights. -/
+theorem abs_psi_sub_div_le_far_of_height_le {x H : ℝ}
+    (hx : 1 < x) (hb : 5000 ≤ Real.log x)
+    (hH : 20 ≤ H) (hH₁ : H ≤ 1000000000)
+    (hgap : ∀ z ∈ xiLowHeightIndices H,
       (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ))
-    (hreg : ∀ z : RiemannXiDivisorZeroIndex, (1000000000 : ℝ) ≤
+    (hreg : ∀ z : RiemannXiDivisorZeroIndex, H ≤
       |(riemannXiDivisorZeroValue z).im| → (riemannXiDivisorZeroValue z).re ≤
         1 - 1 / (6 * Real.log |(riemannXiDivisorZeroValue z).im|)) :
     |Chebyshev.psi x - x| / x ≤ (1 / 20 : ℝ) / Real.log x ^ 2 := by
@@ -35,15 +37,17 @@ theorem abs_psi_sub_div_le_far {x : ℝ} (hx : 1 < x) (hb : 5000 ≤ Real.log x)
   have hbl4704 : 4704 ≤ Real.log (x * t) := by linarith
   have hblhalf : b / 2 ≤ Real.log (x * t) := by dsimp [b]; linarith
   obtain ⟨hleftlo, hlefthi⟩ := dusartFar_left_step_window hx hb
-  have hleft := abs_dusartPsiAverageError_div_le_far hy1 hbl4704 hleftlo hlefthi hgap hreg
+  have hleft := abs_dusartPsiAverageError_div_le_far_of_height_le
+    hy1 hbl4704 hleftlo hlefthi hH hH₁ hgap hreg
   have hstep : (s / t) * (x * t) = s * x := by field_simp
   change |dusartPsiAverageError 3 ((s / t) * (x * t)) (x * t)| / (x * t) ≤ _ at hleft
   rw [hstep] at hleft
-  have hright := abs_dusartPsiAverageError_div_le_far hx (by linarith : 4704 ≤ Real.log x)
+  have hright := abs_dusartPsiAverageError_div_le_far_of_height_le
+    hx (by linarith : 4704 ≤ Real.log x)
     (by dsimp [s, b]; linarith [exp_pos (-(4 / 5 : ℝ) * sqrt (b / 6))] :
       exp (-(4 / 5 : ℝ) * sqrt (Real.log x / 6)) / 2 ≤ s)
     (by dsimp [s, b]; linarith [exp_pos (-(4 / 5 : ℝ) * sqrt (b / 6))] :
-      s ≤ 2 * exp (-(4 / 5 : ℝ) * sqrt (Real.log x / 6))) hgap hreg
+      s ≤ 2 * exp (-(4 / 5 : ℝ) * sqrt (Real.log x / 6))) hH hH₁ hgap hreg
   have hp := dusart_abs_psi_div_le_of_relative_averages 3 hspos hxpos hypos hleft hright
   have hleftcap : t * ((1 / 100 : ℝ) / Real.log (x * t) ^ 2) ≤ (1 / 25 : ℝ) / b ^ 2 := by
     calc
@@ -71,6 +75,16 @@ theorem abs_psi_sub_div_le_far {x : ℝ} (hx : 1 < x) (hb : 5000 ≤ Real.log x)
     _ ≤ (1 / 25 : ℝ) / b ^ 2 + (1 / 100 : ℝ) / b ^ 2 :=
       add_le_add (max_le hleftcap hrightcap) hsmooth
     _ = _ := by dsimp [b]; ring
+
+/-- The original billion-height bound is a specialization of the height-uniform result. -/
+theorem abs_psi_sub_div_le_far {x : ℝ} (hx : 1 < x) (hb : 5000 ≤ Real.log x)
+    (hgap : ∀ z ∈ xiLowHeightIndices 1000000000,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ))
+    (hreg : ∀ z : RiemannXiDivisorZeroIndex, (1000000000 : ℝ) ≤
+      |(riemannXiDivisorZeroValue z).im| → (riemannXiDivisorZeroValue z).re ≤
+        1 - 1 / (6 * Real.log |(riemannXiDivisorZeroValue z).im|)) :
+    |Chebyshev.psi x - x| / x ≤ (1 / 20 : ℝ) / Real.log x ^ 2 :=
+  abs_psi_sub_div_le_far_of_height_le hx hb (by norm_num) le_rfl hgap hreg
 
 end
 

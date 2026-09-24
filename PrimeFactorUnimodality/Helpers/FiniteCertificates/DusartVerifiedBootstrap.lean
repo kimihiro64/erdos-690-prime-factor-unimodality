@@ -9,8 +9,9 @@ import PrimeFactorUnimodality.Helpers.FiniteCertificates.KadiriTransformNumerica
 Only low-height verification and lower-band data remain explicit. The
 certified four-point transforms supply the endpoint chain in every consumer.
 The early analytic bridge reduces the lower-band endpoint to three billion.
-The full theta ray still requires zero verification to a billion; the
-smaller zero-height cutoff is used only on the bounded bridge.
+The assembled full theta ray still uses billion-height data. Independently,
+the unbounded far ray accepts every verified height from twenty-five million
+to a billion; only its earlier bounded band remains to be replaced.
 -/
 
 namespace PrimeFactorUnimodality
@@ -28,6 +29,29 @@ theorem xi_zero_gap_six_of_verified_reduced_low
     (hlow : ∀ z ∈ xiLowHeightIndices 25000000,
       (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) : KadiriHighRegion 6 25000000 :=
   xi_zero_gap_six_of_reduced_endpoint_chain kadiriSix_reduced_endpoint_chain hlow
+
+/-- Verification above the reduced cutoff includes its bootstrap premise. -/
+theorem xi_zero_gap_six_of_verified_height {H : ℝ} (hH : 25000000 ≤ H)
+    (hlow : ∀ z ∈ xiLowHeightIndices H,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) : KadiriHighRegion 6 H := by
+  have hsmall : ∀ z ∈ xiLowHeightIndices 25000000,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ) := by
+    intro z hz
+    apply hlow z
+    rw [mem_xiLowHeightIndices] at hz ⊢
+    exact hz.trans_le hH
+  intro z hz
+  exact xi_zero_gap_six_of_verified_reduced_low hsmall z (hH.trans hz)
+
+/-- The whole far ray needs low-zero verification only at the selected smaller height. -/
+theorem hasThetaLogSquaredError_far_of_verified_height {H : ℝ}
+    (hH : 25000000 ≤ H) (hH₁ : H ≤ 1000000000)
+    (hlow : ∀ z ∈ xiLowHeightIndices H,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) (Real.exp 5000) := by
+  apply hasThetaLogSquaredError_far_of_height_le (by linarith) hH₁ hlow
+  intro z hz
+  linarith [xi_zero_gap_six_of_verified_height hH hlow z hz]
 
 /-- The complete upper theta ray has no numerical transform or high-region assumption. -/
 theorem hasThetaLogSquaredError_above_endpoint_of_verified_low
