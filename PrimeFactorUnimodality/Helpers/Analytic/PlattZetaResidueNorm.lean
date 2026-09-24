@@ -44,6 +44,29 @@ theorem norm_plattZetaContourResidueValue_zero (t₀ h x : ℝ) :
         Real.exp (1 / (8 * h ^ 2) - t₀ ^ 2 / (2 * h ^ 2) - Real.pi * x) := by ring
     _ = _ := by rw [hc]
 
+/-- Every polynomial order retains the norm of its frequency factor at the pole. -/
+theorem norm_plattZetaContourResidueValue (k : ℕ) (t₀ h x : ℝ) :
+    ‖plattZetaContourResidueValue k t₀ h x‖ =
+      (Real.pi ^ (1 / 4 : ℝ) *
+        Real.exp (1 / (8 * h ^ 2) - t₀ ^ 2 / (2 * h ^ 2) - Real.pi * x)) *
+      (2 * Real.pi * ‖plattZetaPole t₀‖) ^ k := by
+  have he : plattZetaContourResidueValue k t₀ h x =
+      plattZetaContourResidueValue 0 t₀ h x *
+      (((-2 * Real.pi : ℝ) : ℂ) * Complex.I * plattZetaPole t₀) ^ k := by
+    simp only [plattZetaContourResidueValue, plattContourIntegrand, pow_zero, mul_one]
+    ring
+  rw [he, norm_mul, norm_plattZetaContourResidueValue_zero, norm_pow]
+  simp [Complex.norm_real, Real.norm_eq_abs, abs_of_pos Real.pi_pos]
+
+/-- The complete residue has exactly exponential frequency dependence at every order. -/
+theorem norm_plattZetaContourResidueValue_eq_zero_mul_exp (k : ℕ) (t₀ h x : ℝ) :
+    ‖plattZetaContourResidueValue k t₀ h x‖ =
+      ‖plattZetaContourResidueValue k t₀ h 0‖ * Real.exp (-Real.pi * x) := by
+  simp only [norm_plattZetaContourResidueValue, mul_zero, sub_zero]
+  rw [show 1 / (8 * h ^ 2) - t₀ ^ 2 / (2 * h ^ 2) - Real.pi * x =
+    (1 / (8 * h ^ 2) - t₀ ^ 2 / (2 * h ^ 2)) + (-Real.pi * x) by ring, Real.exp_add]
+  ring
+
 /-- The actual Fourier/Dirichlet difference has exactly the scalar norm stated in the paper. -/
 theorem norm_fourier_plattZetaWindow_sub_series (t₀ : ℝ) (ht₀ : 0 ≤ t₀)
     {h : ℝ} (hh : 0 < h) (x : ℝ) :

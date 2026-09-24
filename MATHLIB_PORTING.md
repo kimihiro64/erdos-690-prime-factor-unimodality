@@ -217,7 +217,7 @@ Replace the scaffold row when the first real candidate module is created.
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gaussian.PolynomialMoments` | `Mathlib/Analysis/SpecialFunctions/Gaussian/PolynomialMoments.lean` | project-verified | Finite binomial evaluation of two shifted absolute powers against a Gaussian |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gaussian.RapidDecay` | `Mathlib/Analysis/SpecialFunctions/Gaussian/RapidDecay.lean` | project-verified | Two-sided polynomial Gaussian decay compared with every real power |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gaussian.TailBound` | `Mathlib/Analysis/SpecialFunctions/Gaussian/TailBound.lean` | project-verified | Explicit tangent exponential bounds for polynomial Gaussians at any positive radius |
-| `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.PolynomialGaussianAliasing` | `Mathlib/Analysis/Fourier/PolynomialGaussianAliasing.lean` | project-verified | Closed central-cell alias bounds and convergence from polynomial Gaussian decay |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.PolynomialGaussianAliasing` | `Mathlib/Analysis/Fourier/PolynomialGaussianAliasing.lean` | project-verified | Closed central-cell alias bounds and convergence for single or finite mixtures of polynomial Gaussian envelopes |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.ExponentialAliasing` | `Mathlib/Analysis/Fourier/ExponentialAliasing.lean` | project-verified | Summability and exact geometric bounds for lattice periodization under finite exponential envelopes, retaining arbitrary offset margins |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.Scaling` | `Mathlib/Analysis/Fourier/Scaling.lean` | project-verified | Real dilation of the complex Fourier integral with the absolute inverse scale |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.DiscretePoisson` | `Mathlib/Analysis/Fourier/DiscretePoisson.lean` | project-verified | Exact DFT regrouping of summable integer Fourier series, signed representatives and input-error transport |
@@ -236,6 +236,7 @@ Replace the scaffold row when the first real candidate module is created.
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.Pocklington` | `Mathlib/NumberTheory/Pocklington.lean` | extracting | None |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.PrimalityCongruence` | `Mathlib/NumberTheory/PrimalityCongruence.lean` | extracting | None |
 | `PrimeFactorUnimodality.Mathlib.Data.Nat.CoprimePeriodicCount` | `Mathlib/Data/Nat/CoprimePeriodicCount.lean` | extracting | None |
+| `PrimeFactorUnimodality.Mathlib.NumberTheory.LSeries.CompletedConjugate` | `Mathlib/NumberTheory/LSeries/CompletedConjugate.lean` | project-verified | Gamma-product conjugation and real values of completed zeta on the critical line |
 
 Readiness should be one of: `extracting`, `project-verified`, `mathlib-ready`,
 `submitted`, or `upstreamed`. A module is `mathlib-ready` only after it has an

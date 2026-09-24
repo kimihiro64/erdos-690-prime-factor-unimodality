@@ -5,7 +5,54 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: the actual zeta Fourier/Dirichlet identity (2026-09-24)
+## Latest analytic increment: genuine zeta aliases, inverse DFT and xi transport (2026-09-24)
+
+`PlattZetaReality` now identifies the actual window with completed zeta times
+its real Gaussian normalization and polynomial factor. The new exported
+`LSeries.CompletedConjugate` candidate derives critical-line reality from
+Mathlib's Gamma product, zeta conjugation and functional equation. The base
+window is real; at order `k`, conjugation has the exact factor `(-1)^k`.
+The genuine Fourier transform consequently has symmetric norm.
+
+`PlattShiftedGammaIntegral` now exposes the stronger integral-of-norm bound,
+preserving its previous integral-norm theorem. `PlattZetaRightBound` uses it
+with the actual real-axis zeta factor and pi phase. `PlattZetaResidueNorm`
+retains the polynomial factor at every order and proves its exact frequency
+dependence. `PlattZetaEnvelope` therefore has two terms only: the displaced
+integral and the unique crossed zeta pole. `PlattZetaFourierAliasing` proves
+convergence and the exact geometric error, with an arbitrary offset margin.
+
+`PlattZetaTimeAliasing` retains both polynomial degrees `k` and `k+1` from
+the critical-line zeta growth bound. Its explicit finite error expression
+requires `B^2 > 4*(k+1)*h^2`; both denominators are proved positive. It uses
+the extended finite-mixture `PolynomialGaussianAliasing` candidate, not an
+assumed time-tail estimate. `PlattZetaPoisson` proves the genuine scaled
+Poisson identity using this decay and the actual Fourier summability.
+
+`PlattZetaDiscreteApproximation` regroups that series into the finite inverse
+DFT. It retains the approximate frequency-input error, finite DFT error,
+frequency aliases and time aliases. Those two numerical errors remain
+explicit inputs; no approximate values have been silently asserted correct.
+`PlattZetaXi` identifies the base window as a negative positive-scale multiple
+of the existing xi restriction. True window sign changes now supply genuine
+xi divisor labels through the existing sign-change theorem.
+
+The source targets and complete candidate facade build (4,148 jobs).
+Three new regressions pass, including odd-order conjugation, signed centers,
+both alias budgets, arbitrary positive DFT length and the xi sign transfer.
+The existing Gaussian-alias, Gamma-discrete and zeta-Fourier regressions pass too.
+All 32 audited theorem closures use only the standard three Lean axioms.
+No finite certificate generation, replay, CI enablement or release was added.
+
+Remaining non-certificate work includes interpolation and the assembly of
+actual numerical input enclosures/error budgets into certified window signs;
+the total-count/completeness obligations must also be closed. The Gaussian
+Taylor/Dirichlet estimates and finite transform transport already proved must
+be reused. Dusart, the unconditional all-k theorem and full-path numerical
+feasibility remain open. The earlier conditional all-k builds remain valid
+local evidence, not an unconditional result or a published release.
+
+## Earlier analytic increment: the actual zeta Fourier/Dirichlet identity (2026-09-24)
 
 `PlattZetaIntegrand` defines the actual zeta-window factor and its continued
 Fourier integrand. `PlattDirichletInterchange` proves the pointwise Dirichlet

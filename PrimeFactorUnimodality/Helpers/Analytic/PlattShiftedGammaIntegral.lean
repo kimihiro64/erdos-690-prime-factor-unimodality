@@ -76,11 +76,11 @@ theorem integrable_plattContourIntegrand_left (m k : ℕ) (hm : 1 ≤ m)
     (((measurable_plattContourIntegrand k t₀ h u).comp (by fun_prop)).aestronglyMeasurable)
   exact Filter.Eventually.of_forall (fun v => (norm_plattContourIntegrand_left m k t₀ h u v).le)
 
-/-- Bound for the actual displaced integral in the positive-frequency direction. -/
-theorem norm_integral_plattContourIntegrand_right_le (m k : ℕ) (hm : 1 ≤ m)
+/-- The same majorant controls the integral of the norm, before any cancellation. -/
+theorem integral_norm_plattContourIntegrand_right_le (m k : ℕ) (hm : 1 ≤ m)
     {t₀ h : ℝ} (ht₀ : 0 ≤ t₀) (hh : 0 < h) (u : ℝ) :
-    ‖∫ v : ℝ, plattContourIntegrand k t₀ h u
-      ((v : ℂ) + ((-(2 * (m : ℝ) + 1 / 2) : ℝ) : ℂ) * Complex.I)‖ ≤
+    (∫ v : ℝ, ‖plattContourIntegrand k t₀ h u
+      ((v : ℂ) + ((-(2 * (m : ℝ) + 1 / 2) : ℝ) : ℂ) * Complex.I)‖) ≤
       Real.exp ((2 * (m : ℝ) + 1 / 2) ^ 2 / (2 * h ^ 2) -
         2 * Real.pi * u * (2 * (m : ℝ) + 1 / 2)) * plattScalarCMajorant m k t₀ h := by
   have hi := integral_mono (integrable_plattContourIntegrand_right m k hm ht₀ hh u).norm
@@ -91,9 +91,19 @@ theorem norm_integral_plattContourIntegrand_right_le (m k : ℕ) (hm : 1 ≤ m)
   rw [integral_const_mul] at hi
   have hj : _ ≤ Real.exp ((2 * (m : ℝ) + 1 / 2) ^ 2 / (2 * h ^ 2) -
       2 * Real.pi * u * (2 * (m : ℝ) + 1 / 2)) * plattScalarC m k t₀ h :=
-    (norm_integral_le_integral_norm _).trans (hi.trans_eq (by unfold plattScalarC; ring))
+    hi.trans_eq (by unfold plattScalarC; ring)
   exact hj.trans (mul_le_mul_of_nonneg_left (plattScalarC_le_majorant m k hm ht₀ hh)
     (Real.exp_pos _).le)
+
+/-- Bound for the actual displaced integral in the positive-frequency direction. -/
+theorem norm_integral_plattContourIntegrand_right_le (m k : ℕ) (hm : 1 ≤ m)
+    {t₀ h : ℝ} (ht₀ : 0 ≤ t₀) (hh : 0 < h) (u : ℝ) :
+    ‖∫ v : ℝ, plattContourIntegrand k t₀ h u
+      ((v : ℂ) + ((-(2 * (m : ℝ) + 1 / 2) : ℝ) : ℂ) * Complex.I)‖ ≤
+      Real.exp ((2 * (m : ℝ) + 1 / 2) ^ 2 / (2 * h ^ 2) -
+        2 * Real.pi * u * (2 * (m : ℝ) + 1 / 2)) * plattScalarCMajorant m k t₀ h :=
+  (norm_integral_le_integral_norm _).trans
+    (integral_norm_plattContourIntegrand_right_le m k hm ht₀ hh u)
 
 /-- The negative-frequency integral has the corrected scalar and its own exact shift cost. -/
 theorem norm_integral_plattContourIntegrand_left_le (m k : ℕ) (hm : 1 ≤ m)
