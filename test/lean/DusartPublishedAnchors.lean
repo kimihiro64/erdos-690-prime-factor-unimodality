@@ -12,9 +12,13 @@ example : HasDusartRealPrimeCountingBoundsBelow 3594641 :=
 example (error : HasThetaLogSquaredError (1 / 5) 3594641) : HasDusartPrimeCountingBounds :=
   hasDusartPrimeCountingBounds_of_logSquared_ray error
 
-example (short : HasDusartShortIntervalPrimeBelow 3594641)
-    (theta : ∀ q : Nat, 3501 ≤ q → q < 3594641 → TailThetaAt q) :
-    SquaredThetaFiniteInputs := ⟨short, theta⟩
+example : HasDusartShortIntervalPrimeBelow 3594641 := dusart_published_shortIntervalPrefix
+
+example (error : HasThetaLogSquaredError (1 / 5) 3594641) : HasDusartShortIntervalPrime :=
+  hasDusartShortIntervalPrime_of_logSquared_ray error
+
+example (theta : ∀ q : Nat, 3501 ≤ q → q < 3594641 → TailThetaAt q) :
+    SquaredThetaFiniteInputs := ⟨theta⟩
 
 example (finiteRange : ∀ k : Nat, 1 ≤ k → k ≤ 38000 →
       (IsUnimodal (primeFactorDensity k) ↔ k ≤ 3))

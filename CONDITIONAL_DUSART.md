@@ -58,15 +58,15 @@ and log-square finite-band obligations.
 
 `CompleteClassificationSquaredReduction` also composes the existing
 prime-counting and short-interval adapters with this weaker theta interface.
-Its `SquaredThetaFiniteInputs` now lists only the theta and short-interval
-prefixes; the prime-counting prefix is supplied by checked compact rows.
+Its `SquaredThetaFiniteInputs` now lists only the finite theta prefix;
+the prime-counting and short-interval prefixes are supplied by checked compact rows.
 The exact count `pi(3594641) = 256357` is kernel-checked by one packed sieve;
 the same log-square theta hypothesis and elementary logarithm bounds then
 prove both Abel anchor comparisons. No additional theta-product certificate
 or anchor assumption is needed. The count pilot, including saved proof output,
 completed in 5.09 seconds on the local two-core machine. Given the remaining
-prefixes and finite classification, the sole unbounded analytic input is the
-shared log-square theta-error ray. The remaining two prefixes and that ray
+theta prefix and finite classification, the sole unbounded analytic input is the
+shared log-square theta-error ray. The remaining theta prefix and that ray
 are not claimed to have been proved by this reduction.
 
 `DusartPublishedPiPrefix` covers every real input through 3,594,641. It extends
@@ -79,6 +79,15 @@ external primality oracle, per-prime proof family or native evaluation.
 `DusartPublishedPrimeCounting` therefore obtains the global prime-counting
 bounds from the theta-error ray alone, deriving both anchors and supplying
 the finite prefix internally.
+
+`DusartPublishedShortPrefix` proves the complete short-interval statement for
+every real input from 3,275 through 3,594,641. Its 2,022 compact rows use a
+shared certified sieve and smooth-power logarithm bounds. Each prime covers
+the half-open interval to its left; at that prime, the next row supplies a
+strictly larger witness. Eight serial batches passed in 75.7 seconds combined.
+The older low-range families remain available but are not imported by this
+provider. `DusartPublishedShortInterval` then gives the global short-interval
+theorem from the same unbounded theta-error ray, with no finite-prefix premise.
 
 ## Building and resuming
 

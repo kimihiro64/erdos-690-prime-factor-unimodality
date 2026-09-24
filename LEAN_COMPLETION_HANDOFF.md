@@ -5,7 +5,40 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: the published prime-counting prefix is discharged (2026-09-24)
+## Latest increment: the published short-interval prefix is discharged (2026-09-24)
+
+`DusartPublishedShortPrefix` proves `HasDusartShortIntervalPrimeBelow 3594641`
+for every real input starting at 3,275. `ShortIntervalSieveRows` proves the
+generic row checker, strict-endpoint coverage and batch composition. Each row
+checks a sieve bit for its witness prime and a smooth-power logarithm enclosure;
+an exact rational width comparison covers the entire half-open cell.
+
+The generator selects 2,022 witnesses in eight serial batches, plus a shared
+base and facade. There is no per-integer or per-prime proof family. The old
+low-range sources and all existing caches are preserved, but this provider
+does not import them or the unbounded PNT pipeline. The exclusive endpoint
+3,601,993 includes the exact required cutoff 3,594,641.
+
+The worst-end 256-row pilot passed in 11.30 seconds at 2,864,888 KiB peak RSS,
+with 15,557 source bytes, six declarations and a saved 1,449,480-byte olean.
+The actual eight modules passed in 75.7 seconds combined; the facade took
+4.7 seconds. The generator tests verify exact coverage, semantic identity,
+malformed witnesses, width budgets, serial imports and generated-file parity.
+Lean regression tests include a prime shared endpoint and composite rejection.
+
+`DusartPublishedShortInterval` exports
+`hasDusartShortIntervalPrime_of_logSquared_ray`. Together with the previously
+closed prime-counting provider, this removes the short-interval field from
+`SquaredThetaFiniteInputs`: its only field is now the finite theta prefix.
+The strengthened all-k reduction and regression tests pass. All five audited
+theorem closures use only the standard logical axioms.
+
+Still open: the theta prefix `3501 <= q < 3594641`, the full unbounded
+log-square theta-error ray, and completion of the record-twin replays needed
+by the closed finite classification. This is not an unconditional proof and
+does not pass the separate conditional release gate. CI remains paused.
+
+## Previous increment: the published prime-counting prefix is discharged (2026-09-24)
 
 `DusartPublishedPiPrefix` proves `HasDusartRealPrimeCountingBoundsBelow 3594641`.
 The existing closed prefix through 1,000 is extended with 2,093 compact rows
