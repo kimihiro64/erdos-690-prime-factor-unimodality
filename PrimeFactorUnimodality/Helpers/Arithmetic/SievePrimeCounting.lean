@@ -1,12 +1,12 @@
 import Mathlib.NumberTheory.PrimeCounting
 import PrimeCert.SieveCorrect
-import PrimeFactorUnimodality.Mathlib.Data.Nat.BitCount
+import PrimeFactorUnimodality.Mathlib.Data.Nat.BitCountPacked
 
 /-! # Exact prime counts from a shared certified wheel sieve
 
 The pinned PrimeCert sieve supplies primality equivalence only. This module
 proves exact count semantics, including the exceptional primes two and three,
-the excluded bit for one, and the partial final wheel cell. Balanced bit
+the excluded bit for one, and the partial final wheel cell. Packed bit
 counts are used only after their complete finite-set identity is proved.
 -/
 
@@ -95,17 +95,17 @@ theorem sievePrimeSet_card (n bits : ℕ) :
 theorem isSieve_restrict {N n bits : ℕ} (h : IsSieve N bits) (hn : n ≤ N) :
     IsSieve n bits := fun t ht htn => h t ht (htn.trans hn)
 
-/-- A balanced exact prefix count, including the two primes omitted by the mod-six wheel. -/
+/-- A packed exact prefix count, including the two primes omitted by the mod-six wheel. -/
 def sievePrimeCount (k n bits : ℕ) : ℕ :=
   (if 2 ≤ n then 1 else 0) + (if 3 ≤ n then 1 else 0) +
-    Nat.bitCountBlock k bits 1 (wheelLength n - 1)
+    Nat.bitCountBlockPacked k bits 1 (wheelLength n - 1)
 
 /-- The retained sieve and sufficient bit-count depth give the actual prime-counting function. -/
 theorem primeCounting_eq_sievePrimeCount {N n bits k : ℕ} (h : IsSieve N bits)
     (hn : n ≤ N) (hk : wheelLength n - 1 ≤ 2 ^ k) :
     Nat.primeCounting n = sievePrimeCount k n bits := by
   rw [← Nat.primesLE_card_eq_primeCounting, ← sievePrimeSet_eq (isSieve_restrict h hn),
-    sievePrimeSet_card, sievePrimeCount, Nat.bitCountBlock_eq_card _ _ _ _ hk]
+    sievePrimeSet_card, sievePrimeCount, Nat.bitCountBlockPacked_eq_card _ _ _ _ hk]
   simp only [wheelPrimeIndices, Nat.add_comm]
 
 /-- Check the finite range, recursion depth and claimed count using only retained data. -/

@@ -43,6 +43,13 @@ example {N k bits a oldCount b newCount : ℕ}
 private theorem sieve30 : IsSieve 30 766 :=
   isSieve_of_sieveK_eq (sqrtN := 6) (by decide +kernel) (by decide) (by decide)
 
+example (N k bits a oldCount b newCount : ℕ) :
+    checkSieveCountStep N k bits a oldCount b newCount =
+      decide (3 ≤ a ∧ a ≤ b ∧ b ≤ N ∧ wheelLength b - wheelLength a ≤ 2 ^ k ∧
+        oldCount + Nat.bitCountBlock k bits (wheelLength a)
+          (wheelLength b - wheelLength a) = newCount) := by
+  simp only [checkSieveCountStep, Nat.bitCountBlockPacked_eq]
+
 example : checkSieveCountStep 30 2 766 3 2 11 5 = true := by decide +kernel
 example : checkSieveCountStep 30 3 766 11 5 30 10 = true := by decide +kernel
 example : checkSieveCountStep 30 0 766 11 5 11 5 = true := by decide +kernel

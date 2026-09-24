@@ -14,6 +14,7 @@ def test_sieve_count_foundations_build_serially() -> None:
     previous = foundations.index("lake env lean test/lean/DusartCheckedThetaTrace.lean")
     pairs = (
         (BASE + "Mathlib.Data.Nat.BitCount", "BitCount"),
+        (BASE + "Mathlib.Data.Nat.BitCountPacked", "BitCountPacked"),
         ("PrimeCert.Pocklington", "PrimeCertCompatibility"),
         (BASE + "Helpers.Arithmetic.SievePrimeCounting", "SievePrimeCounting"),
         (BASE + "Helpers.Arithmetic.SievePrimeCountIncrements", "SievePrimeCountIncrements"),
@@ -36,7 +37,7 @@ def test_adjacent_counts_do_not_recount_the_prefix() -> None:
     source = strip_lean_comments((arithmetic / "SievePrimeCountIncrements.lean").read_text())
     checker = source.split("def checkSieveCountStep", 1)[1].split("theorem", 1)[0]
     assert "sievePrimeCount " not in checker
-    assert "Nat.bitCountBlock k bits (wheelLength a)" in checker
+    assert "Nat.bitCountBlockPacked k bits (wheelLength a)" in checker
     assert "wheelLength b - wheelLength a ≤ 2 ^ k" in checker
     assert "3 ≤ a ∧ a ≤ b ∧ b ≤ N" in checker
     adapter = ROOT / "PrimeFactorUnimodality/Helpers/Analytic/SievedThetaPrimeTrace.lean"
@@ -44,3 +45,13 @@ def test_adjacent_counts_do_not_recount_the_prefix() -> None:
     assert "checkSieveCountStep N k bits start.point start.count next.point next.count" in source
     assert "counts_of_sieve_checks h hs.2.1 hcounts" in source
     assert "1441000000000 ≤ q.point" in source
+
+
+def test_prime_count_checkers_use_proved_packed_backend() -> None:
+    arithmetic = ROOT / "PrimeFactorUnimodality/Helpers/Arithmetic"
+    source = strip_lean_comments((arithmetic / "SievePrimeCounting.lean").read_text())
+    counter = source.split("def sievePrimeCount", 1)[1].split("theorem", 1)[0]
+    assert "Nat.bitCountBlockPacked k bits 1 (wheelLength n - 1)" in counter
+    assert "Nat.bitCountBlockPacked_eq_card" in source
+    source = strip_lean_comments((arithmetic / "SievePrimeCountIncrements.lean").read_text())
+    assert "Nat.bitCountBlockPacked_eq] at hc" in source

@@ -47,6 +47,7 @@ Replace the scaffold row when the first real candidate module is created.
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.PrimeCountingMeissel` | `Mathlib/NumberTheory/PrimeCountingMeissel.lean` | project-verified | Complete canonical prime prefix and exact Meissel identity by telescoping removal; explicit cube/square cutoff guards. |
 | `PrimeFactorUnimodality.Mathlib.Data` | `Mathlib/Data.lean` | project-verified | Facade for finite-data candidates within the import limit. |
 | `PrimeFactorUnimodality.Mathlib.Data.Nat.BitCount` | `Mathlib/Data/Nat/BitCount.lean` | project-verified | Balanced bitset counting, exact clipped/offset block semantics, and adjacent-block composition. |
+| `PrimeFactorUnimodality.Mathlib.Data.Nat.BitCountPacked` | `Mathlib/Data/Nat/BitCountPacked.lean` | project-verified | Carry-free whole-integer lane merging, proved equal to the original bit count for every depth; exact block cardinality and adjacent-block composition. |
 | `PrimeFactorUnimodality.Mathlib.Algebra` | `Mathlib/Algebra.lean` | project-verified | Facade for algebraic candidates within the direct-import limit. |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Fourier` | `Mathlib/Analysis/Fourier.lean` | project-verified | Facade for shared transforms and rational checking, within the direct-import limit. |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RationalAlias` | `Mathlib/Analysis/Fourier/RationalAlias.lean` | project-verified | Exact sparse rational coordinate assembly and equality with the existing complex alias input. |

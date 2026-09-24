@@ -33,6 +33,11 @@ example {N k bits n count : ℕ} (h : IsSieve N bits)
     (hc : checkSievePrimeCount N k bits n count = true) : Nat.primeCounting n = count := by
   exact PrimeFactorUnimodality.primeCounting_eq_of_sieve_check h hc
 
+example (k n bits : ℕ) : sievePrimeCount k n bits =
+    (if 2 ≤ n then 1 else 0) + (if 3 ≤ n then 1 else 0) +
+      Nat.bitCountBlock k bits 1 (wheelLength n - 1) := by
+  simp only [sievePrimeCount, Nat.bitCountBlockPacked_eq]
+
 private theorem sieve30 : IsSieve 30 766 :=
   isSieve_of_sieveK_eq (sqrtN := 6) (by decide +kernel) (by decide) (by decide)
 

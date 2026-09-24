@@ -62,7 +62,7 @@ theorem primeCounting_add_bitCountBlock {N a b bits k : ℕ} (h : IsSieve N bits
 /-- The local row checks coverage, sufficient depth and exact addition to the retained old count. -/
 def checkSieveCountStep (N k bits a oldCount b newCount : ℕ) : Bool :=
   decide (3 ≤ a ∧ a ≤ b ∧ b ≤ N ∧ wheelLength b - wheelLength a ≤ 2 ^ k ∧
-    oldCount + Nat.bitCountBlock k bits (wheelLength a)
+    oldCount + Nat.bitCountBlockPacked k bits (wheelLength a)
       (wheelLength b - wheelLength a) = newCount)
 
 /-- A checked local count row advances the actual prime-counting function. -/
@@ -70,7 +70,7 @@ theorem primeCounting_eq_of_sieve_step {N k bits a oldCount b newCount : ℕ}
     (h : IsSieve N bits) (ha : Nat.primeCounting a = oldCount)
     (hc : checkSieveCountStep N k bits a oldCount b newCount = true) :
     Nat.primeCounting b = newCount := by
-  simp only [checkSieveCountStep, decide_eq_true_eq] at hc
+  simp only [checkSieveCountStep, decide_eq_true_eq, Nat.bitCountBlockPacked_eq] at hc
   rw [← primeCounting_add_bitCountBlock h hc.1 hc.2.1 hc.2.2.1 hc.2.2.2.1, ha]
   exact hc.2.2.2.2
 

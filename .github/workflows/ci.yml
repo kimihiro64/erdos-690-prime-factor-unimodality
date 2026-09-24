@@ -1543,6 +1543,9 @@ jobs:
             +PrimeFactorUnimodality.Mathlib.Data.Nat.BitCount
           lake env lean test/lean/BitCount.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Data.Nat.BitCountPacked
+          lake env lean test/lean/BitCountPacked.lean
+          /usr/bin/time -v lake build \
             +PrimeCert.SieveCorrect
           /usr/bin/time -v lake build \
             +PrimeCert.Pocklington
