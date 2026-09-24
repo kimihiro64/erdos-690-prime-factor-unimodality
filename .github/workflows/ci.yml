@@ -1465,6 +1465,9 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.XiSimplePhaseIntervals
           lake env lean test/lean/XiSimplePhaseIntervals.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiAffinePhaseIntervals
+          lake env lean test/lean/XiAffinePhaseIntervals.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.CheckedXiGridPhase
           lake env lean test/lean/CheckedXiGridPhase.lean
           /usr/bin/time -v lake build \
@@ -1533,6 +1536,9 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.PackedXiGridMargins
           lake env lean test/lean/PackedXiGridMargins.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.AffineXiGridSigns
+          lake env lean test/lean/AffineXiGridSigns.lean
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ThetaSquaredCheckpoints
           lake env lean test/lean/ThetaSquaredCheckpoints.lean
