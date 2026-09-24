@@ -8,8 +8,8 @@ import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.Exponent
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.GroupedExponential
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.GroupedRounding
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogBernoulli
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogCartesian
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogHeightBounds
-import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogShiftLimit
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogStirlingLimit
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogTrapezoid
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.RotationError

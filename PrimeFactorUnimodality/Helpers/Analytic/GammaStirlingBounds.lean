@@ -1,4 +1,5 @@
 import PrimeFactorUnimodality.Helpers.Analytic.GammaStirlingExpansion
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.ExponentialStability
 import PrimeFactorUnimodality.Mathlib.NumberTheory.BernoulliPeriodic.ShiftedBound
 
 /-! # Explicit arbitrary-order enclosures of complex Gamma
@@ -75,13 +76,8 @@ theorem norm_gammaRightLog_sub_stirlingApprox_le_re {z : ℂ} (hz : 0 < z.re)
 theorem norm_Gamma_sub_exp_le_of_log_enclosure {z w : ℂ} (hz : 0 < z.re) {ε : ℝ}
     (hε : ‖gammaRightLog z - w‖ ≤ ε) :
     ‖Gamma z - exp w‖ ≤ Real.exp w.re * (Real.exp ε - 1) := by
-  have he : exp (gammaRightLog z) - exp w = exp w * (exp (gammaRightLog z - w) - 1) := by
-    rw [mul_sub, ← exp_add, mul_one, add_sub_cancel]
-  have hd : ‖exp (gammaRightLog z - w) - 1‖ ≤ Real.exp ‖gammaRightLog z - w‖ - 1 := by
-    simpa using norm_exp_sub_sum_le_exp_norm_sub_sum (gammaRightLog z - w) 1
-  rw [← exp_gammaRightLog hz, he, norm_mul, norm_exp]
-  exact mul_le_mul_of_nonneg_left
-    (hd.trans (sub_le_sub_right (Real.exp_le_exp.mpr hε) 1)) (Real.exp_pos _).le
+  rw [← exp_gammaRightLog hz]
+  exact norm_exp_sub_exp_le_of_norm_sub_le hε
 
 /-- A closed arbitrary-order enclosure of Gamma itself, not just its argument. -/
 theorem norm_Gamma_sub_stirling_exp_le {z : ℂ} (hz : 0 < z.re)

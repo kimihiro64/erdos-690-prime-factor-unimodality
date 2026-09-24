@@ -36,6 +36,22 @@ def sub (a b : RationalPoint) : RationalPoint := ⟨a.re - b.re, a.im - b.im⟩
 def mul (a b : RationalPoint) : RationalPoint :=
   ⟨a.re * b.re - a.im * b.im, a.re * b.im + a.im * b.re⟩
 
+/-- A rational scalar as an exact complex point. -/
+def ofRat (a : ℚ) : RationalPoint := ⟨a, 0⟩
+
+/-- Exact rational inverse, with the same zero convention as complex inversion. -/
+def inv (a : RationalPoint) : RationalPoint :=
+  ⟨a.re / (a.re ^ 2 + a.im ^ 2), -a.im / (a.re ^ 2 + a.im ^ 2)⟩
+
+/-- A reusable natural-power computation on exact rational complex points. -/
+def pow (a : RationalPoint) : ℕ → RationalPoint
+  | 0 => ofRat 1
+  | n + 1 => (a.pow n).mul a
+
+/-- Rational scalar interpretation agrees with the standard cast. -/
+@[simp] theorem toComplex_ofRat (a : ℚ) : (ofRat a).toComplex = (a : ℂ) := by
+  apply Complex.ext <;> simp [toComplex, ofRat]
+
 /-- Rational addition agrees with complex addition. -/
 @[simp] theorem toComplex_add (a b : RationalPoint) :
     (a.add b).toComplex = a.toComplex + b.toComplex := by
@@ -50,6 +66,18 @@ def mul (a b : RationalPoint) : RationalPoint :=
 @[simp] theorem toComplex_mul (a b : RationalPoint) :
     (a.mul b).toComplex = a.toComplex * b.toComplex := by
   apply Complex.ext <;> simp [toComplex, mul, Complex.mul_re, Complex.mul_im]
+
+/-- Exact inversion agrees even at zero. -/
+@[simp] theorem toComplex_inv (a : RationalPoint) : a.inv.toComplex = a.toComplex⁻¹ := by
+  apply Complex.ext <;> simp [toComplex, inv, Complex.inv_re, Complex.inv_im,
+    Complex.normSq_apply, pow_two]
+
+/-- The natural-power computation agrees with complex exponentiation. -/
+@[simp] theorem toComplex_pow (a : RationalPoint) (n : ℕ) :
+    (a.pow n).toComplex = a.toComplex ^ n := by
+  induction n with
+  | zero => simp [pow]
+  | succ n ih => simp [pow, ih, pow_succ]
 
 /-- A Boolean Euclidean norm check using only rational operations. -/
 def normLE (a : RationalPoint) (e : ℚ) : Bool :=

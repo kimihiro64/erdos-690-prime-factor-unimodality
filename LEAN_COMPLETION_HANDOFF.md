@@ -5,7 +5,51 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: arbitrary-order complex Gamma enclosures (2026-09-24)
+## Latest analytic increment: compensated rational Gamma inputs to FFT (2026-09-24)
+
+`Complex.LogCartesian` expresses the right-half-plane principal logarithm
+using a real logarithm of the squared norm and an arctangent with the branch
+proved. Positive and negative height also have reciprocal-ratio formulas,
+so high-height evaluation need not call arctangent at a huge argument.
+The complex exponential error lemma is now a reusable candidate; the earlier
+Gamma enclosure uses it without changing its public conclusion.
+
+`RationalPoint` now includes exact inversion and natural powers.
+`GammaStirlingRational` proves an exact rational Horner evaluator for the
+finite Stirling correction, with one inverse and one multiplication per
+coefficient. `GammaStirlingInputs` bounds the assembled normalized logarithm
+using enclosures of three real-function values: the squared-norm logarithm,
+the arctangent, and `log (2*pi)`. The correction itself is exact arithmetic.
+
+`PlattStirlingKernel` combines the Gamma logarithm with the compensating
+real exponential before exponentiation. This avoids separately representing
+tiny Gamma values and huge exponential compensation factors. Its proved
+radius is the maximum of one quarter and the absolute imaginary height,
+so the enclosure also covers zero and negative heights. One base value is
+reused for every natural polynomial kernel order, with power and multiplication
+errors explicitly retained.
+
+`PlattStirlingRows` stores the common window, order and normalization enclosure
+once, then small per-sample records. `ValidRange` checks an ordered interval of
+indices; adjacent chunks compose and empty chunks have the correct boundary
+behavior. `PlattStirlingRowBounds` assembles elementary input errors into actual
+kernel enclosures. `PlattStirlingGrid` turns complete range coverage into every
+signed central-grid index and supplies the existing radix-to-true-Fourier theorem.
+The conclusion retains input, power, multiplication, FFT and analytic alias errors.
+
+All new source modules and the full candidate facade build (4,048 jobs).
+Two focused regression files and the previous Gamma expansion regression pass.
+All 31 audited theorem closures use only the standard three Lean axioms.
+No numerical row family was generated or replayed. Row validity still requires
+checked elementary-function enclosures; these interfaces do not assert that
+any numerical output or zero sign has already been verified.
+
+Next source obligations include rounded shared-convolution assembly and
+elementary-function checking behind the row predicates. Instantiated full
+evaluation/sign budgets, zero-count completeness and full-path feasibility
+remain open. Dusart and the unconditional all-k theorem are not complete.
+
+## Earlier analytic increment: arbitrary-order complex Gamma enclosures (2026-09-24)
 
 `GammaStirlingComplex` now identifies the complete logarithmic cell remainder
 with the actual canonical Gamma logarithm, including the real Stirling constant.

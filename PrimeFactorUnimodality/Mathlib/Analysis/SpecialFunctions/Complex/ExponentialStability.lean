@@ -18,6 +18,17 @@ open Finset
 
 variable {ι : Type*}
 
+/-- A complex logarithmic error controls both amplitude and phase after exponentiation. -/
+theorem norm_exp_sub_exp_le_of_norm_sub_le {z w : ℂ} {ε : ℝ} (hε : ‖z - w‖ ≤ ε) :
+    ‖exp z - exp w‖ ≤ Real.exp w.re * (Real.exp ε - 1) := by
+  have he : exp z - exp w = exp w * (exp (z - w) - 1) := by
+    rw [mul_sub, ← exp_add, mul_one, add_sub_cancel]
+  have hd : ‖exp (z - w) - 1‖ ≤ Real.exp ‖z - w‖ - 1 := by
+    simpa using norm_exp_sub_sum_le_exp_norm_sub_sum (z - w) 1
+  rw [he, norm_mul, norm_exp]
+  exact mul_le_mul_of_nonneg_left
+    (hd.trans (sub_le_sub_right (Real.exp_le_exp.mpr hε) 1)) (Real.exp_pos _).le
+
 /-- A finite phase sum retains every coefficient and frequency perturbation. -/
 theorem norm_expSum_sub_expSum_le (S : Finset ι) (w a : ι → ℂ)
     (f g : ι → ℝ) (u v : ℝ) :
