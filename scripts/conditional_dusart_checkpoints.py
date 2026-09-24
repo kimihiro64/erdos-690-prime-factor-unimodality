@@ -89,11 +89,24 @@ class Store:
         self.repo = repo
         self.read_only = read_only
         self.tag = f"conditional-proof-checkpoints-v1-{phase}"
-        endpoint = f"repos/{repo}/releases/tags/{self.tag}"
-        result = subprocess.run(["gh", "api", endpoint], capture_output=True, text=True)
-        if result.returncode:
-            if "404" not in result.stderr:
-                raise RuntimeError(result.stderr)
+        # GitHub's release-by-tag endpoint does not discover these draft stores.
+        # Enumerate all pages, then address the existing release by its numeric ID.
+        result = subprocess.run(
+            ["gh", "api", f"repos/{repo}/releases", "--paginate", "--jq", ".[] | @json"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        releases = [json.loads(line) for line in result.stdout.splitlines() if line.strip()]
+        matches = [release for release in releases if release["tag_name"] == self.tag]
+        if len(matches) > 1:
+            raise ValueError(
+                f"ambiguous checkpoint stores for {self.tag}; preserve and inspect them"
+            )
+        self.release_id: int | None = None
+        if matches:
+            release = matches[0]
+        else:
             if read_only:
                 self.assets: set[str] = set()
                 return
@@ -119,9 +132,10 @@ class Store:
                 capture_output=True,
                 text=True,
             )
-        release = json.loads(result.stdout)
-        if not release["draft"]:
+            release = json.loads(result.stdout)
+        if release["draft"] is not True or release["tag_name"] != self.tag:
             raise ValueError("checkpoint store must remain a draft")
+        self.release_id = release["id"]
         listing = subprocess.run(
             [
                 "gh",

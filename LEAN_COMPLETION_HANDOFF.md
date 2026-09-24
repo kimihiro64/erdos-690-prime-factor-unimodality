@@ -36,14 +36,21 @@ The strict original Lean lint driver is an outstanding release gate. A local
 reported 7,682 existing findings: 6,691 missing declaration docs, 980 definition
 names containing underscores, nine declarations with unused arguments and two
 structures whose fields are all propositions. This is not a theorem-elaboration failure. Do not
-claim a successful release or silently suppress the findings. A user choice
-between an explicit reviewed style baseline and source-wide fixes is pending;
-source-wide generated-certificate changes would invalidate saved artifacts.
+claim a successful release or silently suppress the findings. The user chose
+strict source-wide fixes, accepting affected certificate rebuilds. Do not add
+a baseline or lint exceptions. Update the generators as well as their output.
 The two structure findings are `PowerCertificate` and `PowerStep`; these are
 intentionally type-valued wrappers for large checked equalities, not missing
 mathematical proofs. In particular, `PowerCertificate` documents that its sort
 avoids adding giant equalities to premise selection. Preserve that design when
 deciding lint policy. The nine unused-argument findings contain ten parameters.
+
+The workflow/paper commits are now pushed. Checkpoint discovery was found to
+use GitHub's release-by-tag endpoint, which returns 404 for the existing draft
+stores. It now enumerates all release pages and selects the existing numeric
+release ID, refusing ambiguous or published stores. The running build's saved
+bundles are retained. Workflow-only commits preserve all checkpoint-key inputs;
+later Lean source fixes legitimately invalidate their affected dependencies.
 
 The documentation gate now checks a nonempty local page for every compiled
 dependency, both after generation and before publication. A bundle with only

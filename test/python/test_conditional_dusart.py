@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 import io
+import json
+import subprocess
 import tarfile
 from pathlib import Path
+from unittest.mock import patch
 
 import pytest
 
-from scripts.conditional_dusart_checkpoints import pack, restore
+from scripts.conditional_dusart_checkpoints import Store, pack, restore
 from scripts.conditional_dusart_plan import (
     CONFIG,
     TARGET,
@@ -24,6 +27,81 @@ from scripts.lean_source import lean_imports, strip_lean_comments
 from scripts.render_conditional_workflow import original_jobs, render
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+def api_result(data: object) -> subprocess.CompletedProcess[str]:
+    return subprocess.CompletedProcess([], 0, stdout=json.dumps(data), stderr="")
+
+
+def api_lines(*data: object) -> subprocess.CompletedProcess[str]:
+    return subprocess.CompletedProcess([], 0, stdout="\n".join(map(json.dumps, data)), stderr="")
+
+
+def test_checkpoint_discovers_draft_on_later_page_without_recreating_it() -> None:
+    tag = "conditional-proof-checkpoints-v1-certificates"
+    release = {"id": 123, "tag_name": tag, "draft": True}
+    listing = subprocess.CompletedProcess([], 0, stdout="saved.tar.gz\n", stderr="")
+    with patch(
+        "scripts.conditional_dusart_checkpoints.subprocess.run",
+        side_effect=[api_lines({"tag_name": "unrelated"}, release), listing],
+    ) as run:
+        store = Store("owner/repo", "certificates", "a" * 40)
+    assert store.release_id == 123
+    assert store.assets == {"saved.tar.gz"}
+    commands = [call.args[0] for call in run.call_args_list]
+    assert commands[0] == [
+        "gh",
+        "api",
+        "repos/owner/repo/releases",
+        "--paginate",
+        "--jq",
+        ".[] | @json",
+    ]
+    assert "repos/owner/repo/releases/123/assets" in commands[1]
+    assert all("POST" not in command for command in commands)
+
+
+def test_missing_checkpoint_store_is_read_only_for_pull_requests() -> None:
+    with patch(
+        "scripts.conditional_dusart_checkpoints.subprocess.run", return_value=api_lines()
+    ) as run:
+        store = Store("owner/repo", "foundations", "a" * 40, read_only=True)
+    assert store.assets == set()
+    assert store.release_id is None
+    assert run.call_count == 1
+
+
+def test_checkpoint_creates_only_when_all_release_pages_are_empty() -> None:
+    tag = "conditional-proof-checkpoints-v1-foundations"
+    release = {"id": 124, "tag_name": tag, "draft": True}
+    listing = subprocess.CompletedProcess([], 0, stdout="", stderr="")
+    with patch(
+        "scripts.conditional_dusart_checkpoints.subprocess.run",
+        side_effect=[api_lines(), api_result(release), listing],
+    ) as run:
+        store = Store("owner/repo", "foundations", "a" * 40)
+    assert store.release_id == 124
+    assert "POST" in run.call_args_list[1].args[0]
+    assert "draft=true" in run.call_args_list[1].args[0]
+
+
+@pytest.mark.parametrize("drafts", [False, True])
+def test_checkpoint_rejects_published_or_ambiguous_stores(drafts: bool) -> None:
+    release = {
+        "id": 125,
+        "tag_name": "conditional-proof-checkpoints-v1-foundations",
+        "draft": drafts,
+    }
+    entries = [release, release] if drafts else [release]
+    with (
+        patch(
+            "scripts.conditional_dusart_checkpoints.subprocess.run",
+            return_value=api_lines(*entries),
+        ) as run,
+        pytest.raises(ValueError, match="ambiguous|draft"),
+    ):
+        Store("owner/repo", "foundations", "a" * 40)
+    assert run.call_count == 1
 
 
 def test_euler_maclaurin_facade_reuses_the_analytic_dependency() -> None:
