@@ -58,6 +58,16 @@ theorem xiCriticalLineValue_eq_scale_mul (t : ℝ) :
   simpa only [xiCriticalLineValue, xiNormalizedValue, mul_re, ofReal_re, ofReal_im,
     zero_mul, sub_zero] using h
 
+/-- The normalized complex value is exactly real, including at zeros. -/
+theorem xiNormalizedComplex_im (t : ℝ) :
+    (exp (I * turingCountingPhase t) * riemannZeta ((1 / 2 : ℂ) + t * I)).im = 0 := by
+  have h := congrArg Complex.im (riemannXi_criticalLine_eq_scale_mul t)
+  have he : xiCriticalLineScale t *
+      (exp (I * turingCountingPhase t) * riemannZeta ((1 / 2 : ℂ) + t * I)).im = 0 := by
+    simpa only [riemannXi_criticalLine_im, mul_im, ofReal_re, ofReal_im,
+      zero_mul, zero_add, add_zero] using h.symm
+  exact (mul_eq_zero.mp he).resolve_left (xiCriticalLineScale_pos t).ne'
+
 /-- Positive signs are preserved by the normalization. -/
 theorem xiCriticalLineValue_pos_iff_normalized (t : ℝ) :
     0 < xiCriticalLineValue t ↔ 0 < xiNormalizedValue t := by

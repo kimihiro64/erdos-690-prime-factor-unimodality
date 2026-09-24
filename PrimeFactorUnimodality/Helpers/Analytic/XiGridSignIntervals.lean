@@ -7,6 +7,9 @@ A sample stores a short correction, a phase approximation and scalar caps.
 Its value uses retained Fourier arrays. Rotation intervals and a rational
 norm comparison bound the complete xi error, including the Gamma remainder.
 Strict separation gives either sign orientation of the existing evaluator.
+The sign-only path instead checks a strict quarter-turn phase domain and
+retains just the complete zeta-value error. Its fallback preserves the
+original full-error checker.
 -/
 
 namespace PrimeFactorUnimodality
@@ -81,6 +84,54 @@ theorem margin_of_check (s : XiGridSignData) (r : RationalGridRows) (d : ZetaGro
     have hlt : ((s.rotated r d.degree c P).re.hi : ℝ) < -(s.budget sharedCap : ℝ) :=
       by exact_mod_cast h.2.2
     exact (hrot.1.2.trans_lt hlt).trans_le (neg_le_neg hb)
+
+/-- Projection signs need only the complete zeta-value error, not a phase times norm term. -/
+def projectionBudget (s : XiGridSignData) (sharedCap : ℚ) : ℚ :=
+  s.tailCap + sharedCap + s.point.error
+
+/-- Keep the full Gamma phase bound strictly inside a quarter turn and check the zeta margin. -/
+def checkProjectionMargin (s : XiGridSignData) (r : RationalGridRows) (degree : ℕ)
+    (c : SharedTaylorIntervals) (P : IntervalRat) (sharedCap : ℚ) : Bool :=
+  decide (0 ≤ s.phaseError ∧ 1 / 10 + s.phaseError < P.lo / 2 ∧ if s.positive then
+    s.projectionBudget sharedCap < (s.rotated r degree c P).re.lo
+  else (s.rotated r degree c P).re.hi < -s.projectionBudget sharedCap)
+
+/-- Try the sign-only test first, retaining the complete-error test as a fallback. -/
+def checkSignMargin (s : XiGridSignData) (r : RationalGridRows) (degree : ℕ)
+    (c : SharedTaylorIntervals) (P : IntervalRat) (sharedCap : ℚ) : Bool :=
+  s.checkProjectionMargin r degree c P sharedCap || s.checkMargin r degree c P sharedCap
+
+/-- Accepted projection margins certify both the strict phase domain and either sign orientation. -/
+theorem projection_margin_of_check (s : XiGridSignData) (r : RationalGridRows)
+    (d : ZetaGroupedBlock) {c : SharedTaylorIntervals} (hc : c.Prepared)
+    {P : IntervalRat} (hpi : Real.pi ∈ P) (sharedCap : ℚ)
+    (he : s.point.toGridPoint.error (r.attach d) ≤ (s.projectionBudget sharedCap : ℝ))
+    (h : s.checkProjectionMargin r d.degree c P sharedCap = true) :
+    1 / 10 + (s.phaseError : ℝ) < Real.pi / 2 ∧
+      if s.positive then s.point.toGridPoint.error (r.attach d) <
+        s.point.toGridPoint.xiApprox (r.attach d) s.phase
+      else s.point.toGridPoint.xiApprox (r.attach d) s.phase <
+        -s.point.toGridPoint.error (r.attach d) := by
+  simp only [checkProjectionMargin, decide_eq_true_eq] at h
+  have hphase : ((1 / 10 + s.phaseError : ℚ) : ℝ) < ((P.lo / 2 : ℚ) : ℝ) :=
+    Rat.cast_lt.mpr h.2.1
+  push_cast at hphase
+  refine ⟨hphase.trans_le (div_le_div_of_nonneg_right hpi.1 (by norm_num)), ?_⟩
+  have hv := r.mem_valueInterval d s.point hpi
+  have hrot : exp (I * (s.phase : ℂ)) * s.point.toGridPoint.value (r.attach d) ∈
+      s.rotated r d.degree c P :=
+    ComplexInterval.mem_rotated hc hpi (IntervalRat.mem_singleton s.phase) s.turns hv
+  cases hs : s.positive with
+  | true =>
+    simp only [hs, ↓reduceIte] at h ⊢
+    have hm : (s.projectionBudget sharedCap : ℝ) < (s.rotated r d.degree c P).re.lo :=
+      by exact_mod_cast h.2.2
+    exact (he.trans_lt hm).trans_le hrot.1.1
+  | false =>
+    simp only [hs, Bool.false_eq_true, ↓reduceIte] at h ⊢
+    have hm : ((s.rotated r d.degree c P).re.hi : ℝ) < -(s.projectionBudget sharedCap : ℝ) :=
+      by exact_mod_cast h.2.2
+    exact (hrot.1.2.trans_lt hm).trans_le (neg_le_neg he)
 
 end XiGridSignData
 

@@ -49,6 +49,22 @@ example (t : ℝ) :
     (t := t) (θ := turingCountingPhase t) (εζ := 0) (εθ := 0)
     (w := riemannZeta ((1 / 2 : ℂ) + t * I)) (by simp) (by simp)
 
+example (t : ℝ) :
+    (exp (I * turingCountingPhase t) * riemannZeta ((1 / 2 : ℂ) + t * I)).im = 0 :=
+  xiNormalizedComplex_im t
+
+example {t θ ε : ℝ} {w : ℂ}
+    (hz : ‖riemannZeta ((1 / 2 : ℂ) + t * I) - w‖ ≤ ε)
+    (hθ : |turingCountingPhase t - θ| < Real.pi / 2)
+    (hm : ε < (exp (I * θ) * w).re) : 0 < xiCriticalLineValue t :=
+  xiCriticalLineValue_pos_of_projection hz hθ hm
+
+example {t θ ε : ℝ} {w : ℂ}
+    (hz : ‖riemannZeta ((1 / 2 : ℂ) + t * I) - w‖ ≤ ε)
+    (hθ : |turingCountingPhase t - θ| < Real.pi / 2)
+    (hm : (exp (I * θ) * w).re < -ε) : xiCriticalLineValue t < 0 :=
+  xiCriticalLineValue_neg_of_projection hz hθ hm
+
 end
 
 end PrimeFactorUnimodality.Tests

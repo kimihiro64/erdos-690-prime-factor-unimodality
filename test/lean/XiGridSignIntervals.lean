@@ -51,6 +51,27 @@ example : negativeSign.checkMargin sampleRows 1 (SharedTaylorIntervals.prepare 0
 example : ({negativeSign with tailCap := 9 / 2}).checkMargin sampleRows 1
     (SharedTaylorIntervals.prepare 0) piBox 0 = false := by decide +kernel
 
+example : ({signPoint with tailCap := 9 / 2}).checkProjectionMargin sampleRows 1
+    (SharedTaylorIntervals.prepare 0) piBox 0 = true := by decide +kernel
+example : ({negativeSign with tailCap := 9 / 2}).checkProjectionMargin sampleRows 1
+    (SharedTaylorIntervals.prepare 0) piBox 0 = true := by decide +kernel
+example : ({signPoint with valueCap := 0}).checkProjectionMargin sampleRows 1
+    (SharedTaylorIntervals.prepare 0) piBox 0 = true := by decide +kernel
+example : ({signPoint with phaseError := 7 / 5}).checkProjectionMargin sampleRows 1
+    (SharedTaylorIntervals.prepare 0) piBox 0 = false := by decide +kernel
+example : ({signPoint with phaseError := -1}).checkProjectionMargin sampleRows 1
+    (SharedTaylorIntervals.prepare 0) piBox 0 = false := by decide +kernel
+example : ({signPoint with tailCap := 5}).checkProjectionMargin sampleRows 1
+    (SharedTaylorIntervals.prepare 0) piBox 0 = false := by decide +kernel
+example : ({negativeSign with tailCap := 5}).checkProjectionMargin sampleRows 1
+    (SharedTaylorIntervals.prepare 0) piBox 0 = false := by decide +kernel
+example : ({signPoint with point := {samplePoint with error := 5}}).checkProjectionMargin
+    sampleRows 1 (SharedTaylorIntervals.prepare 0) piBox 0 = false := by decide +kernel
+example : signPoint.checkProjectionMargin sampleRows 1
+    (SharedTaylorIntervals.prepare 0) piBox 5 = false := by decide +kernel
+example : ({signPoint with tailCap := 9 / 2}).checkSignMargin sampleRows 1
+    (SharedTaylorIntervals.prepare 0) piBox 0 = true := by decide +kernel
+
 end
 
 end PrimeFactorUnimodality.Tests

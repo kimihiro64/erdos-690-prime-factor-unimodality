@@ -39,6 +39,23 @@ example {c : SharedXiGridCheck} (hc : c.Valid)
 
 
 
+example {c : SharedXiGridCheck} {s : XiGridSignData} (h : c.check s = true) :
+    c.checkSign s = true := SharedXiGridCheck.checkSign_of_check h
+
+example {c : SharedXiGridCheck} (hc : c.Valid) (s : XiGridSignData)
+    (h : c.checkSign s = true) :
+    if s.positive then 0 < xiCriticalLineValue (s.point.toGridPoint.height c.grid)
+    else xiCriticalLineValue (s.point.toGridPoint.height c.grid) < 0 :=
+  SharedXiGridCheck.sign_of_sign_check hc s h
+
+example {c : SharedXiGridCheck} (hc : c.Valid)
+    (base span : ℚ) (hs : 0 < span) (hb : c.model.base = (base : ℝ))
+    (hr : c.model.radius = rationalGridRadius span) (p q : XiGridSignData)
+    (hp : c.checkSign p = true) (hq : c.checkSign q = true)
+    (hij : p.point.index < q.point.index) (hopposite : p.positive ≠ q.positive) :
+    (rationalGridSignRow base span c.rows.levels p.point.index q.point.index).Valid :=
+  XiSignRow.valid_of_checked_sign_grid hc base span hs hb hr p q hp hq hij hopposite
+
 end
 
 end PrimeFactorUnimodality.Tests

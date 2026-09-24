@@ -29,7 +29,7 @@ def XiGridSignBlock.rows {n : ℕ} (s : XiGridSignBlock n) (base span : ℚ) (le
 
 /-- Check each sample once and only adjacent index/sign pairs for block ordering. -/
 def XiGridSignBlock.check {n : ℕ} (s : XiGridSignBlock n) (c : SharedXiGridCheck) : Bool :=
-  allIndices (fun i : Fin (n + 1) => c.check s.sample[i.val]) &&
+  allIndices (fun i : Fin (n + 1) => c.checkSign s.sample[i.val]) &&
     allIndices (fun i : Fin n => decide
       (s.sample[i.castSucc.val].point.index < s.sample[i.succ.val].point.index ∧
         s.sample[i.castSucc.val].positive ≠ s.sample[i.succ.val].positive))
@@ -47,7 +47,7 @@ theorem XiGridSignBlock.valid_of_check {n : ℕ} (s : XiGridSignBlock n)
   · apply (rationalGridHeight_strictMono base span c.rows.levels hs).comp
     exact Fin.strictMono_iff_lt_succ.mpr (fun i => (h.2 i).1)
   · intro i
-    exact (XiSignRow.valid_of_checked_grid hc base span hs hb hr
+    exact (XiSignRow.valid_of_checked_sign_grid hc base span hs hb hr
       s.sample[i.castSucc.val] s.sample[i.succ.val]
       (h.1 i.castSucc) (h.1 i.succ) (h.2 i).1 (h.2 i).2).2
 

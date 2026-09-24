@@ -5,6 +5,9 @@ import PrimeFactorUnimodality.Helpers.Analytic.XiNormalizedCriticalLine
 The zeta evaluator and phase evaluator supply independent absolute errors.
 The resulting real interval certifies the actual xi sign after removing
 its strictly positive amplitude. No zero-location or RH premise is used.
+For signs alone, exact reality permits any phase error below a quarter turn:
+the rotated real part differs by a positive cosine factor, not an additive
+phase error. The stronger sign test does not assert a stronger value enclosure.
 -/
 
 namespace PrimeFactorUnimodality
@@ -55,6 +58,34 @@ theorem exists_xi_zero_of_approx_signs {a b θa θb εa εb δa δb : ℝ} {u v 
   exact exists_xi_criticalLine_zero_of_sign_change hab
     (mul_neg_of_pos_of_neg (xiCriticalLineValue_pos_of_approx ha hθa hposa)
       (xiCriticalLineValue_neg_of_approx hb hθb hnegb))
+
+/-- A coarse phase certificate suffices for positive signs without an additive phase penalty. -/
+theorem xiCriticalLineValue_pos_of_projection {t θ ε : ℝ} {w : ℂ}
+    (hz : ‖riemannZeta ((1 / 2 : ℂ) + t * I) - w‖ ≤ ε)
+    (hθ : |turingCountingPhase t - θ| < Real.pi / 2)
+    (hmargin : ε < (exp (I * θ) * w).re) : 0 < xiCriticalLineValue t := by
+  apply (xiCriticalLineValue_pos_iff_normalized t).mpr
+  have he := abs_re_rotated_sub_le θ θ (riemannZeta ((1 / 2 : ℂ) + t * I)) w
+  simp only [sub_self, abs_zero, mul_zero, add_zero] at he
+  have hl := (abs_le.mp (he.trans hz)).1
+  have hp : 0 < (exp (I * θ) * riemannZeta ((1 / 2 : ℂ) + t * I)).re := by linarith
+  rw [abs_sub_comm] at hθ
+  exact (re_rotated_pos_iff_of_im_eq_zero (turingCountingPhase t) θ _
+    (xiNormalizedComplex_im t) hθ).mp hp
+
+/-- The same projection argument certifies negative signs using only the zeta error. -/
+theorem xiCriticalLineValue_neg_of_projection {t θ ε : ℝ} {w : ℂ}
+    (hz : ‖riemannZeta ((1 / 2 : ℂ) + t * I) - w‖ ≤ ε)
+    (hθ : |turingCountingPhase t - θ| < Real.pi / 2)
+    (hmargin : (exp (I * θ) * w).re < -ε) : xiCriticalLineValue t < 0 := by
+  apply (xiCriticalLineValue_neg_iff_normalized t).mpr
+  have he := abs_re_rotated_sub_le θ θ (riemannZeta ((1 / 2 : ℂ) + t * I)) w
+  simp only [sub_self, abs_zero, mul_zero, add_zero] at he
+  have hu := (abs_le.mp (he.trans hz)).2
+  have hn : (exp (I * θ) * riemannZeta ((1 / 2 : ℂ) + t * I)).re < 0 := by linarith
+  rw [abs_sub_comm] at hθ
+  exact (re_rotated_neg_iff_of_im_eq_zero (turingCountingPhase t) θ _
+    (xiNormalizedComplex_im t) hθ).mp hn
 
 end
 

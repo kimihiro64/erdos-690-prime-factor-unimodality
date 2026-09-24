@@ -640,6 +640,29 @@ def test_turing_margin_retains_full_budget_and_uses_stable_difference() -> None:
     assert "hrows.low_criticalLine_of_turing_margin hm.1 hm.2.1 hm.2.2" in source
 
 
+def test_projection_sign_margin_retains_phase_domain_and_full_zeta_error() -> None:
+    root = ROOT / "PrimeFactorUnimodality/Helpers/Analytic"
+    source = strip_lean_comments((root / "XiGridSignIntervals.lean").read_text())
+    projection = source.split("def projectionBudget", 1)[1]
+    checker = projection.split("theorem projection_margin_of_check", 1)[0]
+    assert "s.tailCap + sharedCap + s.point.error" in checker
+    assert "0 ≤ s.phaseError ∧ 1 / 10 + s.phaseError < P.lo / 2" in checker
+    assert "s.valueCap" not in checker
+    assert "s.checkProjectionMargin" in checker and "|| s.checkMargin" in checker
+
+
+def test_projection_signs_reach_the_existing_turing_consumer() -> None:
+    root = ROOT / "PrimeFactorUnimodality/Helpers/Analytic"
+    source = strip_lean_comments((root / "CheckedXiGridSigns.lean").read_text())
+    assert "s.projection_margin_of_check" in source
+    assert "xiCriticalLineValue_pos_of_projection" in source
+    assert "xiCriticalLineValue_neg_of_projection" in source
+    rows = strip_lean_comments((root / "CheckedXiGridRows.lean").read_text())
+    assert "c.checkSign s.sample[i.val]" in rows
+    assert "XiSignRow.valid_of_checked_sign_grid" in rows
+    assert "TuringMarginIntervals.low_criticalLine_of_check" in rows
+
+
 def test_checked_sign_blocks_use_shared_endpoints_and_adjacent_order() -> None:
     workflow = (ROOT / ".github/workflows/ci.yml").read_text()
     previous = workflow.index("lake env lean test/lean/TuringMarginIntervals.lean")
@@ -652,7 +675,7 @@ def test_checked_sign_blocks_use_shared_endpoints_and_adjacent_order() -> None:
     assert "sample : Vector XiGridSignData (n + 1)" in source
     assert "XiSignRows.ofEndpoints (s.ordinate base span levels)" in source
     assert "Fin.strictMono_iff_lt_succ.mpr" in source
-    assert "XiSignRow.valid_of_checked_grid" in source
+    assert "XiSignRow.valid_of_checked_sign_grid" in source
     assert "TuringMarginIntervals.low_criticalLine_of_check hd hc.scalar" in source
     assert "∀ i j" not in source
 

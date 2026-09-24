@@ -16,7 +16,7 @@ independent absolute errors, with no exponentially small scale factor.
 
 namespace Complex
 
-/-- Separate the positive amplitude and the exact combined argument of a product with an exponential. -/
+/-- Separate the positive amplitude and combined argument of a product with an exponential. -/
 theorem mul_exp_eq_norm_exp_re_mul_rotation (p w : ℂ) :
     p * exp w = ((‖p‖ * Real.exp w.re : ℝ) : ℂ) * exp (I * (arg p + w.im)) := by
   have hw : exp w = (Real.exp w.re : ℂ) * exp (I * w.im) := by
@@ -85,5 +85,37 @@ theorem norm_rotation_div_sub_le (a b : ℝ) {z w : ℂ} {L : ℝ}
   apply (norm_rotated_sub_rotated_le a b z⁻¹ w⁻¹).trans
   have he := add_le_add hinv (mul_le_mul_of_nonneg_right hw' (abs_nonneg (a - b)))
   simpa only [div_eq_mul_inv, mul_comm L⁻¹] using he
+
+/-- A real rotated value changes its real part by an exact cosine factor under another rotation. -/
+theorem re_rotated_eq_cos_mul_of_im_eq_zero (a b : ℝ) (z : ℂ)
+    (hz : (exp (I * a) * z).im = 0) :
+    (exp (I * b) * z).re = Real.cos (b - a) * (exp (I * a) * z).re := by
+  have he : exp (I * b) * z = exp (I * (b - a)) * (exp (I * a) * z) := by
+    rw [← mul_assoc, ← exp_add]
+    congr 2
+    ring
+  rw [he, mul_re, hz, mul_zero, sub_zero]
+  rw [mul_comm I, ← ofReal_sub, exp_ofReal_mul_I_re]
+
+/-- A rotation of less than a quarter turn preserves the positive sign of a real value. -/
+theorem re_rotated_pos_iff_of_im_eq_zero (a b : ℝ) (z : ℂ)
+    (hz : (exp (I * a) * z).im = 0) (hab : |b - a| < Real.pi / 2) :
+    0 < (exp (I * b) * z).re ↔ 0 < (exp (I * a) * z).re := by
+  rw [re_rotated_eq_cos_mul_of_im_eq_zero a b z hz]
+  exact mul_pos_iff_of_pos_left (Real.cos_pos_of_mem_Ioo (abs_lt.mp hab))
+
+/-- A rotation of less than a quarter turn also preserves the negative sign of a real value. -/
+theorem re_rotated_neg_iff_of_im_eq_zero (a b : ℝ) (z : ℂ)
+    (hz : (exp (I * a) * z).im = 0) (hab : |b - a| < Real.pi / 2) :
+    (exp (I * b) * z).re < 0 ↔ (exp (I * a) * z).re < 0 := by
+  rw [re_rotated_eq_cos_mul_of_im_eq_zero a b z hz]
+  have hc := Real.cos_pos_of_mem_Ioo (abs_lt.mp hab)
+  constructor
+  · intro h
+    rcases mul_neg_iff.mp h with h | h
+    · exact h.2
+    · exact (not_lt_of_ge hc.le h.1).elim
+  · intro h
+    exact mul_neg_of_pos_of_neg hc h
 
 end Complex
