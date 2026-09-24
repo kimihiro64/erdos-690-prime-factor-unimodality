@@ -57,6 +57,31 @@ theorem norm_dusartBox_low_div_le_frozen (m : ℕ) {s x x₀ a H δ : ℝ}
   exact hlow.trans ((mul_le_mul_of_nonneg_right
     (mul_le_mul_of_nonneg_left hd (by positivity)) hM).trans_eq (by ring))
 
+/-- Any bounds for the actual low and high blocks control the normalized average. -/
+theorem abs_dusartPsiAverageError_div_le_of_zero_bounds (m : ℕ) {s x H L U : ℝ}
+    (hs : 0 < s) (hx : 1 < x)
+    (hl : ‖∑ z ∈ xiLowHeightIndices H, iteratedBoxAverageComplex (s * x) (m + 3)
+      (fun t => (t : ℂ) ^ riemannXiDivisorZeroValue z / riemannXiDivisorZeroValue z) x‖ / x ≤ L)
+    (hu : ‖dusartBoxXiHighSum m (s * x) x H‖ / x ≤ U) :
+    |dusartPsiAverageError (m + 3) (s * x) x| / x ≤
+      L + U + (1 / (2 * (x ^ 2 - 1)) + Real.log (2 * π)) / x := by
+  have hxpos := lt_trans zero_lt_one hx
+  have hz : ‖smoothedXiPairedSum (fun u => (dusartBoxWeight m (s * x) x u : ℂ))
+      (dusartBoxSupport m (s * x) x) 0‖ / x ≤ L + U := by
+    rw [smoothedXiPairedSum_box_eq_low_add_high m (mul_pos hs hxpos) hx H]
+    exact (div_le_div_of_nonneg_right (norm_add_le _ _) hxpos.le).trans
+      (by rw [add_div]; exact add_le_add hl hu)
+  have hb := div_le_div_of_nonneg_right
+    (abs_dusartPsiAverageError_le_zero_sum m (mul_pos hs hxpos) hx) hxpos.le
+  calc
+    _ ≤ (‖smoothedXiPairedSum (fun u => (dusartBoxWeight m (s * x) x u : ℂ))
+        (dusartBoxSupport m (s * x) x) 0‖ + 1 / (2 * (x ^ 2 - 1)) +
+          Real.log (2 * π)) / x := hb
+    _ = ‖smoothedXiPairedSum (fun u => (dusartBoxWeight m (s * x) x u : ℂ))
+        (dusartBoxSupport m (s * x) x) 0‖ / x +
+          (1 / (2 * (x ^ 2 - 1)) + Real.log (2 * π)) / x := by ring
+    _ ≤ _ := add_le_add hz le_rfl
+
 /-- A single elementary starting-point value bounds every later actual psi average. -/
 theorem abs_dusartPsiAverageError_div_le_frozen (m : ℕ) {s x x₀ R p a H δ : ℝ}
     (hs : 0 < s) (hx₀ : 1 < x₀) (hx : x₀ ≤ x) (hR : 0 < R)
@@ -70,7 +95,6 @@ theorem abs_dusartPsiAverageError_div_le_frozen (m : ℕ) {s x x₀ R p a H δ :
     |dusartPsiAverageError (m + 3) (s * x) x| / x ≤
       dusartBoxRosserFixedRelativeBudget m s x₀ R p a H δ := by
   have hx1 : 1 < x := hx₀.trans_le hx
-  have hxpos : 0 < x := lt_trans zero_lt_one hx1
   let L := ((1 + (m + 3 : ℕ) * s) * exp (-δ * Real.log x₀)) *
     xiLowReciprocalNormBound a H δ
   let U := (2 ^ (m + 3) * (1 + (m + 3 : ℕ) * s) ^ (m + 4) / s ^ (m + 3)) *
@@ -81,22 +105,11 @@ theorem abs_dusartPsiAverageError_div_le_frozen (m : ℕ) {s x x₀ R p a H δ :
   have hu : ‖dusartBoxXiHighSum m (s * x) x H‖ / x ≤ U :=
     norm_dusartBoxXiHighSum_div_le_frozen_closed m hs hx₀ hx hR hp hpq
       (by linarith) hpeak hreg
-  have hz : ‖smoothedXiPairedSum (fun u => (dusartBoxWeight m (s * x) x u : ℂ))
-      (dusartBoxSupport m (s * x) x) 0‖ / x ≤ L + U := by
-    rw [smoothedXiPairedSum_box_eq_low_add_high m (mul_pos hs hxpos) hx1 H]
-    exact (div_le_div_of_nonneg_right (norm_add_le _ _) hxpos.le).trans
-      (by rw [add_div]; exact add_le_add hl hu)
-  have hb := div_le_div_of_nonneg_right
-    (abs_dusartPsiAverageError_le_zero_sum m (mul_pos hs hxpos) hx1) hxpos.le
   calc
-    _ ≤ (‖smoothedXiPairedSum (fun u => (dusartBoxWeight m (s * x) x u : ℂ))
-        (dusartBoxSupport m (s * x) x) 0‖ + 1 / (2 * (x ^ 2 - 1)) +
-          Real.log (2 * π)) / x := hb
-    _ = ‖smoothedXiPairedSum (fun u => (dusartBoxWeight m (s * x) x u : ℂ))
-        (dusartBoxSupport m (s * x) x) 0‖ / x +
-          (1 / (2 * (x ^ 2 - 1)) + Real.log (2 * π)) / x := by ring
+    _ ≤ L + U + (1 / (2 * (x ^ 2 - 1)) + Real.log (2 * π)) / x :=
+      abs_dusartPsiAverageError_div_le_of_zero_bounds m hs hx1 hl hu
     _ ≤ L + U + (1 / (2 * (x₀ ^ 2 - 1)) + Real.log (2 * π)) / x₀ :=
-      add_le_add hz (dusartBox_relative_correction_le hx₀ hx)
+      add_le_add le_rfl (dusartBox_relative_correction_le hx₀ hx)
     _ = _ := rfl
 
 end
