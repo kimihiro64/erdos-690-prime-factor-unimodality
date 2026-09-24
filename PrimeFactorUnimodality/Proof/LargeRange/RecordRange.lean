@@ -1,6 +1,6 @@
 import PrimeFactorUnimodality.Proof.LargeRange.ClosedAnalyticReduction
 import PrimeFactorUnimodality.Proof.LargeRange.RecordNumericBounds
-import PrimeFactorUnimodality.Proof.LargeRange.RecordReciprocalCertificate
+import PrimeFactorUnimodality.Proof.LargeRange.RecordPrimeCountingReduction
 import PrimeFactorUnimodality.Proof.LargeRange.RecordSideConditions
 
 set_option autoImplicit false
@@ -23,23 +23,8 @@ theorem recordRange_not_isUnimodal
       (record_prefix_le_half bounds hkUpper)
       (record_coarse_descentNumeric bounds hkLower hkCoarse)
       (record_coarse_ascentNumeric hkLower)
-  · by_cases hkMid : k ≤ 33314
-    · apply recordInputs_not_isUnimodal_of_closed_mertens k (by omega) twin
-        (record_descentDefined bounds hkLower hkUpper)
-        (record_ascentDefined bounds hkLower hkUpper)
-        (record_prefix_le_half bounds hkUpper)
-        (record_coarse_descentNumeric_mid bounds (by omega) hkMid)
-        (record_coarse_ascentNumeric hkLower)
-    · apply recordInputs_not_isUnimodal_of_finite_prefix k (by omega)
-        ((71 : Real) / 25) twin
-        (record_descentDefined bounds hkLower hkUpper)
-        (record_ascentDefined bounds hkLower hkUpper)
-        (record_prefix_le_half bounds hkUpper)
-      · exact (reciprocalPrimeSumBelow_mono
-          (record_prefix_primeAt_le_500000 bounds (k := k) (by omega) |>.trans
-            (by norm_num))).trans reciprocalPrimeSumBelow_500001_lt.le
-      · exact record_finite_prefix_descentNumeric hkUpper
-      · exact record_coarse_ascentNumeric hkLower
+  · exact recordInputs_not_isUnimodal_of_primeCounting bounds k (by omega) hkUpper
+      recordGap_primeGap_ge recordGap_predecessor_gt_half twin
 
 end
 

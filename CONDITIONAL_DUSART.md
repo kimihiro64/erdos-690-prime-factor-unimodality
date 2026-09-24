@@ -15,9 +15,18 @@ replay, not additional assumptions.
 
 This target does not import the unfinished Dusart providers or zero-verification
 modules. It also avoids the retired full record-gap and record-prime-witness
-families. The record-twin primality and reciprocal-sum certificates remain in
+families. The record-twin primality and short record-gap certificates remain in
 its actual dependency closure. No claim of a successful full build is made by
 adding this target: the dedicated CI must pass first.
+
+The 500,001-entry reciprocal-prime enumeration is also absent. The already
+proved finite Abel-summation inequality, using the same prime-counting input,
+closes the upper record range directly. For `k ≥ 10372` the endpoint error is
+less than `1/50`; the logarithmic difference exceeds `10.60 - 2.58`, leaving a
+shell greater than eight. Thus its gap multiplier gives `4753 * 8 = 38024`,
+above `k - 1 ≤ 37999`. `RecordPrimeCountingReduction` checks this bridge in Lean;
+the old reciprocal certificates are preserved but are not required by this
+target.
 
 ## Building and resuming
 

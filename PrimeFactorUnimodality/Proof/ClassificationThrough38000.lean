@@ -19,7 +19,8 @@ theorem completeClassification_through38000
   · exact completeClassification_through48 k hk hk48
   · constructor
     · intro unimodal
-      exact (recordRange_not_isUnimodal bounds twin k (by omega) hkUpper) unimodal
+      exact False.elim
+        ((recordRange_not_isUnimodal bounds twin k (by omega) hkUpper) unimodal)
     · intro hk3
       omega
 

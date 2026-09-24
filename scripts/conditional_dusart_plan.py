@@ -25,6 +25,8 @@ FORBIDDEN = (
     "PrimeFactorUnimodality.Proof.Analytic.WangCrapisClosed",
     "PrimeFactorUnimodality.Proof.LargeRange.Generated.FullRecordGapCompact",
     "PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordPrimeWitnesses",
+    "PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordReciprocalBlocks",
+    "PrimeFactorUnimodality.Proof.LargeRange.RecordReciprocalCertificate",
 )
 ARTIFACT_SUFFIXES = (
     ".olean",

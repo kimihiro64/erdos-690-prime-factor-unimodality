@@ -48,6 +48,8 @@ def test_conditional_import_graph_is_isolated() -> None:
     assert ordered[-1] == TARGET
     assert "PrimeFactorUnimodality.Proof.LargeRange.RecordTwinClosed" in ordered
     assert "PrimeFactorUnimodality.Proof.LargeRange.UniformTailClosedMertens" in ordered
+    assert "PrimeFactorUnimodality.Proof.LargeRange.RecordPrimeCountingReduction" in ordered
+    assert not any("RecordReciprocal" in module for module in ordered)
     seen: set[str] = set()
     for module in ordered:
         assert all(dependency in seen for dependency in imports[module] if dependency in imports)
