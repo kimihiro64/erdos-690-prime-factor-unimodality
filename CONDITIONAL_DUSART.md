@@ -109,6 +109,14 @@ and final axiom audits before any release claim. The current unconditional
 `Solution.lean` still uses the older provider assembly; switching it to the
 replacement is a remaining integration step, not an already completed build.
 
+The Mertens and Dusart chains share the pinned Euler--Maclaurin implementation.
+The former vendored copy is now a forwarding module: defining the same global
+`B1` twice prevented the two proof chains from importing together. Its previous
+proof body is identical to the locked dependency's implementation, which imports
+only Mathlib's Abel summation module. `test/lean/FinalThetaIntegration.lean`
+checks the actual composition of the existing Dusart ray reduction with the
+classification reduction; no analytic hypothesis is added by this import repair.
+
 ## Building and resuming
 
 The **Conditional all-k proof** workflow is manually dispatched and independent

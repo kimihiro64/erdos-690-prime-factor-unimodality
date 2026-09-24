@@ -39,6 +39,9 @@ Licensing and scholarly provenance are separate:
   Apache-2.0 `PrimeNumberTheoremAnd` repository. Each port records its exact
   public source revision; the source mathematical proof bodies remain under
   that project's Apache-2.0 terms.
+  Its Euler--Maclaurin compatibility facade re-exports the identical proved
+  implementation at the locked revision recorded in the facade, avoiding
+  duplicate global declarations when the Mertens and Dusart chains are joined.
 
 ## Generated distributions
 

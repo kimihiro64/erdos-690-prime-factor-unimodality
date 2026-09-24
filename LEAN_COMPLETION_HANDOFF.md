@@ -7,6 +7,15 @@ or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
 ## Latest increment: all three finite analytic prefixes are supplied (2026-09-24)
 
+Integration repair: `VendorPrimeNumberTheoremAnd.EulerMaclaurin` forwards to
+the identical implementation in the locked PNT dependency. Redeclaring `B1`
+made the Mertens and Dusart reductions impossible to import together. The
+combined regression is `test/lean/FinalThetaIntegration.lean`; it composes the
+actual ray provider with the all-k reduction, keeping its still-unproved finite
+theta-band and low-zero inputs explicit. This does not discharge those inputs.
+The shared Mertens chain and all-k reduction rebuilt successfully; the combined
+regression and the canonical fast gate pass, including 262 Python tests.
+
 `DusartTailThetaPrefix` closes `3501 <= q < 3594641` for `TailThetaAt`.
 The reusable `ThetaSieveSteps` and `ThetaSieveTrace` modules transport exact
 counts and rational theta enclosures using existing Chebyshev increment lemmas.

@@ -20,8 +20,23 @@ from scripts.conditional_dusart_plan import (
     plan,
     required_artifacts,
 )
+from scripts.lean_source import lean_imports, strip_lean_comments
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+def test_euler_maclaurin_facade_reuses_the_analytic_dependency() -> None:
+    source = (ROOT / "VendorPrimeNumberTheoremAnd/EulerMaclaurin.lean").read_text()
+    code = strip_lean_comments(source)
+    assert lean_imports(code) == ["PrimeNumberTheoremAnd.EulerMaclaurin"]
+    assert code.strip() == "module\n\npublic import PrimeNumberTheoremAnd.EulerMaclaurin"
+    regression = (ROOT / "test/lean/FinalThetaIntegration.lean").read_text()
+    assert "import PrimeFactorUnimodality.Helpers.FiniteCertificates.DusartReflectedBootstrap" in (
+        regression
+    )
+    assert (
+        "import PrimeFactorUnimodality.Proof.CompleteClassificationSquaredReduction" in regression
+    )
 
 
 def write_module(root: Path, name: str, code: str) -> Path:
