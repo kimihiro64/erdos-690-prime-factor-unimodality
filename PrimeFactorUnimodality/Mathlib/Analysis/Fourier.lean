@@ -8,5 +8,7 @@ import PrimeFactorUnimodality.Mathlib.Analysis.Fourier.DiscretePoisson
 import PrimeFactorUnimodality.Mathlib.Analysis.Fourier.PolynomialGaussianAliasing
 import PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RationalAlias
 import PrimeFactorUnimodality.Mathlib.Analysis.Fourier.Scaling
+import PrimeFactorUnimodality.Mathlib.Analysis.Fourier.SincExponential
+import PrimeFactorUnimodality.Mathlib.Analysis.Fourier.SymmetricTruncation
 
 /-! # Fourier evaluation, rational checking, scaling and periodization estimates -/

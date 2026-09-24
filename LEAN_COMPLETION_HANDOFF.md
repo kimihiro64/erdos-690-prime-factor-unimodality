@@ -5,7 +5,54 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: enclosed inputs and shared convolution (2026-09-24)
+## Latest analytic increment: finite sinc interpolation and grid reuse (2026-09-24)
+
+The new `Fourier.SincSampling` candidate derives the sinc kernel from the
+central-cell phase integral and uses modulation plus Mathlib's Poisson theorem
+to identify the sampling series with the aliased Fourier integral.
+`SincError` uses actual Fourier inversion to retain the omitted integral and
+the integrated aliases. `ExponentialIntegral` evaluates the two-sided tails
+of finite exponential majorants exactly. `SincExponential` combines these
+with the existing lattice alias bound. It integrates a uniform alias bound,
+which is more conservative than Weiss's exact tail constant, but still
+exponentially decays in the cutoff. No band limit or bounded-variation
+theorem is assumed.
+
+`PlattSincInterpolation` applies this result to the genuine zeta window after
+rescaling by any positive sampling rate. The established contour-plus-pole
+envelope supplies every spectral assumption, and the established Gaussian
+time decay supplies absolute convergence. The resulting error bound holds
+at every real ordinate and every natural kernel order.
+
+`SymmetricTruncation` retains exactly indices `-M` through `M`, with zero
+once. `PlattSincTail` bounds both omitted tails by tangents to the two actual
+polynomial Gaussian majorants. The first omitted radius is `(M+1)/A`; the
+cutoff condition proves both decay rates and geometric denominators positive.
+`PlattFiniteSinc` combines the spectral bound, closed finite-tail budget,
+enclosures of only the retained samples, and final arithmetic error.
+
+`PlattRewindow` proves that a narrow base window at another center is a
+positive Gaussian rescaling of the original window at the same ordinate.
+Moving the center to grid index `j` reuses original sample `n+j` for new
+index `n`. Enclosed scaling and rounded multiplication have explicit error
+transport, so narrowing the interpolation window does not require fresh
+Gamma or zeta evaluations. Scale factors can amplify input uncertainty;
+numerical parameter selection must respect the proved full budget.
+
+All nine new proof modules and the complete candidate facade build (4,101
+jobs). Three focused regression files pass, including the zero and one-point
+cutoffs, negative sinc arguments, tail denominators, shared-grid recentering,
+and finite interpolated values feeding the existing xi sign theorem. All 38
+audited theorem closures use only the standard three Lean axioms.
+
+Still open: actual numerical Gamma-window enclosures, rounded shared
+convolution error assembly, instantiated finite evaluation and sign margins,
+and zero-count completeness. These interpolation proofs close a source
+obligation; they do not establish numerical runtime feasibility or
+unconditional Dusart. No certificate generation/replay or CI enablement was
+added. The earlier conditional all-k builds remain the completed local checks.
+
+## Earlier analytic increment: enclosed inputs and shared convolution (2026-09-24)
 
 `PlattTaylorInputs` bounds approximate logarithmic shifts using a proved
 Fourier Lipschitz constant, then retains Taylor truncation and every derivative
