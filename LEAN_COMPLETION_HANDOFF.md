@@ -5,6 +5,49 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
+## Latest analytic increment: the actual zeta Fourier/Dirichlet identity (2026-09-24)
+
+`PlattZetaIntegrand` defines the actual zeta-window factor and its continued
+Fourier integrand. `PlattDirichletInterchange` proves the pointwise Dirichlet
+expansion only where it converges absolutely, then proves summability of the
+integrated term norms. The existing Gamma contour identity identifies each
+term integral with its genuine weighted Fourier transform. Consequently the
+actual right-hand zeta integral equals `plattDirichletSeries`.
+
+`PlattZetaWindow` supplies continuity and absolute convergence of the actual
+critical-line window, at every natural polynomial order and signed center.
+Its proof uses the already proved Euler bound and Gaussian moments. The
+actual displaced integral is also integrable. `PlattZetaContourEdge` proves
+both connecting edges vanish: uniform linear zeta growth and a pi phase of
+norm at most one preserve the Gamma window's polynomial-Gaussian decay.
+
+`PlattZetaResidue`, `PlattZetaPoles` and `PlattZetaRectangle` prove the exact
+crossed pole, nonzero residue, simple order and singleton pole set, with the
+pole strictly inside each sufficiently large rectangle. The regular factors
+retain their full complex phases. Meromorphicity reuses the proved
+`meromorphicAt_riemannZeta` from the locked Apache-2.0 PNT dependency at
+`f6147e7572ab3abe5428101bc0b13627bcb005df`, `IEANTN.KadiriEq12Helpers`.
+
+`PlattZetaFourier` now proves the complete contour and series identities:
+`FT(zetaWindow_k) = DirichletSeries_k - 2*pi*i*residue_k`. They hold at every
+real frequency, every natural kernel order, `t0 >= 0`, and `h > 0`.
+Its finite-prefix error theorem transfers the proved Dirichlet-tail budget
+directly to the actual zeta transform, with the exact residue correction.
+`PlattZetaResidueNorm` evaluates the base-order correction norm as
+`2*pi^(5/4)*exp(1/(8*h^2)-t0^2/(2*h^2)-pi*x)`, matching
+[Platt's Lemma 3.2](https://research-information.bris.ac.uk/ws/portalfiles/portal/78836669/platt_zeta_submitted.pdf).
+The complex identity is not replaced by an equality to that positive norm.
+
+All nine new source modules build. Both new regression files pass, and 23
+audited theorem closures contain only `propext`, `Classical.choice` and
+`Quot.sound`. No new assumptions or finite certificate replays were added.
+
+Remaining source includes the real-valued completed-zeta connection needed
+for two-sided frequency bounds, zeta-window aliases, interpolation, numerical
+input enclosures and error transport, and verified zero signs/completeness.
+Dusart and full-path zero-verification feasibility are still open. The
+independent conditional all-k verification below remains successful.
+
 ## Conditional all-k local verification completed (2026-09-24)
 
 Both actual record-twin residue certificate families have built successfully.
