@@ -1623,6 +1623,9 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.FiniteCertificates.DusartVerifiedBootstrap
           lake env lean test/lean/DusartVerifiedBootstrap.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.FiniteCertificates.DusartReflectedBootstrap
+          lake env lean test/lean/DusartReflectedBootstrap.lean
           lake build \
             +PrimeFactorUnimodality.Helpers.FiniteCertificates.Generated.PrimePrefixes
           lake build \

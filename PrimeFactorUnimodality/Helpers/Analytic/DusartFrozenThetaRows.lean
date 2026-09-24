@@ -59,8 +59,8 @@ def budget (row : DusartFrozenThetaRow) (H : ℝ) : ℝ :=
   dusartFrozenLogPsiBound row.orderOffset row.step row.lower row.power H +
     (8 / 5) * exp (-(row.lower : ℝ) / 2)
 
-/-- Only scalar conditions are checked per row; zero locations are shared by the assembler. -/
-structure Valid (row : DusartFrozenThetaRow) (H : ℝ) : Prop where
+/-- Rational row geometry is shared by the original and reflected scalar bounds. -/
+structure Geometry (row : DusartFrozenThetaRow) : Prop where
   lower_ge : 25 ≤ row.lower
   ordered : row.lower ≤ row.upper
   upper_le : row.upper ≤ 5000
@@ -68,6 +68,9 @@ structure Valid (row : DusartFrozenThetaRow) (H : ℝ) : Prop where
   step_small : (row.orderOffset + 3 : ℕ) * row.step ≤ (1 / 2 : ℚ)
   power_gt : 1 < row.power
   power_lt : row.power < (row.orderOffset + 4 : ℕ)
+
+/-- Scalar validity adds the original budget cap to the shared row geometry. -/
+structure Valid (row : DusartFrozenThetaRow) (H : ℝ) : Prop extends Geometry row where
   cap : row.budget H * (row.upper : ℝ) ^ 2 ≤ (1 / 5 : ℝ)
 
 /-- Row geometry alone keeps the shifted logarithm on the safe positive ray. -/
@@ -90,6 +93,29 @@ theorem Valid.shift {row : DusartFrozenThetaRow} {H : ℝ} (h : row.Valid H) :
     0 < 1 - (row.orderOffset + 3 : ℕ) * (row.step : ℝ) ∧
     1 ≤ (row.lower : ℝ) + log (1 - (row.orderOffset + 3 : ℕ) * (row.step : ℝ)) :=
   shift_geometry h.lower_ge h.step_small
+
+/-- Any proved psi allowance converts to theta using the same sharper root correction. -/
+theorem Geometry.theta_bound {row : DusartFrozenThetaRow} {B x : ℝ} (h : row.Geometry)
+    (hxpos : 0 < x) (hxlo : (row.lower : ℝ) ≤ log x) (hxhi : log x ≤ row.upper)
+    (hpsi : |Chebyshev.psi x - x| / x ≤ B)
+    (hcap : (B + (8 / 5) * exp (-(row.lower : ℝ) / 2)) * (row.upper : ℝ) ^ 2 ≤ 1 / 5) :
+    |Chebyshev.theta x - x| ≤ (1 / 5 : ℝ) * x / log x ^ 2 := by
+  have hb : (25 : ℝ) ≤ row.lower := by exact_mod_cast h.lower_ge
+  have hxbase : exp (row.lower : ℝ) ≤ x := by
+    simpa only [exp_log hxpos] using exp_le_exp.mpr hxlo
+  have hxthree : (3000000000 : ℝ) ≤ x := dusartFrozen_exp_twentyFive_ge.trans
+    ((exp_le_exp.mpr hb).trans hxbase)
+  have hsquare : exp ((row.lower : ℝ) / 2) ^ 2 ≤ x := by
+    calc
+      _ = exp ((row.lower : ℝ) / 2 + (row.lower : ℝ) / 2) := by rw [pow_two, exp_add]
+      _ = exp (row.lower : ℝ) := by congr 1; ring
+      _ ≤ x := hxbase
+  have htheta := abs_theta_sub_div_le_sharper_root hxthree
+    (exp_pos ((row.lower : ℝ) / 2)) hsquare hpsi
+  have htheta' : |Chebyshev.theta x - x| / x ≤ B + (8 / 5) * exp (-(row.lower : ℝ) / 2) := by
+    simpa only [show -(row.lower : ℝ) / 2 = -((row.lower : ℝ) / 2) by ring,
+      exp_neg, div_eq_mul_inv] using htheta
+  exact abs_theta_sub_le_logSquared_of_earlier_cap (by linarith) hxhi hcap htheta'
 
 /-- A valid scalar row proves the exact theta bound throughout its logarithmic interval. -/
 theorem Valid.bound {row : DusartFrozenThetaRow} {H x : ℝ} (h : row.Valid H)
@@ -118,8 +144,6 @@ theorem Valid.bound {row : DusartFrozenThetaRow} {H x : ℝ} (h : row.Valid H)
     change 1 ≤ b + log t at hlog
     linarith
   have hxbase : exp b ≤ x := by simpa only [exp_log hxpos] using exp_le_exp.mpr hxlo
-  have hxthree : (3000000000 : ℝ) ≤ x := dusartFrozen_exp_twentyFive_ge.trans
-    ((exp_le_exp.mpr hb).trans hxbase)
   have hpeak : exp (sqrt ((log (exp b) / 6) / (row.orderOffset + 4 : ℕ))) ≤ H := by
     rw [log_exp]
     exact dusartFrozen_peak_le row.orderOffset (by linarith) hb₁ hH
@@ -129,17 +153,7 @@ theorem Valid.bound {row : DusartFrozenThetaRow} {H x : ℝ} (h : row.Valid H)
     (by simpa only [show (1 - 1 / 2 : ℝ) = 1 / 2 by norm_num] using hlow) hpeak hreg
   have hbudget := dusartRosserFrozenPsiBound_le_logPeak row.orderOffset hs
     (by linarith : 1 ≤ b) ht hlog hp hpq (by linarith : 10 ≤ H) hH₁
-  have hsquare : exp (b / 2) ^ 2 ≤ x := by
-    calc
-      _ = exp (b / 2 + b / 2) := by rw [pow_two, exp_add]
-      _ = exp b := by congr 1; ring
-      _ ≤ x := hxbase
-  have htheta := abs_theta_sub_div_le_sharper_root hxthree (exp_pos (b / 2)) hsquare
-    (hpsi.trans hbudget)
-  have htheta' : |Chebyshev.theta x - x| / x ≤ row.budget H := by
-    simpa only [budget, b, s, show -(row.lower : ℝ) / 2 = -((row.lower : ℝ) / 2) by ring,
-      exp_neg, div_eq_mul_inv] using htheta
-  exact abs_theta_sub_le_logSquared_of_earlier_cap (by linarith) hxhi h.cap htheta'
+  exact h.toGeometry.theta_bound hxpos hxlo hxhi (hpsi.trans hbudget) h.cap
 
 end DusartFrozenThetaRow
 

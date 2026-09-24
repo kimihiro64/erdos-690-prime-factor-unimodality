@@ -19,7 +19,11 @@ def test_transform_checks_build_before_numerical_rows() -> None:
         assert previous < build < test
         previous = test
     previous = certificates.index("lake env lean test/lean/KadiriKernelNumerical.lean")
-    for module in ("KadiriTransformNumerical", "DusartVerifiedBootstrap"):
+    for module in (
+        "KadiriTransformNumerical",
+        "DusartVerifiedBootstrap",
+        "DusartReflectedBootstrap",
+    ):
         assert module not in foundations
         build = certificates.index(f"+{BASE}FiniteCertificates.{module}\n")
         test = certificates.index(f"lake env lean test/lean/{module}.lean")
@@ -55,3 +59,21 @@ def test_verified_consumers_do_not_assume_the_bootstrap_or_weaken_the_cutoff() -
     assert "xiLowHeightIndices 1000000000" in theta_ray
     assert "25000000" not in theta_ray
     assert "kadiriSix_endpoint_chain hlow" in theta_ray
+
+
+def test_reflected_consumer_uses_checked_data_and_the_exact_published_cutoff() -> None:
+    module = (
+        ROOT / "PrimeFactorUnimodality/Helpers/FiniteCertificates/DusartReflectedBootstrap.lean"
+    )
+    source = strip_lean_comments(module.read_text())
+    consumer = source.split(
+        "theorem hasThetaLogSquaredError_of_checked_prime_reflected_turing_rows", 1
+    )[1]
+    assert "HasThetaLogSquaredError (1 / 5) 3594641" in consumer
+    assert "Nat.primeCounting s.point = s.count" in consumer
+    assert "row.checkReflected H precision depth = true" in consumer
+    assert "DusartFrozenThetaRow.checkCoverage 25 5000 rows = true" in consumer
+    assert "XiSignRows.Valid zeros 0 b" in consumer
+    assert "low_criticalLine_of_turing_margin" in consumer
+    for assumption in ("(hchain :", "(hreg :", "(hband :", "(finite :"):
+        assert assumption not in consumer

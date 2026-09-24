@@ -56,12 +56,11 @@ theorem hasThetaLogSquaredError_far_of_verified_height {H : ℝ}
   intro z hz
   linarith [xi_zero_gap_six_of_verified_height hH hlow z hz]
 
-/-- Scalar rows replace the whole middle-band obligation at the selected verified height. -/
-theorem hasThetaLogSquaredError_above_earlier_cutoff_of_frozen_rows {H : ℝ}
-    {rows : List DusartFrozenThetaRow}
+/-- Any proved logarithmic middle band joins the earlier bridge and the whole far ray. -/
+theorem hasThetaLogSquaredError_above_earlier_cutoff_of_log_band {H : ℝ}
     (hH : 25000000 ≤ H) (hH₁ : H ≤ 1000000000)
-    (hvalid : ∀ row ∈ rows, row.Valid H)
-    (hcoverage : DusartFrozenThetaRow.checkCoverage 25 5000 rows = true)
+    (hband : ∀ x : ℝ, 0 < x → 25 ≤ Real.log x → Real.log x ≤ 5000 →
+      |Chebyshev.theta x - x| ≤ (1 / 5 : ℝ) * x / Real.log x ^ 2)
     (hlow : ∀ z ∈ xiLowHeightIndices H,
       (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
     HasThetaLogSquaredError (1 / 5) 3000000000 := by
@@ -77,12 +76,6 @@ theorem hasThetaLogSquaredError_above_earlier_cutoff_of_frozen_rows {H : ℝ}
       _ ≤ (3 : ℝ) ^ 25 := pow_le_pow_left₀ (Real.exp_pos 1).le
         (by linarith [Real.exp_one_lt_d9]) 25
       _ ≤ _ := by norm_num
-  have hcover := DusartFrozenThetaRow.covers_of_checkCoverage hcoverage
-  have hreg : ∀ z : RiemannXiDivisorZeroIndex, H ≤ |(riemannXiDivisorZeroValue z).im| →
-      (riemannXiDivisorZeroValue z).re ≤
-        1 - 1 / (6 * Real.log |(riemannXiDivisorZeroValue z).im|) := by
-    intro z hz
-    linarith [xi_zero_gap_six_of_verified_height hH hlow z hz]
   intro x hx
   by_cases hearly : x ≤ 1441000000000
   · exact abs_theta_sub_le_logSquared_billion_bridge hx hearly hsmall
@@ -92,7 +85,26 @@ theorem hasThetaLogSquaredError_above_earlier_cutoff_of_frozen_rows {H : ℝ}
     have hlo := Real.log_le_log (Real.exp_pos 25) (hjoin.trans (le_of_not_ge hearly))
     have hhi := Real.log_le_log hxpos (le_of_not_ge hfar)
     rw [Real.log_exp] at hlo hhi
-    exact hcover.bound hvalid hH hH₁ hlow hreg hxpos (by simpa using hlo) (by simpa using hhi)
+    exact hband x hxpos hlo hhi
+
+/-- Scalar rows replace the whole middle-band obligation at the selected verified height. -/
+theorem hasThetaLogSquaredError_above_earlier_cutoff_of_frozen_rows {H : ℝ}
+    {rows : List DusartFrozenThetaRow}
+    (hH : 25000000 ≤ H) (hH₁ : H ≤ 1000000000)
+    (hvalid : ∀ row ∈ rows, row.Valid H)
+    (hcoverage : DusartFrozenThetaRow.checkCoverage 25 5000 rows = true)
+    (hlow : ∀ z ∈ xiLowHeightIndices H,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) 3000000000 := by
+  have hcover := DusartFrozenThetaRow.covers_of_checkCoverage hcoverage
+  have hreg : ∀ z : RiemannXiDivisorZeroIndex, H ≤ |(riemannXiDivisorZeroValue z).im| →
+      (riemannXiDivisorZeroValue z).re ≤
+        1 - 1 / (6 * Real.log |(riemannXiDivisorZeroValue z).im|) := by
+    intro z hz
+    linarith [xi_zero_gap_six_of_verified_height hH hlow z hz]
+  apply hasThetaLogSquaredError_above_earlier_cutoff_of_log_band hH hH₁ _ hlow
+  intro x hx hlo hhi
+  exact hcover.bound hvalid hH hH₁ hlow hreg hx (by simpa using hlo) (by simpa using hhi)
 
 /-- The published cutoff follows from lower finite data and the reduced-height row certificate. -/
 theorem hasThetaLogSquaredError_of_lower_band_and_frozen_rows {H : ℝ}
