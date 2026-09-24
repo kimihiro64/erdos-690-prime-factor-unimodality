@@ -5,7 +5,33 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: the Gamma-window integral is bounded (2026-09-24)
+## Latest analytic increment: the critical-line Gamma kernel is controlled (2026-09-24)
+
+`Gamma.BetaNorm` bounds the complex Beta integral by its real-parameter value,
+then bounds ratios of Gamma norms under a positive real shift. `QuarterNorm`
+combines this with duplication and the earlier half-integer bound to control
+Gamma on real part one quarter at every signed height. Log-convexity and
+recurrence prove a rational compensated bound of `5`, without a special-value
+certificate. This is a conservative alternative to the paper's constant `4`,
+not a proof of that sharper printed estimate.
+
+`PlattWindowKernel` defines the actual complex kernel with its quarter-line
+Gamma argument, Gaussian and `(-2*pi*i*v)^k` factor. It proves continuity,
+the polynomial-Gaussian majorant, genuine integrability and a closed integral
+norm bound for arbitrary natural `k`. `PlattWindowFourier` proves absolute
+convergence and the corresponding uniform bound for its actual Fourier
+transform. The regression checks the kernel against the paper's argument and
+frequency-factor scaling, as well as arbitrary orders and signed heights.
+All new modules and both regressions pass. Fourteen theorem closures were
+audited and use only the standard logical axioms.
+
+This closes another non-certificate analytic input, not a finite Fourier
+evaluator or a zero-sign certificate. Shifted-contour decay, periodization,
+truncation, interpolation, the zeta transform identity and full-range verified
+data/feasibility remain open. Numerical error screens that assume the constant
+`4` cannot be presented as certificates from the new constant-`5` theorem.
+
+## Previous increment: the Gamma-window integral is bounded (2026-09-24)
 
 `Mathlib.Analysis.SpecialFunctions.Gaussian.AbsoluteMoments` evaluates the
 half-line moment for every real exponent above `-1` by the substitution

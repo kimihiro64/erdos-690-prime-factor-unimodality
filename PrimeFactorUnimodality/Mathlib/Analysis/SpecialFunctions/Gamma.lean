@@ -4,9 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonas Whidden
 -/
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.DigammaConjugation
-import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.HalfIntegerNorm
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.QuarterNorm
 
 /-! # Reusable Gamma-function identities and bounds
 
-Export the conjugation and half-integer norm candidates through one facade.
+Export the conjugation, Beta-integral and vertical norm candidates through one facade.
 -/
