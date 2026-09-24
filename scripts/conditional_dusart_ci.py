@@ -10,17 +10,16 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import re
 import subprocess
 import tempfile
 import time
 from pathlib import Path
 
 from scripts.conditional_dusart_checkpoints import Store, pack, restore
-from scripts.conditional_dusart_plan import TARGET, THEOREM, plan
+from scripts.conditional_dusart_plan import TARGET, THEOREM, plan, required_artifacts, stage_units
+from scripts.conditional_release_receipt import check_report, clean_commit, make_receipt
 
 ROOT = Path(__file__).resolve().parents[1]
-STANDARD_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 
 
 def build(root: Path, target: str, deadline: float) -> None:
@@ -53,15 +52,6 @@ def build(root: Path, target: str, deadline: float) -> None:
         print(f"Target elapsed: {time.monotonic() - started:.1f}s\n::endgroup::", flush=True)
 
 
-def check_axioms(output: str, theorem: str = THEOREM) -> None:
-    match = re.search(rf"'{re.escape(theorem)}' depends on axioms:\s*\[([^]]*)\]", output)
-    if match is None:
-        raise ValueError("missing conditional theorem axiom report")
-    axioms = {item.strip() for item in match.group(1).split(",") if item.strip()}
-    if not axioms <= STANDARD_AXIOMS:
-        raise ValueError(f"unexpected theorem axioms: {sorted(axioms - STANDARD_AXIOMS)}")
-
-
 def audit(root: Path, scratch: Path) -> dict[str, str]:
     for source in ("TailThetaBounds", "ConditionalTheta", "DusartPublishedAnchors"):
         subprocess.run(["lake", "env", "lean", f"test/lean/{source}.lean"], cwd=root, check=True)
@@ -75,7 +65,7 @@ def audit(root: Path, scratch: Path) -> dict[str, str]:
         check=True,
     )
     print(result.stdout, flush=True)
-    check_axioms(result.stdout)
+    check_report(result.stdout)
     return {THEOREM: result.stdout}
 
 
@@ -84,8 +74,9 @@ def main() -> None:
     parser.add_argument("--plan", action="store_true")
     parser.add_argument("--minutes", type=int, default=280)
     parser.add_argument("--unit-size", type=int, default=16)
+    parser.add_argument("--stage", choices=("foundations", "prebuild", "build"), default="build")
     args = parser.parse_args()
-    units = plan(ROOT, args.unit_size)
+    units = stage_units(plan(ROOT, args.unit_size), args.stage)
     print(
         f"{sum(len(u.modules) for u in units)} modules in {len(units)} checkpoint units", flush=True
     )
@@ -97,6 +88,7 @@ def main() -> None:
         parser.error("minutes must be positive")
     repo = os.environ["GITHUB_REPOSITORY"]
     commit = os.environ["GITHUB_SHA"]
+    clean_commit(ROOT, commit)
     deadline = time.monotonic() + args.minutes * 60
     research = ROOT / ".research"
     research.mkdir(exist_ok=True)
@@ -106,11 +98,17 @@ def main() -> None:
             raise TimeoutError("budget reached at checkpoint boundary; re-dispatch to resume")
         print(f"Checkpoint {index + 1}/{len(units)} ({unit.phase})", flush=True)
         if unit.phase not in stores:
-            stores[unit.phase] = Store(repo, unit.phase, commit)
+            stores[unit.phase] = Store(
+                repo,
+                unit.phase,
+                commit,
+                read_only=os.environ.get("GITHUB_EVENT_NAME") == "pull_request",
+            )
         store = stores[unit.phase]
         with tempfile.TemporaryDirectory(prefix="conditional-", dir=research) as name:
             scratch = Path(name)
-            downloaded = store.download(unit, scratch)
+            local = all((ROOT / path).is_file() for path in required_artifacts(unit))
+            downloaded = None if local else store.download(unit, scratch)
             if downloaded:
                 restore(ROOT, unit, downloaded)
                 print(f"Restored {unit.asset}", flush=True)
@@ -118,20 +116,20 @@ def main() -> None:
             # could unexpectedly fan out across absent owned dependencies.
             for module in unit.modules:
                 build(ROOT, module, deadline)
-            if downloaded is None:
+            if unit.asset not in store.assets and not store.read_only:
                 archive = scratch / unit.asset
                 pack(ROOT, unit, archive)
                 store.upload(unit, archive)
                 print(f"Saved {unit.asset}", flush=True)
+    if args.stage != "build":
+        print(
+            f"PASS: conditional {args.stage} stage; final theorem audit still required", flush=True
+        )
+        return
     with tempfile.TemporaryDirectory(prefix="conditional-audit-", dir=research) as name:
         reports = audit(ROOT, Path(name))
-    receipt = {
-        "commit": commit,
-        "targets": [TARGET],
-        "unit_keys": [unit.key for unit in units],
-        "axiom_reports": reports,
-        "conditional": True,
-    }
+    clean_commit(ROOT, commit)
+    receipt = make_receipt(ROOT, commit, reports, args.unit_size)
     (research / "conditional-audit.json").write_text(json.dumps(receipt, indent=2) + "\n")
     print(
         "PASS: all-k theorem conditional on one theta estimate, including axiom audit", flush=True

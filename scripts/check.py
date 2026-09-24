@@ -238,6 +238,7 @@ def main(arguments: Sequence[str] | None = None) -> int:
         check_comparator_boundary(root)
         run((sys.executable, "scripts/check_challenge_solution.py"), root)
         run((sys.executable, "scripts/check_tail_replacement.py"), root)
+        run((sys.executable, "-m", "scripts.render_conditional_workflow", "--check"), root)
         check_architecture(root)
         check_metadata(root, release=options.profile == "release")
         if options.profile in {"research", "release"}:

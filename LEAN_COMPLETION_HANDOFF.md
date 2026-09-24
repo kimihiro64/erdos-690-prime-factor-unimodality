@@ -20,7 +20,25 @@ remains separate. Its dependency planner admits exactly the proved Dusart
 reductions needed by the reduced target and rejects other unfinished providers.
 Checkpoint reuse remains content-addressed and in-progress runs are not
 canceled by new commits. Final regression and axiom checks emit an audit receipt.
-Conditional paper, documentation and release packaging are still pending.
+The conditional workflow now mirrors all original CI stages except Comparator,
+with separated foundations, high-memory prebuild, analytic reduction and final
+build. Its generated mirror is checked by the fast gate. Paper/docs/licensing,
+full compiled dependency closure, checksummed source/binary provenance, and
+commit-specific conditional prerelease publication are wired. The original
+paper is unchanged. The conditional paper compares Wang–Crapis v1 precisely
+and distinguishes measured costs, incomplete projections, rejected layouts,
+and ongoing zero-verification work. Local PDF and script tests do not establish
+that the complete CI release has passed: finish any CI errors before returning
+to Dusart. The unconditional goal remains open.
+
+The strict original Lean lint driver is an outstanding release gate. A local
+`lake lint -- --no-build PrimeFactorUnimodality.Proof.CompleteClassificationSquaredConditional`
+reported 7,682 existing findings: 6,691 missing declaration docs, 980 definition
+names containing underscores, nine unused arguments and two structures whose
+fields are all propositions. This is not a theorem-elaboration failure. Do not
+claim a successful release or silently suppress the findings. A user choice
+between an explicit reviewed style baseline and source-wide fixes is pending;
+source-wide generated-certificate changes would invalidate saved artifacts.
 
 ## Earlier analytic increment: shared rounded convolution assembly (2026-09-24)
 

@@ -9,8 +9,9 @@ configuration, project documentation, and project-authored data arrangements.
 
 ## Research paper
 
-The original expression in `paper/research-paper.tex` and the PDF built from
-it is available, at the recipient's choice, under either:
+The original expression in `paper/research-paper.tex` and
+`paper/conditional-paper.tex`, and the PDFs built from them, is available,
+at the recipient's choice, under either:
 
 - Apache License 2.0; or
 - [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
@@ -48,6 +49,13 @@ Licensing and scholarly provenance are separate:
 The Linux Lean-build release archive contains compiled project build outputs
 and a copy of this licensing information. It does not include checked-out
 dependency source trees under `.lake/packages`.
+
+The separately labelled conditional distribution additionally includes the
+compiled transitive dependency closure, split into bounded archives, and a
+dependency-notice archive. Its source snapshot includes the pinned dependency
+locks and reviewed compatibility scripts. The Lean toolchain itself is
+installed separately from the exact `lean-toolchain` selection. These assets
+do not claim an unconditional proof or Comparator certification.
 
 The API-documentation archive is an aggregate: doc-gen4 emits pages for
 Erdos 690: Prime-Factor Density Unimodality and transitive imports so declaration links work offline. CI

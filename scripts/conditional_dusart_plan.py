@@ -12,6 +12,7 @@ from scripts.lean_source import lean_imports, strip_lean_comments
 
 TARGET = "PrimeFactorUnimodality.Proof.CompleteClassificationSquaredConditional"
 THEOREM = "PrimeFactorUnimodality.completeClassification_assuming_theta_error"
+PREBUILD_TARGET = "PrimeFactorUnimodality.Proof.LargeRange.RecordTwinClosed"
 # These proved reductions are needed only by the one-theta conditional target.
 # Keep the broad exclusion for every other unfinished Dusart provider.
 THETA_DUSART_IMPORTS = {
@@ -150,6 +151,25 @@ def artifact_paths(unit: Unit) -> list[Path]:
         for suffix in (".c", ".bc", ".setup.json")
     ]
     return files + [Path(str(path) + ".hash") for path in files]
+
+
+def stage_units(units: list[Unit], stage: str) -> list[Unit]:
+    """Keep original checkpoint identities across the separated CI stages.
+
+    The prebuild ends at the unit containing the closed twin certificate.
+    The final build rechecks/restores all predecessors before its remaining
+    rows and assembly, so it also works after a partial, interrupted run.
+    """
+    if stage == "foundations":
+        return [unit for unit in units if unit.phase == "foundations"]
+    if stage == "prebuild":
+        for index, unit in enumerate(units):
+            if PREBUILD_TARGET in unit.modules:
+                return units[: index + 1]
+        raise ValueError("conditional plan has no record-twin prebuild boundary")
+    if stage == "build":
+        return units
+    raise ValueError(f"unknown conditional build stage: {stage}")
 
 
 def required_artifacts(unit: Unit) -> set[Path]:

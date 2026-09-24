@@ -9,7 +9,6 @@ from pathlib import Path
 import pytest
 
 from scripts.conditional_dusart_checkpoints import pack, restore
-from scripts.conditional_dusart_ci import check_axioms
 from scripts.conditional_dusart_plan import (
     CONFIG,
     TARGET,
@@ -20,7 +19,9 @@ from scripts.conditional_dusart_plan import (
     plan,
     required_artifacts,
 )
+from scripts.conditional_release_receipt import check_axioms
 from scripts.lean_source import lean_imports, strip_lean_comments
+from scripts.render_conditional_workflow import original_jobs, render
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -172,7 +173,7 @@ def test_theta_target_does_not_allow_arbitrary_dusart_providers(tmp_path: Path) 
 
 def test_conditional_workflow_is_state_gated_bounded_and_not_cancelled_by_push() -> None:
     workflow = (ROOT / ".github/workflows/conditional-dusart.yml").read_text()
-    checks_job = workflow.split("  checks:\n", 1)[1].split("  conditional:\n", 1)[0]
+    checks_job = workflow.split("  python:\n", 1)[1].split("  sandbox:\n", 1)[0]
     assert "fetch-depth: 0" in checks_job  # Generator tests read pinned historical source blobs.
     assert "  workflow_dispatch:" in workflow
     assert "  push:" in workflow
@@ -181,6 +182,15 @@ def test_conditional_workflow_is_state_gated_bounded_and_not_cancelled_by_push()
     assert "cancel-in-progress: false" in workflow
     assert "timeout-minutes: 360" in workflow
     assert "use-mathlib-cache: true" in workflow
-    assert ".githooks/pre-commit" in workflow
+    assert "python scripts/check.py --profile fast" in workflow
+    assert "python -m ruff format --check scripts test/python" in workflow
     assert "--minutes 280" in workflow
     assert "DUSART_CI_BUILDS" not in workflow
+    assert workflow == render(ROOT)
+    original = original_jobs(ROOT)
+    for job in original:
+        assert (f"  {job}:\n" in workflow) == (job != "comparator")
+    assert "lake lint -- --no-build" in workflow
+    assert "lake build PrimeFactorUnimodality:docs" not in workflow
+    assert "conditional-paper" in workflow
+    assert "paper/research-paper.tex" not in workflow

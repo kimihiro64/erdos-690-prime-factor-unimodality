@@ -1,0 +1,329 @@
+"""Mirror the original CI stages while selecting only the single-theta proof.
+
+Lightweight checks and licensing are copied verbatim from ci.yml. The Lean
+stages preserve its foundation/prebuild/analytic/build separation and artifact
+reuse. Comparator is deliberately omitted, not reported as having passed.
+"""
+
+from __future__ import annotations
+
+import argparse
+import re
+from pathlib import Path
+from textwrap import dedent
+
+from scripts.conditional_dusart_plan import TARGET
+
+ROOT = Path(__file__).resolve().parents[1]
+OUTPUT = Path(".github/workflows/conditional-dusart.yml")
+CHECKOUT = "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1"
+LEAN = "leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9"
+UPLOAD = "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
+DOWNLOAD = "actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c"
+GATE = "${{ vars.CONDITIONAL_CI_BUILDS == 'enabled' }}"
+
+
+def original_jobs(root: Path) -> dict[str, str]:
+    source = (root / ".github/workflows/ci.yml").read_text().split("jobs:\n", 1)[1]
+    starts = list(re.finditer(r"^  ([\w-]+):\n", source, re.M))
+    return {
+        match[1]: source[
+            match.start() : starts[i + 1].start() if i + 1 < len(starts) else len(source)
+        ].rstrip()
+        + "\n"
+        for i, match in enumerate(starts)
+    }
+
+
+def step(text: str) -> str:
+    return "".join(
+        "      " + line + "\n" if line else "\n" for line in dedent(text).strip().splitlines()
+    )
+
+
+def checkout() -> str:
+    return step(f"""\
+        - uses: {CHECKOUT}
+          with:
+            persist-credentials: false
+            fetch-depth: 0
+        """)
+
+
+def lean() -> str:
+    return step(f"""\
+        - uses: {LEAN}
+          with:
+            build: false
+            test: false
+            lint: false
+            use-mathlib-cache: true
+        - name: Apply reviewed compatibility ports
+          run: |
+            python3 scripts/patch_pnt_compat.py
+            python3 scripts/patch_primecert_compat.py
+        """)
+
+
+def upload(name: str, path: str, *, always: bool = False) -> str:
+    return step(f"""\
+        - uses: {UPLOAD}
+          if: {"always()" if always else "success()"}
+          with:
+            name: {name}
+            path: {path}
+            include-hidden-files: true
+            if-no-files-found: {"ignore" if always else "error"}
+            retention-days: 14
+        """)
+
+
+def download(name: str, path: str) -> str:
+    return step(f"""\
+        - uses: {DOWNLOAD}
+          with:
+            name: {name}
+            path: {path}
+        """)
+
+
+def job(name: str, title: str, needs: str, minutes: int = 360, *, write: bool = False) -> str:
+    return (
+        f"  {name}:\n    name: {title}\n    if: {GATE}\n    needs: [{needs}]\n"
+        f"    runs-on: ubuntu-latest\n    timeout-minutes: {minutes}\n"
+        + ("    permissions:\n      contents: write\n" if write else "")
+        + "    steps:\n"
+        + checkout()
+    )
+
+
+def build_stage(name: str, title: str, needs: str, stage: str, restores: tuple[str, ...]) -> str:
+    text = job(name, title, needs, write=True) + lean()
+    for artifact in restores:
+        text += download(artifact, ".lake/build")
+    text += step(f"""\
+        - name: Build named targets serially with durable checkpoints
+          env:
+            GH_TOKEN: ${{{{ github.token }}}}
+          shell: bash
+          run: |
+            set -euo pipefail
+            mkdir -p .research
+            python3 -m scripts.conditional_dusart_ci --stage {stage} --minutes 280 2>&1 |
+              tee .research/conditional-{stage}.log
+        """)
+    text += upload(
+        f"conditional-{stage}-diagnostics", f".research/conditional-{stage}.log", always=True
+    )
+    return text
+
+
+def render(root: Path) -> str:
+    base = original_jobs(root)
+    jobs = {
+        name: base[name].replace("vars.DUSART_CI_BUILDS", "vars.CONDITIONAL_CI_BUILDS")
+        for name in (
+            "release_version",
+            "metadata-and-boundary",
+            "release-licensing",
+            "python",
+            "sandbox",
+            "submission-link",
+        )
+    }
+    jobs["release_version"] = jobs["release_version"].replace(
+        'tag="v$version"', 'tag="v$version-conditional.${GITHUB_SHA:0:12}"'
+    )
+    jobs["lean-foundations"] = build_stage(
+        "lean-foundations",
+        "Elaborate conditional non-certificate foundations",
+        "python",
+        "foundations",
+        (),
+    ) + upload("conditional-foundations-build", ".lake/build")
+    jobs["certificate-prebuild"] = build_stage(
+        "certificate-prebuild",
+        "Prebuild high-memory conditional certificate chains",
+        "release_version, metadata-and-boundary, python, lean-foundations",
+        "prebuild",
+        ("conditional-foundations-build",),
+    ) + upload("conditional-certificate-prebuild", ".lake/build")
+    jobs["analytic-tail"] = (
+        job(
+            "analytic-tail",
+            "Check the certificate-independent all-k reduction",
+            "lean-foundations",
+            60,
+        )
+        + lean()
+        + download("conditional-foundations-build", ".lake/build")
+        + step("""\
+        - name: Verify the finite Abel shell and all-k assembly
+          run: |
+            python3 scripts/check_tail_replacement.py
+            lake build +PrimeFactorUnimodality.Proof.CompleteClassificationReduction
+            lake env lean test/lean/TailThetaBounds.lean
+        """)
+        + upload("conditional-analytic-tail", ".lake/build")
+    )
+    jobs["build"] = (
+        build_stage(
+            "build",
+            "Replay remaining certificates and build the conditional theorem",
+            "release_version, metadata-and-boundary, python, certificate-prebuild, analytic-tail",
+            "build",
+            ("conditional-certificate-prebuild", "conditional-analytic-tail"),
+        )
+        + step(f"""\
+        - name: Run the original Lean lint driver on the conditional import closure
+          run: |
+            lake build +Batteries.Tactic.Lint
+            lake lint -- --no-build {TARGET}
+        - name: Package the full compiled conditional dependency closure
+          run: |
+            python3 -m scripts.conditional_release_bundle \\
+              --receipt .research/conditional-audit.json --commit "$GITHUB_SHA" \\
+              --output .research/conditional-build-release
+        """)
+        + upload("conditional-proof-audit", ".research/conditional-audit.json")
+        + upload("conditional-linux-lean-build", ".lake/build")
+        + upload("conditional-build-release", ".research/conditional-build-release")
+    )
+    jobs["docs"] = (
+        job("docs", "Build conditional API documentation", "build")
+        + lean()
+        + download("conditional-linux-lean-build", ".lake/build")
+        + download("conditional-proof-audit", ".research/docs-audit")
+        + step("""\
+        - name: Fetch pinned documentation dependencies
+          working-directory: docbuild
+          env:
+            MATHLIB_NO_CACHE_ON_UPDATE: "1"
+          run: lake update
+        - name: Restore reusable documentation database
+          uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+          with:
+            path: |
+              docbuild/.lake/build/api-docs.db*
+              docbuild/.lake/build/conditional-doc-state.json
+            key: >-
+              conditional-docs-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain',
+              'docbuild/lake-manifest.json') }}-${{ github.run_id }}-${{ github.run_attempt }}
+            restore-keys: >-
+              conditional-docs-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain',
+              'docbuild/lake-manifest.json') }}-
+        - name: Build only the conditional documentation closure
+          run: |
+            python3 -m scripts.conditional_docs \\
+              --receipt .research/docs-audit/conditional-audit.json --commit "$GITHUB_SHA"
+        - name: Preserve completed documentation scans
+          if: always()
+          uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+          with:
+            path: |
+              docbuild/.lake/build/api-docs.db*
+              docbuild/.lake/build/conditional-doc-state.json
+            key: >-
+              conditional-docs-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain',
+              'docbuild/lake-manifest.json') }}-${{ github.run_id }}-${{ github.run_attempt }}
+        - name: Prepare the offline documentation and licensing bundle
+          shell: pwsh
+          run: |
+            ./scripts/prepare-api-docs.ps1 -DocumentationRoot docbuild/.lake/build/doc `
+              -TemplatePath assets/conditional-api-documentation-index.html
+        """)
+        + upload("conditional-api-documentation", "docbuild/.lake/build/doc")
+    )
+    jobs["paper"] = (
+        job("paper", "Build separate conditional research paper", "build", 30)
+        + download("conditional-proof-audit", ".research/paper-audit")
+        + step("""\
+        - name: Install paper toolchain
+          run: |
+            sudo apt-get update
+            sudo apt-get install --yes --no-install-recommends \\
+              lmodern poppler-utils texlive-latex-base texlive-latex-recommended
+        - name: Generate, build and inspect the conditional paper
+          run: |
+            python3 -m scripts.conditional_paper \\
+              --receipt .research/paper-audit/conditional-audit.json --commit "$GITHUB_SHA" \\
+              --output .research/conditional-paper
+        """)
+        + upload("conditional-research-paper", ".research/conditional-paper")
+    )
+    jobs["release"] = job(
+        "release",
+        "Publish conditional release",
+        "release_version, metadata-and-boundary, "
+        "release-licensing, python, sandbox, build, docs, paper, submission-link",
+        45,
+        write=True,
+    ).replace(
+        f"    if: {GATE}",
+        "    if: >-\n      vars.CONDITIONAL_CI_BUILDS == 'enabled' &&\n"
+        "      needs.release_version.outputs.release_ready == 'true' &&\n"
+        "      github.ref == 'refs/heads/main' &&\n"
+        "      (github.event_name == 'push' || github.event_name == 'workflow_dispatch')",
+    )
+    for name, directory in (
+        ("conditional-build-release", "build"),
+        ("conditional-research-paper", "paper"),
+        ("conditional-api-documentation", "docs"),
+    ):
+        jobs["release"] += download(name, f".research/conditional-release-inputs/{directory}")
+    jobs["release"] += step("""\
+        - name: Recheck documentation links and included licensing
+          shell: pwsh
+          run: |
+            ./scripts/prepare-api-docs.ps1 `
+              -DocumentationRoot .research/conditional-release-inputs/docs `
+              -TemplatePath assets/conditional-api-documentation-index.html -UsePreparedLicensing
+        - name: Validate, package, and publish the exact conditional artifacts
+          env:
+            GH_TOKEN: ${{ github.token }}
+            RELEASE_TAG: ${{ needs.release_version.outputs.tag }}
+          run: |
+            python3 -m scripts.publish_conditional_release \\
+              --inputs .research/conditional-release-inputs --commit "$GITHUB_SHA" \\
+              --output .research/conditional-release-assets
+        """)
+    header = """name: Conditional all-k proof
+
+# Generated by scripts/render_conditional_workflow.py; mirrors ci.yml without Comparator.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: >-
+    ${{ github.ref == 'refs/heads/main' && 'conditional-dusart-checkpoints' ||
+        format('conditional-dusart-checkpoints-{0}', github.ref) }}
+  cancel-in-progress: false
+
+jobs:
+"""
+    order = [name for name in base if name != "comparator"]
+    if set(order) != set(jobs):
+        raise ValueError("original CI stages changed: review the conditional mirror")
+    return header + "\n".join(jobs[name] for name in order)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--check", action="store_true")
+    args = parser.parse_args()
+    expected = render(ROOT)
+    if args.check:
+        if (ROOT / OUTPUT).read_text() != expected:
+            raise SystemExit("conditional workflow is stale; run its renderer")
+    else:
+        (ROOT / OUTPUT).write_text(expected)
+
+
+if __name__ == "__main__":
+    main()

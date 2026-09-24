@@ -131,12 +131,27 @@ classification reduction; no analytic hypothesis is added by this import repair.
 
 ## Building and resuming
 
-The **Conditional all-k proof** workflow runs on pushes to `main` and manual
+The **Conditional all-k proof** workflow runs on pushes to `main`, pull requests, and manual
 dispatches when the repository state variable `CONDITIONAL_CI_BUILDS` equals
-`enabled`. An unset value or `paused` skips its jobs. This is independent of
+`enabled`. An unset value or `paused` skips the gated Lean and release jobs;
+the original lightweight checks still run. This is independent of
 `DUSART_CI_BUILDS`, which remains paused for the unconditional proof. New commits
-do not cancel a running conditional build. The checkpointed job builds the
+do not cancel a running conditional build. The checkpointed stages build the
 single-theta target only, including its actual finite certificate closure.
+Pull requests may read checkpoints but cannot publish checkpoints or releases.
+
+The workflow mirrors every stage of the original CI except Comparator:
+release-version validation, metadata/source boundary, licensing, Python,
+sandbox policy, foundations, certificate prebuild, analytic-tail checks,
+final build and Lean linting, docs, paper, submission-link checks, and release.
+The shared checks are copied by `scripts/render_conditional_workflow.py`;
+the canonical fast gate detects a stale generated workflow.
+
+Foundations run first. The high-memory prebuild ends at the checkpoint unit
+containing `RecordTwinClosed`; the final build supplies the remaining analytic
+prefix certificates and classification. The parallel analytic-tail job checks
+the already-built certificate-independent reduction. Stage artifacts and the
+durable checkpoint store reuse completed work without changing unit keys.
 
 Preview the exact dependency plan without running Lean:
 
@@ -184,8 +199,32 @@ are deliberately unchanged in the meantime.
 
 ## Gated release and subsequent proof stages
 
-1. **Conditional release, only after the complete target passes.** Add a
-   dedicated release job that generates a conditional paper and documentation,
+The conditional paper is `paper/conditional-paper.tex`; the original
+`paper/research-paper.tex` is unchanged. Its seven-page rendering includes a
+version-specific Wang–Crapis comparison, formal interfaces, completed analytic
+replacements, and measured versus projected resource costs. The compact
+`paper/conditional-resources.json` records selected experimental evidence and
+its limitations. Generation requires an exact-commit, exact-statement audit
+receipt; PDF checks reject unresolved references and overflowing text.
+
+The docs job selects the conditional import closure, reuses the original
+offline-index and licensing preparation tools with a separate landing page,
+and generates declaration metadata in dependency order. Core documentation
+scans are serial too. An incremental database is saved on a best-effort basis
+with Actions cache; unlike certificate checkpoints, that cache can be evicted.
+
+The compiled release includes all imported non-core Lean artifacts, not only
+owned project modules. Bounded archive parts avoid duplicating the compiled
+tree in staging. A source snapshot, locked dependency and toolchain identity,
+compatibility scripts, dependency notices, exact axiom/type audit, and SHA-256
+manifests accompany the PDF and offline docs. Install the selected Lean
+toolchain separately; its binaries are not included. Publication verifies
+downloaded assets before completing a distinctly named
+`v<VERSION>-conditional.<COMMIT>` prerelease. It never promotes that result as
+an unconditional solution or claims Comparator/NanoDa checks were run.
+
+1. **Conditional release, only after all its CI gates pass.** The
+   dedicated release job generates a conditional paper and documentation,
    packages the full conditional `.olean` dependency closure with the pinned
    sources/toolchain and compatibility patches, and records the exact commit,
    theorem type, single theta hypothesis, axiom audit, and artifact checksums. The paper
@@ -209,5 +248,5 @@ are deliberately unchanged in the meantime.
    end-to-end path before a large implementation effort; reductions in one
    component alone do not establish feasibility of the full Dusart proof.
 
-The release workflow and paper generation are gated future work, not completed
-features of the initial conditional replay workflow.
+These release stages are implemented but publication still requires their
+actual successful CI execution; passing local component tests is not a release.

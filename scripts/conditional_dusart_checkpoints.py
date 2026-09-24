@@ -85,14 +85,18 @@ def restore(root: Path, unit: Unit, archive: Path) -> None:
 class Store:
     """Never overwrite a saved asset or convert a checkpoint into a release."""
 
-    def __init__(self, repo: str, phase: str, commit: str) -> None:
+    def __init__(self, repo: str, phase: str, commit: str, *, read_only: bool = False) -> None:
         self.repo = repo
+        self.read_only = read_only
         self.tag = f"conditional-proof-checkpoints-v1-{phase}"
         endpoint = f"repos/{repo}/releases/tags/{self.tag}"
         result = subprocess.run(["gh", "api", endpoint], capture_output=True, text=True)
         if result.returncode:
             if "404" not in result.stderr:
                 raise RuntimeError(result.stderr)
+            if read_only:
+                self.assets: set[str] = set()
+                return
             result = subprocess.run(
                 [
                     "gh",
@@ -154,6 +158,8 @@ class Store:
         return directory / unit.asset
 
     def upload(self, unit: Unit, archive: Path) -> None:
+        if self.read_only:
+            raise ValueError("pull requests cannot publish checkpoint assets")
         if unit.asset in self.assets:
             return
         if len(self.assets) >= 950:

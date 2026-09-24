@@ -1,0 +1,178 @@
+{
+  "scope": "Selected historical component evidence, NOT a whole-Dusart runtime forecast.",
+  "host": "Two AArch64 Neoverse-N1 cores; single-run wall times with warm dependencies.",
+  "revision_limitations": "The Xi generated source digest is recorded below. Full experiment commits were not recorded in the other reports; do not infer them from the release commit. Report hashes identify the source evidence, not independently reproducible benchmark inputs.",
+  "report_sha256": {
+    "primality-feasibility.json": "003c8f9a17c39d1e6090a072daad8e2229f59d5a909358adfdd3f55de5871758",
+    "sieve-packed-count-report.json": "f25a5abec95b82b75df69ed9af9d116cdf342f356fbd9b227fb273d8865f294c",
+    "packed-convolution-report.json": "1907e9a789debfd4ff557721f0b48f368dd7963e2c06ea7a6b06c702ab9f0f83",
+    "three-billion-count-replay-estimate.json": "64dc575bb6292970ec1c1cea54254465df3018dfac76717aaa7bc76f4ea83870",
+    "external-zero-signs-report.json": "cdc0c26f1cb5bffe327ff81b5596e2f490762cf13194b09ff81d4b85e26c0ceb",
+    "platt-errors-170m-report.json": "d18d1b8874ae65b7dab747cf93518453cc68534c137f8583c0dc423530ddfbcb",
+    "xi-end-to-end-profile8/report.json": "5c8c539de10c151a1584ec1215c4512a0b69bd4a5c26c4d5a74e0ac984b88ffe"
+  },
+  "primality": {
+    "kind": "measurement",
+    "scope": "Individual certificates, not counting completeness; includes import/process cost.",
+    "rows": [
+      {
+        "test": "Baseline",
+        "seconds": 2.8019215340027586,
+        "targets": 0,
+        "source_bytes": 68
+      },
+      {
+        "test": "Pratt10000000000",
+        "seconds": 8.970425558974966,
+        "targets": 64,
+        "source_bytes": 159602
+      },
+      {
+        "test": "Pocklington10000000000",
+        "seconds": 6.813400721992366,
+        "targets": 64,
+        "source_bytes": 86607
+      },
+      {
+        "test": "Pratt1441000000000",
+        "seconds": 12.050363674061373,
+        "targets": 64,
+        "source_bytes": 201531
+      },
+      {
+        "test": "Pocklington1441000000000",
+        "seconds": 7.824808576027863,
+        "targets": 64,
+        "source_bytes": 104615
+      }
+    ]
+  },
+  "packed_count": {
+    "kind": "measurement",
+    "scope": "Actual PrimeCert sieve equality, IsSieve, checked count, exact Nat.primeCounting. Includes complete Lean process, axiom audit and olean. External generation excluded from reported Lean time. 55-second/6-GiB safeguard, no thread caps. No theta/log trace or zero verification; not a whole-workflow projection.",
+    "rows": [
+      {
+        "count": 10000000,
+        "seconds": 6.93789610802196,
+        "olean_bytes": 556272,
+        "peak_sampled_rss_kib": 651472
+      },
+      {
+        "count": 30000000,
+        "seconds": 27.518507318920456,
+        "olean_bytes": 1389600,
+        "peak_sampled_rss_kib": 649928
+      }
+    ]
+  },
+  "packed_convolution": {
+    "kind": "measurement",
+    "scope": "Actual nonnegative integer convolution from packed-only data. Proves decoding, coefficient mask bounds, no carries and product semantics. Not signed/complex convolution, FFT, error or zero certificate. No olean output or thread caps.",
+    "rows": [
+      {
+        "count": 0,
+        "seconds": 3.317922701011412,
+        "source_bytes": 9952
+      },
+      {
+        "count": 16,
+        "seconds": 3.315330129931681,
+        "source_bytes": 13022
+      },
+      {
+        "count": 256,
+        "seconds": 3.414008188061416,
+        "source_bytes": 61568
+      },
+      {
+        "count": 4096,
+        "seconds": 5.017836345010437,
+        "source_bytes": 853634
+      },
+      {
+        "count": 16384,
+        "seconds": 10.43643714801874,
+        "source_bytes": 3417733
+      },
+      {
+        "count": 65536,
+        "seconds": 32.8103606851073,
+        "source_bytes": 13772420
+      }
+    ]
+  },
+  "meissel": {
+    "kind": "projection",
+    "scope": "Heuristic coverage mesh; unmeasured shared-table proofs and theta/zero certificates excluded.",
+    "limit": 3000000000,
+    "method": "64 equal-count strata, one midpoint operation census per stratum",
+    "projected_rows": 307016043,
+    "check_rows_per_second": 422.33461011932314,
+    "checking_days": 8.413770357601415,
+    "data_elaboration_days": 2.067852858724884,
+    "check_plus_data_days": 10.481623216326298,
+    "predicted_source_gib": 13.873363713111635
+  },
+  "external_signs": {
+    "kind": "external measurement, not Lean checking",
+    "scope": "External Arb interval evaluations only. Numerical proposals are NOT Lean checked, no global RH/completeness or six-hour projection. Zero search and endpoint-sign evaluation are timed separately; nearby zero indices selected only by a floating main term. No thread settings changed; no claim of high-height worst-case cost.",
+    "precision": 96,
+    "python_flint": "0.9.0",
+    "rows": [
+      {
+        "height": 1000000,
+        "sign_samples": 17,
+        "external_endpoint_sign_seconds": 0.013166296062991023,
+        "external_zero_search_seconds": 0.4096437720581889
+      },
+      {
+        "height": 25000000,
+        "sign_samples": 17,
+        "external_endpoint_sign_seconds": 0.021965493098832667,
+        "external_zero_search_seconds": 0.9711899859830737
+      },
+      {
+        "height": 170000000,
+        "sign_samples": 17,
+        "external_endpoint_sign_seconds": 0.03828760189935565,
+        "external_zero_search_seconds": 0.9989392630523071
+      }
+    ]
+  },
+  "platt_scenario": {
+    "kind": "nonrigorous workload screen",
+    "scope": "NONRIGOROUS analytic screen only, using derived conservative C and incomplete-Gamma majorants, shifted-frequency alias margin, all seven grid errors and C1/C3 interpolation. No numeric rounding budget, verified signs, continuous height bands, rare fallback counts, Turing padding, or full-domain time projection. The 1e-8 allocations are chosen, not proved sufficient. Fixed top-height profile/window count is a comparison scenario.",
+    "height": 170000000,
+    "A": 8,
+    "B": 16384,
+    "J": 7803,
+    "K": 15,
+    "windows": 41504,
+    "complex_convolutions": 622560,
+    "convolution_input_cells": 163200368640,
+    "moment_cells": 4857835680
+  },
+  "xi_low_block": {
+    "kind": "measurement",
+    "scope": "complete moment/Fourier/error/sign/ordered-count block; not global completeness",
+    "parameters": {
+      "base": 14,
+      "span": 8,
+      "cutoff": 8,
+      "order": 8,
+      "degree": 12,
+      "levels": 3,
+      "scalar_order": 32,
+      "indices": [
+        -1,
+        1
+      ],
+      "integration_start": 32,
+      "integration_end": 64
+    },
+    "source_sha256": "ef569cab0df6373bb44f8fdbd5b1aa74f839e3b5eae444a76f2ddfe26ddeb071",
+    "seconds": 128.246595861041,
+    "olean_bytes": 2042008,
+    "limitations": "warm dependencies; sampled RSS can miss peaks/double-count shared pages; no high-height or whole-range timing extrapolation"
+  }
+}

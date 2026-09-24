@@ -1,0 +1,503 @@
+% SPDX-FileCopyrightText: 2026 Jonas Whidden
+% SPDX-License-Identifier: Apache-2.0 OR CC-BY-4.0
+% Generated release copies substitute the two @@...@@ provenance fields.
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,array}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue,
+  pdftitle={A conditional Lean formalization of Erdos Problem 690},
+  pdfauthor={Jonas Whidden}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newcommand{\code}[1]{\path{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\emergencystretch=2em
+\title{A conditional Lean formalization of Erd\H{o}s Problem 690}
+\author{Jonas Whidden}
+\date{September 2026}
+\begin{document}
+\begin{abstract}
+We give a Lean 4 formalization of the classification of unimodality of the
+density of the $k$th smallest distinct prime divisor, conditional on one
+explicit estimate for Chebyshev's theta function. The conclusion quantifies
+over every positive integer $k$: unimodality holds exactly for $k\leq3$.
+The hypothesis is $|\vartheta(x)-x|\leq x/(5\log^2x)$ for all real
+$x\geq3{,}594{,}641$, a published estimate of Dusart. Finite prime-count,
+short-interval, and theta certificates supply the bounded analytic prefixes;
+the finite classification, record-twin certificate, and infinite
+Chinese-remainder argument are part of the formal proof, not additional
+hypotheses. We describe the proof interfaces, the reduction in analytic
+precision needed by the consumer, and the unresolved feasibility of a
+complete formal proof of the retained theta estimate. The result is a
+conditional formalization, not a claim of an unconditional Lean solution.
+\end{abstract}
+\maketitle
+\begin{center}\small
+Copyright \textcopyright\ 2026 Jonas Whidden. Available under the
+\href{https://www.apache.org/licenses/LICENSE-2.0}{Apache License 2.0} or
+\href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}, at your option.
+\end{center}
+
+\section{Problem and contribution}
+For a positive integer $n$, order its distinct prime divisors increasingly.
+Erd\H{o}s Problem 690 asks about the distribution of a fixed position $k$ in
+this list. Cambie studies the associated densities and recurrence
+\cite{Cambie}; Wang and Crapis give the complete mathematical answer
+\cite{WangCrapis}. We formalize the classification strategy, retaining a
+precisely delimited analytic hypothesis from Dusart \cite{Dusart}.
+The contribution is the formal construction and composition of the required
+proofs and certificates, not a new discovery of the classification.
+
+The distinction between a conditional theorem and an unfinished proof term
+is important. Our theorem takes one explicit proposition as an argument.
+Every finite classification certificate and every deduction from that
+argument is supplied in the theorem's dependency closure. We do not assume
+the classification, its finite prefix, or a collection of numerical answers.
+An unconditional proof of the analytic argument could be supplied later to
+this same function without changing its conclusion.
+
+\section{Definitions and exact statement}
+Write $p_0=2<p_1<\cdots$ for the primes, using Lean's zero-based indexing.
+For $k\geq1$ and a prime $p$, let
+\[
+ A_{k,p}=\{n\geq1:p\mid n,\ \#\{q<p:q\text{ prime},\ q\mid n\}=k-1\}.
+\]
+Its natural density is denoted by $d_k(p)$.
+Multiplicity of a prime divisor does not change its position.
+\begin{definition}
+A sequence $(a_i)_{i\geq0}$ is unimodal if there is an integer $m\geq0$
+such that $a_i\leq a_{i+1}$ for $i<m$ and $a_{i+1}\leq a_i$ for $m\leq i$.
+Let $\vartheta(x)=\sum_{p\leq x}\log p$, with the sum over primes, and set
+$X_0=3{,}594{,}641$. The analytic hypothesis is
+\begin{equation}\label{eq:hypothesis}
+ \mathcal H:\quad
+ \forall x\in\mathbb R,\quad X_0\leq x\ \Longrightarrow\
+ |\vartheta(x)-x|\leq\frac{x}{5\log^2x}.
+\end{equation}
+\end{definition}
+\begin{theorem}[Conditional all-$k$ classification]\label{thm:main}
+Assume $\mathcal H$. Then for every integer $k\geq1$ the sequence
+$(d_k(p_i))_{i\geq0}$ is unimodal if and only if $k\leq3$.
+The natural densities defining this sequence exist.
+\end{theorem}
+The Lean classification declaration is
+\begin{quote}\small
+\code{PrimeFactorUnimodality.completeClassification_assuming_theta_error}
+\end{quote}
+with type
+\begin{quote}\small
+\code{HasThetaLogSquaredError (1 / 5) 3594641}\quad$\to$\quad
+\code{CompleteClassification}.
+\end{quote}
+The latter proposition is exactly
+$\forall k\in\mathbb N,\ 1\leq k\Rightarrow
+(\operatorname{IsUnimodal}(\operatorname{primeFactorDensity}(k))
+\leftrightarrow k\leq3)$.
+The separate density-identification theorem is unconditional; it is not an
+additional premise of the classification.
+
+\section{Finite densities and adjacent differences}
+For a finite prime list $L$, define rational numbers $F(L,r)$ by
+\[
+\begin{aligned}
+ F([],0)&=1,& F([],r+1)&=0,\\
+ F(p::L,0)&=\frac{p-1}{p}F(L,0),\\
+ F(p::L,r+1)&=\frac{p-1}{p}F(L,r+1)+\frac1pF(L,r).
+\end{aligned}
+\]
+\begin{lemma}[Density formula]
+If $L_p$ lists all primes below $p$, then
+$d_k(p)=F(L_p,k-1)/p$.
+\end{lemma}
+\begin{proof}
+Divisibility by the primes in $L_p\cup\{p\}$ is periodic modulo their
+product. The Chinese remainder theorem counts the residue classes having
+exactly $r$ selected divisors. Adding a prime $q$ multiplies the count for
+nonselection by $q-1$, while selection contributes the preceding count.
+Dividing by the product gives the recurrence. Requiring divisibility by $p$
+contributes $1/p$. The density of a periodic set is its residue proportion;
+removing the integer zero does not alter the limit.
+\end{proof}
+This connection is formalized by
+\code{hasNaturalDensity_primeFactorDensity}.
+
+For consecutive primes $p<q$ and $r=k-1\geq1$, expansion gives the exact identity
+\[
+ d_k(q)-d_k(p)
+ =\frac{F(L_p,r-1)-(q-p+1)F(L_p,r)}{pq}.
+\]
+When $F(L_p,r)>0$, the sign is therefore determined by comparing
+$F(L_p,r-1)/F(L_p,r)$ with $q-p+1$.
+Factoring the nonselection Euler product expresses this ratio as a ratio
+of elementary symmetric sums in the positive weights $1/(\ell-1)$ for
+primes $\ell<p$. The formal symmetric-sum inequalities bound the ratio in
+terms of reciprocal sums and the number of available weights. Positivity
+and index restrictions are premises of the corresponding lemmas, rather
+than implicit cancellations at zero.
+
+A strict decrease at one index followed by a strict increase at a later
+index contradicts unimodality: a mode would have to lie no later than the
+first index and strictly after the second. This elementary obstruction is
+the common interface between the finite certificates and the uniform tail.
+
+\section{Precise relationship to Wang--Crapis}\label{sec:comparison}
+The following comparison refers to version~1 of Wang--Crapis
+\cite[Sections~4--6]{WangCrapis}, not to an unspecified later revision.
+We retain their density recurrence, symmetric-ratio sign mechanism, and
+descent-before-ascent strategy. The arithmetic implementation and the
+interface to explicit analytic estimates differ materially.
+
+\begin{center}\small
+\begin{tabular}{@{}L{.21\textwidth}L{.34\textwidth}L{.36\textwidth}@{}}
+\toprule
+Component & Wang--Crapis v1 & This formalization\\
+\midrule
+Finite/tail split & Finite through $8{,}600{,}001$; tail from
+$8{,}600{,}002$ & Finite through $38{,}000$; tail from $38{,}001$\\[4pt]
+Large gap & Published gap of length $1{,}113{,}106$ & Only a
+$4{,}751$-integer composite sub-block is retained\\[4pt]
+Twin ascent & Published $71{,}298$-digit twin & The same twin, with both
+primality proofs replayed in Lean\\[4pt]
+Later tail interval & Average gap in $(4P,8P]$ & Average gap in
+$(4P,9P]$, with corresponding constants reproved\\[4pt]
+Reciprocal estimates & Sharp reciprocal error and numerical constants
+& Finite Abel lower bound plus an ordinary proved Mertens upper bound\\[4pt]
+Analytic trust & Published explicit estimates & One explicit theta
+hypothesis; required consequences are derived in Lean\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+In the interval row, $P$ denotes the primorial used by the CRT construction.
+The prime-counting interface is also different. Our consumers use
+\[
+ \pi(n)\geq\frac{n}{\log n}\left(1+\frac1{\log n}\right)
+ \quad(n\geq599),\qquad
+ \pi(n)\leq\frac{n}{\log n}\left(1+\frac{1.2762}{\log n}\right)
+ \quad(n\geq2),
+\]
+for natural $n$, with real-variable adapters using $\pi(\lfloor x\rfloor)$.
+Wang--Crapis Lemma~4.1 instead states the rational-denominator comparisons
+$x/(\log x-1)$ and $x/(\log x-1.1)$ on their respective domains
+$x>5393$ and $x>60184$. Our altered comparisons are not a claim to prove
+those exact inequalities. The short-interval consumer, however, retains
+their precise statement: for every real $x\geq3275$, some prime lies in
+$(x,x(1+1/(2\log^2x))]$.
+
+The smaller composite block is enough because the new tail begins much
+earlier. We need not certify primality of the megagap's endpoints: a proved
+composite block already lies inside a gap between actual consecutive
+primes. The retained block has one exceptional Fermat check. The retired
+full-gap representation required 10,918 such exceptions; its previously
+projected 200--250 serial runner-hours are no longer costs of this proof.
+This is removal of an obligation by a mathematical replacement, not an
+assumption that the larger certificate succeeds.
+
+We also remove two enumeration tasks from the proof closure. A count of at
+least 38,000 primes below 500,000 follows from the shared prime-counting
+input and $\log(500000)<13.13$, instead of 380 prime-witness modules.
+The finite Abel comparison replaces the former 500,001-entry reciprocal
+enumeration. Neither change introduces a new hypothesis.
+
+For clarity, the analytic replacement used in the descent is the inequality
+\begin{equation}\label{eq:shell}
+ S(Y)-S(X)\geq\log\log Y-\log\log X
+       -\frac{6381}{5000\log^2X}-\frac1X,
+ \qquad 600\leq X\leq Y,
+\end{equation}
+where $X,Y$ are integers and $S(t)=\sum_{p\leq t}1/p$.
+The $1/X$ term is retained from the floor correction in the integral
+prime-counting lower bound. In the CRT descent we use
+$r=k-1$, $X=p_{r-1}-1$ (in zero-based indexing) and
+$Y=P=\prod_{p\leq q}p$, where the selected prime $q$ satisfies
+\[
+ \frac{491r}{500\log r}<q<
+ \frac{2519}{2500}\frac{491r}{500\log r}.
+\]
+A tangent bound gives a strictly positive affine lower margin for all
+$r\geq38{,}000$, with rational intercept
+$877288074251/1231383407380000$ and slope $3078619/10355190$.
+Thus the lowered cutoff is proved uniformly, not inferred by sampling.
+
+For the ascent we use the established ordinary Mertens estimate and the
+coarse bound on its constant $B<2/3$. We do not need the published decimal
+enclosures of $B$ and $\sum_p1/(p(p-1))$ used in the original argument.
+The declarations in \code{PrimeCountingReciprocalShell},
+\code{TailShellNumerics} and \code{UniformTailClosedMertens}
+make these replacements explicit. Our all-$k$ conclusion is unchanged;
+the paper's unconditional mathematical theorem and our conditional formal
+theorem have different trust boundaries.
+
+\section{Finite and infinite classification ranges}
+The finite classification runs through $k=38{,}000$.
+The first three cases follow from exact recurrence inequalities.
+For $4\leq k\leq38{,}000$, the development combines initial exact valleys,
+symmetric-ratio estimates, a certified record-gap descent and a later
+certified twin-prime ascent. The record twins are actual primality
+certificates in the proof closure. They are not asserted as trusted data.
+The assembled finite theorem takes prime-counting bounds as its sole
+analytic input, supplied below by $\mathcal H$.
+
+An Abel-summation estimate removes the need to enumerate a long reciprocal
+prime list in the upper record range. The formal comparison bounds the
+endpoint loss by $1/50$ for $k\geq10{,}372$ and obtains a reciprocal-sum
+margin greater than eight. The gap multiplier then gives
+$4753\cdot8=38{,}024>k-1$ throughout the remaining finite range.
+This replacement removes the old large reciprocal enumeration from the
+conditional proof's import closure.
+
+For every $k\geq38{,}001$, a Chinese-remainder construction supplies a
+composite block and hence a descent. Bounds on the primorial control the
+size of the construction. Prime-counting and short-interval estimates
+provide a subsequent consecutive-prime pair, for which the symmetric-ratio
+comparison gives an ascent. This is a theorem for an arbitrary $k$ in the
+tail, not a finite search. The finite and infinite cases meet without a gap.
+
+\section{Deriving the analytic interfaces from one hypothesis}
+Three proved adapters consume $\mathcal H$:
+\begin{enumerate}
+\item \code{hasDusartPrimeCountingBounds_of_logSquared_ray};
+\item \code{hasDusartShortIntervalPrime_of_logSquared_ray};
+\item \code{hasTailThetaBounds_of_logSquared_ray}.
+\end{enumerate}
+The first uses prime-log Abel summation, differential comparisons and an
+exact anchor count $\pi(X_0)=256{,}357$. Bounds for $\log X_0$ and the same
+hypothesis $\mathcal H$ prove the two required anchor comparisons. The
+second derives the large-input short-interval conclusion by comparing
+theta at the interval endpoints. Finite prefixes supply the missing small
+inputs in both adapters.
+
+The third adapter uses only the precision required by the tail construction:
+for natural $q\geq3501$,
+\begin{equation}\label{eq:tail}
+ q\left(1-\frac{1.2323}{\log q}\right)
+ <\vartheta(q)<1.001q.
+\end{equation}
+For $q\geq X_0$, $\log q>15$ implies
+$1/(5\log^2q)<1/1000$ and
+$1/(5\log^2q)<1.2323/\log q$; equation~\eqref{eq:hypothesis}
+then proves~\eqref{eq:tail}. The interval $3501\leq q<X_0$ is certified
+separately. In the primorial comparison,
+$1.0076\cdot1.001+0.0007=1.0093076<1.01$ preserves the required margin.
+Consequently the stronger published global upper coefficient
+$1+1/36{,}260$ need not be independently formalized for this classification.
+We do not assert that the weaker interface proves that stronger bound.
+
+\begin{proof}[Assembly of Theorem~\ref{thm:main}]
+Apply the first adapter to $\mathcal H$ and supply its result to the finite
+classification theorem
+\begin{quote}\small
+\code{completeClassification_through38000_of_primeCounting}.
+\end{quote}
+This discharges the finite classification, including its record-twin input.
+The second and third adapters give the remaining hypotheses of the uniform
+tail theorem. The final reduction is
+\begin{quote}\small
+\code{completeClassification_of_finite_prefix_and_tailTheta}.
+\end{quote}
+It splits at $38{,}000$. The finite branch gives the equivalence; the infinite
+branch excludes unimodality and also has $k>3$. Density existence follows
+from the periodic counting lemma. No further analytic parameter remains.
+\end{proof}
+
+\section{Finite certificate representation}
+Numerical search and row generation may happen outside Lean, but their
+outputs are consumed by proved checking and coverage theorems. Compact rows
+share assemblers rather than creating a theorem module for each prime.
+The prime-count prefix above 1000 contains 2,093 rows in nine batches;
+the short-interval prefix from 3275 contains 2,022 rows in eight batches.
+The theta prefix uses 9,765 transitions in 26 batches. All end at the
+published analytic cutoff $X_0$ with the required endpoint conventions.
+
+Coverage is part of the proof. A prime-count row ending at a prime uses the
+count just before the jump for its half-open cell; the next cell includes
+the jump. A short-interval witness must be strictly larger than its input,
+including at shared boundaries. Theta rows combine exact count increments
+with rational logarithm bounds, and the assembly checks adjacency, terminal
+coverage and strict margins. A table with omitted cells is not a proof.
+The exact anchor count uses a certified packed sieve. External primality
+tests or floating-point estimates do not discharge a Lean hypothesis.
+
+\section{What remains in the Dusart formalization}
+Equation~\eqref{eq:hypothesis} is a published mathematical result, not a
+conjecture introduced here. Its complete formal derivation remains outside
+this theorem. The obstacle is reproducing its analytic and finite numerical
+ingredients within a justified computational budget, not evidence against
+Dusart's theorem or against the possibility of formalizing it.
+
+Several reductions improve the situation. The weaker consumer-specific
+theta interface avoids a separate stronger-bound requirement extending
+into the trillions. The finite analytic prefixes and Abel anchors leave no
+extra assumptions. Packed sieves and compact count/log rows reduce the
+cost of finite prime information. Reflected explicit-formula estimates and
+finite-height zero information offer candidate routes for the remaining
+unbounded estimate, but their complete numerical obligations still matter.
+
+In particular, approximate zero locations do not certify all zeros below a
+height. A rigorous approach needs validated function enclosures, signs or
+other root certificates, disjoint ordered brackets, and a completeness
+argument such as a verified zero-count comparison. Gamma factors,
+truncation errors, rounding bounds and coverage must be included. An
+external fast sign evaluation does not itself produce these formal facts.
+Shared transforms and convolution-based evaluators are promising, but their
+input authenticity and complete error budgets cannot be replaced by timing
+one integer multiplication or one endpoint comparison.
+
+\subsection{Measured costs and rejected approaches}
+The development host has two AArch64 Neoverse-N1 cores. The figures below
+are single-run component wall times, not confidence intervals, CPU billing
+or predictions for another runner. Warm dependency imports are included
+where a complete Lean process is timed; external generation is excluded
+unless explicitly stated. Sampled resident-memory readings can miss peaks.
+The companion \code{paper/conditional-resources.json} records the selected
+pilot results, their scope and hashes of the original measurement reports.
+Missing experiment-revision information is identified rather than inferred.
+
+\begin{center}\small
+\begin{tabular}{@{}L{.35\textwidth}L{.16\textwidth}L{.40\textwidth}@{}}
+\toprule
+Work measured & Wall time & Interpretation\\
+\midrule
+Packed count $\pi(X_0)$ & $5.09$ s & Exact count and saved Lean artifact\\
+Short-interval prefix & $75.7$ s & Eight batches combined\\
+Weak theta prefix & $700$ s & Twenty-six batches combined\\
+Packed count $\pi(30{,}000{,}000)$ & $27.52$ s & Count only, not a theta bound\\
+Low-height Euler sign/count block & $128.25$ s & Complete local block, not
+global zero completeness\\
+Packed real convolution, length $65{,}536$ & $32.81$ s & Nonnegative
+96-bit coefficients; no saved artifact or complex error semantics\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Individual primality certificates did not solve the bulk counting problem.
+For example, 64 Pocklington targets near $10^{10}$ took 6.81 seconds,
+including process/import cost; shared Pratt certificates took 8.97 seconds.
+The problem is not that one prime is intrinsically expensive. One needs
+complete counting or weighted-sum coverage over a large domain, with all
+reuse represented efficiently in the proof. A BPSW probable-prime test alone
+does not certify primality, and primality certificates alone do not prove
+that a list contains every relevant prime. ECPP was considered as a
+certificate alternative; no implemented end-to-end ECPP speedup is claimed.
+
+A Meissel-style census for a candidate count mesh through $3\cdot10^9$
+modeled 307,016,043 rows. At a measured 422.33 checked rows per second,
+checking contributed 8.41 serial days; estimated row-data elaboration added
+2.07 days, with 13.87 GiB of source. Data elaboration here is Lean's cost of
+loading the generated mathematical data, not the external script's run
+time. The roughly 252-worker-hour total omitted shared-table proofs,
+logarithmic bounds, theta reconstruction and zero verification. It was a
+finite counting scenario, not a previously complete ten-day Dusart proof.
+Packed sieve counts improve this component, but neither one count nor a
+linear extrapolation of the 30-million pilot prices the full three-billion
+theta band.
+
+Direct high-order Euler evaluation was also screened. Shared logarithms
+help, but moments still change between windows; a design with a long
+Euler prefix and a full radix trace creates enormous arithmetic and data
+volumes at high height. The measured low-height sign/count block therefore
+does not justify a bulk rollout. We rejected that layout for high-height
+verification, rather than extrapolating its first successful block as a
+feasible full proof.
+
+\subsection{Analytic height reduction and ongoing zero work}
+The relevant zero height is not immutable. Stronger reflected zero-sum
+envelopes and smoothing comparisons have reduced the screened height from
+the initial $10^9$ scale to a candidate $H=170{,}000{,}000$. This candidate
+still requires its finite analytic caps, continuous coverage and low-zero
+completeness hypotheses. Smaller-height experiments did not supply a
+replacement proof: a tested Stieltjes-envelope design at height
+$25{,}000{,}000$ attained a normalized error near $0.855$ in its difficult
+region, above the required $0.2$. Failure of that parameter search does
+not rule out all lower-height analytic methods.
+
+At $H=170{,}000{,}000$, the zero-count main term suggests roughly
+436 million positive zeros; this is a workload estimate, not a certified
+count. External 96-bit Arb evaluations of 17 nearby endpoint signs took
+about 0.0383 seconds, but omitted Lean checking and completeness. Even
+fast numerical signs and a supplied zero list do not eliminate the cost of
+authenticating those values and proving that no zeros were missed.
+
+A screened Gaussian-window/convolution scenario uses 41,504 windows and
+15 Taylor columns, hence 622,560 complex convolutions. Its dense layout
+has about $1.632\cdot10^{11}$ complex input cells: at two 96-bit components
+per cell, about 3.92 TB before outputs, syntax and metadata. That layout
+was rejected. Merely charging each complex convolution as one smaller
+real pilot already gives $622560\cdot32.81/3600\approx5674$ worker-hours.
+This deliberately incomplete proxy is not a valid total runtime forecast
+or a lower bound for all convolution algorithms; it demonstrates why the
+particular pilot cannot support a days-scale claim for the whole system.
+
+Ongoing formal infrastructure includes arbitrary-point Euler expansions,
+Gamma asymptotics with rational input interfaces, phase-projection sign
+criteria, rational radix-transform checking, and shared rounded-product
+and correlation error assembly. These prove semantic reductions and error
+propagation. They do not yet provide all concrete elementary-function
+enclosures, high-height sign margins, exceptional cases or the final
+zero-count comparison. Shared transforms and compact reconstruction may
+avoid the rejected dense representation; they require a measured complete
+sign-producing block and a full-domain cost census before selection.
+
+No measured feasible complete route for discharging $\mathcal H$ is claimed
+here. Parallel execution can reduce elapsed time only after independence,
+per-worker memory and total work have been established. Checkpointing
+preserves completed work but does not make an infeasible computation
+feasible. A future improvement must account for the whole path, including
+generation, formal checking, storage, import costs and completeness.
+For $N$ independent blocks costing $t$ worker-seconds and $m$ bytes each,
+$W$ memory-admissible workers have an ideal compute floor $Nt/W$, before
+communication, startup and dependencies; admissibility requires the
+aggregate working sets to fit available memory. Our operational budget
+permits days overall with jobs of at most six hours. Serial dependency
+chains prevent simultaneous large imports, and content-addressed
+checkpoints preserve completed units across unrelated commits. These are
+resource controls, not additional mathematical assumptions.
+
+\section{Trust boundary and reproducibility}
+The conditional theorem uses the usual Lean axioms
+\code{propext}, \code{Classical.choice} and \code{Quot.sound}.
+The retained analytic premise is an explicit theorem argument, not a
+project-local axiom. The certificate closure uses kernel-checked proofs;
+native evaluation is not used to establish this theorem. The assertion
+proved is $\mathcal H\Rightarrow\mathrm{CompleteClassification}$, not
+$\mathrm{CompleteClassification}$ alone.
+
+The version accompanying this paper identifies the exact theorem type,
+axiom report, dependency locks and source-addressed certificate units.
+Compiled artifacts are conveniences for reuse, not replacements for the
+source or the explicit hypothesis. The unconditional Challenge and Solution
+are separate entry points and are not certified by this conditional result.
+The original three-bound conditional entry point remains available for
+comparison, but this paper concerns only the single-theta theorem.
+
+\begin{center}\small
+Source commit: \texttt{@@COMMIT@@}\\
+Lean toolchain: \texttt{@@TOOLCHAIN@@}
+\end{center}
+
+\section{Conclusion}
+The classification for every positive $k$ is reduced in Lean to the single
+explicit estimate~\eqref{eq:hypothesis}, with its finite and infinite proof
+components retained. This isolates a reusable, fully specified conditional
+result while leaving the mathematical and computational burden of the
+unbounded theta estimate visible. Removing that argument requires its
+formal proof, not a weaker classification statement or an expanded hidden
+trust boundary.
+
+\begin{thebibliography}{9}
+\bibitem{Cambie} Stijn Cambie, \emph{Resolution of Erd\H{o}s' problems about
+unimodularity}, arXiv:2501.10333, 2025.
+\url{https://arxiv.org/abs/2501.10333}.
+\bibitem{WangCrapis} Shouqiao Wang and Davide Crapis,
+\emph{A Complete Answer to Erd\H{o}s Problem 690}, arXiv:2605.08542v1, 2026.
+\url{https://arxiv.org/abs/2605.08542v1}.
+\bibitem{Dusart} Pierre Dusart, \emph{Estimates of Some Functions over Primes
+without R.H.}, arXiv:1002.0442v1, 2010.
+\url{https://arxiv.org/abs/1002.0442v1}.
+\end{thebibliography}
+\end{document}
