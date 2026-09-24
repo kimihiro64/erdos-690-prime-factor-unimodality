@@ -1,6 +1,7 @@
 import PrimeFactorUnimodality.Helpers.Analytic.DusartCheckedThetaTrace
 import PrimeFactorUnimodality.Helpers.Analytic.DusartCheckpointVerification
 import PrimeFactorUnimodality.Helpers.Analytic.DusartEarlierCutoff
+import PrimeFactorUnimodality.Helpers.Analytic.DusartFrozenThetaCoverage
 import PrimeFactorUnimodality.Helpers.Analytic.DusartReducedZeroVerification
 import PrimeFactorUnimodality.Helpers.FiniteCertificates.KadiriTransformNumerical
 
@@ -9,9 +10,10 @@ import PrimeFactorUnimodality.Helpers.FiniteCertificates.KadiriTransformNumerica
 Only low-height verification and lower-band data remain explicit. The
 certified four-point transforms supply the endpoint chain in every consumer.
 The early analytic bridge reduces the lower-band endpoint to three billion.
-The assembled full theta ray still uses billion-height data. Independently,
-the unbounded far ray accepts every verified height from twenty-five million
-to a billion; only its earlier bounded band remains to be replaced.
+The original full-ray consumer retains its billion-height interface. New
+consumers accept a smaller verified height together with valid scalar rows
+covering the bounded logarithmic band. The unbounded tail and the early
+bridge then require no additional numerical data.
 -/
 
 namespace PrimeFactorUnimodality
@@ -52,6 +54,77 @@ theorem hasThetaLogSquaredError_far_of_verified_height {H : ℝ}
   apply hasThetaLogSquaredError_far_of_height_le (by linarith) hH₁ hlow
   intro z hz
   linarith [xi_zero_gap_six_of_verified_height hH hlow z hz]
+
+/-- Scalar rows replace the whole middle-band obligation at the selected verified height. -/
+theorem hasThetaLogSquaredError_above_earlier_cutoff_of_frozen_rows {H : ℝ}
+    {rows : List DusartFrozenThetaRow}
+    (hH : 25000000 ≤ H) (hH₁ : H ≤ 1000000000)
+    (hvalid : ∀ row ∈ rows, row.Valid H)
+    (hcoverage : DusartFrozenThetaRow.checkCoverage 25 5000 rows = true)
+    (hlow : ∀ z ∈ xiLowHeightIndices H,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) 3000000000 := by
+  have hsmall : ∀ z ∈ xiLowHeightIndices 25000000,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ) := by
+    intro z hz
+    apply hlow z
+    rw [mem_xiLowHeightIndices] at hz ⊢
+    exact hz.trans_le hH
+  have hjoin : Real.exp (25 : ℝ) ≤ 1441000000000 := by
+    calc
+      _ = Real.exp (1 : ℝ) ^ 25 := by rw [← Real.exp_nat_mul]; norm_num
+      _ ≤ (3 : ℝ) ^ 25 := pow_le_pow_left₀ (Real.exp_pos 1).le
+        (by linarith [Real.exp_one_lt_d9]) 25
+      _ ≤ _ := by norm_num
+  have hcover := DusartFrozenThetaRow.covers_of_checkCoverage hcoverage
+  have hreg : ∀ z : RiemannXiDivisorZeroIndex, H ≤ |(riemannXiDivisorZeroValue z).im| →
+      (riemannXiDivisorZeroValue z).re ≤
+        1 - 1 / (6 * Real.log |(riemannXiDivisorZeroValue z).im|) := by
+    intro z hz
+    linarith [xi_zero_gap_six_of_verified_height hH hlow z hz]
+  intro x hx
+  by_cases hearly : x ≤ 1441000000000
+  · exact abs_theta_sub_le_logSquared_billion_bridge hx hearly hsmall
+  by_cases hfar : Real.exp (5000 : ℝ) ≤ x
+  · exact hasThetaLogSquaredError_far_of_verified_height hH hH₁ hlow x hfar
+  · have hxpos : 0 < x := by linarith
+    have hlo := Real.log_le_log (Real.exp_pos 25) (hjoin.trans (le_of_not_ge hearly))
+    have hhi := Real.log_le_log hxpos (le_of_not_ge hfar)
+    rw [Real.log_exp] at hlo hhi
+    exact hcover.bound hvalid hH hH₁ hlow hreg hxpos (by simpa using hlo) (by simpa using hhi)
+
+/-- The published cutoff follows from lower finite data and the reduced-height row certificate. -/
+theorem hasThetaLogSquaredError_of_lower_band_and_frozen_rows {H : ℝ}
+    {rows : List DusartFrozenThetaRow}
+    (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 3000000000 →
+      |Chebyshev.theta x - x| ≤ (1 / 5 : ℝ) * x / Real.log x ^ 2)
+    (hH : 25000000 ≤ H) (hH₁ : H ≤ 1000000000)
+    (hvalid : ∀ row ∈ rows, row.Valid H)
+    (hcoverage : DusartFrozenThetaRow.checkCoverage 25 5000 rows = true)
+    (hlow : ∀ z ∈ xiLowHeightIndices H,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) 3594641 := by
+  intro x hx
+  by_cases h : x ≤ 3000000000
+  · exact finite x hx h
+  · exact hasThetaLogSquaredError_above_earlier_cutoff_of_frozen_rows
+      hH hH₁ hvalid hcoverage hlow x (le_of_not_ge h)
+
+/-- Complete zero-sign data and scalar rows feed the exact reduced-height Dusart provider. -/
+theorem hasThetaLogSquaredError_of_frozen_and_turing_rows {H b : ℚ}
+    {rows : List DusartFrozenThetaRow} {n : ℕ} {zeros : Fin n → XiSignRow}
+    (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 3000000000 →
+      |Chebyshev.theta x - x| ≤ (1 / 5 : ℝ) * x / Real.log x ^ 2)
+    (hH : 25000000 ≤ H) (hH₁ : H ≤ 1000000000)
+    (hvalid : ∀ row ∈ rows, row.Valid H)
+    (hcoverage : DusartFrozenThetaRow.checkCoverage 25 5000 rows = true)
+    (hzeros : XiSignRows.Valid zeros 0 b) (hb : H ≤ b)
+    (hmargin : xiZeroCountingMainIntegral b - xiZeroCountingMainIntegral H +
+      turingCountErrorBudget H b < (b : ℝ) - H + (XiSignRows.completedAreaRat zeros H b : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) 3594641 := by
+  have hlow := hzeros.low_criticalLine_of_turing_margin (by linarith : 32 ≤ H) hb hmargin
+  exact hasThetaLogSquaredError_of_lower_band_and_frozen_rows finite
+    (by exact_mod_cast hH) (by exact_mod_cast hH₁) hvalid hcoverage (fun z hz => (hlow z hz).le)
 
 /-- The complete upper theta ray has no numerical transform or high-region assumption. -/
 theorem hasThetaLogSquaredError_above_endpoint_of_verified_low

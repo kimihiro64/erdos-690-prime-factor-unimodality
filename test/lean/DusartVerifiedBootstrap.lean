@@ -10,6 +10,48 @@ noncomputable section
 
 open Real ThetaPrimeCheckpoint
 
+private def frozenTestRow (lo hi : ℚ) : DusartFrozenThetaRow := ⟨lo, hi, 3, 1 / 50000000, 157 / 25⟩
+
+example : DusartFrozenThetaRow.checkCoverage 25 5000 [] = false := by decide
+
+example : DusartFrozenThetaRow.checkCoverage 25 5000
+    [frozenTestRow 25 100, frozenTestRow 100 5000] = true := by decide
+
+example : DusartFrozenThetaRow.checkCoverage 25 5000
+    [frozenTestRow 25 100, frozenTestRow 101 5000] = false := by decide
+
+example : DusartFrozenThetaRow.checkCoverage 25 5000
+    [frozenTestRow 25 100, frozenTestRow 99 5000] = false := by decide
+
+example : DusartFrozenThetaRow.checkCoverage 25 5000
+    [frozenTestRow 25 100, frozenTestRow 100 99, frozenTestRow 99 5000] = false := by decide
+
+example {a b c : ℚ} {left right : List DusartFrozenThetaRow}
+    (hl : DusartFrozenThetaRow.Covers a b left) (hr : DusartFrozenThetaRow.Covers b c right) :
+    DusartFrozenThetaRow.Covers a c (left ++ right) := hl.append hr
+
+example {rows : List DusartFrozenThetaRow}
+    (hvalid : ∀ row ∈ rows, row.Valid 200000000)
+    (hcoverage : DusartFrozenThetaRow.checkCoverage 25 5000 rows = true)
+    (hlow : ∀ z ∈ xiLowHeightIndices 200000000,
+      (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) 3000000000 :=
+  hasThetaLogSquaredError_above_earlier_cutoff_of_frozen_rows
+    (by norm_num) (by norm_num) hvalid hcoverage hlow
+
+example {rows : List DusartFrozenThetaRow} {n : ℕ} {zeros : Fin n → XiSignRow} {b : ℚ}
+    (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 3000000000 →
+      |Chebyshev.theta x - x| ≤ (1 / 5 : ℝ) * x / log x ^ 2)
+    (hvalid : ∀ row ∈ rows, row.Valid 200000000)
+    (hcoverage : DusartFrozenThetaRow.checkCoverage 25 5000 rows = true)
+    (hzeros : XiSignRows.Valid zeros 0 b) (hb : 200000000 ≤ b)
+    (hmargin : xiZeroCountingMainIntegral b - xiZeroCountingMainIntegral 200000000 +
+      turingCountErrorBudget 200000000 b <
+        (b : ℝ) - 200000000 + (XiSignRows.completedAreaRat zeros 200000000 b : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) 3594641 :=
+  hasThetaLogSquaredError_of_frozen_and_turing_rows (H := 200000000) finite
+    (by norm_num) (by norm_num) (by simpa using hvalid) hcoverage hzeros hb hmargin
+
 example {H : ℝ} (hH : 25000000 ≤ H) (hH₁ : H ≤ 1000000000)
     (hlow : ∀ z ∈ xiLowHeightIndices H,
       (riemannXiDivisorZeroValue z).re ≤ (1 / 2 : ℝ)) :
