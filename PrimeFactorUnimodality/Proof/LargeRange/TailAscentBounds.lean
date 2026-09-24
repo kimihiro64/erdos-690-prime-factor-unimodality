@@ -56,7 +56,7 @@ private theorem log_log_r_gt_two {r : Nat} (hr : 38000 ≤ r) :
 /-- The core logarithmic comparison behind the ascent estimate, separated
 from the choice of reciprocal-prime error term. -/
 theorem tail_loglog_nine_primorial_lt_log_ratio
-    (thetaBounds : HasDusartThetaBounds)
+    (thetaBounds : HasTailThetaBounds)
     {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q)
     (qUpper : (q : Real) < (2519 / 2500 : Real) *
@@ -97,7 +97,7 @@ theorem tail_loglog_nine_primorial_lt_log_ratio
   simpa only [N] using ratioLog
 
 theorem tail_ascent_bracket_lt_log
-    (thetaBounds : HasDusartThetaBounds)
+    (thetaBounds : HasTailThetaBounds)
     {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q)
     (qUpper : (q : Real) < (2519 / 2500 : Real) *
@@ -145,7 +145,7 @@ theorem tail_ascent_bracket_lt_log
   nlinarith
 
 theorem tail_ascent_numeric
-    (thetaBounds : HasDusartThetaBounds)
+    (thetaBounds : HasTailThetaBounds)
     {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q)
     (qUpper : (q : Real) < (2519 / 2500 : Real) *

@@ -28,6 +28,31 @@ above `k - 1 ≤ 37999`. `RecordPrimeCountingReduction` checks this bridge in Le
 the old reciprocal certificates are preserved but are not required by this
 target.
 
+The original three hypotheses are unchanged. Internally, the uniform tail now
+uses only `theta(q) < 1.001 q` and the existing lower theta bound for `q ≥ 3501`.
+The selected-prime and primorial inequalities retain their original constants
+and the tail still starts at `k = 38001`. `HasDusartThetaBounds` implies this
+weaker interface; it is not redefined to mean a weaker published theorem.
+
+For the subsequent formalization stage, the log-square estimate
+`|theta(x) - x| ≤ x / (5 log(x)^2)` for `x ≥ 3594641` supplies both of these
+tail inequalities above that endpoint. Only the finite theta prefix
+`3501 ≤ q < 3594641` is then needed separately. The alternative all-k reduction
+`completeClassification_of_finite_prefix_and_logSquared` exposes this route
+without requiring the stronger theta upper estimate into the trillions. Its
+finite classification, prime-counting, short-interval, finite-theta-prefix and
+log-square inputs are still explicit obligations. This improvement does not
+prove the original stronger Dusart upper theorem or close the zero-verification
+and log-square finite-band obligations.
+
+`CompleteClassificationSquaredReduction` also composes the existing
+prime-counting and short-interval adapters with this weaker theta interface.
+Its `SquaredThetaFiniteInputs` lists the three bounded prefixes and both exact
+Abel anchor comparisons at 3,594,641. Given those inputs and the finite
+classification, the sole remaining unbounded analytic input is the shared
+log-square theta-error ray. This is a reduction of the remaining obligations,
+not a claim that their numerical certificates or the ray have been proved.
+
 ## Building and resuming
 
 The **Conditional all-k proof** workflow is manually dispatched and independent

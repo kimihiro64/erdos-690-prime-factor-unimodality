@@ -215,7 +215,7 @@ private theorem tail_log_sq_small {r : Nat} (hr : 38000 ≤ r) :
 `log r`.  This small public consequence is useful when comparing reciprocal
 prime error terms with a common denominator. -/
 theorem tail_log_r_lt_log_primorial
-    (thetaBounds : HasDusartThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
+    (thetaBounds : HasTailThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q) :
     Real.log r < Real.log (primorial q) := by
   have logRPos : 0 < Real.log r :=
@@ -243,7 +243,7 @@ theorem tail_log_r_lt_log_primorial
 /-- The elementary indexed-prime comparison lies below the selected
 primorial.  This closes both prefix side conditions of the CRT valley. -/
 theorem tail_primeUpper_le_primorial
-    (thetaBounds : HasDusartThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
+    (thetaBounds : HasTailThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q) :
     tailPrimeUpper r ≤ primorial q := by
   let L := Nat.log 2 r
@@ -281,7 +281,7 @@ theorem tail_primeUpper_le_primorial
 
 theorem tail_primeAt_le_primorial
     (primeCountingBounds : HasDusartPrimeCountingBounds)
-    (thetaBounds : HasDusartThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
+    (thetaBounds : HasTailThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q) :
     primeAt r ≤ primorial q :=
   (tail_primeAt_le_upper primeCountingBounds hr).trans
@@ -289,7 +289,7 @@ theorem tail_primeAt_le_primorial
 
 theorem tail_prefix_le_primorial
     (primeCountingBounds : HasDusartPrimeCountingBounds)
-    (thetaBounds : HasDusartThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
+    (thetaBounds : HasTailThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q) :
     primeAt (r - 1) - 1 ≤ primorial q := by
   exact (Nat.sub_le _ _).trans ((primeAt_strictMono.monotone (Nat.sub_le r 1)).trans
@@ -297,7 +297,7 @@ theorem tail_prefix_le_primorial
 
 theorem tail_descentDefined
     (primeCountingBounds : HasDusartPrimeCountingBounds)
-    (thetaBounds : HasDusartThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
+    (thetaBounds : HasTailThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q) :
     r ≤ Nat.primeCounting' (2 * primorial q + 1) - 1 := by
   have nextLe := tail_primeAt_le_primorial primeCountingBounds thetaBounds hr scaleLtQ

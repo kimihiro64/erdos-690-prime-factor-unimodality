@@ -73,7 +73,7 @@ private theorem closed_mertens_descent_expression {r : Nat}
   nlinarith
 
 theorem tail_descent_bracket_lower_closed_mertens
-    (thetaBounds : HasDusartThetaBounds)
+    (thetaBounds : HasTailThetaBounds)
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     {r q : Nat} (hr : 7300000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q) :
@@ -141,7 +141,7 @@ theorem tail_descent_bracket_lower_closed_mertens
   nlinarith
 
 theorem tail_descent_numeric_closed_mertens
-    (thetaBounds : HasDusartThetaBounds)
+    (thetaBounds : HasTailThetaBounds)
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     {r qPrev q : Nat} (hr : 7300000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q)
@@ -197,7 +197,7 @@ private theorem log_log_nat_gt_two_closed_mertens {r : Nat} (hr : 38000 ≤ r) :
   exact logNine.trans_le (Real.log_le_log (by norm_num) nineLt.le)
 
 private theorem tail_closed_mertens_ascent_error_small
-    (thetaBounds : HasDusartThetaBounds)
+    (thetaBounds : HasTailThetaBounds)
     {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q) :
     mertensErrorConstant /
@@ -222,7 +222,7 @@ private theorem tail_closed_mertens_ascent_error_small
   nlinarith [mertensErrorConstant_lt_901_div_100]
 
 theorem tail_ascent_bracket_lt_log_closed_mertens
-    (thetaBounds : HasDusartThetaBounds)
+    (thetaBounds : HasTailThetaBounds)
     {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q)
     (qUpper : (q : Real) < (2519 / 2500 : Real) *
@@ -239,7 +239,7 @@ theorem tail_ascent_bracket_lt_log_closed_mertens
   nlinarith
 
 theorem tail_ascent_numeric_closed_mertens
-    (thetaBounds : HasDusartThetaBounds)
+    (thetaBounds : HasTailThetaBounds)
     {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q)
     (qUpper : (q : Real) < (2519 / 2500 : Real) *

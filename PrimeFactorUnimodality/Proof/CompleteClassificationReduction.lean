@@ -47,16 +47,41 @@ theorem completeClassification_of_finite_record_range
 
 /-- Classification from the existing prefix through `38000` and the uniform
 CRT tail. The full megagap is not an input to this assembly. -/
+theorem completeClassification_of_finite_prefix_and_tailTheta
+    (finiteRange : ∀ k : Nat, 1 ≤ k → k ≤ 38000 →
+      (IsUnimodal (primeFactorDensity k) ↔ k ≤ 3))
+    (primeCountingBounds : HasDusartPrimeCountingBounds)
+    (thetaBounds : HasTailThetaBounds)
+    (tailPair : HasUniformTailPrimePair) : CompleteClassification := by
+  exact completeClassification_of_finite_range_and_tail
+    38000 (by omega) finiteRange (fun k hkTail =>
+      uniformTail_not_isUnimodal_of_tailTheta primeCountingBounds thetaBounds
+        tailPair (k := k) (by omega))
+
+/-- Preserve the original public analytic interface while using the weaker
+theta requirements internally. -/
 theorem completeClassification_of_finite_prefix_and_primeCounting
     (finiteRange : ∀ k : Nat, 1 ≤ k → k ≤ 38000 →
       (IsUnimodal (primeFactorDensity k) ↔ k ≤ 3))
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     (thetaBounds : HasDusartThetaBounds)
-    (tailPair : HasUniformTailPrimePair) : CompleteClassification := by
-  exact completeClassification_of_finite_range_and_tail
-    38000 (by omega) finiteRange (fun k hkTail =>
-      uniformTail_not_isUnimodal_closed_mertens primeCountingBounds thetaBounds
-        tailPair (k := k) (by omega))
+    (tailPair : HasUniformTailPrimePair) : CompleteClassification :=
+  completeClassification_of_finite_prefix_and_tailTheta finiteRange primeCountingBounds
+    (hasTailThetaBounds_of_dusart thetaBounds) tailPair
+
+/-- A log-square theta error and a finite prefix suffice in place of the
+stronger theta package. The prime-counting and short-interval obligations
+remain explicit, as does the finite classification. -/
+theorem completeClassification_of_finite_prefix_and_logSquared
+    (finiteRange : ∀ k : Nat, 1 ≤ k → k ≤ 38000 →
+      (IsUnimodal (primeFactorDensity k) ↔ k ≤ 3))
+    (primeCountingBounds : HasDusartPrimeCountingBounds)
+    (thetaPrefix : ∀ q : Nat, 3501 ≤ q → q < 3594641 → TailThetaAt q)
+    (thetaError : HasThetaLogSquaredError (1 / 5) 3594641)
+    (shortInterval : HasDusartShortIntervalPrime) : CompleteClassification :=
+  completeClassification_of_finite_prefix_and_tailTheta finiteRange primeCountingBounds
+    (hasTailThetaBounds_of_logSquared thetaPrefix thetaError)
+    (hasUniformTailPrimePair_of_shortInterval shortInterval)
 
 end
 

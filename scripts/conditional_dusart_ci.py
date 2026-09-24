@@ -62,9 +62,8 @@ def check_axioms(output: str) -> None:
 
 
 def audit(root: Path, scratch: Path) -> None:
-    subprocess.run(
-        ["lake", "env", "lean", "test/lean/ConditionalDusart.lean"], cwd=root, check=True
-    )
+    for source in ("TailThetaBounds", "ConditionalDusart"):
+        subprocess.run(["lake", "env", "lean", f"test/lean/{source}.lean"], cwd=root, check=True)
     probe = scratch / "ConditionalAxioms.lean"
     probe.write_text(f"import {TARGET}\n#print axioms {THEOREM}\n")
     result = subprocess.run(

@@ -150,7 +150,7 @@ sharp Dusart reciprocal error or the coarser proved Mertens error.  Keeping
 this estimate separate lets both analytic providers share the same prime and
 primorial argument. -/
 theorem tail_descent_loglog_shell_lower_sharp
-    (thetaBounds : HasDusartThetaBounds)
+    (thetaBounds : HasTailThetaBounds)
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q) :
@@ -229,7 +229,7 @@ theorem tail_descent_loglog_shell_lower_sharp
   nlinarith
 
 theorem tail_descent_loglog_shell_lower
-    (thetaBounds : HasDusartThetaBounds)
+    (thetaBounds : HasTailThetaBounds)
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q) :
@@ -260,7 +260,7 @@ theorem dusartReciprocalError_lt_one_div_500 {x : Nat}
 /-- Uniform lower bound for the logarithmic shell appearing in the descent
 weight. -/
 theorem tail_descent_bracket_lower
-    (thetaBounds : HasDusartThetaBounds)
+    (thetaBounds : HasTailThetaBounds)
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q) :
@@ -352,7 +352,7 @@ theorem tail_descent_bracket_lower
   nlinarith
 
 theorem tail_descent_numeric
-    (thetaBounds : HasDusartThetaBounds)
+    (thetaBounds : HasTailThetaBounds)
     (primeCountingBounds : HasDusartPrimeCountingBounds)
     {r qPrev q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q)

@@ -18,9 +18,9 @@ namespace PrimeFactorUnimodality
 
 noncomputable section
 
-theorem uniformTail_not_isUnimodal_closed_mertens
+theorem uniformTail_not_isUnimodal_of_tailTheta
     (primeCountingBounds : HasDusartPrimeCountingBounds)
-    (thetaBounds : HasDusartThetaBounds)
+    (thetaBounds : HasTailThetaBounds)
     (tailPair : HasUniformTailPrimePair)
     {k : Nat} (hk : 38001 ≤ k) :
     ¬ IsUnimodal (primeFactorDensity k) := by
@@ -70,7 +70,18 @@ theorem uniformTail_not_isUnimodal_closed_mertens
       linarith
     exact (mul_le_mul_of_nonneg_left upper
       (show (0 : Real) ≤ (tailGapBound q : Real) by positivity)).trans_lt
-      (by simpa only [r] using ascent)
+        (by simpa only [r] using ascent)
+
+/-- The original Dusart boundary is preserved as an adapter to the weaker
+theta requirements of the same uniform construction. -/
+theorem uniformTail_not_isUnimodal_closed_mertens
+    (primeCountingBounds : HasDusartPrimeCountingBounds)
+    (thetaBounds : HasDusartThetaBounds)
+    (tailPair : HasUniformTailPrimePair)
+    {k : Nat} (hk : 38001 ≤ k) :
+    ¬ IsUnimodal (primeFactorDensity k) :=
+  uniformTail_not_isUnimodal_of_tailTheta primeCountingBounds
+    (hasTailThetaBounds_of_dusart thetaBounds) tailPair hk
 
 end
 

@@ -72,7 +72,7 @@ theorem tail_ten_mul_le_prefix (bounds : HasDusartPrimeCountingBounds)
       Nat.count_nth_succ_of_infinite Nat.infinite_setOfPred_prime (r - 1)
   omega
 
-theorem tail_descent_shell_numeric (thetaBounds : HasDusartThetaBounds)
+theorem tail_descent_shell_numeric (thetaBounds : HasTailThetaBounds)
     (bounds : HasDusartPrimeCountingBounds) {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q) :
     (2519 / 4910 : Real) * Real.log r <
@@ -117,7 +117,7 @@ theorem tail_descent_shell_numeric (thetaBounds : HasDusartThetaBounds)
   nlinarith
 
 theorem tail_descent_numeric_of_primeCounting
-    (thetaBounds : HasDusartThetaBounds) (bounds : HasDusartPrimeCountingBounds)
+    (thetaBounds : HasTailThetaBounds) (bounds : HasDusartPrimeCountingBounds)
     {r qPrev q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q)
     (scalePrev : (491 / 500 : Real) * r / Real.log r <

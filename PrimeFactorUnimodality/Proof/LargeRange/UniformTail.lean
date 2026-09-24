@@ -20,6 +20,7 @@ theorem uniformTail_not_isUnimodal
     (tailPair : HasUniformTailPrimePair)
     {k : Nat} (hk : 38001 ≤ k) :
     ¬ IsUnimodal (primeFactorDensity k) := by
+  have thetaBounds := hasTailThetaBounds_of_dusart thetaBounds
   let r := k - 1
   have hr : 38000 ≤ r := by dsimp only [r]; omega
   obtain ⟨qPrev, q, consecutive, prevLarge, scaleLtQ, qUpper, scalePrev⟩ :=

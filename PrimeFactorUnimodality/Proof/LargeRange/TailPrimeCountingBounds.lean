@@ -95,7 +95,7 @@ private theorem tail_primorial_dominates_log_sq {q : Nat}
 /-- The wider shell `(4P,9P]` contains enough primes to force an average gap
 strictly below `tailGapBound q`. -/
 theorem tail_primeCounting_shell_numeric
-    (thetaBounds : HasDusartThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
+    (thetaBounds : HasTailThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q)
     (qUpper : (q : Real) < (2519 / 2500 : Real) *
       ((491 / 500 : Real) * r / Real.log r)) :

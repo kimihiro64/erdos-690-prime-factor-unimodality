@@ -1,4 +1,4 @@
-import PrimeFactorUnimodality.Helpers.Analytic.ExplicitThetaBounds
+import PrimeFactorUnimodality.Helpers.Analytic.TailThetaBounds
 import PrimeFactorUnimodality.Proof.LargeRange.TailStructuralBounds
 
 set_option autoImplicit false
@@ -7,7 +7,7 @@ set_option autoImplicit false
 
 This file converts the rational localization of the selected prime into the
 two logarithmic estimates used by the CRT construction.  All deep analytic
-content remains isolated in `HasDusartThetaBounds`.
+content remains isolated in `HasTailThetaBounds`.
 -/
 
 namespace PrimeFactorUnimodality
@@ -51,12 +51,11 @@ theorem tail_thetaRelativeError_lt_sharp {r q : Nat} (hr : 38000 ≤ r)
 /-- The selected primorial has logarithm at least `0.84` times the tail
 scale.  The deliberately rounded constant leaves room for later algebra. -/
 theorem tail_log_primorial_lower
-    (thetaBounds : HasDusartThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
+    (thetaBounds : HasTailThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q) :
     (21 / 25 : Real) * ((491 / 500 : Real) * r / Real.log r) <
       Real.log (primorial q) := by
   have qLarge := tail_selected_prime_ge_3501 hr scaleLtQ
-  have qGtTwo : 2 < q := by omega
   have errorLt := tail_thetaRelativeError_lt hr scaleLtQ
   have factorLower : (21 / 25 : Real) <
       1 - (12323 / 10000 : Real) / Real.log q := by
@@ -73,15 +72,14 @@ theorem tail_log_primorial_lower
       rw [mul_comm (21 / 25 : Real) q]
       exact mul_lt_mul_of_pos_left factorLower qPosReal
     _ < Real.log (primorial q) :=
-      dusart_lower_lt_log_primorial thetaBounds q qGtTwo
+      tailTheta_log_primorial_lower thetaBounds qLarge
 
 theorem tail_log_primorial_lower_sharp
-    (thetaBounds : HasDusartThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
+    (thetaBounds : HasTailThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q) :
     (106 / 125 : Real) * ((491 / 500 : Real) * r / Real.log r) <
       Real.log (primorial q) := by
   have qLarge := tail_selected_prime_ge_3501 hr scaleLtQ
-  have qGtTwo : 2 < q := by omega
   have errorLt := tail_thetaRelativeError_lt_sharp hr scaleLtQ
   have factorLower : (106 / 125 : Real) <
       1 - (12323 / 10000 : Real) / Real.log q := by
@@ -96,7 +94,7 @@ theorem tail_log_primorial_lower_sharp
       rw [mul_comm (106 / 125 : Real) q]
       exact mul_lt_mul_of_pos_left factorLower qPosReal
     _ < Real.log (primorial q) :=
-      dusart_lower_lt_log_primorial thetaBounds q qGtTwo
+      tailTheta_log_primorial_lower thetaBounds qLarge
 
 private theorem log_eight_lt_21_div_10 :
     Real.log 8 < (21 : Real) / 10 := by
@@ -104,9 +102,9 @@ private theorem log_eight_lt_21_div_10 :
   nlinarith [Real.log_two_lt_d9]
 
 /-- If the selected prime is within the rationalized short interval, then
-`log (8P)` is below `1.009` times the tail scale. -/
+`log (8P)` is below `1.01` times the tail scale. -/
 theorem tail_log_eight_primorial_upper
-    (thetaBounds : HasDusartThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
+    (thetaBounds : HasTailThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q)
     (qUpper : (q : Real) < (2519 / 2500 : Real) *
       ((491 / 500 : Real) * r / Real.log r)) :
@@ -116,14 +114,16 @@ theorem tail_log_eight_primorial_upper
   have xLower : (3500 : Real) < x := by
     simpa only [x] using tailScale_gt_3500 hr
   have xPos : 0 < x := by linarith
-  have qPos : 0 < q := by
-    have : (0 : Real) < q := xPos.trans (by simpa only [x] using scaleLtQ)
-    exact_mod_cast this
-  have thetaUpper := log_eight_mul_primorial_lt_of_dusart thetaBounds q qPos
+  have qLarge := tail_selected_prime_ge_3501 hr scaleLtQ
+  have thetaUpper : Real.log (8 * primorial q) <
+      Real.log 8 + (1001 / 1000 : Real) * q := by
+    calc
+      _ = Real.log 8 + Real.log (primorial q) := log_mul_primorial 8 q (by omega)
+      _ < _ := by linarith [tailTheta_log_primorial_upper thetaBounds qLarge]
   have qTerm :
-      (q : Real) * (1 + 1 / 36260) <
-        ((2519 / 2500 : Real) * x) * (1 + 1 / 36260) := by
-    exact mul_lt_mul_of_pos_right (by simpa only [x] using qUpper) (by norm_num)
+      (1001 / 1000 : Real) * q <
+        (1001 / 1000 : Real) * ((2519 / 2500 : Real) * x) := by
+    exact mul_lt_mul_of_pos_left (by simpa only [x] using qUpper) (by norm_num)
   have logEightSmall : Real.log 8 < (1 / 1000 : Real) * x := by
     have : (21 / 10 : Real) < (1 / 1000 : Real) * x := by
       nlinarith
@@ -139,7 +139,7 @@ private theorem log_nine_lt_22_div_10 :
 /-- The slightly wider `(4P,9P]` average-gap shell has the same convenient
 `1.01` logarithmic upper bound. -/
 theorem tail_log_nine_primorial_upper
-    (thetaBounds : HasDusartThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
+    (thetaBounds : HasTailThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q)
     (qUpper : (q : Real) < (2519 / 2500 : Real) *
       ((491 / 500 : Real) * r / Real.log r)) :
@@ -149,20 +149,16 @@ theorem tail_log_nine_primorial_upper
   have xLower : (3500 : Real) < x := by
     simpa only [x] using tailScale_gt_3500 hr
   have xPos : 0 < x := by linarith
-  have qPos : 0 < q := by
-    have : (0 : Real) < q := xPos.trans (by simpa only [x] using scaleLtQ)
-    exact_mod_cast this
+  have qLarge := tail_selected_prime_ge_3501 hr scaleLtQ
   have thetaUpper : Real.log (9 * primorial q) <
-      Real.log 9 + (q : Real) * (1 + 1 / 36260) := by
+      Real.log 9 + (1001 / 1000 : Real) * q := by
     calc
-      Real.log (9 * primorial q) = Real.log 9 + Real.log (primorial q) :=
-        log_mul_primorial 9 q (by omega)
-      _ < Real.log 9 + (q : Real) * (1 + 1 / 36260) :=
-        add_lt_add_right (log_primorial_lt_of_dusart thetaBounds q qPos) _
+      _ = Real.log 9 + Real.log (primorial q) := log_mul_primorial 9 q (by omega)
+      _ < _ := by linarith [tailTheta_log_primorial_upper thetaBounds qLarge]
   have qTerm :
-      (q : Real) * (1 + 1 / 36260) <
-        ((2519 / 2500 : Real) * x) * (1 + 1 / 36260) := by
-    exact mul_lt_mul_of_pos_right (by simpa only [x] using qUpper) (by norm_num)
+      (1001 / 1000 : Real) * q <
+        (1001 / 1000 : Real) * ((2519 / 2500 : Real) * x) := by
+    exact mul_lt_mul_of_pos_left (by simpa only [x] using qUpper) (by norm_num)
   have logNineSmall : Real.log 9 < (7 / 10000 : Real) * x := by
     have : (22 / 10 : Real) < (7 / 10000 : Real) * x := by
       nlinarith
@@ -171,7 +167,7 @@ theorem tail_log_nine_primorial_upper
   nlinarith
 
 theorem tail_log_nine_primorial_lt_gapBound
-    (thetaBounds : HasDusartThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
+    (thetaBounds : HasTailThetaBounds) {r q : Nat} (hr : 38000 ≤ r)
     (scaleLtQ : (491 / 500 : Real) * r / Real.log r < q)
     (qUpper : (q : Real) < (2519 / 2500 : Real) *
       ((491 / 500 : Real) * r / Real.log r)) :
