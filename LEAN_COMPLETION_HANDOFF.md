@@ -5,7 +5,45 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: the two published Abel anchors are discharged (2026-09-24)
+## Latest increment: the published prime-counting prefix is discharged (2026-09-24)
+
+`DusartPublishedPiPrefix` proves `HasDusartRealPrimeCountingBoundsBelow 3594641`.
+The existing closed prefix through 1,000 is extended with 2,093 compact rows
+in nine serial modules. The extra exclusive endpoint 3,594,642 includes every
+required real input at the published cutoff. This is not just an integer test.
+
+The reusable `PrimeCountingHalfOpen` interface fixes a genuine row-design
+obstruction: at `[1626,1627)`, the correct upper count is 257, not the count 258
+at the excluded prime endpoint. Its coverage theorem selects the next cell
+at a shared endpoint. `PrimeCountingSieveRows` checks exact local increments
+against one certified packed sieve, avoiding repeated prefix counting.
+No new axioms, native evaluation or per-prime witness files are used.
+
+The 256-row pilot passed in 21.19 seconds, with 3,507,444 KiB peak RSS,
+22,956 source bytes and a saved 1,983,144-byte olean. The nine actual replay
+modules passed in about 208 seconds combined; the facade passed in 8.6 seconds.
+The generator uses adaptive widths and exact rational arithmetic, rather than
+testing every candidate endpoint. Its tests fix the full row count, coverage,
+semantic hash, jump boundary, sufficient local counting depth and output parity.
+
+`DusartPublishedPrimeCounting` exports
+`PrimeFactorUnimodality.hasDusartPrimeCountingBounds_of_logSquared_ray`, supplying the global counting
+result from the single unbounded theta-error ray. The prefix, endpoint count
+and two Abel anchors are discharged internally. `SquaredThetaFiniteInputs`
+therefore has only **two** fields now: the short-interval prefix and finite
+theta prefix. The all-k reduction still requires the finite classification
+and unbounded theta ray; it is not an unconditional theorem. The separate
+three-Dusart conditional release still awaits its full twin-chain build and
+final audit. CI has not been re-enabled or dispatched.
+
+The strengthened all-k reduction builds, both Lean regression files pass, and
+all five audited theorem closures contain only the standard logical axioms.
+An unused `DusartPrimeCountingAssembly` import was removed from the closed
+small-prefix module: it unnecessarily loaded the external PNT pipeline and
+collided with the tail's vendored Euler--Maclaurin declarations. A source-graph
+regression now keeps that unbounded pipeline out of the finite count proof.
+
+## Previous increment: the two published Abel anchors are discharged (2026-09-24)
 
 `DusartPublishedAnchors` proves both exact Abel comparisons at 3,594,641
 from the log-square theta estimate already required by the provider and the

@@ -6,15 +6,15 @@ open PrimeFactorUnimodality
 
 example : Nat.primeCounting 3594641 = 256357 := dusart_published_prime_count
 
-example (piPrefix : HasDusartRealPrimeCountingBoundsBelow 3594641)
-    (error : HasThetaLogSquaredError (1 / 5) 3594641) : HasDusartPrimeCountingBounds :=
-  hasDusartPrimeCountingBounds_of_published_logSquared_count
-    dusart_published_prime_count piPrefix error
+example : HasDusartRealPrimeCountingBoundsBelow 3594641 :=
+  dusart_published_primeCountingPrefix
 
-example (piPrefix : HasDusartRealPrimeCountingBoundsBelow 3594641)
-    (short : HasDusartShortIntervalPrimeBelow 3594641)
+example (error : HasThetaLogSquaredError (1 / 5) 3594641) : HasDusartPrimeCountingBounds :=
+  hasDusartPrimeCountingBounds_of_logSquared_ray error
+
+example (short : HasDusartShortIntervalPrimeBelow 3594641)
     (theta : ∀ q : Nat, 3501 ≤ q → q < 3594641 → TailThetaAt q) :
-    SquaredThetaFiniteInputs := ⟨piPrefix, short, theta⟩
+    SquaredThetaFiniteInputs := ⟨short, theta⟩
 
 example (finiteRange : ∀ k : Nat, 1 ≤ k → k ≤ 38000 →
       (IsUnimodal (primeFactorDensity k) ↔ k ≤ 3))
