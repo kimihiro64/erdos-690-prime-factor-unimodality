@@ -6,7 +6,7 @@ Authors: Jonas Whidden
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Exp.Monomial
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma
-import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gaussian.PolynomialMoments
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gaussian
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrability.LogCauchy
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrals
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.AffineRatio

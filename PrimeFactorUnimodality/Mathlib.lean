@@ -1,6 +1,7 @@
 import PrimeFactorUnimodality.Mathlib.Algebra
 import PrimeFactorUnimodality.Mathlib.Analysis.Analytic.Order.Conjugation
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex
+import PrimeFactorUnimodality.Mathlib.Analysis.Complex.HorizontalIntegral
 import PrimeFactorUnimodality.Mathlib.Analysis.Complex.RationalPoint
 import PrimeFactorUnimodality.Mathlib.Analysis.Fourier
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions

@@ -5,7 +5,33 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: corrected displaced Gamma integrals (2026-09-24)
+## Latest analytic increment: the rightward Fourier contour shift is proved (2026-09-24)
+
+`Gamma.StripBound` derives the uniform positive-strip estimate directly from
+Euler's integral and convexity. `Gaussian.PolynomialDecay` supplies the limit
+of every natural power times a decaying Gaussian. The reusable
+`Complex.HorizontalIntegral` proves contour transport from Cauchy-Goursat on
+finite rectangles and the limits of their actual connecting-edge integrals.
+
+`PlattContourEdgeBound` proves the necessary uniform estimate throughout the
+entire downward strip, not just at its endpoints. `PlattContourRightShift`
+proves holomorphy, both edge limits and equality of the actual Fourier transform
+with the displaced integral. Consequently the earlier positive displaced
+integral bound is now a theorem about the genuine Fourier transform, with its
+exact frequency decay and Gaussian shift cost. This covers every natural
+order, `m >= 1`, `t0 >= 0`, `h > 0`, and every real frequency; it decays in the
+positive-frequency direction. No contour equality is assumed as a premise.
+
+All new modules and both regression files pass. Twelve theorem closures,
+including the final Fourier identity and decay bound, use only the standard
+logical axioms. The explicit `m=1`, `k=0`, `t0=1000`, `h=u=1` regression checks
+the exponent `25/8 - 5*pi`. No numerical certificate is needed for the edge
+limits. The negative-frequency shift still requires the Gamma residues crossed
+by that contour, as well as its own connecting-edge argument. Periodization,
+truncation, interpolation, the zeta-transform identity and verified zero data
+also remain open; this is not a completed Dusart theorem or release gate.
+
+## Previous increment: corrected displaced Gamma integrals (2026-09-24)
 
 `Gamma.NegativeHalfNorm` proves a uniform negative-to-positive half-integer
 Gamma norm comparison with factor `8/3`, sharpened to `1` for `m >= 2`.

@@ -7,6 +7,7 @@ import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.DigammaCon
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.Measurable
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.NegativeHalfNorm
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.QuarterNorm
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.StripBound
 
 /-! # Reusable Gamma-function identities and bounds
 
