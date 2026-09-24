@@ -5,8 +5,9 @@ Authors: Jonas Whidden
 -/
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gaussian.PolynomialDecay
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gaussian.PolynomialMoments
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gaussian.RapidDecay
 
 /-! # Polynomial Gaussian integrals and limits
 
-Export the exact moment formulas and the decay needed for contour edges.
+Export exact moment formulas, contour-edge limits and two-sided rapid decay.
 -/

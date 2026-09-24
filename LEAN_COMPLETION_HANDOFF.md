@@ -5,7 +5,39 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: the leftward contour and all residues are proved (2026-09-24)
+## Latest analytic increment: Fourier aliasing and Poisson summation are proved (2026-09-24)
+
+`PlattFourierEnvelope` combines both actual contour bounds into a finite sum
+of decaying exponentials. It retains every crossed residue and the `8/3`
+first-shift correction. `Fourier.ExponentialAliasing` proves convergence of
+the full integer lattice sum and an explicit central-term error, by exact
+geometric summation. `PlattFourierAliasing` supplies the resulting bound
+`2 * sum_i (c_i * exp(-a_i*A/2) / (1-exp(-a_i*A)))` for every `A > 0`
+and `|u| <= A/2`, at every natural kernel order and admissible contour shift.
+This gives the frequency-aliasing error needed in Platt's step (4), without
+assuming an infinite-tail estimate or dropping residue terms.
+
+`Gaussian.RapidDecay` proves two-sided polynomial Gaussian decay against
+every real power. `Fourier.Scaling` proves the exact real dilation identity,
+including the absolute inverse scale. With these and the proved frequency
+summability, `PlattWindowPoisson` discharges the hypotheses of Mathlib's
+Poisson theorem. Its final identity is for the actual Gamma-window kernel,
+all natural orders, `t0 >= 0`, `h > 0`, every period `B > 0`, and every real
+evaluation point. Neither summability nor the Fourier identity is an assumed
+premise of that theorem.
+
+All six new modules, both export facades and two regressions pass. Seventeen
+theorem closures use only the standard logical axioms. The regressions check
+signed scaling, the first-shift correction, the first residue coefficient,
+and the full periodization statements at arbitrary order and period.
+
+Still missing are the time-side truncation error, later transform truncation,
+interpolation, the actual zeta-transform connection, numerical error transport,
+and verified zero signs/completeness. The existing numerical error screens
+are not validated zero certificates. This increment does not close Dusart or
+claim that the full conditional all-k release gate has passed.
+
+## Previous increment: the leftward contour and all residues are proved (2026-09-24)
 
 The accompanying certificate check found an elaborator bottleneck in the first
 zero-valued upper seed chunk, part 456. Its original `rfl` replay ran for
