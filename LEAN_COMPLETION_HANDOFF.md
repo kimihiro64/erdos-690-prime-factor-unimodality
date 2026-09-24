@@ -5,7 +5,31 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: finite sinc interpolation and grid reuse (2026-09-24)
+## Latest analytic increment: complex Stirling support (2026-09-24)
+
+`Complex.LogStirlingLimit` combines Mathlib's real Stirling limit with the
+existing complex shift limit. It retains the exact real constant
+`log (2*pi)/2`, not just the phase. `Complex.ShiftedReciprocal` proves
+horizontal reciprocal-power derivatives, right-half-plane nonvanishing,
+continuity, a real-part norm majorant and integrability above order one.
+The majorant is for convergence; it is not a precision-efficient remainder
+bound at large imaginary height.
+
+Both modules and their facade build. The focused `GammaStirlingSupport`
+regression passes, including an endpoint limit outside the right half-plane,
+order-zero and order-two derivatives, and the ray endpoint. All seven new
+theorem closures use only the standard three Lean axioms. The complete
+complex Gamma approximation and its higher-order Bernoulli remainder still
+need assembly; these support lemmas do not close that obligation.
+
+The requested inspection of the existing long-running certificate builds
+found no remaining Lean workers. Both full conditional all-k targets have
+already completed, including their regression and final axiom audits:
+`CompleteClassificationConditional` (5,041 jobs) and
+`CompleteClassificationSquaredConditional` (5,291 jobs). Neither was restarted.
+Their success does not discharge their explicit Dusart assumptions.
+
+## Earlier analytic increment: finite sinc interpolation and grid reuse (2026-09-24)
 
 The new `Fourier.SincSampling` candidate derives the sinc kernel from the
 central-cell phase integral and uses modulation plus Mathlib's Poisson theorem

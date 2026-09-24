@@ -9,11 +9,13 @@ import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.GroupedE
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.GroupedRounding
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogHeightBounds
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogShiftLimit
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogStirlingLimit
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.LogTrapezoid
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.RotationError
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Complex.ShiftedReciprocal
 
 /-! # Complex logarithmic special-function candidates
 
-Export height-decaying norm and argument bounds, shifted logarithmic
-limits and explicit logarithmic trapezoid errors.
+Export height-decaying norm and argument bounds, full complex Stirling
+normalization, reciprocal-power tails and explicit logarithmic trapezoid errors.
 -/
