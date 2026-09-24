@@ -10,367 +10,247 @@ namespace PrimeFactorUnimodality
 
 theorem recordUpperSeedTailGroup11_semantic :
     recordUpperSeedTailChunk440State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix440 := by
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix440 := by
   have h401 : recordUpperSeedTailChunk401State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix401 := by
-    have prior : recordUpperSeedTailChunk401Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix400 := by
-      simpa only [
-        recordUpperSeedTailChunk401Before,
-        recordUpperSeedTailChunk400State] using recordUpperSeedTailGroup10_semantic
-    simpa only [recordUpperSeedTailPrefix401] using
-      recordUpperSeedTailChunk401Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix401 := by
+    have boundary : recordUpperSeedTailChunk401Before =
+        recordUpperSeedTailChunk400State := by rfl
+    exact recordUpperSeedTailChunk401Step.certifies
+      (boundary.trans recordUpperSeedTailGroup10_semantic)
   have h402 : recordUpperSeedTailChunk402State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix402 := by
-    have prior : recordUpperSeedTailChunk402Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix401 := by
-      simpa only [
-        recordUpperSeedTailChunk402Before,
-        recordUpperSeedTailChunk401State] using h401
-    simpa only [recordUpperSeedTailPrefix402] using
-      recordUpperSeedTailChunk402Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix402 := by
+    have boundary : recordUpperSeedTailChunk402Before =
+        recordUpperSeedTailChunk401State := by rfl
+    exact recordUpperSeedTailChunk402Step.certifies
+      (boundary.trans h401)
   have h403 : recordUpperSeedTailChunk403State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix403 := by
-    have prior : recordUpperSeedTailChunk403Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix402 := by
-      simpa only [
-        recordUpperSeedTailChunk403Before,
-        recordUpperSeedTailChunk402State] using h402
-    simpa only [recordUpperSeedTailPrefix403] using
-      recordUpperSeedTailChunk403Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix403 := by
+    have boundary : recordUpperSeedTailChunk403Before =
+        recordUpperSeedTailChunk402State := by rfl
+    exact recordUpperSeedTailChunk403Step.certifies
+      (boundary.trans h402)
   have h404 : recordUpperSeedTailChunk404State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix404 := by
-    have prior : recordUpperSeedTailChunk404Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix403 := by
-      simpa only [
-        recordUpperSeedTailChunk404Before,
-        recordUpperSeedTailChunk403State] using h403
-    simpa only [recordUpperSeedTailPrefix404] using
-      recordUpperSeedTailChunk404Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix404 := by
+    have boundary : recordUpperSeedTailChunk404Before =
+        recordUpperSeedTailChunk403State := by rfl
+    exact recordUpperSeedTailChunk404Step.certifies
+      (boundary.trans h403)
   have h405 : recordUpperSeedTailChunk405State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix405 := by
-    have prior : recordUpperSeedTailChunk405Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix404 := by
-      simpa only [
-        recordUpperSeedTailChunk405Before,
-        recordUpperSeedTailChunk404State] using h404
-    simpa only [recordUpperSeedTailPrefix405] using
-      recordUpperSeedTailChunk405Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix405 := by
+    have boundary : recordUpperSeedTailChunk405Before =
+        recordUpperSeedTailChunk404State := by rfl
+    exact recordUpperSeedTailChunk405Step.certifies
+      (boundary.trans h404)
   have h406 : recordUpperSeedTailChunk406State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix406 := by
-    have prior : recordUpperSeedTailChunk406Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix405 := by
-      simpa only [
-        recordUpperSeedTailChunk406Before,
-        recordUpperSeedTailChunk405State] using h405
-    simpa only [recordUpperSeedTailPrefix406] using
-      recordUpperSeedTailChunk406Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix406 := by
+    have boundary : recordUpperSeedTailChunk406Before =
+        recordUpperSeedTailChunk405State := by rfl
+    exact recordUpperSeedTailChunk406Step.certifies
+      (boundary.trans h405)
   have h407 : recordUpperSeedTailChunk407State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix407 := by
-    have prior : recordUpperSeedTailChunk407Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix406 := by
-      simpa only [
-        recordUpperSeedTailChunk407Before,
-        recordUpperSeedTailChunk406State] using h406
-    simpa only [recordUpperSeedTailPrefix407] using
-      recordUpperSeedTailChunk407Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix407 := by
+    have boundary : recordUpperSeedTailChunk407Before =
+        recordUpperSeedTailChunk406State := by rfl
+    exact recordUpperSeedTailChunk407Step.certifies
+      (boundary.trans h406)
   have h408 : recordUpperSeedTailChunk408State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix408 := by
-    have prior : recordUpperSeedTailChunk408Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix407 := by
-      simpa only [
-        recordUpperSeedTailChunk408Before,
-        recordUpperSeedTailChunk407State] using h407
-    simpa only [recordUpperSeedTailPrefix408] using
-      recordUpperSeedTailChunk408Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix408 := by
+    have boundary : recordUpperSeedTailChunk408Before =
+        recordUpperSeedTailChunk407State := by rfl
+    exact recordUpperSeedTailChunk408Step.certifies
+      (boundary.trans h407)
   have h409 : recordUpperSeedTailChunk409State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix409 := by
-    have prior : recordUpperSeedTailChunk409Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix408 := by
-      simpa only [
-        recordUpperSeedTailChunk409Before,
-        recordUpperSeedTailChunk408State] using h408
-    simpa only [recordUpperSeedTailPrefix409] using
-      recordUpperSeedTailChunk409Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix409 := by
+    have boundary : recordUpperSeedTailChunk409Before =
+        recordUpperSeedTailChunk408State := by rfl
+    exact recordUpperSeedTailChunk409Step.certifies
+      (boundary.trans h408)
   have h410 : recordUpperSeedTailChunk410State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix410 := by
-    have prior : recordUpperSeedTailChunk410Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix409 := by
-      simpa only [
-        recordUpperSeedTailChunk410Before,
-        recordUpperSeedTailChunk409State] using h409
-    simpa only [recordUpperSeedTailPrefix410] using
-      recordUpperSeedTailChunk410Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix410 := by
+    have boundary : recordUpperSeedTailChunk410Before =
+        recordUpperSeedTailChunk409State := by rfl
+    exact recordUpperSeedTailChunk410Step.certifies
+      (boundary.trans h409)
   have h411 : recordUpperSeedTailChunk411State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix411 := by
-    have prior : recordUpperSeedTailChunk411Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix410 := by
-      simpa only [
-        recordUpperSeedTailChunk411Before,
-        recordUpperSeedTailChunk410State] using h410
-    simpa only [recordUpperSeedTailPrefix411] using
-      recordUpperSeedTailChunk411Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix411 := by
+    have boundary : recordUpperSeedTailChunk411Before =
+        recordUpperSeedTailChunk410State := by rfl
+    exact recordUpperSeedTailChunk411Step.certifies
+      (boundary.trans h410)
   have h412 : recordUpperSeedTailChunk412State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix412 := by
-    have prior : recordUpperSeedTailChunk412Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix411 := by
-      simpa only [
-        recordUpperSeedTailChunk412Before,
-        recordUpperSeedTailChunk411State] using h411
-    simpa only [recordUpperSeedTailPrefix412] using
-      recordUpperSeedTailChunk412Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix412 := by
+    have boundary : recordUpperSeedTailChunk412Before =
+        recordUpperSeedTailChunk411State := by rfl
+    exact recordUpperSeedTailChunk412Step.certifies
+      (boundary.trans h411)
   have h413 : recordUpperSeedTailChunk413State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix413 := by
-    have prior : recordUpperSeedTailChunk413Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix412 := by
-      simpa only [
-        recordUpperSeedTailChunk413Before,
-        recordUpperSeedTailChunk412State] using h412
-    simpa only [recordUpperSeedTailPrefix413] using
-      recordUpperSeedTailChunk413Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix413 := by
+    have boundary : recordUpperSeedTailChunk413Before =
+        recordUpperSeedTailChunk412State := by rfl
+    exact recordUpperSeedTailChunk413Step.certifies
+      (boundary.trans h412)
   have h414 : recordUpperSeedTailChunk414State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix414 := by
-    have prior : recordUpperSeedTailChunk414Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix413 := by
-      simpa only [
-        recordUpperSeedTailChunk414Before,
-        recordUpperSeedTailChunk413State] using h413
-    simpa only [recordUpperSeedTailPrefix414] using
-      recordUpperSeedTailChunk414Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix414 := by
+    have boundary : recordUpperSeedTailChunk414Before =
+        recordUpperSeedTailChunk413State := by rfl
+    exact recordUpperSeedTailChunk414Step.certifies
+      (boundary.trans h413)
   have h415 : recordUpperSeedTailChunk415State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix415 := by
-    have prior : recordUpperSeedTailChunk415Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix414 := by
-      simpa only [
-        recordUpperSeedTailChunk415Before,
-        recordUpperSeedTailChunk414State] using h414
-    simpa only [recordUpperSeedTailPrefix415] using
-      recordUpperSeedTailChunk415Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix415 := by
+    have boundary : recordUpperSeedTailChunk415Before =
+        recordUpperSeedTailChunk414State := by rfl
+    exact recordUpperSeedTailChunk415Step.certifies
+      (boundary.trans h414)
   have h416 : recordUpperSeedTailChunk416State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix416 := by
-    have prior : recordUpperSeedTailChunk416Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix415 := by
-      simpa only [
-        recordUpperSeedTailChunk416Before,
-        recordUpperSeedTailChunk415State] using h415
-    simpa only [recordUpperSeedTailPrefix416] using
-      recordUpperSeedTailChunk416Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix416 := by
+    have boundary : recordUpperSeedTailChunk416Before =
+        recordUpperSeedTailChunk415State := by rfl
+    exact recordUpperSeedTailChunk416Step.certifies
+      (boundary.trans h415)
   have h417 : recordUpperSeedTailChunk417State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix417 := by
-    have prior : recordUpperSeedTailChunk417Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix416 := by
-      simpa only [
-        recordUpperSeedTailChunk417Before,
-        recordUpperSeedTailChunk416State] using h416
-    simpa only [recordUpperSeedTailPrefix417] using
-      recordUpperSeedTailChunk417Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix417 := by
+    have boundary : recordUpperSeedTailChunk417Before =
+        recordUpperSeedTailChunk416State := by rfl
+    exact recordUpperSeedTailChunk417Step.certifies
+      (boundary.trans h416)
   have h418 : recordUpperSeedTailChunk418State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix418 := by
-    have prior : recordUpperSeedTailChunk418Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix417 := by
-      simpa only [
-        recordUpperSeedTailChunk418Before,
-        recordUpperSeedTailChunk417State] using h417
-    simpa only [recordUpperSeedTailPrefix418] using
-      recordUpperSeedTailChunk418Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix418 := by
+    have boundary : recordUpperSeedTailChunk418Before =
+        recordUpperSeedTailChunk417State := by rfl
+    exact recordUpperSeedTailChunk418Step.certifies
+      (boundary.trans h417)
   have h419 : recordUpperSeedTailChunk419State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix419 := by
-    have prior : recordUpperSeedTailChunk419Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix418 := by
-      simpa only [
-        recordUpperSeedTailChunk419Before,
-        recordUpperSeedTailChunk418State] using h418
-    simpa only [recordUpperSeedTailPrefix419] using
-      recordUpperSeedTailChunk419Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix419 := by
+    have boundary : recordUpperSeedTailChunk419Before =
+        recordUpperSeedTailChunk418State := by rfl
+    exact recordUpperSeedTailChunk419Step.certifies
+      (boundary.trans h418)
   have h420 : recordUpperSeedTailChunk420State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix420 := by
-    have prior : recordUpperSeedTailChunk420Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix419 := by
-      simpa only [
-        recordUpperSeedTailChunk420Before,
-        recordUpperSeedTailChunk419State] using h419
-    simpa only [recordUpperSeedTailPrefix420] using
-      recordUpperSeedTailChunk420Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix420 := by
+    have boundary : recordUpperSeedTailChunk420Before =
+        recordUpperSeedTailChunk419State := by rfl
+    exact recordUpperSeedTailChunk420Step.certifies
+      (boundary.trans h419)
   have h421 : recordUpperSeedTailChunk421State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix421 := by
-    have prior : recordUpperSeedTailChunk421Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix420 := by
-      simpa only [
-        recordUpperSeedTailChunk421Before,
-        recordUpperSeedTailChunk420State] using h420
-    simpa only [recordUpperSeedTailPrefix421] using
-      recordUpperSeedTailChunk421Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix421 := by
+    have boundary : recordUpperSeedTailChunk421Before =
+        recordUpperSeedTailChunk420State := by rfl
+    exact recordUpperSeedTailChunk421Step.certifies
+      (boundary.trans h420)
   have h422 : recordUpperSeedTailChunk422State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix422 := by
-    have prior : recordUpperSeedTailChunk422Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix421 := by
-      simpa only [
-        recordUpperSeedTailChunk422Before,
-        recordUpperSeedTailChunk421State] using h421
-    simpa only [recordUpperSeedTailPrefix422] using
-      recordUpperSeedTailChunk422Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix422 := by
+    have boundary : recordUpperSeedTailChunk422Before =
+        recordUpperSeedTailChunk421State := by rfl
+    exact recordUpperSeedTailChunk422Step.certifies
+      (boundary.trans h421)
   have h423 : recordUpperSeedTailChunk423State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix423 := by
-    have prior : recordUpperSeedTailChunk423Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix422 := by
-      simpa only [
-        recordUpperSeedTailChunk423Before,
-        recordUpperSeedTailChunk422State] using h422
-    simpa only [recordUpperSeedTailPrefix423] using
-      recordUpperSeedTailChunk423Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix423 := by
+    have boundary : recordUpperSeedTailChunk423Before =
+        recordUpperSeedTailChunk422State := by rfl
+    exact recordUpperSeedTailChunk423Step.certifies
+      (boundary.trans h422)
   have h424 : recordUpperSeedTailChunk424State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix424 := by
-    have prior : recordUpperSeedTailChunk424Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix423 := by
-      simpa only [
-        recordUpperSeedTailChunk424Before,
-        recordUpperSeedTailChunk423State] using h423
-    simpa only [recordUpperSeedTailPrefix424] using
-      recordUpperSeedTailChunk424Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix424 := by
+    have boundary : recordUpperSeedTailChunk424Before =
+        recordUpperSeedTailChunk423State := by rfl
+    exact recordUpperSeedTailChunk424Step.certifies
+      (boundary.trans h423)
   have h425 : recordUpperSeedTailChunk425State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix425 := by
-    have prior : recordUpperSeedTailChunk425Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix424 := by
-      simpa only [
-        recordUpperSeedTailChunk425Before,
-        recordUpperSeedTailChunk424State] using h424
-    simpa only [recordUpperSeedTailPrefix425] using
-      recordUpperSeedTailChunk425Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix425 := by
+    have boundary : recordUpperSeedTailChunk425Before =
+        recordUpperSeedTailChunk424State := by rfl
+    exact recordUpperSeedTailChunk425Step.certifies
+      (boundary.trans h424)
   have h426 : recordUpperSeedTailChunk426State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix426 := by
-    have prior : recordUpperSeedTailChunk426Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix425 := by
-      simpa only [
-        recordUpperSeedTailChunk426Before,
-        recordUpperSeedTailChunk425State] using h425
-    simpa only [recordUpperSeedTailPrefix426] using
-      recordUpperSeedTailChunk426Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix426 := by
+    have boundary : recordUpperSeedTailChunk426Before =
+        recordUpperSeedTailChunk425State := by rfl
+    exact recordUpperSeedTailChunk426Step.certifies
+      (boundary.trans h425)
   have h427 : recordUpperSeedTailChunk427State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix427 := by
-    have prior : recordUpperSeedTailChunk427Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix426 := by
-      simpa only [
-        recordUpperSeedTailChunk427Before,
-        recordUpperSeedTailChunk426State] using h426
-    simpa only [recordUpperSeedTailPrefix427] using
-      recordUpperSeedTailChunk427Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix427 := by
+    have boundary : recordUpperSeedTailChunk427Before =
+        recordUpperSeedTailChunk426State := by rfl
+    exact recordUpperSeedTailChunk427Step.certifies
+      (boundary.trans h426)
   have h428 : recordUpperSeedTailChunk428State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix428 := by
-    have prior : recordUpperSeedTailChunk428Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix427 := by
-      simpa only [
-        recordUpperSeedTailChunk428Before,
-        recordUpperSeedTailChunk427State] using h427
-    simpa only [recordUpperSeedTailPrefix428] using
-      recordUpperSeedTailChunk428Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix428 := by
+    have boundary : recordUpperSeedTailChunk428Before =
+        recordUpperSeedTailChunk427State := by rfl
+    exact recordUpperSeedTailChunk428Step.certifies
+      (boundary.trans h427)
   have h429 : recordUpperSeedTailChunk429State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix429 := by
-    have prior : recordUpperSeedTailChunk429Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix428 := by
-      simpa only [
-        recordUpperSeedTailChunk429Before,
-        recordUpperSeedTailChunk428State] using h428
-    simpa only [recordUpperSeedTailPrefix429] using
-      recordUpperSeedTailChunk429Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix429 := by
+    have boundary : recordUpperSeedTailChunk429Before =
+        recordUpperSeedTailChunk428State := by rfl
+    exact recordUpperSeedTailChunk429Step.certifies
+      (boundary.trans h428)
   have h430 : recordUpperSeedTailChunk430State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix430 := by
-    have prior : recordUpperSeedTailChunk430Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix429 := by
-      simpa only [
-        recordUpperSeedTailChunk430Before,
-        recordUpperSeedTailChunk429State] using h429
-    simpa only [recordUpperSeedTailPrefix430] using
-      recordUpperSeedTailChunk430Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix430 := by
+    have boundary : recordUpperSeedTailChunk430Before =
+        recordUpperSeedTailChunk429State := by rfl
+    exact recordUpperSeedTailChunk430Step.certifies
+      (boundary.trans h429)
   have h431 : recordUpperSeedTailChunk431State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix431 := by
-    have prior : recordUpperSeedTailChunk431Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix430 := by
-      simpa only [
-        recordUpperSeedTailChunk431Before,
-        recordUpperSeedTailChunk430State] using h430
-    simpa only [recordUpperSeedTailPrefix431] using
-      recordUpperSeedTailChunk431Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix431 := by
+    have boundary : recordUpperSeedTailChunk431Before =
+        recordUpperSeedTailChunk430State := by rfl
+    exact recordUpperSeedTailChunk431Step.certifies
+      (boundary.trans h430)
   have h432 : recordUpperSeedTailChunk432State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix432 := by
-    have prior : recordUpperSeedTailChunk432Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix431 := by
-      simpa only [
-        recordUpperSeedTailChunk432Before,
-        recordUpperSeedTailChunk431State] using h431
-    simpa only [recordUpperSeedTailPrefix432] using
-      recordUpperSeedTailChunk432Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix432 := by
+    have boundary : recordUpperSeedTailChunk432Before =
+        recordUpperSeedTailChunk431State := by rfl
+    exact recordUpperSeedTailChunk432Step.certifies
+      (boundary.trans h431)
   have h433 : recordUpperSeedTailChunk433State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix433 := by
-    have prior : recordUpperSeedTailChunk433Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix432 := by
-      simpa only [
-        recordUpperSeedTailChunk433Before,
-        recordUpperSeedTailChunk432State] using h432
-    simpa only [recordUpperSeedTailPrefix433] using
-      recordUpperSeedTailChunk433Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix433 := by
+    have boundary : recordUpperSeedTailChunk433Before =
+        recordUpperSeedTailChunk432State := by rfl
+    exact recordUpperSeedTailChunk433Step.certifies
+      (boundary.trans h432)
   have h434 : recordUpperSeedTailChunk434State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix434 := by
-    have prior : recordUpperSeedTailChunk434Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix433 := by
-      simpa only [
-        recordUpperSeedTailChunk434Before,
-        recordUpperSeedTailChunk433State] using h433
-    simpa only [recordUpperSeedTailPrefix434] using
-      recordUpperSeedTailChunk434Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix434 := by
+    have boundary : recordUpperSeedTailChunk434Before =
+        recordUpperSeedTailChunk433State := by rfl
+    exact recordUpperSeedTailChunk434Step.certifies
+      (boundary.trans h433)
   have h435 : recordUpperSeedTailChunk435State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix435 := by
-    have prior : recordUpperSeedTailChunk435Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix434 := by
-      simpa only [
-        recordUpperSeedTailChunk435Before,
-        recordUpperSeedTailChunk434State] using h434
-    simpa only [recordUpperSeedTailPrefix435] using
-      recordUpperSeedTailChunk435Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix435 := by
+    have boundary : recordUpperSeedTailChunk435Before =
+        recordUpperSeedTailChunk434State := by rfl
+    exact recordUpperSeedTailChunk435Step.certifies
+      (boundary.trans h434)
   have h436 : recordUpperSeedTailChunk436State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix436 := by
-    have prior : recordUpperSeedTailChunk436Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix435 := by
-      simpa only [
-        recordUpperSeedTailChunk436Before,
-        recordUpperSeedTailChunk435State] using h435
-    simpa only [recordUpperSeedTailPrefix436] using
-      recordUpperSeedTailChunk436Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix436 := by
+    have boundary : recordUpperSeedTailChunk436Before =
+        recordUpperSeedTailChunk435State := by rfl
+    exact recordUpperSeedTailChunk436Step.certifies
+      (boundary.trans h435)
   have h437 : recordUpperSeedTailChunk437State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix437 := by
-    have prior : recordUpperSeedTailChunk437Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix436 := by
-      simpa only [
-        recordUpperSeedTailChunk437Before,
-        recordUpperSeedTailChunk436State] using h436
-    simpa only [recordUpperSeedTailPrefix437] using
-      recordUpperSeedTailChunk437Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix437 := by
+    have boundary : recordUpperSeedTailChunk437Before =
+        recordUpperSeedTailChunk436State := by rfl
+    exact recordUpperSeedTailChunk437Step.certifies
+      (boundary.trans h436)
   have h438 : recordUpperSeedTailChunk438State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix438 := by
-    have prior : recordUpperSeedTailChunk438Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix437 := by
-      simpa only [
-        recordUpperSeedTailChunk438Before,
-        recordUpperSeedTailChunk437State] using h437
-    simpa only [recordUpperSeedTailPrefix438] using
-      recordUpperSeedTailChunk438Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix438 := by
+    have boundary : recordUpperSeedTailChunk438Before =
+        recordUpperSeedTailChunk437State := by rfl
+    exact recordUpperSeedTailChunk438Step.certifies
+      (boundary.trans h437)
   have h439 : recordUpperSeedTailChunk439State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix439 := by
-    have prior : recordUpperSeedTailChunk439Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix438 := by
-      simpa only [
-        recordUpperSeedTailChunk439Before,
-        recordUpperSeedTailChunk438State] using h438
-    simpa only [recordUpperSeedTailPrefix439] using
-      recordUpperSeedTailChunk439Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix439 := by
+    have boundary : recordUpperSeedTailChunk439Before =
+        recordUpperSeedTailChunk438State := by rfl
+    exact recordUpperSeedTailChunk439Step.certifies
+      (boundary.trans h438)
   have h440 : recordUpperSeedTailChunk440State =
-      (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix440 := by
-    have prior : recordUpperSeedTailChunk440Before =
-        (recordUpperWitnessBase) ^ recordUpperSeedTailPrefix439 := by
-      simpa only [
-        recordUpperSeedTailChunk440Before,
-        recordUpperSeedTailChunk439State] using h439
-    simpa only [recordUpperSeedTailPrefix440] using
-      recordUpperSeedTailChunk440Step.certifies prior
+      (recordUpperWitnessBase : ZMod recordUpper) ^ recordUpperSeedTailPrefix440 := by
+    have boundary : recordUpperSeedTailChunk440Before =
+        recordUpperSeedTailChunk439State := by rfl
+    exact recordUpperSeedTailChunk440Step.certifies
+      (boundary.trans h439)
   exact h440
 
 end PrimeFactorUnimodality

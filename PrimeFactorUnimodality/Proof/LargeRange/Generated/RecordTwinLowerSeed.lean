@@ -13,12 +13,10 @@ set_option maxHeartbeats 0 in
 -- Normalization checks that the complete chunk prefix is the shared exponent.
 theorem recordLower_seedExponent_eq_prefix :
     recordSeedExponent = recordLowerSeedTailPrefix463 := by
-  set_option exponentiation.threshold 5000 in
-    norm_num [recordSeedExponent, recordFactor, recordBase,
-      recordLowerSeedTailPrefix463]
+  rfl
 
 theorem recordLower_seed_pow :
-    (BLSPrimality.alpha recordLower) ^ recordSeedExponent = recordLowerSeed := by
+    (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordSeedExponent = recordLowerSeed := by
   rw [recordLower_seedExponent_eq_prefix, recordLowerSeed]
   exact recordLowerSeedTailGroup12_semantic.symm
 

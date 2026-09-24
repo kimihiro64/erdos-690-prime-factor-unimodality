@@ -10,367 +10,247 @@ namespace PrimeFactorUnimodality
 
 theorem recordLowerSeedTailGroup08_semantic :
     recordLowerSeedTailChunk320State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix320 := by
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix320 := by
   have h281 : recordLowerSeedTailChunk281State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix281 := by
-    have prior : recordLowerSeedTailChunk281Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix280 := by
-      simpa only [
-        recordLowerSeedTailChunk281Before,
-        recordLowerSeedTailChunk280State] using recordLowerSeedTailGroup07_semantic
-    simpa only [recordLowerSeedTailPrefix281] using
-      recordLowerSeedTailChunk281Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix281 := by
+    have boundary : recordLowerSeedTailChunk281Before =
+        recordLowerSeedTailChunk280State := by rfl
+    exact recordLowerSeedTailChunk281Step.certifies
+      (boundary.trans recordLowerSeedTailGroup07_semantic)
   have h282 : recordLowerSeedTailChunk282State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix282 := by
-    have prior : recordLowerSeedTailChunk282Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix281 := by
-      simpa only [
-        recordLowerSeedTailChunk282Before,
-        recordLowerSeedTailChunk281State] using h281
-    simpa only [recordLowerSeedTailPrefix282] using
-      recordLowerSeedTailChunk282Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix282 := by
+    have boundary : recordLowerSeedTailChunk282Before =
+        recordLowerSeedTailChunk281State := by rfl
+    exact recordLowerSeedTailChunk282Step.certifies
+      (boundary.trans h281)
   have h283 : recordLowerSeedTailChunk283State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix283 := by
-    have prior : recordLowerSeedTailChunk283Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix282 := by
-      simpa only [
-        recordLowerSeedTailChunk283Before,
-        recordLowerSeedTailChunk282State] using h282
-    simpa only [recordLowerSeedTailPrefix283] using
-      recordLowerSeedTailChunk283Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix283 := by
+    have boundary : recordLowerSeedTailChunk283Before =
+        recordLowerSeedTailChunk282State := by rfl
+    exact recordLowerSeedTailChunk283Step.certifies
+      (boundary.trans h282)
   have h284 : recordLowerSeedTailChunk284State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix284 := by
-    have prior : recordLowerSeedTailChunk284Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix283 := by
-      simpa only [
-        recordLowerSeedTailChunk284Before,
-        recordLowerSeedTailChunk283State] using h283
-    simpa only [recordLowerSeedTailPrefix284] using
-      recordLowerSeedTailChunk284Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix284 := by
+    have boundary : recordLowerSeedTailChunk284Before =
+        recordLowerSeedTailChunk283State := by rfl
+    exact recordLowerSeedTailChunk284Step.certifies
+      (boundary.trans h283)
   have h285 : recordLowerSeedTailChunk285State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix285 := by
-    have prior : recordLowerSeedTailChunk285Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix284 := by
-      simpa only [
-        recordLowerSeedTailChunk285Before,
-        recordLowerSeedTailChunk284State] using h284
-    simpa only [recordLowerSeedTailPrefix285] using
-      recordLowerSeedTailChunk285Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix285 := by
+    have boundary : recordLowerSeedTailChunk285Before =
+        recordLowerSeedTailChunk284State := by rfl
+    exact recordLowerSeedTailChunk285Step.certifies
+      (boundary.trans h284)
   have h286 : recordLowerSeedTailChunk286State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix286 := by
-    have prior : recordLowerSeedTailChunk286Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix285 := by
-      simpa only [
-        recordLowerSeedTailChunk286Before,
-        recordLowerSeedTailChunk285State] using h285
-    simpa only [recordLowerSeedTailPrefix286] using
-      recordLowerSeedTailChunk286Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix286 := by
+    have boundary : recordLowerSeedTailChunk286Before =
+        recordLowerSeedTailChunk285State := by rfl
+    exact recordLowerSeedTailChunk286Step.certifies
+      (boundary.trans h285)
   have h287 : recordLowerSeedTailChunk287State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix287 := by
-    have prior : recordLowerSeedTailChunk287Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix286 := by
-      simpa only [
-        recordLowerSeedTailChunk287Before,
-        recordLowerSeedTailChunk286State] using h286
-    simpa only [recordLowerSeedTailPrefix287] using
-      recordLowerSeedTailChunk287Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix287 := by
+    have boundary : recordLowerSeedTailChunk287Before =
+        recordLowerSeedTailChunk286State := by rfl
+    exact recordLowerSeedTailChunk287Step.certifies
+      (boundary.trans h286)
   have h288 : recordLowerSeedTailChunk288State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix288 := by
-    have prior : recordLowerSeedTailChunk288Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix287 := by
-      simpa only [
-        recordLowerSeedTailChunk288Before,
-        recordLowerSeedTailChunk287State] using h287
-    simpa only [recordLowerSeedTailPrefix288] using
-      recordLowerSeedTailChunk288Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix288 := by
+    have boundary : recordLowerSeedTailChunk288Before =
+        recordLowerSeedTailChunk287State := by rfl
+    exact recordLowerSeedTailChunk288Step.certifies
+      (boundary.trans h287)
   have h289 : recordLowerSeedTailChunk289State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix289 := by
-    have prior : recordLowerSeedTailChunk289Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix288 := by
-      simpa only [
-        recordLowerSeedTailChunk289Before,
-        recordLowerSeedTailChunk288State] using h288
-    simpa only [recordLowerSeedTailPrefix289] using
-      recordLowerSeedTailChunk289Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix289 := by
+    have boundary : recordLowerSeedTailChunk289Before =
+        recordLowerSeedTailChunk288State := by rfl
+    exact recordLowerSeedTailChunk289Step.certifies
+      (boundary.trans h288)
   have h290 : recordLowerSeedTailChunk290State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix290 := by
-    have prior : recordLowerSeedTailChunk290Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix289 := by
-      simpa only [
-        recordLowerSeedTailChunk290Before,
-        recordLowerSeedTailChunk289State] using h289
-    simpa only [recordLowerSeedTailPrefix290] using
-      recordLowerSeedTailChunk290Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix290 := by
+    have boundary : recordLowerSeedTailChunk290Before =
+        recordLowerSeedTailChunk289State := by rfl
+    exact recordLowerSeedTailChunk290Step.certifies
+      (boundary.trans h289)
   have h291 : recordLowerSeedTailChunk291State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix291 := by
-    have prior : recordLowerSeedTailChunk291Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix290 := by
-      simpa only [
-        recordLowerSeedTailChunk291Before,
-        recordLowerSeedTailChunk290State] using h290
-    simpa only [recordLowerSeedTailPrefix291] using
-      recordLowerSeedTailChunk291Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix291 := by
+    have boundary : recordLowerSeedTailChunk291Before =
+        recordLowerSeedTailChunk290State := by rfl
+    exact recordLowerSeedTailChunk291Step.certifies
+      (boundary.trans h290)
   have h292 : recordLowerSeedTailChunk292State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix292 := by
-    have prior : recordLowerSeedTailChunk292Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix291 := by
-      simpa only [
-        recordLowerSeedTailChunk292Before,
-        recordLowerSeedTailChunk291State] using h291
-    simpa only [recordLowerSeedTailPrefix292] using
-      recordLowerSeedTailChunk292Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix292 := by
+    have boundary : recordLowerSeedTailChunk292Before =
+        recordLowerSeedTailChunk291State := by rfl
+    exact recordLowerSeedTailChunk292Step.certifies
+      (boundary.trans h291)
   have h293 : recordLowerSeedTailChunk293State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix293 := by
-    have prior : recordLowerSeedTailChunk293Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix292 := by
-      simpa only [
-        recordLowerSeedTailChunk293Before,
-        recordLowerSeedTailChunk292State] using h292
-    simpa only [recordLowerSeedTailPrefix293] using
-      recordLowerSeedTailChunk293Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix293 := by
+    have boundary : recordLowerSeedTailChunk293Before =
+        recordLowerSeedTailChunk292State := by rfl
+    exact recordLowerSeedTailChunk293Step.certifies
+      (boundary.trans h292)
   have h294 : recordLowerSeedTailChunk294State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix294 := by
-    have prior : recordLowerSeedTailChunk294Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix293 := by
-      simpa only [
-        recordLowerSeedTailChunk294Before,
-        recordLowerSeedTailChunk293State] using h293
-    simpa only [recordLowerSeedTailPrefix294] using
-      recordLowerSeedTailChunk294Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix294 := by
+    have boundary : recordLowerSeedTailChunk294Before =
+        recordLowerSeedTailChunk293State := by rfl
+    exact recordLowerSeedTailChunk294Step.certifies
+      (boundary.trans h293)
   have h295 : recordLowerSeedTailChunk295State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix295 := by
-    have prior : recordLowerSeedTailChunk295Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix294 := by
-      simpa only [
-        recordLowerSeedTailChunk295Before,
-        recordLowerSeedTailChunk294State] using h294
-    simpa only [recordLowerSeedTailPrefix295] using
-      recordLowerSeedTailChunk295Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix295 := by
+    have boundary : recordLowerSeedTailChunk295Before =
+        recordLowerSeedTailChunk294State := by rfl
+    exact recordLowerSeedTailChunk295Step.certifies
+      (boundary.trans h294)
   have h296 : recordLowerSeedTailChunk296State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix296 := by
-    have prior : recordLowerSeedTailChunk296Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix295 := by
-      simpa only [
-        recordLowerSeedTailChunk296Before,
-        recordLowerSeedTailChunk295State] using h295
-    simpa only [recordLowerSeedTailPrefix296] using
-      recordLowerSeedTailChunk296Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix296 := by
+    have boundary : recordLowerSeedTailChunk296Before =
+        recordLowerSeedTailChunk295State := by rfl
+    exact recordLowerSeedTailChunk296Step.certifies
+      (boundary.trans h295)
   have h297 : recordLowerSeedTailChunk297State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix297 := by
-    have prior : recordLowerSeedTailChunk297Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix296 := by
-      simpa only [
-        recordLowerSeedTailChunk297Before,
-        recordLowerSeedTailChunk296State] using h296
-    simpa only [recordLowerSeedTailPrefix297] using
-      recordLowerSeedTailChunk297Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix297 := by
+    have boundary : recordLowerSeedTailChunk297Before =
+        recordLowerSeedTailChunk296State := by rfl
+    exact recordLowerSeedTailChunk297Step.certifies
+      (boundary.trans h296)
   have h298 : recordLowerSeedTailChunk298State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix298 := by
-    have prior : recordLowerSeedTailChunk298Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix297 := by
-      simpa only [
-        recordLowerSeedTailChunk298Before,
-        recordLowerSeedTailChunk297State] using h297
-    simpa only [recordLowerSeedTailPrefix298] using
-      recordLowerSeedTailChunk298Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix298 := by
+    have boundary : recordLowerSeedTailChunk298Before =
+        recordLowerSeedTailChunk297State := by rfl
+    exact recordLowerSeedTailChunk298Step.certifies
+      (boundary.trans h297)
   have h299 : recordLowerSeedTailChunk299State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix299 := by
-    have prior : recordLowerSeedTailChunk299Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix298 := by
-      simpa only [
-        recordLowerSeedTailChunk299Before,
-        recordLowerSeedTailChunk298State] using h298
-    simpa only [recordLowerSeedTailPrefix299] using
-      recordLowerSeedTailChunk299Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix299 := by
+    have boundary : recordLowerSeedTailChunk299Before =
+        recordLowerSeedTailChunk298State := by rfl
+    exact recordLowerSeedTailChunk299Step.certifies
+      (boundary.trans h298)
   have h300 : recordLowerSeedTailChunk300State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix300 := by
-    have prior : recordLowerSeedTailChunk300Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix299 := by
-      simpa only [
-        recordLowerSeedTailChunk300Before,
-        recordLowerSeedTailChunk299State] using h299
-    simpa only [recordLowerSeedTailPrefix300] using
-      recordLowerSeedTailChunk300Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix300 := by
+    have boundary : recordLowerSeedTailChunk300Before =
+        recordLowerSeedTailChunk299State := by rfl
+    exact recordLowerSeedTailChunk300Step.certifies
+      (boundary.trans h299)
   have h301 : recordLowerSeedTailChunk301State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix301 := by
-    have prior : recordLowerSeedTailChunk301Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix300 := by
-      simpa only [
-        recordLowerSeedTailChunk301Before,
-        recordLowerSeedTailChunk300State] using h300
-    simpa only [recordLowerSeedTailPrefix301] using
-      recordLowerSeedTailChunk301Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix301 := by
+    have boundary : recordLowerSeedTailChunk301Before =
+        recordLowerSeedTailChunk300State := by rfl
+    exact recordLowerSeedTailChunk301Step.certifies
+      (boundary.trans h300)
   have h302 : recordLowerSeedTailChunk302State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix302 := by
-    have prior : recordLowerSeedTailChunk302Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix301 := by
-      simpa only [
-        recordLowerSeedTailChunk302Before,
-        recordLowerSeedTailChunk301State] using h301
-    simpa only [recordLowerSeedTailPrefix302] using
-      recordLowerSeedTailChunk302Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix302 := by
+    have boundary : recordLowerSeedTailChunk302Before =
+        recordLowerSeedTailChunk301State := by rfl
+    exact recordLowerSeedTailChunk302Step.certifies
+      (boundary.trans h301)
   have h303 : recordLowerSeedTailChunk303State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix303 := by
-    have prior : recordLowerSeedTailChunk303Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix302 := by
-      simpa only [
-        recordLowerSeedTailChunk303Before,
-        recordLowerSeedTailChunk302State] using h302
-    simpa only [recordLowerSeedTailPrefix303] using
-      recordLowerSeedTailChunk303Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix303 := by
+    have boundary : recordLowerSeedTailChunk303Before =
+        recordLowerSeedTailChunk302State := by rfl
+    exact recordLowerSeedTailChunk303Step.certifies
+      (boundary.trans h302)
   have h304 : recordLowerSeedTailChunk304State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix304 := by
-    have prior : recordLowerSeedTailChunk304Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix303 := by
-      simpa only [
-        recordLowerSeedTailChunk304Before,
-        recordLowerSeedTailChunk303State] using h303
-    simpa only [recordLowerSeedTailPrefix304] using
-      recordLowerSeedTailChunk304Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix304 := by
+    have boundary : recordLowerSeedTailChunk304Before =
+        recordLowerSeedTailChunk303State := by rfl
+    exact recordLowerSeedTailChunk304Step.certifies
+      (boundary.trans h303)
   have h305 : recordLowerSeedTailChunk305State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix305 := by
-    have prior : recordLowerSeedTailChunk305Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix304 := by
-      simpa only [
-        recordLowerSeedTailChunk305Before,
-        recordLowerSeedTailChunk304State] using h304
-    simpa only [recordLowerSeedTailPrefix305] using
-      recordLowerSeedTailChunk305Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix305 := by
+    have boundary : recordLowerSeedTailChunk305Before =
+        recordLowerSeedTailChunk304State := by rfl
+    exact recordLowerSeedTailChunk305Step.certifies
+      (boundary.trans h304)
   have h306 : recordLowerSeedTailChunk306State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix306 := by
-    have prior : recordLowerSeedTailChunk306Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix305 := by
-      simpa only [
-        recordLowerSeedTailChunk306Before,
-        recordLowerSeedTailChunk305State] using h305
-    simpa only [recordLowerSeedTailPrefix306] using
-      recordLowerSeedTailChunk306Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix306 := by
+    have boundary : recordLowerSeedTailChunk306Before =
+        recordLowerSeedTailChunk305State := by rfl
+    exact recordLowerSeedTailChunk306Step.certifies
+      (boundary.trans h305)
   have h307 : recordLowerSeedTailChunk307State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix307 := by
-    have prior : recordLowerSeedTailChunk307Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix306 := by
-      simpa only [
-        recordLowerSeedTailChunk307Before,
-        recordLowerSeedTailChunk306State] using h306
-    simpa only [recordLowerSeedTailPrefix307] using
-      recordLowerSeedTailChunk307Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix307 := by
+    have boundary : recordLowerSeedTailChunk307Before =
+        recordLowerSeedTailChunk306State := by rfl
+    exact recordLowerSeedTailChunk307Step.certifies
+      (boundary.trans h306)
   have h308 : recordLowerSeedTailChunk308State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix308 := by
-    have prior : recordLowerSeedTailChunk308Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix307 := by
-      simpa only [
-        recordLowerSeedTailChunk308Before,
-        recordLowerSeedTailChunk307State] using h307
-    simpa only [recordLowerSeedTailPrefix308] using
-      recordLowerSeedTailChunk308Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix308 := by
+    have boundary : recordLowerSeedTailChunk308Before =
+        recordLowerSeedTailChunk307State := by rfl
+    exact recordLowerSeedTailChunk308Step.certifies
+      (boundary.trans h307)
   have h309 : recordLowerSeedTailChunk309State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix309 := by
-    have prior : recordLowerSeedTailChunk309Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix308 := by
-      simpa only [
-        recordLowerSeedTailChunk309Before,
-        recordLowerSeedTailChunk308State] using h308
-    simpa only [recordLowerSeedTailPrefix309] using
-      recordLowerSeedTailChunk309Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix309 := by
+    have boundary : recordLowerSeedTailChunk309Before =
+        recordLowerSeedTailChunk308State := by rfl
+    exact recordLowerSeedTailChunk309Step.certifies
+      (boundary.trans h308)
   have h310 : recordLowerSeedTailChunk310State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix310 := by
-    have prior : recordLowerSeedTailChunk310Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix309 := by
-      simpa only [
-        recordLowerSeedTailChunk310Before,
-        recordLowerSeedTailChunk309State] using h309
-    simpa only [recordLowerSeedTailPrefix310] using
-      recordLowerSeedTailChunk310Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix310 := by
+    have boundary : recordLowerSeedTailChunk310Before =
+        recordLowerSeedTailChunk309State := by rfl
+    exact recordLowerSeedTailChunk310Step.certifies
+      (boundary.trans h309)
   have h311 : recordLowerSeedTailChunk311State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix311 := by
-    have prior : recordLowerSeedTailChunk311Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix310 := by
-      simpa only [
-        recordLowerSeedTailChunk311Before,
-        recordLowerSeedTailChunk310State] using h310
-    simpa only [recordLowerSeedTailPrefix311] using
-      recordLowerSeedTailChunk311Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix311 := by
+    have boundary : recordLowerSeedTailChunk311Before =
+        recordLowerSeedTailChunk310State := by rfl
+    exact recordLowerSeedTailChunk311Step.certifies
+      (boundary.trans h310)
   have h312 : recordLowerSeedTailChunk312State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix312 := by
-    have prior : recordLowerSeedTailChunk312Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix311 := by
-      simpa only [
-        recordLowerSeedTailChunk312Before,
-        recordLowerSeedTailChunk311State] using h311
-    simpa only [recordLowerSeedTailPrefix312] using
-      recordLowerSeedTailChunk312Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix312 := by
+    have boundary : recordLowerSeedTailChunk312Before =
+        recordLowerSeedTailChunk311State := by rfl
+    exact recordLowerSeedTailChunk312Step.certifies
+      (boundary.trans h311)
   have h313 : recordLowerSeedTailChunk313State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix313 := by
-    have prior : recordLowerSeedTailChunk313Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix312 := by
-      simpa only [
-        recordLowerSeedTailChunk313Before,
-        recordLowerSeedTailChunk312State] using h312
-    simpa only [recordLowerSeedTailPrefix313] using
-      recordLowerSeedTailChunk313Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix313 := by
+    have boundary : recordLowerSeedTailChunk313Before =
+        recordLowerSeedTailChunk312State := by rfl
+    exact recordLowerSeedTailChunk313Step.certifies
+      (boundary.trans h312)
   have h314 : recordLowerSeedTailChunk314State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix314 := by
-    have prior : recordLowerSeedTailChunk314Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix313 := by
-      simpa only [
-        recordLowerSeedTailChunk314Before,
-        recordLowerSeedTailChunk313State] using h313
-    simpa only [recordLowerSeedTailPrefix314] using
-      recordLowerSeedTailChunk314Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix314 := by
+    have boundary : recordLowerSeedTailChunk314Before =
+        recordLowerSeedTailChunk313State := by rfl
+    exact recordLowerSeedTailChunk314Step.certifies
+      (boundary.trans h313)
   have h315 : recordLowerSeedTailChunk315State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix315 := by
-    have prior : recordLowerSeedTailChunk315Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix314 := by
-      simpa only [
-        recordLowerSeedTailChunk315Before,
-        recordLowerSeedTailChunk314State] using h314
-    simpa only [recordLowerSeedTailPrefix315] using
-      recordLowerSeedTailChunk315Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix315 := by
+    have boundary : recordLowerSeedTailChunk315Before =
+        recordLowerSeedTailChunk314State := by rfl
+    exact recordLowerSeedTailChunk315Step.certifies
+      (boundary.trans h314)
   have h316 : recordLowerSeedTailChunk316State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix316 := by
-    have prior : recordLowerSeedTailChunk316Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix315 := by
-      simpa only [
-        recordLowerSeedTailChunk316Before,
-        recordLowerSeedTailChunk315State] using h315
-    simpa only [recordLowerSeedTailPrefix316] using
-      recordLowerSeedTailChunk316Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix316 := by
+    have boundary : recordLowerSeedTailChunk316Before =
+        recordLowerSeedTailChunk315State := by rfl
+    exact recordLowerSeedTailChunk316Step.certifies
+      (boundary.trans h315)
   have h317 : recordLowerSeedTailChunk317State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix317 := by
-    have prior : recordLowerSeedTailChunk317Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix316 := by
-      simpa only [
-        recordLowerSeedTailChunk317Before,
-        recordLowerSeedTailChunk316State] using h316
-    simpa only [recordLowerSeedTailPrefix317] using
-      recordLowerSeedTailChunk317Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix317 := by
+    have boundary : recordLowerSeedTailChunk317Before =
+        recordLowerSeedTailChunk316State := by rfl
+    exact recordLowerSeedTailChunk317Step.certifies
+      (boundary.trans h316)
   have h318 : recordLowerSeedTailChunk318State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix318 := by
-    have prior : recordLowerSeedTailChunk318Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix317 := by
-      simpa only [
-        recordLowerSeedTailChunk318Before,
-        recordLowerSeedTailChunk317State] using h317
-    simpa only [recordLowerSeedTailPrefix318] using
-      recordLowerSeedTailChunk318Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix318 := by
+    have boundary : recordLowerSeedTailChunk318Before =
+        recordLowerSeedTailChunk317State := by rfl
+    exact recordLowerSeedTailChunk318Step.certifies
+      (boundary.trans h317)
   have h319 : recordLowerSeedTailChunk319State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix319 := by
-    have prior : recordLowerSeedTailChunk319Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix318 := by
-      simpa only [
-        recordLowerSeedTailChunk319Before,
-        recordLowerSeedTailChunk318State] using h318
-    simpa only [recordLowerSeedTailPrefix319] using
-      recordLowerSeedTailChunk319Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix319 := by
+    have boundary : recordLowerSeedTailChunk319Before =
+        recordLowerSeedTailChunk318State := by rfl
+    exact recordLowerSeedTailChunk319Step.certifies
+      (boundary.trans h318)
   have h320 : recordLowerSeedTailChunk320State =
-      (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix320 := by
-    have prior : recordLowerSeedTailChunk320Before =
-        (BLSPrimality.alpha recordLower) ^ recordLowerSeedTailPrefix319 := by
-      simpa only [
-        recordLowerSeedTailChunk320Before,
-        recordLowerSeedTailChunk319State] using h319
-    simpa only [recordLowerSeedTailPrefix320] using
-      recordLowerSeedTailChunk320Step.certifies prior
+      (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower) ^ recordLowerSeedTailPrefix320 := by
+    have boundary : recordLowerSeedTailChunk320Before =
+        recordLowerSeedTailChunk319State := by rfl
+    exact recordLowerSeedTailChunk320Step.certifies
+      (boundary.trans h319)
   exact h320
 
 end PrimeFactorUnimodality

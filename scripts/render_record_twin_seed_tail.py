@@ -189,7 +189,8 @@ end PrimeFactorUnimodality
 
 
 def render_assembly_group(task: str, checkpoint: int, count: int, note: str, group: int) -> str:
-    side, _state_type, base, _ = names(task)
+    side, state_type, base, _ = names(task)
+    typed_base = f"({base} : {state_type})"
     checkpoint_label = f"{checkpoint:03d}"
     first = checkpoint + 1 + (group - 1) * GROUP_SIZE
     last = min(checkpoint + group * GROUP_SIZE, count)
@@ -215,14 +216,14 @@ def render_assembly_group(task: str, checkpoint: int, count: int, note: str, gro
         "",
         f"theorem record{side}SeedTailGroup{group:02d}_semantic :",
         f"    record{side}SeedTailChunk{last:03d}State =",
-        f"      ({base}) ^ record{side}SeedTailPrefix{last:03d} := by",
+        f"      {typed_base} ^ record{side}SeedTailPrefix{last:03d} := by",
     ]
     if group == 1:
         if checkpoint == 0:
             lines.extend(
                 [
-                    f"  have h{checkpoint_label} : (1 : _) =",
-                    f"      ({base}) ^ record{side}SeedTailPrefix{checkpoint_label} := by",
+                    f"  have h{checkpoint_label} : (1 : {state_type}) =",
+                    f"      {typed_base} ^ record{side}SeedTailPrefix{checkpoint_label} := by",
                     f"    simp only [record{side}SeedTailPrefix{checkpoint_label}, pow_zero]",
                 ]
             )
@@ -230,7 +231,7 @@ def render_assembly_group(task: str, checkpoint: int, count: int, note: str, gro
             lines.extend(
                 [
                     f"  have h{checkpoint_label} : record{side}SeedChunk{checkpoint_label}State =",
-                    f"      ({base}) ^ record{side}SeedTailPrefix{checkpoint_label} := by",
+                    f"      {typed_base} ^ record{side}SeedTailPrefix{checkpoint_label} := by",
                     f"    simpa only [record{side}SeedTailPrefix{checkpoint_label}] using",
                     f"      PowerTrace.certifies record{side}SeedChunk{checkpoint_label}Trace",
                 ]
@@ -241,23 +242,21 @@ def render_assembly_group(task: str, checkpoint: int, count: int, note: str, gro
     for index in range(first, last + 1):
         label = f"{index:03d}"
         previous = f"{index - 1:03d}"
+        previous_state = (
+            "1"
+            if index == 1 and checkpoint == 0
+            else f"record{side}SeedChunk{checkpoint_label}State"
+            if index == checkpoint + 1
+            else f"record{side}SeedTailChunk{previous}State"
+        )
         lines.extend(
             [
                 f"  have h{label} : record{side}SeedTailChunk{label}State =",
-                f"      ({base}) ^ record{side}SeedTailPrefix{label} := by",
-                f"    have prior : record{side}SeedTailChunk{label}Before =",
-                f"        ({base}) ^ record{side}SeedTailPrefix{previous} := by",
-                "      simpa only [",
-                f"        record{side}SeedTailChunk{label}Before,",
-                (
-                    f"        ] using {previous_h}"
-                    if index == 1 and checkpoint == 0
-                    else f"        record{side}SeedChunk{checkpoint_label}State] using {previous_h}"
-                    if index == checkpoint + 1
-                    else f"        record{side}SeedTailChunk{previous}State] using {previous_h}"
-                ),
-                f"    simpa only [record{side}SeedTailPrefix{label}] using",
-                f"      record{side}SeedTailChunk{label}Step.certifies prior",
+                f"      {typed_base} ^ record{side}SeedTailPrefix{label} := by",
+                f"    have boundary : record{side}SeedTailChunk{label}Before =",
+                f"        {previous_state} := by rfl",
+                f"    exact record{side}SeedTailChunk{label}Step.certifies",
+                f"      (boundary.trans {previous_h})",
             ]
         )
         previous_h = f"h{label}"
@@ -287,12 +286,10 @@ set_option maxHeartbeats 0 in
 -- Normalization checks that the complete chunk prefix is the shared exponent.
 theorem record{side}_seedExponent_eq_prefix :
     recordSeedExponent = record{side}SeedTailPrefix{final} := by
-  set_option exponentiation.threshold 5000 in
-    norm_num [recordSeedExponent, recordFactor, recordBase,
-      record{side}SeedTailPrefix{final}]
+  rfl
 
 theorem record{side}_seed_pow :
-    ({base}) ^ recordSeedExponent = record{side}Seed := by
+    ({base} : {state_type}) ^ recordSeedExponent = record{side}Seed := by
   rw [record{side}_seedExponent_eq_prefix, record{side}Seed]
   exact record{side}SeedTailGroup{groups:02d}_semantic.symm
 
