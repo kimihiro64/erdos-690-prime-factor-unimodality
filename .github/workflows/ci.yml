@@ -1560,6 +1560,18 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.SievedThetaPrimeTrace
           lake env lean test/lean/SievedThetaPrimeTrace.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Data.Nat.BitProduct
+          lake env lean test/lean/BitProduct.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Arithmetic.SievePrimeProduct
+          lake env lean test/lean/SievePrimeProduct.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.NaturalLogScaling
+          lake env lean test/lean/NaturalLogScaling.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.SievedThetaAnchor
+          lake env lean test/lean/SievedThetaAnchor.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Mathlib.NumberTheory.PartialSieve
           lake env lean test/lean/PartialSieve.lean
           /usr/bin/time -v lake build \

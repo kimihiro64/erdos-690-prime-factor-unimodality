@@ -19,6 +19,10 @@ def test_sieve_count_foundations_build_serially() -> None:
         (BASE + "Helpers.Arithmetic.SievePrimeCounting", "SievePrimeCounting"),
         (BASE + "Helpers.Arithmetic.SievePrimeCountIncrements", "SievePrimeCountIncrements"),
         (BASE + "Helpers.Analytic.SievedThetaPrimeTrace", "SievedThetaPrimeTrace"),
+        (BASE + "Mathlib.Data.Nat.BitProduct", "BitProduct"),
+        (BASE + "Helpers.Arithmetic.SievePrimeProduct", "SievePrimeProduct"),
+        (BASE + "Helpers.Analytic.NaturalLogScaling", "NaturalLogScaling"),
+        (BASE + "Helpers.Analytic.SievedThetaAnchor", "SievedThetaAnchor"),
     )
     for module, test in pairs:
         build = foundations.index(f"+{module}\n")
@@ -55,3 +59,26 @@ def test_prime_count_checkers_use_proved_packed_backend() -> None:
     assert "Nat.bitCountBlockPacked_eq_card" in source
     source = strip_lean_comments((arithmetic / "SievePrimeCountIncrements.lean").read_text())
     assert "Nat.bitCountBlockPacked_eq] at hc" in source
+
+
+def test_primorial_rows_check_full_coverage_and_compose() -> None:
+    arithmetic = ROOT / "PrimeFactorUnimodality/Helpers/Arithmetic"
+    source = strip_lean_comments((arithmetic / "SievePrimeProduct.lean").read_text())
+    assert "row.width ≤ 2 ^ row.depth" in source
+    assert "(rows.map width).sum = wheelLength n - 1" in source
+    assert "checkTrace bits 1 rows" in source
+    assert "theorem checkTrace_append" in source
+    assert "theorem primorial_eq_of_check" in source
+
+
+def test_theta_anchor_uses_scaled_product_not_per_prime_logs() -> None:
+    analytic = ROOT / "PrimeFactorUnimodality/Helpers/Analytic"
+    source = strip_lean_comments((analytic / "NaturalLogScaling.lean").read_text())
+    checker = source.split("def check", 1)[1].split("theorem", 1)[0]
+    assert "row.lower * 2 ^ row.exponent ≤ value" in checker
+    assert "value ≤ row.upper * 2 ^ row.exponent" in checker
+    assert "c.log value" not in source
+    source = strip_lean_comments((analytic / "SievedThetaAnchor.lean").read_text())
+    assert "Chebyshev.theta_eq_log_primorial" in source
+    assert "SieveProductRow.primorial_eq_of_check" in source
+    assert "primeCounting_eq_of_sieve_check" in source
