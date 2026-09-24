@@ -5,7 +5,51 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: time aliases and shifted frequency aliases are bounded (2026-09-24)
+## Latest analytic increment: finite FFTs enclose the true Gamma transforms (2026-09-24)
+
+`Fourier.DiscretePoisson` regroups a summable integer Fourier series into its
+complete residue-class sums. It proves exact equality with Mathlib's DFT,
+retaining the negative output index for the positive phase. Signed and
+centered representatives are supported, and all input-error contributions
+are retained by the finite-transform norm bound. This is the exact regrouping
+in Platt's Lemma 3.1, not an assumption that an infinite series is finite.
+
+`PlattDiscretePoisson` applies it to the actual Gamma window and its actual
+Fourier transform. For every positive integer length `N`, every natural
+kernel order, `t0 >= 0`, `h > 0`, and `B > 0`, the time periodization is
+`(1/B)*DFT(frequency periodization)(-j)`, and the frequency periodization is
+`(B/N)*DFT(time periodization)(j)`. Centered grid points satisfy the proved
+time/frequency cell conditions, including the half-period boundary.
+
+`PlattDiscreteError` combines those identities with both analytic alias
+bounds. The forward error is `B*timeAlias + frequencyAlias`; the inverse
+error is `(N/B)*frequencyAlias + timeAlias`. `PlattDiscreteApproximation`
+adds the input and arithmetic errors with their correct scales.
+`PlattRadixApproximation` directly consumes the existing shared radix trace:
+the normalized stored output approximates the genuine Fourier sample, with
+total error `(B/N)*traceError + B*inputError + B*timeAlias + frequencyAlias`.
+No new certificate format, bulk replay or assumed analytic error is introduced.
+
+`PlattWindowDerivatives` proves every polynomial moment is integrable, then
+uses Mathlib's differentiation-under-the-Fourier-integral theorem to obtain
+smoothness and `iteratedDeriv n (FT g_k) = FT g_(k+n)`. This holds for all
+natural `n,k`, signed `t0`, and `h > 0`. The finite frequency columns are
+therefore samples of genuine derivatives of the base transform. Their
+existing integral-norm bounds give uniform derivative bounds as well.
+
+All six new source modules and the export facade build. Three new regressions
+and the preceding time-alias regression pass. Twenty-seven theorem closures
+use only the standard logical axioms. Tests include arbitrary orders and
+lengths, length one, negative grid indices, both normalization factors and
+the full input/FFT error transport.
+
+Still open: the actual zeta-transform/Dirichlet-series identity, Taylor and
+Dirichlet truncation, zeta-window alias bounds, interpolation, numerical
+input enclosures, and verified zero signs/completeness. These results do not
+close Dusart, establish full-path zero-verification feasibility, or pass the
+separate conditional all-k release gate by themselves.
+
+## Previous increment: time aliases and shifted frequency aliases are bounded (2026-09-24)
 
 `Gaussian.TailBound` proves a global tangent exponential majorant for every
 polynomial Gaussian. `Fourier.PolynomialGaussianAliasing` sums that majorant

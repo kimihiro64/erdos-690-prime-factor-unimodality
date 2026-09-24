@@ -220,6 +220,7 @@ Replace the scaffold row when the first real candidate module is created.
 | `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.PolynomialGaussianAliasing` | `Mathlib/Analysis/Fourier/PolynomialGaussianAliasing.lean` | project-verified | Closed central-cell alias bounds and convergence from polynomial Gaussian decay |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.ExponentialAliasing` | `Mathlib/Analysis/Fourier/ExponentialAliasing.lean` | project-verified | Summability and exact geometric bounds for lattice periodization under finite exponential envelopes, retaining arbitrary offset margins |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.Scaling` | `Mathlib/Analysis/Fourier/Scaling.lean` | project-verified | Real dilation of the complex Fourier integral with the absolute inverse scale |
+| `PrimeFactorUnimodality.Mathlib.Analysis.Fourier.DiscretePoisson` | `Mathlib/Analysis/Fourier/DiscretePoisson.lean` | project-verified | Exact DFT regrouping of summable integer Fourier series, signed representatives and input-error transport |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrability.LogCauchy` | `Mathlib/Analysis/SpecialFunctions/Integrability/LogCauchy.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.Deriv` | `Mathlib/Analysis/SpecialFunctions/Log/Deriv.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Pow.ThreeHalves` | `Mathlib/Analysis/SpecialFunctions/Pow/ThreeHalves.lean` | project-verified | None |
