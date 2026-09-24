@@ -15,6 +15,7 @@ high-precision numerical remainders must ignore the imaginary part.
 -/
 
 open MeasureTheory Set
+open scoped Topology
 
 namespace Complex
 
@@ -60,5 +61,16 @@ theorem integrableOn_inv_pow_add_ofReal {p : ℕ} (hp : 1 < p) {z : ℂ} (hz : 0
   apply hb.mono' (hcont.aestronglyMeasurable measurableSet_Ioi)
   filter_upwards [ae_restrict_mem measurableSet_Ioi] with x hx
   simpa only [add_comm] using norm_inv_pow_add_ofReal_le p hz hx.le
+
+/-- Every positive reciprocal power vanishes along integer translates of the ray. -/
+theorem tendsto_inv_pow_add_nat {p : ℕ} (hp : 0 < p) {z : ℂ} (hz : 0 < z.re) :
+    Filter.Tendsto (fun n : ℕ => (z + (n : ℂ))⁻¹ ^ p) Filter.atTop (𝓝 0) := by
+  have ht : Filter.Tendsto (fun n : ℕ => z.re + (n : ℝ)) Filter.atTop Filter.atTop :=
+    Filter.tendsto_atTop_mono (fun n => le_add_of_nonneg_left hz.le)
+      tendsto_natCast_atTop_atTop
+  have hr := (tendsto_rpow_neg_atTop (by exact_mod_cast hp : (0 : ℝ) < p)).comp ht
+  apply tendsto_zero_iff_norm_tendsto_zero.mpr
+  exact squeeze_zero (fun _ => norm_nonneg _)
+    (fun n => by simpa using norm_inv_pow_add_ofReal_le p hz (Nat.cast_nonneg n)) hr
 
 end Complex

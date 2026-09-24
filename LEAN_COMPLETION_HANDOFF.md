@@ -5,7 +5,52 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: complex Stirling support (2026-09-24)
+## Latest analytic increment: arbitrary-order complex Gamma enclosures (2026-09-24)
+
+`GammaStirlingComplex` now identifies the complete logarithmic cell remainder
+with the actual canonical Gamma logarithm, including the real Stirling constant.
+`Complex.LogBernoulli` derives the first Bernoulli cell identity and then the
+exact `1/(12z)` boundary correction with its second Bernoulli integral.
+
+The new `BernoulliPeriodic.ShiftedIntegrability`, `ShiftedCells` and
+`ShiftedRecursion` candidates work with genuinely complex shifted reciprocal
+powers, including the cell starting at zero. They prove absolute convergence,
+finite integration by parts and the full improper-tail recurrence. The boundary
+at infinity is proved zero; the initial boundary is retained.
+
+`GammaStirlingExpansion` assembles the actual logarithmic expansion at every
+positive natural order `M`. It retains all Bernoulli coefficients, including
+the zero odd coefficients, and the exact factorial-weighted improper remainder.
+The order-three regression verifies `1/(12z) - 1/(360z^3)` and remainder `-6`
+times the fourth normalized Bernoulli integral.
+
+`Complex.ShiftedReciprocalBound` splits the positive ray at a proved lower
+radius `H`, giving norm integral at most `(1 + 1/(p-1))*H^(1-p)`.
+`BernoulliPeriodic.ShiftedBound` adds the explicit rational coefficient budget.
+`GammaStirlingBounds` consequently proves logarithmic error at most
+
+`M! * bernoulliCoeffBudget (M+1) * (1 + 1/M) / H^M`.
+
+One may use nonzero absolute imaginary height for high-height decay, or the
+positive real part for an enclosure valid throughout the right half-plane.
+The latter covers zero height as well; neither estimate alone establishes
+an optimal numerical choice of order or radius. Exponentiation encloses the
+actual complex Gamma function, and a separate theorem retains errors from
+rounded logarithmic arithmetic and rounded exponentiation.
+
+All new proof sources and the full candidate facade build (4,001 jobs). Two
+focused regression files pass. The 31 audited theorem closures use only the
+standard three Lean axioms. Candidate modules were built and architecture
+checked before their first project consumers. No certificate replay was added.
+
+Still open: instantiate the logarithmic and exponential arithmetic enclosures,
+transport them into actual Platt window input values, finish rounded shared
+convolution error assembly, instantiate full numerical sign budgets, and prove
+zero-count completeness. The arbitrary-order Gamma remainder is now proved;
+the executable evaluator and full-path runtime feasibility are not established.
+Dusart and the unconditional all-k result remain incomplete.
+
+## Earlier analytic increment: complex Stirling support (2026-09-24)
 
 `Complex.LogStirlingLimit` combines Mathlib's real Stirling limit with the
 existing complex shift limit. It retains the exact real constant
