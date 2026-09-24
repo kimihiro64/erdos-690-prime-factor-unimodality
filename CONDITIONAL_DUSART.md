@@ -28,6 +28,17 @@ above `k - 1 ≤ 37999`. `RecordPrimeCountingReduction` checks this bridge in Le
 the old reciprocal certificates are preserved but are not required by this
 target.
 
+The twin endpoint modules use `decide +kernel` for their ten bounded arithmetic
+checks. This invokes Lean's kernel, not native evaluation. Profiling the former
+`rfl` implementation located repeated large-integer evaluation in elaborator
+definitional equality. With the final seed equalities supplied as explicit
+diagnostic parameters, the unchanged upper and lower endpoint statements now
+check in about 34 and 35 seconds respectively on the local two-core machine,
+while the seed chains also run. All ten audits contain only the three standard
+axioms. This validates the endpoint arithmetic and its algebraic assembly, not
+the seed equalities: the full conditional target still requires both actual
+seed chains. Their generated data and cached replay modules are unchanged.
+
 The original three hypotheses are unchanged. Internally, the uniform tail now
 uses only `theta(q) < 1.001 q` and the existing lower theta bound for `q ≥ 3501`.
 The selected-prime and primorial inequalities retain their original constants

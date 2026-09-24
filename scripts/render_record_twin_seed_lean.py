@@ -127,6 +127,12 @@ theorem recordLower_seed_pow :
 
 end PrimeFactorUnimodality
 """
+    inverses = {prime: derived["proper"][str(prime)]["bezout_residue"] for prime in PRIMES}
+    return seed_source, render_lower_residues(inverses, note)
+
+
+def render_lower_residues(inverses: dict[int, str], note: str) -> str:
+    """Render the bounded endpoints, replaying arithmetic directly in the kernel."""
     imports = "import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordTwinLowerSeed"
     body = [
         imports,
@@ -145,11 +151,11 @@ end PrimeFactorUnimodality
         "  rw [← recordSeedExponent_mul_base, pow_mul, recordLower_seed_pow]",
         "  change (npowRecAuto recordBase recordLowerSeed).im = 0",
         "  rw [npowRec_eq_npowBinRec]",
-        "  rfl",
+        "  decide +kernel",
         "",
     ]
     for prime in PRIMES:
-        inverse = derived["proper"][str(prime)]["bezout_residue"]
+        inverse = inverses[prime]
         body.extend(
             [
                 "set_option maxHeartbeats 0 in",
@@ -162,12 +168,12 @@ end PrimeFactorUnimodality
                 f"  change IsUnit ((npowRecAuto (recordBase / {prime}) recordLowerSeed).im)",
                 "  rw [npowRec_eq_npowBinRec]",
                 f"  apply IsUnit.of_mul_eq_one (({inverse} : ℤ) : ZMod recordLower)",
-                "  rfl",
+                "  decide +kernel",
                 "",
             ]
         )
     body.extend(["end PrimeFactorUnimodality", ""])
-    return seed_source, "\n".join(body)
+    return "\n".join(body)
 
 
 def upper_sources(data: dict[str, Any], source_json: Path) -> tuple[str, str]:
@@ -219,6 +225,12 @@ theorem recordUpper_seed_pow :
 
 end PrimeFactorUnimodality
 """
+    inverses = {prime: derived["proper"][str(prime)]["bezout_residue"] for prime in PRIMES}
+    return seed_source, render_upper_residues(inverses, note)
+
+
+def render_upper_residues(inverses: dict[int, str], note: str) -> str:
+    """Render the bounded endpoints, replaying arithmetic directly in the kernel."""
     imports = "import PrimeFactorUnimodality.Proof.LargeRange.Generated.RecordTwinUpperSeed"
     body = [
         imports,
@@ -238,11 +250,11 @@ end PrimeFactorUnimodality
         "  rw [← recordSeedExponent_mul_base_upper, pow_mul, recordUpper_seed_pow]",
         "  change npowRecAuto recordBase recordUpperSeed = 1",
         "  rw [npowRec_eq_npowBinRec]",
-        "  rfl",
+        "  decide +kernel",
         "",
     ]
     for prime in PRIMES:
-        inverse = derived["proper"][str(prime)]["bezout_residue"]
+        inverse = inverses[prime]
         body.extend(
             [
                 "set_option maxHeartbeats 0 in",
@@ -255,12 +267,12 @@ end PrimeFactorUnimodality
                 f"  change IsUnit (npowRecAuto (recordBase / {prime}) recordUpperSeed - 1)",
                 "  rw [npowRec_eq_npowBinRec]",
                 f"  apply IsUnit.of_mul_eq_one (({inverse} : ℤ) : ZMod recordUpper)",
-                "  rfl",
+                "  decide +kernel",
                 "",
             ]
         )
     body.extend(["end PrimeFactorUnimodality", ""])
-    return seed_source, "\n".join(body)
+    return "\n".join(body)
 
 
 def main() -> None:
