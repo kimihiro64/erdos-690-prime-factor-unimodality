@@ -70,19 +70,26 @@ structure Valid (row : DusartFrozenThetaRow) (H : ℝ) : Prop where
   power_lt : row.power < (row.orderOffset + 4 : ℕ)
   cap : row.budget H * (row.upper : ℝ) ^ 2 ≤ (1 / 5 : ℝ)
 
-/-- The rational step constraint keeps the shifted logarithm on the safe positive ray. -/
-theorem Valid.shift {row : DusartFrozenThetaRow} {H : ℝ} (h : row.Valid H) :
+/-- Row geometry alone keeps the shifted logarithm on the safe positive ray. -/
+theorem shift_geometry {row : DusartFrozenThetaRow} (hlower : 25 ≤ row.lower)
+    (hstep : (row.orderOffset + 3 : ℕ) * row.step ≤ (1 / 2 : ℚ)) :
     0 < 1 - (row.orderOffset + 3 : ℕ) * (row.step : ℝ) ∧
     1 ≤ (row.lower : ℝ) + log (1 - (row.orderOffset + 3 : ℕ) * (row.step : ℝ)) := by
-  have hlo : (25 : ℝ) ≤ row.lower := by exact_mod_cast h.lower_ge
+  have hlo : (25 : ℝ) ≤ row.lower := by exact_mod_cast hlower
   have hs : (row.orderOffset + 3 : ℕ) * (row.step : ℝ) ≤ (1 / 2 : ℝ) := by
-    have hc := (Rat.cast_le (K := ℝ)).mpr h.step_small
+    have hc := (Rat.cast_le (K := ℝ)).mpr hstep
     push_cast at hc
     simpa only [Nat.cast_add, Nat.cast_ofNat] using hc
   have ht : (1 / 2 : ℝ) ≤ 1 - (row.orderOffset + 3 : ℕ) * (row.step : ℝ) := by linarith
   have hl := log_le_log (by norm_num : (0 : ℝ) < 1 / 2) ht
   rw [log_div (by norm_num : (1 : ℝ) ≠ 0) (by norm_num : (2 : ℝ) ≠ 0), log_one] at hl
   constructor <;> linarith [log_two_lt_d9]
+
+/-- Every valid row has the shifted geometry required by the analytic bound. -/
+theorem Valid.shift {row : DusartFrozenThetaRow} {H : ℝ} (h : row.Valid H) :
+    0 < 1 - (row.orderOffset + 3 : ℕ) * (row.step : ℝ) ∧
+    1 ≤ (row.lower : ℝ) + log (1 - (row.orderOffset + 3 : ℕ) * (row.step : ℝ)) :=
+  shift_geometry h.lower_ge h.step_small
 
 /-- A valid scalar row proves the exact theta bound throughout its logarithmic interval. -/
 theorem Valid.bound {row : DusartFrozenThetaRow} {H x : ℝ} (h : row.Valid H)

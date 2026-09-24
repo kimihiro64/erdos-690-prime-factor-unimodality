@@ -1,6 +1,7 @@
 import PrimeFactorUnimodality.Helpers.Analytic.DusartCheckedThetaTrace
 import PrimeFactorUnimodality.Helpers.Analytic.DusartCheckpointVerification
 import PrimeFactorUnimodality.Helpers.Analytic.DusartEarlierCutoff
+import PrimeFactorUnimodality.Helpers.Analytic.DusartFrozenThetaChecks
 import PrimeFactorUnimodality.Helpers.Analytic.DusartFrozenThetaCoverage
 import PrimeFactorUnimodality.Helpers.Analytic.DusartReducedZeroVerification
 import PrimeFactorUnimodality.Helpers.FiniteCertificates.KadiriTransformNumerical
@@ -126,6 +127,23 @@ theorem hasThetaLogSquaredError_of_frozen_and_turing_rows {H b : ℚ}
   exact hasThetaLogSquaredError_of_lower_band_and_frozen_rows finite
     (by exact_mod_cast hH) (by exact_mod_cast hH₁) hvalid hcoverage (fun z hz => (hlow z hz).le)
 
+/-- Kernel-checked scalar expressions and complete Turing rows supply the reduced-height provider. -/
+theorem hasThetaLogSquaredError_of_checked_frozen_and_turing_rows {H b : ℚ}
+    {rows : List DusartFrozenThetaRow} {n : ℕ} {zeros : Fin n → XiSignRow}
+    (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 3000000000 →
+      |Chebyshev.theta x - x| ≤ (1 / 5 : ℝ) * x / Real.log x ^ 2)
+    (hH : 25000000 ≤ H) (hH₁ : H ≤ 1000000000)
+    (precision : ℤ) (depth : ℕ) (hprecision : precision ≤ 0)
+    (hchecks : ∀ row ∈ rows, row.check H precision depth = true)
+    (hcoverage : DusartFrozenThetaRow.checkCoverage 25 5000 rows = true)
+    (hzeros : XiSignRows.Valid zeros 0 b) (hb : H ≤ b)
+    (hmargin : xiZeroCountingMainIntegral b - xiZeroCountingMainIntegral H +
+      turingCountErrorBudget H b < (b : ℝ) - H + (XiSignRows.completedAreaRat zeros H b : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) 3594641 :=
+  hasThetaLogSquaredError_of_frozen_and_turing_rows finite hH hH₁
+    (DusartFrozenThetaRow.valid_of_checks H precision depth hprecision hchecks)
+    hcoverage hzeros hb hmargin
+
 /-- The complete upper theta ray has no numerical transform or high-region assumption. -/
 theorem hasThetaLogSquaredError_above_endpoint_of_verified_low
     (hlow : ∀ z ∈ xiLowHeightIndices 1000000000,
@@ -170,6 +188,30 @@ theorem hasThetaLogSquaredError_of_early_prime_trace_and_verified_low
   hasThetaLogSquaredError_of_lower_band_and_verified_low
     (thetaLogSquared_on_band_of_checked_prime_trace hc hs hcounts htrace hpositive hcoverage hp hq)
     hlow
+
+/-- Finite prime traces, scalar checks and Turing data assemble the reduced-height theorem. -/
+theorem hasThetaLogSquaredError_of_checked_prime_frozen_turing_rows
+    {c : SharedTaylorIntervals} (hc : c.Prepared)
+    {start p q : ThetaPrimeCheckpoint} (hs : start.Valid)
+    {points : List ThetaPrimeCheckpoint}
+    (hcounts : ∀ s ∈ p :: points, Nat.primeCounting s.point = s.count)
+    (htrace : ThetaPrimeCheckpoint.checkTrace c start (p :: points) = true)
+    (hpositive : ∀ s ∈ p :: points, 2 ≤ s.point ∧ 0 < s.log.hi)
+    (hcoverage : ThetaSquaredCheckpoint.checkFrom (1 / 5) p.squared q.squared
+      (points.map ThetaPrimeCheckpoint.squared) = true)
+    (hp : p.point ≤ 3594641) (hq : 3000000000 ≤ q.point)
+    {H b : ℚ} {rows : List DusartFrozenThetaRow} {n : ℕ} {zeros : Fin n → XiSignRow}
+    (hH : 25000000 ≤ H) (hH₁ : H ≤ 1000000000)
+    (precision : ℤ) (depth : ℕ) (hprecision : precision ≤ 0)
+    (hchecks : ∀ row ∈ rows, row.check H precision depth = true)
+    (hscalarCoverage : DusartFrozenThetaRow.checkCoverage 25 5000 rows = true)
+    (hzeros : XiSignRows.Valid zeros 0 b) (hb : H ≤ b)
+    (hmargin : xiZeroCountingMainIntegral b - xiZeroCountingMainIntegral H +
+      turingCountErrorBudget H b < (b : ℝ) - H + (XiSignRows.completedAreaRat zeros H b : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) 3594641 :=
+  hasThetaLogSquaredError_of_checked_frozen_and_turing_rows
+    (thetaLogSquared_on_band_of_checked_prime_trace hc hs hcounts htrace hpositive hcoverage hp hq)
+    hH hH₁ precision depth hprecision hchecks hscalarCoverage hzeros hb hmargin
 
 /-- Turing signs and the complete counting margin give the entire upper theta ray. -/
 theorem hasThetaLogSquaredError_above_endpoint_of_verified_turing_rows {n : ℕ}

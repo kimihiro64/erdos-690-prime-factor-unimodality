@@ -12,7 +12,63 @@ open Real ThetaPrimeCheckpoint
 
 private def frozenTestRow (lo hi : ℚ) : DusartFrozenThetaRow := ⟨lo, hi, 3, 1 / 50000000, 157 / 25⟩
 
+example : LeanCert.Validity.checkUpperBoundDyadicChecked
+    (DusartFrozenExpressions.positiveRoot (.const 4)) 0 0 (by norm_num)
+    (201 / 100) (-30) 8 = true := by decide +kernel
+
+example : LeanCert.Validity.checkUpperBoundDyadicChecked
+    (DusartFrozenExpressions.positiveRoot (.const (-1))) 0 0 (by norm_num)
+    (201 / 100) (-30) 8 = false := by decide +kernel
+
+example : (frozenTestRow 1610 1620).checkGeometry = true := by decide +kernel
+
+example : (frozenTestRow 24 1620).checkGeometry = false := by decide +kernel
+
+example : (DusartFrozenThetaRow.mk 1610 1620 3 0 (157 / 25)).checkGeometry = false := by
+  decide +kernel
+
+example : (DusartFrozenThetaRow.mk 1610 1620 3 (1 / 50000000) 1).checkGeometry = false := by
+  decide +kernel
+
+example {row : DusartFrozenThetaRow} {H : ℚ} {precision : ℤ} {depth : ℕ}
+    (hp : precision ≤ 0) (hc : row.check H precision depth = true) : row.Valid H :=
+  row.valid_of_check H precision depth hp hc
+
+example {rows : List DusartFrozenThetaRow} {n : ℕ} {zeros : Fin n → XiSignRow} {b : ℚ}
+    (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 3000000000 →
+      |Chebyshev.theta x - x| ≤ (1 / 5 : ℝ) * x / log x ^ 2)
+    (hchecks : ∀ row ∈ rows, row.check 200000000 (-70) 16 = true)
+    (hcoverage : DusartFrozenThetaRow.checkCoverage 25 5000 rows = true)
+    (hzeros : XiSignRows.Valid zeros 0 b) (hb : 200000000 ≤ b)
+    (hmargin : xiZeroCountingMainIntegral b - xiZeroCountingMainIntegral 200000000 +
+      turingCountErrorBudget 200000000 b <
+        (b : ℝ) - 200000000 + (XiSignRows.completedAreaRat zeros 200000000 b : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) 3594641 :=
+  hasThetaLogSquaredError_of_checked_frozen_and_turing_rows (H := 200000000) finite
+    (by norm_num) (by norm_num) (-70) 16 (by norm_num) hchecks hcoverage hzeros hb hmargin
+
 example : DusartFrozenThetaRow.checkCoverage 25 5000 [] = false := by decide
+
+example {c : SharedTaylorIntervals} (hc : c.Prepared)
+    {start p q : ThetaPrimeCheckpoint} (hs : start.Valid)
+    {points : List ThetaPrimeCheckpoint}
+    (hcounts : ∀ s ∈ p :: points, Nat.primeCounting s.point = s.count)
+    (htrace : ThetaPrimeCheckpoint.checkTrace c start (p :: points) = true)
+    (hpositive : ∀ s ∈ p :: points, 2 ≤ s.point ∧ 0 < s.log.hi)
+    (hcoverage : ThetaSquaredCheckpoint.checkFrom (1 / 5) p.squared q.squared
+      (points.map ThetaPrimeCheckpoint.squared) = true)
+    (hp : p.point ≤ 3594641) (hq : 3000000000 ≤ q.point)
+    {rows : List DusartFrozenThetaRow} {n : ℕ} {zeros : Fin n → XiSignRow} {b : ℚ}
+    (hchecks : ∀ row ∈ rows, row.check 200000000 (-50) 10 = true)
+    (hscalarCoverage : DusartFrozenThetaRow.checkCoverage 25 5000 rows = true)
+    (hzeros : XiSignRows.Valid zeros 0 b) (hb : 200000000 ≤ b)
+    (hmargin : xiZeroCountingMainIntegral b - xiZeroCountingMainIntegral 200000000 +
+      turingCountErrorBudget 200000000 b <
+        (b : ℝ) - 200000000 + (XiSignRows.completedAreaRat zeros 200000000 b : ℝ)) :
+    HasThetaLogSquaredError (1 / 5) 3594641 :=
+  hasThetaLogSquaredError_of_checked_prime_frozen_turing_rows hc hs hcounts htrace
+    hpositive hcoverage hp hq (by norm_num) (by norm_num) (-50) 10 (by norm_num)
+    hchecks hscalarCoverage hzeros hb hmargin
 
 example : DusartFrozenThetaRow.checkCoverage 25 5000
     [frozenTestRow 25 100, frozenTestRow 100 5000] = true := by decide
