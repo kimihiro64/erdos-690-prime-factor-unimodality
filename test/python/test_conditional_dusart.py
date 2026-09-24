@@ -70,9 +70,9 @@ def test_conditional_import_graph_is_isolated() -> None:
         assert all(dependency in seen for dependency in imports[module] if dependency in imports)
         seen.add(module)
     source = ROOT.joinpath(*TARGET.split(".")).with_suffix(".lean").read_text()
-    assert source.count(" : HasDusart") == 3
-    assert ": CompleteClassification := by" in source
-    regression = (ROOT / "test/lean/ConditionalDusart.lean").read_text()
+    assert source.count(" : HasThetaLogSquaredError") == 1
+    assert ": CompleteClassification :=" in source
+    regression = (ROOT / "test/lean/ConditionalTheta.lean").read_text()
     assert "∀ k : Nat, 1 ≤ k → (IsUnimodal (primeFactorDensity k) ↔ k ≤ 3)" in regression
 
 
@@ -145,10 +145,37 @@ def test_axiom_audit_fails_closed() -> None:
         check_axioms(f"'{THEOREM}' depends on axioms: [propext, sorryAx]")
 
 
-def test_conditional_workflow_is_manual_bounded_and_not_cancelled_by_push() -> None:
+def test_only_reduced_target_is_built() -> None:
+    units = plan(ROOT)
+    modules = [module for unit in units for module in unit.modules]
+    assert len(modules) == len(set(modules))
+    assert TARGET in modules
+    assert "PrimeFactorUnimodality.Proof.CompleteClassificationConditional" not in modules
+    runner = (ROOT / "scripts/conditional_dusart_ci.py").read_text()
+    assert '"ConditionalDusart"' not in runner
+    assert "PrimeFactorUnimodality.Helpers.Analytic.DusartPublishedPrimeCounting" in modules
+    assert not any("Xi" in module or "DusartClosed" in module for module in modules)
+    with pytest.raises(ValueError, match="missing"):
+        check_axioms(
+            "'PrimeFactorUnimodality.completeClassification_assuming_dusart' "
+            "depends on axioms: [propext]"
+        )
+
+
+def test_theta_target_does_not_allow_arbitrary_dusart_providers(tmp_path: Path) -> None:
+    write_module(
+        tmp_path, TARGET, "import PrimeFactorUnimodality.Helpers.Analytic.DusartProvider\n"
+    )
+    with pytest.raises(ValueError, match="unfinished"):
+        owned_plan(tmp_path)
+
+
+def test_conditional_workflow_is_state_gated_bounded_and_not_cancelled_by_push() -> None:
     workflow = (ROOT / ".github/workflows/conditional-dusart.yml").read_text()
     assert "  workflow_dispatch:" in workflow
-    assert "  push:" not in workflow
+    assert "  push:" in workflow
+    assert "vars.CONDITIONAL_CI_BUILDS == 'enabled'" in workflow
+    assert "--both" not in workflow
     assert "cancel-in-progress: false" in workflow
     assert "timeout-minutes: 360" in workflow
     assert "use-mathlib-cache: true" in workflow

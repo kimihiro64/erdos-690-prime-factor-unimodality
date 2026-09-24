@@ -1,4 +1,4 @@
-"""Replay only the all-k proof conditional on the three named Dusart bounds.
+"""Replay only the all-k proof conditional on the single log-square theta estimate.
 
 No thread limits: owned targets are explicitly topologically ordered. Completed
 units are saved immediately, before later targets can fail. Re-dispatch this
@@ -8,6 +8,7 @@ workflow to resume; an incomplete run never claims that the theorem passed.
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import re
 import subprocess
@@ -52,8 +53,8 @@ def build(root: Path, target: str, deadline: float) -> None:
         print(f"Target elapsed: {time.monotonic() - started:.1f}s\n::endgroup::", flush=True)
 
 
-def check_axioms(output: str) -> None:
-    match = re.search(rf"'{re.escape(THEOREM)}' depends on axioms:\s*\[([^]]*)\]", output)
+def check_axioms(output: str, theorem: str = THEOREM) -> None:
+    match = re.search(rf"'{re.escape(theorem)}' depends on axioms:\s*\[([^]]*)\]", output)
     if match is None:
         raise ValueError("missing conditional theorem axiom report")
     axioms = {item.strip() for item in match.group(1).split(",") if item.strip()}
@@ -61,11 +62,11 @@ def check_axioms(output: str) -> None:
         raise ValueError(f"unexpected theorem axioms: {sorted(axioms - STANDARD_AXIOMS)}")
 
 
-def audit(root: Path, scratch: Path) -> None:
-    for source in ("TailThetaBounds", "ConditionalDusart"):
+def audit(root: Path, scratch: Path) -> dict[str, str]:
+    for source in ("TailThetaBounds", "ConditionalTheta", "DusartPublishedAnchors"):
         subprocess.run(["lake", "env", "lean", f"test/lean/{source}.lean"], cwd=root, check=True)
     probe = scratch / "ConditionalAxioms.lean"
-    probe.write_text(f"import {TARGET}\n#print axioms {THEOREM}\n")
+    probe.write_text(f"import {TARGET}\n#check @{THEOREM}\n#print axioms {THEOREM}\n")
     result = subprocess.run(
         ["lake", "env", "lean", str(probe)],
         cwd=root,
@@ -75,6 +76,7 @@ def audit(root: Path, scratch: Path) -> None:
     )
     print(result.stdout, flush=True)
     check_axioms(result.stdout)
+    return {THEOREM: result.stdout}
 
 
 def main() -> None:
@@ -122,8 +124,18 @@ def main() -> None:
                 store.upload(unit, archive)
                 print(f"Saved {unit.asset}", flush=True)
     with tempfile.TemporaryDirectory(prefix="conditional-audit-", dir=research) as name:
-        audit(ROOT, Path(name))
-    print("PASS: exact all-k theorem checked with three explicit Dusart hypotheses", flush=True)
+        reports = audit(ROOT, Path(name))
+    receipt = {
+        "commit": commit,
+        "targets": [TARGET],
+        "unit_keys": [unit.key for unit in units],
+        "axiom_reports": reports,
+        "conditional": True,
+    }
+    (research / "conditional-audit.json").write_text(json.dumps(receipt, indent=2) + "\n")
+    print(
+        "PASS: all-k theorem conditional on one theta estimate, including axiom audit", flush=True
+    )
 
 
 if __name__ == "__main__":

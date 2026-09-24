@@ -5,7 +5,24 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: shared rounded convolution assembly (2026-09-24)
+## Current priority: finish the conditional release before further Dusart work
+
+The complete conditional proof has already passed locally. Finish its CI,
+conditional paper, documentation, compiled artifact closure and provenance
+before returning to the unfinished Dusart providers. The sole CI/release
+target is `CompleteClassificationSquaredConditional`, with the single
+`HasThetaLogSquaredError (1 / 5) 3594641` parameter. The original three-bound
+theorem remains in source but is not separately built or audited in CI.
+
+The dedicated workflow now runs on main pushes or manual dispatch when
+`CONDITIONAL_CI_BUILDS == enabled`; the unconditional `DUSART_CI_BUILDS` gate
+remains separate. Its dependency planner admits exactly the proved Dusart
+reductions needed by the reduced target and rejects other unfinished providers.
+Checkpoint reuse remains content-addressed and in-progress runs are not
+canceled by new commits. Final regression and axiom checks emit an audit receipt.
+Conditional paper, documentation and release packaging are still pending.
+
+## Earlier analytic increment: shared rounded convolution assembly (2026-09-24)
 
 `ConvolutionError` proves the product bound
 `alpha*(rightCap+beta) + leftCap*beta`, including the cross term and using

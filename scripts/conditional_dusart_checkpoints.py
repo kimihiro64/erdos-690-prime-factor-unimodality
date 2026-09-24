@@ -1,7 +1,7 @@
 """Validated, content-addressed build bundles stored as draft release assets.
 
 These are build checkpoints, not mathematical releases or proof certificates.
-Only the trusted manual workflow may upload them. Lake still validates its
+Only the trusted main-branch workflow may upload them. Lake still validates its
 normal dependency traces after restoration.
 """
 

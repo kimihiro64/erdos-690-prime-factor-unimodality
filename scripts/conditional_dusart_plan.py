@@ -10,8 +10,26 @@ from pathlib import Path
 
 from scripts.lean_source import lean_imports, strip_lean_comments
 
-TARGET = "PrimeFactorUnimodality.Proof.CompleteClassificationConditional"
-THEOREM = "PrimeFactorUnimodality.completeClassification_assuming_dusart"
+TARGET = "PrimeFactorUnimodality.Proof.CompleteClassificationSquaredConditional"
+THEOREM = "PrimeFactorUnimodality.completeClassification_assuming_theta_error"
+# These proved reductions are needed only by the one-theta conditional target.
+# Keep the broad exclusion for every other unfinished Dusart provider.
+THETA_DUSART_IMPORTS = {
+    f"PrimeFactorUnimodality.Helpers.Analytic.{name}"
+    for name in (
+        "DusartJBounds",
+        "DusartJComparison",
+        "DusartTwoTermComparison",
+        "DusartPrimeCountingSquared",
+        "DusartShortIntervalSquared",
+        "DusartSquaredAtPublishedCutoff",
+        "DusartPublishedAnchors",
+        "DusartPrimeCountingClosed",
+        "DusartPublishedPrimeCounting",
+        "DusartPublishedShortInterval",
+        "DusartPublishedTailTheta",
+    )
+}
 CONFIG = (
     "lean-toolchain",
     "lake-manifest.json",
@@ -57,7 +75,8 @@ def owned_plan(root: Path, target: str = TARGET) -> tuple[list[str], dict[str, l
     visiting: set[str] = set()
 
     def visit(module: str) -> None:
-        if module.startswith(FORBIDDEN):
+        allowed = target == TARGET and module in THETA_DUSART_IMPORTS
+        if module.startswith(FORBIDDEN) and not allowed:
             raise ValueError(f"unfinished or retired dependency in conditional target: {module}")
         path = root.joinpath(*module.split(".")).with_suffix(".lean")
         if not path.is_file():

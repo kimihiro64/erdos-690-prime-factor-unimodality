@@ -1,8 +1,10 @@
 name: Conditional all-k proof
 
-# Deliberately independent of the paused unconditional workflow. Re-dispatch
-# after a source repair or budget stop to reuse the uploaded checkpoints.
+# Independent state gate; unconditional builds remain separately paused.
+# Re-dispatch after a budget stop to reuse the uploaded checkpoints.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -14,6 +16,7 @@ concurrency:
 
 jobs:
   checks:
+    if: ${{ vars.CONDITIONAL_CI_BUILDS == 'enabled' }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -31,7 +34,8 @@ jobs:
       - run: .githooks/pre-commit
 
   conditional:
-    name: Check exact all-k theorem assuming the three Dusart bounds
+    name: Conditional all-k — single theta assumption
+    if: ${{ vars.CONDITIONAL_CI_BUILDS == 'enabled' }}
     needs: checks
     runs-on: ubuntu-latest
     timeout-minutes: 360
@@ -60,6 +64,12 @@ jobs:
           mkdir -p .research
           python3 -m scripts.conditional_dusart_ci --minutes 280 2>&1 |
             tee .research/conditional-dusart.log
+      - name: Preserve exact conditional theorem and axiom reports
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: conditional-proof-audit
+          path: .research/conditional-audit.json
+          if-no-files-found: error
       - name: Preserve diagnostics even after a failure
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a

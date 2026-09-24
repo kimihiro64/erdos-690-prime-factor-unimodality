@@ -1,7 +1,16 @@
 # The all-k theorem conditional on Dusart
 
-`PrimeFactorUnimodality.completeClassification_assuming_dusart` proves the same
-`CompleteClassification` proposition as Challenge, with three explicit inputs:
+The primary conditional theorem is
+`PrimeFactorUnimodality.completeClassification_assuming_theta_error`. It proves
+the same `CompleteClassification` proposition as Challenge from the single
+explicit hypothesis `HasThetaLogSquaredError (1 / 5) 3594641`:
+
+`|theta(x) - x| ≤ x / (5 log(x)^2)` for every real `x ≥ 3594641`.
+
+The conditional CI and release target is exclusively
+`CompleteClassificationSquaredConditional`. The older
+`completeClassification_assuming_dusart` theorem remains available in source
+with three explicit inputs, but has no separate CI build or release audit:
 
 - `HasDusartPrimeCountingBounds`;
 - `HasDusartThetaBounds`;
@@ -10,14 +19,15 @@
 These are theorem parameters, not new axioms. The conclusion still quantifies
 over **every positive k**, with unimodality exactly when `k ≤ 3`. The finite
 classification through 38,000 and the uniform infinite tail are connected by
-the existing reduction. The finite-range certificates remain obligations to
-replay, not additional assumptions.
+the existing reduction. The finite certificates have passed local replay;
+they are not additional assumptions.
 
 This target does not import the unfinished Dusart providers or zero-verification
 modules. It also avoids the retired full record-gap and record-prime-witness
 families. The record-twin primality and short record-gap certificates remain in
-its actual dependency closure. No claim of a successful full build is made by
-adding this target: the dedicated CI must pass first.
+its actual dependency closure. The complete primary target has built locally
+through 5,291 jobs, including its all-k regression and standard-axiom audit.
+A published release still requires the dedicated CI and artifact gates.
 
 The 500,001-entry reciprocal-prime enumeration is also absent. The already
 proved finite Abel-summation inequality, using the same prime-counting input,
@@ -36,8 +46,9 @@ diagnostic parameters, the unchanged upper and lower endpoint statements now
 check in about 34 and 35 seconds respectively on the local two-core machine,
 while the seed chains also run. All ten audits contain only the three standard
 axioms. This validates the endpoint arithmetic and its algebraic assembly, not
-the seed equalities: the full conditional target still requires both actual
-seed chains. Their generated data and cached replay modules are unchanged.
+the seed equalities. Both actual seed chains have subsequently passed as part
+of the complete local conditional builds. Their generated data and cached
+replay modules are preserved.
 
 The original three hypotheses are unchanged. Internally, the uniform tail now
 uses only `theta(q) < 1.001 q` and the existing lower theta bound for `q ≥ 3501`.
@@ -104,8 +115,9 @@ reduction. Its theorem `completeClassification_assuming_theta_error` has exactly
 one explicit analytic parameter and the unchanged all-k conclusion. This is
 reusable proof work for the unconditional result, not a hypothesis asserting
 the classification. The separate three-Dusart target retains its original
-interface. Both full conditional targets still require completed twin replays
-and final axiom audits before any release claim. The current unconditional
+interface. Both full conditional targets have passed local twin replays and
+final axiom audits; only the reduced target is selected for CI and release.
+The current unconditional
 `Solution.lean` still uses the older provider assembly; switching it to the
 replacement is a remaining integration step, not an already completed build.
 
@@ -119,9 +131,12 @@ classification reduction; no analytic hypothesis is added by this import repair.
 
 ## Building and resuming
 
-The **Conditional all-k proof** workflow is manually dispatched and independent
-of `DUSART_CI_BUILDS`. The unconditional workflow remains paused. New commits
-do not cancel a running conditional build; another dispatch queues behind it.
+The **Conditional all-k proof** workflow runs on pushes to `main` and manual
+dispatches when the repository state variable `CONDITIONAL_CI_BUILDS` equals
+`enabled`. An unset value or `paused` skips its jobs. This is independent of
+`DUSART_CI_BUILDS`, which remains paused for the unconditional proof. New commits
+do not cancel a running conditional build. The checkpointed job builds the
+single-theta target only, including its actual finite certificate closure.
 
 Preview the exact dependency plan without running Lean:
 
@@ -132,8 +147,8 @@ python3 -m scripts.conditional_dusart_ci --plan
 After restoring/building prerequisites, the focused Lean target is:
 
 ```sh
-lake build +PrimeFactorUnimodality.Proof.CompleteClassificationConditional
-lake env lean test/lean/ConditionalDusart.lean
+lake build +PrimeFactorUnimodality.Proof.CompleteClassificationSquaredConditional
+lake env lean test/lean/ConditionalTheta.lean
 ```
 
 CI builds owned modules in topological order, foundations first, without
@@ -141,8 +156,10 @@ restricting Lean's thread count. It downloads Mathlib's cache and applies the
 reviewed dependency compatibility patches. Each job has a six-hour hard limit;
 the replay runner stops after its 280-minute budget, leaving time for cleanup.
 Every active target is named, with a heartbeat every 30 seconds. The final check
-requires both successful elaboration of the all-k regression statement and an
-axiom audit allowing only `propext`, `Classical.choice`, and `Quot.sound`.
+requires successful elaboration of the all-k regression and analytic-anchor
+regressions, and an axiom audit allowing only `propext`, `Classical.choice`, and
+`Quot.sound`. Its uploaded audit receipt records the exact commit, theorem type,
+axiom report and content-addressed checkpoint keys.
 
 Completed 16-module units are immediately uploaded as content-addressed assets
 in the draft releases `conditional-proof-checkpoints-v1-foundations` and
@@ -161,8 +178,8 @@ that unit. Asset deletion or loss of the hosting service is also not protected
 against: this is checkpointing, not an absolute durability guarantee. An
 incomplete run fails visibly and never reports the conditional proof as passed.
 
-Once Dusart is formalized, supplying its three proofs removes these hypotheses
-without changing the all-k conclusion. The unconditional Challenge and Solution
+Once the theta-error ray is formalized, supplying its proof removes the last
+hypothesis without changing the all-k conclusion. The unconditional Challenge and Solution
 are deliberately unchanged in the meantime.
 
 ## Gated release and subsequent proof stages
@@ -171,7 +188,7 @@ are deliberately unchanged in the meantime.
    dedicated release job that generates a conditional paper and documentation,
    packages the full conditional `.olean` dependency closure with the pinned
    sources/toolchain and compatibility patches, and records the exact commit,
-   theorem type, three hypotheses, axiom audit, and artifact checksums. The paper
+   theorem type, single theta hypothesis, axiom audit, and artifact checksums. The paper
    must state precisely what remains assumed. Its account of the Dusart work
    must distinguish measurements from runtime projections, describe the
    analytic and computational optimizations attempted, and identify why no
