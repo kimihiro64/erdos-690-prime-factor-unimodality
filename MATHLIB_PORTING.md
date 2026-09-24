@@ -48,6 +48,7 @@ Replace the scaffold row when the first real candidate module is created.
 | `PrimeFactorUnimodality.Mathlib.Data` | `Mathlib/Data.lean` | project-verified | Facade for finite-data candidates within the import limit. |
 | `PrimeFactorUnimodality.Mathlib.Data.Nat.BitCount` | `Mathlib/Data/Nat/BitCount.lean` | project-verified | Balanced bitset counting, exact clipped/offset block semantics, and adjacent-block composition. |
 | `PrimeFactorUnimodality.Mathlib.Data.Nat.BitCountPacked` | `Mathlib/Data/Nat/BitCountPacked.lean` | project-verified | Carry-free whole-integer lane merging, proved equal to the original bit count for every depth; exact block cardinality and adjacent-block composition. |
+| `PrimeFactorUnimodality.Mathlib.Data.Nat.BitLaneCompare` | `Mathlib/Data/Nat/BitLaneCompare.lean` | project-verified | Packed strict unsigned comparisons with checked lane bounds and proved absence of inter-lane borrow or carry. |
 | `PrimeFactorUnimodality.Mathlib.Data.Nat.BitProduct` | `Mathlib/Data/Nat/BitProduct.lean` | project-verified | Balanced bit-selected products in any commutative monoid, exact offset/clipping semantics and adjacent-block composition. |
 | `PrimeFactorUnimodality.Mathlib.Algebra` | `Mathlib/Algebra.lean` | project-verified | Facade for algebraic candidates within the direct-import limit. |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Fourier` | `Mathlib/Analysis/Fourier.lean` | project-verified | Facade for shared transforms and rational checking, within the direct-import limit. |

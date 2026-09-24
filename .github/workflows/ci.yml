@@ -1519,6 +1519,15 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.CheckedXiGridRows
           lake env lean test/lean/CheckedXiGridRows.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Mathlib.Data.Nat.BitLaneCompare
+          lake env lean test/lean/BitLaneCompare.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Arithmetic.PackedStrictBounds
+          lake env lean test/lean/PackedStrictBounds.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.PackedXiGridMargins
+          lake env lean test/lean/PackedXiGridMargins.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.ThetaSquaredCheckpoints
           lake env lean test/lean/ThetaSquaredCheckpoints.lean
           /usr/bin/time -v lake build \

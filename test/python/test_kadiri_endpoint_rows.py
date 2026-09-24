@@ -702,6 +702,34 @@ def test_checked_sign_blocks_use_shared_endpoints_and_adjacent_order() -> None:
     assert "∀ i j" not in source
 
 
+def test_packed_margins_keep_enclosures_and_all_nonmargin_obligations() -> None:
+    root = ROOT / "PrimeFactorUnimodality/Helpers"
+    source = strip_lean_comments((root / "Analytic/PackedXiGridMargins.lean").read_text())
+    assert "phase_nonneg : ∀ i, 0 ≤ (sample i).phaseError" in source
+    assert "p.phase.Encloses" in source and "p.value.Encloses" in source
+    assert "projectionBudget c.errors.cap" in source
+    assert "cardinalPhaseBudget c.pi" in source
+    assert "t.point.check" in source and "c.phaseData.check" in source
+    assert "checkEulerRemainder" in source
+    assert "s.check_of_packedMargins c hp hm hi" in source
+    assert "s.low_criticalLine_of_checks" in source
+    bounds = strip_lean_comments((root / "Arithmetic/PackedStrictBounds.lean").read_text())
+    assert "decide (0 < p.denominator) && Nat.checkBitLaneLt" in bounds
+    assert "Nat.bitLaneDigit_lt_of_check" in bounds
+    assert "(∀ i, a i ≤ p.lo i) ∧ (∀ i, p.hi i ≤ b i)" in bounds
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text()
+    previous = workflow.index("lake env lean test/lean/CheckedXiGridRows.lean")
+    for module in (
+        "Mathlib.Data.Nat.BitLaneCompare",
+        "Helpers.Arithmetic.PackedStrictBounds",
+        "Helpers.Analytic.PackedXiGridMargins",
+    ):
+        build = workflow.index(f"+PrimeFactorUnimodality.{module}\n")
+        regression = workflow.index(f"lake env lean test/lean/{module.rsplit('.', 1)[1]}.lean")
+        assert previous < build < regression
+        previous = regression
+
+
 def test_theta_checkpoint_consumers_derive_band_and_anchor_obligations() -> None:
     source = strip_lean_comments(
         (
