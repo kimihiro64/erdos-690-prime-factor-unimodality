@@ -17,6 +17,28 @@ from scripts.lean_source import lean_imports, strip_lean_comments
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def verify_pages(directory: Path, modules: list[str]) -> None:
+    """Require a nonempty, in-bundle HTML page for every compiled proof module."""
+    if TARGET not in modules or len(set(modules)) != len(modules):
+        raise ValueError("documentation needs the complete, unique conditional module set")
+    for module in modules:
+        if (
+            not module
+            or any(not part for part in module.split("."))
+            or "/" in module
+            or "\\" in module
+        ):
+            raise ValueError(f"unsafe documentation module name: {module!r}")
+        page = directory / (module.replace(".", "/") + ".html")
+        if (
+            page.is_symlink()
+            or not page.resolve().is_relative_to(directory.resolve())
+            or not page.is_file()
+            or page.stat().st_size == 0
+        ):
+            raise ValueError(f"conditional documentation missing or invalid: {module}")
+
+
 def ordered_modules(root: Path) -> list[str]:
     artifacts = module_artifacts(root)
     imports: dict[str, list[str]] = {}
@@ -137,6 +159,7 @@ def main() -> None:
         TARGET,
         *core,
     )
+    verify_pages(build / "doc", [*modules, *core])
     (build / "doc/conditional-audit.json").write_text(json.dumps(receipt, indent=2) + "\n")
 
 

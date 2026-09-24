@@ -34,11 +34,21 @@ to Dusart. The unconditional goal remains open.
 The strict original Lean lint driver is an outstanding release gate. A local
 `lake lint -- --no-build PrimeFactorUnimodality.Proof.CompleteClassificationSquaredConditional`
 reported 7,682 existing findings: 6,691 missing declaration docs, 980 definition
-names containing underscores, nine unused arguments and two structures whose
-fields are all propositions. This is not a theorem-elaboration failure. Do not
+names containing underscores, nine declarations with unused arguments and two
+structures whose fields are all propositions. This is not a theorem-elaboration failure. Do not
 claim a successful release or silently suppress the findings. A user choice
 between an explicit reviewed style baseline and source-wide fixes is pending;
 source-wide generated-certificate changes would invalidate saved artifacts.
+The two structure findings are `PowerCertificate` and `PowerStep`; these are
+intentionally type-valued wrappers for large checked equalities, not missing
+mathematical proofs. In particular, `PowerCertificate` documents that its sort
+avoids adding giant equalities to premise selection. Preserve that design when
+deciding lint policy. The nine unused-argument findings contain ten parameters.
+
+The documentation gate now checks a nonempty local page for every compiled
+dependency, both after generation and before publication. A bundle with only
+the main theorem page is rejected; fixture tests cover missing/empty dependency
+pages, duplicate module names, path traversal and symlink pages.
 
 ## Earlier analytic increment: shared rounded convolution assembly (2026-09-24)
 

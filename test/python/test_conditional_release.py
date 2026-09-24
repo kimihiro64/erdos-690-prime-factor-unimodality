@@ -9,6 +9,7 @@ from pathlib import Path
 
 import pytest
 
+from scripts.conditional_docs import verify_pages
 from scripts.conditional_dusart_plan import (
     CONFIG,
     PREBUILD_TARGET,
@@ -176,6 +177,43 @@ def test_resource_projections_are_not_presented_as_measurements() -> None:
     assert "no olean" in data["packed_convolution"]["scope"].lower()
 
 
+def test_documentation_requires_every_nonempty_module_page(tmp_path: Path) -> None:
+    modules = [TARGET, "Mathlib.Test"]
+    target = tmp_path / (TARGET.replace(".", "/") + ".html")
+    target.parent.mkdir(parents=True)
+    target.write_text("conditional theorem")
+    dependency = tmp_path / "Mathlib/Test.html"
+    with pytest.raises(ValueError, match="Mathlib.Test"):
+        verify_pages(tmp_path, modules)
+    dependency.parent.mkdir()
+    dependency.touch()
+    with pytest.raises(ValueError, match="Mathlib.Test"):
+        verify_pages(tmp_path, modules)
+    dependency.write_text("dependency declarations")
+    verify_pages(tmp_path, modules)
+    with pytest.raises(ValueError, match="unique"):
+        verify_pages(tmp_path, [*modules, TARGET])
+    with pytest.raises(ValueError, match="complete"):
+        verify_pages(tmp_path, ["Mathlib.Test"])
+
+
+@pytest.mark.parametrize("module", ["../outside", "Mathlib..Test", "Mathlib/Test", "Mathlib\\Test"])
+def test_documentation_rejects_unsafe_module_names(tmp_path: Path, module: str) -> None:
+    with pytest.raises(ValueError, match="unsafe"):
+        verify_pages(tmp_path, [module, TARGET])
+
+
+def test_documentation_rejects_symlink_pages(tmp_path: Path) -> None:
+    directory = tmp_path / "docs"
+    outside = tmp_path / "outside.html"
+    outside.write_text("not part of documentation")
+    target = directory / (TARGET.replace(".", "/") + ".html")
+    target.parent.mkdir(parents=True)
+    target.symlink_to(outside)
+    with pytest.raises(ValueError, match="missing or invalid"):
+        verify_pages(directory, [TARGET])
+
+
 def test_release_assembly_requires_matching_paper_docs_and_proof(tmp_path: Path) -> None:
     fixture_project(tmp_path)
     fixture_artifacts(tmp_path)
@@ -227,6 +265,11 @@ def test_release_assembly_requires_matching_paper_docs_and_proof(tmp_path: Path)
         path = docs / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("HasThetaLogSquaredError")
+    with pytest.raises(ValueError, match="Mathlib.Test"):
+        prepare(tmp_path, inputs, tmp_path / "release", COMMIT)
+    dependency_page = docs / "Mathlib/Test.html"
+    dependency_page.parent.mkdir()
+    dependency_page.write_text("Dependency declarations")
     assembled = prepare(tmp_path, inputs, tmp_path / "release", COMMIT)
     assert assembled["conditional"] is True
     assert "conditional-api-documentation.zip" in assembled["assets"]

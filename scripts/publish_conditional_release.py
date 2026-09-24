@@ -13,6 +13,7 @@ import zipfile
 from pathlib import Path
 from typing import Any
 
+from scripts.conditional_docs import verify_pages
 from scripts.conditional_dusart_plan import TARGET
 from scripts.conditional_release_bundle import sha256, verify_parts
 from scripts.conditional_release_receipt import clean_commit, validate_receipt
@@ -85,6 +86,7 @@ def prepare(root: Path, inputs: Path, output: Path, commit: str) -> dict[str, An
         "conditional-resources.json",
     }:
         raise ValueError("paper provenance does not cover every required artifact")
+    verify_pages(docs, manifest["modules"])
     for relative in ("index.html", "licensing/index.html", TARGET.replace(".", "/") + ".html"):
         if not (docs / relative).is_file():
             raise ValueError(f"conditional documentation missing: {relative}")
