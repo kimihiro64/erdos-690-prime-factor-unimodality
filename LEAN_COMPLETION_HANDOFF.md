@@ -5,7 +5,31 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: the critical-line Gamma kernel is controlled (2026-09-24)
+## Latest analytic increment: corrected displaced Gamma integrals (2026-09-24)
+
+`Gamma.NegativeHalfNorm` proves a uniform negative-to-positive half-integer
+Gamma norm comparison with factor `8/3`, sharpened to `1` for `m >= 2`.
+The first shift genuinely needs a correction: the exact recurrence gives
+`Gamma(-3/2) = (8/3) * Gamma(3/2)`. Continuity on these pole-free vertical
+lines and global measurability of complex Gamma are also proved.
+
+`PlattNegativeGammaIntegral` transfers the corrected pointwise estimate to
+the actual negative-line window integral. `PlattContourIntegrand` defines the
+complex Fourier integrand and proves both its real-line specialization and
+its exact norm on an arbitrary horizontal displacement. The final consumer,
+`PlattShiftedGammaIntegral`, proves absolute convergence and bounds both
+displaced integrals by the existing finite Gaussian-moment majorant, retaining
+the exact Gaussian shift cost and frequency dependence. The bounds cover every
+natural order, `m >= 1`, `t0 >= 0`, `h > 0`, and every real frequency.
+
+All five new modules and three regressions pass. Twenty theorem closures
+were audited and use only the standard logical axioms. These are actual
+integral estimates, not a contour-deformation theorem: equality with the
+original Fourier transform, decay on connecting edges, and the residues
+crossed by the negative shift remain to be proved. No zero verification or
+full conditional release is claimed by this increment.
+
+## Previous increment: the critical-line Gamma kernel is controlled (2026-09-24)
 
 `Gamma.BetaNorm` bounds the complex Beta integral by its real-parameter value,
 then bounds ratios of Gamma norms under a positive real shift. `QuarterNorm`
