@@ -199,8 +199,11 @@ Replace the scaffold row when the first real candidate module is created.
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Integrability.Resolvent` | `Mathlib/Analysis/Complex/Integrability/Resolvent.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Integrability.RightResolvent` | `Mathlib/Analysis/Complex/Integrability/RightResolvent.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.Complex.Poisson.Stechkin` | `Mathlib/Analysis/Complex/Poisson/Stechkin.lean` | project-verified | None |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma` | `Mathlib/Analysis/SpecialFunctions/Gamma.lean` | project-verified | Export facade for Gamma identities and norm bounds |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.DigammaConjugation` | `Mathlib/Analysis/SpecialFunctions/Gamma/DigammaConjugation.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.HalfIntegerNorm` | `Mathlib/Analysis/SpecialFunctions/Gamma/HalfIntegerNorm.lean` | project-verified | Exact half-line norm and polynomial bounds from reflection and recurrence |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gaussian.AbsoluteMoments` | `Mathlib/Analysis/SpecialFunctions/Gaussian/AbsoluteMoments.lean` | project-verified | Exact absolute moments, integrability and two-step recurrence |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gaussian.PolynomialMoments` | `Mathlib/Analysis/SpecialFunctions/Gaussian/PolynomialMoments.lean` | project-verified | Finite binomial evaluation of two shifted absolute powers against a Gaussian |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Integrability.LogCauchy` | `Mathlib/Analysis/SpecialFunctions/Integrability/LogCauchy.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.Deriv` | `Mathlib/Analysis/SpecialFunctions/Log/Deriv.lean` | project-verified | None |
 | `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Pow.ThreeHalves` | `Mathlib/Analysis/SpecialFunctions/Pow/ThreeHalves.lean` | project-verified | None |

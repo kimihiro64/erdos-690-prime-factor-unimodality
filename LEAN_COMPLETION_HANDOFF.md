@@ -5,7 +5,33 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: half-integer Gamma majorants (2026-09-24)
+## Latest analytic increment: the Gamma-window integral is bounded (2026-09-24)
+
+`Mathlib.Analysis.SpecialFunctions.Gaussian.AbsoluteMoments` evaluates the
+half-line moment for every real exponent above `-1` by the substitution
+`y = x^2` in Mathlib's Gamma integral. It proves integrability and the exact
+whole-line absolute natural moments. The first moment and two-step recurrence
+reduce higher moments to arithmetic and the zeroth Gaussian moment.
+
+`Gaussian.PolynomialMoments` integrates two arbitrary shifted absolute powers
+by a finite binomial sum. `PlattGammaIntegral` proves continuity and genuine
+integrability of the Gamma window and bounds the full scalar `C`, including
+its outer `(2*pi)^k` factor. This holds for every natural error order `k`,
+every odd shift `sigma = 2*m+1` with `m >= 1`, every `t0 >= 0` and `h > 0`.
+The bound is derived from the previously proved pointwise estimate, not from
+the paper's disputed printed scalar expression.
+
+All three new modules compile. Both new Lean regressions pass, including
+the exact specialization `C(3,1000,1,0) <= 1001*pi + sqrt(2*pi)`. Ten theorem
+closures were audited and contain only the standard logical axioms.
+
+The Gaussian integration obligation is now closed. Still open: complete
+transform/interpolation/error transport to the actual zeta sign evaluator,
+its finite certified data and full-range feasibility, and the unconditional
+Dusart theta-error ray. The conditional classification release still awaits
+the already-running twin replays and final audit; no release gate is relaxed.
+
+## Previous increment: half-integer Gamma majorants (2026-09-24)
 
 `Mathlib.Analysis.SpecialFunctions.Gamma.HalfIntegerNorm` proves the exact
 Gamma norm on real part one half from Mathlib's reflection and conjugation
@@ -20,12 +46,10 @@ that failed the earlier numerical audit. Both modules compile, their regression
 tests pass, and all six audited theorem closures use only the standard logical
 axioms. These are non-certificate proofs; no zero table or bulk replay is added.
 
-Still required for this alternative sign-evaluation route: integrate the
-polynomial against the Gaussian, evaluate and bound the resulting moments,
-and prove the remaining transform/interpolation/error transport to actual zero
-signs. This increment does not establish a feasible complete zero-verification
-pipeline or discharge the Dusart theta-error ray. The existing conditional
-classification target and release gate are unchanged.
+The Gaussian integration mentioned in this earlier increment is now supplied
+above. The remaining transform/interpolation/error transport to actual zero
+signs is not supplied by either increment. Neither establishes a feasible
+complete zero-verification pipeline or discharges the Dusart theta-error ray.
 
 ## Previous increment: all three finite analytic prefixes are supplied (2026-09-24)
 
