@@ -172,6 +172,8 @@ def test_theta_target_does_not_allow_arbitrary_dusart_providers(tmp_path: Path) 
 
 def test_conditional_workflow_is_state_gated_bounded_and_not_cancelled_by_push() -> None:
     workflow = (ROOT / ".github/workflows/conditional-dusart.yml").read_text()
+    checks_job = workflow.split("  checks:\n", 1)[1].split("  conditional:\n", 1)[0]
+    assert "fetch-depth: 0" in checks_job  # Generator tests read pinned historical source blobs.
     assert "  workflow_dispatch:" in workflow
     assert "  push:" in workflow
     assert "vars.CONDITIONAL_CI_BUILDS == 'enabled'" in workflow
