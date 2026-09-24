@@ -161,6 +161,8 @@ def test_keys_follow_dependencies_not_unrelated_files(tmp_path: Path) -> None:
     assert [unit.phase for unit in initial] == ["foundations", "certificates", "certificates"]
     write_module(tmp_path, "Unrelated", "anything at all")
     assert plan(tmp_path, size=1) == initial
+    (tmp_path / "scripts/conditional_dusart_ci.py").write_text("updated cache runner")
+    assert plan(tmp_path, size=1) == initial  # Runner changes preserve every saved checkpoint.
     write_module(tmp_path, TARGET, "import PrimeFactorUnimodality.Generated.Row\n-- edit\n")
     changed = plan(tmp_path, size=1)
     assert changed[:-1] == initial[:-1]
