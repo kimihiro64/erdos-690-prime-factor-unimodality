@@ -58,11 +58,15 @@ and log-square finite-band obligations.
 
 `CompleteClassificationSquaredReduction` also composes the existing
 prime-counting and short-interval adapters with this weaker theta interface.
-Its `SquaredThetaFiniteInputs` lists the three bounded prefixes and both exact
-Abel anchor comparisons at 3,594,641. Given those inputs and the finite
-classification, the sole remaining unbounded analytic input is the shared
-log-square theta-error ray. This is a reduction of the remaining obligations,
-not a claim that their numerical certificates or the ray have been proved.
+Its `SquaredThetaFiniteInputs` now lists only the three bounded prefixes.
+The exact count `pi(3594641) = 256357` is kernel-checked by one packed sieve;
+the same log-square theta hypothesis and elementary logarithm bounds then
+prove both Abel anchor comparisons. No additional theta-product certificate
+or anchor assumption is needed. The count pilot, including saved proof output,
+completed in 5.09 seconds on the local two-core machine. Given the remaining
+prefixes and finite classification, the sole unbounded analytic input is the
+shared log-square theta-error ray. Neither those prefixes nor the ray are
+claimed to have been proved by this reduction.
 
 ## Building and resuming
 

@@ -5,7 +5,35 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: checked Turing margins and shared endpoint blocks (2026-09-23)
+## Latest increment: the two published Abel anchors are discharged (2026-09-24)
+
+`DusartPublishedAnchors` proves both exact Abel comparisons at 3,594,641
+from the log-square theta estimate already required by the provider and the
+exact prime count at that point. The logarithm enclosure uses two small smooth
+integers and the proved bounds for log 2, log 3 and log 5. This does not assume
+the anchors or require a separate numerical enclosure of theta at the cutoff.
+
+`DusartPublishedPrimeCount` kernel-checks `Nat.primeCounting 3594641 = 256357`
+using the existing packed wheel sieve and count assembler. Its whole source
+is about 1.2 KB, with no per-prime witness list or generated bitmap. The complete
+pilot, including saved proof output and axiom audit, took 5.09 seconds locally;
+the actual project module built in 5.2 seconds. No native evaluator is used.
+
+`CompleteClassificationSquaredReduction` now requires only the three bounded
+prefixes in `SquaredThetaFiniteInputs`; its two former anchor fields have been
+removed because they are derived. The revised all-k reduction builds. It still
+requires the finite classification and the full log-square theta-error ray.
+This closes two named obligations, not Dusart itself: the three prefixes,
+finite theta band, verified low zeros, remaining analytic margins and the
+unconditional provider assembly still need their actual proofs and checks.
+
+The separate three-Dusart conditional target retains its original hypotheses
+and shares the final proof's finite classification and CRT tail. Its full
+build still awaits the two record-twin seed chains. Do not claim a conditional
+release or dispatch the gated release until that target and its final axiom
+audit pass. See `CONDITIONAL_DUSART.md` for the current release boundary.
+
+## Previous increment: checked Turing margins and shared endpoint blocks (2026-09-23)
 
 `TuringMarginIntervals` now supplies the scalar comparison required by
 `XiSignRows.Valid.low_criticalLine_of_turing_margin`. An exact rearrangement
