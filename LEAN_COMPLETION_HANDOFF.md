@@ -5,7 +5,29 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest increment: all three finite analytic prefixes are supplied (2026-09-24)
+## Latest analytic increment: half-integer Gamma majorants (2026-09-24)
+
+`Mathlib.Analysis.SpecialFunctions.Gamma.HalfIntegerNorm` proves the exact
+Gamma norm on real part one half from Mathlib's reflection and conjugation
+theorems, then uses recurrence to bound every nonnegative integer translate.
+After multiplying by the compensating exponential, the bound is polynomial
+in the absolute height. It covers positive, zero and negative heights.
+
+`PlattGammaMajorant` supplies the corresponding pointwise bound for the actual
+Gaussian-windowed integrand at `sigma = 2*m+1`, `m >= 1`. Its even polynomial
+majorant is derived directly, without assuming the printed scalar constant
+that failed the earlier numerical audit. Both modules compile, their regression
+tests pass, and all six audited theorem closures use only the standard logical
+axioms. These are non-certificate proofs; no zero table or bulk replay is added.
+
+Still required for this alternative sign-evaluation route: integrate the
+polynomial against the Gaussian, evaluate and bound the resulting moments,
+and prove the remaining transform/interpolation/error transport to actual zero
+signs. This increment does not establish a feasible complete zero-verification
+pipeline or discharge the Dusart theta-error ray. The existing conditional
+classification target and release gate are unchanged.
+
+## Previous increment: all three finite analytic prefixes are supplied (2026-09-24)
 
 Integration repair: `VendorPrimeNumberTheoremAnd.EulerMaclaurin` forwards to
 the identical implementation in the locked PNT dependency. Redeclaring `B1`
