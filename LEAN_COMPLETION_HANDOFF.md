@@ -5,7 +5,42 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: Fourier aliasing and Poisson summation are proved (2026-09-24)
+## Latest analytic increment: time aliases and shifted frequency aliases are bounded (2026-09-24)
+
+`Gaussian.TailBound` proves a global tangent exponential majorant for every
+polynomial Gaussian. `Fourier.PolynomialGaussianAliasing` sums that majorant
+exactly. Applied to the actual Gamma window, `PlattTimeAliasing` proves
+convergence and the central-cell error
+`10*(pi*B)^k*exp(-B^2/(8*h^2))/(1-exp(2*k-B^2/(2*h^2)))`.
+The domain is every natural order, every real `t0`, positive `h` and `B`,
+`B^2 > 4*k*h^2`, and `|v| <= B/2`. Positivity of the denominator is proved.
+The constant retains the established quarter-Gamma bound `5`. With `t0 >= 0`,
+the actual Poisson identity transfers this error to the full Fourier series.
+No improper tail integral or numerical error estimate is assumed.
+
+`Fourier.ExponentialAliasing` now supports any explicit margin `d` satisfying
+`|u| + d <= A`. Its previous central-cell APIs are preserved. The new
+`PlattShiftedFourierAliasing` supplies global convergence and uses the actual
+margin `A/2-D` after a shift of size at most `D`; a shifted point need not
+remain in the central cell. Every residue and the first-shift `8/3` correction
+are retained. The inequality also holds with a nonpositive margin, but then
+it does not supply a small decaying error.
+
+All new source targets and both export facades build. Both new regressions
+and the previous aliasing/Poisson regressions pass. Eighteen audited theorem
+closures use only the standard logical axioms. Tests cover arbitrary orders,
+the central-cell boundary, signed window centers, denominator positivity and
+a frequency shifted outside the central half-period.
+
+The remaining analytic obligations include finite Fourier and Dirichlet
+truncation, interpolation, the actual zeta-transform connection, rigorous
+numerical error transport, and verified zero signs/completeness. This does
+not close Dusart or certify a complete feasible zero-verification pipeline.
+The independent upper twin-residue certificate chain has now built completely;
+the lower chain was advancing through part 404/463 at the latest check.
+The full conditional target and its release audit still await that chain.
+
+## Previous increment: Fourier aliasing and Poisson summation are proved (2026-09-24)
 
 `PlattFourierEnvelope` combines both actual contour bounds into a finite sum
 of decaying exponentials. It retains every crossed residue and the `8/3`

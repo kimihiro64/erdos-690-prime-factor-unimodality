@@ -6,6 +6,7 @@ Authors: Jonas Whidden
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gaussian.PolynomialDecay
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gaussian.PolynomialMoments
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gaussian.RapidDecay
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gaussian.TailBound
 
 /-! # Polynomial Gaussian integrals and limits
 

@@ -10,43 +10,54 @@ import Mathlib.Topology.Algebra.InfiniteSum.NatInt
 /-! # Periodization errors from finite exponential majorants
 
 A finite sum of decaying exponentials controls both tails of every lattice
-translate in its central cell. Exact geometric summation gives an explicit
-aliasing bound, together with summability of the actual periodization.
+translate. Exact geometric summation retains the available distance to the
+nearest omitted translate, and proves convergence of the periodization.
 -/
 
 open Finset
 
 namespace Fourier
 
-/-- Exact sum of the exponential majorant on half-offset positive lattice points. -/
-theorem hasSum_exp_half_lattice {a A : ℝ} (ha : 0 < a) (hA : 0 < A) :
-    HasSum (fun n : ℕ => Real.exp (-a * (((n : ℝ) + 1 / 2) * A)))
-      (Real.exp (-a * A / 2) / (1 - Real.exp (-a * A))) := by
+/-- Exact sum of an exponential along an arbitrary offset of a positive lattice. -/
+theorem hasSum_exp_lattice {a A : ℝ} (ha : 0 < a) (hA : 0 < A) (d : ℝ) :
+    HasSum (fun n : ℕ => Real.exp (-a * ((n : ℝ) * A + d)))
+      (Real.exp (-a * d) / (1 - Real.exp (-a * A))) := by
   have hr : Real.exp (-a * A) < 1 := Real.exp_lt_one_iff.mpr (by nlinarith)
   convert (hasSum_geometric_of_lt_one (Real.exp_pos _).le hr).mul_left
-    (Real.exp (-a * A / 2)) using 1
+    (Real.exp (-a * d)) using 1
   · ext n
     rw [← Real.exp_nat_mul, ← Real.exp_add]
     congr 1
     ring
   · rw [div_eq_mul_inv]
 
+/-- Exact sum of the exponential majorant on half-offset positive lattice points. -/
+theorem hasSum_exp_half_lattice {a A : ℝ} (ha : 0 < a) (hA : 0 < A) :
+    HasSum (fun n : ℕ => Real.exp (-a * (((n : ℝ) + 1 / 2) * A)))
+      (Real.exp (-a * A / 2) / (1 - Real.exp (-a * A))) := by
+  convert hasSum_exp_lattice ha hA (A / 2) using 1
+  · ext n
+    congr 1
+    ring
+  · congr 2
+    ring
+
 section FiniteEnvelope
 
 variable {ι E : Type*} [NormedAddCommGroup E] [CompleteSpace E]
-    {s : Finset ι} {c a : ι → ℝ} {f : ℝ → E} {A u : ℝ}
+    {s : Finset ι} {c a : ι → ℝ} {f : ℝ → E} {A u d : ℝ}
 
-private theorem hasSum_finite_exp_half_lattice (ha : ∀ i ∈ s, 0 < a i) (hA : 0 < A) :
-    HasSum (fun n : ℕ => ∑ i ∈ s, c i * Real.exp (-a i * (((n : ℝ) + 1 / 2) * A)))
-      (∑ i ∈ s, c i * (Real.exp (-a i * A / 2) / (1 - Real.exp (-a i * A)))) :=
-  hasSum_sum fun i hi => (hasSum_exp_half_lattice (ha i hi) hA).mul_left (c i)
+private theorem hasSum_finite_exp_lattice (ha : ∀ i ∈ s, 0 < a i) (hA : 0 < A) (d : ℝ) :
+    HasSum (fun n : ℕ => ∑ i ∈ s, c i * Real.exp (-a i * ((n : ℝ) * A + d)))
+      (∑ i ∈ s, c i * (Real.exp (-a i * d) / (1 - Real.exp (-a i * A)))) :=
+  hasSum_sum fun i hi => (hasSum_exp_lattice (ha i hi) hA d).mul_left (c i)
 
 omit [CompleteSpace E] in
-private theorem norm_le_finite_exp_half_lattice (hc : ∀ i ∈ s, 0 ≤ c i)
+private theorem norm_le_finite_exp_lattice (hc : ∀ i ∈ s, 0 ≤ c i)
     (ha : ∀ i ∈ s, 0 < a i)
     (hf : ∀ v, ‖f v‖ ≤ ∑ i ∈ s, c i * Real.exp (-a i * |v|))
-    (n : ℕ) (v : ℝ) (hv : ((n : ℝ) + 1 / 2) * A ≤ |v|) :
-    ‖f v‖ ≤ ∑ i ∈ s, c i * Real.exp (-a i * (((n : ℝ) + 1 / 2) * A)) := by
+    (n : ℕ) (v : ℝ) (hv : (n : ℝ) * A + d ≤ |v|) :
+    ‖f v‖ ≤ ∑ i ∈ s, c i * Real.exp (-a i * ((n : ℝ) * A + d)) := by
   apply (hf v).trans
   apply sum_le_sum
   intro i hi
@@ -55,40 +66,40 @@ private theorem norm_le_finite_exp_half_lattice (hc : ∀ i ∈ s, 0 ≤ c i)
   exact mul_le_mul_of_nonpos_left hv (neg_nonpos.mpr (ha i hi).le)
 
 /-- Both omitted tails really converge under the finite exponential bound. -/
-theorem summable_lattice_tails_of_finite_exp_bound (hc : ∀ i ∈ s, 0 ≤ c i)
-    (ha : ∀ i ∈ s, 0 < a i) (hA : 0 < A) (hu : |u| ≤ A / 2)
+theorem summable_lattice_tails_of_finite_exp_bound_margin (hc : ∀ i ∈ s, 0 ≤ c i)
+    (ha : ∀ i ∈ s, 0 < a i) (hA : 0 < A) (hu : |u| + d ≤ A)
     (hf : ∀ v, ‖f v‖ ≤ ∑ i ∈ s, c i * Real.exp (-a i * |v|)) :
     Summable (fun n : ℕ => f (u + ((n : ℝ) + 1) * A)) ∧
       Summable (fun n : ℕ => f (u - ((n : ℝ) + 1) * A)) := by
-  have hs := (hasSum_finite_exp_half_lattice (c := c) ha hA).summable
+  have hs := (hasSum_finite_exp_lattice (c := c) ha hA d).summable
   constructor
   · apply hs.of_norm_bounded
     intro n
-    apply norm_le_finite_exp_half_lattice hc ha hf
-    linarith [(abs_le.mp hu).1, le_abs_self (u + ((n : ℝ) + 1) * A)]
+    apply norm_le_finite_exp_lattice hc ha hf
+    linarith [neg_le_abs u, le_abs_self (u + ((n : ℝ) + 1) * A)]
   · apply hs.of_norm_bounded
     intro n
-    apply norm_le_finite_exp_half_lattice hc ha hf
-    linarith [(abs_le.mp hu).2, neg_le_abs (u - ((n : ℝ) + 1) * A)]
+    apply norm_le_finite_exp_lattice hc ha hf
+    linarith [le_abs_self u, neg_le_abs (u - ((n : ℝ) + 1) * A)]
 
-/-- The complete integer periodization is summable on its central cell. -/
-theorem summable_lattice_of_finite_exp_bound (hc : ∀ i ∈ s, 0 ≤ c i)
-    (ha : ∀ i ∈ s, 0 < a i) (hA : 0 < A) (hu : |u| ≤ A / 2)
+/-- The complete integer periodization is summable with the supplied offset margin. -/
+theorem summable_lattice_of_finite_exp_bound_margin (hc : ∀ i ∈ s, 0 ≤ c i)
+    (ha : ∀ i ∈ s, 0 < a i) (hA : 0 < A) (hu : |u| + d ≤ A)
     (hf : ∀ v, ‖f v‖ ≤ ∑ i ∈ s, c i * Real.exp (-a i * |v|)) :
     Summable (fun n : ℤ => f (u + (n : ℝ) * A)) := by
-  obtain ⟨hp, hn⟩ := summable_lattice_tails_of_finite_exp_bound hc ha hA hu hf
+  obtain ⟨hp, hn⟩ := summable_lattice_tails_of_finite_exp_bound_margin hc ha hA hu hf
   apply Summable.of_nat_of_neg_add_one
   · exact (summable_nat_add_iff 1).mp (by simpa using hp)
   · simpa only [Int.cast_neg, Int.cast_add, Int.cast_natCast, Int.cast_one,
       neg_mul, sub_eq_add_neg] using hn
 
 /-- Removing the central term leaves at most the exactly summed two-sided majorant. -/
-theorem norm_periodization_sub_le_of_finite_exp_bound (hc : ∀ i ∈ s, 0 ≤ c i)
-    (ha : ∀ i ∈ s, 0 < a i) (hA : 0 < A) (hu : |u| ≤ A / 2)
+theorem norm_periodization_sub_le_of_finite_exp_bound_margin (hc : ∀ i ∈ s, 0 ≤ c i)
+    (ha : ∀ i ∈ s, 0 < a i) (hA : 0 < A) (hu : |u| + d ≤ A)
     (hf : ∀ v, ‖f v‖ ≤ ∑ i ∈ s, c i * Real.exp (-a i * |v|)) :
     ‖(∑' n : ℤ, f (u + (n : ℝ) * A)) - f u‖ ≤
-      2 * ∑ i ∈ s, c i * (Real.exp (-a i * A / 2) / (1 - Real.exp (-a i * A))) := by
-  obtain ⟨hp, hn⟩ := summable_lattice_tails_of_finite_exp_bound hc ha hA hu hf
+      2 * ∑ i ∈ s, c i * (Real.exp (-a i * d) / (1 - Real.exp (-a i * A))) := by
+  obtain ⟨hp, hn⟩ := summable_lattice_tails_of_finite_exp_bound_margin hc ha hA hu hf
   have hp₀ : Summable (fun n : ℕ => f (u + (n : ℝ) * A)) :=
     (summable_nat_add_iff 1).mp (by simpa using hp)
   have hn' : Summable (fun n : ℕ => f (u + ((-(n + 1) : ℤ) : ℝ) * A)) := by
@@ -109,14 +120,38 @@ theorem norm_periodization_sub_le_of_finite_exp_bound (hc : ∀ i ∈ s, 0 ≤ c
   apply (norm_add_le _ _).trans
   rw [two_mul]
   apply add_le_add
-  · apply tsum_of_norm_bounded (hasSum_finite_exp_half_lattice (c := c) ha hA)
+  · apply tsum_of_norm_bounded (hasSum_finite_exp_lattice (c := c) ha hA d)
     intro n
-    apply norm_le_finite_exp_half_lattice hc ha hf
-    linarith [(abs_le.mp hu).1, le_abs_self (u + ((n : ℝ) + 1) * A)]
-  · apply tsum_of_norm_bounded (hasSum_finite_exp_half_lattice (c := c) ha hA)
+    apply norm_le_finite_exp_lattice hc ha hf
+    linarith [neg_le_abs u, le_abs_self (u + ((n : ℝ) + 1) * A)]
+  · apply tsum_of_norm_bounded (hasSum_finite_exp_lattice (c := c) ha hA d)
     intro n
-    apply norm_le_finite_exp_half_lattice hc ha hf
-    linarith [(abs_le.mp hu).2, neg_le_abs (u + -(((n : ℝ) + 1) * A))]
+    apply norm_le_finite_exp_lattice hc ha hf
+    linarith [le_abs_self u, neg_le_abs (u + -(((n : ℝ) + 1) * A))]
+
+/-- The central-cell specialization of the two convergent tails. -/
+theorem summable_lattice_tails_of_finite_exp_bound (hc : ∀ i ∈ s, 0 ≤ c i)
+    (ha : ∀ i ∈ s, 0 < a i) (hA : 0 < A) (hu : |u| ≤ A / 2)
+    (hf : ∀ v, ‖f v‖ ≤ ∑ i ∈ s, c i * Real.exp (-a i * |v|)) :
+    Summable (fun n : ℕ => f (u + ((n : ℝ) + 1) * A)) ∧
+      Summable (fun n : ℕ => f (u - ((n : ℝ) + 1) * A)) :=
+  summable_lattice_tails_of_finite_exp_bound_margin hc ha hA (d := A / 2) (by linarith) hf
+
+/-- The complete integer periodization is summable on its central cell. -/
+theorem summable_lattice_of_finite_exp_bound (hc : ∀ i ∈ s, 0 ≤ c i)
+    (ha : ∀ i ∈ s, 0 < a i) (hA : 0 < A) (hu : |u| ≤ A / 2)
+    (hf : ∀ v, ‖f v‖ ≤ ∑ i ∈ s, c i * Real.exp (-a i * |v|)) :
+    Summable (fun n : ℤ => f (u + (n : ℝ) * A)) :=
+  summable_lattice_of_finite_exp_bound_margin hc ha hA (d := A / 2) (by linarith) hf
+
+/-- The half-period specialization of the explicit geometric alias bound. -/
+theorem norm_periodization_sub_le_of_finite_exp_bound (hc : ∀ i ∈ s, 0 ≤ c i)
+    (ha : ∀ i ∈ s, 0 < a i) (hA : 0 < A) (hu : |u| ≤ A / 2)
+    (hf : ∀ v, ‖f v‖ ≤ ∑ i ∈ s, c i * Real.exp (-a i * |v|)) :
+    ‖(∑' n : ℤ, f (u + (n : ℝ) * A)) - f u‖ ≤
+      2 * ∑ i ∈ s, c i * (Real.exp (-a i * A / 2) / (1 - Real.exp (-a i * A))) := by
+  simpa only [mul_div_assoc] using norm_periodization_sub_le_of_finite_exp_bound_margin
+    hc ha hA (d := A / 2) (by linarith) hf
 
 end FiniteEnvelope
 
