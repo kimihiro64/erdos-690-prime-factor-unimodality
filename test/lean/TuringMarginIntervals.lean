@@ -47,6 +47,20 @@ example {d : TuringMarginIntervals} (hd : d.Valid)
     ∀ p ∈ xiLowHeightIndices (a : ℝ), (riemannXiDivisorZeroValue p).re = 1 / 2 := by
   exact PrimeFactorUnimodality.TuringMarginIntervals.low_criticalLine_of_check hd hc hrows h
 
+example {d : TuringMarginIntervals} (hd : d.Valid) {c : SharedTaylorIntervals} (hc : c.Prepared)
+    {n : ℕ} {a b area : ℚ} (hs : XiSignRows.AreaSummary n 0 b a b area)
+    (h : d.check c a b area = true) :
+    ∀ p ∈ xiLowHeightIndices (a : ℝ), (riemannXiDivisorZeroValue p).re = 1 / 2 :=
+  TuringMarginIntervals.low_criticalLine_of_summary hd hc hs h
+
+example {d : TuringMarginIntervals} (hd : d.Valid) {c : SharedTaylorIntervals} (hc : c.Prepared)
+    {n m : ℕ} {a b area : ℚ} (hs : XiSignRows.CountSummary n 0 a)
+    (ht : XiSignRows.AreaSummary m a b a b area)
+    (h : d.check c a b ((n : ℚ) * (b - a) + area) = true) :
+    ∀ p ∈ xiLowHeightIndices (a : ℝ), (riemannXiDivisorZeroValue p).re = 1 / 2 :=
+  TuringMarginIntervals.low_criticalLine_of_summary hd hc
+    ((hs.area_before le_rfl).append ht) h
+
 
 def coarsePi : IntervalRat.IntervalRatNonzero :=
   ⟨⟨3, 4, by norm_num⟩, by norm_num [IntervalRat.containsZero]⟩

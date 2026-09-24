@@ -1,3 +1,4 @@
+import PrimeFactorUnimodality.Helpers.Analytic.DusartEarlierCutoff
 import PrimeFactorUnimodality.Helpers.Analytic.DusartZeroVerification
 import PrimeFactorUnimodality.Helpers.Analytic.XiTuringVerification
 
@@ -12,6 +13,21 @@ count or assumed counting-error integral remains.
 namespace PrimeFactorUnimodality
 
 noncomputable section
+
+/-- Scalar zero summaries and the shorter finite theta band give the published coefficient. -/
+theorem hasThetaLogSquaredError_of_earlier_band_and_turing_summary {n : ℕ} {b area : ℚ}
+    (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 3000000000 →
+      |Chebyshev.theta x - x| ≤ (1 / 5 : ℝ) * x / Real.log x ^ 2)
+    (hsummary : XiSignRows.AreaSummary n 0 b 1000000000 b area) (hb : 1000000000 ≤ b)
+    (hmargin : xiZeroCountingMainIntegral b - xiZeroCountingMainIntegral 1000000000 +
+      turingCountErrorBudget 1000000000 b < (b : ℝ) - 1000000000 + area)
+    (hchain : KadiriEndpointChain 16 mossinghoffTrudgianCoefficient 1000000000 56 6) :
+    HasThetaLogSquaredError (1 / 5) 3594641 := by
+  have hlow := hsummary.low_criticalLine_of_turing_margin (by norm_num) hb hmargin
+  have hgap := fun p hp => (hlow p hp).le
+  apply hasThetaLogSquaredError_of_earlier_band_and_zero_data finite hgap
+  intro p hp
+  linarith [xi_zero_gap_six_of_endpoint_chain hchain hgap p hp]
 
 /-- Finite signs and the explicit Turing margin provide the region bootstrap's low-zero input. -/
 theorem xi_zero_gap_six_of_turing_rows {n : ℕ} {rows : Fin n → XiSignRow}

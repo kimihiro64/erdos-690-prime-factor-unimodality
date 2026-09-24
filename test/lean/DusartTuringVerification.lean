@@ -7,6 +7,16 @@ namespace PrimeFactorUnimodality.Tests
 
 noncomputable section
 
+example {n : ℕ} {b area : ℚ}
+    (finite : ∀ x : ℝ, (3594641 : ℝ) ≤ x → x ≤ 3000000000 →
+      |Chebyshev.theta x - x| ≤ (1 / 5 : ℝ) * x / Real.log x ^ 2)
+    (hsummary : XiSignRows.AreaSummary n 0 b 1000000000 b area) (hb : 1000000000 ≤ b)
+    (hmargin : xiZeroCountingMainIntegral b - xiZeroCountingMainIntegral 1000000000 +
+      turingCountErrorBudget 1000000000 b < (b : ℝ) - 1000000000 + area)
+    (hchain : KadiriEndpointChain 16 mossinghoffTrudgianCoefficient 1000000000 56 6) :
+    HasThetaLogSquaredError (1 / 5) 3594641 :=
+  hasThetaLogSquaredError_of_earlier_band_and_turing_summary finite hsummary hb hmargin hchain
+
 open Complex Set
 open MeasureTheory
 

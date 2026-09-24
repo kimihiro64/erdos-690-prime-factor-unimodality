@@ -116,13 +116,20 @@ theorem TuringMarginIntervals.margin_of_check {d : TuringMarginIntervals} (hd : 
     by exact_mod_cast h.2.2
   exact ⟨h.1, h.2.1, hm.2.trans_lt hu⟩
 
+/-- A compact summary and a checked scalar margin prove completeness with multiplicities. -/
+theorem TuringMarginIntervals.low_criticalLine_of_summary {d : TuringMarginIntervals} (hd : d.Valid)
+    {c : SharedTaylorIntervals} (hc : c.Prepared) {n : ℕ} {a b area : ℚ}
+    (hsummary : XiSignRows.AreaSummary n 0 b a b area) (h : d.check c a b area = true) :
+    ∀ p ∈ xiLowHeightIndices (a : ℝ), (riemannXiDivisorZeroValue p).re = 1 / 2 := by
+  have hm := margin_of_check hd hc h
+  exact hsummary.low_criticalLine_of_turing_margin hm.1 hm.2.1 hm.2.2
+
 /-- Valid sign rows and the checked scalar margin prove completeness with multiplicities. -/
 theorem TuringMarginIntervals.low_criticalLine_of_check {d : TuringMarginIntervals} (hd : d.Valid)
     {c : SharedTaylorIntervals} (hc : c.Prepared) {n : ℕ} {rows : Fin n → XiSignRow}
     {a b : ℚ} (hrows : XiSignRows.Valid rows 0 b)
     (h : d.check c a b (XiSignRows.completedAreaRat rows a b) = true) :
-    ∀ p ∈ xiLowHeightIndices (a : ℝ), (riemannXiDivisorZeroValue p).re = 1 / 2 := by
-  have hm := margin_of_check hd hc h
-  exact hrows.low_criticalLine_of_turing_margin hm.1 hm.2.1 hm.2.2
+    ∀ p ∈ xiLowHeightIndices (a : ℝ), (riemannXiDivisorZeroValue p).re = 1 / 2 :=
+  low_criticalLine_of_summary hd hc (hrows.areaSummary le_rfl) h
 
 end PrimeFactorUnimodality

@@ -639,7 +639,8 @@ def test_turing_margin_retains_full_budget_and_uses_stable_difference() -> None:
     assert "IntervalRat.singleton 95" in source
     assert "32 ≤ a ∧ a ≤ b ∧" in source
     assert "XiSignRows.completedAreaRat rows a b" in source
-    assert "hrows.low_criticalLine_of_turing_margin hm.1 hm.2.1 hm.2.2" in source
+    assert "hsummary.low_criticalLine_of_turing_margin hm.1 hm.2.1 hm.2.2" in source
+    assert "low_criticalLine_of_summary hd hc (hrows.areaSummary le_rfl) h" in source
 
 
 def test_projection_sign_margin_retains_phase_domain_and_full_zeta_error() -> None:

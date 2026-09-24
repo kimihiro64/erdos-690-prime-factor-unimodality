@@ -35,6 +35,24 @@ example {n : ℕ} (s : XiGridSignBlock n)
 example {n : ℕ} (s : XiGridSignBlock n)
     {c : SharedXiGridCheck} (hc : c.Valid) (base span : ℚ) (hs : 0 < span)
     (hb : c.model.base = (base : ℝ)) (hr : c.model.radius = rationalGridRadius span)
+    (h : s.check c = true) {A B : ℚ}
+    (hplace : s.checkPlacement base span c.rows.levels A B = true) :
+    XiSignRows.CountSummary n A B :=
+  s.countSummary_of_checks hc base span hs hb hr h hplace
+
+example {n : ℕ} (s : XiGridSignBlock n)
+    {c : SharedXiGridCheck} (hc : c.Valid) (base span : ℚ) (hs : 0 < span)
+    (hb : c.model.base = (base : ℝ)) (hr : c.model.radius = rationalGridRadius span)
+    (h : s.check c = true) {A B a b area : ℚ}
+    (hplace : s.checkPlacement base span c.rows.levels A B = true)
+    (harea : decide (area ≤ XiSignRows.completedAreaRat
+      (s.rows base span c.rows.levels) a b) = true) :
+    XiSignRows.AreaSummary n A B a b area :=
+  s.areaSummary_of_checks hc base span hs hb hr h hplace harea
+
+example {n : ℕ} (s : XiGridSignBlock n)
+    {c : SharedXiGridCheck} (hc : c.Valid) (base span : ℚ) (hs : 0 < span)
+    (hb : c.model.base = (base : ℝ)) (hr : c.model.radius = rationalGridRadius span)
     (h : s.check c = true) {a b : ℚ}
     (hplace : s.checkPlacement base span c.rows.levels 0 b = true)
     {d : TuringMarginIntervals} (hd : d.Valid)

@@ -41,6 +41,12 @@ structure Valid {n : ℕ} (rows : Fin n → XiSignRow) (a b : ℚ) : Prop where
   upper : ∀ i, (rows i).upper ≤ b
   ordered : ∀ i j, i < j → (rows i).upper ≤ (rows j).lower
 
+/-- Widen the enclosing interval without replaying any row sign or order proof. -/
+theorem Valid.enlarge {n : ℕ} {rows : Fin n → XiSignRow} {a b A B : ℚ}
+    (h : Valid rows a b) (ha : A ≤ a) (hb : b ≤ B) : Valid rows A B :=
+  ⟨ha.trans (h.bounds.trans hb), h.signs, fun i => ha.trans (h.lower i),
+    fun i => (h.upper i).trans hb, h.ordered⟩
+
 /-- Empty blocks are valid and carry no invented zero witnesses. -/
 theorem valid_empty {a b : ℚ} (hab : a ≤ b) : Valid Fin.elim0 a b := by
   refine ⟨hab, ?_, ?_, ?_, ?_⟩ <;> intro i <;> exact Fin.elim0 i

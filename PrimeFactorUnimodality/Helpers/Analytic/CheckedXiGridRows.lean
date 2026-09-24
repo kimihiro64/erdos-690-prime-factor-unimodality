@@ -51,13 +51,6 @@ theorem XiGridSignBlock.valid_of_check {n : ℕ} (s : XiGridSignBlock n)
       s.sample[i.castSucc.val] s.sample[i.succ.val]
       (h.1 i.castSucc) (h.1 i.succ) (h.2 i).1 (h.2 i).2).2
 
-/-- Widen the enclosing interval without replaying any row sign or order proof. -/
-theorem XiSignRows.Valid.enlarge {n : ℕ} {rows : Fin n → XiSignRow} {a b A B : ℚ}
-    (h : XiSignRows.Valid rows a b) (ha : A ≤ a) (hb : b ≤ B) :
-    XiSignRows.Valid rows A B :=
-  ⟨ha.trans (h.bounds.trans hb), h.signs, fun i => ha.trans (h.lower i),
-    fun i => (h.upper i).trans hb, h.ordered⟩
-
 /-- Check only the first and last ordinates against the enclosing block endpoints. -/
 def XiGridSignBlock.checkPlacement {n : ℕ} (s : XiGridSignBlock n) (base span : ℚ)
     (levels : ℕ) (A B : ℚ) : Bool :=
@@ -72,6 +65,26 @@ theorem XiGridSignBlock.valid_on_of_checks {n : ℕ} (s : XiGridSignBlock n)
     XiSignRows.Valid (s.rows base span c.rows.levels) A B := by
   simp only [checkPlacement, decide_eq_true_eq] at hplace
   exact (s.valid_of_check hc base span hs hb hr h).enlarge hplace.1 hplace.2
+
+/-- A checked shard exports only its count and placement, independent of a later Turing window. -/
+theorem XiGridSignBlock.countSummary_of_checks {n : ℕ} (s : XiGridSignBlock n)
+    {c : SharedXiGridCheck} (hc : c.Valid) (base span : ℚ) (hs : 0 < span)
+    (hb : c.model.base = (base : ℝ)) (hr : c.model.radius = rationalGridRadius span)
+    (h : s.check c = true) {A B : ℚ}
+    (hplace : s.checkPlacement base span c.rows.levels A B = true) :
+    XiSignRows.CountSummary n A B :=
+  (s.valid_on_of_checks hc base span hs hb hr h hplace).countSummary
+
+/-- An overshoot shard additionally exports a checked lower bound for its endpoint area. -/
+theorem XiGridSignBlock.areaSummary_of_checks {n : ℕ} (s : XiGridSignBlock n)
+    {c : SharedXiGridCheck} (hc : c.Valid) (base span : ℚ) (hs : 0 < span)
+    (hb : c.model.base = (base : ℝ)) (hr : c.model.radius = rationalGridRadius span)
+    (h : s.check c = true) {A B a b area : ℚ}
+    (hplace : s.checkPlacement base span c.rows.levels A B = true)
+    (harea : decide (area ≤ XiSignRows.completedAreaRat
+      (s.rows base span c.rows.levels) a b) = true) :
+    XiSignRows.AreaSummary n A B a b area :=
+  (s.valid_on_of_checks hc base span hs hb hr h hplace).areaSummary (of_decide_eq_true harea)
 
 /-- All sample, placement and Turing checks together certify actual low-height completeness. -/
 theorem XiGridSignBlock.low_criticalLine_of_checks {n : ℕ} (s : XiGridSignBlock n)

@@ -20,6 +20,15 @@ example {n : ℕ} (s : XiGridSignBlock n)
     {c : SharedXiGridCheck} (hc : c.Valid) (base span : ℚ) (hs : 0 < span)
     (hb : c.model.base = (base : ℝ)) (hr : c.model.radius = rationalGridRadius span)
     {p : PackedXiGridMargins (n + 1)} (hp : p.Valid (fun i => s.sample[i.val]) c)
+    (hm : p.check = true) (hi : s.checkInputs c = true) {A B : ℚ}
+    (hplace : s.checkPlacement base span c.rows.levels A B = true) :
+    XiSignRows.CountSummary n A B :=
+  s.countSummary_of_checks hc base span hs hb hr (s.check_of_packedMargins c hp hm hi) hplace
+
+example {n : ℕ} (s : XiGridSignBlock n)
+    {c : SharedXiGridCheck} (hc : c.Valid) (base span : ℚ) (hs : 0 < span)
+    (hb : c.model.base = (base : ℝ)) (hr : c.model.radius = rationalGridRadius span)
+    {p : PackedXiGridMargins (n + 1)} (hp : p.Valid (fun i => s.sample[i.val]) c)
     (hm : p.check = true) (hi : s.checkInputs c = true) {a b : ℚ}
     (hplace : s.checkPlacement base span c.rows.levels 0 b = true)
     {d : TuringMarginIntervals} (hd : d.Valid)
