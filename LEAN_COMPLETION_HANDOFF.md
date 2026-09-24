@@ -5,7 +5,61 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: finite FFTs enclose the true Gamma transforms (2026-09-24)
+## Conditional all-k local verification completed (2026-09-24)
+
+Both actual record-twin residue certificate families have built successfully.
+`CompleteClassificationConditional` then built through all 5,041 jobs; its
+`ConditionalDusart` and `TailThetaBounds` regressions passed. The final
+`completeClassification_assuming_dusart` axiom audit contains only `propext`,
+`Classical.choice`, and `Quot.sound`. Dusart remains an explicit theorem
+parameter, not a new axiom or a proved unconditional estimate.
+
+The stronger `CompleteClassificationSquaredConditional` target also built
+through all 5,291 jobs, reusing the certificate cache. Its `ConditionalTheta`
+and `DusartPublishedAnchors` regressions passed, and
+`completeClassification_assuming_theta_error` has the same standard axiom
+surface. This theorem uses the actual finite classification and proved
+finite analytic providers; its remaining premise is exactly
+`HasThetaLogSquaredError (1 / 5) 3594641`.
+
+These are local proof-chain and regression results, not a published release
+or completed artifact/paper audit. Unconditional CI remains paused. Preserve
+the successful certificate cache; there is no unfinished certificate worker
+from these runs to restart.
+
+## Latest analytic increment: Taylor and Dirichlet truncations (2026-09-24)
+
+`Calculus.TaylorBound` proves the sharp factorial remainder for Banach-valued
+functions, using the vector-valued integral remainder in either segment
+orientation. `PlattTaylorRemainder` applies it to the true Gamma transforms
+and their proved derivative identities: every natural truncation order,
+including zero, has budget `plattWindowL1Bound (k+K) h * abs(w)^K / K!`.
+`PlattTaylorAssembly` retains all approximate-column errors and finite
+weight norms, and proves the exact finite-column reordering identity.
+
+`PSeries.TailBound` proves convergence and the exact integral-test cutoff
+for normed terms dominated by `C*j^(-p)`, `p > 1`. `PlattDirichletTerms`
+defines the actual complex phase, logarithmic shift and weighted transform;
+its phase has unit norm and its full contour majorant decays as
+`j^(-(2*m+1))`. `PlattDirichletTail` proves convergence of the actual series,
+the exact finite-prefix/tail decomposition and the full truncation budget
+`plattDirichletMajorant m k t0 h x * J^(-2*m)/(2*m)`.
+The tail result holds for every real frequency, natural kernel order,
+`m >= 1`, `t0 >= 0`, `h > 0`, and positive natural cutoff `J`.
+
+All new proof modules and the analytic export facade build. Three new
+regression files pass, checking signed and coincident Taylor centers, the
+sharp factorial, zero-order truncation, approximate columns, finite weights,
+power-tail convergence, and the actual Dirichlet-prefix error. Eighteen
+audited theorem closures use only the standard logical axioms.
+
+The remaining analytic obligations include the equality of this series with
+the actual zeta-window transform, zeta-window aliases, interpolation,
+rigorous numerical inputs and error transport, and zero signs/completeness.
+No zero-verification feasibility or unconditional Dusart conclusion follows
+merely from the newly proved truncation estimates.
+
+## Previous analytic increment: finite FFTs enclose the true Gamma transforms (2026-09-24)
 
 `Fourier.DiscretePoisson` regroups a summable integer Fourier series into its
 complete residue-class sums. It proves exact equality with Mathlib's DFT,
