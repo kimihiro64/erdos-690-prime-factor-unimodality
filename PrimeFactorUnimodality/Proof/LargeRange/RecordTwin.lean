@@ -1,3 +1,4 @@
+import PrimeFactorUnimodality.Helpers.PrimeSequence.Consecutive
 import PrimeFactorUnimodality.Proof.LargeRange.RecordTwinStructure
 
 set_option autoImplicit false
@@ -80,5 +81,23 @@ theorem recordTwin_isTwinPrime_of_certificate (certificate : RecordTwinCertifica
     recordLower.Prime ∧ recordUpper.Prime :=
   ⟨recordLower_prime_of_certificate certificate,
     recordUpper_prime_of_certificate certificate⟩
+
+/-- The certificate also proves that no prime separates the two endpoints. -/
+theorem recordTwin_consecutive_of_certificate (certificate : RecordTwinCertificate) :
+    ConsecutivePrimes recordLower recordUpper := by
+  have primes := recordTwin_isTwinPrime_of_certificate certificate
+  have lower_gt_two : 2 < recordLower := by
+    by_contra not_gt
+    have lower_eq : recordLower = 2 := by
+      have := recordLower_gt_one
+      omega
+    have upper_eq : recordUpper = 4 := by
+      rw [recordUpper_eq_lower_add_two, lower_eq]
+    have upper_prime := primes.2
+    rw [upper_eq] at upper_prime
+    norm_num at upper_prime
+  rw [recordUpper_eq_lower_add_two]
+  exact consecutivePrimes_of_add_two primes.1
+    (by simpa [recordUpper_eq_lower_add_two] using primes.2) lower_gt_two
 
 end PrimeFactorUnimodality
