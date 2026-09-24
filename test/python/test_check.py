@@ -41,6 +41,13 @@ from scripts.render_record_gap_prime_list import render as render_record_gap_pri
 from scripts.render_record_twin_seed_lean import source_note
 
 
+@pytest.fixture(autouse=True)
+def isolate_fixture_git_context(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Temporary test repositories must not inherit a commit hook's index."""
+    for variable in ("GIT_INDEX_FILE", "GIT_DIR", "GIT_WORK_TREE", "GIT_COMMON_DIR"):
+        monkeypatch.delenv(variable, raising=False)
+
+
 def test_private_path_boundary_is_component_aware() -> None:
     assert is_private_path(".research/GOAL.json")
     assert is_private_path("AGENTS.md")
