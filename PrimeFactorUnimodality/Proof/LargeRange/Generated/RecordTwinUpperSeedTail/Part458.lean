@@ -24,7 +24,7 @@ def recordUpperSeedTailChunk458_kernel :
       recordUpperSeedTailChunk458Value
       recordUpperSeedTailChunk458Before (recordUpperWitnessBase) =
         recordUpperSeedTailChunk458State := by
-  rfl
+  decide +kernel
 
 def recordUpperSeedTailChunk458Step : PowerStep (recordUpperWitnessBase : ZMod recordUpper)
     recordUpperSeedTailChunk458Before

@@ -5,7 +5,50 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: the rightward Fourier contour shift is proved (2026-09-24)
+## Latest analytic increment: the leftward contour and all residues are proved (2026-09-24)
+
+The accompanying certificate check found an elaborator bottleneck in the first
+zero-valued upper seed chunk, part 456. Its original `rfl` replay ran for
+6758 seconds without completing; an exact isolated replay using
+`decide +kernel` passed in 29 seconds with only standard axioms. The generator
+now selects direct kernel replay for zero chunks. Only the eight remaining
+zero chunks per side were changed; prior chunk sources and caches are intact.
+These measurements concern one chunk, not completion of the conditional chain.
+
+`Gamma.Residue` proves the residue `(-1)^n/n!` at every nonpositive integer,
+its affine transport, global meromorphicity and exact simple-pole order.
+`Gamma.ShiftNorm` moves strip bounds to positive real parts using recurrence,
+away from the real axis. The shared contour-edge estimate now serves both
+directions without changing the earlier rightward statements.
+
+`PlattContourRectangle` identifies exactly the `m+1` crossed poles, proves
+that none is on the boundary, and applies the existing rectangle residue
+theorem. `PlattContourLeftShift` supplies both vanishing edges and proves
+equality of the actual Fourier transform with the displaced integral plus
+all crossed residues. `PlattContourResidueNorm` evaluates their norms as
+explicit real factorial/power/square-root/exponential expressions. The final
+bound retains the required first-shift Gamma correction. Its domain is every
+natural order, `m >= 1`, `t0 >= 0`, `h > 0`, and every real frequency.
+
+Reuse is by import from locked `PrimeNumberTheoremAnd` revision
+`f6147e7572ab3abe5428101bc0b13627bcb005df`, module
+`PrimeNumberTheoremAnd.ResidueCalcOnRectangles`, declarations
+`RectangleIntegral'_eq_sumResiduesIn` and `residue_eq_of_tendsto`, with their
+original names. No dependency implementation was copied into candidates.
+
+All new modules, two new regressions and the earlier rightward regression
+pass. Twenty-seven theorem closures, including both final Fourier identities
+and the explicit residue bound, use only the standard logical axioms.
+The scalar check at `n=k=t0=0`, `h=1`, `u=-1` gives residue norm
+`2 * exp(1/8 - pi)`, checking the slope and frequency factors.
+
+This closes the negative-direction contour obligation, not Dusart itself.
+Periodization, truncation, interpolation, the zeta-transform identity,
+numerical error transport and verified zero data/completeness still remain.
+The conditional all-k release gate still requires its actual certificate
+chains and final axiom audit; this analytic increment does not bypass them.
+
+## Previous increment: the rightward Fourier contour shift is proved (2026-09-24)
 
 `Gamma.StripBound` derives the uniform positive-strip estimate directly from
 Euler's integral and convexity. `Gaussian.PolynomialDecay` supplies the limit

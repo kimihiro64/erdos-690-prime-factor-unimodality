@@ -7,9 +7,10 @@ import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.DigammaCon
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.Measurable
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.NegativeHalfNorm
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.QuarterNorm
-import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.StripBound
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.Residue
+import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.ShiftNorm
 
 /-! # Reusable Gamma-function identities and bounds
 
-Export the conjugation, Beta-integral and vertical norm candidates through one facade.
+Export conjugation, residues, Beta-integral and vertical norm candidates through one facade.
 -/

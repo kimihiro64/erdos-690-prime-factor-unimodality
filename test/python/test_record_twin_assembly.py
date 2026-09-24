@@ -55,3 +55,35 @@ def test_committed_assemblies_match_the_generator(renderer: ModuleType, side: st
         note = re.search(r"/-! (.+) Semantic tail assembly group \d+\. -/", source)
         assert note is not None
         assert source == renderer.render_assembly_group(task, 0, 463, note[1], group)
+
+
+@pytest.mark.parametrize("task", ["upper-seed", "lower-seed"])
+@pytest.mark.parametrize("bits", ["0", "0" * 512, "0" * 272, "0010", "1" * 512])
+def test_zero_chunks_use_direct_kernel_replay(renderer: ModuleType, task: str, bits: str) -> None:
+    state = 1 if task == "upper-seed" else (1, 0)
+    source = renderer.render_chunk(task, 0, 456, state, state, bits, "test")
+    expected = "decide +kernel" if int(bits, 2) == 0 else "rfl"
+    assert f"State := by\n  {expected}\n" in source
+    assert "powChunkMSB" in source
+
+
+@pytest.mark.parametrize("side", ["Lower", "Upper"])
+def test_committed_zero_chunks_match_renderer(renderer: ModuleType, side: str) -> None:
+    task = f"{side.lower()}-seed"
+    directory = GENERATED / f"RecordTwin{side}SeedTail"
+    prefixes = (directory / "Prefixes/Part12.lean").read_text()
+    for index in range(456, 464):
+        label = f"record{side}SeedTailChunk{index:03d}"
+        width = re.search(rf"def {label}Width : .* := (\d+)", prefixes)
+        value = re.search(rf"def {label}Value : .* := (\d+)", prefixes)
+        assert width is not None and value is not None and int(value[1]) == 0
+        source = (directory / f"Part{index:03d}.lean").read_text()
+        note = re.search(r"/-! (.+) Independently checked tail chunk \d+\. -/", source)
+        assert note is not None
+        states = re.findall(rf"def {label}(?:Before|State) : .* :=\n  (.+)", source)
+        assert len(states) == 2
+        parsed = [tuple(re.findall(r"\d+", state)) for state in states]
+        before, after = (values[0] if side == "Upper" else values for values in parsed)
+        assert source == renderer.render_chunk(
+            task, 0, index, before, after, "0" * int(width[1]), note[1]
+        )

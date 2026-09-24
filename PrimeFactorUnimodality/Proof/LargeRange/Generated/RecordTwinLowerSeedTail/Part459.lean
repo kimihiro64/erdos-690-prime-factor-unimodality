@@ -24,7 +24,7 @@ def recordLowerSeedTailChunk459_kernel :
       recordLowerSeedTailChunk459Value
       recordLowerSeedTailChunk459Before (BLSPrimality.alpha recordLower) =
         recordLowerSeedTailChunk459State := by
-  rfl
+  decide +kernel
 
 def recordLowerSeedTailChunk459Step : PowerStep (BLSPrimality.alpha recordLower : BLSPrimality.X7 recordLower)
     recordLowerSeedTailChunk459Before

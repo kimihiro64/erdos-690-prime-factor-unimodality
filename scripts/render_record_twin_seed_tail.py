@@ -145,6 +145,9 @@ def render_chunk(
         else "import PrimeFactorUnimodality.Proof.LargeRange.Generated."
         f"RecordTwin{side}SeedTail.Part{previous}\n"
     )
+    # Zero chunks trigger expensive elaborator equality heuristics under rfl.
+    # Use the trusted kernel directly, keeping the same checked proposition.
+    replay = "decide +kernel" if int(bits, 2) == 0 else "rfl"
     return f"""import PrimeFactorUnimodality.Mathlib.Algebra.Group.PowerStep
 {previous_import}import {prefix_import}
 
@@ -170,7 +173,7 @@ def record{side}SeedTailChunk{label}_kernel :
       record{side}SeedTailChunk{label}Value
       record{side}SeedTailChunk{label}Before ({base}) =
         record{side}SeedTailChunk{label}State := by
-  rfl
+  {replay}
 
 def record{side}SeedTailChunk{label}Step : PowerStep ({base} : {state_type})
     record{side}SeedTailChunk{label}Before

@@ -1,4 +1,4 @@
-import PrimeFactorUnimodality.Helpers.Analytic.PlattContourIntegrand
+import PrimeFactorUnimodality.Helpers.Analytic.PlattContourSharedEdgeBound
 import PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Gamma.StripBound
 
 set_option autoImplicit false
@@ -43,60 +43,8 @@ theorem norm_plattContourIntegrand_right_edge_le (m k : ℕ) (t₀ u : ℝ)
         Complex.I_re, Complex.I_im, mul_zero, zero_mul, sub_zero, add_zero, Set.mem_Icc]
       dsimp [plattRightShift] at hw
       constructor <;> linarith [hw.1, hw.2])
-  have hp : ‖(w : ℂ) - (v : ℂ) * Complex.I‖ ≤ (1 + plattRightShift m) * |v| := by
-    calc
-      _ ≤ |w| + |v| := by
-        simpa using norm_sub_le (w : ℂ) ((v : ℂ) * Complex.I)
-      _ ≤ plattRightShift m + |v| := by linarith
-      _ ≤ _ := by nlinarith
-  have hsq : w ^ 2 ≤ (plattRightShift m) ^ 2 := by
-    nlinarith [sq_abs w, mul_self_le_mul_self (abs_nonneg w) hwabs]
-  have hprod : 2 * Real.pi * u * w ≤ 2 * Real.pi * |u| * plattRightShift m := by
-    have h : u * w ≤ |u| * plattRightShift m := (le_abs_self (u * w)).trans (by
-      rw [abs_mul]
-      exact mul_le_mul_of_nonneg_left hwabs (abs_nonneg u))
-    have hc := mul_le_mul_of_nonneg_left h (by positivity : 0 ≤ 2 * Real.pi)
-    nlinarith
-  have hvlin : Real.pi * v / 4 ≤ v ^ 2 / (4 * h ^ 2) := by
-    calc
-      _ ≤ Real.pi * |v| / 4 := by gcongr; exact le_abs_self v
-      _ ≤ _ := by
-        apply (le_div_iff₀ (by positivity : 0 < 4 * h ^ 2)).mpr
-        nlinarith [mul_le_mul_of_nonneg_right hv' (abs_nonneg v), sq_abs v]
-  have hsplit : v ^ 2 / (2 * h ^ 2) = v ^ 2 / (4 * h ^ 2) + v ^ 2 / (4 * h ^ 2) := by
-    ring
-  have hexp : (w ^ 2 / (2 * h ^ 2) + 2 * Real.pi * u * w) +
-      (Real.pi * (v + t₀) / 4 - v ^ 2 / (2 * h ^ 2)) ≤
-        ((plattRightShift m) ^ 2 / (2 * h ^ 2) +
-          2 * Real.pi * |u| * plattRightShift m + Real.pi * t₀ / 4) +
-            (-(1 / (4 * h ^ 2)) * |v| ^ 2) := by
-    have hd := div_le_div_of_nonneg_right hsq (by positivity : 0 ≤ 2 * h ^ 2)
-    rw [sq_abs]
-    have he : -(1 / (4 * h ^ 2)) * v ^ 2 = -(v ^ 2 / (4 * h ^ 2)) := by ring
-    rw [he, hsplit]
-    nlinarith
-  rw [norm_plattContourIntegrand_on_line]
-  calc
-    _ = (2 * Real.pi) ^ k *
-        ‖Complex.Gamma (((1 / 4 - w / 2 : ℝ) : ℂ) +
-          (((v + t₀) / 2 : ℝ) : ℂ) * Complex.I)‖ *
-        ‖(w : ℂ) - (v : ℂ) * Complex.I‖ ^ k *
-        Real.exp ((w ^ 2 / (2 * h ^ 2) + 2 * Real.pi * u * w) +
-          (Real.pi * (v + t₀) / 4 - v ^ 2 / (2 * h ^ 2))) := by
-      rw [Real.exp_add (w ^ 2 / (2 * h ^ 2) + 2 * Real.pi * u * w)
-        (Real.pi * (v + t₀) / 4 - v ^ 2 / (2 * h ^ 2))]
-      ring
-    _ ≤ (2 * Real.pi) ^ k *
-        max (Real.Gamma (1 / 4)) (Real.Gamma ((m : ℝ) + 1 / 2)) *
-        ((1 + plattRightShift m) * |v|) ^ k *
-        Real.exp (((plattRightShift m) ^ 2 / (2 * h ^ 2) +
-          2 * Real.pi * |u| * plattRightShift m + Real.pi * t₀ / 4) +
-            (-(1 / (4 * h ^ 2)) * |v| ^ 2)) := by
-      gcongr
-    _ = _ := by
-      unfold plattRightEdgeConstant
-      simp only [Real.exp_add, mul_pow]
-      ring
+  simpa only [plattContourEdgeConstant, plattRightEdgeConstant] using
+    norm_plattContourIntegrand_edge_le k t₀ u hh ha hv hv' hwabs hg
 
 end
 
