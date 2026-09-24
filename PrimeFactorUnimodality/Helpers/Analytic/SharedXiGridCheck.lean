@@ -1,5 +1,5 @@
 import PrimeFactorUnimodality.Helpers.Analytic.CheckedZetaGridError
-import PrimeFactorUnimodality.Helpers.Analytic.XiGridSignIntervals
+import PrimeFactorUnimodality.Helpers.Analytic.XiCardinalSignIntervals
 import PrimeFactorUnimodality.Helpers.Analytic.XiSimplePhaseIntervals
 
 /-! # Shared configuration for executable xi sign samples
@@ -68,20 +68,21 @@ def check (c : SharedXiGridCheck) (s : XiGridSignData) : Bool :=
       c.model.order c.bernoulliCap s.risingCap s.tailCap &&
     s.checkMargin c.rows c.model.degree c.scalar c.pi c.errors.cap
 
-/-- Shared obligations are unchanged; the short margin may use sign-only phase preservation. -/
+/-- Try signed components first, with both rational-angle margin tests as fallbacks. -/
 def checkSign (c : SharedXiGridCheck) (s : XiGridSignData) : Bool :=
   s.point.check c.rows.levels c.endpoint c.scalar c.pi c.base c.radius c.coefficients &&
     c.phaseData.check c.scalar (c.height s.point) s.phase s.phaseError &&
     checkEulerRemainder c.endpoint (ZetaCorrectionIntervals.critical (c.height s.point))
       c.model.order c.bernoulliCap s.risingCap s.tailCap &&
-    s.checkSignMargin c.rows c.model.degree c.scalar c.pi c.errors.cap
+    (s.checkCardinalMargin c.rows c.model.degree c.pi c.errors.cap ||
+      s.checkSignMargin c.rows c.model.degree c.scalar c.pi c.errors.cap)
 
 /-- Existing accepted samples remain accepted by the sign-only-capable checker. -/
 theorem checkSign_of_check {c : SharedXiGridCheck} {s : XiGridSignData}
     (h : c.check s = true) : c.checkSign s = true := by
   simp only [check, Bool.and_eq_true] at h
   simp only [checkSign, XiGridSignData.checkSignMargin, Bool.and_eq_true, Bool.or_eq_true]
-  exact ⟨h.1, Or.inr h.2⟩
+  exact ⟨h.1, Or.inr (Or.inr h.2)⟩
 
 end SharedXiGridCheck
 

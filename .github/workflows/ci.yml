@@ -1501,6 +1501,12 @@ jobs:
             +PrimeFactorUnimodality.Helpers.Analytic.XiGridSignIntervals
           lake env lean test/lean/XiGridSignIntervals.lean
           /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.CardinalRotationIntervals
+          lake env lean test/lean/CardinalRotationIntervals.lean
+          /usr/bin/time -v lake build \
+            +PrimeFactorUnimodality.Helpers.Analytic.XiCardinalSignIntervals
+          lake env lean test/lean/XiCardinalSignIntervals.lean
+          /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.SharedXiGridCheck
           lake env lean test/lean/SharedXiGridCheck.lean
           /usr/bin/time -v lake build \

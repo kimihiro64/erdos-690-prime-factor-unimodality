@@ -16,6 +16,17 @@ independent absolute errors, with no exponentially small scale factor.
 
 namespace Complex
 
+/-- Integer quarter turns reduce exactly to four powers of `I`, including negative turns. -/
+theorem exp_int_quarter_turn (q : ℤ) :
+    exp (I * (((q : ℝ) * Real.pi / 2 : ℝ) : ℂ)) = I ^ (q % 4) := by
+  calc
+    _ = exp ((q : ℂ) * ((Real.pi : ℂ) / 2 * I)) := by
+      congr 1
+      push_cast
+      ring
+    _ = I ^ q := by rw [exp_int_mul, exp_pi_div_two_mul_I]
+    _ = I ^ (q % 4) := I_zpow_eq_zpow_mod q
+
 /-- Separate the positive amplitude and combined argument of a product with an exponential. -/
 theorem mul_exp_eq_norm_exp_re_mul_rotation (p w : ℂ) :
     p * exp w = ((‖p‖ * Real.exp w.re : ℝ) : ℂ) * exp (I * (arg p + w.im)) := by

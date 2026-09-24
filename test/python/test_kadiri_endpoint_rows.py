@@ -588,6 +588,8 @@ def test_grid_sign_checks_retain_all_errors_and_reuse_shared_arrays() -> None:
             "RationalGridErrorBudget",
             "CheckedZetaGridError",
             "XiGridSignIntervals",
+            "CardinalRotationIntervals",
+            "XiCardinalSignIntervals",
             "SharedXiGridCheck",
             "CheckedXiGridSigns",
         )
@@ -661,6 +663,26 @@ def test_projection_signs_reach_the_existing_turing_consumer() -> None:
     assert "c.checkSign s.sample[i.val]" in rows
     assert "XiSignRow.valid_of_checked_sign_grid" in rows
     assert "TuringMarginIntervals.low_criticalLine_of_check" in rows
+
+
+def test_cardinal_signs_retain_checked_phase_and_avoid_trigonometric_evaluation() -> None:
+    root = ROOT / "PrimeFactorUnimodality/Helpers/Analytic"
+    source = strip_lean_comments((root / "XiCardinalSignIntervals.lean").read_text())
+    definitions = source.split("theorem cardinal_phase_of_check", 1)[0]
+    assert "ComplexInterval.quarterRe" in definitions
+    assert "1 / 10 + s.phaseError + intervalPointRadius" in definitions
+    assert "s.cardinalPhaseBudget P < P.lo / 2" in definitions
+    assert "s.projectionBudget sharedCap" in definitions
+    assert "SharedTaylorIntervals" not in definitions
+    assert "ComplexInterval.rotation" not in definitions
+    assert "IntervalRat.mem_scale" in source
+    assert "ComplexInterval.mem_quarterRe" in source
+    checker = strip_lean_comments((root / "SharedXiGridCheck.lean").read_text())
+    assert "s.checkCardinalMargin c.rows c.model.degree c.pi c.errors.cap ||" in checker
+    assert "s.checkSignMargin c.rows c.model.degree c.scalar c.pi c.errors.cap" in checker
+    consumer = strip_lean_comments((root / "CheckedXiGridSigns.lean").read_text())
+    assert "s.cardinal_phase_of_check" in consumer
+    assert "s.cardinal_margin_of_check" in consumer
 
 
 def test_checked_sign_blocks_use_shared_endpoints_and_adjacent_order() -> None:

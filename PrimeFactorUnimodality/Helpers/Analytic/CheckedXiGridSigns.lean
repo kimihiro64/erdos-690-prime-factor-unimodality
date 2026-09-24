@@ -55,7 +55,7 @@ theorem sign_of_check {c : SharedXiGridCheck} (hc : c.Valid) (s : XiGridSignData
     simp only [hs, Bool.false_eq_true, ↓reduceIte] at hmargin ⊢
     exact xiCriticalLineValue_neg_of_approx (hp.norm_zeta_sub_value_le hc.grid) hθ hmargin
 
-/-- Both margins prove actual signs; projection needs no additive phase times norm error. -/
+/-- Cardinal and rational-angle margins prove actual signs with the same shared zeta errors. -/
 theorem sign_of_sign_check {c : SharedXiGridCheck} (hc : c.Valid) (s : XiGridSignData)
     (h : c.checkSign s = true) :
     if s.positive then 0 < xiCriticalLineValue (s.point.toGridPoint.height c.grid)
@@ -63,26 +63,37 @@ theorem sign_of_sign_check {c : SharedXiGridCheck} (hc : c.Valid) (s : XiGridSig
   simp only [checkSign, Bool.and_eq_true, XiGridSignData.checkSignMargin,
     Bool.or_eq_true] at h
   rcases h with ⟨⟨⟨hpoint, hphase⟩, htail⟩, hmargin⟩
-  rcases hmargin with hprojection | hlegacy
-  · have hp := s.point.valid_of_check (g := c.grid) hc.endpoint hc.cutoff hc.scalar
-      hc.pi hc.base hc.radius hc.coefficients hpoint
-    have hw : intervalWithinUnit
-        (zetaGridCoordinateInterval c.pi c.rows.levels s.point.index) = true := by
-      simp only [RationalGridPoint.check, Bool.and_eq_true] at hpoint
-      exact hpoint.1
-    have he := s.point.error_le_of_checks c.rows c.model hc.grid c.errors hc.moments
-      hc.exponential hc.budget hc.endpoint hc.cutoff hc.pi hc.base hc.radius hw hc.bernoulli htail
-    have hm := s.projection_margin_of_check c.rows c.model hc.scalar hc.pi
-      c.errors.cap he hprojection
-    have hθ := (XiSimplePhaseIntervals.abs_counting_sub_le_of_check hc.phase hc.scalar
-      (mem_height hc s.point) hphase).trans_lt hm.1
+  have hp := s.point.valid_of_check (g := c.grid) hc.endpoint hc.cutoff hc.scalar
+    hc.pi hc.base hc.radius hc.coefficients hpoint
+  have hw : intervalWithinUnit
+      (zetaGridCoordinateInterval c.pi c.rows.levels s.point.index) = true := by
+    have hh := hpoint
+    simp only [RationalGridPoint.check, Bool.and_eq_true] at hh
+    exact hh.1
+  have he := s.point.error_le_of_checks c.rows c.model hc.grid c.errors hc.moments
+    hc.exponential hc.budget hc.endpoint hc.cutoff hc.pi hc.base hc.radius hw hc.bernoulli htail
+  have hθ := XiSimplePhaseIntervals.abs_counting_sub_le_of_check hc.phase hc.scalar
+    (mem_height hc s.point) hphase
+  rcases hmargin with hcardinal | hprojection | hlegacy
+  · have hm := s.cardinal_margin_of_check c.rows c.model hc.pi c.errors.cap he hcardinal
+    have hφ := s.cardinal_phase_of_check c.rows c.model.degree hc.pi c.errors.cap hθ hcardinal
     cases hs : s.positive with
     | true =>
       simp only [hs, ↓reduceIte] at hm ⊢
-      exact xiCriticalLineValue_pos_of_projection (hp.norm_zeta_sub_value_le hc.grid) hθ hm.2
+      exact xiCriticalLineValue_pos_of_projection (hp.norm_zeta_sub_value_le hc.grid) hφ hm
     | false =>
       simp only [hs, Bool.false_eq_true, ↓reduceIte] at hm ⊢
-      exact xiCriticalLineValue_neg_of_projection (hp.norm_zeta_sub_value_le hc.grid) hθ hm.2
+      exact xiCriticalLineValue_neg_of_projection (hp.norm_zeta_sub_value_le hc.grid) hφ hm
+  · have hm := s.projection_margin_of_check c.rows c.model hc.scalar hc.pi
+      c.errors.cap he hprojection
+    have hφ := hθ.trans_lt hm.1
+    cases hs : s.positive with
+    | true =>
+      simp only [hs, ↓reduceIte] at hm ⊢
+      exact xiCriticalLineValue_pos_of_projection (hp.norm_zeta_sub_value_le hc.grid) hφ hm.2
+    | false =>
+      simp only [hs, Bool.false_eq_true, ↓reduceIte] at hm ⊢
+      exact xiCriticalLineValue_neg_of_projection (hp.norm_zeta_sub_value_le hc.grid) hφ hm.2
   · apply sign_of_check hc s
     simp only [check, Bool.and_eq_true]
     exact ⟨⟨⟨hpoint, hphase⟩, htail⟩, hlegacy⟩

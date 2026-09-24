@@ -11,6 +11,10 @@ noncomputable section
 
 open Complex
 
+example (q : ℤ) :
+    exp (I * (((q : ℝ) * Real.pi / 2 : ℝ) : ℂ)) = I ^ (q % 4) :=
+  exp_int_quarter_turn q
+
 example (p w : ℂ) :
     p * exp w = ((‖p‖ * Real.exp w.re : ℝ) : ℂ) * exp (I * (arg p + w.im)) := by
   exact Complex.mul_exp_eq_norm_exp_re_mul_rotation p w
