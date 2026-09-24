@@ -3,8 +3,7 @@ Copyright (c) 2026 Jonas Whidden. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jonas Whidden
 -/
-import PrimeFactorUnimodality.Mathlib.Analysis.Fourier.CyclicConvolution
-import PrimeFactorUnimodality.Mathlib.Analysis.Fourier.DiscretePoisson
+import PrimeFactorUnimodality.Mathlib.Analysis.Fourier.CorrelationTrace
 import PrimeFactorUnimodality.Mathlib.Analysis.Fourier.PolynomialGaussianAliasing
 import PrimeFactorUnimodality.Mathlib.Analysis.Fourier.RationalAlias
 import PrimeFactorUnimodality.Mathlib.Analysis.Fourier.Scaling

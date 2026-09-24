@@ -5,7 +5,45 @@ agent.  The objective is the exact all-`k` theorem in `Challenge.lean` and
 `Solution.lean`.  Do not weaken the statement, import an unproved replacement,
 or close an obligation with `sorry`, `admit`, an axiom, or `native_decide`.
 
-## Latest analytic increment: compensated rational Gamma inputs to FFT (2026-09-24)
+## Latest analytic increment: shared rounded convolution assembly (2026-09-24)
+
+`ConvolutionError` proves the product bound
+`alpha*(rightCap+beta) + leftCap*beta`, including the cross term and using
+caps on the approximate factors. Rounded product/addition steps telescope,
+retaining the initial accumulator error, including for an empty sum. Bucket
+enclosures count every colliding coefficient. Inverse normalization cancels
+the transform-length factor on uniform input error; internal inverse rounding
+is divided by that length.
+
+`RadixDFTError` connects the existing radix trace to forward and normalized
+inverse DFTs, with explicit negative-index conventions and all input errors.
+`CorrelationTrace` stores two shared forward traces per column, accumulated
+products and one inverse trace. Its validity checks input arrays, every trace,
+approximate-factor caps and product accumulation. The correlation-sum bound
+is proved from those conditions, not included among them. It reverses the
+first forward index only and combines every column before the one inverse.
+
+`PlattConvolutionInputs` supplies bucket-input errors and the actual finite
+Dirichlet prefix from this trace. `PlattZetaConvolution` feeds that proved
+prefix bound into the genuine zeta Fourier theorem. It retains logarithmic
+shift/weight/column errors, Taylor and Dirichlet tails, the complete pole
+correction and final scaling/subtraction rounding. The original analytic
+input premises still justify frequencies and any circular wraparound.
+
+All new sources and the full candidate facade build (4,113 jobs). Both new
+regressions pass; all 15 audited theorem closures use only the standard three
+Lean axioms. No numerical certificate family was generated. Numerical trace validity, including rounded
+product accumulation, still must be discharged from concrete data; the new
+stepwise summation bound supports local arithmetic checks without recomputing
+an exact large sum. Existing `RationalTrace.valid_of_check` already supplies
+the individual FFT traces and should be reused for the combined checker.
+
+Next non-certificate work: elementary-function checking behind the Gamma rows,
+composition of rational arithmetic checks for the shared product accumulator,
+and instantiated evaluation/sign budgets and zero-count completeness.
+The full-path runtime and unconditional Dusart/all-k proof remain open.
+
+## Earlier analytic increment: compensated rational Gamma inputs to FFT (2026-09-24)
 
 `Complex.LogCartesian` expresses the right-half-plane principal logarithm
 using a real logarithm of the squared norm and an arctangent with the branch
