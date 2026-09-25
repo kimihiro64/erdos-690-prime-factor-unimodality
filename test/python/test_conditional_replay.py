@@ -9,8 +9,14 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from scripts.conditional_dusart_ci import build, replay_units, run_lake, validate_cached
-from scripts.conditional_dusart_plan import Unit, required_artifacts
+from scripts.conditional_dusart_ci import (
+    build,
+    replay_proof,
+    replay_units,
+    run_lake,
+    validate_cached,
+)
+from scripts.conditional_dusart_plan import TARGET, Unit, required_artifacts
 
 DEADLINE = float("inf")
 RUNNER = "scripts.conditional_dusart_ci"
@@ -21,7 +27,15 @@ def test_validation_disables_compilation_and_accepts_only_cache_statuses(status:
     with patch(f"{RUNNER}.subprocess.Popen") as popen:
         popen.return_value.__enter__.return_value.wait.return_value = status
         assert run_lake(Path("."), ("A", "B"), DEADLINE, check=True) == status
-    assert popen.call_args.args[0] == ["lake", "build", "--no-build", "-q", "+A", "+B"]
+    assert popen.call_args.args[0] == [
+        "lake",
+        "build",
+        "--log-level=error",
+        "--no-build",
+        "-q",
+        "+A",
+        "+B",
+    ]
     assert popen.call_args.kwargs["start_new_session"] is True
 
 
@@ -43,7 +57,7 @@ def test_actual_compilation_accepts_exactly_one_target() -> None:
         popen.assert_not_called()
         popen.return_value.__enter__.return_value.wait.return_value = 0
         build(Path("."), "A", DEADLINE)
-    assert popen.call_args.args[0] == ["lake", "build", "+A"]
+    assert popen.call_args.args[0] == ["lake", "build", "--log-level=error", "+A"]
 
 
 def test_empty_prefix_does_not_start_lake() -> None:
@@ -325,3 +339,40 @@ def test_read_only_warm_proof_checked_once_without_uploads(tmp_path: Path) -> No
     store.download.assert_not_called()
     store.upload.assert_not_called()
     pack.assert_not_called()
+
+
+def test_complete_bundle_bypasses_all_per_unit_checks_and_builds(tmp_path: Path) -> None:
+    with (
+        patch(f"{RUNNER}.restore_complete", return_value=True),
+        patch(f"{RUNNER}.run_lake", return_value=0) as run,
+        patch(f"{RUNNER}.replay_units") as replay,
+    ):
+        replay_proof(tmp_path, [unit(1, "A")], "o/r", "commit", DEADLINE, read_only=False)
+    run.assert_called_once_with(tmp_path, (TARGET,), DEADLINE, check=True)
+    replay.assert_not_called()
+
+
+@pytest.mark.parametrize("restored", [False, True])
+def test_missing_or_stale_complete_bundle_uses_existing_checkpoints(
+    tmp_path: Path, restored: bool
+) -> None:
+    units = [unit(1, "A")]
+    with (
+        patch(f"{RUNNER}.restore_complete", return_value=restored),
+        patch(f"{RUNNER}.run_lake", return_value=3) as run,
+        patch(f"{RUNNER}.replay_units") as replay,
+    ):
+        replay_proof(tmp_path, units, "o/r", "commit", DEADLINE, read_only=True)
+    assert run.call_count == int(restored)
+    replay.assert_called_once_with(tmp_path, units, "o/r", "commit", DEADLINE, read_only=True)
+
+
+def test_complete_bundle_error_is_not_silently_rebuilt(tmp_path: Path) -> None:
+    with (
+        patch(f"{RUNNER}.restore_complete", return_value=True),
+        patch(f"{RUNNER}.run_lake", side_effect=subprocess.CalledProcessError(143, ["lake"])),
+        patch(f"{RUNNER}.replay_units") as replay,
+        pytest.raises(subprocess.CalledProcessError),
+    ):
+        replay_proof(tmp_path, [], "o/r", "commit", DEADLINE, read_only=False)
+    replay.assert_not_called()

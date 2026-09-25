@@ -214,14 +214,14 @@ def test_documentation_rejects_symlink_pages(tmp_path: Path) -> None:
         verify_pages(directory, [TARGET])
 
 
-def test_release_assembly_requires_matching_paper_docs_and_proof(tmp_path: Path) -> None:
+def test_release_assembly_requires_matching_paper_and_proof_without_docs(tmp_path: Path) -> None:
     fixture_project(tmp_path)
     fixture_artifacts(tmp_path)
     inputs = tmp_path / "inputs"
-    for name in ("paper", "docs", "build"):
+    for name in ("paper", "build"):
         (inputs / name).mkdir(parents=True)
     receipt = make_receipt(tmp_path, COMMIT, {THEOREM: REPORT})
-    for name in ("paper", "docs", "build"):
+    for name in ("paper", "build"):
         (inputs / name / "conditional-audit.json").write_text(json.dumps(receipt))
     modules = module_artifacts(tmp_path)
     build = inputs / "build"
@@ -260,19 +260,14 @@ def test_release_assembly_requires_matching_paper_docs_and_proof(tmp_path: Path)
             }
         )
     )
-    docs = inputs / "docs"
-    for name in ("index.html", "licensing/index.html", TARGET.replace(".", "/") + ".html"):
-        path = docs / name
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text("HasThetaLogSquaredError")
-    with pytest.raises(ValueError, match="Mathlib.Test"):
-        prepare(tmp_path, inputs, tmp_path / "release", COMMIT)
-    dependency_page = docs / "Mathlib/Test.html"
-    dependency_page.parent.mkdir()
-    dependency_page.write_text("Dependency declarations")
+    assert not (inputs / "docs").exists()
     assembled = prepare(tmp_path, inputs, tmp_path / "release", COMMIT)
     assert assembled["conditional"] is True
-    assert "conditional-api-documentation.zip" in assembled["assets"]
+    assert assembled["api_documentation"] == "not built or included in the conditional release"
+    assert "conditional-api-documentation.zip" not in assembled["assets"]
+    assert "conditional-licenses.tar.gz" in assembled["assets"]
+    assert "conditional-paper.pdf" in assembled["assets"]
+    assert "conditional-build-manifest.json" in assembled["assets"]
     (paper / "conditional-paper.pdf").write_bytes(b"changed")
     with pytest.raises(ValueError, match="hash mismatch"):
         prepare(tmp_path, inputs, tmp_path / "invalid", COMMIT)

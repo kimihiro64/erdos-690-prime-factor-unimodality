@@ -88,9 +88,11 @@ Run the research profile before opening a pull request. Release work additionall
 requires the full Palomar profile, paper, Comparator, NanoDa, clean Git state,
 and exact public commit audit.
 
-The explicitly conditional release has its own state-gated mirror of CI and
-separate paper, docs and artifacts. It omits the Comparator job (including
-that job's NanoDa replay), preserves the single analytic hypothesis in the
+The explicitly conditional release has state-gated CI and separate paper and
+compiled artifacts. One proof job restores a matching complete artifact and
+validates the final target once, or resumes durable serial checkpoints. It
+omits API documentation and Comparator (including that job's NanoDa replay),
+preserves the single analytic hypothesis in the
 reported theorem, and publishes only a conditional prerelease. It must not
 claim the unconditional Palomar release gates have passed. Run
 `python3 -m scripts.render_conditional_workflow` after changing shared CI jobs;

@@ -1,4 +1,4 @@
-"""Publish a conditional prerelease only after all original non-Comparator gates."""
+"""Publish the audited conditional proof and paper without an API-documentation gate."""
 
 from __future__ import annotations
 
@@ -9,11 +9,9 @@ import re
 import shutil
 import subprocess
 import tempfile
-import zipfile
 from pathlib import Path
 from typing import Any
 
-from scripts.conditional_docs import verify_pages
 from scripts.conditional_dusart_plan import TARGET
 from scripts.conditional_release_bundle import sha256, verify_parts
 from scripts.conditional_release_receipt import clean_commit, validate_receipt
@@ -39,7 +37,6 @@ def verify_hashes(directory: Path, hashes: dict[str, str]) -> None:
 def prepare(root: Path, inputs: Path, output: Path, commit: str) -> dict[str, Any]:
     build = inputs / "build"
     paper = inputs / "paper"
-    docs = inputs / "docs"
     receipt = validate_receipt(
         root, json.loads((build / "conditional-audit.json").read_text()), commit
     )
@@ -48,11 +45,6 @@ def prepare(root: Path, inputs: Path, output: Path, commit: str) -> dict[str, An
     )
     if paper_receipt != receipt:
         raise ValueError("paper and compiled proof have different audit receipts")
-    docs_receipt = validate_receipt(
-        root, json.loads((docs / "conditional-audit.json").read_text()), commit
-    )
-    if docs_receipt != receipt:
-        raise ValueError("documentation and compiled proof have different audit receipts")
     manifest = json.loads((build / "conditional-build-manifest.json").read_text())
     if manifest["commit"] != commit or manifest["conditional"] is not True:
         raise ValueError("wrong compiled conditional provenance")
@@ -86,12 +78,6 @@ def prepare(root: Path, inputs: Path, output: Path, commit: str) -> dict[str, An
         "conditional-resources.json",
     }:
         raise ValueError("paper provenance does not cover every required artifact")
-    verify_pages(docs, manifest["modules"])
-    for relative in ("index.html", "licensing/index.html", TARGET.replace(".", "/") + ".html"):
-        if not (docs / relative).is_file():
-            raise ValueError(f"conditional documentation missing: {relative}")
-    if "HasThetaLogSquaredError" not in (docs / "index.html").read_text():
-        raise ValueError("documentation does not disclose the analytic hypothesis")
     output.mkdir(parents=True, exist_ok=True)
     if any(output.iterdir()):
         raise ValueError("refusing to mix release assets in a nonempty output directory")
@@ -104,14 +90,6 @@ def prepare(root: Path, inputs: Path, output: Path, commit: str) -> dict[str, An
         "paper-provenance.json",
     ):
         shutil.copyfile(regular_file(paper, name), output / name)
-    with zipfile.ZipFile(
-        output / "conditional-api-documentation.zip", "w", zipfile.ZIP_DEFLATED
-    ) as zip_:
-        for path in sorted(docs.rglob("*")):
-            if path.is_symlink():
-                raise ValueError(f"symlink in documentation: {path}")
-            if path.is_file():
-                zip_.write(path, path.relative_to(docs))
     assets = {
         path.name: {"sha256": sha256(path), "bytes": path.stat().st_size}
         for path in output.iterdir()
@@ -124,6 +102,7 @@ def prepare(root: Path, inputs: Path, output: Path, commit: str) -> dict[str, An
         "commit": commit,
         "statement": receipt["statement"],
         "comparator": "not run: conditional theorem, not unconditional Challenge",
+        "api_documentation": "not built or included in the conditional release",
         "assets": assets,
     }
     (output / "conditional-release-manifest.json").write_text(json.dumps(result, indent=2) + "\n")
@@ -149,9 +128,10 @@ def publish(repo: str, tag: str, commit: str, output: Path, metadata: dict[str, 
         f"Proved statement: `{metadata['statement']}`. The unbounded theta estimate remains "
         "an explicit hypothesis; this is NOT an unconditional solution.\n\n"
         "The conditional CI stages gate publication: metadata/source boundary, "
-        "Python tests, sandbox policy, licensing, separated foundations and high-memory "
-        "prebuilds, analytic reduction, complete conditional build and axiom audit, paper, "
-        "documentation, and submission-link checks. Comparator and its associated NanoDa "
+        "Python tests, sandbox policy, licensing, one complete conditional build and "
+        "axiom audit, paper, "
+        "and submission-link checks. API documentation is not built or included. "
+        "Comparator and its associated NanoDa "
         "replay were not run; no such certification is claimed. Post-build Lean linting "
         "is deferred; the early source checks and Python lint gate remain enabled.\n\n"
         "See conditional-release-manifest.json for SHA-256 hashes, the build manifest for "

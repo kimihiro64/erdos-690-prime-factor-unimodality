@@ -140,25 +140,30 @@ do not cancel a running conditional build. The checkpointed stages build the
 single-theta target only, including its actual finite certificate closure.
 Pull requests may read checkpoints but cannot publish checkpoints or releases.
 
-The workflow mirrors every stage of the original CI except Comparator:
-release-version validation, metadata/source boundary, licensing, Python,
-sandbox policy, foundations, certificate prebuild, analytic-tail checks,
-final build and axiom audit, docs, paper, submission-link checks, and release.
+The workflow retains release-version validation, metadata/source boundary,
+licensing, Python, sandbox policy, one proof build and axiom audit, the separate
+paper, submission-link checks, and release. API documentation and Comparator
+are omitted. Foundations, prebuild and final validation are no longer repeated
+across separate conditional jobs.
 Post-build Lean linting is deferred; the early source checks and Python lint gate
 remain enabled. The workflow does not claim that the deferred Lean lint passed.
 The shared checks are copied by `scripts/render_conditional_workflow.py`;
 the canonical fast gate detects a stale generated workflow.
 
-Foundations run first. The high-memory prebuild ends at the checkpoint unit
-containing `RecordTwinClosed`; the final build supplies the remaining analytic
-prefix certificates and classification. The parallel analytic-tail job checks
-the already-built certificate-independent reduction. Stage artifacts and the
-durable checkpoint store reuse completed work without changing unit keys.
-When every artifact is available locally or restored, the runner checks the
-entire stage in one quiet `lake build --no-build` invocation, rather than
-rechecking each checkpoint or 256-target batch. Stale traces fall back to
-dependency-ordered serial repair, saving each completed unit before proceeding.
-The final theorem/type/axiom audit still runs; a cache hit does not skip it.
+The proof job first looks for a complete compiled bundle from a trusted completed
+main-branch run, including runs whose later paper or documentation job failed.
+It checks the small audit receipt against the current proof/configuration keys
+before downloading the large archive. All project and imported dependency
+artifacts are restored together, after digest and path validation. Unrelated
+commits do not invalidate matching proof content. One
+`lake build --no-build -q --log-level=error +<conditional-target>` validates the
+whole import closure; a warm hit bypasses all per-unit checkpoint checks.
+Warnings from saved traces are not replayed, while errors remain fatal.
+If no matching complete bundle remains available, or Lake reports stale traces,
+the existing dependency-ordered serial checkpoint repair resumes in that same
+job. Checkpoint keys and stores are unchanged. The final theorem/type/axiom audit
+still runs and produces a receipt for the new commit; an old audit is not reused
+as proof of the new publication.
 
 Preview the exact dependency plan without running Lean:
 
@@ -214,24 +219,21 @@ replacements, and measured versus projected resource costs. The compact
 its limitations. Generation requires an exact-commit, exact-statement audit
 receipt; PDF checks reject unresolved references and overflowing text.
 
-The docs job selects the conditional import closure, reuses the original
-offline-index and licensing preparation tools with a separate landing page,
-and generates declaration metadata in dependency order. Core documentation
-scans are serial too. An incremental database is saved on a best-effort basis
-with Actions cache; unlike certificate checkpoints, that cache can be evicted.
+There is no API-documentation job, release dependency, download or ZIP in the
+conditional pipeline. Its absence is explicit in the release manifest and notes.
 
 The compiled release includes all imported non-core Lean artifacts, not only
 owned project modules. Bounded archive parts avoid duplicating the compiled
 tree in staging. A source snapshot, locked dependency and toolchain identity,
 compatibility scripts, dependency notices, exact axiom/type audit, and SHA-256
-manifests accompany the PDF and offline docs. Install the selected Lean
+manifests accompany the PDF. Install the selected Lean
 toolchain separately; its binaries are not included. Publication verifies
 downloaded assets before completing a distinctly named
 `v<VERSION>-conditional.<COMMIT>` prerelease. It never promotes that result as
 an unconditional solution or claims Comparator/NanoDa checks were run.
 
 1. **Conditional release, only after all its CI gates pass.** The
-   dedicated release job generates a conditional paper and documentation,
+   dedicated release pipeline generates a conditional paper,
    packages the full conditional `.olean` dependency closure with the pinned
    sources/toolchain and compatibility patches, and records the exact commit,
    theorem type, single theta hypothesis, axiom audit, and artifact checksums. The paper

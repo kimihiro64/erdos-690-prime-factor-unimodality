@@ -16,6 +16,7 @@ import tempfile
 import time
 from pathlib import Path
 
+from scripts.conditional_complete_restore import restore_complete
 from scripts.conditional_dusart_checkpoints import Store, pack, restore
 from scripts.conditional_dusart_plan import (
     TARGET,
@@ -38,7 +39,7 @@ def run_lake(root: Path, targets: tuple[str, ...], deadline: float, *, check: bo
         raise TimeoutError("budget reached before starting Lake; re-dispatch to resume")
     started = time.monotonic()
     label = f"Checking {len(targets)} cached targets" if check else f"Building {targets[0]}"
-    command = ["lake", "build"]
+    command = ["lake", "build", "--log-level=error"]
     if check:
         command += ["--no-build", "-q"]
     command += [f"+{target}" for target in targets]
@@ -174,6 +175,18 @@ def audit(root: Path, scratch: Path) -> dict[str, str]:
     return {THEOREM: result.stdout}
 
 
+def replay_proof(
+    root: Path, units: list[Unit], repo: str, commit: str, deadline: float, *, read_only: bool
+) -> None:
+    """A complete saved closure bypasses every per-module checkpoint replay."""
+    if restore_complete(root, repo, os.environ.get("GITHUB_RUN_ID", "")):
+        if run_lake(root, (TARGET,), deadline, check=True) == 0:
+            print("Complete conditional proof validated once; no certificate replay needed")
+            return
+        print("Complete artifact has stale Lake traces; repairing from durable checkpoints")
+    replay_units(root, units, repo, commit, deadline, read_only=read_only)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--plan", action="store_true")
@@ -197,7 +210,8 @@ def main() -> None:
     deadline = time.monotonic() + args.minutes * 60
     research = ROOT / ".research"
     research.mkdir(exist_ok=True)
-    replay_units(
+    replay = replay_proof if args.stage == "build" else replay_units
+    replay(
         ROOT,
         units,
         repo,

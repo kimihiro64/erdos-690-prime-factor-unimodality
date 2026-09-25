@@ -268,8 +268,9 @@ def test_conditional_workflow_is_state_gated_bounded_and_not_cancelled_by_push()
     assert "DUSART_CI_BUILDS" not in workflow
     assert workflow == render(ROOT)
     original = original_jobs(ROOT)
+    omitted = {"comparator", "docs", "lean-foundations", "certificate-prebuild", "analytic-tail"}
     for job in original:
-        assert (f"  {job}:\n" in workflow) == (job != "comparator")
+        assert (f"  {job}:\n" in workflow) == (job not in omitted)
     assert "lake lint" not in workflow
     assert "lake build +Batteries.Tactic.Lint" not in workflow
     assert "lake build PrimeFactorUnimodality:docs" not in workflow
@@ -282,14 +283,31 @@ def test_conditional_build_keeps_early_checks_and_proof_audit_without_late_lint(
     workflow = render(ROOT)
     checks = jobs["python"].replace("vars.DUSART_CI_BUILDS", "vars.CONDITIONAL_CI_BUILDS")
     assert checks in workflow
-    foundations = workflow.split("  lean-foundations:\n", 1)[1].split(
-        "  certificate-prebuild:\n", 1
-    )[0]
-    assert "needs: [python]" in foundations
-    build = workflow.split("  build:\n", 1)[1].split("  docs:\n", 1)[0]
+    build = workflow.split("  build:\n", 1)[1].split("  paper:\n", 1)[0]
+    assert "needs: [release_version, metadata-and-boundary, python]" in build
+    assert "actions: read" in build
     assert "scripts.conditional_dusart_ci --stage build" in build
     assert "scripts.conditional_release_bundle" in build
     assert "conditional-proof-audit" in build
-    assert "conditional-linux-lean-build" in build
+    assert "conditional-linux-lean-build" not in build
+    assert "conditional-build-release" in build
     assert "lake lint" not in build
     assert "Batteries.Tactic.Lint" not in build
+    assert workflow.count("python3 -m scripts.conditional_dusart_ci") == 1
+    assert "--stage prebuild" not in workflow
+    assert "--stage foundations" not in workflow
+
+
+def test_conditional_release_has_no_documentation_job_or_artifact_dependency() -> None:
+    workflow = render(ROOT)
+    assert "  docs:\n" not in workflow
+    assert "scripts.conditional_docs" not in workflow
+    assert "conditional-api-documentation" not in workflow
+    assert "prepare-api-docs.ps1" not in workflow
+    release = workflow.split("  release:\n", 1)[1]
+    needs = next(line for line in release.splitlines() if "needs:" in line)
+    assert "docs" not in needs
+    assert "build" in needs and "paper" in needs and "release-licensing" in needs
+    assert "conditional-build-release" in release
+    assert "conditional-research-paper" in release
+    assert "scripts.publish_conditional_release" in release
