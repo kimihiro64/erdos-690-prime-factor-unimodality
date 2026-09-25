@@ -16,17 +16,19 @@ ineligible. The reviewed catalog records JSP-000562 as **Solved**, with **Lean
 proof: No** and **Eligible to claim: No**; those fields are not changed by this
 clarification request.
 
-[submission.md](submission.md) is a ready-to-review **feedback/question draft**,
-with the mathematical scope, attribution, reproducibility information and pinned
-evidence normally needed for a contribution PR. Its proposed title is:
+[submission.md](submission.md) is a **PR-body draft matching the official
+[pull-request template][template]**, including its exact section order and all
+five checklist items. Its proposed title is:
 
-> [Feedback] JSP-000562 / Erdős 690: eligibility clarification for all-k formalization using Dusart
+> JSP-000562: all-k Lean formalization adapted from Wang–Crapis; Dusart eligibility clarification
 
-If Jonas decides to send it now, use the repository's
-[Feedback, suggestion or question form][feedback] and paste the draft into its
-single text field. This asks how the completeness rule applies to an established
-external mathematical tool; it is not an award claim, candidate registration,
-priority reservation, or assertion of unconditional Lean completeness.
+Review this file on `review/jsp-000562` before any official submission. The
+Dusart eligibility question is part of **Formal statement**, not a replacement
+for the submission template. The draft retains the unchecked completeness
+attestation pending clarification and the unchecked catalog-change attestation
+because no catalog PR has been prepared. Nothing has been opened with the prize
+repository; there is no award claim, candidate registration, priority reservation,
+or assertion of unconditional Lean completeness.
 
 ## Before a future formalization PR
 
@@ -54,7 +56,7 @@ priority reservation, or assertion of unconditional Lean completeness.
 ## Evidence checked for this draft
 
 - Prize rules and catalog at revision
-  `1d1db84a39201357236183f0bbd620e2b220747e`.
+  `1d1db84a39201357236183f0bbd620e2b220747e`, including the exact PR template.
 - Original proof repository `kimihiro64/erdos-690-prime-factor-unimodality`, branch
   `main`, containing commit `42484c8ba3d0ae33e93cc20269e16a26ed6e83c8`.
 - Successful conditional CI run `36087662063`, at that exact commit.
@@ -70,4 +72,4 @@ clean Lean build, independent kernel replay, or organizer verification.
 Unpublished working-tree improvements are not attributed to the pinned release.
 
 [rules]: https://github.com/TheJustinSunPrize/awards/blob/1d1db84a39201357236183f0bbd620e2b220747e/CONTRIBUTING.md#external-solver-and-lean-submissions
-[feedback]: https://github.com/TheJustinSunPrize/awards/issues/new?template=feedback.yml
+[template]: https://github.com/TheJustinSunPrize/awards/blob/1d1db84a39201357236183f0bbd620e2b220747e/.github/PULL_REQUEST_TEMPLATE.md

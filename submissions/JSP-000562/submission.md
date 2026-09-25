@@ -1,6 +1,11 @@
-# JSP-000562 / Erdős 690: conditional formalization of the complete all-k classification
+## Submission type
 
-## Contribution and requested guidance
+- [ ] Mathematical solver information
+- [x] Lean proof or formalization author information
+
+Draft for Jonas Whidden's review, following the repository's [PR template][template].
+Nothing has been submitted. The formal statement below includes a request for
+clarification about the retained, mathematically established Dusart theorem.
 
 I am **Jonas Whidden (@kimihiro64)**, the formalization contributor and proposed
 recipient for the **Lean formalization** role, should the completed work become
@@ -15,35 +20,23 @@ Cambie range through k = 20. **The released classification theorem is conditiona
 on one explicitly stated Dusart estimate.** Its conditional pipeline has passed
 and the source, paper, compiled proof artifacts and axiom audit are public.
 
-I would like clarification of how the [contribution rules][rules] apply to this
-specific situation. Their exclusion concerns conditional arguments relying on
-additional **unproved** assumptions. Dusart's estimate is a published, proved
-theorem used as an external analytic tool, not a conjecture or a new mathematical
-step left unjustified in the solution of Erdős 690. The problem-specific
-classification arguments, including the adaptations described below, are
-established in Lean from that estimate; they are not themselves assumed.
+## Problem
 
-**Does the exclusion also apply when the sole retained premise is an established
-auxiliary theorem whose numerical certification presents a computational wall
-for formal verification, rather than an unresolved mathematical claim?** Must a
-formal proof of Dusart's estimate be included in the Lean dependency closure
-before this contribution can be accepted, or can the prize assess the complete
-problem-specific formalization with that published tool and its precise trust
-boundary explicitly disclosed?
-
-The reason for retaining this premise is the scale of the rigorous computation
-behind its verification, especially the zero-verification work, not doubt about
-the truth of Dusart's result or a missing mathematical idea in the all-k
-classification. We are continuing work to remove that computational barrier.
-We are not asserting that the current release is an unconditional kernel proof,
-nor presuming either eligibility or ineligibility. Please clarify the applicable
-standard and submission route. No catalog status change, priority reservation,
-or start of an award-review period is presumed by this request.
-
-## Problem and mathematical source
-
-- **Catalog:** [JSP-000562][catalog], corresponding to [Erdős Problem 690][erdos].
-- **Complete mathematical solution:** Shouqiao Wang and Davide Crapis,
+- **Problem ID(s):** [JSP-000562][catalog] / Erdős 690.
+- **Original problem source and exact location:** [Erdős Problems, problem 690][erdos].
+- **Current entry and proposed change:** the catalog records Solved, Lean proof:
+  No, and Eligible to claim: No. Proposed for review: reference Jonas Whidden's
+  complete all-k formalization and the Wang–Crapis mathematical solution, with
+  the retained Dusart premise disclosed. Seek the clarification below before
+  asserting that Lean proof should be Yes. No catalog diff or status change is
+  made by this review draft.
+- **Related issue, if any:** no issue for this contribution has been opened;
+  [Issue #16][prior-issue] records earlier formalization evidence.
+- **Related PRs and how this contribution differs:** [#745][prior-four] describes
+  a k = 4 counterexample; [#1307][prior-plby] and [#4033][prior-plby-new] cite a
+  [theorem restricted to k ≤ 20][prior-source]. Our classification covers every
+  positive k, while explicitly retaining the established analytic premise.
+- **For solver/publication updates — complete mathematical solution:** Shouqiao Wang and Davide Crapis,
   [*A Complete Answer to Erdős Problem 690*, arXiv:2605.08542v1][wang],
   8 May 2026, Theorem 1.1 and Corollary 1.2; Sections 4–6 provide the analytic,
   finite-certificate and uniform-tail argument adapted here.
@@ -61,7 +54,27 @@ The published mathematical solution is supplied as the source for review.
 No prize-organizer mathematical review, independent verification, or endorsement
 by any cited author is asserted.
 
-## Exact statement and remaining hypothesis
+## Formal statement
+
+- **Complete mathematical solution (provided earlier or in this PR):**
+  Wang–Crapis, [arXiv:2605.08542v1][wang], Theorem 1.1 and Corollary 1.2,
+  with the detailed source and date under Problem above.
+- **Mathematical review reference or current review status:** published solution
+  supplied for review; no prize-organizer review is claimed.
+- **Formal statement location, pinned to a full commit SHA:**
+  [classification and definitions][definitions], [theta premise][hypothesis],
+  and [conditional theorem][theorem], all at
+  `42484c8ba3d0ae33e93cc20269e16a26ed6e83c8`.
+- **Fully qualified target theorem name:**
+  `PrimeFactorUnimodality.completeClassification_assuming_theta_error`.
+- **Statement origin:** proposed statement requiring review, adapted from
+  Wang–Crapis v1, with the disclosed Dusart premise; not a maintainer-approved
+  unconditional statement.
+- **Correspondence to the original problem:** the definitions, quantifiers,
+  complete all-k conclusion, retained hypothesis and separate density bridge
+  are specified below.
+
+### Exact correspondence and trust boundary
 
 Let d_k(p) be the natural density of positive integers whose k-th smallest
 **distinct** prime divisor is p. Primes are ordered increasingly. Unimodality
@@ -107,7 +120,55 @@ compiled closure. The reproduction instructions below include checking it
 separately; I do not claim that the conditional CI audited a combined
 density-and-classification theorem.
 
-## What is proved, rather than assumed
+### Clarification requested: established auxiliary theorem
+
+I would like clarification of how the [contribution rules][rules] apply to this
+specific situation. Their exclusion concerns conditional arguments relying on
+additional **unproved** assumptions. Dusart's estimate is a published, proved
+theorem used as an external analytic tool, not a conjecture or a new mathematical
+step left unjustified in the solution of Erdős 690. The problem-specific
+classification arguments, including the adaptations described below, are
+established in Lean from that estimate; they are not themselves assumed.
+
+**Does the exclusion also apply when the sole retained premise is an established
+auxiliary theorem whose numerical certification presents a computational wall
+for formal verification, rather than an unresolved mathematical claim?** Must a
+formal proof of Dusart's estimate be included in the Lean dependency closure
+before this contribution can be accepted, or can the prize assess the complete
+problem-specific formalization with that published tool and its precise trust
+boundary explicitly disclosed?
+
+The reason for retaining this premise is the scale of the rigorous computation
+behind its verification, especially the zero-verification work, not doubt about
+the truth of Dusart's result or a missing mathematical idea in the all-k
+classification. We are continuing work to remove that computational barrier.
+We are not asserting that the current release is an unconditional kernel proof,
+nor presuming either eligibility or ineligibility. Please clarify the applicable
+standard and submission route. No catalog status change, priority reservation,
+or start of an award-review period is presumed by this request.
+
+## Proof submission
+
+```json
+[
+  {
+    "repository": "https://github.com/kimihiro64/erdos-690-prime-factor-unimodality",
+    "branch": "main",
+    "commit": "42484c8ba3d0ae33e93cc20269e16a26ed6e83c8"
+  }
+]
+```
+
+- **Proof file at the selected commit and fully qualified theorem name:**
+  [`PrimeFactorUnimodality/Proof/CompleteClassificationSquaredConditional.lean`][theorem];
+  `PrimeFactorUnimodality.completeClassification_assuming_theta_error`.
+- **How the proof establishes the formal statement above, including any separate
+  verification entry:** the assembly below uses the actual finite proof and
+  infinite-tail argument. `test/lean/ConditionalTheta.lean` checks the exact
+  all-k implication. The separate natural-density bridge and audit limitation
+  are disclosed under Formal statement and Reproduction.
+
+### What is proved, rather than assumed
 
 The [assembly][reduction] derives the needed prime-counting, short-interval and
 tail-theta interfaces from the one premise. The bounded analytic prefixes and
@@ -122,7 +183,7 @@ unproved analytic providers. It composes the substantive proof components that
 will also be used in the unconditional result. Supplying a proof of the displayed
 theta hypothesis removes that parameter without changing the all-k conclusion.
 
-## Differences and improvements over Wang–Crapis v1
+### Differences and improvements over Wang–Crapis v1
 
 The core first-difference/symmetric-sum mechanism and descent-before-ascent
 strategy are retained. The [released paper][paper], especially its comparison
@@ -154,7 +215,7 @@ not a new discovery of the classification or a claim to stronger prime bounds.
 In particular, the complete mathematical theorem of Wang–Crapis is unconditional;
 the present formal theorem has the explicit hypothesis described above.
 
-## Why the result remains conditional, and ongoing work
+### Why the result remains conditional, and ongoing work
 
 Dusart's estimate is a published theorem, not an additional conjecture or an
 assumption of the full Riemann hypothesis. There is no claim here of mathematical
@@ -191,57 +252,22 @@ runs. These are ongoing efforts, not completed results attributed to this
 release. There is no claim that Dusart is impossible to formalize, or that a
 passing conditional build has discharged its hypothesis.
 
-## Pinned source, release and verification evidence
-
-```json
-[
-  {
-    "repository": "https://github.com/kimihiro64/erdos-690-prime-factor-unimodality",
-    "branch": "main",
-    "commit": "42484c8ba3d0ae33e93cc20269e16a26ed6e83c8"
-  }
-]
-```
-
-- **Exact source:** [commit 42484c8ba3d0ae33e93cc20269e16a26ed6e83c8][commit],
-  verified to be contained in `main` when preparing this draft.
-- **Published release:** [v0.1.0-conditional.42484c8ba3d0][release], a conditional
-  prerelease published at **2026-09-25 02:59:55 UTC**.
-- **Successful CI:** [run 36087662063][ci], at the same full commit.
-- **Research paper:** [conditional-paper.pdf][paper], with [source][paper-source]
-  and a commit-specific provenance record in the release.
-- **Exact statement and trust report:** [conditional-audit.json][audit].
-- **Artifacts and integrity:** [release SHA-256 manifest][release-manifest] and
-  [compiled-closure manifest][build-manifest]. The release includes the source
-  snapshot, ten compiled Lean archive parts and dependency notices. These remain
-  in the proof repository; no binaries or proof source are proposed for the
-  prize repository.
-
-The published audit reports only:
-
-```text
-[propext, Classical.choice, Quot.sound]
-```
-
-There is no `sorryAx` or project-local axiom in that theorem's reported axiom
-dependencies. The proof does not use `native_decide`. The explicit hypothesis
-remains visible in the theorem type: a standard-axiom audit does not make the
-implication unconditional. Comparator/NanoDa verification and independent human
-review are not claimed; API documentation is not included and Lean lint cleanup
-is deferred. This is a report of the named conditional CI gates, not of the
-unconditional Challenge/Solution release gates.
-
-For an additional check against later asset replacement, the downloaded audit's
-SHA-256 is `e9435f5767018e20b299f83300dc8ce1cd063de8f8950f96ca16eaaa3edff258`;
-the release-manifest SHA-256 is
-`ccc1d83721ec44efd6a686dd4ba6379485e684d8ea0bc0b300d5819abdacb05b`.
-
 ## Reproduction
 
-Use the exact source commit above, with **Lean 4.34.0** selected by
-[`lean-toolchain`][toolchain]. The [locked dependency manifest][dependencies]
-pins Mathlib to `5ed2965256430c3649e86755f9576b54eca72435` and records all other
-dependency revisions. Do not run `lake update` to replace those pins.
+- **Exact Lean version and `lean-toolchain` path:** `leanprover/lean4:v4.34.0`,
+  recorded in [`lean-toolchain`][toolchain].
+- **Pinned dependencies and manifest path:** [`lake-manifest.json`][dependencies];
+  Mathlib `5ed2965256430c3649e86755f9576b54eca72435`, with all other revisions
+  recorded there. Do not replace the pins with `lake update`.
+- **Build instructions pinned to the selected commit:** [build/resume guide][instructions]
+  and [conditional CI workflow][workflow].
+- **Commands for setup, clean build and checking each target theorem:** below;
+  the exact-statement regression is `test/lean/ConditionalTheta.lean`.
+- **Axiom audit command and output for each target:** the commands below include
+  `#print axioms PrimeFactorUnimodality.completeClassification_assuming_theta_error`.
+  Its [published audit][audit] reports `[propext, Classical.choice, Quot.sound]`.
+  The separate density-bridge commands are additional reviewer checks, not an
+  already published audit of that bridge.
 
 With elan, Git and Python 3 available, in a checkout of that commit:
 
@@ -286,7 +312,55 @@ the extra density-bridge commands are supplied for reviewer reproduction, not
 reported here as a new completed audit. The unconditional `Solution.lean` is not
 the target certified by this prerelease.
 
-## Attribution and related submissions
+## Pre-submission Lean verification (optional)
+
+- **Method/tool and version, if available:** project GitHub Actions conditional
+  workflow, Lean 4.34.0 and pinned dependencies; source and release-evidence
+  inspection. No execution of the optional `lean-verify` skill is claimed.
+- **Checked repository and full commit SHA:** original repository
+  `kimihiro64/erdos-690-prime-factor-unimodality`,
+  `42484c8ba3d0ae33e93cc20269e16a26ed6e83c8` on `main`. The separate
+  `review/jsp-000562` branch contains correspondence only, not a changed proof.
+- **Verification date, actual conclusion and limitations:** 25 September 2026;
+  conditional classification CI passed and its release was published. This
+  does not discharge the theta premise or establish prize eligibility.
+- **Summary of statement correspondence, coverage, Lean checks and trust
+  dependencies:** every positive k is covered with one explicit Dusart premise;
+  the final theorem uses only the three standard Lean axioms. The separate
+  density bridge is outside the published audit/bundle. No independent human
+  or Comparator/NanoDa verification is asserted.
+- **External report/log/evidence links:** exact source [commit][commit],
+  [successful CI run 36087662063][ci], [published release][release],
+  [research paper][paper] and [source][paper-source], [theorem/axiom audit][audit],
+  [release SHA-256 manifest][release-manifest] and [compiled-closure manifest][build-manifest].
+
+The commit was verified to be contained in `main` when preparing this draft.
+The conditional prerelease was published at **2026-09-25 02:59:55 UTC**.
+It contains the source snapshot, ten compiled Lean archive parts and dependency
+notices. These remain in the proof repository, not the prize repository.
+
+There is no `sorryAx` or project-local axiom in the target's reported axiom
+dependencies, and its proof does not use `native_decide`. A standard-axiom audit
+does not make the implication unconditional. API documentation is not included
+and Lean lint cleanup is deferred; no unconditional Challenge/Solution release
+gate is claimed to have passed.
+
+The downloaded audit's SHA-256 is
+`e9435f5767018e20b299f83300dc8ce1cd063de8f8950f96ca16eaaa3edff258`;
+the release-manifest SHA-256 is
+`ccc1d83721ec44efd6a686dd4ba6379485e684d8ea0bc0b300d5819abdacb05b`.
+
+## Attribution
+
+- **Mathematical solver(s) and contribution:** Stijn Cambie for the initial
+  density/unimodality results; Shouqiao Wang and Davide Crapis for the complete
+  all-k classification; Pierre Dusart for the auxiliary analytic estimate.
+- **Lean formalization author(s) and contribution:** Jonas Whidden
+  (@kimihiro64), for this AI-assisted formalization and its documented adaptations.
+- **Independent verifier(s), if any:** none claimed; project CI is not an
+  independent human review or organizer acceptance.
+- **Public authorship evidence:** [project authorship record][authorship] and
+  [paper source][paper-source], with account/recipient attribution below.
 
 **Formalization contributor and proposed formalization recipient: Jonas Whidden.**
 `kimihiro64` is my GitHub account name, not the intended recipient name.
@@ -316,6 +390,20 @@ Any eventual award application would be made by Jonas Whidden for his own
 formalization contribution, after the required acceptance and verification steps.
 Identity confirmation, recipient approval and private payment/delivery details
 remain subject to the prize's official process; none is asserted complete here.
+
+## Submission checklist
+
+- [ ] I changed only the relevant catalog's solver attribution, Lean proof information or supporting sources and supplied the applicable evidence.
+- [ ] The submitted result fully solves the original problem. Any submitted Lean proof is complete at the specified commit, with no `sorry`, `admit` or added unproved assumptions replacing proof steps.
+- [x] For Lean: I have linked the complete mathematical solution and its proof or publication evidence provided earlier, or supplied them in this PR, and identified the mathematical solver and Lean formalization author separately.
+- [x] For Lean: I am claiming my own contribution in the original personal or organization repository, with verifiable contribution evidence for an organization repository; the selected commit is in the named branch, and I supplied statement correspondence, reproduction commands and axiom audit results.
+- [x] This PR contains no Lean source files, archives, binaries, vendored dependencies or private identity/contact/payment information.
+
+The first box is unchecked because this is a review draft, not a catalog PR.
+The second is left unchecked pending clarification of how the completeness
+requirement applies to the established Dusart theorem retained as an explicit
+Lean parameter. Leaving it unchecked does not assert that Dusart is mathematically
+unproved or that the organizers have decided eligibility.
 
 [rules]: https://github.com/TheJustinSunPrize/awards/blob/1d1db84a39201357236183f0bbd620e2b220747e/CONTRIBUTING.md#external-solver-and-lean-submissions
 [catalog]: https://github.com/TheJustinSunPrize/awards/blob/1d1db84a39201357236183f0bbd620e2b220747e/problems/catalog-0501-0600.md#JSP-000562
@@ -348,3 +436,4 @@ remain subject to the prize's official process; none is asserted complete here.
 [prior-plby]: https://github.com/TheJustinSunPrize/awards/pull/1307
 [prior-plby-new]: https://github.com/TheJustinSunPrize/awards/pull/4033
 [prior-source]: https://github.com/plby/lean-proofs/blob/8822f7ddef30fadbd92e1c6ab4ed897af356af5e/src/latest/ErdosProblems/Erdos690.lean#L2159
+[template]: https://github.com/TheJustinSunPrize/awards/blob/1d1db84a39201357236183f0bbd620e2b220747e/.github/PULL_REQUEST_TEMPLATE.md
