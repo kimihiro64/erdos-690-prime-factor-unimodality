@@ -27,7 +27,7 @@ universal all-`k` theorem, but the Solution proof is not yet unconditional:
 its remaining boundary consists of the generated certificates still being
 built and the explicit analytic prime-estimate interfaces. See
 [`TODO.md`](TODO.md) for the completion gates. This checkpoint therefore does
-not yet claim a complete formalization of Erdős 690.
+not yet claim a complete unconditional formalization of Erdős 690.
 
 The release state is visible mechanically:
 
