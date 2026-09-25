@@ -270,7 +270,26 @@ def test_conditional_workflow_is_state_gated_bounded_and_not_cancelled_by_push()
     original = original_jobs(ROOT)
     for job in original:
         assert (f"  {job}:\n" in workflow) == (job != "comparator")
-    assert "lake lint -- --no-build" in workflow
+    assert "lake lint" not in workflow
+    assert "lake build +Batteries.Tactic.Lint" not in workflow
     assert "lake build PrimeFactorUnimodality:docs" not in workflow
     assert "conditional-paper" in workflow
     assert "paper/research-paper.tex" not in workflow
+
+
+def test_conditional_build_keeps_early_checks_and_proof_audit_without_late_lint() -> None:
+    jobs = original_jobs(ROOT)
+    workflow = render(ROOT)
+    checks = jobs["python"].replace("vars.DUSART_CI_BUILDS", "vars.CONDITIONAL_CI_BUILDS")
+    assert checks in workflow
+    foundations = workflow.split("  lean-foundations:\n", 1)[1].split(
+        "  certificate-prebuild:\n", 1
+    )[0]
+    assert "needs: [python]" in foundations
+    build = workflow.split("  build:\n", 1)[1].split("  docs:\n", 1)[0]
+    assert "scripts.conditional_dusart_ci --stage build" in build
+    assert "scripts.conditional_release_bundle" in build
+    assert "conditional-proof-audit" in build
+    assert "conditional-linux-lean-build" in build
+    assert "lake lint" not in build
+    assert "Batteries.Tactic.Lint" not in build

@@ -1,9 +1,9 @@
 """Replay only the all-k proof conditional on the single log-square theta estimate.
 
 No thread limits: owned targets are explicitly topologically ordered. Completed
-units are saved immediately, before later targets can fail. Restored prefixes
-are validated in batches without enabling recompilation. Re-dispatch this
-workflow to resume; an incomplete run never claims that the theorem passed.
+units are saved immediately, before later targets can fail. A complete restored
+proof is validated in one Lake invocation without enabling recompilation.
+Re-dispatch this workflow to resume; an incomplete run never claims that the theorem passed.
 """
 
 from __future__ import annotations
@@ -28,7 +28,6 @@ from scripts.conditional_dusart_plan import (
 from scripts.conditional_release_receipt import check_report, clean_commit, make_receipt
 
 ROOT = Path(__file__).resolve().parents[1]
-VALIDATION_BATCH_SIZE = 256
 
 
 def run_lake(root: Path, targets: tuple[str, ...], deadline: float, *, check: bool) -> int:
@@ -100,14 +99,37 @@ def replay_units(
     *,
     read_only: bool,
 ) -> None:
-    """Batch saved prefixes, but publish every newly completed unit immediately."""
+    """Check each restored prefix once, including the entire proof on a warm run.
+
+    Collect local and downloaded artifacts before starting Lake. A fresh complete
+    closure needs one --no-build invocation, not one per checkpoint or batch.
+    Stale prefixes are repaired unit by unit so each completed unit can be saved
+    before any later compilation fails. Checkpoint identities stay unchanged.
+    """
     research = root / ".research"
     research.mkdir(exist_ok=True)
     stores: dict[str, Store] = {}
-    pending: list[str] = []
+    pending: list[Unit] = []
+
+    def save(unit: Unit) -> None:
+        store = stores[unit.phase]
+        if unit.asset in store.assets or store.read_only:
+            return
+        with tempfile.TemporaryDirectory(prefix="conditional-save-", dir=research) as name:
+            archive = Path(name) / unit.asset
+            pack(root, unit, archive)
+            store.upload(unit, archive)
+            print(f"Saved {unit.asset}", flush=True)
 
     def flush() -> None:
-        validate_cached(root, tuple(pending), deadline)
+        if not pending:
+            return
+        targets = tuple(module for unit in pending for module in unit.modules)
+        fresh = run_lake(root, targets, deadline, check=True) == 0
+        for unit in pending:
+            if not fresh:
+                validate_cached(root, unit.modules, deadline)
+            save(unit)
         pending.clear()
 
     for index, unit in enumerate(units):
@@ -124,23 +146,14 @@ def replay_units(
             if downloaded:
                 restore(root, unit, downloaded)
                 print(f"Restored {unit.asset}", flush=True)
-            if unit.asset in store.assets and (local or downloaded is not None):
-                pending.extend(unit.modules)
-                if len(pending) >= VALIDATION_BATCH_SIZE:
-                    flush()
+            if local or downloaded is not None:
+                pending.append(unit)
                 continue
             # Finish every predecessor before permitting any new compilation.
             flush()
-            if local:
-                validate_cached(root, unit.modules, deadline)
-            else:
-                for module in unit.modules:
-                    build(root, module, deadline)
-            if unit.asset not in store.assets and not store.read_only:
-                archive = scratch / unit.asset
-                pack(root, unit, archive)
-                store.upload(unit, archive)
-                print(f"Saved {unit.asset}", flush=True)
+            for module in unit.modules:
+                build(root, module, deadline)
+            save(unit)
     flush()
 
 

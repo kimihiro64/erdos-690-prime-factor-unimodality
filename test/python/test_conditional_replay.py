@@ -1,4 +1,4 @@
-"""Warm-cache batching must never enable parallel compilation or lose checkpoints."""
+"""Whole-proof cache checks must not enable parallel compilation or lose checkpoints."""
 
 from __future__ import annotations
 
@@ -115,6 +115,19 @@ def unit(number: int, *modules: str) -> Unit:
     return Unit(tuple(modules), f"{number:064x}", "certificates")
 
 
+def local_artifacts(root: Path, units: list[Unit]) -> None:
+    for u in units:
+        for path in required_artifacts(u):
+            target = root / path
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(b"fixture")
+
+
+def cache_hit(events: list[object], event: object) -> int:
+    events.append(event)
+    return 0
+
+
 def test_saved_prefix_is_restored_before_one_validation(tmp_path: Path) -> None:
     units = [unit(1, "A", "B"), unit(2, "C", "D")]
     store = Mock(assets={u.asset for u in units}, read_only=False)
@@ -123,13 +136,15 @@ def test_saved_prefix_is_restored_before_one_validation(tmp_path: Path) -> None:
     with (
         patch(f"{RUNNER}.Store", return_value=store),
         patch(f"{RUNNER}.restore", side_effect=lambda root, u, archive: events.append(u.asset)),
-        patch(f"{RUNNER}.validate_cached", side_effect=lambda root, ms, d: events.append(ms)),
+        patch(f"{RUNNER}.run_lake", side_effect=lambda root, ms, d, **kw: cache_hit(events, ms)),
+        patch(f"{RUNNER}.validate_cached") as validate,
         patch(f"{RUNNER}.build") as compile_one,
         patch(f"{RUNNER}.pack") as pack,
     ):
         replay_units(tmp_path, units, "o/r", "commit", DEADLINE, read_only=False)
     assert events == [units[0].asset, units[1].asset, ("A", "B", "C", "D")]
     compile_one.assert_not_called()
+    validate.assert_not_called()
     pack.assert_not_called()
     store.upload.assert_not_called()
 
@@ -146,7 +161,7 @@ def test_cold_unit_is_saved_before_work_on_the_next_unit(tmp_path: Path) -> None
         patch(f"{RUNNER}.Store", return_value=store),
         patch(f"{RUNNER}.restore"),
         patch(f"{RUNNER}.pack"),
-        patch(f"{RUNNER}.validate_cached", side_effect=lambda root, ms, d: events.append(ms)),
+        patch(f"{RUNNER}.run_lake", side_effect=lambda root, ms, d, **kw: cache_hit(events, ms)),
         patch(f"{RUNNER}.build", side_effect=lambda root, m, d: events.append(("build", m))),
     ):
         replay_units(tmp_path, units, "o/r", "commit", DEADLINE, read_only=False)
@@ -155,19 +170,16 @@ def test_cold_unit_is_saved_before_work_on_the_next_unit(tmp_path: Path) -> None
 
 def test_local_artifact_without_remote_copy_is_checked_then_saved(tmp_path: Path) -> None:
     u = unit(1, "A")
-    for path in required_artifacts(u):
-        target = tmp_path / path
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_bytes(b"fixture")
+    local_artifacts(tmp_path, [u])
     store = Mock(assets=set(), read_only=False)
-    events: list[str] = []
+    events: list[object] = []
     store.upload.side_effect = lambda *_: events.append("save")
     with (
         patch(f"{RUNNER}.Store", return_value=store),
         patch(f"{RUNNER}.pack"),
         patch(
-            f"{RUNNER}.validate_cached",
-            side_effect=lambda root, ms, d: events.append("check") if ms else None,
+            f"{RUNNER}.run_lake",
+            side_effect=lambda *args, **kw: cache_hit(events, "check"),
         ),
         patch(f"{RUNNER}.build") as compile_one,
     ):
@@ -185,11 +197,13 @@ def test_corrupt_restore_never_reaches_validation_or_compilation(tmp_path: Path)
         patch(f"{RUNNER}.Store", return_value=store),
         patch(f"{RUNNER}.restore", side_effect=ValueError("artifact digest mismatch")),
         patch(f"{RUNNER}.validate_cached") as validate,
+        patch(f"{RUNNER}.run_lake") as run,
         patch(f"{RUNNER}.build") as compile_one,
         pytest.raises(ValueError, match="digest"),
     ):
         replay_units(tmp_path, [u], "o/r", "commit", DEADLINE, read_only=False)
     validate.assert_not_called()
+    run.assert_not_called()
     compile_one.assert_not_called()
 
 
@@ -209,15 +223,105 @@ def test_read_only_cold_unit_is_never_uploaded(tmp_path: Path) -> None:
     pack.assert_not_called()
 
 
-def test_batch_limit_and_final_partial_batch(tmp_path: Path) -> None:
-    units = [unit(i, str(i)) for i in range(5)]
+def test_whole_restored_proof_exceeds_old_batch_limit_but_uses_one_check(tmp_path: Path) -> None:
+    units = [unit(i, f"Module{i}") for i in range(300)]
     store = Mock(assets={u.asset for u in units}, read_only=False)
     store.download.side_effect = lambda u, scratch: scratch / u.asset
     with (
         patch(f"{RUNNER}.Store", return_value=store),
         patch(f"{RUNNER}.restore"),
-        patch(f"{RUNNER}.VALIDATION_BATCH_SIZE", 2),
+        patch(f"{RUNNER}.run_lake", return_value=0) as run,
         patch(f"{RUNNER}.validate_cached") as validate,
+        patch(f"{RUNNER}.build") as compile_one,
     ):
         replay_units(tmp_path, units, "o/r", "commit", DEADLINE, read_only=False)
-    assert [call.args[1] for call in validate.call_args_list] == [("0", "1"), ("2", "3"), ("4",)]
+    run.assert_called_once_with(tmp_path, tuple(u.modules[0] for u in units), DEADLINE, check=True)
+    validate.assert_not_called()
+    compile_one.assert_not_called()
+
+
+def test_whole_local_proof_checked_once_before_saving_missing_remote_copies(tmp_path: Path) -> None:
+    units = [unit(1, "A"), Unit(("B",), "2" * 64, "foundations"), unit(3, "C")]
+    local_artifacts(tmp_path, units)
+    store = Mock(assets={units[0].asset}, read_only=False)
+    events: list[object] = []
+    store.upload.side_effect = lambda u, archive: events.append(("save", u.asset))
+    with (
+        patch(f"{RUNNER}.Store", return_value=store),
+        patch(f"{RUNNER}.pack"),
+        patch(
+            f"{RUNNER}.run_lake",
+            side_effect=lambda *args, **kw: cache_hit(events, ("check", args[1])),
+        ) as run,
+        patch(f"{RUNNER}.validate_cached") as validate,
+        patch(f"{RUNNER}.build") as compile_one,
+    ):
+        replay_units(tmp_path, units, "o/r", "commit", DEADLINE, read_only=False)
+    assert events == [
+        ("check", ("A", "B", "C")),
+        ("save", units[1].asset),
+        ("save", units[2].asset),
+    ]
+    run.assert_called_once_with(tmp_path, ("A", "B", "C"), DEADLINE, check=True)
+    store.download.assert_not_called()
+    validate.assert_not_called()
+    compile_one.assert_not_called()
+
+
+def test_stale_whole_proof_saves_repaired_units_before_later_failure(tmp_path: Path) -> None:
+    units = [unit(1, "A"), unit(2, "B")]
+    local_artifacts(tmp_path, units)
+    store = Mock(assets=set(), read_only=False)
+    events: list[object] = []
+    store.upload.side_effect = lambda u, archive: events.append(("save", u.asset))
+
+    def repair(root: Path, targets: tuple[str, ...], deadline: float) -> None:
+        events.append(("repair", targets))
+        if targets == ("B",):
+            raise subprocess.CalledProcessError(1, ["lake"])
+
+    with (
+        patch(f"{RUNNER}.Store", return_value=store),
+        patch(f"{RUNNER}.pack"),
+        patch(f"{RUNNER}.run_lake", return_value=3) as run,
+        patch(f"{RUNNER}.validate_cached", side_effect=repair),
+        pytest.raises(subprocess.CalledProcessError),
+    ):
+        replay_units(tmp_path, units, "o/r", "commit", DEADLINE, read_only=False)
+    run.assert_called_once_with(tmp_path, ("A", "B"), DEADLINE, check=True)
+    assert events == [("repair", ("A",)), ("save", units[0].asset), ("repair", ("B",))]
+
+
+def test_whole_proof_error_does_not_rebuild_or_save(tmp_path: Path) -> None:
+    units = [unit(1, "A", "B")]
+    local_artifacts(tmp_path, units)
+    store = Mock(assets=set(), read_only=False)
+    with (
+        patch(f"{RUNNER}.Store", return_value=store),
+        patch(f"{RUNNER}.run_lake", side_effect=subprocess.CalledProcessError(143, ["lake"])),
+        patch(f"{RUNNER}.validate_cached") as validate,
+        patch(f"{RUNNER}.build") as compile_one,
+        patch(f"{RUNNER}.pack") as pack,
+        pytest.raises(subprocess.CalledProcessError),
+    ):
+        replay_units(tmp_path, units, "o/r", "commit", DEADLINE, read_only=False)
+    validate.assert_not_called()
+    compile_one.assert_not_called()
+    pack.assert_not_called()
+    store.upload.assert_not_called()
+
+
+def test_read_only_warm_proof_checked_once_without_uploads(tmp_path: Path) -> None:
+    units = [unit(1, "A"), unit(2, "B")]
+    local_artifacts(tmp_path, units)
+    store = Mock(assets=set(), read_only=True)
+    with (
+        patch(f"{RUNNER}.Store", return_value=store),
+        patch(f"{RUNNER}.run_lake", return_value=0) as run,
+        patch(f"{RUNNER}.pack") as pack,
+    ):
+        replay_units(tmp_path, units, "o/r", "commit", DEADLINE, read_only=True)
+    run.assert_called_once_with(tmp_path, ("A", "B"), DEADLINE, check=True)
+    store.download.assert_not_called()
+    store.upload.assert_not_called()
+    pack.assert_not_called()

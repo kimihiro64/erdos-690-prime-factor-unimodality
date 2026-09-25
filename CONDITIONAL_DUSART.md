@@ -143,7 +143,9 @@ Pull requests may read checkpoints but cannot publish checkpoints or releases.
 The workflow mirrors every stage of the original CI except Comparator:
 release-version validation, metadata/source boundary, licensing, Python,
 sandbox policy, foundations, certificate prebuild, analytic-tail checks,
-final build and Lean linting, docs, paper, submission-link checks, and release.
+final build and axiom audit, docs, paper, submission-link checks, and release.
+Post-build Lean linting is deferred; the early source checks and Python lint gate
+remain enabled. The workflow does not claim that the deferred Lean lint passed.
 The shared checks are copied by `scripts/render_conditional_workflow.py`;
 the canonical fast gate detects a stale generated workflow.
 
@@ -152,6 +154,11 @@ containing `RecordTwinClosed`; the final build supplies the remaining analytic
 prefix certificates and classification. The parallel analytic-tail job checks
 the already-built certificate-independent reduction. Stage artifacts and the
 durable checkpoint store reuse completed work without changing unit keys.
+When every artifact is available locally or restored, the runner checks the
+entire stage in one quiet `lake build --no-build` invocation, rather than
+rechecking each checkpoint or 256-target batch. Stale traces fall back to
+dependency-ordered serial repair, saving each completed unit before proceeding.
+The final theorem/type/axiom audit still runs; a cache hit does not skip it.
 
 Preview the exact dependency plan without running Lean:
 
