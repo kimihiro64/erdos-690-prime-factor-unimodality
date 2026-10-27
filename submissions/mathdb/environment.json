@@ -5,7 +5,7 @@
   "answer": "False",
   "theorem": "Submission.solution : Problem.Target Submission.answer",
   "submission": {
-    "file": "E690.lean",
+    "file": "Submission.lean",
     "sha256": "da4391f0de9ac0f6e183a0ac3db5f12bd49d9cf5a908a42c15386eee0e7db1d6"
   },
   "environment": {

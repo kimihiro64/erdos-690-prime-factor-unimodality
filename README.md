@@ -140,10 +140,16 @@ over real-valued functions recording the actual natural densities. Its frozen
 environment is Lean 4.34.1 / Mathlib
 `d13f23b723b8a846827a245b89c10fc7d3f11612`, with an import allowlist that
 does not include this project. The complete standalone answer is
-[submissions/mathdb/E690.lean](submissions/mathdb/E690.lean), with its exact
+[Submission.lean](Submission.lean), with its exact
 [environment and verification record](submissions/mathdb/environment.json).
 It includes the CRT counting and natural-density proofs and the strict
 `k=4` valley at primes 13, 17, and 19, with no project imports.
+
+The repository-root `Submission.lean` is the MathDB entrypoint. Its proof is
+self-contained inside `namespace Submission`, so no additional `Submission/`
+files or repository library imports are needed. MathDB checks this file in its
+frozen Lean 4.34.1 environment; the separate all-k `Solution.lean` uses this
+project's pinned Lean 4.34.0 environment.
 
 The exact submission source, followed by axiom inspection commands, passed
 Lean 4.34.1 against the unchanged official target. Its solution, density
