@@ -361,6 +361,28 @@ def test_comparator_boundary_enumerates_every_theorem_pair(tmp_path: Path) -> No
         check_comparator_boundary(tmp_path)
 
 
+def test_comparator_rejects_predicate_substitution_through_definition_holes(
+    tmp_path: Path,
+) -> None:
+    (tmp_path / "Challenge.lean").write_text(
+        "def Example.predicate : Prop := False\n"
+        "theorem Example.result : Example.predicate := by\n  sorry\n",
+        encoding="utf-8",
+    )
+    (tmp_path / "Solution.lean").write_text(
+        "def Example.predicate : Prop := True\n"
+        "theorem Example.result : Example.predicate := by\n  trivial\n",
+        encoding="utf-8",
+    )
+    (tmp_path / "comparator.json").write_text(
+        '{"challenge_module":"Challenge","solution_module":"Solution",'
+        '"theorem_names":["Example.result"],"definition_names":["Example.predicate"]}\n',
+        encoding="utf-8",
+    )
+    with pytest.raises(LeanSourceError, match="fixed Challenge definitions"):
+        check_comparator_boundary(tmp_path)
+
+
 def test_submission_link_accepts_current_form(tmp_path: Path) -> None:
     (tmp_path / "README.md").write_text(
         "Submit at https://submit.palomar-registry.org/.\n", encoding="utf-8"

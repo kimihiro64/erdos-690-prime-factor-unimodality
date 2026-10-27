@@ -156,6 +156,9 @@ def check_comparator_boundary(root: Path) -> None:
         raise LeanSourceError(f"invalid comparator.json: {error}") from error
     if not isinstance(config, dict):
         raise LeanSourceError("comparator.json must contain an object")
+    definition_names = config.get("definition_names", [])
+    if definition_names is not None and definition_names != []:
+        raise LeanSourceError("fixed Challenge definitions cannot be Comparator definition holes")
     challenge_module = config.get("challenge_module")
     solution_module = config.get("solution_module")
     theorem_names = config.get("theorem_names")
