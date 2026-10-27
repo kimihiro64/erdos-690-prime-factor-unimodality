@@ -42,6 +42,20 @@ def test_historical_dusart_jobs_require_explicit_manual_selection() -> None:
     assert "  pull_request:" not in workflow
 
 
+def test_proof_consumers_preserve_the_committed_dependency_lock() -> None:
+    jobs = original_jobs(ROOT)
+    for name in ("docs", "comparator"):
+        assert "lake update" not in jobs[name], name
+        assert "git diff --exit-code HEAD -- lake-manifest.json" in jobs[name], name
+        assert "python3 scripts/check_docbuild_manifest.py" in jobs[name], name
+    verifier = (ROOT / "scripts/verify-comparator.sh").read_text(encoding="utf-8")
+    assert "lake update" not in verifier
+    consumer = verifier.rsplit('cd "$repository_root"', 1)[1]
+    assert "lake build +Challenge +Solution" in consumer
+    assert "\nlake build\n" not in consumer
+    assert "git diff --exit-code HEAD -- lake-manifest.json" in consumer
+
+
 def test_lightweight_checks_remain_independent() -> None:
     jobs = original_jobs(ROOT)
     for name in (

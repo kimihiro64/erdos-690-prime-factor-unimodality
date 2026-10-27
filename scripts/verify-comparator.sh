@@ -102,13 +102,13 @@ GOBIN="$bin_dir" go install "github.com/zouuup/landrun/cmd/landrun@$landrun_comm
 (cd "$nanoda_dir" && cargo build --release --locked)
 
 cd "$repository_root"
-MATHLIB_NO_CACHE_ON_UPDATE=1 lake update
+# Consume the committed dependency lock; updating it invalidates restored proof objects.
+git diff --exit-code HEAD -- lake-manifest.json
 lake exe cache get
-# Build through the repository's sequential default target before Comparator
-# requests Challenge and Solution directly. On CI this is normally an
-# up-to-date check against the restored build artifact; on a fresh verifier it
-# prevents large proof modules from elaborating concurrently.
-lake build
+# Check only the advertised roots, retaining the unconditional imported closure.
+# A library-wide build also selects historical conditional and certificate routes.
+lake build +Challenge +Solution
+git diff --exit-code HEAD -- lake-manifest.json
 PALOMAR_LANDRUN_BIN="$bin_dir/landrun" \
 COMPARATOR_LEAN4EXPORT="$lean4export_dir/.lake/build/bin/lean4export" \
 COMPARATOR_NANODA="$nanoda_dir/target/release/nanoda_bin" \

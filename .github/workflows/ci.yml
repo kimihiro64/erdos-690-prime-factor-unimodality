@@ -1823,8 +1823,10 @@ jobs:
         with:
           build: false
           lint: false
-      - name: Fetch dependencies
-        run: lake update
+      - name: Verify locked dependency manifests
+        run: |
+          git diff --exit-code HEAD -- lake-manifest.json docbuild/lake-manifest.json
+          python3 scripts/check_docbuild_manifest.py
       - name: Restore the completed Lean build
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
         with:
@@ -1844,6 +1846,7 @@ jobs:
           python3 ../scripts/patch_pnt_compat.py
           python3 ../scripts/patch_primecert_compat.py
           lake build PrimeFactorUnimodality:docs
+          git -C .. diff --exit-code HEAD -- lake-manifest.json docbuild/lake-manifest.json
       - name: Prepare the offline documentation and licensing bundle
         shell: pwsh
         run: ./scripts/prepare-api-docs.ps1 -DocumentationRoot docbuild/.lake/build/doc
@@ -1866,8 +1869,10 @@ jobs:
         with:
           build: false
           lint: false
-      - name: Fetch dependencies
-        run: lake update
+      - name: Verify locked dependency manifests
+        run: |
+          git diff --exit-code HEAD -- lake-manifest.json docbuild/lake-manifest.json
+          python3 scripts/check_docbuild_manifest.py
       - name: Apply the reviewed Lean compatibility ports
         run: |
           python3 scripts/patch_pnt_compat.py
