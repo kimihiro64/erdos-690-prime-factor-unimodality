@@ -256,7 +256,8 @@ def test_conditional_workflow_is_state_gated_bounded_and_not_cancelled_by_push()
     checks_job = workflow.split("  python:\n", 1)[1].split("  sandbox:\n", 1)[0]
     assert "fetch-depth: 0" in checks_job  # Generator tests read pinned historical source blobs.
     assert "  workflow_dispatch:" in workflow
-    assert "  push:" in workflow
+    assert "  push:" not in workflow
+    assert "  pull_request:" not in workflow
     assert "vars.CONDITIONAL_CI_BUILDS == 'enabled'" in workflow
     assert "--both" not in workflow
     assert "cancel-in-progress: false" in workflow

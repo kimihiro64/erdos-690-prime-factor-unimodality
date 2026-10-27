@@ -115,12 +115,17 @@ documented Linux tool stack. Local Lean compilation and axiom inspection are
 reported separately from those checks; neither substitutes for independent
 mathematical review.
 
-The historical CI jobs remain gated by the Actions variable
-`DUSART_CI_BUILDS=enabled`. Metadata, source, Python, sandbox, and submission-link
-checks run while that variable is unset. A green badge in that configuration
-does not establish a fresh Lean replay. Enabling the old long-running jobs is
-a separate release operation; the elementary proof does not require completing
-the old Dusart route.
+Pushes to main run the unconditional release pipeline without a repository
+variable opt-in. The proof job restores source-bound checkpoints, builds only
+the elementary public dependency closure plus Challenge and Solution, and
+checks the unconditional theorem type, natural-density bridge, copied-Challenge
+transport, and their axioms. Licensing, Python, Comparator, documentation,
+paper, and submission-link checks remain required before publication.
+
+Historical Dusart diagnostics require a manual dispatch with `legacy_dusart`
+selected and `DUSART_CI_BUILDS=enabled`; they are outside the release dependency
+graph. The separate conditional workflow is manual-only and retains its
+`CONDITIONAL_CI_BUILDS` opt-in. Neither historical route runs on ordinary pushes.
 
 ## MathDB submission
 

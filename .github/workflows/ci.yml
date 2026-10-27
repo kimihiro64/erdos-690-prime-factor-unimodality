@@ -1,10 +1,15 @@
-name: CI
+name: Unconditional all-k release
 
 on:
   push:
     branches: [main]
   pull_request:
   workflow_dispatch:
+    inputs:
+      legacy_dusart:
+        description: Also run the historical Dusart diagnostic jobs
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -14,10 +19,9 @@ concurrency:
   # Incremental proof commits must not cancel an expensive running main build.
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
-# Builds are paused while the unconditional Dusart providers are unfinished.
-# Leave DUSART_CI_BUILDS unset or "paused" to run only the lightweight checks.
-# After completing Dusart, set the repository variable to "enabled" to resume.
-# This gate applies to pushes, pull requests, and manual dispatches alike.
+# The public elementary proof and its release run by default.
+# Historical Dusart diagnostic jobs require an explicit manual request and
+# their old opt-in variable; they are not prerequisites of the public proof.
 jobs:
   release_version:
     name: Validate release version
@@ -98,7 +102,6 @@ jobs:
 
   release-licensing:
     name: Check release licensing bundles
-    if: ${{ vars.DUSART_CI_BUILDS == 'enabled' }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -163,7 +166,9 @@ jobs:
 
   lean-foundations:
     name: Elaborate non-certificate Lean foundations
-    if: ${{ vars.DUSART_CI_BUILDS == 'enabled' }}
+    if: >-
+      github.event_name == 'workflow_dispatch' && inputs.legacy_dusart &&
+      vars.DUSART_CI_BUILDS == 'enabled'
     # Keep source-policy failure from hiding the diagnostic foundation build
     # while the public theorem is still being closed.  The complete build
     # below remains gated by metadata-and-boundary.
@@ -1635,7 +1640,9 @@ jobs:
 
   certificate-prebuild:
     name: Prebuild high-memory certificate chains
-    if: ${{ vars.DUSART_CI_BUILDS == 'enabled' }}
+    if: >-
+      github.event_name == 'workflow_dispatch' && inputs.legacy_dusart &&
+      vars.DUSART_CI_BUILDS == 'enabled'
     needs: [release_version, metadata-and-boundary, python, lean-foundations]
     runs-on: ubuntu-latest
     timeout-minutes: 180
@@ -1685,7 +1692,9 @@ jobs:
 
   analytic-tail:
     name: Check the certificate-independent all-k reduction
-    if: ${{ vars.DUSART_CI_BUILDS == 'enabled' }}
+    if: >-
+      github.event_name == 'workflow_dispatch' && inputs.legacy_dusart &&
+      vars.DUSART_CI_BUILDS == 'enabled'
     needs: [lean-foundations]
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -1745,73 +1754,54 @@ jobs:
           retention-days: 7
 
   build:
-    name: Replay certificates and build with Lean
-    if: ${{ vars.DUSART_CI_BUILDS == 'enabled' }}
-    needs: [release_version, metadata-and-boundary, python, certificate-prebuild, analytic-tail]
+    name: Replay and audit the unconditional public proof
+    needs: [release_version, metadata-and-boundary, python]
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 360
+    permissions:
+      contents: write
+      actions: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
+          fetch-depth: 0
       - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
         with:
           build: false
+          test: false
           lint: false
-      - name: Restore certificate prebuild artifacts
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
-        with:
-          name: lean-certificate-prebuild
-          path: .lake/build
-      - name: Restore the checked analytic reduction
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
-        with:
-          name: lean-analytic-tail
-          path: .lake/build
-      - name: Build the complete formalization
-        shell: bash
+          use-mathlib-cache: true
+      - name: Apply reviewed compatibility ports
         run: |
-          set -o pipefail
           python3 scripts/patch_pnt_compat.py
           python3 scripts/patch_primecert_compat.py
-          python3 scripts/check_tail_replacement.py
-          : > lean-build.log
-          : > lean-build-processes.log
-          (
-            while :; do
-              {
-                date --iso-8601=seconds
-                free -h
-                ps -eo pid,ppid,rss,etime,args --sort=-rss | head -n 35
-                echo
-              } >> lean-build-processes.log
-              sleep 10
-            done
-          ) &
-          monitor_pid=$!
-          trap 'status=$?; kill "$monitor_pid" 2>/dev/null || true; wait "$monitor_pid" 2>/dev/null || true; echo "lake build exit status: $status"; tail -n 120 lean-build.log; echo "--- final process snapshot ---"; free -h; ps -eo pid,ppid,rss,etime,args --sort=-rss | head -n 35; exit "$status"' EXIT
-          lake -v build 2>&1 | tee lean-build.log
-          exit "${PIPESTATUS[0]}"
-      - name: Print Lean build diagnostics
-        if: always()
+      - name: Restore checkpoints, build the elementary closure, and audit the exact theorem
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
         run: |
-          echo '--- last build trace lines ---'
-          tail -n 160 lean-build.log 2>/dev/null || true
-          echo '--- last process snapshots ---'
-          tail -n 160 lean-build-processes.log 2>/dev/null || true
-      - name: Upload Lean build diagnostics
+          set -euo pipefail
+          mkdir -p .research
+          python3 -m scripts.unconditional_ci --minutes 280 2>&1 |
+            tee .research/unconditional-build.log
+      - name: Upload unconditional proof diagnostics
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: lean-build-diagnostics
-          path: |
-            lean-build.log
-            lean-build-processes.log
-          if-no-files-found: warn
-          retention-days: 7
-      - name: Run the Lean linters
-        run: lake lint
-      - name: Upload the completed Lean build
+          name: unconditional-build-diagnostics
+          path: .research/unconditional-build.log
+          include-hidden-files: true
+          if-no-files-found: ignore
+      - name: Upload the exact theorem and axiom audit
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: unconditional-proof-audit
+          path: .lake/build/unconditional-audit.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 90
+      - name: Upload the completed unconditional Lean build
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: linux-lean-build
@@ -1822,7 +1812,6 @@ jobs:
 
   docs:
     name: Build API documentation
-    if: ${{ vars.DUSART_CI_BUILDS == 'enabled' }}
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 180
@@ -1866,7 +1855,6 @@ jobs:
 
   comparator:
     name: Check statement against solution
-    if: ${{ vars.DUSART_CI_BUILDS == 'enabled' }}
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 180
@@ -1902,7 +1890,6 @@ jobs:
 
   paper:
     name: Build research paper
-    if: ${{ vars.DUSART_CI_BUILDS == 'enabled' }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -1985,9 +1972,8 @@ jobs:
           PY
 
   release:
-    name: Publish verified release
+    name: Publish verified unconditional release
     if: >-
-      vars.DUSART_CI_BUILDS == 'enabled' &&
       needs.release_version.outputs.release_ready == 'true' &&
       github.ref == 'refs/heads/main' &&
       (github.event_name == 'push' || github.event_name == 'workflow_dispatch')

@@ -100,7 +100,7 @@ def owned_plan(root: Path, target: str = TARGET) -> tuple[list[str], dict[str, l
     return ordered, imports
 
 
-def plan(root: Path, size: int = 16) -> list[Unit]:
+def plan(root: Path, size: int = 16, *, target: str = TARGET) -> list[Unit]:
     """Merkle keys include actual transitive source and locked build configuration.
 
     No commit SHA, unrelated source, or timestamp participates. A changed
@@ -108,7 +108,7 @@ def plan(root: Path, size: int = 16) -> list[Unit]:
     """
     if size < 1:
         raise ValueError("unit size must be positive")
-    ordered, imports = owned_plan(root)
+    ordered, imports = owned_plan(root, target)
     config = hashlib.sha256(b"conditional-archive-v1")
     config.update(f"{platform.system()}-{platform.machine()}".encode())
     for name in CONFIG:
