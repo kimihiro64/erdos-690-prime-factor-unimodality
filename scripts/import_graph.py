@@ -35,6 +35,7 @@ PROOF_ASSEMBLY_MODULES: Final[frozenset[str]] = frozenset(
         "ClassificationThrough38000",
         "ClassificationThrough38000Closed",
         "CompleteClassification",
+        "CompleteClassificationElementary",
         "CompleteClassificationCore",
         "CompleteClassificationProviders",
         "CompleteClassificationIntegerProviders",

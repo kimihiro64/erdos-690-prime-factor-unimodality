@@ -1,20 +1,10 @@
-import PrimeFactorUnimodality.Assembly.FourthWitness
-import PrimeFactorUnimodality.Helpers.Analytic.DusartIntermediateIndex
-import PrimeFactorUnimodality.Helpers.Analytic.DusartIntermediateLemma
-import PrimeFactorUnimodality.Helpers.Analytic.DusartIntermediatePower
-import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33AllRanges
-import PrimeFactorUnimodality.Helpers.Analytic.DusartLemma33Midrange
-import PrimeFactorUnimodality.Helpers.Analytic.DusartPowerSumAssembly
-import PrimeFactorUnimodality.Helpers.Analytic.DusartProof
-import PrimeFactorUnimodality.Helpers.Analytic.MediumPNT
-import PrimeFactorUnimodality.Mathlib
-import PrimeFactorUnimodality.Proof.Analytic.WangCrapisClosed
-import PrimeFactorUnimodality.Proof.CompleteClassification
+import PrimeFactorUnimodality.Definitions.DivisibilityPredicate
+import PrimeFactorUnimodality.Proof.CompleteClassificationElementary
 
 /-!
 # Public library root
 
-This module exports the assembled classification theorem and the separately
-audited Mathlib candidate facade. Reusable internal results remain available
-from their focused owner modules.
+Export the unconditional all-k classification and its natural-density bridge.
+Reusable Mathlib candidates and historical conditional proofs remain available
+from their focused modules; they are not default classification providers.
 -/

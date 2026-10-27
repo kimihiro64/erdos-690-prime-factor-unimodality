@@ -1,5 +1,6 @@
 import PrimeFactorUnimodality.Mathlib.Algebra
 import PrimeFactorUnimodality.Mathlib.Analysis
+import PrimeFactorUnimodality.Mathlib.Combinatorics.Enumerative.PoissonBinomial
 import PrimeFactorUnimodality.Mathlib.Data
 import PrimeFactorUnimodality.Mathlib.MeasureTheory.Integral
 import PrimeFactorUnimodality.Mathlib.NumberTheory

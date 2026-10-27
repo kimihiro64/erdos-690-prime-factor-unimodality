@@ -2,153 +2,180 @@
 
 [![CI](https://github.com/kimihiro64/erdos-690-prime-factor-unimodality/actions/workflows/ci.yml/badge.svg)](https://github.com/kimihiro64/erdos-690-prime-factor-unimodality/actions/workflows/ci.yml)
 
-Lean formalization of the finite density recursion and unimodality classification
-for ordered distinct prime factors.
+An unconditional Lean 4 proof of the complete classification:
+for every positive integer `k`, the density of the `k`th smallest distinct
+prime divisor is unimodal precisely when `k <= 3`.
 
-## Problem
+## The proved statement
 
-**Unimodality of the density of the kth smallest distinct prime factor**
+`PrimeFactorUnimodality.completeClassification_elementary` proves
+`CompleteClassification` without an analytic hypothesis. The submission entry
+point [Solution.lean](Solution.lean) exports the same result as
+`PrimeFactorUnimodality.completeClassification`:
 
-For each integer k at least 1 and prime p, let d_k(p) be the natural density of positive integers whose kth smallest distinct prime divisor is p. Classify those k for which the prime-indexed sequence p mapsto d_k(p) is unimodal.
+```lean
+forall k : Nat, 1 <= k ->
+  Iff (IsUnimodal (primeFactorDensity k)) (k <= 3)
+```
 
-## Current status
+The exact rational finite-density recursion is identified with natural density
+by `hasNaturalDensity_primeFactorDensity`. Primes are ordered increasingly,
+prime factors are distinct, and unimodality allows weak inequalities on both
+sides of a mode.
 
-The repository defines Cambie's exact finite density recursion, identifies it
-with natural density, and proves the positive unimodality cases `k ≤ 3`.
-Exact generated certificates prove non-unimodality for every `4 ≤ k ≤ 20`;
-certified fixed-point weight sums, explicit prime gaps, and symmetric-sum
-bounds extend this to every `21 ≤ k ≤ 48`.
+The final theorem and a separate transport to the Mathlib-only
+[Challenge.lean](Challenge.lean) definitions have been checked with Lean 4.34.0.
+Their axiom dependencies are `propext`, `Classical.choice`, and `Quot.sound`.
+The intentional placeholder in Challenge is the statement to be compared;
+Solution and its proof dependency closure contain the implemented proof.
 
-The current large-range development contains a closed composite-block
-certificate, generated kernel-replayable record-twin certificates, a finite
-prime-prefix/reciprocal-sum route through `k = 38,000`, and a uniform-tail
-reduction. The public Challenge/Solution boundary now states the exact
-universal all-`k` theorem, but the Solution proof is not yet unconditional:
-its remaining boundary consists of the generated certificates still being
-built and the explicit analytic prime-estimate interfaces. See
-[`TODO.md`](TODO.md) for the completion gates. This checkpoint therefore does
-not yet claim a complete unconditional formalization of Erdős 690.
+## Elementary proof route
 
-The release state is visible mechanically:
+The proof keeps the descent-before-ascent strategy of Wang and Crapis and
+replaces the sharp analytic premise with elementary estimates.
 
-- while `formalization.yaml` contains the canonical `TEMPLATE:` sentinels, CI
-  validates the starter surface but the repository is not submission-ready;
-- after the real metadata and Challenge/Solution surface replace every
-  sentinel, CI enforces the ordinary Palomar metadata contract.
+1. A finite coefficient theorem proves that a tilted Bernoulli mean greater
+   than degree `r` forces the adjacent symmetric-sum ratio below the tilt.
+2. Factorial bounds and a five-term Chebyshev combination give the theta
+   bounds and the weighted Mertens error `-2 < E(x) < 1/5` for `x >= 1000`.
+3. Abel summation, retaining the integral below the smoothing parameter,
+   supplies the smoothed prime-sum lower bound. Ordinary reciprocal-sum bounds
+   supply the later ascent.
+4. The original proofs cover `k <= 48`. The original fixed gap and twin
+   witnesses, with the new estimates, cover `49 <= k <= 38000`.
+5. A symbolically selected primorial, the existing CRT composite block, and
+   an average-gap argument on `(4P,400P]` cover every `k >= 38001`.
+   The scalar inequalities hold on the entire real ray `r >= 38000`,
+   proved by differentiation.
+
+There is no Dusart, RH, finite-height zeta-zero, or prime-counting hypothesis
+in the final theorem. The new route adds no prime/zero enumeration and no
+enlarged finite certificate interval. The original fixed witnesses remain.
+
+The earlier conditional proof and the unfinished work on sharper Dusart
+providers are retained in focused historical modules; they are not the proof
+used by Solution or the public library root.
+
+See [the paper PDF](paper/research-paper.pdf) and its
+[TeX source](paper/research-paper.tex) for the derivation and the mapping to
+Lean declarations.
 
 ## Repository map
 
-- `Challenge.lean` — small human-auditable statement surface.
-- `Solution.lean` — corresponding proved declarations.
-- `PrimeFactorUnimodality/` — proof development.
-- `PrimeFactorUnimodality/Mathlib/` — project-independent, Mathlib-oriented
-  candidate modules behind a mechanically enforced one-way import boundary.
-- `MATHLIB_PORTING.md` — proposed upstream paths and readiness for reusable
-  candidate modules.
-- `SIBLING_CAPABILITIES.md` — declaration-level index of reusable results in
-  known sibling formalizations and the exact revisions reviewed.
-- `comparator.json` — exact Challenge/Solution declarations and axiom boundary.
-- `formalization.yaml` — Palomar/community metadata, sources, fidelity, and
-  review disclosure.
-- `paper/` — public research paper source.
-- `scripts/` — reproducible build, lint, experiment, certificate, and Palomar
-  verification tools.
-- `data/` — only reasonably sized data that is relevant and reproducible.
+- `Challenge.lean`: Mathlib-only all-parameter statement.
+- `Solution.lean`: unconditional implementation of that statement.
+- `PrimeFactorUnimodality/Proof/CompleteClassificationElementary.lean`:
+  the three-range assembly.
+- `PrimeFactorUnimodality/Helpers/Analytic/`: elementary analytic estimates
+  and the uniform scalar argument.
+- `PrimeFactorUnimodality/Definitions/DivisibilityPredicate.lean`:
+  identification with the natural density of the prime-factor predicate.
+- `PrimeFactorUnimodality/Mathlib/` and `MATHLIB_PORTING.md`:
+  reusable Mathlib-oriented candidates and their proposed upstream paths.
+- `paper/research-paper.tex`: current unconditional paper.
+- `paper/conditional-paper.tex`: historical conditional proof account.
+- `formalization.yaml`: attribution, scope, provenance, and review disclosure.
+- `scripts/` and `test/`: build, source-policy, and verification tools.
 
-Local research context and AI working files are intentionally ignored and never
-part of the public repository history.
+Local AI working notes are ignored and are not public proof artifacts.
 
-## Reuse before reproof
+## Build and audit
 
-Before developing a general result that is absent from the pinned Mathlib,
-consult [`SIBLING_CAPABILITIES.md`](SIBLING_CAPABILITIES.md). It distinguishes
-complete headline theorems from independently proved leaves in active projects
-and names stable modules or declarations to inspect. Borrow only from an exact
-published commit after checking its licence, hypotheses, imports, placeholders,
-axiom surface, and toolchain; then record the source and attribution locally.
+The project pins Lean `v4.34.0` and Mathlib
+`5ed2965256430c3649e86755f9576b54eca72435`.
+Keep the revisions in `lake-manifest.json`.
 
-## Build and checks
+With Git, Python 3.11+, Ruby, and elan installed:
 
-CI builds are temporarily paused until the unconditional Dusart work is
-complete. Metadata/source checks, Python checks, sandbox tests, and the
-submission-link check remain enabled. Lean compilation, certificate replay,
-documentation, paper builds, release packaging checks, and release publication
-require the repository Actions variable `DUSART_CI_BUILDS` to equal `enabled`.
-An unset variable or the value `paused` keeps these jobs disabled, including
-on manual dispatch. A green CI badge during this pause is not a Lean proof
-verification. No build caches or uploaded artifacts are deleted by the pause;
-their existing retention limits still apply.
-
-After Dusart is complete, resume with
-`gh variable set DUSART_CI_BUILDS --body enabled`, then dispatch CI with
-`gh workflow run ci.yml`. Local pre-commit checks remain mandatory throughout.
-
-Install Git, Python 3.11+, Ruby, and `elan`, then run:
-
-```text
-python scripts/check.py --profile research
+```sh
+elan toolchain install leanprover/lean4:v4.34.0
+lake exe cache get
+python3 scripts/patch_pnt_compat.py
+python3 scripts/patch_primecert_compat.py
+lake build +PrimeFactorUnimodality.Proof.CompleteClassificationElementary
+lake build +PrimeFactorUnimodality +Challenge +Solution
+lake env lean test/lean/UnconditionalClassification.lean
+python3 scripts/check.py --profile fast
 ```
 
-That checks the public-file boundary, Lean source policy, Python formatting,
-lint, strict typing, tests, Palomar metadata mode, Mathlib-candidate isolation,
-and the Lean build.
+The fixed twin-prime certificates are substantial. Published compiled objects
+may be reused only after checking their source revision, toolchain, archive
+hashes, and object hashes. A cache restore is not a fresh certificate replay.
 
-Before release, run:
+For the complete development and release verification:
 
-```text
-python scripts/check.py --profile release
+```sh
+python3 scripts/check.py --profile research
+python3 scripts/check.py --profile release
 ./scripts/verify-comparator.sh
 ```
 
-The Comparator command requires a supported Linux host with Git, Go, Ruby,
-Rust/Cargo, Python, and Landrun. GitHub CI runs the pinned verifier stack.
-It pins the matching upstream `leanprover/lean4export` v4.34.0 source and
-compiles that source unchanged with the generated repository's exact Lean
-v4.34.0 toolchain via `ELAN_TOOLCHAIN`. This keeps the exporter aligned with
-the repository's `.olean` format without a fork or machine-local patch.
+Comparator, independent NanoDa replay, and the release profile require their
+documented Linux tool stack. Local Lean compilation and axiom inspection are
+reported separately from those checks; neither substitutes for independent
+mathematical review.
 
-## Releases
+The historical CI jobs remain gated by the Actions variable
+`DUSART_CI_BUILDS=enabled`. Metadata, source, Python, sandbox, and submission-link
+checks run while that variable is unset. A green badge in that configuration
+does not establish a fresh Lean replay. Enabling the old long-running jobs is
+a separate release operation; the elementary proof does not require completing
+the old Dusart route.
 
-`RELEASE_VERSION` contains the semantic version for the next completed
-release. CI checks its format and tag collision before the long Lean build.
-Research-mode repositories containing `TEMPLATE:` metadata never publish a
-release. Once the real metadata and theorem surface are complete, a successful
-`main` run publishes exactly three assets after every gate passes: the paper
-PDF, a Linux `.lake/build` archive with project licensing, and an offline API
-documentation ZIP with Lean and pinned-dependency notices. Reruns verify an
-existing release at the same commit instead of duplicating it.
+## MathDB submission
 
-## Paper
+MathDB problem [315817](https://mathdb.com/p/315817/erdos-problem-690-let-d-k-p-be-the-density-of-those-integers)
+uses the official [E690 target](https://github.com/mathdb-lean/problems/blob/8418d8e7e69f8267fbdf2b57d0bcd8f07a8d2a5d/problems/formal-conjectures/315817/E690.lean).
+Its question is whether *every* positive `k` gives unimodality. Its accepted
+negative answer has the form `Submission.answer := False` and
+`Submission.solution : Problem.Target Submission.answer`.
 
-The paper should state the exact mathematical result, its significance, source
-relationship, proof architecture, formalization trust boundary, computation or
-certificate coverage, limitations, automation disclosure, and actual review
-status. Every theorem presented as proved must map to a kernel-checked Lean
-declaration.
+That target is weaker than the complete classification above and quantifies
+over real-valued functions recording the actual natural densities. Its frozen
+environment is Lean 4.34.1 / Mathlib
+`d13f23b723b8a846827a245b89c10fc7d3f11612`, with an import allowlist that
+does not include this project. The complete standalone answer is
+[submissions/mathdb/E690.lean](submissions/mathdb/E690.lean), with its exact
+[environment and verification record](submissions/mathdb/environment.json).
+It includes the CRT counting and natural-density proofs and the strict
+`k=4` valley at primes 13, 17, and 19, with no project imports.
 
-Its project-authored source and rendered PDF are dual-licensed under
-Apache-2.0 or CC-BY-4.0, at the recipient's option. The repository's default
-metadata licence remains Apache-2.0.
+The exact submission source, followed by axiom inspection commands, passed
+Lean 4.34.1 against the unchanged official target. Its solution, density
+bridge, and counterexample depend only on `propext`, `Classical.choice`, and
+`Quot.sound`. An external MathDB grader run is not claimed.
 
-## Palomar
+Paste the entire standalone file into MathDB's solution editor; its grader
+supplies `FtpEvalBench.E690`. This file uses the separate frozen environment,
+so build it there rather than with this repository's Lean 4.34.0 toolchain.
 
-Development may begin in this public repository so GitHub CI is available from
-the outset. Submit only after the full release profile passes at a clean commit,
-that exact 40-character SHA is pushed, and the current
-[Palomar submission policy](https://github.com/PalomarRegistry/PalomarPolicy/blob/main/CONTRIBUTING.md)
-has been reviewed. Use the
-[Palomar submission form](https://submit.palomar-registry.org/) only for the
-verified commit.
+## Attribution and review
 
-A successful Lean build, Comparator check, NanoDa replay, or automated review
-does not by itself establish novelty, source fidelity, mathematical
-significance, or independent expert review.
+Stijn Cambie proved the initial results and counterexamples. Shouqiao Wang and
+Davide Crapis proposed the complete classification and its descent/ascent
+strategy. Jonas Whidden is responsible for this AI-assisted Lean formalization
+and its elementary adaptations. This repository claims a formalization and
+proof adaptation, not priority for the mathematical classification.
+See the paper and metadata for the sources and exact scope.
 
-## Licence
+Independent expert review and an independent replay of the updated complete
+proof are not claimed. Earlier conditional release audits apply only to the
+commits they name.
 
-The repository's original material is licensed under
-[Apache License 2.0](LICENSE) by default. The research paper is additionally
-available under CC-BY-4.0, at the recipient's option. Mathematical provenance,
-cited papers, supplied literature, dependencies, and generated archives are
-covered by [LICENSING.md](LICENSING.md); this project does not claim ownership
-of mathematical results or relicense third-party material.
+## Reuse, submissions, and licensing
+
+Before importing work from a sibling formalization, consult
+[SIBLING_CAPABILITIES.md](SIBLING_CAPABILITIES.md) and verify its exact revision,
+hypotheses, proof, toolchain, and licence. Import Mathlib candidates from their
+focused modules or the optional `PrimeFactorUnimodality.Mathlib` facade.
+
+For Palomar, review the current
+[submission policy](https://github.com/PalomarRegistry/PalomarPolicy/blob/main/CONTRIBUTING.md)
+and use the [submission form](https://submit.palomar-registry.org/) only for an
+exact pushed commit whose required release checks have passed.
+
+Original repository material is licensed under [Apache-2.0](LICENSE).
+The project-authored paper source and PDF are additionally available under
+CC-BY-4.0, at the recipient's option. Third-party mathematical results,
+software, certificates, and attribution retain their own provenance; see
+[LICENSING.md](LICENSING.md).

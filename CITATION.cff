@@ -6,7 +6,7 @@ authors:
   - family-names: "Whidden"
     given-names: "Jonas"
 abstract: >-
-  Lean formalization of the finite density recursion and non-unimodality certificates for ordered distinct prime factors.
+  Unconditional Lean proof of the complete unimodality classification for the density of ordered distinct prime factors, using elementary analytic estimates.
 license: Apache-2.0
 repository-code: "https://github.com/kimihiro64/erdos-690-prime-factor-unimodality"
 url: "https://github.com/kimihiro64/erdos-690-prime-factor-unimodality"

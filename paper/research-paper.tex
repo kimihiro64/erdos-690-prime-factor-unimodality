@@ -1,196 +1,508 @@
 % SPDX-FileCopyrightText: 2026 Jonas Whidden
 % SPDX-License-Identifier: Apache-2.0 OR CC-BY-4.0
-\documentclass[11pt]{amsart}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage[nopatch=footnote]{microtype}
-\usepackage[margin=1.1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm,mathtools}
-\usepackage{booktabs}
-\usepackage{enumitem}
-\usepackage{xcolor}
-\usepackage{hyperref}
-\definecolor{linkblue}{HTML}{174A7E}
-\hypersetup{colorlinks=true,linkcolor=linkblue,citecolor=linkblue,urlcolor=linkblue,
-  pdftitle={Erdos 690: Prime-Factor Density Unimodality},pdfauthor={Jonas Whidden}}
-\newtheorem{theorem}{Theorem}[section]
+\documentclass[11pt]{article}
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\textheight}{9in}
+\setlength{\topmargin}{-0.5in}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
-\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}
-\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
-\title{Erdos 690: Prime-Factor Density Unimodality}
+\title{An unconditional Lean proof of the Erd\H{o}s 690 classification}
 \author{Jonas Whidden}
-\date{September 2026}
+\date{27 October 2026}
 \begin{document}
-\begin{abstract}
-Let $p_1=2<p_2<\cdots$ be the primes, and let $d_k(p)$ denote the natural
-density of positive integers whose $k$th smallest distinct prime divisor is
-$p$. We formalize the classification asked for in Erd\H{o}s Problem 690:
-the sequence $p\mapsto d_k(p)$ is unimodal exactly when $k\leq3$. The proof
-starts from an exact finite recurrence, identifies it with natural density,
-and converts adjacent differences into a comparison between a symmetric
-polynomial ratio and a prime gap. Finite exact certificates, a certified
-large prime gap, a certified twin-prime ascent, and a uniform Chinese-remainder
-tail implement the Wang--Crapis strategy in Lean 4. The analytic inputs are
-exposed in the exact real-variable, symmetric-error, and logarithm-cubed
-short-interval forms used by the final all-$k$ assembly.
-\end{abstract}
 \maketitle
-\begin{center}\small
-Copyright \textcopyright\ 2026 Jonas Whidden. This paper is available under the
-\href{https://www.apache.org/licenses/LICENSE-2.0}{Apache License 2.0} or
-\href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}, at your option.
-\end{center}
+\begin{abstract}
+A sharper symmetric-sum comparison, obtained from a finite Bernoulli
+mean--mode theorem, combines with elementary Chebyshev estimates to give an
+explicit uniform argument for every $k\ge38001$. It also removes the
+prime-counting premise from the existing range $49\le k\le38000$.
+The argument uses no zeta-zero verification, no new prime enumeration, and
+no enlarged finite certificate range. The already certified fixed gap and
+twin-prime witnesses and the closed proofs for $k\le48$ are retained.
+The elementary estimates, infinite tail, and exact all-$k$ assembly have
+been implemented and compiled in Lean~4.34.0 without an analytic hypothesis.
+\end{abstract}
 
-\section{Introduction}
-Erd\H{o}s Problem 690 concerns the position of a prime in the factorization of
-a typical integer. If distinct prime divisors are listed increasingly, one
-may ask whether the density of integers having a prescribed prime in position
-$k$ rises to a mode and then decreases. The first three positions are
-unimodal. The complete answer is negative from the fourth position onward:
-every $k\geq4$ has a strict descent followed later by a strict ascent.
+\paragraph{Scope.}
+This removes the additional analytic verification while retaining the original
+fixed witnesses. This paper describes the current unconditional source in this repository.
+The previous conditional submission \cite{submission} is superseded by the
+new entry point \texttt{Solution.lean}.
+No new prime or zero certificate is introduced.
 
-This repository is a Lean 4 formalization of the structural proof and its
-all-$k$ assembly. Its central design choice is to make the density identity
-and sign criterion explicit, so that finite computation is used only for
-finite integer data and never as an unexamined oracle.
+\paragraph{Provenance and review.}
+The density formula and initial cases follow Cambie \cite{cambie}; the
+complete classification and descent-before-ascent strategy follow Wang and
+Crapis \cite{wang}. This work supplies an elementary adaptation and its
+AI-assisted Lean implementation, without claiming priority for the
+classification. The author directed the development using Codex.
+Independent expert review and independent replay of the updated full proof
+are not claimed. The project-authored paper is available under Apache-2.0
+or CC-BY-4.0, at the recipient's option.
 
-\section{Statement}
-For $n\geq1$, write $q_1(n)<\cdots<q_{\omega(n)}(n)$ for its distinct prime
-divisors, and define
+\paragraph{The density being classified.}
+For a finite list $L$, let $F(L,r)$ be the coefficient of $z^r$ in
+$\prod_{p\in L}((p-1)/p+z/p)$. The exact rational density at a prime $p$ is
+$F(\{q:q<p,\ q\text{ prime}\},k-1)/p$.
+Periodic counting proves that it is the natural density of positive integers
+whose $k$th smallest distinct prime divisor is $p$.
+The corresponding Lean theorem is
+\texttt{hasNaturalDensity\_primeFactorDensity}.
+
+\section{The coefficient comparison}
+Let $p_1=2,p_2=3,\ldots$, $r=k-1$, and $g_i=p_{i+1}-p_i$.
+For a finite prime prefix $\mathcal P$, write $e_j$ for the elementary
+symmetric sum in weights $w_p=1/(p-1)$ and $R_r=e_{r-1}/e_r$.
+The exact density identity in the existing proof is
 \[
-A_{k,p}=\{n\geq1:p\mid n,\ p\text{ prime, and }
-\#\{q\mid n:q\text{ prime},q<p\}=k-1\}.
+ d_{r+1}(p_{i+1})>d_{r+1}(p_i)
+ \quad\Longleftrightarrow\quad
+ R_r(\{p:p<p_i,\ p\text{ prime}\})>g_i+1,
 \]
-Put $d_k(p)=\lim_{N\to\infty}|A_{k,p}\cap[1,N]|/N$.
-
-\begin{definition}[Unimodality]
-A sequence $a_i$ is unimodal if there is $m$ such that $a_i\leq a_{i+1}$
-for $i<m$ and $a_{i+1}\leq a_i$ for $m\leq i$.
-\end{definition}
-
-\begin{theorem}[Erd\H{o}s 690 classification]
-For every $k\geq1$, the natural densities $d_k(p)$ exist and
+when $e_r>0$. Reversing the strict inequality gives a descent.
+An earlier strict descent and a later strict ascent exclude unimodality.
+Put
 \[
-\bigl(i\mapsto d_k(p_i)\text{ is unimodal}\bigr)\quad\Longleftrightarrow\quad
-k\leq3. \tag{1}
+ A(x)=\sum_{p\le x}\frac1{p-1},\qquad
+ B(x)=\sum_{p\le x}\frac{\log p}{p},\qquad E(x)=B(x)-\log x .
 \]
+Every prime sum displayed has the indicated finite support.
+
+\begin{lemma}\label{mode}
+Let $1\le r$ be an integer. For any finite prime prefix and $t>0$, put
+$\mu(t)=\sum_p t/(p-1+t)$.
+If $\mu(t)>r$, then $e_r>0$ and $R_r<t$.
+If $e_r>0$, then $R_r\ge r/A$, where $A=\sum_p w_p$.
+\end{lemma}
+\begin{proof}
+Put $a_j=tw_{p_j}$ and let $c_m=e_m(a_1,\ldots,a_n)$, zero outside
+$0\le m\le n$. Since every $a_j/(1+a_j)<1$, the hypothesis implies
+$n>r$, so $c_r>0$.
+Suppose $c_{r-1}\ge c_r$. Delete the $j$th variable and call the
+resulting coefficients $b_m$. Newton's inequalities give
+$b_{r-1}^2\ge b_{r-2}b_r$.
+If $b_r>b_{r-1}$, then $b_{r-2}<b_{r-1}$ and
+\[
+ c_{r-1}=b_{r-1}+a_jb_{r-2}
+       <b_r+a_jb_{r-1}=c_r,
+\]
+a contradiction. Thus $b_r\le b_{r-1}$ and
+$c_r\le(1+a_j)b_{r-1}$. Summing
+$a_jc_r/(1+a_j)\le a_jb_{r-1}$ gives
+$\mu(t)c_r\le r c_r$, again a contradiction.
+Consequently $c_{r-1}<c_r$, or $e_{r-1}<t e_r$.
+For the lower comparison,
+\[
+ r e_r=\sum_{|S|=r-1}w_S\sum_{p\notin S}w_p\le A e_{r-1}.
+\]
+\end{proof}
+The needed log-concavity and deletion comparison are proved in the Lean
+implementation. Darroch's broader finite mean--mode theorem
+\cite{darroch,gnedin} provides related context; the strict comparison above
+is sufficient here.
+
+\section{Elementary estimates and their domains}
+We use the classical elementary Chebyshev inequalities, not an explicit
+PNT or finite-height RH theorem. For $x\ge900$,
+\begin{align}
+ \psi(x)&\ge a x-\tfrac52\log x+1,\label{classlow}\\
+ \vartheta(x)&\le\tfrac65a x-a\sqrt x+
+ \frac5{4\log6}(\log x)^2+\tfrac52\log x,\label{classup}
+\end{align}
+where
+$a=\log(2^{1/2}3^{1/3}5^{1/5}30^{-1/30})$ and
+$0.92129\le a\le0.92130$; see \cite{cheb}, Section 1.1.
+Also use the elementary bounds
+$\vartheta(x)<(\log4)x$ and
+$\psi(x)-\vartheta(x)\le2\sqrt x\log x$.
+
+\begin{lemma}\label{theta}
+One has
+\[
+ \vartheta(x)\le1.16x\ (x\ge1000),\qquad
+ \vartheta(x)\le1.12x\ (x\ge2000),\qquad
+ \vartheta(x)\ge0.4x\ (x\ge1000),
+\]
+and $\vartheta(x)\ge0.92x$ for $x\ge2^{30}$.
+\end{lemma}
+\begin{proof}
+Let $Q(v)=0.7v^2+2.5v+2$. Equation \eqref{classup} gives
+\[
+ \vartheta(x)/x<1.10556-0.9212/\sqrt x+Q(\log x)/x.
+\]
+The function $Q(v)e^{-v}$ decreases for $v\ge\log1000$.
+Thus dropping the negative term and using $\log1000<7$ gives
+$1.10556+Q(7)/1000=1.15936<1.16$.
+
+For $v\ge\log2000$, $Q(v)e^{-v/2}$ decreases: its derivative has
+the sign of $-0.35v^2+0.15v+1.5<0$.
+While $Q(\log x)/\sqrt x-0.9212$ is positive, multiplying it by
+$1/\sqrt x$ preserves this decrease; afterwards the correction is
+nonpositive. Hence its positive part is bounded by its value at $2000$.
+Using $\log2000<7.61$ and $\sqrt{2000}<45$ gives
+\[
+ \vartheta(x)/x<
+ 1.10556+Q(7.61)/2000-0.9212/45<1.12.
+\]
+For the lower bounds combine \eqref{classlow} with
+$\psi-\vartheta\le2\sqrt x\log x$.
+At $1000$, use $\log1000<7$, $\sqrt{1000}>31$, and monotonicity of
+$(\log x)/x$ and $(\log x)/\sqrt x$.
+For $x\ge2^{30}$, the two loss terms decrease.
+At the endpoint use $\log(2^{30})<21$ and $\sqrt{2^{30}}=32768$:
+\[
+ \frac{2.5(21)+1}{2^{30}}+\frac{42}{32768}<0.00129.
+\]
+Together with $a\ge0.92129$, this gives the lower bound $0.92x$.
+\end{proof}
+
+\begin{lemma}\label{E}
+For every real $x\ge1000$, $-2<E(x)<1/5$.
+\end{lemma}
+\begin{proof}
+Let $n=\lfloor x\rfloor$.
+Factorial identities and integral bounds give
+\[
+ B(n)\le\log(n!)/n+\vartheta(n)/n
+ \le\log n+0.16+(1+\log n)/n<\log n+1/5.
+\]
+Here $(1+\log n)/n<8/1000$.
+For a lower bound put $D=\sum_p\log p/[p(p-1)]$.
+The six primes through $13$ contribute less than $0.7$, and
+\[
+ \sum_{m=14}^\infty\frac{\log m}{m(m-1)}
+ \le\frac{\log14+1}{13}<0.28.
+\]
+The last inequality follows by telescoping summation by parts and
+$\log(1+1/m)\le1/m$.
+Thus $D<0.98$. Since $\log(n!)/n\le B(n)+D$ and
+$\log(n!)/n\ge\log n-1$, $B(n)>\log n-1.98$.
+Use $B(x)=B(n)$ and $\log x-\log n<1/n$.
+\end{proof}
+
+\begin{lemma}\label{A}
+For $x\ge1000$,
+\[
+                  A(x)<\log\log x+1.1+\frac4{\log x}.
+\]
+\end{lemma}
+\begin{proof}
+Elementary Mertens summation gives
+\[
+ \sum_{p\le x}\frac1p-\log\log x-M
+ =\frac{E(x)}{\log x}-\int_x^\infty
+                  \frac{E(u)}{u(\log u)^2}\,du .
+\]
+Lemma \ref{E} bounds its absolute value by $2.2/\log x$.
+The elementary identity
+$M=\gamma+\sum_p(\log(1-1/p)+1/p)$ identifies the constant
+\cite{mertens}; no zeta-zero statement is involved.
+The bound $\gamma\le H_{50}-\log50<0.59$, followed by the five primes
+$2,3,5,7,11$, yields
+\[
+ M<0.59+\log(16/77)+2927/2310<0.29.
+\]
+For $C=\sum_p1/[p(p-1)]$, sum the nine primes through $23$.
+For the rest, use
+\[
+ \sum_{m=24}^\infty\frac1{m(m-1)}
+ \le\frac{24}{23}\sum_{m=24}^\infty\frac1{m^2}
+ \le\frac{24}{529}.
+\]
+The resulting exact rational bound is $C<0.81$.
+Since $A(x)\le\sum_{p\le x}1/p+C$, the constants sum to $1.1$.
+Finally relax $2.2/\log x$ to $4/\log x$.
+\end{proof}
+
+\section{A smoothed lower bound retaining the small-variable contribution}
+\begin{lemma}\label{smooth}
+For $X\ge t\ge4752$,
+\[
+ \sum_{p\le X}\frac1{p+t}\ge
+ \log\log X-\log\log t
+ -\frac{\log(1+1000/t)}{\log t}
+ -\frac{11/5}{\log t+2}. \tag{S}
+\]
+\end{lemma}
+\begin{proof}
+Set $Y=1000$ and $f(u)=u/((u+t)\log u)$.
+Summation by parts on the exact interval $(Y,X]$ gives
+\[
+ \sum_{Y<p\le X}\frac1{p+t}
+ =\int_Y^X\frac{du}{(u+t)\log u}
+ +f(X)E(X)-f(Y)E(Y)-\int_Y^X E(u)f'(u)\,du .
+\]
+The function $f$ increases and then decreases on $[Y,\infty)$:
+$f'$ has the sign of $t(\log u-1)-u$, positive at $Y$ with exactly
+one later zero. Write $F=\sup_{u\ge Y}f(u)$.
+Using $-2<E<1/5$, split the last integral at the maximum.
+The error is at least
+$-(11/5)F+(1/5-E(Y))f(Y)\ge-(11/5)F$.
+If the maximum is after $X$, replace $F$ in this calculation by $f(X)$.
+
+For $z=t/u$, the inequality $\log(z\log u)\le z\log u-1$ and
+$\log\log u>1$ show
+$\log t+2\le(1+t/u)\log u$.
+Therefore $F\le1/(\log t+2)$.
+Finally,
+\[
+ \int_Y^t\frac{du}{(u+t)\log u}
+ \ge\frac{\log(2t/(Y+t))}{\log t},\qquad
+ \int_t^X\frac{du}{(u+t)\log u}
+ \ge\log\log X-\log\log t-\frac{\log2}{\log t}.
+\]
+The $\log2$ contributions cancel. Omitted primes $p\le Y$ contribute
+positively, proving (S).
+\end{proof}
+For a prefix containing every prime through $X$,
+\[
+             \mu(t)\ge t\sum_{p\le X}\frac1{p+t}. \tag{T}
+\]
+This follows from $p-1+t<p+t$. Together with Lemma \ref{mode},
+(S) and (T) give a complete descent estimate.
+
+\section{Symbolic primorial selection}
+For real $r\ge38000$ define
+\[
+ v=\log r,\quad H=v-\log v+6/5,\quad
+ \ell=\frac{r}{(11/10)H},\quad U=\log(5\ell),\quad
+ t=\frac{25}{14}(\ell-U). \tag{P}
+\]
+For integer $r$, choose the first primorial $P$ with $\log P\ge\ell$.
+Let $q^-<q$ be its largest two prime factors, and $L=\log P$.
+This is an existence construction; no primorial or prime list is evaluated.
+
+\begin{lemma}\label{selection}
+One has $\ell\ge3670$, $U/\ell<0.0027$, $t>6535$, and
+\[
+          \ell\le L<\ell+U,\qquad 2q^->t.
+\]
+\end{lemma}
+\begin{proof}
+The function $r/H(\log r)$ increases.
+At $r=38000$, $H<9.4$, so $\ell\ge38000/(1.1\cdot9.4)>3670$.
+Monotonicity of $\log(5x)/x$, with $\log18350<9.82$, gives
+$U/\ell<0.0027$ and $t>(25/14)(3670-9.82)>6535$.
+
+Minimality gives $\vartheta(q^-)<\ell$.
+If $q^-\ge1000$, Lemma \ref{theta} gives $q^-<2.5\ell$;
+otherwise this is automatic. Bertrand's theorem gives $q<2q^-<5\ell$.
+Hence $\log q<U$ and $\ell\le L<\ell+U$.
+Moreover $\vartheta(q^-)=L-\log q>\ell-U>3660$.
+The rough upper bound $\vartheta(q^-)<1.4q^-$ implies $q^->2000$.
+Apply $\vartheta(q^-)\le1.12q^-$ to obtain
+$2q^->(25/14)(\ell-U)=t$.
+\end{proof}
+
+\section{The entire scalar ray, proved by differentiation}
+\begin{lemma}\label{scalar}
+For every real $r\ge38000$,
+\[
+ t\left(\log\ell-\log\log t
+ -\frac{\log(1+1000/t)}{\log t}
+ -\frac{11/5}{\log t+2}\right)>\frac{2001}{2000}r. \tag{D}
+\]
+With $M_*=\ell+\log(2000\ell)$, one also has
+\[
+ (1.09M_*+2)(\log M_*+1.1+4/M_*)<r. \tag{A}
+\]
+\end{lemma}
+\begin{proof}
+Let $v_0=2109/200=10.545$. For $v\ge v_0$, $9<H<v$ and
+$H/v\ge0.89$; the derivative of $H/v$ is
+$(\log v-2.2)/v^2>0$, and its value at $v_0$ exceeds $0.89$.
+
+By Lemma \ref{selection}, $\log t>8.78$ and $1000/t<0.154$.
+Also $\log t<v-\log H+0.485$, since $\log(125/77)<0.485$.
+Use $\log(1+s)\le s$, $\log1.1<0.096$, and
+\[
+ 0.096+0.154/8.78+2.2/10.78<0.319.
+\]
+The bracket in (D) consequently exceeds
+$B_0(v)=v-\log H-\log(v-\log H+0.485)-0.319$.
+Put $J=v-\log H+0.485$.
+Then $J>8$, $0<H'<1$, $H'/H<1/9$, and $0<J'<1$. Thus
+\[
+ (B_0-0.618H)'>1-1/9-1/8-0.618>0.
+\]
+At $v_0$, $9.3<H<9.39$, $2.23<\log H<2.24$, and
+$\log J<\log8.8<2.175$, so
+\[
+ B_0(v_0)-0.618H(v_0)>
+ 10.545-2.24-2.175-0.319-0.618(9.39)=0.00798>0.
+\]
+Hence the bracket exceeds $0.618H$ on the whole infinite ray.
+Since $t/r=(125/77)(1-U/\ell)/H$,
+\[
+ \frac{t}{r}(0.618H)>
+ (125/77)(0.9973)(0.618)
+ =1.000537987\ldots>2001/2000.
+\]
+This proves (D) by calculus, not by scanning integer parameters.
+
+For (A), monotonicity of $\log(2000x)/x$ and
+$\log7340000<15.81$ give $M_*<1.005\ell$.
+Since $1.1H/v\ge0.979$ and $\log0.979>-0.022$,
+\[
+ \log\ell+1.1=H-0.1-\log(1.1H/v)<H-0.078.
+\]
+It follows that $\log M_*+1.1+4/M_*<H-0.078+0.005+4/3670<H$.
+Also $1.09(1.005)+2/3670<1.1$, so $1.09M_*+2<1.1\ell$.
+Their product is less than $1.1\ell H=r$.
+\end{proof}
+
+\section{The tail from k = 38001}
+Use the CRT construction already present in the development.
+Explicitly prescribe, for every prime $p\le q$,
+\[
+ a_p\equiv q^-\pmod p\ (p<q^-),\qquad
+ a_{q^-}=q^--1,\qquad a_q=q^-+1 .
+\]
+Every $1\le m\le2q^--1$ belongs to one of these residues:
+away from $q^--1,q^-,q^-+1$, use a prime divisor of $|m-q^-|$;
+at those three exceptions use $q^-,2,q$, respectively.
+Choose $0\le a<P$ satisfying $a\equiv-a_p\pmod p$.
+Every $a+2P+m$ is composite, giving a block inside $(2P,4P)$
+and a surrounding prime gap $g_-\ge2q^->t$.
+
+The first integer of the block is $a+2P+1$ and is composite.
+Bertrand's theorem puts its preceding prime above half this cutoff, hence
+strictly above $P$. Thus the prefix at the descent contains every prime
+through $P$. Equations (S), (T), (D) give $\mu(t)>r$ there.
+Lemma \ref{mode} gives $R_r<t<g_-+1$.
+
+Let $M=\log(400P)$ and let $N$ count primes in $(4P,400P]$.
+Since $L\ge\ell\ge3670$, one has $P\ge2^{30}$.
+The bounds in Lemma \ref{theta} give
+\[
+ NM\ge(0.92\cdot400-1.12\cdot4)P=363.52P.
+\]
+Also $M<P/5$: use $\log P\le0.007P$ for $P\ge1000$,
+$\log400<6$, and $P\ge2^{30}$.
+Put $G=\lceil1.09M\rceil$. Then
+\[
+ (N-1)G\ge1.09(N-1)M
+ \ge396.2368P-1.09M>396P,
+\]
+because $0.2368\cdot5>1.09$.
+The finite average-gap principle now supplies a globally consecutive gap
+in this interval with
+\[
+ g_+<G<1.09M+1,\qquad g_++1<1.09M+2.
+\]
+Moreover $M=L+\log400<M_*$. The function
+$\log s+1.1+4/s$ increases for $s>4$.
+Lemma \ref{A} and (A) imply $(g_++1)A(400P)<r$, so
+$R_r>g_++1$ at this later gap. Its coefficient denominator is positive:
+the earlier mean bound already supplies more than $r$ primes.
+
+The descent index is strictly below $\pi(4P)$, whereas the later gap
+starts at an index at least $\pi(4P)$. This establishes the required
+ordering even if the large gap's right endpoint is the first prime
+above $4P$. Hence every integer $k\ge38001$ gives non-unimodality.
+
+\section{The existing finite range, without a prime-counting premise}
+The fixed certified gap supplies an earlier gap of length at least $4752$,
+with preceding prime prefix containing every prime through
+\[
+ Y_*=\left\lfloor(\mathrm{recordGapCenter}-86399)/2\right\rfloor,
+ \qquad \log\log Y_*>10.6.
+\]
+The existing later twin-prime certificate supplies a pair $Q,Q+2$ with
+$\log(Q-1)>9$ and $\log\log(Q-1)<12.1$.
+Their ordering and these size inequalities are already proved in the source.
+
+Apply (S) with $X=Y_*$, $t=4752$.
+Replace $\log(1+1000/t)$ by the larger $\log2<0.7$.
+Since $8.46<\log4752<8.47$ and $\log8.47<2.137$,
+\[
+ \mu(4752)>
+ 4752(10.6-2.137-0.7/8.46-2.2/10.46)
+ >4752(8.16)=38776.32>37999.
+\]
+Thus every $49\le k\le38000$, with $r=k-1\le37999$,
+has a strict descent there by Lemma \ref{mode}.
+For the later twin, Lemma \ref{A} gives
+\[
+             3A(Q-1)<3(12.1+1.1+4/9)<48\le r.
+\]
+The lower coefficient comparison forces a strict ascent across that twin.
+The mean bound itself ensures enough primes for $e_r>0$; there is no
+remaining count below $500000$ or other prime-count certificate to supply.
+
+\begin{theorem}
+Combine the existing closed proofs for $1\le k\le48$ and the existing
+fixed gap and twin certificates with the preceding derivation.
+For every positive integer $k$, the density sequence is unimodal exactly
+when $k\le3$, with no Dusart or finite-height RH premise.
 \end{theorem}
+\begin{proof}
+The domains are $1\le k\le48$, $49\le k\le38000$, and $k\ge38001$.
+They are exhaustive and adjacent. The positive cases $1,2,3$ and the
+remaining cases through $48$ are already proved in the existing source.
+\end{proof}
 
-In Lean, the definitions are \texttt{primeFactorDensity}, \texttt{IsUnimodal}, and
-\texttt{CompleteClassification} in \texttt{Definitions/KthPrimeFactor.lean}; the universal
-conditional assembly is packaged in
-\texttt{completeClassification\_of\_full\_record\_inputs}
-in \texttt{Proof/CompleteClassification.lean}, and the public \texttt{Solution.lean} exposes
-the same all-$k$ target. The cutoff-specific bounded-row theorem supplies the
-finite-range analytic input to the final assembly.
+\section{Computational and formal status}
+\begin{center}\small
+\begin{tabular}{p{0.43\linewidth}p{0.47\linewidth}}
+\hline
+Dependency & Treatment\\ \hline
+Finite-height zeta zeros and completeness & Removed\\
+Dusart error ray and sharp prime-counting bounds & Removed\\
+New large finite verification interval & None\\
+Original gap, twin primes, and cases through $48$ & Retained unchanged\\
+Fixed scalar constants & Proved by rational inequalities and logarithmic tangents\\
+New analytic estimates, tail, and all-$k$ theorem & Implemented and compiled in Lean~4.34.0\\ \hline
+\end{tabular}
+\end{center}
+The final declaration is
+\texttt{PrimeFactorUnimodality.}\allowbreak\texttt{completeClassification\_elementary}.
+The entry point \texttt{Solution.lean} exports the same universal statement
+as the Mathlib-only challenge. The key new declarations are:
+\begin{itemize}
+\item \texttt{smoothedPrimeSum\_lower};
+\item \texttt{classification\_descent\_scalar};
+\item \texttt{classification\_ascent\_scalar};
+\item \texttt{elementary\_tail\_not\_isUnimodal}.
+\end{itemize}
 
-\section{The exact finite density formula}
-For a finite list $L$ and $r\geq0$, define
+All fixed logarithmic constants in the implementation follow from the
+certified bounds for $\log2,\log3,\log5$ and the two tangent inequalities
 \[
-\begin{aligned}
-F([],0)&=1,&F([],r+1)&=0,\\
-F((p,L),0)&=\frac{p-1}{p}F(L,0),\\
-F((p,L),r+1)&=\frac{p-1}{p}F(L,r+1)+\frac1pF(L,r).
-\end{aligned}\tag{2}
+ \log b+1-b/x\le\log x\le\log b+x/b-1\qquad(x,b>0).
 \]
-If $L_p$ is the list of primes below $p$, then
-\[
-d_k(p)=\frac{F(L_p,k-1)}p. \tag{3}
-\]
-Divisibility by the finite set of primes below $p$ is periodic modulo their
-product. Counting residue classes gives (2), while the factor $1/p$ imposes
-divisibility by $p$. Thus the natural density exists without an infinite
-Euler-product limit. The Lean declarations are \texttt{finiteDensity},
-\texttt{prescribedFactorDensity}, and
-\texttt{hasNaturalDensity\_isKthDistinctPrimeFactor\_eq\_prescribed}.
-
-\section{First differences}
-Let $p<q$ be consecutive primes. Expanding (2) at the next prime and clearing
-positive denominators expresses the sign of $d_k(q)-d_k(p)$ in terms of the
-gap $q-p$ and a ratio of adjacent elementary symmetric sums in the weights
-\[
-w_r=\frac1{p_r-1}\qquad(p_r<p).
-\]
-The exact criterion is
-\texttt{densityStep\_iff\_symmetricRatio\_gap}; its reusable upper and lower
-bounds are in \texttt{Helpers/SymmetricBounds}. A large gap forces a
-descent, while a later sufficiently small consecutive-prime gap forces an
-ascent. These two strict inequalities disprove unimodality.
-
-\section{Proof architecture}
-The formal proof has four layers.
-\begin{enumerate}
-\item Direct inequalities for the first three recurrence coefficients prove
-  unimodality for $k=1,2,3$.
-\item Generated exact certificates prove strict valleys for the initial finite
-  ranges, with fixed-point weight sums extending the medium range.
-\item A published record prime gap supplies a uniform finite-range descent;
-  its factor and residue evidence is replayed by closed Lean arithmetic, and a
-  closed record-twin certificate supplies the later ascent.
-\item A Chinese-remainder construction gives a controlled composite block in
-  the remaining tail. Explicit prime-counting, Chebyshev, and short-interval
-  estimates select a later consecutive-prime pair, and the symmetric-ratio
-  bounds give the strict ascent uniformly in $k$.
-\end{enumerate}
-The finite pieces are assembled by
-\texttt{completeClassification\_through48},
-\texttt{completeClassification\_through38000\_closed}, and the full record-range
-modules. The final all-$k$ reduction is
-\texttt{completeClassification\_of\_full\_record\_inputs}, which splits at the finite
-cutoff, applies the published record-gap certificate through $7{,}430{,}000$,
-and applies the uniform-tail theorem to every larger $k$. The final provider
-adapter is \texttt{completeClassification\_of\_full\_record\_logCubed\_inputs}: it accepts
-real-variable prime-counting bounds, symmetric theta error bounds, and a
-prime in an interval of relative width $1/\log^3 x$, and feeds them into the
-exact universal theorem. The concrete finite-range interface is a bounded
-list of verified prime rows, combined with the large-$x$ theta-error lemma by
-\texttt{completeClassification\_of\_full\_record\_rows\_at\_large\_cutoff}. The finite
-cutoff and tail cutoff overlap, so the assembly has no uncovered boundary
-case.
-
-\section{Formal verification and certificates}
-Definitions, density lemmas, first-difference lemmas, symmetric bounds,
-certificates, and assembly theorems have separate Lean modules. Generated
-prime prefixes and large integer certificates are ordinary Lean terms; their
-numerical content is checked by kernel-replayed arithmetic, not trusted as
-external numerical output.
-
-The public \texttt{Challenge.lean}/\texttt{Solution.lean} pair is a narrow theorem boundary:
-it exposes \texttt{CompleteClassification} itself, with no fixed-$k$ substitution and
-no hidden range restriction. The internal all-$k$ reduction names its
-remaining explicit analytic inputs rather than treating them as project
-axioms.
-
-\section{Source relationship and limitations}
-The recurrence and initial ranges formalize Cambie's work. The large-range
-organization adapts the complete-answer strategy of Wang and Crapis,
-including the record-gap/twin-prime mechanism and uniform CRT tail. Dusart's
-explicit estimates provide analytic background. This repository claims no
-priority for those mathematical results and no independent expert review.
-
-The analytic estimates are isolated in named interfaces so that each use is
-visible in the proof architecture, including the explicit prime-counting
-asymptotic reduction and the theta-error short-interval bridge. The public target is the universal
-statement (1), whose quantifier ranges over every positive integer $k$; no
-finite checkpoint is part of its specification. The finite and record-range
-arguments and the uniform CRT tail are assembled at that universal boundary,
-with the provider inputs kept explicit rather than hidden in a project axiom.
-
-\section*{Acknowledgements}
-I thank Stijn Cambie for the recurrence and initial ranges, Shouqiao Wang and
-Davide Crapis for the complete-answer strategy, and Pierre Dusart for the
-explicit prime estimates used as analytic background. The development uses
-Lean 4 and Mathlib.
+Here $b$ is an explicit rational product of powers of $2,3,5$.
+The infinite scalar ray is proved by differentiation, with no scan of
+integer parameters. There is no new prime or zero enumeration and no
+implicit finite cutoff to verify. Reusing the byte-verified release objects
+for the original fixed certificates affects build time only; the new
+mathematical proof replaces the analytic verification premise.
 
 \begin{thebibliography}{9}
-\bibitem{Cambie} Stijn Cambie, \emph{The $k$-th prime factor of an integer},
-arXiv:2501.10333, 2025.
-\bibitem{WangCrapis} Shouqiao Wang and Davide Crapis, \emph{A Complete Answer
-to Erd\H{o}s Problem 690}, arXiv:2605.08542v1, 2026.
-\bibitem{Dusart} Pierre Dusart, \emph{Estimates of Some Functions over Primes
-without R.H.}, arXiv:1002.0442, 2010.
-\bibitem{Andersen} Jens Kruse Andersen, \emph{A megagap with merit 25.9},
-Prime Records, 2013.
+\bibitem{cambie} S. Cambie, Resolution of Erd\H{o}s' problems about
+unimodularity, \href{https://arxiv.org/abs/2501.10333}{arXiv:2501.10333}.
+\bibitem{wang} S. Wang and D. Crapis, A Complete Answer to Erd\H{o}s
+Problem 690, \href{https://arxiv.org/abs/2605.08542v1}{arXiv:2605.08542v1},
+Theorem 1.1 and Corollary 1.2. The formalization adapts the symbolic strategy
+and replaces the explicit analytic inputs.
+\bibitem{darroch} J. N. Darroch, On the distribution of the number of successes
+in independent trials, Ann. Math. Statist. 35 (1964), 1317--1321.
+\href{https://doi.org/10.1214/aoms/1177703287}{DOI}.
+\bibitem{gnedin} A. Gnedin, Cross Modality of the Extended Binomial Sums,
+Section 5.1, \href{https://arxiv.org/abs/2408.06477}{arXiv:2408.06477}.
+\bibitem{cheb} S. Broadbent, H. Kadiri, A. Lumley, N. Ng, K. Wilk,
+Sharper bounds for the Chebyshev function $\theta(x)$, Section 1.1,
+\href{https://arxiv.org/abs/2002.11068}{arXiv:2002.11068}.
+Only its historical elementary inequalities are used, not its later
+zero-based estimates.
+\bibitem{mertens} M. B. Villarino, Mertens' Proof of Mertens' Theorem,
+\href{https://arxiv.org/abs/math/0504289}{arXiv:math/0504289}.
+\bibitem{submission}
+\href{https://github.com/TheJustinSunPrize/awards/pull/4526}{Submission 4526}
+and its linked source and existing certificate proofs.
 \end{thebibliography}
 \end{document}

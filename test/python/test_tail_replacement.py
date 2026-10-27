@@ -27,6 +27,14 @@ def test_prime_witness_import_is_rejected(tmp_path: Path) -> None:
         check_tail_replacement(tmp_path)
 
 
+def test_dusart_provider_is_rejected(tmp_path: Path) -> None:
+    dusart = "PrimeFactorUnimodality.Helpers.Analytic.DusartProof"
+    assert dusart in FORBIDDEN
+    (tmp_path / "Solution.lean").write_text(f"import {REQUIRED}\nimport {dusart}\n")
+    with pytest.raises(ValueError, match="retired certificate replay reached"):
+        check_tail_replacement(tmp_path)
+
+
 def test_analytic_prime_prefix_margin() -> None:
     assert Q(500000) / Q(1313, 100) > 38000
 

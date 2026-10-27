@@ -16,8 +16,9 @@ FORBIDDEN = (
     PREFIX + "FullRecordRange",
     PREFIX + "Generated.FullRecordGapCompact",
     PREFIX + "Generated.RecordPrimeWitnesses",
+    "PrimeFactorUnimodality.Helpers.Analytic.DusartProof",
 )
-REQUIRED = PREFIX + "UniformTailClosedMertens"
+REQUIRED = PREFIX + "ElementaryDensityTail"
 
 
 def solution_closure(root: Path) -> set[str]:
@@ -46,7 +47,9 @@ def check_tail_replacement(root: Path) -> None:
         )
     if REQUIRED not in closure:
         raise ValueError("Solution does not reach the uniform CRT replacement")
-    print("analytic boundary: uniform tail present; full-gap and prime-witness replays excluded")
+    print(
+        "analytic boundary: elementary tail present; retired certificate and Dusart routes excluded"
+    )
 
 
 if __name__ == "__main__":

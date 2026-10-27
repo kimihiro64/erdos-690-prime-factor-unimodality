@@ -40,6 +40,9 @@ Replace the scaffold row when the first real candidate module is created.
 
 | Project module | Proposed Mathlib path | Readiness | Upstream reference |
 | --- | --- | --- | --- |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log.FactorialFloor` | `Mathlib/Analysis/SpecialFunctions/Log/FactorialFloor.lean` | project-verified | Mathlib Stirling-sequence bounds give uniform half-logarithm bounds for integer and real-floor factorials; no finite range computation. |
+| `PrimeFactorUnimodality.Mathlib.Analysis.SpecialFunctions.Log` | `Mathlib/Analysis/SpecialFunctions/Log.lean` | project-verified | Bounded facade for logarithmic estimates and derivatives. |
+| `PrimeFactorUnimodality.Mathlib.Combinatorics.Enumerative.PoissonBinomial` | `Mathlib/Combinatorics/Enumerative/PoissonBinomial.lean` | project-verified | Finite log-concavity and deletion counting prove the strict Bernoulli mean comparison and its tilted symmetric-sum bound; Darroch (1964), DOI 10.1214/aoms/1177703287. |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.Chebyshev.PsiBounds` | `Mathlib/NumberTheory/Chebyshev/PsiBounds.lean` | project-verified | Linear psi bounds from the decreasing elementary logarithmic error; a rational square and endpoint logarithm control a full ray. |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.PartialSievePeriodic` | `Mathlib/NumberTheory/PartialSievePeriodic.lean` | project-verified | Exact wheel-period lookup from proved remainder counts and totient; reuses the periodic Nat.count candidate and Mathlib's interval totient identity. |
 | `PrimeFactorUnimodality.Mathlib.NumberTheory.PartialSieve` | `Mathlib/NumberTheory/PartialSieve.lean` | project-verified | Exact coprime-interval counts, prime removal, executable list/indexed recurrence, and prefix congruence; Mathlib-only proof. |

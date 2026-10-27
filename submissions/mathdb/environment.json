@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "problem": "E690",
+  "mathdb_page_id": 315817,
+  "answer": "False",
+  "theorem": "Submission.solution : Problem.Target Submission.answer",
+  "submission": {
+    "file": "E690.lean",
+    "sha256": "da4391f0de9ac0f6e183a0ac3db5f12bd49d9cf5a908a42c15386eee0e7db1d6"
+  },
+  "environment": {
+    "lean": "leanprover/lean4:v4.34.1",
+    "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+    "statement_repository": "https://github.com/mathdb-lean/problems",
+    "statement_repository_commit": "8418d8e7e69f8267fbdf2b57d0bcd8f07a8d2a5d",
+    "target_source": "problems/formal-conjectures/315817/E690.lean",
+    "target_git_blob": "f0744f2dc6a1431f063303b0caf88eca521e369c",
+    "target_sha256": "61d3b21635eee37e449570cc1236d95216690bab83b15f463180a4e6c3f8e426",
+    "target_import": "FtpEvalBench.E690",
+    "statement_id": "423b6ad3-596d-4a28-a3d3-e35249136450",
+    "lean_options": {
+      "pp.unicode.fun": true,
+      "autoImplicit": false,
+      "relaxedAutoImplicit": false
+    }
+  },
+  "verification": {
+    "date_utc": "2026-10-27",
+    "local_compiler_exit_code": 0,
+    "method": "Exact submission source followed by axiom inspection commands, against the unchanged official target.",
+    "exact_source_is_prefix_of_audited_compilation": true,
+    "declarations": [
+      "Submission.solution",
+      "Submission.E690Proof.density_of_prime",
+      "Submission.E690Proof.not_unimodal"
+    ],
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "project_imports": [],
+    "placeholders": [],
+    "external_mathdb_grader_run": false
+  },
+  "scope": "Negative answer to universal unimodality, with actual natural densities for k=4. The stronger unconditional all-k classification is exported separately by the main repository Solution.lean."
+}

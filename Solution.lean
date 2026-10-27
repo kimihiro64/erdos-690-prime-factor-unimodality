@@ -1,11 +1,12 @@
-import PrimeFactorUnimodality
+import PrimeFactorUnimodality.Proof.CompleteClassificationElementary
 
 set_option autoImplicit false
 
-/-! # All-k Erdős 690 solution
+/-! # Unconditional all-k Erdos 690 solution
 
-This declaration has exactly the same type as the challenge theorem. -/
+The theorem uses elementary analytic estimates and the existing fixed witnesses.
+-/
 
 theorem PrimeFactorUnimodality.completeClassification :
     PrimeFactorUnimodality.CompleteClassification := by
-  exact PrimeFactorUnimodality.completeClassification_closed
+  exact PrimeFactorUnimodality.completeClassification_elementary
