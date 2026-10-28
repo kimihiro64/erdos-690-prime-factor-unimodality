@@ -124,3 +124,28 @@ def test_plan_target_parameter_changes_the_requested_root(tmp_path: Path) -> Non
     assert all(
         "CompleteClassificationSquaredConditional" not in m for u in units for m in u.modules
     )
+
+
+def test_comparator_stages_preserve_every_verification_gate() -> None:
+    job = original_jobs(ROOT)["comparator"]
+    stages = (
+        "prepare",
+        "export-challenge",
+        "export-solution",
+        "match",
+        "axioms",
+        "nanoda",
+        "kernel",
+    )
+    commands = [f"run: bash scripts/verify-comparator.sh {stage}" for stage in stages]
+    positions = [job.index(command + "\n") for command in commands]
+    assert positions == sorted(positions)
+    assert all(job.count(command + "\n") == 1 for command in commands)
+    assert "timeout-minutes: 360" in job
+    assert "continue-on-error" not in job
+    assert "    if:" not in job
+    assert "      - comparator\n" in original_jobs(ROOT)["release"]
+    helper = (ROOT / "scripts/verify-comparator.sh").read_text(encoding="utf-8")
+    assert "for selected in export-challenge export-solution match axioms nanoda kernel" in helper
+    for name in ("configuration", "challenge", "solution"):
+        assert f'sha256sum -c "$export_dir/{name}.sha256"' in helper

@@ -1860,7 +1860,7 @@ jobs:
     name: Check statement against solution
     needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 360
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -1890,8 +1890,20 @@ jobs:
         with:
           go-version: "1.24.0"
           cache: false
-      - name: Run pinned Comparator toolchain
-        run: bash scripts/verify-comparator.sh
+      - name: Prepare pinned Comparator toolchain
+        run: bash scripts/verify-comparator.sh prepare
+      - name: Export the exact Challenge statement
+        run: bash scripts/verify-comparator.sh export-challenge
+      - name: Export the actual unconditional Solution
+        run: bash scripts/verify-comparator.sh export-solution
+      - name: Match statements and every fixed definition
+        run: bash scripts/verify-comparator.sh match
+      - name: Inspect all solution axioms
+        run: bash scripts/verify-comparator.sh axioms
+      - name: Replay the solution with NanoDa
+        run: bash scripts/verify-comparator.sh nanoda
+      - name: Replay the solution with the Lean kernel
+        run: bash scripts/verify-comparator.sh kernel
 
   paper:
     name: Build research paper

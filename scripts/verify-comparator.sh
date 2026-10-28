@@ -7,6 +7,16 @@ bin_dir="$cache_root/bin"
 comparator_dir="$cache_root/comparator"
 lean4export_dir="$cache_root/lean4export"
 nanoda_dir="$cache_root/nanoda"
+export_dir="$cache_root/exports"
+phase="${1:-all}"
+if [[ $# -gt 1 ]]; then
+  echo "error: expected at most one Comparator phase" >&2
+  exit 1
+fi
+case "$phase" in
+  all|prepare|export-challenge|export-solution|match|axioms|nanoda|kernel) ;;
+  *) echo "error: unknown Comparator phase: $phase" >&2; exit 1 ;;
+esac
 
 comparator_commit=68a064109f01c08f47c8edc9f51d6a2bbffaa188
 lean4export_repository=https://github.com/leanprover/lean4export.git
@@ -14,7 +24,7 @@ lean4export_commit=076e8e57707e813375e8f9da8bf989799ace9680
 landrun_commit=811cfff51ceaf3d9843708aa6d22e9b84ccac8b4
 nanoda_commit=68d5ca9db226849b41a6fff59d796ff19d0a8840
 
-for required_command in cargo git go lake python3; do
+for required_command in cargo git go lake python3 sha256sum stdbuf; do
   if ! command -v "$required_command" >/dev/null 2>&1; then
     echo "error: $required_command is required to run Comparator" >&2
     exit 1
@@ -40,9 +50,50 @@ if not isinstance(config, dict) or config.get("enable_nanoda") is not True:
         file=sys.stderr,
     )
     raise SystemExit(1)
+if config.get("definition_names", []) != []:
+    print("error: fixed Challenge definitions cannot be definition holes", file=sys.stderr)
+    raise SystemExit(1)
 PY
 
-mkdir -p "$cache_root" "$bin_dir"
+run_phase() {
+  local selected=$1
+  test -x /usr/bin/time
+  test -s "$export_dir/configuration.sha256"
+  sha256sum -c "$export_dir/configuration.sha256"
+  case "$selected" in
+    export-solution)
+      sha256sum -c "$export_dir/challenge.sha256"
+      ;;
+    match|axioms|nanoda|kernel)
+      sha256sum -c "$export_dir/challenge.sha256"
+      sha256sum -c "$export_dir/solution.sha256"
+      ;;
+  esac
+  echo "Comparator phase: $selected"
+  PALOMAR_LANDRUN_BIN="$bin_dir/landrun" \
+  COMPARATOR_LEAN4EXPORT="$lean4export_dir/.lake/build/bin/lean4export" \
+  COMPARATOR_NANODA="$nanoda_dir/target/release/nanoda_bin" \
+  COMPARATOR_LANDRUN="$repository_root/scripts/landrun-wrapper.sh" \
+  COMPARATOR_STAGE_DIR="$export_dir" \
+    /usr/bin/time -v stdbuf -oL -eL lake env \
+      "$comparator_dir/.lake/build/bin/comparator" comparator.json "$selected"
+  case "$selected" in
+    export-challenge)
+      sha256sum "$export_dir/challenge.export" > "$export_dir/challenge.sha256"
+      ;;
+    export-solution)
+      sha256sum "$export_dir/solution.export" > "$export_dir/solution.sha256"
+      ;;
+  esac
+}
+
+if [[ "$phase" != prepare && "$phase" != all ]]; then
+  cd "$repository_root"
+  run_phase "$phase"
+  exit 0
+fi
+
+mkdir -p "$cache_root" "$bin_dir" "$export_dir"
 
 checkout_exact() {
   local repository=$1
@@ -94,6 +145,7 @@ checkout_exact https://github.com/robsimmons/nanoda_lib.git "$nanoda_dir" "$nano
 
 GOBIN="$bin_dir" go install "github.com/zouuup/landrun/cmd/landrun@$landrun_commit"
 
+python3 "$repository_root/scripts/patch_comparator_stages.py" "$comparator_dir"
 (cd "$comparator_dir" && lake build comparator)
 # Build the matching upstream v4.34.0 source unchanged with the project's exact
 # toolchain so the exporter can read this repository's .olean format; no fork
@@ -109,8 +161,16 @@ lake exe cache get
 # A library-wide build also selects historical conditional and certificate routes.
 lake build +Challenge +Solution
 git diff --exit-code HEAD -- lake-manifest.json
-PALOMAR_LANDRUN_BIN="$bin_dir/landrun" \
-COMPARATOR_LEAN4EXPORT="$lean4export_dir/.lake/build/bin/lean4export" \
-COMPARATOR_NANODA="$nanoda_dir/target/release/nanoda_bin" \
-COMPARATOR_LANDRUN="$repository_root/scripts/landrun-wrapper.sh" \
-  lake env "$comparator_dir/.lake/build/bin/comparator" comparator.json
+sha256sum \
+  "$repository_root/comparator.json" \
+  "$repository_root/lake-manifest.json" \
+  "$repository_root/lean-toolchain" \
+  "$repository_root/scripts/patch_comparator_stages.py" \
+  "$comparator_dir/Main.lean" \
+  "$comparator_dir/.lake/build/bin/comparator" > "$export_dir/configuration.sha256"
+
+if [[ "$phase" == all ]]; then
+  for selected in export-challenge export-solution match axioms nanoda kernel; do
+    run_phase "$selected"
+  done
+fi
