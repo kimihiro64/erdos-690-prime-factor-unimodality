@@ -15,7 +15,7 @@ jobs:
     env:
       PYTHONUTF8: "1"
       PYTHONIOENCODING: utf-8
-      PROFILE_ROOT: ${{ runner.temp }}/nanoda-runtime
+      PROFILE_ROOT: /tmp/nanoda-runtime
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -34,7 +34,7 @@ jobs:
           repository: kimihiro64/erdos-690-prime-factor-unimodality
           run-id: "40707217629"
           name: comparator-exports-5097ece9126d2536e395143f739ac8cf68ab199b-1
-          path: ${{ runner.temp }}/nanoda-runtime/download
+          path: /tmp/nanoda-runtime/download
       - name: Validate the exact saved Linux proof export
         timeout-minutes: 3
         shell: bash
@@ -85,6 +85,6 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: nanoda-runtime-diagnostic
-          path: ${{ runner.temp }}/nanoda-runtime/results
+          path: /tmp/nanoda-runtime/results
           retention-days: 7
           if-no-files-found: error
