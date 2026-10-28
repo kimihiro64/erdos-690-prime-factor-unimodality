@@ -44,7 +44,7 @@ def test_historical_dusart_jobs_require_explicit_manual_selection() -> None:
 
 def test_proof_consumers_preserve_the_committed_dependency_lock() -> None:
     jobs = original_jobs(ROOT)
-    for name in ("docs", "comparator"):
+    for name in ("docs", "comparator-exports", "comparator", "nanoda", "kernel"):
         assert "lake update" not in jobs[name], name
         assert "git diff --exit-code HEAD -- lake-manifest.json" in jobs[name], name
         assert "python3 scripts/check_docbuild_manifest.py" in jobs[name], name
@@ -127,25 +127,28 @@ def test_plan_target_parameter_changes_the_requested_root(tmp_path: Path) -> Non
 
 
 def test_comparator_stages_preserve_every_verification_gate() -> None:
-    job = original_jobs(ROOT)["comparator"]
-    stages = (
-        "prepare",
-        "export-challenge",
-        "export-solution",
-        "match",
-        "axioms",
-        "nanoda",
-        "kernel",
-    )
-    commands = [f"run: bash scripts/verify-comparator.sh {stage}" for stage in stages]
-    positions = [job.index(command + "\n") for command in commands]
+    jobs = original_jobs(ROOT)
+    producer = jobs["comparator-exports"]
+    phases = ("prepare", "export-challenge", "export-solution")
+    commands = [f"run: bash scripts/verify-comparator.sh {phase}" for phase in phases]
+    positions = [producer.index(command + "\n") for command in commands]
     assert positions == sorted(positions)
-    assert all(job.count(command + "\n") == 1 for command in commands)
-    assert "timeout-minutes: 360" in job
-    assert "continue-on-error" not in job
-    assert "    if:" not in job
-    assert "      - comparator\n" in original_jobs(ROOT)["release"]
+    assert "scripts.comparator_checkpoint pack" in producer
+    assert "actions/upload-artifact@" in producer
+    assert "GITHUB_RUN_ATTEMPT" in producer
+    for name, phase in (("comparator", "match-axioms"), ("nanoda", "nanoda"), ("kernel", "kernel")):
+        job = jobs[name]
+        assert "needs: [build, comparator-exports]" in job
+        assert "scripts.comparator_checkpoint restore" in job
+        assert "needs.comparator-exports.outputs.checkpoint" in job
+        assert f"run: bash scripts/verify-comparator.sh {phase}\n" in job
+        assert "verify-comparator.sh export-solution" not in job
+        assert "continue-on-error" not in job
+        assert "    if:" not in job
+    for name in ("comparator-exports", "comparator", "nanoda", "kernel"):
+        assert "timeout-minutes: 360" in jobs[name]
+        assert f"      - {name}\n" in jobs["release"]
     helper = (ROOT / "scripts/verify-comparator.sh").read_text(encoding="utf-8")
-    assert "for selected in export-challenge export-solution match axioms nanoda kernel" in helper
+    assert "for selected in export-challenge export-solution match-axioms nanoda kernel" in helper
     for name in ("configuration", "challenge", "solution"):
         assert f'sha256sum -c "$export_dir/{name}.sha256"' in helper

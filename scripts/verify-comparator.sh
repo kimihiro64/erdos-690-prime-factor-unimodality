@@ -14,7 +14,7 @@ if [[ $# -gt 1 ]]; then
   exit 1
 fi
 case "$phase" in
-  all|prepare|export-challenge|export-solution|match|axioms|nanoda|kernel) ;;
+  all|prepare|export-challenge|export-solution|match-axioms|match|axioms|nanoda|kernel) ;;
   *) echo "error: unknown Comparator phase: $phase" >&2; exit 1 ;;
 esac
 
@@ -64,7 +64,7 @@ run_phase() (
     export-solution)
       sha256sum -c "$export_dir/challenge.sha256"
       ;;
-    match|axioms|nanoda|kernel)
+    match-axioms|match|axioms|nanoda|kernel)
       sha256sum -c "$export_dir/challenge.sha256"
       sha256sum -c "$export_dir/solution.sha256"
       ;;
@@ -176,7 +176,7 @@ sha256sum \
   "$comparator_dir/.lake/build/bin/comparator" > "$export_dir/configuration.sha256"
 
 if [[ "$phase" == all ]]; then
-  for selected in export-challenge export-solution match axioms nanoda kernel; do
+  for selected in export-challenge export-solution match-axioms nanoda kernel; do
     run_phase "$selected"
   done
 fi

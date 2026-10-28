@@ -21,6 +21,16 @@ NEW_DISPATCH = """  match args[1]? with
   | some phase => Comparator.M.run (Comparator.staged phase) config
 """
 STAGES = r"""
+def readPrepared (path : System.FilePath) : M Export.ExportedEnv := do
+  let started <- IO.monoMsNow
+  let text <- IO.FS.readFile path
+  let loaded <- IO.monoMsNow
+  IO.eprintln s!"Export read {path}: {text.utf8ByteSize} bytes in {loaded - started} ms"
+  let result <- Export.parseStream (<- stringStream text)
+  let parsed <- IO.monoMsNow
+  IO.eprintln s!"Export parsed {path}: {parsed - loaded} ms"
+  return result
+
 def staged (phase : String) : M Unit := do
   let directory := System.FilePath.mk <|
     (<- IO.getEnv "COMPARATOR_STAGE_DIR").getD ".cache/palomar-comparator/exports"
@@ -41,26 +51,37 @@ def staged (phase : String) : M Unit := do
     let module <- getSolutionModule
     safeLakeBuild module
     IO.FS.writeFile solutionPath (<- safeExport module exportTargets)
+  | "match-axioms" =>
+    let challenge <- readPrepared challengePath
+    let solution <- readPrepared solutionPath
+    let targets := (<- getTheoremNames) ++ (<- getLegalAxioms)
+    let started <- IO.monoMsNow
+    IO.ofExcept <| Comparator.compareAt challenge solution targets
+      (<- getDefinitionNames) (<- primitiveTargets)
+    let matched <- IO.monoMsNow
+    IO.eprintln s!"Strict matching accepted: {matched - started} ms"
+    IO.ofExcept <| Comparator.checkAxioms solution (<- getTheoremNames)
+      (<- getDefinitionNames) (<- getLegalAxioms)
+    let audited <- IO.monoMsNow
+    IO.eprintln s!"Axiom inspection accepted: {audited - matched} ms"
   | "match" =>
-    let challengeText <- IO.FS.readFile challengePath
-    let solutionText <- IO.FS.readFile solutionPath
-    let challenge <- Export.parseStream (<- stringStream challengeText)
-    let solution <- Export.parseStream (<- stringStream solutionText)
+    let challenge <- readPrepared challengePath
+    let solution <- readPrepared solutionPath
     let targets := (<- getTheoremNames) ++ (<- getLegalAxioms)
     IO.ofExcept <| Comparator.compareAt challenge solution targets
       (<- getDefinitionNames) (<- primitiveTargets)
   | "axioms" =>
-    let solutionText <- IO.FS.readFile solutionPath
-    let solution <- Export.parseStream (<- stringStream solutionText)
+    let solution <- readPrepared solutionPath
     IO.ofExcept <| Comparator.checkAxioms solution (<- getTheoremNames)
       (<- getDefinitionNames) (<- getLegalAxioms)
   | "nanoda" =>
     unless <- getNanodaEnabled do
       throw <| IO.userError "NanoDa is required"
-    runNanoda (<- IO.FS.readFile solutionPath)
+    let text <- IO.FS.readFile solutionPath
+    IO.eprintln s!"NanoDa input: {text.utf8ByteSize} bytes; pinned serial checker"
+    runNanoda text
   | "kernel" =>
-    let solutionText <- IO.FS.readFile solutionPath
-    let solution <- Export.parseStream (<- stringStream solutionText)
+    let solution <- readPrepared solutionPath
     runKernel solution
   | _ => throw <| IO.userError s!"Unknown Comparator stage: {phase}"
   IO.eprintln s!"Comparator stage accepted: {phase}"

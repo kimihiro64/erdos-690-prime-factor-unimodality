@@ -1856,11 +1856,13 @@ jobs:
           path: docbuild/.lake/build/doc
           if-no-files-found: error
 
-  comparator:
-    name: Check statement against solution
+  comparator-exports:
+    name: Export and save the exact proof once
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 360
+    outputs:
+      checkpoint: ${{ steps.checkpoint.outputs.name }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -1896,13 +1898,175 @@ jobs:
         run: bash scripts/verify-comparator.sh export-challenge
       - name: Export the actual unconditional Solution
         run: bash scripts/verify-comparator.sh export-solution
-      - name: Match statements and every fixed definition
-        run: bash scripts/verify-comparator.sh match
-      - name: Inspect all solution axioms
-        run: bash scripts/verify-comparator.sh axioms
-      - name: Replay the solution with NanoDa
+      - name: Package input-bound export checkpoint
+        run: |
+          python3 -m scripts.comparator_checkpoint pack \
+            --exports .cache/palomar-comparator/exports \
+            --comparator .cache/palomar-comparator/comparator/.lake/build/bin/comparator \
+            --archive .research/comparator-exports.tar.gz \
+            --repository "$GITHUB_REPOSITORY" --commit "$GITHUB_SHA" --run-id "$GITHUB_RUN_ID"
+      - name: Name this immutable checkpoint
+        id: checkpoint
+        run: echo "name=comparator-exports-${GITHUB_SHA}-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: ${{ steps.checkpoint.outputs.name }}
+          path: .research/comparator-exports.tar.gz
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 14
+
+  comparator:
+    name: Match statement and inspect axioms
+    needs: [build, comparator-exports]
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          build: false
+          lint: false
+      - name: Verify locked dependency manifests
+        run: |
+          git diff --exit-code HEAD -- lake-manifest.json docbuild/lake-manifest.json
+          python3 scripts/check_docbuild_manifest.py
+      - name: Apply the reviewed Lean compatibility ports
+        run: |
+          python3 scripts/patch_pnt_compat.py
+          python3 scripts/patch_primecert_compat.py
+      - name: Restore the completed Lean build
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: linux-lean-build
+          path: .lake/build
+      - name: Check the restored proof artifacts
+        run: |
+          test -s .lake/build/lib/lean/Challenge.olean
+          test -s .lake/build/lib/lean/Solution.olean
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: "1.24.0"
+          cache: false
+      - name: Prepare pinned Comparator toolchain
+        run: bash scripts/verify-comparator.sh prepare
+      - name: Download the successful export checkpoint
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: ${{ needs.comparator-exports.outputs.checkpoint }}
+          path: .research
+      - name: Restore and verify exact-run exports and checker
+        run: |
+          python3 -m scripts.comparator_checkpoint restore \
+            --exports .cache/palomar-comparator/exports \
+            --comparator .cache/palomar-comparator/comparator/.lake/build/bin/comparator \
+            --archive .research/comparator-exports.tar.gz \
+            --repository "$GITHUB_REPOSITORY" --commit "$GITHUB_SHA" --run-id "$GITHUB_RUN_ID"
+      - name: Run Match statement and inspect axioms
+        run: bash scripts/verify-comparator.sh match-axioms
+
+  nanoda:
+    name: Replay the saved proof with NanoDa
+    needs: [build, comparator-exports]
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          build: false
+          lint: false
+      - name: Verify locked dependency manifests
+        run: |
+          git diff --exit-code HEAD -- lake-manifest.json docbuild/lake-manifest.json
+          python3 scripts/check_docbuild_manifest.py
+      - name: Apply the reviewed Lean compatibility ports
+        run: |
+          python3 scripts/patch_pnt_compat.py
+          python3 scripts/patch_primecert_compat.py
+      - name: Restore the completed Lean build
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: linux-lean-build
+          path: .lake/build
+      - name: Check the restored proof artifacts
+        run: |
+          test -s .lake/build/lib/lean/Challenge.olean
+          test -s .lake/build/lib/lean/Solution.olean
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: "1.24.0"
+          cache: false
+      - name: Prepare pinned Comparator toolchain
+        run: bash scripts/verify-comparator.sh prepare
+      - name: Download the successful export checkpoint
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: ${{ needs.comparator-exports.outputs.checkpoint }}
+          path: .research
+      - name: Restore and verify exact-run exports and checker
+        run: |
+          python3 -m scripts.comparator_checkpoint restore \
+            --exports .cache/palomar-comparator/exports \
+            --comparator .cache/palomar-comparator/comparator/.lake/build/bin/comparator \
+            --archive .research/comparator-exports.tar.gz \
+            --repository "$GITHUB_REPOSITORY" --commit "$GITHUB_SHA" --run-id "$GITHUB_RUN_ID"
+      - name: Run Replay the saved proof with NanoDa
         run: bash scripts/verify-comparator.sh nanoda
-      - name: Replay the solution with the Lean kernel
+
+  kernel:
+    name: Replay the saved proof with the Lean kernel
+    needs: [build, comparator-exports]
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          build: false
+          lint: false
+      - name: Verify locked dependency manifests
+        run: |
+          git diff --exit-code HEAD -- lake-manifest.json docbuild/lake-manifest.json
+          python3 scripts/check_docbuild_manifest.py
+      - name: Apply the reviewed Lean compatibility ports
+        run: |
+          python3 scripts/patch_pnt_compat.py
+          python3 scripts/patch_primecert_compat.py
+      - name: Restore the completed Lean build
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: linux-lean-build
+          path: .lake/build
+      - name: Check the restored proof artifacts
+        run: |
+          test -s .lake/build/lib/lean/Challenge.olean
+          test -s .lake/build/lib/lean/Solution.olean
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: "1.24.0"
+          cache: false
+      - name: Prepare pinned Comparator toolchain
+        run: bash scripts/verify-comparator.sh prepare
+      - name: Download the successful export checkpoint
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: ${{ needs.comparator-exports.outputs.checkpoint }}
+          path: .research
+      - name: Restore and verify exact-run exports and checker
+        run: |
+          python3 -m scripts.comparator_checkpoint restore \
+            --exports .cache/palomar-comparator/exports \
+            --comparator .cache/palomar-comparator/comparator/.lake/build/bin/comparator \
+            --archive .research/comparator-exports.tar.gz \
+            --repository "$GITHUB_REPOSITORY" --commit "$GITHUB_SHA" --run-id "$GITHUB_RUN_ID"
+      - name: Run Replay the saved proof with the Lean kernel
         run: bash scripts/verify-comparator.sh kernel
 
   paper:
@@ -1952,7 +2116,10 @@ jobs:
       - sandbox
       - build
       - docs
+      - comparator-exports
       - comparator
+      - nanoda
+      - kernel
       - paper
       - submission-link
     runs-on: ubuntu-latest

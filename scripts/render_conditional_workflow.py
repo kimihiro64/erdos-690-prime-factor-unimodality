@@ -217,7 +217,16 @@ concurrency:
 
 jobs:
 """
-    omitted = {"comparator", "docs", "lean-foundations", "certificate-prebuild", "analytic-tail"}
+    omitted = {
+        "comparator",
+        "comparator-exports",
+        "nanoda",
+        "kernel",
+        "docs",
+        "lean-foundations",
+        "certificate-prebuild",
+        "analytic-tail",
+    }
     order = [name for name in base if name not in omitted]
     if set(order) != set(jobs):
         raise ValueError("original CI stages changed: review the conditional mirror")
