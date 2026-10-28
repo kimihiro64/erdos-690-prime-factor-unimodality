@@ -55,7 +55,7 @@ if config.get("definition_names", []) != []:
     raise SystemExit(1)
 PY
 
-run_phase() {
+run_phase() (
   local selected=$1
   test -x /usr/bin/time
   test -s "$export_dir/configuration.sha256"
@@ -69,6 +69,12 @@ run_phase() {
       sha256sum -c "$export_dir/solution.sha256"
       ;;
   esac
+  if [[ "$selected" == nanoda ]]; then
+    # NanoDa checks on Rust's main thread; RUST_MIN_STACK only affects workers.
+    # Set an inherited OS limit, scoped to this phase, without changing the checker.
+    ulimit -S -s 262144
+    echo "NanoDa main-thread stack limit: $(ulimit -S -s) KiB"
+  fi
   echo "Comparator phase: $selected"
   PALOMAR_LANDRUN_BIN="$bin_dir/landrun" \
   COMPARATOR_LEAN4EXPORT="$lean4export_dir/.lake/build/bin/lean4export" \
@@ -85,7 +91,7 @@ run_phase() {
       sha256sum "$export_dir/solution.export" > "$export_dir/solution.sha256"
       ;;
   esac
-}
+)
 
 if [[ "$phase" != prepare && "$phase" != all ]]; then
   cd "$repository_root"
