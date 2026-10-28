@@ -269,7 +269,16 @@ def test_conditional_workflow_is_state_gated_bounded_and_not_cancelled_by_push()
     assert "DUSART_CI_BUILDS" not in workflow
     assert workflow == render(ROOT)
     original = original_jobs(ROOT)
-    omitted = {"comparator", "docs", "lean-foundations", "certificate-prebuild", "analytic-tail"}
+    omitted = {
+        "comparator",
+        "comparator-exports",
+        "nanoda",
+        "kernel",
+        "docs",
+        "lean-foundations",
+        "certificate-prebuild",
+        "analytic-tail",
+    }
     for job in original:
         assert (f"  {job}:\n" in workflow) == (job not in omitted)
     assert "lake lint" not in workflow
