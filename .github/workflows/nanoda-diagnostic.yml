@@ -1,0 +1,90 @@
+name: Bounded NanoDa runtime diagnostic
+
+on:
+  push:
+    branches: [diagnostics/nanoda-runtime]
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  profile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONUTF8: "1"
+      PYTHONIOENCODING: utf-8
+      PROFILE_ROOT: ${{ runner.temp }}/nanoda-runtime
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          build: false
+          lint: false
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: "1.24.0"
+          cache: false
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          github-token: ${{ github.token }}
+          repository: kimihiro64/erdos-690-prime-factor-unimodality
+          run-id: "40707217629"
+          name: comparator-exports-5097ece9126d2536e395143f739ac8cf68ab199b-1
+          path: ${{ runner.temp }}/nanoda-runtime/download
+      - name: Validate the exact saved Linux proof export
+        timeout-minutes: 3
+        shell: bash
+        run: |
+          set -euo pipefail
+          python_bin=$(command -v python3)
+          test -f "$python_bin"
+          test "$PYTHONUTF8" = 1
+          test "$PYTHONIOENCODING" = utf-8
+          "$python_bin" scripts/profile_nanoda_runtime.py restore --root "$PROFILE_ROOT"
+      - name: Build the pinned checker with timing only
+        timeout-minutes: 5
+        shell: bash
+        run: |
+          set -euo pipefail
+          git_bin=$(command -v git)
+          cargo_bin=$(command -v cargo)
+          go_bin=$(command -v go)
+          python_bin=$(command -v python3)
+          for executable in "$git_bin" "$cargo_bin" "$go_bin" "$python_bin"; do
+            test -f "$executable"
+          done
+          export GIT_TERMINAL_PROMPT=0 GCM_INTERACTIVE=Never GCM_GUI_PROMPT=0
+          export GOBIN="$PROFILE_ROOT/bin" GOCACHE="$PROFILE_ROOT/go-cache"
+          export GOMODCACHE="$PROFILE_ROOT/go-mod-cache" CARGO_HOME="$PROFILE_ROOT/cargo"
+          "$go_bin" install github.com/zouuup/landrun/cmd/landrun@811cfff51ceaf3d9843708aa6d22e9b84ccac8b4
+          "$git_bin" init "$PROFILE_ROOT/nanoda"
+          "$git_bin" -C "$PROFILE_ROOT/nanoda" remote add origin https://github.com/robsimmons/nanoda_lib.git
+          "$git_bin" -C "$PROFILE_ROOT/nanoda" fetch --depth=1 origin 68d5ca9db226849b41a6fff59d796ff19d0a8840
+          "$git_bin" -C "$PROFILE_ROOT/nanoda" checkout --detach FETCH_HEAD
+          test "$PYTHONUTF8" = 1
+          test "$PYTHONIOENCODING" = utf-8
+          "$python_bin" scripts/profile_nanoda_runtime.py instrument --root "$PROFILE_ROOT"
+          "$cargo_bin" --version
+          "$cargo_bin" build --release --locked --manifest-path "$PROFILE_ROOT/nanoda/Cargo.toml" --bin nanoda_bin --jobs 2
+      - name: Compare stdin and direct-file replay with resource samples
+        timeout-minutes: 9
+        shell: bash
+        run: |
+          set -euo pipefail
+          python_bin=$(command -v python3)
+          test -f "$python_bin"
+          test "$PYTHONUTF8" = 1
+          test "$PYTHONIOENCODING" = utf-8
+          "$python_bin" scripts/profile_nanoda_runtime.py profile --root "$PROFILE_ROOT"
+      - name: Preserve bounded diagnostic logs
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: nanoda-runtime-diagnostic
+          path: ${{ runner.temp }}/nanoda-runtime/results
+          retention-days: 7
+          if-no-files-found: error
