@@ -14,6 +14,7 @@ from pathlib import Path
 
 PIN = "68a064109f01c08f47c8edc9f51d6a2bbffaa188"
 MAIN_SHA256 = "602c1206dbb0545f83805c7bc77df0dd7bde26c8e797e89f9806581f8e321944"
+LEGACY_STAGED_SHA256 = "6fe7dbea26bccb9ab82167346159829e2ff4b3f5f698b68688300e5b4928b23a"
 NAMESPACE_END = "\nend Comparator\n"
 OLD_DISPATCH = "  Comparator.M.run Comparator.compareIt config\n"
 NEW_DISPATCH = """  match args[1]? with
@@ -21,6 +22,38 @@ NEW_DISPATCH = """  match args[1]? with
   | some phase => Comparator.M.run (Comparator.staged phase) config
 """
 STAGES = r"""
+def runNanodaPrepared (solutionPath : System.FilePath) : M Unit := do
+  IO.println "Running nanoda kernel on solution with 4 workers"
+  IO.FS.withTempFile fun config configPath => do
+    let legalAxioms <- getLegalAxioms
+    config.putStr <| Lean.Json.compress <| Lean.Json.mkObj [
+      ("use_stdin", false),
+      ("export_file_path", .str solutionPath.toString),
+      ("num_threads", Lean.toJson (4 : Nat)),
+      ("permitted_axioms", .arr <| legalAxioms.map (fun n => .str n.toString)),
+      ("unpermitted_axiom_hard_error", true),
+      ("nat_extension", true),
+      ("string_extension", true),
+    ]
+    config.flush
+    let spawnArgs := {
+      cmd := (<- read).whichNanoda
+      args := #[configPath.toString]
+      envPass := #[]
+      readablePaths := #[configPath.toString, solutionPath.toString]
+      writablePaths := #[]
+      executablePaths := #[]
+    }
+    let proc <- IO.Process.spawn {
+      cmd := (<- read).whichLandrun
+      args := buildLandrunArgs spawnArgs
+      env := spawnArgs.envOverride
+      cwd := (<- getProjectDir)
+    }
+    let ret <- proc.wait
+    unless ret == 0 do
+      throw <| IO.userError s!"Child exited with {ret}"
+    IO.println "Nanoda kernel accepts the solution"
 def readPrepared (path : System.FilePath) : M Export.ExportedEnv := do
   let started <- IO.monoMsNow
   let text <- IO.FS.readFile path
@@ -77,9 +110,8 @@ def staged (phase : String) : M Unit := do
   | "nanoda" =>
     unless <- getNanodaEnabled do
       throw <| IO.userError "NanoDa is required"
-    let text <- IO.FS.readFile solutionPath
-    IO.eprintln s!"NanoDa input: {text.utf8ByteSize} bytes; pinned serial checker"
-    runNanoda text
+    IO.eprintln s!"NanoDa file input: {solutionPath}; 4 workers, 256 MiB stacks"
+    runNanodaPrepared solutionPath
   | "kernel" =>
     let solution <- readPrepared solutionPath
     runKernel solution
@@ -95,6 +127,13 @@ def digest(source: str) -> str:
 def stage_source(source: str) -> tuple[str, bool]:
     """Accept only the reviewed upstream source or this exact CLI-only port."""
     source = source.replace("\r\n", "\n")
+    if digest(source) == LEGACY_STAGED_SHA256:
+        start = source.index("\ndef readPrepared")
+        stop = source.index(NAMESPACE_END, start)
+        source = source[:start] + source[stop:]
+        source = source.replace(NEW_DISPATCH, OLD_DISPATCH, 1)
+        if digest(source) != MAIN_SHA256:
+            raise ValueError("Legacy Comparator orchestration did not recover the pin")
     if STAGES in source:
         if source.count(STAGES) != 1 or source.count(NEW_DISPATCH) != 1:
             raise ValueError("Comparator orchestration port is not unique")

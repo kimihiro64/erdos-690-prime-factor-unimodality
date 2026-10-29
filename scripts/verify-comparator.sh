@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+export PYTHONUTF8=1 PYTHONIOENCODING=utf-8
 
 repository_root=$(cd "$(dirname "$0")/.." && pwd)
 cache_root=${PALOMAR_COMPARATOR_CACHE:-"$repository_root/.cache/palomar-comparator"}
@@ -70,10 +71,11 @@ run_phase() (
       ;;
   esac
   if [[ "$selected" == nanoda ]]; then
-    # NanoDa checks on Rust's main thread; RUST_MIN_STACK only affects workers.
-    # Set an inherited OS limit, scoped to this phase, without changing the checker.
+    # Parsing runs on the main thread; the checked runtime port gives each of
+    # four checker workers the same bounded 256 MiB stack.
     ulimit -S -s 262144
     echo "NanoDa main-thread stack limit: $(ulimit -S -s) KiB"
+    echo "NanoDa checker workers: 4; worker stack: 256 MiB"
   fi
   echo "Comparator phase: $selected"
   PALOMAR_LANDRUN_BIN="$bin_dir/landrun" \
@@ -152,6 +154,7 @@ checkout_exact https://github.com/robsimmons/nanoda_lib.git "$nanoda_dir" "$nano
 GOBIN="$bin_dir" go install "github.com/zouuup/landrun/cmd/landrun@$landrun_commit"
 
 python3 "$repository_root/scripts/patch_comparator_stages.py" "$comparator_dir"
+python3 "$repository_root/scripts/patch_nanoda_runtime.py" "$nanoda_dir"
 (cd "$comparator_dir" && lake build comparator)
 # Build the matching upstream v4.34.0 source unchanged with the project's exact
 # toolchain so the exporter can read this repository's .olean format; no fork
@@ -172,6 +175,11 @@ sha256sum \
   "$repository_root/lake-manifest.json" \
   "$repository_root/lean-toolchain" \
   "$repository_root/scripts/patch_comparator_stages.py" \
+  "$repository_root/scripts/patch_nanoda_runtime.py" \
+  "$nanoda_dir/src/lib.rs" \
+  "$nanoda_dir/src/main.rs" \
+  "$nanoda_dir/src/parser.rs" \
+  "$nanoda_dir/src/tc.rs" \
   "$comparator_dir/Main.lean" \
   "$comparator_dir/.lake/build/bin/comparator" > "$export_dir/configuration.sha256"
 

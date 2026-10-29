@@ -2015,7 +2015,8 @@ jobs:
             --comparator .cache/palomar-comparator/comparator/.lake/build/bin/comparator \
             --archive .research/comparator-exports.tar.gz \
             --repository "$GITHUB_REPOSITORY" --commit "$GITHUB_SHA" --run-id "$GITHUB_RUN_ID"
-      - name: Run Replay the saved proof with NanoDa
+      - name: Replay every declaration with four NanoDa workers
+        timeout-minutes: 340
         run: bash scripts/verify-comparator.sh nanoda
 
   kernel:
