@@ -1,0 +1,29 @@
+/- Validation harness: append to the exact Submission.lean source,
+   then compile in the pinned MathDB environment. This is not answer source. -/
+open Lean Elab Command in
+run_cmd do
+  let env <- getEnv
+  let localDeclarations <- env.getLocalConstantInfos (skipTheoremSubDecls := false)
+  let additions := localDeclarations.filterMap fun info =>
+    if isReservedName env info.name && env.isImportedConst info.name.getPrefix then
+      none
+    else
+      some info.name
+  if additions.isEmpty then
+    throwError "MATHDB_NAMESPACE_AUDIT_EMPTY: no answer declarations inspected"
+  let outside := additions.filter fun name =>
+    !((`Submission).isPrefixOf (privateToUserName name))
+  if !(outside.isEmpty) then
+    throwError "MATHDB_NAMESPACE_REJECTED {outside.size} declaration(s): {outside}"
+  logInfo m!"MATHDB_NAMESPACE_OK {additions.size} declaration(s); outside Submission: 0"
+  let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
+  for declaration in #[`Submission.solution,
+      `Submission.E690Proof.density_of_prime,
+      `Submission.E690Proof.not_unimodal] do
+    let axioms <- collectAxioms declaration
+    let unsupported := axioms.filter fun name => !(allowed.contains name)
+    if !(unsupported.isEmpty) then
+      throwError "MATHDB_AXIOM_REJECTED {declaration}: {unsupported}"
+    logInfo m!"MATHDB_AXIOMS_OK {declaration}: {axioms}"
+
+#check (Submission.solution : Problem.Target Submission.answer)

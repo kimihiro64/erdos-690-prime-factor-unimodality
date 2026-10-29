@@ -33,6 +33,8 @@ set_option autoImplicit false
 set_option maxRecDepth 4096
 set_option maxHeartbeats 1000000
 
+namespace Submission
+
 -- ASCII spellings used to keep this standalone source portable.
 local infixr:35 " AND " => And
 local infixr:30 " OR " => Or
@@ -272,7 +274,7 @@ theorem count_eq_mod_add_div_mul_commuted {p : Nat  ->  Prop} [DecidablePred p]
 
 end Nat
 
-namespace Submission.E690Proof
+namespace E690Proof
 def primesBelow (p : Nat) : List Nat :=
   ((Finset.range p).filter Nat.Prime).sort (fun a b => a <= b)
 def selectionNumerator : List Nat  ->  Nat  ->  Nat
@@ -284,12 +286,12 @@ def selectionNumerator : List Nat  ->  Nat  ->  Nat
         selectionNumerator entries r
 
 
-end Submission.E690Proof
+end E690Proof
 
 open Filter Function
 open scoped Topology
 
-namespace Submission.E690Proof
+namespace E690Proof
 
 /-- A predicate has natural density `d` when its normalized initial-segment
 counts converge to `d`. -/
@@ -441,9 +443,9 @@ theorem HasNaturalDensity.withoutZero {predicate : Nat  ->  Prop}
       | succ n => simp [WithoutZero]
     simpa [predicates_equal] using has_density
 
-end Submission.E690Proof
+end E690Proof
 
-namespace Submission.E690Proof
+namespace E690Proof
 
 /-- The number of entries in a finite list which divide `n`. -/
 def selectedDivisorCount (entries : List Nat) (n : Nat) : Nat :=
@@ -676,9 +678,9 @@ theorem selectedDivisorCount_primesBelow (p n : Nat) (n_ne_zero : Not (n = 0)) :
   tauto
 
 
-end Submission.E690Proof
+end E690Proof
 
-namespace Submission.E690Proof
+namespace E690Proof
 open Filter
 open scoped Topology
 
@@ -802,9 +804,8 @@ theorem not_unimodal : Not (Problem.IsUnimodalOnPrimes density) := by
       (by omega : 17 <= m)
     rw [density13, density17] at bad
     norm_num at bad
-end Submission.E690Proof
+end E690Proof
 
-namespace Submission
 def answer : Prop := False
 
 /-- The exact frozen MathDB target is false; k=4 refutes its universal claim. -/

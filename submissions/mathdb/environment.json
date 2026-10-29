@@ -6,7 +6,7 @@
   "theorem": "Submission.solution : Problem.Target Submission.answer",
   "submission": {
     "file": "Submission.lean",
-    "sha256": "da4391f0de9ac0f6e183a0ac3db5f12bd49d9cf5a908a42c15386eee0e7db1d6"
+    "sha256": "9b08a0670c1f48f011a60d14ae4f0f800657d87b50c19f958795962e3c351418"
   },
   "environment": {
     "lean": "leanprover/lean4:v4.34.1",
@@ -25,9 +25,9 @@
     }
   },
   "verification": {
-    "date_utc": "2026-10-27",
+    "date_utc": "2026-10-29",
     "local_compiler_exit_code": 0,
-    "method": "Exact submission source followed by axiom inspection commands, against the unchanged official target.",
+    "method": "Exact submission source followed by submissions/mathdb/audit.lean.txt, against the unchanged official target.",
     "exact_source_is_prefix_of_audited_compilation": true,
     "declarations": [
       "Submission.solution",
@@ -41,7 +41,14 @@
     ],
     "project_imports": [],
     "placeholders": [],
-    "external_mathdb_grader_run": false
+    "external_mathdb_grader_run": false,
+    "namespace_audit": {
+      "harness": "submissions/mathdb/audit.lean.txt",
+      "required_namespace": "Submission",
+      "checked_declarations": 164,
+      "outside_namespace": [],
+      "negative_control_rejected_original_helpers": 19
+    }
   },
   "scope": "Negative answer to universal unimodality, with actual natural densities for k=4. The stronger unconditional all-k classification is exported separately by the main repository Solution.lean."
 }
