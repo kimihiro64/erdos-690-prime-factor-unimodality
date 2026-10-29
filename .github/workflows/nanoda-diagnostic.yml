@@ -1,4 +1,4 @@
-name: Bounded NanoDa runtime diagnostic
+name: Full four-worker NanoDa replay
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
 jobs:
   profile:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 360
     env:
       PYTHONUTF8: "1"
       PYTHONIOENCODING: utf-8
@@ -70,8 +70,8 @@ jobs:
           "$python_bin" scripts/profile_nanoda_runtime.py instrument --root "$PROFILE_ROOT"
           "$cargo_bin" --version
           "$cargo_bin" build --release --locked --manifest-path "$PROFILE_ROOT/nanoda/Cargo.toml" --bin nanoda_bin --jobs 2
-      - name: Compare stdin and direct-file replay with resource samples
-        timeout-minutes: 9
+      - name: Complete four-worker replay of every exported declaration
+        timeout-minutes: 305
         shell: bash
         run: |
           set -euo pipefail

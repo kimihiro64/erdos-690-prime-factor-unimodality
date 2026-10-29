@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import signal
@@ -35,6 +36,16 @@ EDITS = [
         "relative": "src/tc.rs",
         "before": "    pub(crate) fn check_all_declars_serial(&self) {\n        for declar in self.declars.values() {\n            self.check_declar(declar);\n        }\n    }",
         "after": "    pub(crate) fn check_all_declars_serial(&self) {\n        for (index, declar) in self.declars.values().enumerate() {\n            let profile_name_idx = declar.info().name.idx;\n            eprintln!(\"NANODA_DECL_START index={} name_id={}\", index, profile_name_idx);\n            let profile_started = std::time::Instant::now();\n            self.check_declar(declar);\n            eprintln!(\"NANODA_DECL_END index={} name_id={} seconds={}\", index, profile_name_idx, profile_started.elapsed().as_secs_f64());\n        }\n    }"
+    },
+    {
+        "relative": "src/lib.rs",
+        "before": "pub(crate) const STACK_SIZE: usize = 16_777_216;",
+        "after": "pub(crate) const STACK_SIZE: usize = 268_435_456;"
+    },
+    {
+        "relative": "src/tc.rs",
+        "before": "                            if let Some((_, declar)) = self.declars.get_index(idx) {\n                                self.check_declar(declar);",
+        "after": "                            if let Some((_, declar)) = self.declars.get_index(idx) {\n                                let profile_name_idx = declar.info().name.idx;\n                                eprintln!(\"NANODA_DECL_START index={} name_id={}\", idx, profile_name_idx);\n                                let profile_started = std::time::Instant::now();\n                                self.check_declar(declar);\n                                eprintln!(\"NANODA_DECL_END index={} name_id={} seconds={}\", idx, profile_name_idx, profile_started.elapsed().as_secs_f64());"
     }
 ]
 AXIOMS = ["propext", "Quot.sound", "Classical.choice"]
@@ -197,7 +208,7 @@ def stack_limit() -> None:
 
 
 def run_case(root: Path, repo: Path, name: str, source: Path,
-             pipeline: bool, seconds: int) -> None:
+             pipeline: bool, seconds: int) -> dict:
     results = root / "results"
     env = os.environ.copy()
     wrapper = repo / "scripts/landrun-wrapper.sh"
@@ -212,7 +223,8 @@ def run_case(root: Path, repo: Path, name: str, source: Path,
     else:
         config = results / (name + ".config.json")
         save(config, {"export_file_path": str(source / "solution.export"),
-                      "use_stdin": False, "permitted_axioms": AXIOMS,
+                      "use_stdin": False, "num_threads": 4,
+                      "permitted_axioms": AXIOMS,
                       "unpermitted_axiom_hard_error": True,
                       "nat_extension": True, "string_extension": True})
         command = [str(wrapper), "--best-effort", "--ro", "/", "--rw", "/dev",
@@ -224,6 +236,7 @@ def run_case(root: Path, repo: Path, name: str, source: Path,
     owned = {}
     process = None
     identity = None
+    last_minute = -1
     with (results / (name + ".stdout")).open("wb") as output:
         with stderr_path.open("wb") as error:
             with (results / (name + ".samples.jsonl")).open(
@@ -243,6 +256,11 @@ def run_case(root: Path, repo: Path, name: str, source: Path,
                             "host": host_info(),
                             "last_event": last_event(stderr_path)}) + "\n")
                         samples.flush()
+                        if int(elapsed) // 60 > last_minute:
+                            last_minute = int(elapsed) // 60
+                            print(json.dumps({"elapsed": elapsed,
+                                  "last_event": last_event(stderr_path),
+                                  "processes": records}), flush=True)
                         if process.poll() is not None:
                             break
                         if elapsed >= seconds:
@@ -281,8 +299,18 @@ def run_case(root: Path, repo: Path, name: str, source: Path,
                "wall_seconds": time.monotonic() - started,
                "timed_out": timed_out, "exit_code": process.returncode,
                "submission_acceptance": False}
+    log = stderr_path.read_text(encoding="utf-8", errors="replace")
+    checked = {int(m.group(1)) for m in re.finditer(
+        r"(?m)^NANODA_DECL_END index=(\d+)\b", log)}
+    summary["checked_declarations"] = len(checked)
+    summary["full_nanoda_replay_accepted"] = (
+        name == "full-four-workers" and not timed_out
+        and process.returncode == 0 and "NANODA_CHECK_DONE seconds=" in log
+        and bool(re.search(r"NANODA_PARSE_DONE seconds=\S+ declarations=81236\b", log))
+        and checked == set(range(81236)))
     save(results / (name + ".summary.json"), summary)
     print(json.dumps(summary), flush=True)
+    return summary
 
 
 def main() -> None:
@@ -294,7 +322,7 @@ def main() -> None:
     root = args.root.resolve()
     repo = Path(__file__).resolve().parents[1]
     if args.mode == "validate":
-        assert len(EDITS) == 4
+        assert len(EDITS) == 6
         for relative in dict.fromkeys(e["relative"] for e in EDITS):
             entries = [e for e in EDITS if e["relative"] == relative]
             probe = "\n".join(e["before"] for e in entries)
@@ -306,13 +334,33 @@ def main() -> None:
                 assert probe.count(edit["after"]) == 1
                 probe = probe.replace(edit["after"], edit["before"])
             assert probe == original
+        git = shutil.which("git")
+        assert git and Path(git).is_file()
+        assert subprocess.check_output(
+            [git, "-C", str(root), "rev-parse", "HEAD"], text=True).strip() == PIN
+        inventory = subprocess.check_output(
+            [git, "-C", str(root), "ls-files"], text=True).splitlines()
+        for relative in dict.fromkeys(e["relative"] for e in EDITS):
+            assert inventory.count(relative) == 1
+            path = root / relative
+            assert path.is_file()
+            original = path.read_text(encoding="utf-8")
+            changed = original
+            entries = [e for e in EDITS if e["relative"] == relative]
+            for edit in entries:
+                assert changed.count(edit["before"]) == 1, relative
+                changed = changed.replace(edit["before"], edit["after"])
+            for edit in reversed(entries):
+                assert changed.count(edit["after"]) == 1, relative
+                changed = changed.replace(edit["after"], edit["before"])
+            assert changed == original, relative
         import yaml
         workflow = yaml.safe_load(
             (repo / ".github/workflows/nanoda-diagnostic.yml").read_text(
                 encoding="utf-8"))
         trigger = workflow.get("on", workflow.get(True))
         assert trigger == {"push": {"branches": ["diagnostics/nanoda-runtime"]}}
-        assert workflow["jobs"]["profile"]["timeout-minutes"] == 20
+        assert workflow["jobs"]["profile"]["timeout-minutes"] == 360
         assert len(workflow["jobs"]) == 1
         print("Instrumentation recovery and bounded workflow checks passed.")
         return
@@ -324,13 +372,10 @@ def main() -> None:
         instrument(root)
     else:
         save(root / "results/host.json", host_info())
-        for label, folder, pipeline, cap in [
-            ("prefix-stdin", "prefix", True, 45),
-            ("prefix-file", "prefix", False, 45),
-            ("full-stdin", "checkpoint", True, 180),
-            ("full-file", "checkpoint", False, 180),
-        ]:
-            run_case(root, repo, label, root / folder, pipeline, cap)
+        summary = run_case(
+            root, repo, "full-four-workers", root / "checkpoint", False, 18000)
+        if not summary["full_nanoda_replay_accepted"]:
+            raise RuntimeError("Full NanoDa replay did not accept all 81236 declarations.")
 
 
 if __name__ == "__main__":
