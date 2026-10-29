@@ -133,6 +133,31 @@ def test_full_record_gap_fermat_rows_share_one_list_replay() -> None:
     assert rendered.count(":= by\n  decide") == 1
 
 
+@pytest.mark.parametrize("command", ['local infixr:35 " AND " => And', "run_cmd pure ()"])
+def test_mathdb_answer_rejects_syntax_and_elaborator_commands(tmp_path: Path, command: str) -> None:
+    source = (
+        "/-! MathDB answer fixture. -/\nnamespace Submission\n" + command + "\nend Submission\n"
+    )
+    (tmp_path / "Submission.lean").write_text(source, encoding="utf-8")
+    with pytest.raises(LeanSourceError, match="MathDB forbids syntax/elaborator commands"):
+        check_lean_sources(tmp_path, ["Submission.lean"])
+
+
+def test_mathdb_answer_accepts_core_constructors(tmp_path: Path) -> None:
+    source = (
+        "/-! MathDB answer fixture. -/\nnamespace Submission\n"
+        "def answer : Prop := And True True\nend Submission\n"
+    )
+    (tmp_path / "Submission.lean").write_text(source, encoding="utf-8")
+    check_lean_sources(tmp_path, ["Submission.lean"])
+
+
+def test_mathdb_syntax_restriction_does_not_change_library_policy(tmp_path: Path) -> None:
+    source = '/-! Library fixture. -/\nlocal infixr:35 " AND " => And\n'
+    (tmp_path / "Helpers.lean").write_text(source, encoding="utf-8")
+    check_lean_sources(tmp_path, ["Helpers.lean"])
+
+
 def test_nested_lean_comments_are_removed() -> None:
     source = "theorem ok : True := by\n  /- sorry /- admit -/ -/ trivial\n"
     stripped = strip_lean_comments(source)

@@ -6,7 +6,7 @@
   "theorem": "Submission.solution : Problem.Target Submission.answer",
   "submission": {
     "file": "Submission.lean",
-    "sha256": "9b08a0670c1f48f011a60d14ae4f0f800657d87b50c19f958795962e3c351418"
+    "sha256": "5117b27dd356b896f923adb1a5b7b00c54ba3a93e8d6268434fc73e042dc1227"
   },
   "environment": {
     "lean": "leanprover/lean4:v4.34.1",
@@ -26,28 +26,36 @@
   },
   "verification": {
     "date_utc": "2026-10-29",
-    "local_compiler_exit_code": 0,
-    "method": "Exact submission source followed by submissions/mathdb/audit.lean.txt, against the unchanged official target.",
+    "local_compiler_exit_code": null,
+    "method": "Source syntax policy passed; focused Lean recheck running after inlining local notation.",
     "exact_source_is_prefix_of_audited_compilation": true,
     "declarations": [
       "Submission.solution",
       "Submission.E690Proof.density_of_prime",
       "Submission.E690Proof.not_unimodal"
     ],
-    "axioms": [
-      "propext",
-      "Classical.choice",
-      "Quot.sound"
-    ],
+    "axioms": null,
     "project_imports": [],
     "placeholders": [],
     "external_mathdb_grader_run": false,
     "namespace_audit": {
       "harness": "submissions/mathdb/audit.lean.txt",
       "required_namespace": "Submission",
-      "checked_declarations": 164,
-      "outside_namespace": [],
+      "checked_declarations": null,
+      "outside_namespace": null,
       "negative_control_rejected_original_helpers": 19
+    },
+    "status": "focused_lean_recheck_running",
+    "previous_compilation_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "syntax_audit": {
+      "syntax_extensions": 0,
+      "elaborator_commands": 0,
+      "custom_notation_uses": 0,
+      "policy_tests_passed": 33
     }
   },
   "scope": "Negative answer to universal unimodality, with actual natural densities for k=4. The stronger unconditional all-k classification is exported separately by the main repository Solution.lean."

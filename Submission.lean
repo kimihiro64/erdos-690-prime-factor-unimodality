@@ -35,16 +35,7 @@ set_option maxHeartbeats 1000000
 
 namespace Submission
 
--- ASCII spellings used to keep this standalone source portable.
-local infixr:35 " AND " => And
-local infixr:30 " OR " => Or
-local prefix:40 "NOT " => Not
-local infix:50 " DVD " => Dvd.dvd
-local infix:50 " IN " => fun x s => Membership.mem s x
-local infixl:70 " ANDSET " => Inter.inter
-local infixr:25 " IFF " => Iff
-local infix:25 " EQUIV " => Equiv
-local infixr:35 " PROD " => Prod
+-- Core Lean constructors keep this standalone source portable.
 
 namespace Nat
 
@@ -98,7 +89,7 @@ open Function
 open scoped Count
 
 def countSubtypeFinEquiv (p : Nat  ->  Prop) (n : Nat) :
-    {k : Nat // k < n  AND  p k}  EQUIV  {i : Fin n // p i.val} where
+    (Equiv ({k : Nat // (And (k < n) (p k))}) ({i : Fin n // p i.val})) where
   toFun k := Subtype.mk (Fin.mk k.val k.prop.1) k.prop.2
   invFun i := Subtype.mk i.val.val (And.intro i.val.isLt i.prop)
   left_inv _ := rfl
@@ -111,8 +102,8 @@ theorem count_eq_card_fin (p : Nat  ->  Prop) [DecidablePred p] (n : Nat) :
 
 theorem count_and_partition (p q : Nat  ->  Prop) [DecidablePred p]
     [DecidablePred q] (n : Nat) :
-    Nat.count (fun x => p x  AND  q x) n +
-        Nat.count (fun x => p x  AND  NOT  q x) n = Nat.count p n := by
+    Nat.count (fun x => (And (p x) (q x))) n +
+        Nat.count (fun x => (And (p x) ((Not (q x))))) n = Nat.count p n := by
   induction n with
   | zero => simp
   | succ n ih =>
@@ -120,7 +111,7 @@ theorem count_and_partition (p q : Nat  ->  Prop) [DecidablePred p]
       by_cases hp : p n <;> by_cases hq : q n <;> simp [hp, hq] <;> omega
 
 theorem count_congr_iff (p q : Nat  ->  Prop) [DecidablePred p]
-    [DecidablePred q] (h : forall  n, p n  IFF  q n) (bound : Nat) :
+    [DecidablePred q] (h : forall  n, (Iff (p n) (q n))) (bound : Nat) :
     Nat.count p bound = Nat.count q bound := by
   induction bound with
   | zero => simp
@@ -129,8 +120,8 @@ theorem count_congr_iff (p q : Nat  ->  Prop) [DecidablePred p]
       simp only [h n]
 
 theorem count_or_of_disjoint (p q : Nat  ->  Prop) [DecidablePred p]
-    [DecidablePred q] (hdisjoint : forall  n, NOT  (p n  AND  q n)) (n : Nat) :
-    Nat.count (fun x => p x  OR  q x) n = Nat.count p n + Nat.count q n := by
+    [DecidablePred q] (hdisjoint : forall  n, (Not (((And (p n) (q n)))))) (n : Nat) :
+    Nat.count (fun x => (Or (p x) (q x))) n = Nat.count p n + Nat.count q n := by
   induction n with
   | zero => simp
   | succ n ih =>
@@ -151,14 +142,14 @@ theorem count_or_of_disjoint (p q : Nat  ->  Prop) [DecidablePred p]
 are represented by least nonnegative residues, so it can be used directly in
 finite cardinality arguments over `Nat.count`. -/
 def finCrtEquiv {a q : Nat} [NeZero a] [NeZero q] (h : a.Coprime q) :
-    Fin (a * q)  EQUIV  Fin a  PROD  Fin q :=
+    (Equiv (Fin (a * q)) ((Prod (Fin a) (Fin q)))) :=
   (ZMod.finEquiv (a * q)).toEquiv.trans
       ((ZMod.chineseRemainder h).toEquiv.trans
       ((ZMod.finEquiv a).symm.toEquiv.prodCongr (ZMod.finEquiv q).symm.toEquiv))
 
 theorem card_finCrtEquiv {a q : Nat} [NeZero a] [NeZero q]
     (h : a.Coprime q) :
-    Fintype.card (Fin (a * q)) = Fintype.card (Fin a  PROD  Fin q) :=
+    Fintype.card (Fin (a * q)) = Fintype.card ((Prod (Fin a) (Fin q))) :=
   Fintype.card_congr (finCrtEquiv h)
 
 theorem finCrtEquiv_snd_val {a q : Nat} [NeZero a] [NeZero q]
@@ -188,18 +179,17 @@ theorem finCrtEquiv_fst_val {a q : Nat} [NeZero a] [NeZero q]
 theorem finCrtEquiv_fst_pred_iff {p : Nat  ->  Prop} {a q : Nat}
     [NeZero a] [NeZero q] (hp : Periodic p a) (h : a.Coprime q)
     (n : Fin (a * q)) :
-    p n.val  IFF  p (finCrtEquiv h n).1.val := by
+    (Iff (p n.val) (p (finCrtEquiv h n).1.val)) := by
   rw [finCrtEquiv_fst_val h n, hp.map_mod_nat]
 
 theorem finCrtEquiv_snd_eq_zero_iff {a q : Nat} [NeZero a] [NeZero q]
     (h : a.Coprime q) (n : Fin (a * q)) :
-    (finCrtEquiv h n).2 = 0  IFF  q  DVD  n.val := by
+    (Iff ((finCrtEquiv h n).2 = 0) ((Dvd.dvd (q) (n.val)))) := by
   rw [Fin.ext_iff, finCrtEquiv_snd_val h n]
   simp [Nat.dvd_iff_mod_eq_zero]
 
 def prodZeroSubtypeEquiv (p : Nat  ->  Prop) (a q : Nat) [NeZero q] :
-    {x : Fin a  PROD  Fin q // p x.1.val  AND  x.2 = 0}  EQUIV
-      {i : Fin a // p i.val} where
+    (Equiv ({x : (Prod (Fin a) (Fin q)) // (And (p x.1.val) (x.2 = 0))}) ({i : Fin a // p i.val})) where
   toFun x := Subtype.mk x.val.1 x.prop.1
   invFun i := Subtype.mk (i.val, 0) (And.intro i.prop rfl)
   left_inv x := by
@@ -213,8 +203,7 @@ def prodZeroSubtypeEquiv (p : Nat  ->  Prop) (a q : Nat) [NeZero q] :
 
 def finCrtDvdSubtypeEquiv {p : Nat  ->  Prop} {a q : Nat}
     [NeZero a] [NeZero q] (hp : Periodic p a) (h : a.Coprime q) :
-    {n : Fin (a * q) // p n.val  AND  q  DVD  n.val}  EQUIV
-      {i : Fin a // p i.val} :=
+    (Equiv ({n : Fin (a * q) // (And (p n.val) ((Dvd.dvd (q) (n.val))))}) ({i : Fin a // p i.val})) :=
   ((finCrtEquiv h).subtypeEquiv fun n =>
       and_congr (finCrtEquiv_fst_pred_iff hp h n)
         (finCrtEquiv_snd_eq_zero_iff h n).symm).trans
@@ -223,7 +212,7 @@ def finCrtDvdSubtypeEquiv {p : Nat  ->  Prop} {a q : Nat}
 theorem count_and_dvd_mul {p : Nat  ->  Prop} [DecidablePred p]
     {a q : Nat} (ha : 0 < a) (hq : 0 < q) (hp : Periodic p a)
     (hcoprime : a.Coprime q) :
-    Nat.count (fun n => p n  AND  q  DVD  n) (a * q) = Nat.count p a := by
+    Nat.count (fun n => (And (p n) ((Dvd.dvd (q) (n))))) (a * q) = Nat.count p a := by
   let _ : NeZero a := (NeZero.mk ha.ne')
   let _ : NeZero q := (NeZero.mk hq.ne')
   rw [count_eq_card_fin, count_eq_card_fin]
@@ -246,9 +235,9 @@ theorem count_mul_period_commuted {p : Nat  ->  Prop} [DecidablePred p]
 theorem count_and_not_dvd_mul {p : Nat  ->  Prop} [DecidablePred p]
     {a q : Nat} (ha : 0 < a) (hq : 0 < q) (hp : Periodic p a)
     (hcoprime : a.Coprime q) :
-    Nat.count (fun n => p n  AND  NOT  q  DVD  n) (a * q) =
+    Nat.count (fun n => (And (p n) ((Not ((Dvd.dvd (q) (n))))))) (a * q) =
       (q - 1) * Nat.count p a := by
-  have hpartition := count_and_partition p (fun n => q  DVD  n) (a * q)
+  have hpartition := count_and_partition p (fun n => (Dvd.dvd (q) (n))) (a * q)
   rw [count_and_dvd_mul ha hq hp hcoprime,
     count_mul_period_commuted hp hq] at hpartition
   have hqeq : q = (q - 1) + 1 := by omega
@@ -262,7 +251,7 @@ theorem count_and_not_dvd_mul {p : Nat  ->  Prop} [DecidablePred p]
   rw [htotal] at hpartition
   apply Nat.add_left_cancel (n := Nat.count p a)
   calc
-    Nat.count p a + Nat.count (fun n => p n  AND  NOT  q  DVD  n) (a * q) =
+    Nat.count p a + Nat.count (fun n => (And (p n) ((Not ((Dvd.dvd (q) (n))))))) (a * q) =
         (q - 1) * Nat.count p a + Nat.count p a := hpartition
     _ = Nat.count p a + (q - 1) * Nat.count p a := by ac_rfl
 
@@ -303,7 +292,7 @@ def HasNaturalDensity (predicate : Nat  ->  Prop) [DecidablePred predicate]
 theorem HasNaturalDensity.congr {predicate predicate' : Nat  ->  Prop}
     [DecidablePred predicate] [DecidablePred predicate'] {density : Real}
     (has_density : HasNaturalDensity predicate density)
-    (equivalent : forall  n, predicate n  IFF  predicate' n) :
+    (equivalent : forall  n, (Iff (predicate n) (predicate' n))) :
     HasNaturalDensity predicate' density := by
   unfold HasNaturalDensity at has_density
   unfold HasNaturalDensity
@@ -385,7 +374,7 @@ theorem hasNaturalDensity_of_periodic {predicate : Nat  ->  Prop}
 
 /-- Delete the value at zero from a predicate. -/
 def WithoutZero (predicate : Nat  ->  Prop) (n : Nat) : Prop :=
-  Not (n = 0)  AND  predicate n
+  (And (Not (n = 0)) (predicate n))
 
 instance instDecidablePredWithoutZero (predicate : Nat  ->  Prop)
     [DecidablePred predicate] : DecidablePred (WithoutZero predicate) :=
@@ -449,29 +438,26 @@ namespace E690Proof
 
 /-- The number of entries in a finite list which divide `n`. -/
 def selectedDivisorCount (entries : List Nat) (n : Nat) : Nat :=
-  (entries.filter fun entry => entry  DVD  n).length
+  (entries.filter fun entry => (Dvd.dvd (entry) (n))).length
 
 /-- Divisibility by `p`, together with exactly `r` selected divisors from a
 finite list. -/
 def HasSelectedDivisors (entries : List Nat) (r p n : Nat) : Prop :=
-  p  DVD  n  AND  selectedDivisorCount entries n = r
+  (And ((Dvd.dvd (p) (n))) (selectedDivisorCount entries n = r))
 
 theorem hasSelectedDivisors_cons_zero_iff (q : Nat) (entries : List Nat) (p n : Nat) :
-    HasSelectedDivisors (q :: entries) 0 p n  IFF
-      NOT  q  DVD  n  AND  HasSelectedDivisors entries 0 p n := by
-  by_cases hq : q  DVD  n <;>
+    (Iff (HasSelectedDivisors (q :: entries) 0 p n) ((And ((Not ((Dvd.dvd (q) (n))))) (HasSelectedDivisors entries 0 p n)))) := by
+  by_cases hq : (Dvd.dvd (q) (n)) <;>
     simp [HasSelectedDivisors, selectedDivisorCount, hq]
 
 theorem hasSelectedDivisors_cons_succ_iff
     (q : Nat) (entries : List Nat) (r p n : Nat) :
-    HasSelectedDivisors (q :: entries) (r + 1) p n  IFF
-      (q  DVD  n  AND  HasSelectedDivisors entries r p n)  OR
-        (NOT  q  DVD  n  AND  HasSelectedDivisors entries (r + 1) p n) := by
-  by_cases hq : q  DVD  n <;>
+    (Iff (HasSelectedDivisors (q :: entries) (r + 1) p n) ((Or (((And ((Dvd.dvd (q) (n))) (HasSelectedDivisors entries r p n)))) (((And ((Not ((Dvd.dvd (q) (n))))) (HasSelectedDivisors entries (r + 1) p n))))))) := by
+  by_cases hq : (Dvd.dvd (q) (n)) <;>
     simp [HasSelectedDivisors, selectedDivisorCount, hq]
 
 theorem hasSelectedDivisors_empty_iff (p n : Nat) :
-    HasSelectedDivisors [] 0 p n  IFF  p  DVD  n := by
+    (Iff (HasSelectedDivisors [] 0 p n) ((Dvd.dvd (p) (n)))) := by
   simp [HasSelectedDivisors, selectedDivisorCount]
 
 instance instDecidablePredHasSelectedDivisors (entries : List Nat) (r p : Nat) :
@@ -500,7 +486,7 @@ theorem count_hasSelectedDivisors_empty (p : Nat) (hp : 0 < p) :
   simp
 
 theorem selectedDivisorCount_add_of_dvd (entries : List Nat) {shift : Nat}
-    (shift_dvd : forall entry, entry IN entries -> entry  DVD  shift) (n : Nat) :
+    (shift_dvd : forall entry, (Membership.mem (entries) (entry)) -> (Dvd.dvd (entry) (shift))) (n : Nat) :
     selectedDivisorCount entries (n + shift) =
       selectedDivisorCount entries n := by
   unfold selectedDivisorCount
@@ -521,7 +507,7 @@ theorem hasSelectedDivisors_periodic (entries : List Nat) (r p : Nat) :
     Periodic (HasSelectedDivisors entries r p) (p * entries.prod) := by
   intro n
   apply propext
-  have p_dvd_shift : p  DVD  p * entries.prod := dvd_mul_right p entries.prod
+  have p_dvd_shift : (Dvd.dvd (p) (p * entries.prod)) := dvd_mul_right p entries.prod
   have count_periodic :
       selectedDivisorCount entries (n + p * entries.prod) =
         selectedDivisorCount entries n := by
@@ -535,7 +521,7 @@ theorem hasSelectedDivisors_periodic (entries : List Nat) (r p : Nat) :
 def ValidSelectionEntries (p : Nat) : List Nat  ->  Prop
   | [] => True
   | q :: entries =>
-      0 < q  AND  (p * entries.prod).Coprime q  AND  ValidSelectionEntries p entries
+      (And (0 < q) ((And ((p * entries.prod).Coprime q) (ValidSelectionEntries p entries))))
 
 theorem validSelectionEntries_prod_pos {p : Nat} (hp : 0 < p) :
     forall  {entries : List Nat}, ValidSelectionEntries p entries  ->  0 < p * entries.prod
@@ -548,7 +534,7 @@ theorem validSelectionEntries_prod_pos {p : Nat} (hp : 0 < p) :
 
 theorem validSelectionEntries_of_primes (p : Nat) (p_prime : p.Prime) :
     forall  (entries : List Nat),
-      (forall q, q IN entries -> q.Prime)  ->  Not (p IN entries)  ->  entries.Nodup  ->
+      (forall q, (Membership.mem (entries) (q)) -> q.Prime)  ->  Not ((Membership.mem (entries) (p)))  ->  entries.Nodup  ->
         ValidSelectionEntries p entries
   | [], _, _, _ => trivial
   | q :: entries, all_prime, p_not_mem, nodup => by
@@ -579,7 +565,7 @@ theorem validSelectionEntries_primesBelow {p : Nat} (p_prime : p.Prime) :
   apply validSelectionEntries_of_primes p p_prime
   next =>
     intro q hq
-    exact (by simpa [primesBelow] using hq : q < p  AND  q.Prime).2
+    exact (by simpa [primesBelow] using hq : (And (q < p) (q.Prime))).2
   next =>
     simp [primesBelow]
   next =>
@@ -608,7 +594,7 @@ theorem count_hasSelectedDivisors_eq_selectionNumerator
             Nat.count (HasSelectedDivisors (q :: entries) 0 p)
                 (p * (q :: entries).prod) =
                 Nat.count (fun n =>
-                  HasSelectedDivisors entries 0 p n  AND  NOT  q  DVD  n)
+                  (And (HasSelectedDivisors entries 0 p n) ((Not ((Dvd.dvd (q) (n)))))))
                   ((p * entries.prod) * q) := by
               rw [hbound]
               apply Nat.count_congr_iff
@@ -625,13 +611,13 @@ theorem count_hasSelectedDivisors_eq_selectionNumerator
               rfl
       | succ r =>
           let left : Nat  ->  Prop := fun n =>
-            HasSelectedDivisors entries r p n  AND  q  DVD  n
+            (And (HasSelectedDivisors entries r p n) ((Dvd.dvd (q) (n))))
           let right : Nat  ->  Prop := fun n =>
-            HasSelectedDivisors entries (r + 1) p n  AND  NOT  q  DVD  n
+            (And (HasSelectedDivisors entries (r + 1) p n) ((Not ((Dvd.dvd (q) (n))))))
           calc
             Nat.count (HasSelectedDivisors (q :: entries) (r + 1) p)
                 (p * (q :: entries).prod) =
-                Nat.count (fun n => left n  OR  right n)
+                Nat.count (fun n => (Or (left n) (right n)))
                   ((p * entries.prod) * q) := by
               rw [hbound]
               apply Nat.count_congr_iff
@@ -668,7 +654,7 @@ theorem selectedDivisorCount_primesBelow (p n : Nat) (n_ne_zero : Not (n = 0)) :
     selectedDivisorCount (primesBelow p) n =
       (n.primeFactors.filter fun q => q < p).card := by
   let candidates := (Finset.range p).filter Nat.Prime
-  change (List.filter (fun entry => decide (entry  DVD  n))
+  change (List.filter (fun entry => decide ((Dvd.dvd (entry) (n))))
       (candidates.sort fun a b => a  <=  b)).length = _
   rw [<-  List.toFinset_card_of_nodup
     ((Finset.sort_nodup candidates (fun a b => a  <=  b)).filter _)]
@@ -690,14 +676,14 @@ theorem HasNaturalDensity.toSet {predicate : Nat -> Prop}
     (h : HasNaturalDensity predicate density) :
     Set.HasDensity {n | predicate n} density := by
   have counts (n : Nat) :
-      ({x : Nat | predicate x} ANDSET Set.Iio n).ncard =
+      ((Inter.inter ({x : Nat | predicate x}) (Set.Iio n))).ncard =
         Nat.count predicate n := by
     rw [Nat.count_eq_card_filter_range]
-    have hset : ({x : Nat | predicate x} ANDSET Set.Iio n) =
+    have hset : ((Inter.inter ({x : Nat | predicate x}) (Set.Iio n))) =
         (((Finset.range n).filter predicate : Finset Nat) : Set Nat) := by
       ext x
       change Iff (And (predicate x) (x < n))
-        (x IN ((Finset.range n).filter predicate))
+        ((Membership.mem (((Finset.range n).filter predicate)) (x)))
       simp only [Finset.mem_filter, Finset.mem_range, and_comm]
     rw [hset, Set.ncard_coe_finset]
   have partial_value (n : Nat) :
@@ -729,8 +715,7 @@ theorem density_of_prime (p : Nat) (hp : p.Prime) :
     (primesBelow p) (validSelectionEntries_primesBelow hp) 3] at h
   have hz := h.withoutZero
   have hpred : forall n,
-      WithoutZero (HasSelectedDivisors (primesBelow p) 3 p) n IFF
-        n IN Problem.kthPrimeFactorSet 4 p := by
+      (Iff (WithoutZero (HasSelectedDivisors (primesBelow p) 3 p) n) ((Membership.mem (Problem.kthPrimeFactorSet 4 p) (n)))) := by
     intro n
     by_cases hn : n = 0
     next =>
@@ -810,7 +795,7 @@ def answer : Prop := False
 
 /-- The exact frozen MathDB target is false; k=4 refutes its universal claim. -/
 theorem solution : Problem.Target answer := by
-  change False IFF _
+  change (Iff (False) (_))
   constructor
   next =>
     intro h

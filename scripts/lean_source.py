@@ -26,6 +26,11 @@ AUTO_IMPLICIT_FALSE: Final[re.Pattern[str]] = re.compile(
     r"(?m)^\s*set_option\s+autoImplicit\s+false\s*$"
 )
 
+MATHDB_FORBIDDEN_SYNTAX: Final[re.Pattern[str]] = re.compile(
+    r"(?m)^\s*(?:(?:local|scoped)\s+)*(?:infix[lr]?|prefix|postfix|notation|syntax|"
+    r"macro(?:_rules)?|elab(?:_rules)?|run_cmd|run_elab|initialize|builtin_initialize)\b"
+)
+
 
 class LeanSourceError(RuntimeError):
     """Raised when Lean source or a boundary declaration violates policy."""
@@ -119,6 +124,10 @@ def check_lean_sources(root: Path, candidates: Sequence[str]) -> None:
             failures.append(f"{relative}: discovery command `{match.group(0).strip()}`")
         if match := BROAD_IMPORT.search(code):
             failures.append(f"{relative}: broad import `{match.group(0).strip()}`")
+        if relative == "Submission.lean" and (match := MATHDB_FORBIDDEN_SYNTAX.search(code)):
+            failures.append(
+                f"{relative}: MathDB forbids syntax/elaborator commands `{match.group(0).strip()}`"
+            )
         imports = lean_imports(code)
         if imports != sorted(imports):
             failures.append(f"{relative}: imports are not in ordinal order")
