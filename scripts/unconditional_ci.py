@@ -10,9 +10,10 @@ import tempfile
 import time
 from pathlib import Path
 
-from scripts.conditional_dusart_ci import build, replay_units
-from scripts.conditional_dusart_plan import plan
+from scripts.conditional_dusart_ci import build, replay_units, run_lake
+from scripts.conditional_dusart_plan import Unit, plan
 from scripts.conditional_release_receipt import check_axioms, clean_commit
+from scripts.unconditional_complete_restore import restore_complete
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = "PrimeFactorUnimodality"
@@ -53,10 +54,32 @@ def audit(root: Path, scratch: Path) -> str:
     return result.stdout
 
 
+def replay_proof(
+    root: Path,
+    units: list[Unit],
+    repo: str,
+    commit: str,
+    deadline: float,
+    *,
+    read_only: bool,
+) -> None:
+    restored = restore_complete(
+        root,
+        units,
+        repo,
+        os.environ.get("GITHUB_RUN_ID", ""),
+        check_report=check_report,
+    )
+    if restored and run_lake(root, (TARGET,), deadline, check=True) == 0:
+        print("Complete unconditional proof validated; no certificate rebuild needed", flush=True)
+        return
+    replay_units(root, units, repo, commit, deadline, read_only=read_only)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--plan", action="store_true")
-    parser.add_argument("--minutes", type=int, default=280)
+    parser.add_argument("--minutes", type=int, default=340)
     args = parser.parse_args()
     if args.minutes <= 0:
         parser.error("minutes must be positive")
@@ -69,7 +92,7 @@ def main() -> None:
     commit = os.environ["GITHUB_SHA"]
     clean_commit(ROOT, commit)
     deadline = time.monotonic() + args.minutes * 60
-    replay_units(
+    replay_proof(
         ROOT,
         units,
         os.environ["GITHUB_REPOSITORY"],

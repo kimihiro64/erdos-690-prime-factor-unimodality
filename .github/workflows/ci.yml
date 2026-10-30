@@ -1783,7 +1783,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p .research
-          python3 -m scripts.unconditional_ci --minutes 280 2>&1 |
+          python3 -m scripts.unconditional_ci --minutes 340 2>&1 |
             tee .research/unconditional-build.log
       - name: Upload unconditional proof diagnostics
         if: always()

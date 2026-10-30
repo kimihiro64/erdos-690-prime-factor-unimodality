@@ -16,7 +16,8 @@ def test_unconditional_release_has_no_retired_provider_gate() -> None:
         assert "CONDITIONAL_CI_BUILDS" not in jobs[name], name
     build = jobs["build"]
     assert "needs: [release_version, metadata-and-boundary, python]" in build
-    assert "scripts.unconditional_ci --minutes 280" in build
+    assert "scripts.unconditional_ci --minutes 340" in build
+    assert "timeout-minutes: 360" in build
     assert "scripts.conditional_dusart_ci" not in build
     assert "unconditional-proof-audit" in build
     assert "linux-lean-build" in build

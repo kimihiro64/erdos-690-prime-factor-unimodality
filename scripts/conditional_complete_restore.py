@@ -20,12 +20,14 @@ from scripts.conditional_release_bundle import verify_parts
 from scripts.conditional_release_receipt import validate_receipt
 
 
-def candidate_runs(repo: str, current_run: str) -> list[dict[str, Any]]:
+def candidate_runs(
+    repo: str, current_run: str, workflow: str = "conditional-dusart.yml"
+) -> list[dict[str, Any]]:
     result = subprocess.check_output(
         [
             "gh",
             "api",
-            f"repos/{repo}/actions/workflows/conditional-dusart.yml/runs?branch=main&per_page=30",
+            f"repos/{repo}/actions/workflows/{workflow}/runs?branch=main&per_page=30",
         ],
         text=True,
     )
