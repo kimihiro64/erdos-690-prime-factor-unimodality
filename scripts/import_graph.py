@@ -69,7 +69,7 @@ def library_namespace(root: Path) -> str:
         for relative in public_candidate_paths(root)
         if (path := Path(relative)).parent == Path(".")
         and path.suffix == ".lean"
-        and path.name not in {"Challenge.lean", "Solution.lean"}
+        and path.name not in {"Challenge.lean", "Solution.lean", "Submission.lean"}
         and (root / path.stem).is_dir()
     )
     if len(candidates) != 1:

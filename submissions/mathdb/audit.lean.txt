@@ -1,29 +1,39 @@
 /- Validation harness: append to the exact Submission.lean source,
-   then compile in the pinned MathDB environment. This is not answer source. -/
+   then compile with Lean 4.34.0. This is outside the answer's import closure. -/
 open Lean Elab Command in
 run_cmd do
   let env <- getEnv
   let localDeclarations <- env.getLocalConstantInfos (skipTheoremSubDecls := false)
-  let additions := localDeclarations.filterMap fun info =>
-    if isReservedName env info.name && env.isImportedConst info.name.getPrefix then
-      none
-    else
-      some info.name
+  let localNames := localDeclarations.map fun info => info.name
+  let importedNames := env.constants.fold (init := (#[] : Array Name)) fun names name _ =>
+    match env.getModuleIdxFor? name with
+    | none => names
+    | some idx =>
+      let moduleName := env.header.moduleNames[idx.toNat]!
+      if (`Submission).isPrefixOf moduleName then names.push name else names
+  let mut seen : Std.HashSet Name := {}
+  let mut additions : Array Name := #[]
+  for name in localNames ++ importedNames do
+    if isReservedName env name && env.isImportedConst name.getPrefix then
+      continue
+    if seen.contains name then
+      continue
+    seen := seen.insert name
+    additions := additions.push name
   if additions.isEmpty then
     throwError "MATHDB_NAMESPACE_AUDIT_EMPTY: no answer declarations inspected"
   let outside := additions.filter fun name =>
     !((`Submission).isPrefixOf (privateToUserName name))
   if !(outside.isEmpty) then
     throwError "MATHDB_NAMESPACE_REJECTED {outside.size} declaration(s): {outside}"
-  logInfo m!"MATHDB_NAMESPACE_OK {additions.size} declaration(s); outside Submission: 0"
+  let ownModules := env.header.moduleNames.filter fun name => (`Submission).isPrefixOf name
+  logInfo m!"MATHDB_NAMESPACE_OK {additions.size} declaration(s); owned modules {ownModules.size}; outside Submission: 0"
+  let axioms <- collectAxioms `Submission.solution
   let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
-  for declaration in #[`Submission.solution,
-      `Submission.E690Proof.density_of_prime,
-      `Submission.E690Proof.not_unimodal] do
-    let axioms <- collectAxioms declaration
-    let unsupported := axioms.filter fun name => !(allowed.contains name)
-    if !(unsupported.isEmpty) then
-      throwError "MATHDB_AXIOM_REJECTED {declaration}: {unsupported}"
-    logInfo m!"MATHDB_AXIOMS_OK {declaration}: {axioms}"
+  let unsupported := axioms.filter fun name => !(allowed.contains name)
+  if !(unsupported.isEmpty) then
+    throwError "MATHDB_AXIOM_REJECTED Submission.solution: {unsupported}"
+  logInfo m!"MATHDB_AXIOMS_OK Submission.solution: {axioms}"
 
 #check (Submission.solution : Problem.Target Submission.answer)
+#check (Submission.solution : Problem.Target True)

@@ -130,35 +130,29 @@ graph. The separate conditional workflow is manual-only and retains its
 ## MathDB submission
 
 MathDB problem [315817](https://mathdb.com/p/315817/erdos-problem-690-let-d-k-p-be-the-density-of-those-integers)
-uses the official [E690 target](https://github.com/mathdb-lean/problems/blob/8418d8e7e69f8267fbdf2b57d0bcd8f07a8d2a5d/problems/formal-conjectures/315817/E690.lean).
-Its question is whether *every* positive `k` gives unimodality. Its accepted
-negative answer has the form `Submission.answer := False` and
+now uses the [complete E690 classification](https://github.com/mathdb-lean/problems/blob/941a0de9549149fd75bdba27ab583a4627b314f4/problems/315817/E690.lean):
+for every $k\geq 1$, the natural-density function is unimodal exactly when
+$k\leq 3$. The entrypoint supplies `Submission.answer := True` and
 `Submission.solution : Problem.Target Submission.answer`.
 
-That target is weaker than the complete classification above and quantifies
-over real-valued functions recording the actual natural densities. Its frozen
-environment is Lean 4.34.1 / Mathlib
-`d13f23b723b8a846827a245b89c10fc7d3f11612`, with an import allowlist that
-does not include this project. The complete standalone answer is
-[Submission.lean](Submission.lean), with its exact
-[environment and verification record](submissions/mathdb/environment.json).
-It includes the CRT counting and natural-density proofs and the strict
-`k=4` valley at primes 13, 17, and 19, with no project imports.
+[Submission.lean](Submission.lean) connects the actual natural densities in
+that statement to the complete classification. Its imported proof modules
+are under [Submission/Internal](Submission/Internal), with every added
+declaration inside `namespace Submission`. The export uses standard Lean
+syntax, introduces no syntax extensions, and contains no commands that run
+elaborator code. The original suggestion-index configuration is excluded;
+Lean already excludes the `Internal` namespace from that optional index.
 
-The repository-root `Submission.lean` is the MathDB entrypoint. Its proof is
-self-contained inside `namespace Submission`, so no additional `Submission/`
-files or repository library imports are needed. MathDB checks this file in its
-frozen Lean 4.34.1 environment; the separate all-k `Solution.lean` uses this
-project's pinned Lean 4.34.0 environment.
+This export stays on the repository's pinned **Lean 4.34.0** toolchain.
+The [source manifest](submissions/mathdb/source-manifest.json) records the
+original proof revision, the namespace transformation, and every file hash.
+The [verification record](submissions/mathdb/environment.json) distinguishes
+local checks from an external MathDB grader result. Use the root entrypoint
+and its complete imported `Submission/` tree together.
 
-The exact submission source, followed by axiom inspection commands, passed
-Lean 4.34.1 against the unchanged official target. Its solution, density
-bridge, and counterexample depend only on `propext`, `Classical.choice`, and
-`Quot.sound`. An external MathDB grader run is not claimed.
-
-Paste the entire standalone file into MathDB's solution editor; its grader
-supplies `FtpEvalBench.E690`. This file uses the separate frozen environment,
-so build it there rather than with this repository's Lean 4.34.0 toolchain.
+The [previous MathDB-verified answer](https://github.com/kimihiro64/erdos-690-prime-factor-unimodality/blob/ea33a668f3c5368827df6332202c0713c48e851c/Submission.lean)
+proved the former target false using `k=4`. That verification applies to the
+older counterexample target; it is not verification of this new all-k export.
 
 ## Attribution and review
 

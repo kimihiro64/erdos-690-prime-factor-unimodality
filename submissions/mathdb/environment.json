@@ -1,62 +1,86 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "problem": "E690",
   "mathdb_page_id": 315817,
-  "answer": "False",
+  "answer": "True",
   "theorem": "Submission.solution : Problem.Target Submission.answer",
+  "scope": "For every positive k and every function giving the actual natural densities on primes, that function is unimodal on primes if and only if k <= 3.",
   "submission": {
     "file": "Submission.lean",
-    "sha256": "5117b27dd356b896f923adb1a5b7b00c54ba3a93e8d6268434fc73e042dc1227"
+    "sha256": "38be34c4d8f07730728311d5e03bfac5ef8e3d6db3208c463170e72c82955bd0",
+    "source_manifest": "submissions/mathdb/source-manifest.json",
+    "imported_proof_modules": 1242
   },
   "environment": {
-    "lean": "leanprover/lean4:v4.34.1",
-    "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+    "lean": "leanprover/lean4:v4.34.0",
+    "lean_commit": "293d5d0c0c3f3dded4688b3ccd6a33939ac5102b",
+    "mathlib_commit": "5ed2965256430c3649e86755f9576b54eca72435",
     "statement_repository": "https://github.com/mathdb-lean/problems",
-    "statement_repository_commit": "8418d8e7e69f8267fbdf2b57d0bcd8f07a8d2a5d",
-    "target_source": "problems/formal-conjectures/315817/E690.lean",
-    "target_git_blob": "f0744f2dc6a1431f063303b0caf88eca521e369c",
-    "target_sha256": "61d3b21635eee37e449570cc1236d95216690bab83b15f463180a4e6c3f8e426",
+    "statement_repository_commit": "941a0de9549149fd75bdba27ab583a4627b314f4",
+    "target_source": "problems/315817/E690.lean",
+    "target_git_blob": "ffb7aa34956416875452aea6f47943f393f4074f",
+    "target_sha256": "fe09b5849cd4697f920b0479a83657c42c69df68ccfeae03415d17ffef1a022c",
     "target_import": "FtpEvalBench.E690",
-    "statement_id": "423b6ad3-596d-4a28-a3d3-e35249136450",
+    "target_snapshot": "submissions/mathdb/target-upstream.lean.txt",
+    "density_fixture": "submissions/mathdb/density-4.34.lean.txt",
+    "density_fixture_sha256": "8fe493f9c008f3dddbbf2fb49728075cb86fd4c2ea8694cfa5127596e14cba2a",
+    "target_adaptation": "Only the FormalConjecturesUtil prelude import is replaced by the recorded density fixture. The accepted Problem definitions and target are unchanged.",
     "lean_options": {
-      "pp.unicode.fun": true,
       "autoImplicit": false,
       "relaxedAutoImplicit": false
     }
   },
   "verification": {
-    "date_utc": "2026-10-29",
-    "local_compiler_exit_code": null,
-    "method": "Source syntax policy passed; focused Lean recheck running after inlining local notation.",
+    "date_utc": "2026-11-06",
+    "status": "local_lean_verified",
+    "local_compiler_exit_code": 0,
+    "exact_target_adapter_compiler_exit_code": 0,
     "exact_source_is_prefix_of_audited_compilation": true,
-    "declarations": [
-      "Submission.solution",
-      "Submission.E690Proof.density_of_prime",
-      "Submission.E690Proof.not_unimodal"
+    "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
     ],
-    "axioms": null,
-    "project_imports": [],
     "placeholders": [],
     "external_mathdb_grader_run": false,
     "namespace_audit": {
       "harness": "submissions/mathdb/audit.lean.txt",
       "required_namespace": "Submission",
-      "checked_declarations": null,
-      "outside_namespace": null,
-      "negative_control_rejected_original_helpers": 19
+      "checks_imported_owned_modules": true,
+      "checked_declarations": 19692,
+      "checked_owned_modules": 1242,
+      "outside_namespace": 0,
+      "negative_control_original_helpers_rejected": 19,
+      "negative_control_original_declarations_including_auxiliaries_rejected": 40,
+      "negative_control_imported_namespace_leak_rejected": true,
+      "negative_control_wrong_goal_rejected": true
     },
-    "status": "focused_lean_recheck_running",
-    "previous_compilation_axioms": [
-      "propext",
-      "Classical.choice",
-      "Quot.sound"
-    ],
     "syntax_audit": {
+      "checked_answer_files": 1243,
       "syntax_extensions": 0,
       "elaborator_commands": 0,
-      "custom_notation_uses": 0,
-      "policy_tests_passed": 33
+      "placeholders": 0
+    },
+    "imported_module_build_exit_code": 0,
+    "imported_modules_compiled": 1242,
+    "audit_compiler_exit_code": 0,
+    "method": "Lean 4.34.0 compiled every imported answer module and the actual root entrypoint. The exact entrypoint source prefix was then compiled with the recorded namespace/axiom harness against the accepted target body and recorded density definitions.",
+    "axiom_audit_target": "Submission.solution",
+    "fixed_true_target_checked": true,
+    "all_compiled_imported_source_hashes_match_manifest": true,
+    "main_ci_cache_inputs": {
+      "base": "4eac923f7d453c928d35a5dea2612eba6a127563",
+      "target": "PrimeFactorUnimodality",
+      "owned_modules": 1242,
+      "checked_inputs": 1252,
+      "changed_ci_proof_inputs": 0,
+      "source_configuration_keys_unchanged": true,
+      "submission_modules_in_main_ci_closure": 0
     }
   },
-  "scope": "Negative answer to universal unimodality, with actual natural densities for k=4. The stronger unconditional all-k classification is exported separately by the main repository Solution.lean."
+  "previous_external_verification": {
+    "commit": "ea33a668f3c5368827df6332202c0713c48e851c",
+    "scope": "Former counterexample target only; this is not external verification of the new all-k export."
+  },
+  "release_version": "0.1.4"
 }

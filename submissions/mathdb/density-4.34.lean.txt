@@ -1,0 +1,31 @@
+import Mathlib.Analysis.SpecialFunctions.Log.Basic
+import Mathlib.Data.Nat.PrimeFin
+import Mathlib.Data.Set.Card
+import Mathlib.Order.Interval.Finset.Basic
+import Mathlib.Topology.Algebra.Order.Field
+
+set_option autoImplicit false
+
+/-! Validation-only density definitions from the frozen MathDB prelude.
+
+The definitions are those in FormalConjecturesForMathlib/Data/Set/Density.lean
+at e04cc601840dd7a37f89b821a67f3a9e3c38d9c3. Only imports are adapted to the
+proof repository's Lean 4.34.0 environment. This is not answer source.
+-/
+
+open Filter
+open scoped Topology
+
+namespace Set
+
+noncomputable abbrev partialDensity {beta : Type*} [Preorder beta]
+    [LocallyFiniteOrderBot beta] (S : Set beta) (A : Set beta := Set.univ)
+    (b : beta) : Real :=
+  ((Inter.inter (Inter.inter S A) (Iio b)).ncard : Real) /
+    ((Inter.inter A (Iio b)).ncard : Real)
+
+def HasDensity {beta : Type*} [Preorder beta] [LocallyFiniteOrderBot beta]
+    (S : Set beta) (density : Real) (A : Set beta := Set.univ) : Prop :=
+  Tendsto (fun b : beta => S.partialDensity A b) atTop (nhds density)
+
+end Set
