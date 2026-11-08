@@ -68,7 +68,8 @@
     "axiom_audit_target": "Submission.solution",
     "fixed_true_target_checked": true,
     "all_compiled_imported_source_hashes_match_manifest": true,
-    "main_ci_cache_inputs": {
+    "previous_main_ci_cache_inputs": {
+      "verified_at_commit": "3aaf075e3bbd6b8d76daf5854b583691baaada95",
       "base": "4eac923f7d453c928d35a5dea2612eba6a127563",
       "target": "PrimeFactorUnimodality",
       "owned_modules": 1242,
@@ -76,11 +77,23 @@
       "changed_ci_proof_inputs": 0,
       "source_configuration_keys_unchanged": true,
       "submission_modules_in_main_ci_closure": 0
+    },
+    "lake_integration": {
+      "date_utc": "2026-11-08",
+      "library": "Submission",
+      "roots": [
+        "Submission"
+      ],
+      "module_resolution": "registered",
+      "proof_sources_changed": false,
+      "prelude": "FtpEvalBench.E690 is supplied by the MathDB workspace.",
+      "validation": "The pinned Lake 4.34.0 recognises the entrypoint and its owned modules. The no-build query does not rebuild missing Lake artifacts; the prior direct-compiler proof and namespace/axiom audits are unchanged.",
+      "external_verification": "Pending retry with the registered library."
     }
   },
   "previous_external_verification": {
     "commit": "ea33a668f3c5368827df6332202c0713c48e851c",
     "scope": "Former counterexample target only; this is not external verification of the new all-k export."
   },
-  "release_version": "0.1.4"
+  "release_version": "0.1.5"
 }
