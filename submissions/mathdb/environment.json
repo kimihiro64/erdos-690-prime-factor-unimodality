@@ -28,10 +28,13 @@
     "lean_options": {
       "autoImplicit": false,
       "relaxedAutoImplicit": false
-    }
+    },
+    "direct_lake_dependencies": [
+      "mathlib"
+    ]
   },
   "verification": {
-    "date_utc": "2026-11-06",
+    "date_utc": "2026-11-08",
     "status": "local_lean_verified",
     "local_compiler_exit_code": 0,
     "exact_target_adapter_compiler_exit_code": 0,
@@ -47,7 +50,7 @@
       "harness": "submissions/mathdb/audit.lean.txt",
       "required_namespace": "Submission",
       "checks_imported_owned_modules": true,
-      "checked_declarations": 19692,
+      "checked_declarations": 19694,
       "checked_owned_modules": 1242,
       "outside_namespace": 0,
       "negative_control_original_helpers_rejected": 19,
@@ -59,12 +62,14 @@
       "checked_answer_files": 1243,
       "syntax_extensions": 0,
       "elaborator_commands": 0,
-      "placeholders": 0
+      "placeholders": 0,
+      "attribute_commands": 2,
+      "foreign_attribute_targets": 0
     },
     "imported_module_build_exit_code": 0,
     "imported_modules_compiled": 1242,
     "audit_compiler_exit_code": 0,
-    "method": "Lean 4.34.0 compiled every imported answer module and the actual root entrypoint. The exact entrypoint source prefix was then compiled with the recorded namespace/axiom harness against the accepted target body and recorded density definitions.",
+    "method": "Lean 4.34.0 recompiled both edited imported modules and the actual root entrypoint using the unchanged compiled imports. The exact root source prefix then passed the full imported-module namespace/axiom audit, both fixed target checks, and explicit type checks for the two owned attribute aliases.",
     "axiom_audit_target": "Submission.solution",
     "fixed_true_target_checked": true,
     "all_compiled_imported_source_hashes_match_manifest": true,
@@ -85,15 +90,23 @@
         "Submission"
       ],
       "module_resolution": "registered",
-      "proof_sources_changed": false,
+      "proof_sources_changed": true,
       "prelude": "FtpEvalBench.E690 is supplied by the MathDB workspace.",
-      "validation": "The pinned Lake 4.34.0 recognises the entrypoint and its owned modules. The no-build query does not rebuild missing Lake artifacts; the prior direct-compiler proof and namespace/axiom audits are unchanged.",
-      "external_verification": "Pending retry with the registered library."
-    }
+      "validation": "Lake 4.34.0 built the locally vendored PrimeNumberTheoremAnd.EulerMaclaurin module. The sole direct Lake dependency is mathlib. The exact MathDB entrypoint and both edited imported modules compiled, and the namespace/axiom audit passed.",
+      "external_verification": "Pending retry with the registered library.",
+      "attribute_targets": [
+        "Submission.Internal.Chebyshev.mathdbDifferentiableWithinAt",
+        "Submission.Internal.Mertens.mathdbMeasurableFromTop"
+      ]
+    },
+    "freshly_recompiled_imported_modules": [
+      "Submission.Internal.VendorPrimeNumberTheoremAnd.ElementaryChebyshev",
+      "Submission.Internal.VendorPrimeNumberTheoremAnd.Mertens"
+    ]
   },
   "previous_external_verification": {
     "commit": "ea33a668f3c5368827df6332202c0713c48e851c",
     "scope": "Former counterexample target only; this is not external verification of the new all-k export."
   },
-  "release_version": "0.1.5"
+  "release_version": "0.1.6"
 }

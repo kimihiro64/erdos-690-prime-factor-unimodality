@@ -2,8 +2,18 @@
   "schema_version": 1,
   "source_commit": "4eac923f7d453c928d35a5dea2612eba6a127563",
   "dependency_commit": "f6147e7572ab3abe5428101bc0b13627bcb005df",
+  "dependency_role": "Vendored source provenance only; mathlib is the sole direct Lake dependency.",
+  "project_vendored_sources": [
+    {
+      "file": "PrimeNumberTheoremAnd/EulerMaclaurin.lean",
+      "module": "PrimeNumberTheoremAnd.EulerMaclaurin",
+      "upstream_repository": "https://github.com/kimihiro64/PrimeNumberTheoremAnd",
+      "upstream_commit": "f6147e7572ab3abe5428101bc0b13627bcb005df",
+      "sha256": "a1def4a9f8f0b36864c5d480db137c1d86be3db1a47b67ae151e587a99167146"
+    }
+  ],
   "excluded_module": "PrimeFactorUnimodality.LeanConfig",
-  "transformation": "Prefix owned imports with Submission.Internal; wrap each original module body in namespace Submission.Internal; omit the nonmathematical suggestion-index module and its imports. Internal is already excluded from Lean's optional suggestion index. Explicitly open each original standard-library namespace when relocating its extension declarations. Close original implicit EOF sections explicitly before the outer namespace. Preserve standard Real opens alongside the relocated Real extensions. Include qualified declaration prefixes when detecting shadowed standard namespace openings. Remove redundant predecessor imports from independently checked record-twin tail chunks; each assembly imports every chunk in its block directly. Every declaration body is preserved byte for byte.",
+  "transformation": "Prefix owned imports with Submission.Internal; wrap each original module body in namespace Submission.Internal; omit the nonmathematical suggestion-index module and its imports. Internal is already excluded from Lean's optional suggestion index. Explicitly open each original standard-library namespace when relocating its extension declarations. Close original implicit EOF sections explicitly before the outer namespace. Preserve standard Real opens alongside the relocated Real extensions. Include qualified declaration prefixes when detecting shadowed standard namespace openings. Remove redundant predecessor imports from independently checked record-twin tail chunks; each assembly imports every chunk in its block directly. Every declaration body is preserved byte for byte. Retarget the two fun_prop attribute commands to Submission.Internal aliases, preserving their local/global scope.",
   "files": [
     {
       "file": "Submission/Internal/PrimeFactorUnimodality/Definitions/FiniteDensity.lean",
@@ -955,7 +965,7 @@
       "module": "Submission.Internal.VendorPrimeNumberTheoremAnd.ElementaryChebyshev",
       "source_module": "VendorPrimeNumberTheoremAnd.ElementaryChebyshev",
       "source_sha256": "077750c089266ba45d8530edaf06f1994e2074891c042bf7b9d9ba71005bacb5",
-      "sha256": "222abd03dc2c5de80881c2b2af39a956f99c022dd39dd14b00053fb56b22c0ca"
+      "sha256": "cd81a4021e110a0d94fe7fbdda8ee2e14416b9e7329a6d6b9ee3107b763ac975"
     },
     {
       "file": "Submission/Internal/PrimeFactorUnimodality/Helpers/Analytic/SharpElementaryChebyshev.lean",
@@ -1033,7 +1043,7 @@
       "module": "Submission.Internal.VendorPrimeNumberTheoremAnd.Mertens",
       "source_module": "VendorPrimeNumberTheoremAnd.Mertens",
       "source_sha256": "6aaeccf51e09b6e790c36342a004f52987ae552120697fcfce3bd59f51174bb4",
-      "sha256": "8aab609efb55a06a7ad70a4ddf1d2452411761ff3998e9e2e6cf2c08fd964a18"
+      "sha256": "acf392c9fc3eb175adf67a1b7998ee73aa01a33c95b3b94481a499ac246a64ae"
     },
     {
       "file": "Submission/Internal/PrimeFactorUnimodality/Helpers/Analytic/SharpMertensWeighted.lean",

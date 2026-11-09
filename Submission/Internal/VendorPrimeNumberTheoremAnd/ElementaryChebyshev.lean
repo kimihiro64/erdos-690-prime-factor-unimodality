@@ -37,7 +37,8 @@ private lemma Ioc_zero_eq_Icc_one (n : ℕ) : Finset.Ioc 0 n = Finset.Icc 1 n :=
   simp only [Finset.mem_Ioc, Finset.mem_Icc]
   omega
 
-attribute [local fun_prop] DifferentiableAt.differentiableWithinAt
+alias mathdbDifferentiableWithinAt := DifferentiableAt.differentiableWithinAt
+attribute [local fun_prop] Submission.Internal.Chebyshev.mathdbDifferentiableWithinAt
 
 noncomputable def T (x : ℝ) : ℝ :=
   ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, log n
