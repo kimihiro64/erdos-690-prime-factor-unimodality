@@ -70,19 +70,19 @@ python3 scripts/patch_pnt_compat.py
 python3 scripts/patch_primecert_compat.py
 ```
 
-This applies the reviewed Lean 4.34 API ports to four pinned PNT dependency
-files. It validates the exact Git revision and every target's full source,
-refuses unrelated edits, is idempotent, and preserves all build caches.
-CI applies the same ports before building. `--check` verifies without writing.
-The locked PNT revision and its original Apache-2.0 notices are unchanged.
+The normal build has Mathlib as its only external Lean dependency. The shared
+Euler-Maclaurin module is vendored under its original local module name.
+The hooks above retain the reviewed ports for historical locked PNT/PrimeCert
+checkouts. They return without accessing cached checkouts when those packages
+are absent from the manifest. For a present package they still validate its
+exact revision and full source, reject unrelated edits, preserve notices and
+build caches, and support a read-only `--check` mode.
 
-The PrimeCert port validates its exact locked revision and both affected
-sources before writing. It adapts the changed multiplicity API and restricts
-the congruence decomposition to nonzero moduli, a premise its sole caller
-already proves. The old zero-modulus statement is false under the current
-definition of multiplicity at zero. Sieve and primality conclusions are
-unchanged. The port preserves notices, unrelated edits and all caches;
-`--check` verifies it without writing. Every Lean CI job applies both ports.
+When removing or vendoring a dependency, first inventory both project and docs
+lockfiles, compatibility hooks, workflow callers and their tests. Do not use a
+focused Lean compile or the fast profile as evidence that all CI consumers
+work. Update the complete consumer set, then run the full Python suite and
+affected packaging checks before publishing.
 
 Run the research profile before opening a pull request. Release work additionally
 requires the full Palomar profile, paper, Comparator, NanoDa, clean Git state,

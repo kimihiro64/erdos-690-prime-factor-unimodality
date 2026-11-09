@@ -71,7 +71,12 @@ def git_output(package: Path, *args: str) -> str:
 def apply_patches(root: Path, *, check: bool = False) -> int:
     """Validate the locked revision and all files, then apply only these ports."""
     manifest = json.loads((root / "lake-manifest.json").read_text())
-    locked = next(p for p in manifest["packages"] if p["name"] == "PrimeNumberTheoremAnd")
+    locked = next(
+        (package for package in manifest["packages"] if package["name"] == "PrimeNumberTheoremAnd"),
+        None,
+    )
+    if locked is None:
+        return 0
     if locked["rev"] != REVISION:
         raise ValueError("PNT lock revision changed; review compatibility patches first")
     package = root / ".lake/packages/PrimeNumberTheoremAnd"

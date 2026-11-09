@@ -31,11 +31,27 @@ def test_modulus_zero_is_excluded_and_existing_caller_supplies_the_premise() -> 
     )
 
 
-def test_revision_matches_both_locked_manifests() -> None:
+def test_primecert_is_not_an_external_dependency() -> None:
     for name in ("lake-manifest.json", "docbuild/lake-manifest.json"):
         manifest = json.loads((compat.ROOT / name).read_text())
-        package = next(p for p in manifest["packages"] if p["name"] == "PrimeCert")
-        assert package["rev"] == compat.REVISION
+        assert all(package["name"] != "PrimeCert" for package in manifest["packages"])
+
+
+@pytest.mark.parametrize("check", [False, True])
+def test_unlocked_cached_package_is_untouched(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, check: bool
+) -> None:
+    (tmp_path / "lake-manifest.json").write_text(json.dumps({"packages": []}))
+    cached = tmp_path / ".lake/packages/PrimeCert/local-edit.lean"
+    cached.parent.mkdir(parents=True)
+    cached.write_text("preserve this cached checkout")
+
+    def unexpected_git(_package: Path, *_args: str) -> str:
+        raise AssertionError("An unlocked checkout must not be read")
+
+    monkeypatch.setattr(compat, "git_output", unexpected_git)
+    assert compat.apply_patches(tmp_path, check=check) == 0
+    assert cached.read_text() == "preserve this cached checkout"
 
 
 def test_validation_precedes_every_write(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

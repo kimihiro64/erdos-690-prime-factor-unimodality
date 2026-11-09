@@ -71,7 +71,11 @@ CHANGES: Final[dict[str, tuple[tuple[str, str], ...]]] = {
 def apply_patches(root: Path, *, check: bool = False) -> int:
     """Apply only the reviewed ports, preserving unrelated edits and build caches."""
     manifest = json.loads((root / "lake-manifest.json").read_text())
-    locked = next(p for p in manifest["packages"] if p["name"] == "PrimeCert")
+    locked = next(
+        (package for package in manifest["packages"] if package["name"] == "PrimeCert"), None
+    )
+    if locked is None:
+        return 0
     if locked["rev"] != REVISION:
         raise ValueError("PrimeCert lock revision changed; review compatibility patches first")
     package = root / ".lake/packages/PrimeCert"

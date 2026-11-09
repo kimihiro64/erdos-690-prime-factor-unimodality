@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+import tomllib
 from pathlib import Path
 
 import pytest
@@ -28,13 +29,31 @@ def test_sources_are_preserved_on_drift() -> None:
         compat.validate_current("user edit", "original", "patched")
 
 
-def test_revision_matches_both_locked_manifests_and_configuration() -> None:
+def test_pnt_is_vendored_instead_of_a_lake_dependency() -> None:
     for name in ("lake-manifest.json", "docbuild/lake-manifest.json"):
         manifest = json.loads((compat.ROOT / name).read_text())
-        package = next(p for p in manifest["packages"] if p["name"] == "PrimeNumberTheoremAnd")
-        assert package["rev"] == compat.REVISION
-    config = (compat.ROOT / "lakefile.toml").read_text()
-    assert f'rev = "{compat.REVISION}"' in config
+        assert all(package["name"] != "PrimeNumberTheoremAnd" for package in manifest["packages"])
+    config = tomllib.loads((compat.ROOT / "lakefile.toml").read_text())
+    assert [package["name"] for package in config["require"]] == ["mathlib"]
+    library = next(lib for lib in config["lean_lib"] if lib["name"] == "PrimeNumberTheoremAnd")
+    assert library["roots"] == ["PrimeNumberTheoremAnd.EulerMaclaurin"]
+
+
+@pytest.mark.parametrize("check", [False, True])
+def test_unlocked_cached_package_is_untouched(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, check: bool
+) -> None:
+    (tmp_path / "lake-manifest.json").write_text(json.dumps({"packages": []}))
+    cached = tmp_path / ".lake/packages/PrimeNumberTheoremAnd/local-edit.lean"
+    cached.parent.mkdir(parents=True)
+    cached.write_text("preserve this cached checkout")
+
+    def unexpected_git(_package: Path, *_args: str) -> str:
+        raise AssertionError("An unlocked checkout must not be read")
+
+    monkeypatch.setattr(compat, "git_output", unexpected_git)
+    assert compat.apply_patches(tmp_path, check=check) == 0
+    assert cached.read_text() == "preserve this cached checkout"
 
 
 def test_validation_precedes_every_write(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
