@@ -105,13 +105,13 @@ jobs:
       - name: Install Lean
         id: install-lean
         continue-on-error: true
-        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee
         with:
           build: false
           lint: false
       - name: Retry a transient Lean setup failure
         if: steps.install-lean.outcome == 'failure'
-        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee
         with:
           build: false
           lint: false
@@ -181,7 +181,7 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-      - uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+      - uses: leanprover/lean-action@ba3fdfe5c4476c925da13bf11a005ddb47e47aee
         with:
           build: false
           test: false
