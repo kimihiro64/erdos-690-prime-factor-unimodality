@@ -1664,7 +1664,7 @@ jobs:
           build: false
           lint: false
       - name: Restore elaborated foundation artifacts
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           name: lean-foundations-build
           path: .lake/build
@@ -1716,7 +1716,7 @@ jobs:
           build: false
           lint: false
       - name: Restore elaborated foundation artifacts
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           name: lean-foundations-build
           path: .lake/build
@@ -1837,7 +1837,7 @@ jobs:
           git diff --exit-code HEAD -- lake-manifest.json docbuild/lake-manifest.json
           python3 scripts/check_docbuild_manifest.py
       - name: Restore the completed Lean build
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           name: linux-lean-build
           path: .lake/build
@@ -1889,7 +1889,7 @@ jobs:
           python3 scripts/patch_pnt_compat.py
           python3 scripts/patch_primecert_compat.py
       - name: Restore the completed Lean build
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           name: linux-lean-build
           path: .lake/build
@@ -1947,7 +1947,7 @@ jobs:
           python3 scripts/patch_pnt_compat.py
           python3 scripts/patch_primecert_compat.py
       - name: Restore the completed Lean build
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           name: linux-lean-build
           path: .lake/build
@@ -1962,7 +1962,7 @@ jobs:
       - name: Prepare pinned Comparator toolchain
         run: bash scripts/verify-comparator.sh prepare
       - name: Download the successful export checkpoint
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           name: ${{ needs.comparator-exports.outputs.checkpoint }}
           path: .research
@@ -1998,7 +1998,7 @@ jobs:
           python3 scripts/patch_pnt_compat.py
           python3 scripts/patch_primecert_compat.py
       - name: Restore the completed Lean build
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           name: linux-lean-build
           path: .lake/build
@@ -2013,7 +2013,7 @@ jobs:
       - name: Prepare pinned Comparator toolchain
         run: bash scripts/verify-comparator.sh prepare
       - name: Download the successful export checkpoint
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           name: ${{ needs.comparator-exports.outputs.checkpoint }}
           path: .research
@@ -2050,7 +2050,7 @@ jobs:
           python3 scripts/patch_pnt_compat.py
           python3 scripts/patch_primecert_compat.py
       - name: Restore the completed Lean build
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           name: linux-lean-build
           path: .lake/build
@@ -2065,7 +2065,7 @@ jobs:
       - name: Prepare pinned Comparator toolchain
         run: bash scripts/verify-comparator.sh prepare
       - name: Download the successful export checkpoint
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           name: ${{ needs.comparator-exports.outputs.checkpoint }}
           path: .research
@@ -2189,19 +2189,19 @@ jobs:
           echo "draft_id=" >> "$GITHUB_OUTPUT"
       - name: Download the research paper
         if: steps.release_state.outputs.complete != 'true'
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           name: research-paper
           path: release-inputs/paper
       - name: Download the completed Lean build
         if: steps.release_state.outputs.complete != 'true'
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           name: linux-lean-build
           path: release-inputs/linux-build
       - name: Download the API documentation
         if: steps.release_state.outputs.complete != 'true'
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
         with:
           name: api-documentation
           path: release-inputs/api-documentation
