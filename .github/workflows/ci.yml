@@ -1639,7 +1639,7 @@ jobs:
           /usr/bin/time -v lake build \
             +PrimeFactorUnimodality.Helpers.Analytic.MertensProvider
       - name: Upload elaborated foundation artifacts
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: lean-foundations-build
           path: .lake/build
@@ -1689,7 +1689,7 @@ jobs:
           lake build \
             +PrimeFactorUnimodality.Helpers.FiniteCertificates.Generated.FixedWeightSums
       - name: Upload certificate prebuild artifacts
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: lean-certificate-prebuild
           path: |
@@ -1754,7 +1754,7 @@ jobs:
           lake env lean test/lean/Table66Subintervals.lean
           lake env lean test/lean/DusartAnalytic.lean
       - name: Upload the checked analytic reduction
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: lean-analytic-tail
           path: .lake/build
@@ -1796,14 +1796,14 @@ jobs:
             tee .research/unconditional-build.log
       - name: Upload unconditional proof diagnostics
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: unconditional-build-diagnostics
           path: .research/unconditional-build.log
           include-hidden-files: true
           if-no-files-found: ignore
       - name: Upload the exact theorem and axiom audit
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: unconditional-proof-audit
           path: .lake/build/unconditional-audit.json
@@ -1811,7 +1811,7 @@ jobs:
           if-no-files-found: error
           retention-days: 90
       - name: Upload the completed unconditional Lean build
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: linux-lean-build
           path: .lake/build
@@ -1859,7 +1859,7 @@ jobs:
       - name: Prepare the offline documentation and licensing bundle
         shell: pwsh
         run: ./scripts/prepare-api-docs.ps1 -DocumentationRoot docbuild/.lake/build/doc
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: api-documentation
           path: docbuild/.lake/build/doc
@@ -1917,7 +1917,7 @@ jobs:
       - name: Name this immutable checkpoint
         id: checkpoint
         run: echo "name=comparator-exports-${GITHUB_SHA}-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: ${{ steps.checkpoint.outputs.name }}
           path: .research/comparator-exports.tar.gz
